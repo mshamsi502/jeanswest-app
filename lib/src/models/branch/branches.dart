@@ -1,0 +1,33 @@
+// Created By : Mohammad Shamsi
+// Email : mshamsi502@gmail.com
+// --------------------------------
+// Project Name : avakatan_branches
+// Create Date : 2020-10-03
+// Create Time : 10:53 AM
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+import 'branch.dart';
+
+part 'branches.g.dart';
+
+@JsonSerializable(nullable: true)
+// ignore: must_be_immutable
+class Branches extends Equatable {
+  @JsonKey(name: 'branches')
+  List<Branch> branches;
+
+  Branches({
+    this.branches,
+  });
+
+  factory Branches.fromJson(Map<String, dynamic> json) =>
+      _$BranchesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BranchesToJson(this);
+
+  @override
+  List<Object> get props => [
+        branches,
+      ];
+}

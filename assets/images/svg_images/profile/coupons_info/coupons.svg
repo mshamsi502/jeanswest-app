@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24.372" height="32.368" viewBox="0 0 24.372 32.368">
+ <g id="coupon" transform="matrix(0.309, -0.951, 0.951, 0.309, 0, 27.335)">
+  <g id="Group_81" data-name="Group 81" transform="translate(7.79 10.895)">
+   <g id="Group_80" data-name="Group 80" transform="translate(0 0)">
+    <rect id="Rectangle_46" data-name="Rectangle 46" width="1.676" transform="translate(0 0)" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_83" data-name="Group 83" transform="translate(7.79 13.409)">
+   <g id="Group_82" data-name="Group 82" transform="translate(0 0)">
+    <rect id="Rectangle_47" data-name="Rectangle 47" width="1.676" transform="translate(0 0)" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_95" data-name="Group 95" transform="translate(3.6 0.838)">
+   <g id="Group_94" data-name="Group 94" transform="translate(0 0)">
+    <rect id="Rectangle_53" data-name="Rectangle 53" height="1.676" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_97" data-name="Group 97" transform="translate(26.228 0.838)">
+   <g id="Group_96" data-name="Group 96" transform="translate(0 0)">
+    <rect id="Rectangle_54" data-name="Rectangle 54" height="1.676" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_99" data-name="Group 99" transform="translate(26.228 13.409)">
+   <g id="Group_98" data-name="Group 98" transform="translate(0 0)">
+    <rect id="Rectangle_55" data-name="Rectangle 55" height="1.676" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_101" data-name="Group 101" transform="translate(3.6 13.409)">
+   <g id="Group_100" data-name="Group 100" transform="translate(0 0)">
+    <rect id="Rectangle_56" data-name="Rectangle 56" height="1.676" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_103" data-name="Group 103" transform="translate(0 0)">
+   <g id="Group_102" data-name="Group 102" transform="translate(0)">
+    <path id="Path_148" data-name="Path 148" d="M28.263,5.748a.479.479,0,0,0,.479-.479V.479A.479.479,0,0,0,28.263,0H.479A.479.479,0,0,0,0,.479v4.79a.479.479,0,0,0,.479.479,2.4,2.4,0,0,1,0,4.79A.479.479,0,0,0,0,11.018v4.79a.479.479,0,0,0,.479.479H28.263a.479.479,0,0,0,.479-.479v-4.79a.479.479,0,0,0-.479-.479,2.4,2.4,0,0,1,0-4.79ZM24.941,8.62a3.353,3.353,0,0,0,2.843,2.843v3.866H.958V11.463a3.353,3.353,0,0,0,0-6.638V.958H27.784V4.824A3.353,3.353,0,0,0,24.941,8.62Z" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_105" data-name="Group 105" transform="translate(12.455 3.353)">
+   <g id="Group_104" data-name="Group 104" transform="translate(0 0)">
+    <path id="Path_149" data-name="Path 149" d="M1.916,0A1.916,1.916,0,1,0,3.832,1.916,1.916,1.916,0,0,0,1.916,0Zm0,2.874a.958.958,0,1,1,.958-.958A.958.958,0,0,1,1.916,2.874Z" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_107" data-name="Group 107" transform="translate(18.203 9.102)">
+   <g id="Group_106" data-name="Group 106" transform="translate(0 0)">
+    <path id="Path_150" data-name="Path 150" d="M1.916,0A1.916,1.916,0,1,0,3.832,1.916,1.916,1.916,0,0,0,1.916,0Zm0,2.874a.958.958,0,1,1,.958-.958A.958.958,0,0,1,1.916,2.874Z" fill="#373737"/>
+   </g>
+  </g>
+  <g id="Group_109" data-name="Group 109" transform="translate(13.074 3.972)">
+   <g id="Group_108" data-name="Group 108" transform="translate(0 0)">
+    <rect id="Rectangle_57" data-name="Rectangle 57" width="10.839" height="0.958" transform="translate(0 7.664) rotate(-45)" fill="#373737"/>
+   </g>
+  </g>
+  <line id="Line_8" data-name="Line 8" x1="0.14" y2="12.744" transform="translate(8.941 2.256)" fill="none" stroke="#373737" stroke-linecap="round" stroke-width="1" stroke-dasharray="2 2"/>
+ </g>
+</svg>

@@ -5,12 +5,21 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:app/main.dart' as app;
 import 'package:flutter/material.dart';
+import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
+import 'package:jeanswest/main.dart' as app;
 
-void main() => run(_testMain);
+// void main() => run(_testMain);
+
+void main() {
+  // This line enables the extension.
+  enableFlutterDriverExtension();
+
+  // Call the `main()` function of the app, or call `runApp` with
+  // any widget you are interested in testing.
+  _testMain();
+}
 
 void _testMain() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

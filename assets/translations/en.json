@@ -1,0 +1,83 @@
+{
+    "title": "JeansWest",
+    "home_title": "JeansWest",
+    "category_title": "Category",
+    "product_title": "Product",
+    "profile_title": "Profile",
+    "sign_in_title": "",
+    "sign_up_title": "",
+    "edit_profile_title": "Edit Profile",
+    "search_title": "Search",
+    "recipes_list_title": "Recipes List",
+    "recipe_title": "Recipe",
+    "shopping_basket_title": "Shopping Basket",
+    "sup_profile_title": "Sup Profile",
+    "barcode_scanner_title": "Barcode",
+    "otp_request_screen": "Otp Request",
+    "branch_address_screen": "Branch Address",
+    "search_in_list_hint" : "Search in",
+    "auth_screen": {
+
+    },
+
+    "bottom_navigation_bar_widget": {
+        "home" : "Home",
+        "branches" : "Branches",
+        "more" : "More",
+        "shopping_basket" : "Shopping Basket",
+        "profile" : "Profile",
+        "item_01" : "Item 1",
+        "item_02" : "Item 2",
+        "item_03" : "Item 3",
+        "item_04" : "Item 4",
+        "item_05" : "Item 5",
+        "item_06" : "Item 6",
+        "item_07" : "Item 7"
+    },
+    "login_screen": {
+        "enter_your_phone_number" : "Enter Your Phone Number:",
+        "country_code" : "Country Code",
+        "edit" : "Edit",
+        "resend_code" : "Resend Code",
+        "phone_number_is_incorrect" : "Phone Number is Incorrect",
+        "enter_phone_number_without_first_zero" : "Enter Phone Number Without First Zero",
+        "phone_number_must_be_ten_number" : "Phone Number Must be Ten Number",
+        "phone_number_must_be_start_with_nine" : "Phone Number Must be Start With Nine",
+        "enter_the_code_more_carefully" : "Enter the Code More Carefully",
+        "code_is_incorrect" : "Code is Incorrect",
+        "your_code_has_expired_please_click_on_resend" : "Your Code has Expired! Please Click on Resend Code"
+    },
+
+
+    "profile_screen": {
+        "user_name" : "Javad Khajavi",
+        "show_barcode" : "Show Barcode",
+        "points_and_coupons" : "Points and Coupons",
+        "toman" : "Toman",
+        "invite_friends" : "Invite Friend",
+        "my_orders" : "My Orders",
+        "favourite_list" : "Favourite List",
+        "my_addresses" : "Addresses",
+        "friends" : "Friends",
+        "jean_points_and_coupons" : "Jean Points and Coupons",
+        "info_account" : "Account Information",
+        "exit_from_account" : "Exit from Account",
+        "support" : "Support",
+        "about_us" : "About Us",
+        "return_procedure" : "Return Procedure",
+        "your_membership_level" : "Your Membership Level",
+        "your_current_level" : "Your Level",
+        "payment_ceiling_level" : "Payment Ceiling",
+        "user_payment" : "Your Payment",
+        "remainder_payment" : "Reminder Payment",
+        "to_next_level" : "to Next Level"
+    },
+
+    "branch_screen": {
+        "search_in" : "Search in",
+        "branches_list" : "Branches List",
+        "closer_branch" : "Closer Branch",
+        "direction" : "Direction",
+        "kilometer" : "km"
+    }
+}

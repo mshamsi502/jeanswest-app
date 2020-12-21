@@ -1,64 +1,325 @@
+import 'dart:io';
+import 'dart:math';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jeanswest/src/utils/service_locator.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import 'src/constants/global/svg_images/global_svg_images.dart';
+import 'src/ui/global/screens/splash_screen.dart';
+import 'src/ui/global/widgets/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+  runApp(
+    EasyLocalization(
+      //
+      startLocale: Locale('fa', 'IR'),
+      // startLocale: Locale('en', 'US'),
+      //
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('fa', 'IR'),
+        Locale('ar', 'AE')
+      ],
+      path: 'assets/translations', // <-- change patch to your
+      fallbackLocale: Locale('fa', 'IR'),
+      saveLocale: true,
+      child: MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+  State<StatefulWidget> createState() => MyAppState();
+}
+
+class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  bool isSplash;
+  String loading;
+  //
+  PanelController _pc = new PanelController();
+  AnimationController controller;
+  Animation<double> animation;
+  int _selectedIndex = 4;
+  int _catchSelectedIndex = 4;
+  Animation<double> rotateAnimationOtherMenuTopIcon;
+  bool showButtonNavigationBar;
+  //
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 15, fontWeight: FontWeight.w400);
+
+  //
+
+  //
+  FToast fToast;
+  DateTime currentBackPressTime;
+  final List<Widget> _children = [];
+  FlareControls _controls;
+  //
+  final pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    isSplash = true;
+    loading = 'Loading';
+    splashProvider();
+    //
+    _controls = FlareControls();
+    fToast = new FToast();
+    fToast.init(context);
+    showButtonNavigationBar = true;
+    // final InitBranchPage initBranchPage = InitBranchPage(
+    //     changeShowButtonNavigationBar: changeShowButtonNavigationBar);
+    // final HomePage homePage = HomePage();
+    // final LoginPage loginPage = LoginPage(updateProp: updateProp);
+    // final ShoppingBasketPage shoppingBasketPage = ShoppingBasketPage();
+    // final ProfilePage profilePage = ProfilePage();
+
+    //
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeInOut)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          print("completed = " + status.toString());
+        } else if (status == AnimationStatus.dismissed) {
+          print("dismissed = " + status.toString());
+        } else if (status == AnimationStatus.forward) {
+          if (_pc.isPanelClosed) _pc.open();
+          _controls.play("Untitled");
+        } else if (status == AnimationStatus.reverse) {
+          if (_pc.isPanelOpen) _pc.close();
+          _controls.play("Untitled");
+        }
+      });
+
+    rotateAnimationOtherMenuTopIcon =
+        Tween<double>(begin: 0, end: pi).animate(animation);
+    //
+
+    // // _children.add(homePage);
+    // _children.add(loginPage);
+    // _children.add(initBranchPage);
+    // _children.add(Container());
+    // _children.add(shoppingBasketPage);
+    // _children.add(profilePage);
+    //
+    _children.add(Container(color: Colors.red));
+    _children.add(Container(color: Colors.blue));
+    _children.add(Container());
+    _children.add(Container(color: Colors.green));
+    _children.add(Container(color: Colors.amberAccent));
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
+  //
+  splashProvider() async {
+    int second = 3;
+    for (int i = 0; i < second; i++) {
+      await Future.delayed(Duration(milliseconds: 250));
+      setState(() {
+        loading = 'Loading .';
+      });
+      await Future.delayed(Duration(milliseconds: 250));
+      setState(() {
+        loading = 'Loading . .';
+      });
+      await Future.delayed(Duration(milliseconds: 250));
+      setState(() {
+        loading = 'Loading . . .';
+      });
+      await Future.delayed(Duration(milliseconds: 250));
+      setState(() {
+        loading = 'Loading';
+      });
+    }
+    // await Future.delayed(Duration(seconds: 3));
     setState(() {
-      _counter++;
+      isSplash = false;
     });
   }
 
+  //
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      title: 'Branch Test',
+      theme: ThemeData(
+        fontFamily: 'IRANSans',
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      home: isSplash
+          ? SplashPage(
+              text: loading,
+            )
+          : WillPopScope(
+              onWillPop: _onWillPop,
+              child: Scaffold(
+                body: Container(
+                  color: Colors.grey,
+                  child: SafeArea(
+                    child: SlidingUpPanel(
+                      controller: _pc,
+                      minHeight: 0,
+                      maxHeight: 250,
+                      backdropEnabled: true,
+                      onPanelClosed: _onPanelClosed,
+                      // onPanelClosed: _onSwip(false),
+                      onPanelOpened: _onPanelOpened,
+                      // onPanelOpened: _onSwip(true),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15.0),
+                        topRight: Radius.circular(15.0),
+                      ),
+                      panel: CustomScrollView(
+                        primary: false,
+                        slivers: <Widget>[
+                          SliverToBoxAdapter(
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 5.0),
+                              alignment: Alignment.center,
+                              child: new AnimatedBuilder(
+                                animation: animation,
+                                child: GestureDetector(
+                                  child: GlobalSvgImages.svgArrowTop,
+                                  onTap: () => _onPanelClosed(),
+                                  // onTap: () => _onSwip(false),
+                                ),
+                                builder:
+                                    (BuildContext context, Widget _widget) {
+                                  return new Transform.rotate(
+                                    angle:
+                                        rotateAnimationOtherMenuTopIcon.value,
+                                    child: _widget,
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          SliverPadding(
+                            padding: const EdgeInsets.all(20),
+                            sliver: SliverGrid.count(
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 5,
+                              crossAxisCount: 4,
+                              childAspectRatio: 70 / 90,
+                              children: <Widget>[...getRandomWidgetArray()],
+                            ),
+                          ),
+                        ],
+                      ),
+                      body: IndexedStack(
+                        index: _selectedIndex == 2
+                            ? _catchSelectedIndex
+                            : _selectedIndex,
+                        children: [
+                          _children[0],
+                          _children[1],
+                          _children[_catchSelectedIndex],
+                          _children[3],
+                          _children[4],
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                bottomNavigationBar: showButtonNavigationBar
+                    ? BottomNavigationBarWidget(
+                        selectedIndex: _selectedIndex,
+                        catchSelectedIndex: _catchSelectedIndex,
+                        controller: controller,
+                        animation: animation,
+                        updateProp: updateProp,
+                      )
+                    : SizedBox(),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
     );
+  }
+
+  updateProp(int selectedIndex, int catchSelectedIndex) {
+    setState(() {
+      _selectedIndex = selectedIndex;
+      _catchSelectedIndex = catchSelectedIndex;
+      //
+      // selectedIndex == 0
+      //     ? showButtonNavigationBar = false
+      //     : showButtonNavigationBar = true;
+    });
+  }
+
+  onPageChanged(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  changeShowButtonNavigationBar(bool isShow) {
+    setState(() {
+      showButtonNavigationBar = isShow;
+    });
+  }
+
+  _onPanelOpened() {
+    print("_onPanelOpened");
+    _onSwip(true);
+  }
+
+  _onPanelClosed() {
+    print("_onPanelClosed");
+    _onSwip(false);
+  }
+
+  _onSwip(bool open) {
+    setState(() {
+      if (open) {
+        controller.forward();
+        _selectedIndex = 2;
+        // _pc.open();
+      } else {
+        controller.reverse();
+        _selectedIndex = _catchSelectedIndex;
+        // _pc.close();
+
+      }
+    });
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_pc.isPanelOpen) {
+      _onSwip(false);
+      return Future.value(false);
+    } else if (!showButtonNavigationBar) {
+      return Future.value(true);
+    } else {
+      DateTime now = DateTime.now();
+      if (currentBackPressTime == null ||
+          now.difference(currentBackPressTime) > Duration(seconds: 1)) {
+        currentBackPressTime = now;
+        Fluttertoast.showToast(
+            msg: "برای خروج دوبار دکمه بازگشت را بزنید.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Color(0xAA000000),
+            textColor: Colors.white,
+            fontSize: 14.0);
+        // print('sdfdsfdsf');
+        // showToast("برای خروج دوبار دکمه بازگشت را بزنید.", fToast);
+        return Future.value(false);
+      }
+      exit(0);
+      // return Future.value(true);
+    }
   }
 }

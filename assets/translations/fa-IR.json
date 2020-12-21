@@ -1,0 +1,82 @@
+{
+  "title": "جین وست",
+  "home_title": "جین وست",
+  "category_title": "دسته‌بندی",
+  "product_title": "محصول",
+  "profile_title": "پروفایل",
+  "sign_in_title": "",
+  "sign_up_title": "",
+  "edit_profile_title": "ویرایش پروفایل",
+  "search_title": "جستجو",
+  "recipes_list_title": "لیست فاکتور",
+  "recipe_title": "فاکتور",
+  "shopping_basket_title": "سبدخرید",
+  "sup_profile_title": "پروفایل دوستان",
+  "barcode_scanner_title": "بارکد",
+  "otp_request_screen": "رمز یکبار مصرف",
+  "branch_address_screen": "آدرس شعب",
+  "search_in_list_hint" : "جستجو در",
+  "auth_screen": {
+
+  },
+
+  "bottom_navigation_bar_widget": {
+    "home" : "خانه",
+    "branches" : "شعب",
+    "more" : "بیشتر",
+    "shopping_basket" : "سبد خرید",
+    "profile" : "پروفایل",
+    "item_01" : "آیتم 1",
+    "item_02" : "آیتم 2",
+    "item_03" : "آیتم 3",
+    "item_04" : "آیتم 4",
+    "item_05" : "آیتم 5",
+    "item_06" : "آیتم 6",
+    "item_07" : "آیتم 7"
+  },
+  "login_screen": {
+    "enter_your_phone_number" : "شماره موبایل خود را وارد کنید:",
+    "country_code" : "پیش شماره",
+    "edit" : "ویرایش",
+    "resend_code" : "ارسال مجدد کد",
+    "phone_number_is_incorrect" : "شماره همراه وارد شده اشتباه است",
+    "enter_phone_number_without_first_zero" : "شماره همراه را بدون صفر اولیه وارد کنید",
+    "phone_number_must_be_ten_number" : "شماره همراه باید 10 رقم باشد",
+    "phone_number_must_be_start_with_nine" : "شماره همراه باید با عدد 9 شروع شود",
+    "enter_the_code_more_carefully" : "کد را با دقت بیشتری وارد کنید",
+    "code_is_incorrect" : "کد وارد شده اشتباه است",
+    "your_code_has_expired_please_click_on_resend" : "اعتبار کد شما به پایان رسیده است. لطفا بر روی ارسال مجدد کد بزنید"
+  },
+
+  "profile_screen": {
+    "user_name" : "جواد خواجوی",
+    "show_barcode" : "نمایش بارکد",
+    "points_and_coupons" : "پوینت ها و بن ها",
+    "toman" : "تومان",
+    "invite_friends" : "دعوت دوستان",
+    "my_orders" : "سفارشات من",
+    "favourite_list" : "لیست مورد علاقه",
+    "my_addresses" : "آدرس ها",
+    "friends" : "دوستان",
+    "jean_points_and_coupons" : "جین پوینت ها و بن ها",
+    "info_account" : "اطلاعات حساب کاربری",
+    "exit_from_account" : "خروج از حساب",
+    "support" : "پشتیبانی",
+    "about_us" : "درباره ما",
+    "return_procedure" : "رویه های بازگشت کالا",
+    "your_membership_level" : "سطح عضویت شما",
+    "your_current_level" : "سطح فعلی شما",
+    "payment_ceiling_level" : "سقف خرید",
+    "user_payment" : "مجموع خالص خرید",
+    "remainder_payment" : "باقی مانده پرداختی",
+    "to_next_level" : "تا سطح بعدی"
+  },
+
+  "branch_screen": {
+    "search_in" : "جستجو در",
+    "branches_list" : "لیست شعب",
+    "closer_branch" : "نزدیک ترین شعبه",
+    "direction" : "مسیریابی",
+    "kilometer" : "کیلومتر"
+  }
+}

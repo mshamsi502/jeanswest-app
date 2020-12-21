@@ -1,0 +1,8 @@
+<svg id="exit_icon" data-name="exit icon" xmlns="http://www.w3.org/2000/svg" width="40" height="37" viewBox="0 0 40 37">
+    <rect id="touch_area_for_icons" data-name="touch area for icons" width="40" height="37" fill="#fff" opacity="0"/>
+    <g id="cancel" transform="translate(14.534 10.256)">
+        <g id="Group_16" data-name="Group 16" transform="translate(-3 0.001)">
+            <path id="Path_13" data-name="Path 13" d="M9.7,8.734l7.568-7.568A.682.682,0,1,0,16.3.2L8.733,7.769,1.165.2A.682.682,0,1,0,.2,1.166L7.768,8.734.2,16.3a.682.682,0,0,0,.965.965L8.733,9.7,16.3,17.267a.682.682,0,0,0,.965-.965Z" transform="translate(0 -0.001)" fill="rgba(43,62,115,0.85)"/>
+        </g>
+    </g>
+</svg>
