@@ -17,6 +17,7 @@ import 'package:jeanswest/src/utils/database/branch/sqflite_helper.dart';
 
 import '../global/helper.dart';
 
+/// => [updateUserLocation] get User [Position] and Create a [CameraPosition] for show
 Future<CameraPosition> updateUserLocation() async {
   Position pos =
       // ignore: deprecated_member_use
@@ -50,6 +51,7 @@ Future<BitmapDescriptor> createMarkIcon(assetsPath, size) async {
   );
 }
 
+/// => [onCreateMarkList] Create [List] ( [Set] ) from Markers for show on Map in 3 mood: [markIcon], [selectedMarkIcon] and [disableMarkIcon]
 Future<Set<Marker>> onCreateMarkList(double dpiSize, List<Branch> _branches,
     Function(bool, Branch) changeSelectedBranch, Branch selectedBranch) async {
   Set<Marker> _markers = {};
@@ -90,6 +92,8 @@ Future<Set<Marker>> onCreateMarkList(double dpiSize, List<Branch> _branches,
   return _markers;
 }
 
+/// => [getCenterCameraPosition] is for Initial shoe map.'
+/// this show a Area as User [Location] and Closer [Branch] View ( [CameraPosition] )
 CameraPosition getCenterCameraPosition(
     List<Branch> _branches, CameraPosition _userCameraPosition) {
   print('===== Branch Length : ${_branches.length}');
@@ -136,6 +140,7 @@ CameraPosition getCenterCameraPosition(
   return centerCameraPosition;
 }
 
+/// => [getCloserBranch] finds closer [Branch] from User [Location]
 Branch getCloserBranch(
     List<Branch> _branches, CameraPosition _userCameraPosition) {
   Branch _closerBranch = new Branch();
@@ -156,6 +161,7 @@ Branch getCloserBranch(
   return _closerBranch;
 }
 
+/// => [getBranches] loads [List] of [Branch] or from Internet or SQLite
 Future<List<Branch>> getBranches(LatLng latLng,
     RestClientForBranchesAddress restClientForBranchesAddress) async {
   if (await checkConnectionInternet()) {
@@ -178,6 +184,7 @@ Future<List<Branch>> getBranches(LatLng latLng,
   }
 }
 
+/// => [printErrorMessage] is handling try-catch and print Errors
 printErrorMessage(DioError e) {
   if (e.response != null) {
     print("111111111111111111111111");
@@ -192,6 +199,7 @@ printErrorMessage(DioError e) {
   }
 }
 
+/// => [createCoordinatesUrl] is a [Uri] (Link) Creator for intent a [Location] to another apps
 String createCoordinatesUrl(double latitude, double longitude, [String label]) {
   var uri;
   if (Platform.isAndroid) {
@@ -209,108 +217,3 @@ String createCoordinatesUrl(double latitude, double longitude, [String label]) {
   print(uri?.toString());
   return uri?.toString();
 }
-
-// List<Branch> getListOfBranchesStatic({String query, List<Branch> branches}) {
-//   List<Branch> data;
-//   if (data == null) {
-//     data = new List<Branch>();
-//   }
-//   List<Branch> filterBranches = new List<Branch>();
-//   if (!query.endsWith(' ')) {
-//     query = query + ' ';
-//   }
-//   List<String> splitQuery = query.split(' ');
-//   List<List<Branch>> branchesForEachWord = new List<List<Branch>>();
-//   print('some of words : ${splitQuery.length} , $splitQuery');
-//   splitQuery.forEach((word) {
-//     branchesForEachWord.add(getListOfBranches(query: word, branches: branches));
-//   });
-//   print('some of branchesForEachWord : ${branchesForEachWord.length}');
-//   for (var x = 0; x < branchesForEachWord.length; x++) {
-//     print('results found for word $x : ${branchesForEachWord[x].length}');
-//     for (var y = 0; y < branchesForEachWord[x].length; y++) {
-//       bool existInQuery = false;
-//       for (var a = 0; a < branchesForEachWord.length; a++) {
-//         bool existInRow = false;
-//         for (var b = 0; b < branchesForEachWord[a].length; b++) {
-//           if (branchesForEachWord[x][y].departmentInfoID ==
-//               branchesForEachWord[a][b].departmentInfoID) {
-//             existInRow = true;
-//             break; // for b
-//           }
-//         }
-//         if (!existInRow) {
-//           existInQuery = false;
-//           break; // for a
-//         } else {
-//           existInQuery = true;
-//         }
-//       }
-//       if (existInQuery) {
-//         bool same = false;
-//         filterBranches.forEach((branch) {
-//           if (branchesForEachWord[x][y].departmentInfoID ==
-//               branch.departmentInfoID) {
-//             same = true;
-//           }
-//         });
-//         if (!same) filterBranches.add(branchesForEachWord[x][y]);
-//       }
-//     }
-//   }
-//   data = filterBranches;
-//   print(' ***  *** ** length of result : ${data.length}');
-//   return data;
-// }
-//
-// List<Branch> getListOfBranches({String query, List<Branch> branches}) {
-//   List<Branch> data = branches;
-//   List<Branch> filterBranches = data.where(
-//     (Branch element) {
-//       //
-//       String _depName = element.depName;
-//       String _depAddress = element.depAddress;
-//       _depName = arabicToPersianCharacter(_depName);
-//       _depAddress = arabicToPersianCharacter(_depAddress);
-//       query = arabicToPersianCharacter(query);
-//       //
-//       bool checkNull = (element.depName != null) &&
-//           (element.departmentInfoID != null) &&
-//           (element.distanceDesc != null);
-//       bool checkQuery = (query == null)
-//           ? true
-//           : (_depName.toLowerCase().contains(query.toLowerCase()) ||
-//               _depAddress.toLowerCase().contains(query.toLowerCase()));
-//       return checkNull && checkQuery;
-//     },
-//   ).toList();
-//   data = filterBranches;
-//   return data;
-// }
-
-///
-///
-///
-///
-///
-// List<Branch> getListOfBranchesStatic({String query, List<Branch> branches}) {
-//   List<Branch> data = branches;
-//   // print('00000000000');
-//   // print(data.countriesCode.length);
-//   List<Branch> filterBranches = data.where(
-//         (Branch element) {
-//       bool checkNull = (element.depName != null) &&
-//           (element.departmentInfoID != null) &&
-//           (element.distanceDesc != null);
-//       bool checkQuery = (query == null)
-//           ? true
-//           : (element.depName.toLowerCase().contains(query.toLowerCase()) ||
-//           element.depName.toLowerCase().contains(query.toLowerCase()));
-//       // print(element.name + " " + checkNull.toString());
-//       return checkNull && checkQuery;
-//     },
-//   ).toList();
-//   // // print(filterCountryCode.length);
-//   data = filterBranches;
-//   return data;
-// }

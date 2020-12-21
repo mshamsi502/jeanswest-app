@@ -5,6 +5,12 @@
 
 import 'package:jeanswest/src/constants/global/arabic_to_persian.dart';
 
+/// => ،this method of search get a [String] from user and Split [String] to [List] of [String] as word by word (plus a space " ")
+/// ex. : "Hello. I am Ali" ==> [List] {" ", "Hello.", "I", "am", "Ali"}
+/// and Search in Datas for each word
+/// and
+
+///
 List<dynamic> getListOfObjectsStatic(
     {String query, List<dynamic> objects, String modelName}) {
   List<dynamic> data;
