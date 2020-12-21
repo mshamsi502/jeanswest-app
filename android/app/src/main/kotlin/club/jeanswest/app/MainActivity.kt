@@ -1,4 +1,4 @@
-package club.jeanswest.mobile_jeanswest_app_android
+package club.jeanswest.app
 
 import io.flutter.embedding.android.FlutterActivity
 
