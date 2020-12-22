@@ -3,6 +3,9 @@
    <application
         android:label="Jeanswest"
         android:icon="@mipmap/ic_launcher">
+       <meta-data
+           android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyBHrqkIRrie34dDJp5pbYBGw4ec8dYdz-s"/>
         <activity
             android:name="club.jeanswest.app.MainActivity"
             android:launchMode="singleTop"

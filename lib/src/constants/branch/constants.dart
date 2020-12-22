@@ -4,29 +4,33 @@
 // // Date: 2020-09-13
 // // Time: 11:56 AM
 //
+import 'package:jeanswest/src/models/branch/branch.dart';
+import 'package:jeanswest/src/ui/branch/widgets/google_map_widget.dart';
+
 //
 // //
-// List<Branch> localBranches = new List<Branch>();
+// ignore: deprecated_member_use
+List<Branch> localBranches = new List<Branch>();
 //
-// bool isInit = true;
-// GoogleMapWidget myGoogleMapWidget;
+bool isInitLoadingBranchPage = true;
+GoogleMapWidget myGoogleMapWidget;
 //
 // /// for Test
 // //
-// Branch disableBranch = new Branch(
-//   departmentInfoID: '123',
-//   depName: 'شعبه تست غیرفعال',
-//   depAddress: 'وقتی غیر فعاله آدرس واسه چی میخوای؟! ...',
-//   depTel: '021000000',
-//   isActive: 0,
-//   locationPoint: '35.753539,51.335078',
-//   lat: '35.758539',
-//   lng: '51.331078',
-//   distance: 459235,
-//   distanceDesc: '459.2 کیلومتر از شما فاصله دارد.',
-//   workTime: 'همه روزه از 10 تا 22',
-// );
-//
+Branch disableBranch = new Branch(
+  departmentInfoID: '123',
+  depName: 'شعبه تست غیرفعال',
+  depAddress: 'وقتی غیر فعاله آدرس واسه چی میخوای؟! ...',
+  depTel: '021000000',
+  isActive: 0,
+  locationPoint: '35.753539,51.335078',
+  lat: '35.758539',
+  lng: '51.331078',
+  distance: 459235,
+  distanceDesc: '459.2 کیلومتر از شما فاصله دارد.',
+  workTime: 'همه روزه از 10 تا 22',
+);
+
 // Branch banimodeLocation = new Branch(
 //   departmentInfoID: '1113',
 //   depName: 'فروشگاه انلاین بانی مد',

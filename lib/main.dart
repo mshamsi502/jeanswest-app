@@ -9,7 +9,8 @@ import 'package:jeanswest/src/utils/service_locator.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'src/constants/global/svg_images/global_svg_images.dart';
-import 'src/ui/global/screens/splash_screen.dart';
+import 'src/ui/branch/screens/init_branch_page.dart';
+import 'src/ui/global/screens/loading_page.dart';
 import 'src/ui/global/widgets/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 
 void main() {
@@ -17,7 +18,7 @@ void main() {
   setupLocator();
   runApp(
     EasyLocalization(
-      //
+      /// => select default application language
       startLocale: Locale('fa', 'IR'),
       // startLocale: Locale('en', 'US'),
       //
@@ -49,17 +50,19 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int _selectedIndex = 4;
   int _catchSelectedIndex = 4;
   Animation<double> rotateAnimationOtherMenuTopIcon;
+
+  /// => [showButtonNavigationBar] is for when Bottom Navigation Bar Should to Hide Like [LoginPage]
   bool showButtonNavigationBar;
   //
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 15, fontWeight: FontWeight.w400);
 
-  //
-
-  //
+  /// => [fToast] and [currentBackPressTime] are for Exit App by Back Button
   FToast fToast;
   DateTime currentBackPressTime;
+  //
+  /// => [_children] is Pages of Bottom Navigation Bar
   final List<Widget> _children = [];
+  //
+  /// => [_controls] is [AnimationController] for More in NavigationBar
   FlareControls _controls;
   //
   final pageController = PageController();
@@ -67,9 +70,9 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    //
     isSplash = true;
     loading = 'Loading';
-    splashProvider();
     //
     _controls = FlareControls();
     fToast = new FToast();
@@ -104,50 +107,24 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         Tween<double>(begin: 0, end: pi).animate(animation);
     //
 
+    /// => add Pages of Bottom Navigation Bar to [_children]
+
     // // _children.add(homePage);
     // _children.add(loginPage);
-    // _children.add(initBranchPage);
-    // _children.add(Container());
-    // _children.add(shoppingBasketPage);
-    // _children.add(profilePage);
-    //
     _children.add(Container(color: Colors.red));
-    _children.add(Container(color: Colors.blue));
+    _children.add(InitBranchPage());
+    // _children.add(Container(color: Colors.blue));
     _children.add(Container());
+    // _children.add(shoppingBasketPage);
     _children.add(Container(color: Colors.green));
+    // _children.add(profilePage);
     _children.add(Container(color: Colors.amberAccent));
-  }
-
-  //
-  splashProvider() async {
-    int second = 3;
-    for (int i = 0; i < second; i++) {
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading .';
-      });
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading . .';
-      });
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading . . .';
-      });
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading';
-      });
-    }
-    // await Future.delayed(Duration(seconds: 3));
-    setState(() {
-      isSplash = false;
-    });
   }
 
   //
   @override
   Widget build(BuildContext context) {
+    // var _screenSize = MediaQuery.of(context).size;
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -159,8 +136,15 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: isSplash
-          ? SplashPage(
-              text: loading,
+          ? LoadingPage(
+              text: 'بارگذاری',
+              widthText: 80,
+              milliSecond: 3000,
+              closeLoading: () {
+                setState(() {
+                  isSplash = false;
+                });
+              },
             )
           : WillPopScope(
               onWillPop: _onWillPop,
@@ -247,6 +231,9 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     );
   }
 
+  /// => when user change NavigationBar and TapOn Wich One of [_children],
+  /// [updateProp] change [_selectedIndex] for show that Page
+  /// [catchSelectedIndex] is for save Previous index, using in when user TapOn More
   updateProp(int selectedIndex, int catchSelectedIndex) {
     setState(() {
       _selectedIndex = selectedIndex;
@@ -258,12 +245,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     });
   }
 
-  onPageChanged(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+  /// => [changeShowButtonNavigationBar] change [showButtonNavigationBar] for when Bottom Navigation Bar Should to be Hide Like [LoginPage]
   changeShowButtonNavigationBar(bool isShow) {
     setState(() {
       showButtonNavigationBar = isShow;
@@ -280,6 +262,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     _onSwip(false);
   }
 
+  /// => [_onSwip] for Open and Close More options Animation
   _onSwip(bool open) {
     setState(() {
       if (open) {
@@ -295,6 +278,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     });
   }
 
+  /// => [_onWillPop] is show a Toast when TapOn Back Button Once,
+  /// and Exit from App when TapOn Back Button Twice
   Future<bool> _onWillPop() async {
     if (_pc.isPanelOpen) {
       _onSwip(false);
@@ -314,8 +299,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
             backgroundColor: Color(0xAA000000),
             textColor: Colors.white,
             fontSize: 14.0);
-        // print('sdfdsfdsf');
-        // showToast("برای خروج دوبار دکمه بازگشت را بزنید.", fToast);
         return Future.value(false);
       }
       exit(0);
