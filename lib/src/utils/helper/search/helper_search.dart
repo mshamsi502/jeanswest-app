@@ -115,7 +115,7 @@ List<dynamic> getListOfObjectsStatic(
           if (modelName == 'Branch') if (xyId == model.departmentInfoID) {
             same = true;
           }
-          print(' ***  *** ** *++*++*+*+*+* same : $same');
+          // print(' ***  *** ** *++*++*+*+*+* same : $same');
         });
 
         if (!same) filterObjects.add(objectsForEachWord[x][y]);
@@ -123,7 +123,7 @@ List<dynamic> getListOfObjectsStatic(
     }
   }
   data = filterObjects;
-  print(' ***  *** ** length of result : ${data.length}');
+  // print(' ***  *** ** length of result : ${data.length}');
   return data;
 }
 

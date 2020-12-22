@@ -9,7 +9,8 @@ import 'package:jeanswest/src/utils/service_locator.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'src/constants/global/svg_images/global_svg_images.dart';
-import 'src/ui/global/screens/splash_screen.dart';
+import 'src/ui/branch/screens/init_branch_page.dart';
+import 'src/ui/global/screens/loading_page.dart';
 import 'src/ui/global/widgets/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
 
 void main() {
@@ -72,7 +73,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     //
     isSplash = true;
     loading = 'Loading';
-    splashProvider(second: 3);
     //
     _controls = FlareControls();
     fToast = new FToast();
@@ -111,47 +111,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
     // // _children.add(homePage);
     // _children.add(loginPage);
-    // _children.add(initBranchPage);
-    // _children.add(Container());
-    // _children.add(shoppingBasketPage);
-    // _children.add(profilePage);
-    //
     _children.add(Container(color: Colors.red));
-    _children.add(Container(color: Colors.blue));
+    _children.add(InitBranchPage());
+    // _children.add(Container(color: Colors.blue));
     _children.add(Container());
+    // _children.add(shoppingBasketPage);
     _children.add(Container(color: Colors.green));
+    // _children.add(profilePage);
     _children.add(Container(color: Colors.amberAccent));
-  }
-
-  //
-  /// => [splashProvider] Provide Initial Splash Screen Loading in [second] seconds
-  splashProvider({int second}) async {
-    for (int i = 0; i < second; i++) {
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading .';
-      });
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading . .';
-      });
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading . . .';
-      });
-      await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = 'Loading';
-      });
-    }
-    setState(() {
-      isSplash = false;
-    });
   }
 
   //
   @override
   Widget build(BuildContext context) {
+    // var _screenSize = MediaQuery.of(context).size;
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
@@ -163,8 +136,15 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: isSplash
-          ? SplashPage(
-              text: loading,
+          ? LoadingPage(
+              text: 'بارگذاری',
+              widthText: 80,
+              milliSecond: 3000,
+              closeLoading: () {
+                setState(() {
+                  isSplash = false;
+                });
+              },
             )
           : WillPopScope(
               onWillPop: _onWillPop,
@@ -262,13 +242,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       // selectedIndex == 0
       //     ? showButtonNavigationBar = false
       //     : showButtonNavigationBar = true;
-    });
-  }
-
-  /// => [onPageChanged] change [_selectedIndex] for show that Page
-  onPageChanged(int index) {
-    setState(() {
-      _selectedIndex = index;
     });
   }
 

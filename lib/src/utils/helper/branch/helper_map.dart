@@ -56,13 +56,16 @@ Future<Set<Marker>> onCreateMarkList(double dpiSize, List<Branch> _branches,
     Function(bool, Branch) changeSelectedBranch, Branch selectedBranch) async {
   Set<Marker> _markers = {};
   BitmapDescriptor markIcon = await createMarkIcon(
-      'assets/images/marker_icon.png', (dpiSize * 23).toInt());
+      'assets/images/png_images/branch/marker_icon.png',
+      (dpiSize * 23).toInt());
 
   BitmapDescriptor selectedMarkIcon = await createMarkIcon(
-      'assets/images/selected_marker_icon.png', (dpiSize * 30).toInt());
+      'assets/images/png_images/branch/selected_marker_icon.png',
+      (dpiSize * 30).toInt());
 
   BitmapDescriptor disableMarkIcon = await createMarkIcon(
-      'assets/images/disable_marker_icon.png', (dpiSize * 23).toInt());
+      'assets/images/png_images/branch/disable_marker_icon.png',
+      (dpiSize * 23).toInt());
 
   if (_branches != null && _branches.length != 0) {
     _branches.forEach((_branch) {
@@ -171,6 +174,7 @@ Future<List<Branch>> getBranches(LatLng latLng,
     branches = await restClientForBranchesAddress.getBranchesAddress(
         latLng.latitude.toString(), latLng.longitude.toString());
     branches.sort((a, b) => a.distance.compareTo(b.distance));
+
     bool res = await saveAllBranchesIntoSqLite(branches);
     if (res) {
       print('+++++ ** save to sq success');

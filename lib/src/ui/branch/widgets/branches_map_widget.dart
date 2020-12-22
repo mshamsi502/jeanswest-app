@@ -1,0 +1,44 @@
+//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
+//*  Project Name:  avakatan_branches
+//*  Created on:    5th October - 05/10/2020     _     11:16:44
+//****************************************************************************
+
+import 'package:flutter/material.dart';
+import 'package:jeanswest/src/constants/branch/constants.dart';
+import 'package:jeanswest/src/models/branch/branch.dart';
+import 'package:jeanswest/src/ui/branch/widgets/google_map_widget.dart';
+
+class BranchesMapWidget extends StatefulWidget {
+  final List<Branch> branches;
+  final Branch selectedBranch;
+  final bool isSelectedBranch;
+
+  BranchesMapWidget(
+      {@required this.branches, this.selectedBranch, this.isSelectedBranch});
+  @override
+  State<StatefulWidget> createState() => BranchesMapWidgetState();
+}
+
+class BranchesMapWidgetState extends State<BranchesMapWidget> {
+  @override
+  Widget build(BuildContext context) {
+    var dpiSize = MediaQuery.of(context).devicePixelRatio;
+    if (myGoogleMapWidget == null) {
+      myGoogleMapWidget = GoogleMapWidget(
+        getedBranches: widget.branches,
+        selectedBranch: widget.selectedBranch,
+        isSelectedBranch: widget.isSelectedBranch,
+        dpiSize: dpiSize,
+      );
+    }
+    print('+--+--+-+-+-+ devicePixelRatio of Device : $dpiSize');
+    var screenSize = MediaQuery.of(context).size;
+    return Container(
+      height: screenSize.height - 140,
+      color: Colors.transparent,
+      child: Center(
+        child: SizedBox(child: myGoogleMapWidget),
+      ),
+    );
+  }
+}
