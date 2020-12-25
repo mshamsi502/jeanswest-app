@@ -52,8 +52,11 @@ Future<BitmapDescriptor> createMarkIcon(assetsPath, size) async {
 }
 
 /// => [onCreateMarkList] Create [List] ( [Set] ) from Markers for show on Map in 3 mood: [markIcon], [selectedMarkIcon] and [disableMarkIcon]
-Future<Set<Marker>> onCreateMarkList(double dpiSize, List<Branch> _branches,
-    Function(bool, Branch) changeSelectedBranch, Branch selectedBranch) async {
+Future<Set<Marker>> onCreateMarkList(
+    double dpiSize,
+    List<Branch> _branches,
+    Function(Branch, CameraPosition) changeSelectedBranch,
+    Branch selectedBranch) async {
   Set<Marker> _markers = {};
   BitmapDescriptor markIcon = await createMarkIcon(
       'assets/images/png_images/branch/marker_icon.png',
@@ -87,7 +90,14 @@ Future<Set<Marker>> onCreateMarkList(double dpiSize, List<Branch> _branches,
           // ),
           //
           onTap: () {
-            changeSelectedBranch(true, _branch);
+            changeSelectedBranch(
+                _branch,
+                CameraPosition(
+                    target: LatLng(
+                      double.parse(_branch.lat),
+                      double.parse(_branch.lng),
+                    ),
+                    zoom: 16));
           });
       _markers.add(_marker);
     });
@@ -165,7 +175,7 @@ Branch getCloserBranch(
 }
 
 /// => [getBranches] loads [List] of [Branch] or from Internet or SQLite
-Future<List<Branch>> getBranches(LatLng latLng,
+Future<Map<String, dynamic>> getBranches(LatLng latLng,
     RestClientForBranchesAddress restClientForBranchesAddress) async {
   if (await checkConnectionInternet()) {
     // ignore: deprecated_member_use
@@ -181,7 +191,10 @@ Future<List<Branch>> getBranches(LatLng latLng,
     } else {
       print('----- ** faild to save to sq');
     }
-    return branches;
+    return {
+      'res': true,
+      'branches': branches,
+    };
   } else {
     print('OoOoOoOoO -- load from SQFLite');
     return await getAllBranchesFromSqLite(latLng);

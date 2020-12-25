@@ -63,10 +63,18 @@ class BranchAddressesScreenFailureForGetBarnches
   }
 }
 
+// ignore: must_be_immutable
 class BranchAddressesScreenFailureForCreateMap
     extends BranchAddressesScreenState {
+  final DioError dioError;
+
+  BranchAddressesScreenFailureForCreateMap({@required this.dioError});
+
+  @override
+  List<Object> get props => [dioError];
+
   @override
   String toString() {
-    return 'BranchAddressesScreenFailureForCreateMap{}';
+    return 'BranchAddressesScreenFailureForCreateMap{dioError: $dioError}';
   }
 }

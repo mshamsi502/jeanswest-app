@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
 
+import 'file:///D:/MyProjects/%23AvaKatan/mobile_jeanswest_app_android/lib/src/constants/global/size_constants.dart';
+
 import 'animated_more_button_widget.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
@@ -29,7 +31,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 58,
+      height: BOTTOM_NAVIGATION_BAR_HEIGHT,
       child: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
         selectedItemColor: MAIN_BLUE_COLOR,

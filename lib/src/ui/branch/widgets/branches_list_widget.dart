@@ -11,7 +11,7 @@ class BranchListWidget extends StatefulWidget {
   final List<Branch> branches;
   final CameraPosition userCameraPosition;
   final Function(bool) changeBranchListPanelState;
-  final Function(Branch, bool) changeSelectedBranch;
+  final Function(Branch) changeSelectedBranch;
 
   const BranchListWidget(
       {Key key,
@@ -27,9 +27,11 @@ class BranchListWidget extends StatefulWidget {
 class BranchListWidgetState extends State<BranchListWidget> {
   ScrollController scrollController;
   Branch closerBranch = new Branch();
+  // SelectedBranchBloc _selectedBranchBloc;
 
   @override
   void initState() {
+    // _selectedBranchBloc = BlocProvider.of<SelectedBranchBloc>(context);
     closerBranch = getCloserBranch(widget.branches, widget.userCameraPosition);
     super.initState();
   }
@@ -124,9 +126,12 @@ class BranchListWidgetState extends State<BranchListWidget> {
                     ],
                   ),
                   onTap: () {
+                    print(
+                        '+-*/ selected branch : ${widget.branches[i].depName}');
                     FocusScope.of(context).unfocus();
+
                     // change selected branch and true is for open info branch panel
-                    widget.changeSelectedBranch(widget.branches[i], true);
+                    widget.changeSelectedBranch(widget.branches[i]);
                     // close Branch-List-Widget Panel
                     widget.changeBranchListPanelState(false);
                   },

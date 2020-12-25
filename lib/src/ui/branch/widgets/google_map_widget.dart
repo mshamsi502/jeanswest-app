@@ -6,7 +6,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:jeanswest/src/bloc/branch/events/selected_branch_event.dart';
+import 'package:jeanswest/src/bloc/branch/main/selected_branch_bloc.dart';
+import 'package:jeanswest/src/bloc/branch/states/selected_branch_state.dart';
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
@@ -17,15 +21,16 @@ import 'info_branch_widgets/info_branch_widget.dart';
 // ignore: must_be_immutable
 class GoogleMapWidget extends StatefulWidget {
   final List<Branch> getedBranches;
-  Branch selectedBranch;
-  bool isSelectedBranch;
+  final Branch initSelectedBranch;
+  final bool initIsSelectedBranch;
   final double dpiSize;
 
-  GoogleMapWidget(
-      {this.getedBranches,
-      this.selectedBranch,
-      this.isSelectedBranch,
-      this.dpiSize});
+  GoogleMapWidget({
+    this.getedBranches,
+    this.dpiSize,
+    this.initSelectedBranch,
+    this.initIsSelectedBranch,
+  });
   @override
   State<StatefulWidget> createState() => GoogleMapWidgetState();
 }
@@ -35,7 +40,6 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
   GoogleMapController mapController;
   //
   Set<Marker> markers;
-
   List<Branch> branches;
   bool isSelectedBranch;
   Branch selectedBranch;
@@ -49,7 +53,9 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
   //
   PanelController panelController;
   //
-  bool isInit;
+
+  SelectedBranchBloc _selectedBranchBloc;
+
   //
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -64,138 +70,116 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
   @override
   void initState() {
     super.initState();
-    isInit = true;
-    //
+
+    isSelectedBranch = widget.initIsSelectedBranch;
+    selectedBranch = widget.initSelectedBranch;
+    initCameraPosition =
+        CameraPosition(target: LatLng(35.755189, 51.333883), zoom: 12.15);
     // ignore: deprecated_member_use
     branches = new List<Branch>();
     markers = new Set<Marker>();
-    isSelectedBranch = false;
-
     panelController = new PanelController();
+    _selectedBranchBloc = BlocProvider.of<SelectedBranchBloc>(context);
+    initialUpdateCameraPosition();
     //
-    cameraLatitude = 35.755189;
-    cameraLongitude = 51.333883;
-    cameraZoom = 12.15;
-    initCameraPosition = CameraPosition(
-        target: LatLng(cameraLatitude, cameraLongitude), zoom: cameraZoom);
-    provideBranchesOnMap();
-
+    branches = widget.getedBranches;
+    // provideBranchesOnMap();
     //
     WidgetsBinding.instance.addObserver(this);
     //
   }
 
-  Future<void> provideBranchesOnMap() async {
-    branches = widget.getedBranches;
-
-    //
-
-    //
-
-    userCameraPosition = await updateUserLocation();
-    setState(() {
-      closerBranch = getCloserBranch(branches, userCameraPosition);
-    });
-    Set<Marker> newMarkers = await onCreateMarkList(
-        widget.dpiSize, branches, changeSelectedBranch, widget.selectedBranch);
-
-    await Future.delayed(Duration(seconds: 3));
-    setState(() {
-      markers = newMarkers;
-    });
-    CameraPosition centerCameraPosition =
-        getCenterCameraPosition(branches, userCameraPosition);
-    updateCamera(centerCameraPosition);
-    //
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      isSelectedBranch = true;
-      selectedBranch = closerBranch;
-    });
-
-    await updateSelectedBranch();
-    await updateMarkers();
-    // openInoBranch(widget.selectedBranch);
-    panelController.animatePanelToPosition(1.0,
-        duration: Duration(milliseconds: 500));
-    // panelController.open();
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    mapController.dispose();
+    super.dispose();
   }
-
-  // @override
-  // void dispose() {
-  //   WidgetsBinding.instance.removeObserver(this);
-  //   mapController.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
-    updateSelectedBranch();
     var screenSize = MediaQuery.of(context).size;
-    return Container(
-      child: SlidingUpPanel(
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        color: Colors.transparent,
-        controller: panelController,
-        minHeight: 0,
-        maxHeight: 180,
-        // V1
-        // backdropEnabled: true,
-        // backdropOpacity: 0.2,
-        // V1
-        panel: Container(
+    return BlocListener<SelectedBranchBloc, SelectedBranchState>(
+      listener: (context, selectedBranchState) {
+        print('.... SelectedBranch state change to % ' +
+            selectedBranchState.toString() +
+            ' %');
+        if (selectedBranchState is SelectedBranchUpdating) {
+          setState(() {
+            selectedBranch = selectedBranchState.selectedBranch;
+            this.isSelectedBranch = true;
+          });
+          updateSelectedBranch(
+              selectedBranch,
+              CameraPosition(
+                  target: LatLng(
+                    double.parse(selectedBranch.lat),
+                    double.parse(selectedBranch.lng),
+                  ),
+                  zoom: 16));
+        } else if (selectedBranchState is SelectedBranchStable) {}
+      },
+      child: Container(
+        child: SlidingUpPanel(
+          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           color: Colors.transparent,
-          child: this.isSelectedBranch
-              ? InfoBranchWidget(
-                  mapController: mapController,
-                  selectedBranch: selectedBranch,
-                  isCloserBranch: selectedBranch.departmentInfoID ==
-                          closerBranch.departmentInfoID
-                      ? true
-                      : false,
-                )
-              : Container(),
-        ),
-        body: Stack(
-          children: [
-            Container(
-              // height: screenSize.height - 100,
-              height: screenSize.height - 140,
-              child: GoogleMap(
-                myLocationEnabled: true,
-                mapToolbarEnabled: false,
-                myLocationButtonEnabled: false,
-                // zoomControlsEnabled: false,
-                // zoomControlsEnabled: true,
-                mapType: MapType.normal,
-                initialCameraPosition: initCameraPosition,
-                markers: markers,
-                onMapCreated: onMapCreated,
-              ),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Container(
-                padding: EdgeInsets.all(7),
-                height: 43,
-                width: 43,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(50)),
-                child: GestureDetector(
-                  child: BranchSvgImages.myLocationIcon,
-                  onTap: () async {
-                    mapController.animateCamera(CameraUpdate.newCameraPosition(
-                        await updateUserLocation()));
-                    panelController.animatePanelToPosition(0.0,
-                        duration: Duration(milliseconds: 50));
-                    // panelController.close();
-                  },
+          controller: panelController,
+          minHeight: 0,
+          maxHeight: 180,
+          panel: Container(
+            color: Colors.transparent,
+            child: this.isSelectedBranch
+                ? InfoBranchWidget(
+                    mapController: mapController,
+                    selectedBranch: selectedBranch,
+                    isCloserBranch: selectedBranch.departmentInfoID ==
+                            closerBranch.departmentInfoID
+                        ? true
+                        : false,
+                  )
+                : Container(),
+          ),
+          body: Stack(
+            children: [
+              Container(
+                height: screenSize.height - 100,
+                // height: screenSize.height - 140,
+                child: GoogleMap(
+                  myLocationEnabled: true,
+                  mapToolbarEnabled: false,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: false,
+                  mapType: MapType.normal,
+                  initialCameraPosition: initCameraPosition,
+                  markers: markers,
+                  onMapCreated: onMapCreated,
                 ),
               ),
-            ),
-          ],
+              Positioned(
+                top: 10,
+                right: 10,
+                child: Container(
+                  padding: EdgeInsets.all(7),
+                  height: 43,
+                  width: 43,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50)),
+                  child: GestureDetector(
+                    child: BranchSvgImages.myLocationIcon,
+                    onTap: () async {
+                      mapController.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                              await updateUserLocation()));
+                      panelController.animatePanelToPosition(0.0,
+                          duration: Duration(milliseconds: 50));
+                      // panelController.close();
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -207,91 +191,55 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
     });
   }
 
-  updateCamera(CameraPosition _cameraPosition) {
+  updateCamera(CameraPosition _cameraPosition) async {
     setState(() {
       cameraLatitude = _cameraPosition.target.latitude;
       cameraLongitude = _cameraPosition.target.longitude;
       cameraZoom = _cameraPosition.zoom;
+    });
+    if (mapController != null)
       mapController
           .animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
-    });
+    else
+      print('#!!#!#!#!#1#!# mapController is Nulllllllllll');
+    print('#!!#!#!#!#1#!# mapController is NOTNULL : updating camera');
+    print('_cameraPosition : $_cameraPosition');
   }
 
-  updateSelectedBranch() async {
-    if (widget.selectedBranch != null &&
-        ((panelController.isPanelClosed &&
-                panelController.panelPosition == 0.0) ||
-            (widget.selectedBranch.departmentInfoID !=
-                this.selectedBranch.departmentInfoID))) {
-      await panelController.animatePanelToPosition(0.0,
-          duration: Duration(milliseconds: 50));
-      await panelController.close();
-      await closeInfoBranch();
-      setState(() {
-        this.selectedBranch = widget.selectedBranch;
-        this.isSelectedBranch = widget.isSelectedBranch;
-      });
-      updateMarkers();
-    }
-    if (!this.isInit && this.selectedBranch != null) {
-      openInoBranch(this.selectedBranch);
-      panelController.animatePanelToPosition(1.0,
-          duration: Duration(milliseconds: 500));
-      // panelController.open();
-    }
-  }
-
-  updateMarkers() async {
-    print('_+_+_+_  : updating markers...');
-    Set<Marker> newMarker = await onCreateMarkList(
-        widget.dpiSize, branches, changeSelectedBranch, this.selectedBranch);
-
+  initialUpdateCameraPosition() async {
+    userCameraPosition = await updateUserLocation();
+    CameraPosition centerCameraPosition =
+        getCenterCameraPosition(branches, userCameraPosition);
+    closerBranch = getCloserBranch(branches, userCameraPosition);
+    await Future.delayed(Duration(seconds: 2));
     setState(() {
-      markers = new Set<Marker>();
-      markers = newMarker;
+      selectedBranch = closerBranch;
     });
+    updateSelectedBranch(selectedBranch, centerCameraPosition);
   }
 
-  changeSelectedBranch(bool isSelectedBranch, Branch selectedBranch) async {
-    // if (widget.selectedBranch != null &&
-    //     ((panelController.isPanelClosed &&
-    //             panelController.panelPosition == 0.0) ||
-    //         selectedBranch.departmentInfoID !=
-    //             this.selectedBranch.departmentInfoID)) {
-    //   await panelController.animatePanelToPosition(0.0,
-    //       duration: Duration(milliseconds: 50));
-    //   closeInfoBranch();
-    //   panelController.close();
-    // }
-    setState(
-      () {
-        isInit = false;
-        widget.selectedBranch = selectedBranch;
-        widget.isSelectedBranch = isSelectedBranch;
-      },
-    );
-  }
-
-  closeInfoBranch() async {
+  updateSelectedBranch(
+      Branch _selectedBranch, CameraPosition _cameraPosition) async {
+    print('RUNNNNIG updateSelectedBranch method...');
+    panelController.animatePanelToPosition(0.0,
+        duration: Duration(milliseconds: 500));
+    updateCamera(_cameraPosition);
+    Set<Marker> newMarkers = await onCreateMarkList(
+        widget.dpiSize, branches, tapOnMarker, _selectedBranch);
     setState(() {
-      this.isSelectedBranch = false;
-      this.selectedBranch = new Branch();
+      markers = newMarkers;
+      isSelectedBranch = true;
+      selectedBranch = _selectedBranch;
+      this.selectedBranch = _selectedBranch;
     });
-    await new Future.delayed(const Duration(milliseconds: 10));
+    panelController.animatePanelToPosition(1.0,
+        duration: Duration(milliseconds: 500));
+    _selectedBranchBloc.add(FinishSelectedBranchEvent(_selectedBranch));
+//
   }
 
-  openInoBranch(Branch newBranch) {
-    // panelController.open();
-    updateCamera(
-      CameraPosition(
-        target: LatLng(
-          double.parse(newBranch.lat),
-          double.parse(newBranch.lng),
-        ),
-        zoom: 16,
-      ),
-    );
-    print(
-        'isSelectedBranch = = = = = $isSelectedBranch , ${newBranch.depName}');
+  tapOnMarker(Branch _selectedBranch, CameraPosition _cameraPosition) {
+    _selectedBranchBloc.add(SetSelectedBranchEvent(_selectedBranch));
+    updateSelectedBranch(_selectedBranch, _cameraPosition);
   }
 }

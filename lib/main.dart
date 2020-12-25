@@ -43,6 +43,7 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool isSplash;
   String loading;
+  bool isFirstLaunchBranch;
   //
   PanelController _pc = new PanelController();
   AnimationController controller;
@@ -72,6 +73,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     super.initState();
     //
     isSplash = true;
+    isFirstLaunchBranch = true;
     loading = 'Loading';
     //
     _controls = FlareControls();
@@ -112,7 +114,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     // // _children.add(homePage);
     // _children.add(loginPage);
     _children.add(Container(color: Colors.red));
-    _children.add(InitBranchPage());
+    _children.add(Container(color: Colors.white));
+    // _children.add(InitBranchPage());
     // _children.add(Container(color: Colors.blue));
     _children.add(Container());
     // _children.add(shoppingBasketPage);
@@ -152,67 +155,71 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 body: Container(
                   color: Colors.grey,
                   child: SafeArea(
-                    child: SlidingUpPanel(
-                      controller: _pc,
-                      minHeight: 0,
-                      maxHeight: 250,
-                      backdropEnabled: true,
-                      onPanelClosed: _onPanelClosed,
-                      // onPanelClosed: _onSwip(false),
-                      onPanelOpened: _onPanelOpened,
-                      // onPanelOpened: _onSwip(true),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15.0),
-                        topRight: Radius.circular(15.0),
-                      ),
-                      panel: CustomScrollView(
-                        primary: false,
-                        slivers: <Widget>[
-                          SliverToBoxAdapter(
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 5.0),
-                              alignment: Alignment.center,
-                              child: new AnimatedBuilder(
-                                animation: animation,
-                                child: GestureDetector(
-                                  child: GlobalSvgImages.svgArrowTop,
-                                  onTap: () => _onPanelClosed(),
-                                  // onTap: () => _onSwip(false),
+                    child: Container(
+                      color: Colors.white,
+                      child: SlidingUpPanel(
+                        controller: _pc,
+                        minHeight: 0,
+                        maxHeight: 250,
+                        backdropEnabled: true,
+                        onPanelClosed: _onPanelClosed,
+                        // onPanelClosed: _onSwip(false),
+                        onPanelOpened: _onPanelOpened,
+                        // onPanelOpened: _onSwip(true),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(15.0),
+                          topRight: Radius.circular(15.0),
+                        ),
+                        panel: CustomScrollView(
+                          primary: false,
+                          slivers: <Widget>[
+                            SliverToBoxAdapter(
+                              child: Container(
+                                padding:
+                                    EdgeInsets.fromLTRB(5.0, 3.0, 5.0, 5.0),
+                                alignment: Alignment.center,
+                                child: new AnimatedBuilder(
+                                  animation: animation,
+                                  child: GestureDetector(
+                                    child: GlobalSvgImages.svgArrowTop,
+                                    onTap: () => _onPanelClosed(),
+                                    // onTap: () => _onSwip(false),
+                                  ),
+                                  builder:
+                                      (BuildContext context, Widget _widget) {
+                                    return new Transform.rotate(
+                                      angle:
+                                          rotateAnimationOtherMenuTopIcon.value,
+                                      child: _widget,
+                                    );
+                                  },
                                 ),
-                                builder:
-                                    (BuildContext context, Widget _widget) {
-                                  return new Transform.rotate(
-                                    angle:
-                                        rotateAnimationOtherMenuTopIcon.value,
-                                    child: _widget,
-                                  );
-                                },
                               ),
                             ),
-                          ),
-                          SliverPadding(
-                            padding: const EdgeInsets.all(20),
-                            sliver: SliverGrid.count(
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 5,
-                              crossAxisCount: 4,
-                              childAspectRatio: 70 / 90,
-                              children: <Widget>[...getRandomWidgetArray()],
+                            SliverPadding(
+                              padding: const EdgeInsets.all(20),
+                              sliver: SliverGrid.count(
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 5,
+                                crossAxisCount: 4,
+                                childAspectRatio: 70 / 90,
+                                children: <Widget>[...getRandomWidgetArray()],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      body: IndexedStack(
-                        index: _selectedIndex == 2
-                            ? _catchSelectedIndex
-                            : _selectedIndex,
-                        children: [
-                          _children[0],
-                          _children[1],
-                          _children[_catchSelectedIndex],
-                          _children[3],
-                          _children[4],
-                        ],
+                          ],
+                        ),
+                        body: IndexedStack(
+                          index: _selectedIndex == 2
+                              ? _catchSelectedIndex
+                              : _selectedIndex,
+                          children: [
+                            _children[0],
+                            _children[1],
+                            _children[_catchSelectedIndex],
+                            _children[3],
+                            _children[4],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -236,6 +243,10 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   /// [catchSelectedIndex] is for save Previous index, using in when user TapOn More
   updateProp(int selectedIndex, int catchSelectedIndex) {
     setState(() {
+      if (isFirstLaunchBranch) {
+        _children[1] = InitBranchPage();
+        isFirstLaunchBranch = false;
+      }
       _selectedIndex = selectedIndex;
       _catchSelectedIndex = catchSelectedIndex;
       //

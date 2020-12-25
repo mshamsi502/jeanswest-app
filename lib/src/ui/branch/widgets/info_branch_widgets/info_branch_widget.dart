@@ -34,17 +34,6 @@ class InfoBranchWidget extends StatefulWidget {
 
 class _InfoBranchWidgetState extends State<InfoBranchWidget>
     with SingleTickerProviderStateMixin {
-  Branch _selectedBranch = new Branch();
-  bool _isCloserBranch = false;
-
-  @override
-  initState() {
-    _selectedBranch = widget.selectedBranch;
-    _isCloserBranch = widget.isCloserBranch;
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     print('((((((( selectedBranch : ' + widget.selectedBranch.depName);
@@ -78,7 +67,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
               //   child:
               Container(
                 child: Text(
-                  _selectedBranch.depName,
+                  widget.selectedBranch.depName,
                   style: TextStyle(
                     fontFamily: 'IRANSansBold',
                     fontSize: 16,
@@ -97,7 +86,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
               SizedBox(
                 width: 10,
               ),
-              _isCloserBranch
+              widget.isCloserBranch
                   ? AvakatanLabelWidget(
                       text: "branch_screen.closer_branch".tr(),
                       textColor: Colors.white,
@@ -108,14 +97,14 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                 child: Container(),
               ),
               UserLocationButtonWidget(
-                selectedBranch: _selectedBranch,
+                selectedBranch: widget.selectedBranch,
                 changeCameraPosition: changeCameraPosition,
               ),
               SizedBox(
                 width: 15,
               ),
               ShareLocationButtonWidget(
-                selectedBranch: _selectedBranch,
+                selectedBranch: widget.selectedBranch,
               ),
             ],
           ),
@@ -126,7 +115,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                 child: SizedBox(
                   height: 60,
                   child: Text(
-                    _selectedBranch.depAddress,
+                    widget.selectedBranch.depAddress,
                     style: TextStyle(
                         color: Color(0xff2c3d73),
                         fontSize: 12,
@@ -137,18 +126,18 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
             ],
           ),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            _selectedBranch.isActive == 1
+            widget.selectedBranch.isActive == 1
                 ? GlobalSvgImages.blueTimeIcon
                 : GlobalSvgImages.redTimeIcon,
             SizedBox(
               width: 5,
             ),
             Text(
-              _selectedBranch.isActive == 1
-                  ? _selectedBranch.workTime
+              widget.selectedBranch.isActive == 1
+                  ? widget.selectedBranch.workTime
                   : 'در حال حاضر این شعبه غیر فعال است.',
               style: TextStyle(
-                  color: _selectedBranch.isActive == 1
+                  color: widget.selectedBranch.isActive == 1
                       ? Color(0xff2c3d73)
                       : Colors.red,
                   fontSize: 10),
@@ -161,15 +150,15 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
             children: [
               Expanded(
                 child: DirectionButtonWidget(
-                  lat: _selectedBranch.lat,
-                  lng: _selectedBranch.lng,
-                  depName: _selectedBranch.depName,
+                  lat: widget.selectedBranch.lat,
+                  lng: widget.selectedBranch.lng,
+                  depName: widget.selectedBranch.depName,
                 ),
               ),
               SizedBox(
                 width: 10,
               ),
-              CallButtonWidget(depTel: _selectedBranch.depTel),
+              CallButtonWidget(depTel: widget.selectedBranch.depTel),
             ],
           ),
         ],

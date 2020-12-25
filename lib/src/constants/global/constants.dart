@@ -9,15 +9,10 @@ import 'dart:ui';
 
 const String TOKEN = 'token';
 const String BASE_URL_FOR_BRANCH_ADDRESS = 'https://jeanswest.club';
-const int RECEIVE_TIMEOUT = 5000;
-const int CONNECT_TIMEOUT = 5000;
-const Duration POPUP_INFO_BRANCH_DURATION_ANIMATION =
-    Duration(milliseconds: 300);
-const Duration POPUP_LIST_VIEW_BRANCH_DURATION_ANIMATION =
-    Duration(milliseconds: 700);
 const Color MAIN_BLUE_COLOR = Color(0xff2c3d73);
 const TextDirection rtlTextDirection = TextDirection.rtl;
 const TextDirection ltrTextDirection = TextDirection.ltr;
+
 // //
 // List<Branch> localBranches = new List<Branch>();
 //
