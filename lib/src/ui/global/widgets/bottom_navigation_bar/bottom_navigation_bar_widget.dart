@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
 
 import 'file:///D:/MyProjects/%23AvaKatan/mobile_jeanswest_app_android/lib/src/constants/global/size_constants.dart';

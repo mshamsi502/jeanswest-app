@@ -12,6 +12,7 @@ import 'src/constants/global/svg_images/global_svg_images.dart';
 import 'src/ui/branch/screens/init_branch_page.dart';
 import 'src/ui/global/screens/loading_page.dart';
 import 'src/ui/global/widgets/bottom_navigation_bar/bottom_navigation_bar_widget.dart';
+import 'src/ui/profile/screens/main_profile_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -120,8 +121,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     _children.add(Container());
     // _children.add(shoppingBasketPage);
     _children.add(Container(color: Colors.green));
-    // _children.add(profilePage);
-    _children.add(Container(color: Colors.amberAccent));
+    _children.add(MainProfilePage());
+    // _children.add(Container(color: Colors.amberAccent));
   }
 
   //

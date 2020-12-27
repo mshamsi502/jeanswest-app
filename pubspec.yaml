@@ -88,6 +88,7 @@ flutter:
     - assets/images/png_images/global/
     - assets/images/png_images/branch/
     - assets/images/png_images/product/
+    - assets/images/png_images/profile/
     #------------------SVG Image--------------------
     - assets/images/svg_images/
     - assets/images/svg_images/branch/

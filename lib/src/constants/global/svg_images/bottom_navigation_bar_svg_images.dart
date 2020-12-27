@@ -6,6 +6,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../colors.dart';
+
 class BottomNavigationBarSvgImages {
   BottomNavigationBarSvgImages._();
 
@@ -21,7 +23,7 @@ class BottomNavigationBarSvgImages {
   );
   static Widget enableHomeIcon = SvgPicture.asset(
     'assets/images/svg_images/global/bottom_navigation_bar/home_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 23,
     height: 23,
   );
@@ -34,7 +36,7 @@ class BottomNavigationBarSvgImages {
   );
   static Widget enableBranchIcon = SvgPicture.asset(
     'assets/images/svg_images/global/bottom_navigation_bar/branch_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 23,
     height: 23,
   );
@@ -43,7 +45,7 @@ class BottomNavigationBarSvgImages {
 
   static Widget moreIcon = SvgPicture.asset(
     'assets/images/svg_images/global/bottom_navigation_bar/more_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 20,
     height: 20,
   );
@@ -58,7 +60,7 @@ class BottomNavigationBarSvgImages {
   );
   static Widget enableShoppingBasketIcon = SvgPicture.asset(
     'assets/images/svg_images/global/bottom_navigation_bar/shopping_basket_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 23,
     height: 23,
   );
@@ -71,7 +73,7 @@ class BottomNavigationBarSvgImages {
   );
   static Widget enableProfileIcon = SvgPicture.asset(
     'assets/images/svg_images/global/bottom_navigation_bar/profile_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 23,
     height: 23,
   );

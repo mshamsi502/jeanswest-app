@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
@@ -70,7 +71,7 @@ class BranchListWidgetState extends State<BranchListWidget> {
                                   // textDirection: TextDirection.rtl,
                                   style: TextStyle(
                                     fontSize: 15,
-                                    color: Color(0xff2c3d73),
+                                    color: MAIN_BLUE_COLOR,
                                   ),
                                 ),
                                 SizedBox(
@@ -114,7 +115,7 @@ class BranchListWidgetState extends State<BranchListWidget> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'IRANSansLight',
-                                color: Color(0xff2c3d73),
+                                color: MAIN_BLUE_COLOR,
                               ),
                             )
                           ],

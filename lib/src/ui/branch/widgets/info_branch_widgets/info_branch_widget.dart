@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/branch/widgets/info_branch_widgets/call_button_widget.dart';
@@ -71,7 +72,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                   style: TextStyle(
                     fontFamily: 'IRANSansBold',
                     fontSize: 16,
-                    color: Color(0xff2c3d73),
+                    color: MAIN_BLUE_COLOR,
                   ),
                 ),
               ),
@@ -117,7 +118,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                   child: Text(
                     widget.selectedBranch.depAddress,
                     style: TextStyle(
-                        color: Color(0xff2c3d73),
+                        color: MAIN_BLUE_COLOR,
                         fontSize: 12,
                         fontFamily: 'IRANSansLight'),
                   ),
@@ -138,7 +139,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                   : 'در حال حاضر این شعبه غیر فعال است.',
               style: TextStyle(
                   color: widget.selectedBranch.isActive == 1
-                      ? Color(0xff2c3d73)
+                      ? MAIN_BLUE_COLOR
                       : Colors.red,
                   fontSize: 10),
             ),
