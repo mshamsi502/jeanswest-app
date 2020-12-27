@@ -7,18 +7,19 @@
 
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 
-LevelCard zeroLevel = LevelCard(
-  membership: '',
-  title: 'Zero',
-  perTitle: '',
-  minPay: '0',
-  maxPay: '200000',
-  receiptConditions: '',
-  subTitleOne: '',
-  subTitleTwo: '',
-  subTitleThree: '',
-);
 //
+// LevelCard zeroLevel = LevelCard(
+//   membership: '',
+//   title: 'Zero',
+//   perTitle: '',
+//   minPay: '0',
+//   maxPay: '200000',
+//   receiptConditions: '',
+//   subTitleOne: '',
+//   subTitleTwo: '',
+//   subTitleThree: '',
+// );
+// //
 LevelCard blueLevel = LevelCard(
   membership: 'Membership',
   title: 'Blue',
@@ -110,24 +111,24 @@ LevelCard goldLevel = LevelCard(
   subTitleFour: 'بالاترین اولویت در اطلاع رسانی',
   descriptionFour: 'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
 );
-LevelCard infinityLevel = LevelCard(
-  membership: '',
-  title: 'Infinity',
-  minPay: '100000000000000',
-  maxPay: '100000000000000',
-  receiptConditions: '',
-  subTitleOne: '',
-  descriptionOne: '',
-  subTitleTwo: '',
-  descriptionTwo: '',
-  subTitleThree: '',
-  descriptionThree: '',
-  subTitleFour: '',
-  descriptionFour: '',
-);
+// LevelCard infinityLevel = LevelCard(
+//   membership: '',
+//   title: 'Infinity',
+//   minPay: '100000000000000',
+//   maxPay: '100000000000000',
+//   receiptConditions: '',
+//   subTitleOne: '',
+//   descriptionOne: '',
+//   subTitleTwo: '',
+//   descriptionTwo: '',
+//   subTitleThree: '',
+//   descriptionThree: '',
+//   subTitleFour: '',
+//   descriptionFour: '',
+// );
 
 List<LevelCard> levels = [
-  zeroLevel,
+  // zeroLevel,
   //
   blueLevel,
   bluePlusLevel,
@@ -135,6 +136,11 @@ List<LevelCard> levels = [
   silverLevel,
   goldLevel,
   //
-  infinityLevel,
+  // infinityLevel,
 ];
 //
+List<String> assetsLevelCard = [
+  'assets/images/png_images/profile/blue_card.png',
+  'assets/images/png_images/profile/silver_card.png',
+  'assets/images/png_images/profile/gold_card.png',
+];

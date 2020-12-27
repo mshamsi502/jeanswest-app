@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/test_data/user.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
 
 class ProfileAppBarWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _ProfileAppBarWidgetState();
@@ -19,20 +20,19 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,
-      height: 300,
       // color: Colors.red,
       child: Stack(
         children: [
           Column(
             children: [
               Container(
-                height: 30,
-                color: Colors.greenAccent,
+                height: 32,
+                // color: Colors.greenAccent,
               ),
               Container(
-                height: 190,
+                height: 210,
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent,
+                  // color: Colors.blueAccent,
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -44,87 +44,124 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
             ],
           ),
           Positioned(
+            top: 155,
+            left: 0,
+            right: 0,
+            child: Divider(
+              height: 0.5,
+              thickness: 0.5,
+              color: Colors.grey,
+            ),
+          ),
+          Positioned(
             top: 0,
+            left: 0,
+            right: 0,
             child: Container(
               width: _screenSize.width,
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Column(
                         children: [
                           Row(
                             children: [
                               Container(
-                                height: 50,
-                                width: 50,
-                                color: Colors.grey,
-                              ),
-                              Text(
-                                user.perName,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              // Expanded(
-                              //   child:
-                              Container(
-                                width: 100,
-                                height: 40,
-                                color: Colors.redAccent,
-                              ),
-                              // ),
-                              Container(
-                                height: 40,
-                                width: 100,
+                                height: 64,
+                                width: 64,
                                 decoration: BoxDecoration(
-                                  // color: Colors.redAccent,
+                                  // color: Colors.blueAccent,
+                                  borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: new AssetImage(
-                                        'assets/images/png_images/global/jeanswest_logo.png'),
+                                        'assets/images/png_images/profile/user_profile.png'),
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: 20,
-                                height: 40,
-                                color: Colors.redAccent,
+                              SizedBox(width: 10),
+                              Column(
+                                children: [
+                                  Text(
+                                    user.perName,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: 30),
+                                ],
                               ),
                             ],
                           ),
+                          SizedBox(height: 20),
                           Container(
-                            width: 200,
+                            // color: Colors.red,
+                            width: _screenSize.width - 166,
                             child: Row(
                               children: [
                                 Expanded(
-                                  flex: 3,
+                                  flex: 4,
                                   child: Container(
-                                    // width: 20,
                                     height: 40,
-                                    color: Colors.redAccent,
+                                    // color: Colors.redAccent,
                                   ),
                                 ),
-                                AvakatanButtonWidget(
-                                  title: 'نمایش سطح عضویت',
-                                  fontSize: 11,
-                                  backgroundColor: MAIN_BLUE_COLOR,
-                                  textColor: Colors.white,
+                                Container(
                                   height: 40,
-                                  width: 145,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    // color: Colors.redAccent,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: new AssetImage(
+                                          'assets/images/png_images/global/jeanswest_logo.png'),
+                                    ),
+                                  ),
                                 ),
                                 Expanded(
                                   flex: 1,
                                   child: Container(
-                                    // width: 100,
                                     height: 40,
-                                    color: Colors.redAccent,
+                                    // color: Colors.redAccent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            // color: Colors.red,
+                            width: _screenSize.width - 166,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    height: 40,
+                                    // color: Colors.redAccent,
+                                  ),
+                                ),
+                                Container(
+                                  color: Colors.white,
+                                  padding: EdgeInsets.all(5),
+                                  child: AvakatanButtonWidget(
+                                    title: 'نمایش سطح عضویت',
+                                    fontSize: 11,
+                                    backgroundColor: MAIN_BLUE_COLOR,
+                                    textColor: Colors.white,
+                                    borderColor: MAIN_BLUE_COLOR,
+                                    height: 38,
+                                    width: 145,
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Container(
+                                    height: 40,
+                                    // color: Colors.redAccent,
                                   ),
                                 ),
                               ],
@@ -137,15 +174,12 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                           Container(
                             height: 40,
                           ),
-                          Container(
-                            height: 80,
-                            width: 80,
-                            color: Colors.grey,
-                          )
+                          QrCodeWidget(),
                         ],
                       ),
                     ],
                   ),
+                  SizedBox(height: 20),
                   Text(
                     'اگر کارت خود را فراموش کردید میتوانید از اینجا اسکن کنید',
                     style: TextStyle(
@@ -153,6 +187,7 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                       color: MAIN_BLUE_COLOR,
                     ),
                   ),
+                  SizedBox(height: 10),
                 ],
               ),
             ),

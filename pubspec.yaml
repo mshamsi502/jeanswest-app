@@ -52,12 +52,24 @@ dependencies:
   flare_flutter: ^2.0.6
   dotted_border: ^1.0.7
   fdottedline: ^1.0.1
+  carousel_slider: ^2.3.1
 #----------------Map-----------------
   google_maps_flutter: ^0.5.32
   location: ^3.0.2
   flutter_map: ^0.10.1+1
   latlong: ^0.6.1
   geolocator: ^6.0.0+4
+#----------------QRCode-----------------
+#  barcode: ^1.17.0
+#  qrscan: ^0.2.17
+#  image_gallery_saver: ^1.5.0
+#  image_picker: ^0.6.7+7
+  qr_flutter: ^3.2.0
+  #  lamp: ^0.0.6
+  #  flashlight: ^0.1.1
+  #  flutter_better_camera: ^0.6.1
+  #  torch_compat: ^1.0.2
+#  qr_code_scanner: ^0.0.13
 #-------------------------------------------------------------------
 
 dev_dependencies:

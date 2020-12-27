@@ -7,11 +7,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
 class MenuListViewWidget extends StatefulWidget {
+  final List<String> titles;
+  final List<Widget> icons;
+  final List<Widget> widgets;
+  final Color backgroundColor;
   const MenuListViewWidget({
     Key key,
+    this.titles,
+    this.icons,
+    this.widgets,
+    this.backgroundColor,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MenuListViewWidgetState();
@@ -19,41 +26,6 @@ class MenuListViewWidget extends StatefulWidget {
 
 class _MenuListViewWidgetState extends State<MenuListViewWidget> {
   ScrollController _scrollController;
-  List<String> titles = [
-    "profile_screen.my_orders".tr(),
-    "profile_screen.favourite_list".tr(),
-    "profile_screen.my_addresses".tr(),
-    "profile_screen.friends".tr(),
-    "profile_screen.jean_points_and_coupons".tr(),
-    "profile_screen.info_account".tr(),
-    "profile_screen.exit_from_account".tr(),
-    "profile_screen.support".tr(),
-    "profile_screen.about_us".tr(),
-    "profile_screen.return_procedure".tr(),
-  ];
-  // List<IconData> icons = [
-  List<Widget> icons = [
-    // Icons.shopping_bag_outlined,
-    ProfileSvgImages.myOrdersIcon,
-    // Icons.favorite_border,
-    ProfileSvgImages.favoriteIcon,
-    // Icons.map_outlined,
-    ProfileSvgImages.addressesIcon,
-    // Icons.child_friendly,
-    ProfileSvgImages.friendsIcon,
-    // Icons.card_giftcard_outlined,
-    ProfileSvgImages.largeGiftIcon,
-    // Icons.person_outline,
-    ProfileSvgImages.profileIcon,
-    // Icons.support_agent_outlined,
-    ProfileSvgImages.exitIcon,
-    // Icons.support_agent_outlined,
-    ProfileSvgImages.supportIcon,
-    // Icons.info_outline,
-    ProfileSvgImages.aboutUsIcon,
-    // Icons.accessible_outlined,
-    ProfileSvgImages.backBuyingIcon,
-  ];
 
   @override
   void initState() {
@@ -64,30 +36,17 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
   @override
   Widget build(BuildContext context) {
     var dpiSize = MediaQuery.of(context).devicePixelRatio;
-    List<Widget> widgets = [
-      // OrderListScreen(),
-      // FavoritesListScreen(),
-      // AddressesListScreen(),
-      // FriendsScreen(),
-      // JeanpointsAndCouponsScreen(),
-      // AccountInfoScreen(
-      //   initPanelState: PanelState.CLOSED,
-      // ),
-      Container(),
-      // SupportScreen(dpiSize: dpiSize),
-      // AboutUsScreen(),
-      // ReturnProcedureScreen(),
-    ];
 
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: widget.titles.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
             Container(
-              color: Colors.white,
+              color: widget.backgroundColor,
+              // color: Colors.blue,
               height: 60,
               child: ListTile(
                 title: Align(
@@ -98,7 +57,7 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
                     width: 170,
                     // color: Colors.red,
                     child: Text(
-                      titles[index],
+                      widget.titles[index],
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color:
@@ -117,13 +76,13 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
                 leading: Container(
                   height: 25,
                   width: 25,
-                  child: icons[index],
+                  child: widget.icons[index],
                 ),
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => widgets[index],
+                      builder: (context) => widget.widgets[index],
                     ),
                   );
                 },
@@ -134,6 +93,9 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
               thickness: 0.3,
               indent: 60,
               height: 2,
+            ),
+            SizedBox(
+              height: index == widget.titles.length - 1 ? 20 : 0,
             ),
           ],
         );
