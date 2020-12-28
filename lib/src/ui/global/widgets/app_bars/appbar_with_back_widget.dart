@@ -35,10 +35,12 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
       height: 40,
       child: Row(
         children: [
+          SizedBox(width: 5),
           GestureDetector(
             child: Container(
-              height: 20,
-              width: 20,
+              height: 30,
+              width: 30,
+              padding: EdgeInsets.all(5),
               child: context.locale.toString() == 'en_US'
                   ? GlobalSvgImages.leftIcon
                   : GlobalSvgImages.rightIcon,
@@ -50,14 +52,17 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
           SizedBox(
             width: 10,
           ),
-          Text(
-            widget.title,
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 15,
-                color: MAIN_BLUE_COLOR),
+          Expanded(
+            child: Text(
+              widget.title,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: MAIN_BLUE_COLOR),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          Expanded(child: SizedBox()),
+          SizedBox(width: 10),
           GestureDetector(
                 child: Container(
                   width: 25,

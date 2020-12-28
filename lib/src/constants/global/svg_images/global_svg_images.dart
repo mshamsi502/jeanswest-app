@@ -91,6 +91,9 @@ class GlobalSvgImages {
   static Widget greyTickIcon = SvgPicture.asset(
     'assets/images/svg_images/global/grey_tick.svg',
   );
+  static Widget loadingIcon = SvgPicture.asset(
+    'assets/images/svg_images/global/loading.svg',
+  );
 
   static Widget blueTimeIcon = SvgPicture.asset(
     'assets/images/svg_images/global/time_icon.svg',

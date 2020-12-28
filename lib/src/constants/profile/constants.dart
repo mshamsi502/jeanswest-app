@@ -6,7 +6,8 @@
 //
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/ui/profile/screens/support_page.dart';
+
+import 'file:///D:/MyProjects/%23AvaKatan/mobile_jeanswest_app_android/lib/src/ui/profile/screens/more_menu_list/support_page.dart';
 
 import 'svg_images/profile_svg_images.dart';
 //

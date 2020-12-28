@@ -10,6 +10,7 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/contact_us_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/support_page/main_ticket_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/questions_widget.dart';
 
 class SupportPage extends StatefulWidget {
@@ -149,7 +150,7 @@ class _SupportPageState extends State<SupportPage>
                           controller: tabController,
                           children: <Widget>[
                             QuestionsWidget(),
-                            Container(),
+                            MainTicketWidget(),
                             ContactUsWidget(),
                           ],
                         ),

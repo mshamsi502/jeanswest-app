@@ -171,4 +171,23 @@ class ProfileSvgImages {
     height: 25,
     width: 25,
   );
+  //
+// -----------------------------------------------------
+//
+
+  static Widget sendToRightIcon = SvgPicture.asset(
+    'assets/images/svg_images/profile/more/send.svg',
+    color: MAIN_BLUE_COLOR,
+    // height: 20,
+    // width: 20,
+  );
+  static Widget sendToLeftIcon = RotatedBox(
+    quarterTurns: -3,
+    child: SvgPicture.asset(
+      'assets/images/svg_images/profile/more/send.svg',
+      color: MAIN_BLUE_COLOR,
+      // height: 20,
+      // width: 20,
+    ),
+  );
 }

@@ -88,9 +88,9 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                                   Text(
                                     user.perName,
                                     style: TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black,
-                                    ),
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500),
                                   ),
                                   SizedBox(height: 30),
                                 ],
