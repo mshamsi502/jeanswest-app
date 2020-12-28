@@ -24,7 +24,7 @@ class _SupportPageState extends State<SupportPage>
 
   @override
   void initState() {
-    tabController = new TabController(initialIndex: 0, length: 2, vsync: this);
+    tabController = new TabController(initialIndex: 0, length: 3, vsync: this);
     tabController.addListener(() {
       setState(() {
         selectedTab = tabController.index;
@@ -57,41 +57,8 @@ class _SupportPageState extends State<SupportPage>
                         width: _screenSize.width,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: new AssetImage('assets/images/support.png'),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 55, right: 30),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 120,
-                                alignment: Alignment.center,
-                                // color: Color(0x44ff0000),
-                                child: Text(
-                                  'چه کمکی از دست ما',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: MAIN_BLUE_COLOR,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                width: 120,
-                                // color: Color(0x44ff0000),
-                                child: Text(
-                                  'برمیاد؟',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                    color: MAIN_BLUE_COLOR,
-                                  ),
-                                ),
-                              ),
-                            ],
+                            image: new AssetImage(
+                                'assets/images/png_images/profile/support_header.png'),
                           ),
                         ),
                       ),
@@ -115,7 +82,7 @@ class _SupportPageState extends State<SupportPage>
                               height: 30,
                               borderColor: MAIN_BLUE_COLOR,
                               radius: 5,
-                              fontSize: 14,
+                              fontSize: 12,
                               onTap: () {
                                 setState(() {
                                   tabController.index = 0;
@@ -134,14 +101,37 @@ class _SupportPageState extends State<SupportPage>
                               textColor: tabController.index == 1
                                   ? Colors.black
                                   : Colors.white,
+                              title: 'پیام به پشتیبانی',
+                              height: 30,
+                              borderColor: MAIN_BLUE_COLOR,
+                              radius: 5,
+                              fontSize: 12,
+                              onTap: () {
+                                setState(() {
+                                  tabController.index = 1;
+                                });
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Expanded(
+                            child: AvakatanButtonWidget(
+                              backgroundColor: tabController.index == 2
+                                  ? Color(0xfff2f2f2)
+                                  : MAIN_BLUE_COLOR,
+                              textColor: tabController.index == 2
+                                  ? Colors.black
+                                  : Colors.white,
                               title: 'تماس با ما',
                               height: 30,
                               borderColor: MAIN_BLUE_COLOR,
                               radius: 5,
-                              fontSize: 14,
+                              fontSize: 12,
                               onTap: () {
                                 setState(() {
-                                  tabController.index = 1;
+                                  tabController.index = 2;
                                 });
                               },
                             ),
@@ -159,12 +149,10 @@ class _SupportPageState extends State<SupportPage>
                           controller: tabController,
                           children: <Widget>[
                             QuestionsWidget(),
+                            Container(),
                             ContactUsWidget(),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: 15,
                       ),
                     ],
                   ),

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class ContactUsWidget extends StatefulWidget {
@@ -26,109 +25,108 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BottomNavigationBarSvgImages.enableBranchIcon,
-                SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: Text(
-                    'تهران - جنت آباد مرکزی - خیابان دانش - خیابان عابدی - خیابان شهید محمد نوروزی - پلاک 5',
-                    style: TextStyle(color: MAIN_BLUE_COLOR, fontSize: 12),
+            SizedBox(
+              height: 20,
+            ),
+            //
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              decoration: BoxDecoration(
+                color: F2_BACKGROUND_COLOR,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.phone,
+                        color: MAIN_BLUE_COLOR,
+                        size: 15,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '02191070544',
+                        style: TextStyle(fontSize: 12, color: MAIN_BLUE_COLOR),
+                      )
+                    ],
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.email_outlined,
+                        color: MAIN_BLUE_COLOR,
+                        size: 15,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'info@banimode.com',
+                        style: TextStyle(fontSize: 12, color: MAIN_BLUE_COLOR),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.apartment_outlined,
+                        color: Colors.black,
+                        size: 15,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '1475614566',
+                        style: TextStyle(fontSize: 12, color: Colors.black),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 20,
+            Container(
+              height: 180,
+              width: _screenSize.width,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: new AssetImage(
+                      'assets/images/png_images/profile/contact_us.png'),
+                ),
+              ),
             ),
             Divider(
+              height: 0.5,
               thickness: 0.5,
               color: Colors.grey,
-              height: 1,
             ),
             SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Icon(
-                  Icons.phone,
-                  color: MAIN_BLUE_COLOR,
-                  size: 15,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  '02191070544',
-                  style: TextStyle(fontSize: 12, color: MAIN_BLUE_COLOR),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Icon(
-                  Icons.email_outlined,
-                  color: MAIN_BLUE_COLOR,
-                  size: 15,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'info@banimode.com',
-                  style: TextStyle(fontSize: 12, color: MAIN_BLUE_COLOR),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Icon(
-                  Icons.apartment_outlined,
-                  color: Colors.black,
-                  size: 15,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  '1475614566',
-                  style: TextStyle(fontSize: 12, color: Colors.black),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Divider(
-              thickness: 0.5,
-              color: Colors.grey,
-              height: 1,
-            ),
-            SizedBox(
-              height: 20,
+              height: 10,
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +147,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 15,
             ),
           ],
         ),
