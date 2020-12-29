@@ -13,6 +13,9 @@ import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/single_ticket_page.dart';
 
 class MainTicketWidget extends StatefulWidget {
+  final Function() openNewTicketPanel;
+
+  const MainTicketWidget({Key key, this.openNewTicketPanel}) : super(key: key);
   State<StatefulWidget> createState() => _MainTicketWidgetState();
 }
 
@@ -23,16 +26,15 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
     return Container(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: MAIN_GOLD_COLOR,
-          // mini: true,
-          child: Container(
-            padding: EdgeInsets.all(1),
-            child: GlobalSvgImages.editIconForLeft,
-            height: 25,
-            width: 25,
-          ),
-          onPressed: () {},
-        ),
+            backgroundColor: MAIN_GOLD_COLOR,
+            // mini: true,
+            child: Container(
+              padding: EdgeInsets.all(1),
+              child: GlobalSvgImages.editIconForLeft,
+              height: 25,
+              width: 25,
+            ),
+            onPressed: () => widget.openNewTicketPanel()),
         body: ListView.builder(
           itemCount: userTickets.length,
           shrinkWrap: true,

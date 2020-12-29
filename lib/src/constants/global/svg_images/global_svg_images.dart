@@ -65,6 +65,14 @@ class GlobalSvgImages {
     height: 10,
     color: Colors.grey[700],
   );
+  static Widget svgArrowBottom = RotatedBox(
+    quarterTurns: -2,
+    child: SvgPicture.asset(
+      "assets/images/svg_images/global/arrow_top_icon.svg",
+      height: 10,
+      color: Colors.grey[700],
+    ),
+  );
   static Widget editIconForLeft = SvgPicture.asset(
     'assets/images/svg_images/global/edit_icon.svg',
     color: MAIN_BLUE_COLOR,

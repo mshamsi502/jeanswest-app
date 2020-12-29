@@ -146,10 +146,12 @@ CameraPosition getCenterCameraPosition(
                                   : _closerBranch.distance <= 700000
                                       ? 6
                                       : 4);
-  print(
-      '//////////////CenterCameraPosition//latlng : ${centerCameraPosition.target.latitude.toStringAsFixed(6)} , ${centerCameraPosition.target.longitude.toStringAsFixed(6)} ');
-  print(
-      '//////////////CenterCameraPosition//zooom : ${centerCameraPosition.zoom}');
+  if (centerCameraPosition != null) {
+    print(
+        '//////////////CenterCameraPosition//latlng : ${centerCameraPosition.target.latitude.toStringAsFixed(6)} , ${centerCameraPosition.target.longitude.toStringAsFixed(6)} ');
+    print(
+        '//////////////CenterCameraPosition//zooom : ${centerCameraPosition.zoom}');
+  }
   return centerCameraPosition;
 }
 
