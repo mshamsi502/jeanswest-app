@@ -26,16 +26,12 @@ class BranchesMapWidgetState extends State<BranchesMapWidget> {
     if (myGoogleMapWidget == null) {
       myGoogleMapWidget = GoogleMapWidget(
         getedBranches: widget.branches,
-        selectedBranch: widget.selectedBranch,
-        isSelectedBranch: widget.isSelectedBranch,
+        initSelectedBranch: widget.selectedBranch,
+        initIsSelectedBranch: widget.isSelectedBranch,
         dpiSize: dpiSize,
       );
     }
-    print('+--+--+-+-+-+ devicePixelRatio of Device : $dpiSize');
-    var screenSize = MediaQuery.of(context).size;
     return Container(
-      height: screenSize.height - 140,
-      color: Colors.transparent,
       child: Center(
         child: SizedBox(child: myGoogleMapWidget),
       ),

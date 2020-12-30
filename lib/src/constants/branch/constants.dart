@@ -12,7 +12,7 @@ import 'package:jeanswest/src/ui/branch/widgets/google_map_widget.dart';
 // ignore: deprecated_member_use
 List<Branch> localBranches = new List<Branch>();
 //
-bool isInitLoadingBranchPage = true;
+
 GoogleMapWidget myGoogleMapWidget;
 //
 // /// for Test

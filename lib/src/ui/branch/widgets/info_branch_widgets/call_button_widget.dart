@@ -9,6 +9,7 @@ import 'package:flutter/painting.dart';
 import 'package:intent/action.dart' as android_action;
 import 'package:intent/intent.dart' as android_intent;
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 
 class CallButtonWidget extends StatefulWidget {
   final String depTel;
@@ -31,7 +32,7 @@ class _CallButtonWidgetState extends State<CallButtonWidget> {
             color: Colors.white,
             borderRadius: BorderRadius.all(const Radius.circular(5)),
             border: Border.all(
-              color: Color(0xff2c3d73),
+              color: MAIN_BLUE_COLOR,
             )),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +40,7 @@ class _CallButtonWidgetState extends State<CallButtonWidget> {
             Text(
               widget.depTel,
               style: TextStyle(
-                  color: Color(0xff2c3d73),
+                  color: MAIN_BLUE_COLOR,
                   fontSize: 12,
                   fontWeight: FontWeight.w500),
             ),

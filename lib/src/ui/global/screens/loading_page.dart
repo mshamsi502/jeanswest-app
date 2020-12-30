@@ -22,11 +22,9 @@ class LoadingPage extends StatefulWidget {
 
 class LoadingPageState extends State<LoadingPage> {
   String loading;
-  // String fillLoading;
   @override
   void initState() {
     loading = '';
-    // fillLoading = '      ';
     splashProvider();
     splashDuration();
     super.initState();
@@ -35,25 +33,25 @@ class LoadingPageState extends State<LoadingPage> {
   splashProvider() async {
     while (true) {
       await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = '.';
-        // fillLoading = '    ';
-      });
+      if (mounted)
+        setState(() {
+          loading = '.';
+        });
       await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = '. .';
-        // fillLoading = '  ';
-      });
+      if (mounted)
+        setState(() {
+          loading = '. .';
+        });
       await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = '. . .';
-        // fillLoading = '';
-      });
+      if (mounted)
+        setState(() {
+          loading = '. . .';
+        });
       await Future.delayed(Duration(milliseconds: 250));
-      setState(() {
-        loading = '';
-        // fillLoading = '      ';
-      });
+      if (mounted)
+        setState(() {
+          loading = '';
+        });
     }
   }
 
@@ -66,38 +64,34 @@ class LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          alignment: Alignment.center,
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(
-                backgroundColor: Colors.redAccent,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              widget.text == null ||
-                      widget.text.length == 0 ||
-                      widget.text == ''
-                  ? Container()
-                  : Container(
-                      alignment: context.locale.toString() == 'fa_IR'
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                      width: widget.widthText,
-                      child: Text(
-                        '$loading ${widget.text}',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ))
-            ],
-          ),
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              backgroundColor: Colors.redAccent,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            widget.text == null || widget.text.length == 0 || widget.text == ''
+                ? Container()
+                : Container(
+                    alignment: context.locale.toString() == 'fa_IR'
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    width: widget.widthText,
+                    child: Text(
+                      '${widget.text} $loading',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ))
+          ],
         ),
       ),
     );

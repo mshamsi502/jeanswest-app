@@ -94,11 +94,11 @@ showToast(String message, FToast fToast) {
       ],
     ),
   );
-
+  // print(message);
   fToast.showToast(
     child: toast,
     gravity: ToastGravity.CENTER,
-    toastDuration: Duration(seconds: 2),
+    toastDuration: Duration(seconds: 1),
     positionedToastBuilder: (context, child) {
       return Positioned(
         child: child,
@@ -108,6 +108,7 @@ showToast(String message, FToast fToast) {
       );
     },
   );
+  // print('bbbbbb ${fToast.context}');
 }
 
 bool checkFreeSend(String sendPrice) {

@@ -5,23 +5,39 @@
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
+import 'package:synchronized/synchronized.dart';
 
 import 'branch_provider.dart';
 
+final _lock = Lock();
+
 Future<bool> saveAllBranchesIntoSqLite(List<Branch> serverBranches) async {
 // save to SqLite
-  var db = new BranchProvider();
-  await db.open(dbName: 'branches');
-  await db.insertAll(serverBranches);
-  await db.close();
-  return true;
+  return _lock.synchronized(() async {
+    var db = new BranchProvider();
+    await db.open(dbName: 'branches');
+    await db.insertAll(serverBranches);
+    await db.close();
+    return true;
+  });
 }
 
-Future<List<Branch>> getAllBranchesFromSqLite(LatLng latLng) async {
+Future<Map<String, dynamic>> getAllBranchesFromSqLite(LatLng latLng) async {
   // load from SQLite
-  var db = new BranchProvider();
-  await db.open();
-  List<Branch> branches = await db.paginate(1);
-  await db.close();
-  return branches;
+  return _lock.synchronized(() async {
+    var db = new BranchProvider();
+    await db.open();
+    List<Branch> branches = await db.paginate(1);
+    await db.close();
+    if (branches == null || branches.length == 0) {
+      return {
+        'res': false,
+        'branches': branches,
+      };
+    } else
+      return {
+        'res': true,
+        'branches': branches,
+      };
+  });
 }
