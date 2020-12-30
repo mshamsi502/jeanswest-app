@@ -9,7 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class AppBarWithBackWidget extends StatefulWidget {
@@ -26,19 +26,21 @@ class AppBarWithBackWidget extends StatefulWidget {
 }
 
 class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
-  @override
+  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       color: Colors.white,
-      height: 40,
+      height: heightBar,
       child: Row(
         children: [
+          SizedBox(width: 5),
           GestureDetector(
             child: Container(
-              height: 20,
-              width: 20,
+              height: heightBar,
+              width: heightBar,
+              padding: EdgeInsets.all(10),
               child: context.locale.toString() == 'en_US'
                   ? GlobalSvgImages.leftIcon
                   : GlobalSvgImages.rightIcon,
@@ -50,14 +52,17 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
           SizedBox(
             width: 10,
           ),
-          Text(
-            widget.title,
-            style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 15,
-                color: MAIN_BLUE_COLOR),
+          Expanded(
+            child: Text(
+              widget.title,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: MAIN_BLUE_COLOR),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-          Expanded(child: SizedBox()),
+          SizedBox(width: 10),
           GestureDetector(
                 child: Container(
                   width: 25,

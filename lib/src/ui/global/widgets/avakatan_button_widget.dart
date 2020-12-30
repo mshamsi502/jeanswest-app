@@ -11,6 +11,7 @@ class AvakatanButtonWidget extends StatefulWidget {
   final Color backgroundColor;
   final Color textColor;
   final Color borderColor;
+  final bool hasShadow;
 
   final String title;
   final double height;
@@ -33,6 +34,7 @@ class AvakatanButtonWidget extends StatefulWidget {
     this.fontSize,
     this.onTap,
     this.borderColor,
+    this.hasShadow,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _AvakatanButtonWidgetState();
@@ -45,38 +47,40 @@ class _AvakatanButtonWidgetState extends State<AvakatanButtonWidget> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
         alignment: Alignment.center,
-        height: widget.height,
-        width: widget.width,
+        height: widget.height ?? 35,
+        width: widget.width ?? 35,
         decoration: BoxDecoration(
-          color: widget.backgroundColor,
+          color: widget.backgroundColor ?? Colors.white,
+          boxShadow: <BoxShadow>[
+            widget.hasShadow != null && widget.hasShadow
+                ? BoxShadow(
+                    spreadRadius: 1,
+                    blurRadius: 3,
+                    color: widget.borderColor ?? Colors.grey[200],
+                  )
+                : BoxShadow(),
+          ],
           border: Border.all(
-            color: widget.borderColor,
+            color: widget.borderColor ?? Colors.white,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(widget.radius)),
+          borderRadius: BorderRadius.all(Radius.circular(widget.radius ?? 4)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            widget.icon != null
-                ? widget.icon
-                // ? Icon(
-                //     widget.icon,
-                //     color: widget.textColor,
-                //     size: 16,
-                //   )
-                : Container(),
-            widget.title != ''
-                ? SizedBox(
+            widget.icon ?? Container(),
+            widget.title == null || widget.title == ''
+                ? Container()
+                : SizedBox(
                     width: 5,
-                  )
-                : Container(),
-            widget.title != ''
-                ? Text(
+                  ),
+            widget.title == null || widget.title == ''
+                ? Container()
+                : Text(
                     widget.title,
                     style: TextStyle(
                         color: widget.textColor, fontSize: widget.fontSize),
-                  )
-                : Container(),
+                  ),
           ],
         ),
       ),

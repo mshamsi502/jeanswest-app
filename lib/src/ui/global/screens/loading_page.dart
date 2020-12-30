@@ -22,11 +22,9 @@ class LoadingPage extends StatefulWidget {
 
 class LoadingPageState extends State<LoadingPage> {
   String loading;
-  // String fillLoading;
   @override
   void initState() {
     loading = '';
-    // fillLoading = '      ';
     splashProvider();
     splashDuration();
     super.initState();
@@ -38,25 +36,21 @@ class LoadingPageState extends State<LoadingPage> {
       if (mounted)
         setState(() {
           loading = '.';
-          // fillLoading = '    ';
         });
       await Future.delayed(Duration(milliseconds: 250));
       if (mounted)
         setState(() {
           loading = '. .';
-          // fillLoading = '  ';
         });
       await Future.delayed(Duration(milliseconds: 250));
       if (mounted)
         setState(() {
           loading = '. . .';
-          // fillLoading = '';
         });
       await Future.delayed(Duration(milliseconds: 250));
       if (mounted)
         setState(() {
           loading = '';
-          // fillLoading = '      ';
         });
     }
   }

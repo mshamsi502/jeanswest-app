@@ -6,6 +6,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../colors.dart';
+
 class GlobalSvgImages {
   GlobalSvgImages._();
 
@@ -15,7 +17,7 @@ class GlobalSvgImages {
 
   static Widget rightIcon = SvgPicture.asset(
     'assets/images/svg_images/global/back_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 20,
     height: 20,
   );
@@ -24,7 +26,7 @@ class GlobalSvgImages {
     quarterTurns: -2,
     child: SvgPicture.asset(
       'assets/images/svg_images/global/back_icon.svg',
-      color: Color(0xff2c3d73),
+      color: MAIN_BLUE_COLOR,
       width: 20,
       height: 20,
     ),
@@ -32,28 +34,28 @@ class GlobalSvgImages {
 
   static Widget closeIcon = SvgPicture.asset(
     'assets/images/svg_images/global/close_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 20,
     height: 20,
   );
 
   static Widget clearTextFieldIcon = SvgPicture.asset(
     'assets/images/svg_images/global/clear_text_field_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 15,
     height: 15,
   );
 
   static Widget shareIcon = SvgPicture.asset(
     'assets/images/svg_images/global/share_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     height: 20,
     width: 20,
   );
 
   static Widget searchIcon = SvgPicture.asset(
     'assets/images/svg_images/global/search_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 20,
     height: 20,
   );
@@ -63,9 +65,17 @@ class GlobalSvgImages {
     height: 10,
     color: Colors.grey[700],
   );
+  static Widget svgArrowBottom = RotatedBox(
+    quarterTurns: -2,
+    child: SvgPicture.asset(
+      "assets/images/svg_images/global/arrow_top_icon.svg",
+      height: 10,
+      color: Colors.grey[700],
+    ),
+  );
   static Widget editIconForLeft = SvgPicture.asset(
     'assets/images/svg_images/global/edit_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     // height: 20,
     // width: 20,
   );
@@ -73,7 +83,7 @@ class GlobalSvgImages {
     quarterTurns: -3,
     child: SvgPicture.asset(
       'assets/images/svg_images/global/edit_icon.svg',
-      color: Color(0xff2c3d73),
+      color: MAIN_BLUE_COLOR,
       // height: 20,
       // width: 20,
     ),
@@ -89,10 +99,13 @@ class GlobalSvgImages {
   static Widget greyTickIcon = SvgPicture.asset(
     'assets/images/svg_images/global/grey_tick.svg',
   );
+  static Widget loadingIcon = SvgPicture.asset(
+    'assets/images/svg_images/global/loading.svg',
+  );
 
   static Widget blueTimeIcon = SvgPicture.asset(
     'assets/images/svg_images/global/time_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     height: 15,
     width: 15,
   );

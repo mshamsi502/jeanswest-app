@@ -34,6 +34,7 @@ class RealSearchAppBarWidget extends StatefulWidget
 }
 
 class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
+  double heightBar = 40;
   @override
   void initState() {
     widget.textEditingController.clear();
@@ -45,7 +46,7 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Container(
-        height: 40,
+        height: heightBar,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
           color: Colors.grey[300],
@@ -56,9 +57,9 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
           children: [
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.all(5),
-                height: 30,
-                width: 30,
+                padding: EdgeInsets.all(10),
+                height: heightBar,
+                width: heightBar,
                 child: context.locale.toString() == 'en_US'
                     ? GlobalSvgImages.leftIcon
                     : GlobalSvgImages.rightIcon,
@@ -89,9 +90,9 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
             ),
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.all(7),
-                height: 30,
-                width: 30,
+                padding: EdgeInsets.all(10),
+                height: heightBar,
+                width: heightBar,
                 child: GlobalSvgImages.clearTextFieldIcon,
               ),
               onTap: () {
