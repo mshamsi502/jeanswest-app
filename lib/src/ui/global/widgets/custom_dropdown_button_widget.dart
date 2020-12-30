@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 
 class CustomDropdownButtonWidget extends StatefulWidget {
   final String title;
-  final Size screenSize;
+  final MediaQueryData mediaQuery;
   final List<String> options;
   final Function(String) selected;
 
@@ -19,7 +20,7 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     Key key,
     this.title,
     this.options,
-    this.screenSize,
+    this.mediaQuery,
     this.selected,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomDropdownButtonWidgetState();
@@ -31,18 +32,25 @@ class _CustomDropdownButtonWidgetState
   double heightTitle;
   String dropdownValue;
   List<DropdownMenuItem<String>> _dropdownMenuItems;
+  //
+  double widthDropdown;
+  Orientation myOrientation;
+  //
   @override
   void initState() {
     heightTextField = 20;
     heightTitle = 60;
-    _dropdownMenuItems =
-        buildDropdownMenuItems(widget.options, widget.screenSize);
+    widthDropdown = widget.mediaQuery.size.width;
+    _dropdownMenuItems = buildDropdownMenuItems(widget.options, widthDropdown);
+    myOrientation = widget.mediaQuery.orientation;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    orientationDeviceListener();
     return Container(
+      width: widthDropdown,
       height: heightTextField + heightTitle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +71,7 @@ class _CustomDropdownButtonWidgetState
             height: 5,
           ),
           Container(
-            width: widget.screenSize.width,
+            // width: widthDropdown,
             margin: EdgeInsets.symmetric(horizontal: 10),
             padding: EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
@@ -96,6 +104,7 @@ class _CustomDropdownButtonWidgetState
                       elevation: 16,
                       style: TextStyle(color: Colors.black),
                       onChanged: (String newValue) {
+                        FocusScope.of(context).unfocus();
                         setState(() {
                           dropdownValue = newValue;
                           widget.selected(dropdownValue);
@@ -116,28 +125,25 @@ class _CustomDropdownButtonWidgetState
     );
   }
 
-  List<DropdownMenuItem<String>> buildDropdownMenuItems(
-      List<String> options, Size _screenSize) {
-    List<DropdownMenuItem<String>> items = new List<DropdownMenuItem<String>>();
-    for (String string in options) {
-      items.add(DropdownMenuItem(
-        value: string,
-        child: Container(
-          width: _screenSize.width - 130,
-          child: Row(
-            children: [
-              Expanded(
-                  child: Text(
-                string,
-                style: TextStyle(
-                  fontFamily: 'IRANSans',
-                ),
-              )),
-            ],
-          ),
-        ),
-      ));
+  /// => this method listen to change [Orientation] ([portrait] or [landscape]) device
+  /// and update [width] of [screenSize] and [widthDropdown]
+  void orientationDeviceListener() {
+    if (MediaQuery.of(context).orientation != myOrientation) {
+      if (MediaQuery.of(context).orientation == Orientation.portrait) {
+        setState(() {
+          widthDropdown = widget.mediaQuery.size.width;
+          myOrientation = Orientation.portrait;
+          print('Orientation.portrait : widthDropdown = $widthDropdown');
+        });
+      } else {
+        setState(() {
+          widthDropdown = widget.mediaQuery.size.width;
+          myOrientation = Orientation.landscape;
+          print('Orientation.landscape : widthDropdown = $widthDropdown');
+        });
+      }
+      _dropdownMenuItems =
+          buildDropdownMenuItems(widget.options, widthDropdown);
     }
-    return items;
   }
 }

@@ -175,17 +175,33 @@ class ProfileSvgImages {
 // -----------------------------------------------------
 //
 
-  static Widget sendToRightIcon = SvgPicture.asset(
+  static Widget blueSendToRightIcon = SvgPicture.asset(
     'assets/images/svg_images/profile/more/send.svg',
     color: MAIN_BLUE_COLOR,
     // height: 20,
     // width: 20,
   );
-  static Widget sendToLeftIcon = RotatedBox(
+  static Widget blueSendToLeftIcon = RotatedBox(
     quarterTurns: -3,
     child: SvgPicture.asset(
       'assets/images/svg_images/profile/more/send.svg',
       color: MAIN_BLUE_COLOR,
+      // height: 20,
+      // width: 20,
+    ),
+  );
+
+  static Widget greySendToRightIcon = SvgPicture.asset(
+    'assets/images/svg_images/profile/more/send.svg',
+    color: Colors.grey[300],
+    // height: 20,
+    // width: 20,
+  );
+  static Widget greySendToLeftIcon = RotatedBox(
+    quarterTurns: -3,
+    child: SvgPicture.asset(
+      'assets/images/svg_images/profile/more/send.svg',
+      color: Colors.grey[300],
       // height: 20,
       // width: 20,
     ),

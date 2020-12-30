@@ -6,12 +6,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
-import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
-import 'package:jeanswest/src/models/message/user_ticket/ticket_message.dart';
 import 'package:jeanswest/src/models/message/user_ticket/user_ticket.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/send_message_bar_widget.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 
 class SingleTicketPage extends StatefulWidget {
   final UserTicket ticket;
@@ -61,7 +59,6 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                             children: [
                               Container(
                                 height: _screenSize.height - 125,
-                                // margin: EdgeInsets.symmetric(vertical: 10),
                                 color: F7_BACKGROUND_COLOR,
                                 child: ListView.builder(
                                   reverse: true,
@@ -183,28 +180,16 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                   },
                                 ),
                               ),
-                              SendMessageBarWidget(sendText: (String text) {
-                                TicketMessage newMessage = new TicketMessage(
-                                  title: user.perName,
-                                  text: text,
-                                  yearOfSend: DateTime.now().year.toString(),
-                                  monthOfSend: DateTime.now().month.toString(),
-                                  dayOfSend: DateTime.now().day.toString(),
-                                  hourOfSend: DateTime.now().hour.toString(),
-                                  minOfSend: DateTime.now().minute.toString(),
-                                  isUser: true,
-                                );
-                                setState(() {
-                                  userTickets[widget.numberOfTicket]
-                                      .message
-                                      .add(newMessage);
-                                });
-                                print(
-                                    'send message at ${DateTime.now().year}.${DateTime.now().month}.${DateTime.now().day} - ${DateTime.now().hour}:${DateTime.now().minute} :   $text');
-
-                                print(
-                                    'messages length : ${userTickets[widget.numberOfTicket].message.length}');
-                              }),
+                              SendMessageBarWidget(
+                                isEnable: !widget.ticket.isClosed,
+                                hintText: 'پیام خود را وارد کنید ...',
+                                disableText:
+                                    'برای پیام دادن یک تیکت جدید باز کنید',
+                                sendText: (String text) => setState(() {
+                                  addNewMessageInTicket(
+                                      widget.numberOfTicket, text);
+                                }),
+                              ),
                             ],
                           ),
                         ),

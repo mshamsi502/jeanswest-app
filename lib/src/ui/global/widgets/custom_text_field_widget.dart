@@ -39,8 +39,6 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
-
     return Container(
       height: heightTextField + heightTitle,
       child: Column(

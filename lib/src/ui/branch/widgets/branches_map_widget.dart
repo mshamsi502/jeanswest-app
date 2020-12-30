@@ -31,7 +31,6 @@ class BranchesMapWidgetState extends State<BranchesMapWidget> {
         dpiSize: dpiSize,
       );
     }
-
     return Container(
       child: Center(
         child: SizedBox(child: myGoogleMapWidget),

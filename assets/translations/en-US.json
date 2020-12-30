@@ -23,7 +23,7 @@
     "bottom_navigation_bar_widget": {
         "home" : "Home",
         "branches" : "Branches",
-        "more" : "More",
+        "store" : "Store",
         "shopping_basket" : "Shopping Basket",
         "profile" : "Profile",
         "item_01" : "Item 1",

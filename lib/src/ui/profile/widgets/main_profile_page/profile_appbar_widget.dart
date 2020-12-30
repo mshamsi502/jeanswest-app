@@ -20,19 +20,16 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,
-      // color: Colors.red,
       child: Stack(
         children: [
           Column(
             children: [
               Container(
                 height: 32,
-                // color: Colors.greenAccent,
               ),
               Container(
                 height: 210,
                 decoration: BoxDecoration(
-                  // color: Colors.blueAccent,
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -76,7 +73,7 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                                   // color: Colors.blueAccent,
                                   borderRadius: BorderRadius.circular(10),
                                   image: DecorationImage(
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                     image: new AssetImage(
                                         'assets/images/png_images/profile/user_profile.png'),
                                   ),
@@ -116,7 +113,7 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                                   decoration: BoxDecoration(
                                     // color: Colors.redAccent,
                                     image: DecorationImage(
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.contain,
                                       image: new AssetImage(
                                           'assets/images/png_images/global/jeanswest_logo.png'),
                                     ),

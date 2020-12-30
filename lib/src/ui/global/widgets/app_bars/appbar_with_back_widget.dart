@@ -26,21 +26,21 @@ class AppBarWithBackWidget extends StatefulWidget {
 }
 
 class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
-  @override
+  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       color: Colors.white,
-      height: 40,
+      height: heightBar,
       child: Row(
         children: [
           SizedBox(width: 5),
           GestureDetector(
             child: Container(
-              height: 30,
-              width: 30,
-              padding: EdgeInsets.all(5),
+              height: heightBar,
+              width: heightBar,
+              padding: EdgeInsets.all(10),
               child: context.locale.toString() == 'en_US'
                   ? GlobalSvgImages.leftIcon
                   : GlobalSvgImages.rightIcon,

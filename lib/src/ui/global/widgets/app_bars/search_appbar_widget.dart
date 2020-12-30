@@ -26,23 +26,16 @@ class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
-    return
-        // SafeArea(
-        // child:
-        GestureDetector(
+    return GestureDetector(
       onTap: () {
         // open Branch-List-Widget Panel
         widget.changeBranchListPanelState(true);
       },
       child: Container(
-        height: 40,
+        height: heightBar,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
           color: Colors.grey[300],

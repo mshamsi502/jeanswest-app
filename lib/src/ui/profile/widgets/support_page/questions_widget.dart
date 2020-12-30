@@ -9,34 +9,60 @@ import 'package:flutter/painting.dart';
 import 'package:jeanswest/src/constants/test_data/texts.dart';
 
 class QuestionsWidget extends StatefulWidget {
+  final String headerAsset;
+
+  const QuestionsWidget({Key key, this.headerAsset}) : super(key: key);
   State<StatefulWidget> createState() => _QuestionsWidgetState();
 }
 
 class _QuestionsWidgetState extends State<QuestionsWidget> {
+  ScrollController scrollController = new ScrollController();
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
-      child: ListView.builder(
-        itemCount: questionStrings.length,
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return ExpansionTile(
-            expandedAlignment: Alignment.centerRight,
-            title: Text(
-              questionStrings[index],
-              style: TextStyle(fontSize: 13),
+      child: SingleChildScrollView(
+        controller: scrollController,
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Container(
+              height: 200,
+              width: _screenSize.width,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: new AssetImage(widget.headerAsset),
+                ),
+              ),
             ),
-            children: <Widget>[
-              Text(
-                answerStrings[index],
-                style: TextStyle(fontSize: 11, color: Colors.grey),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          );
-        },
+            SizedBox(height: 10),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: questionStrings.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return ExpansionTile(
+                  expandedAlignment: Alignment.centerRight,
+                  title: Text(
+                    questionStrings[index],
+                    style: TextStyle(fontSize: 13),
+                  ),
+                  children: <Widget>[
+                    Text(
+                      answerStrings[index],
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

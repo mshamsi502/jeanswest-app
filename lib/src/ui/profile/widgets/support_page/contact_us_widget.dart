@@ -11,6 +11,9 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class ContactUsWidget extends StatefulWidget {
+  final String headerAsset;
+
+  const ContactUsWidget({Key key, this.headerAsset}) : super(key: key);
   State<StatefulWidget> createState() => _ContactUsWidgetState();
 }
 
@@ -30,10 +33,19 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 20,
+            SizedBox(height: 10),
+            Container(
+              height: 200,
+              width: _screenSize.width,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: new AssetImage(widget.headerAsset),
+                ),
+              ),
             ),
-            //
+            SizedBox(height: 10),
             Container(
               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               decoration: BoxDecoration(
@@ -114,7 +126,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               decoration: BoxDecoration(
                 // color: Colors.red,
                 image: DecorationImage(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   image: new AssetImage(
                       'assets/images/png_images/profile/contact_us.png'),
                 ),

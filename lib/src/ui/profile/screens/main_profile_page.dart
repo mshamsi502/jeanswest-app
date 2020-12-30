@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
@@ -30,13 +29,9 @@ class _MainProfilePageState extends State<MainProfilePage>
 
   Color fadeBlackColor;
   ScrollController listViewScrollController;
-  //
-
   LevelCard userLevel;
   LevelCard nextLevel;
   LevelCard preLevel;
-
-  //
 
   @override
   void initState() {
@@ -104,16 +99,16 @@ class _MainProfilePageState extends State<MainProfilePage>
                 child: Column(
                   children: [
                     ProfileAppBarWidget(),
+                    SizedBox(height: 10),
                     GestureDetector(
                       child: Container(
                         alignment: Alignment.topCenter,
                         height: 85,
                         width: _screenSize.width,
                         decoration: BoxDecoration(
-                          // color: Colors.red,
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                            fit: BoxFit.fitWidth,
+                            fit: BoxFit.contain,
                             image: new AssetImage(
                                 'assets/images/png_images/global/invite_friends.png'),
                           ),
@@ -150,9 +145,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                 widgets: mainProfileListWidgets,
                 backgroundColor: F7_BACKGROUND_COLOR,
               ),
-              SizedBox(
-                height: BOTTOM_NAVIGATION_BAR_HEIGHT + 10,
-              ),
+              SizedBox(height: 5),
             ],
           ),
         ),

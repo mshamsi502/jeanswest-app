@@ -65,7 +65,7 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
                   // color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.contain,
                     image: new AssetImage(assetsLevelCard.elementAt(i)),
                   ),
                 ),

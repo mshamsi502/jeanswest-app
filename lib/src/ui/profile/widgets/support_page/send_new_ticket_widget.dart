@@ -31,17 +31,22 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
   TextEditingController textEditingController;
   String selectedDep;
   int initSelectDep;
+
+  ScrollController scrollController;
   @override
   void initState() {
     titleEditingController = new TextEditingController();
     textEditingController = new TextEditingController();
+    scrollController = new ScrollController();
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
+      width: widget.screenSize.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
       ),
@@ -53,33 +58,53 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             children: [
               Text('ارسال پیام'),
               GestureDetector(
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  child: GlobalSvgImages.closeIcon,
-                ),
-                onTap: () => widget.closePanel(),
-              ),
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    child: GlobalSvgImages.closeIcon,
+                  ),
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    widget.closePanel();
+                  }),
             ],
           ),
           SizedBox(height: 10),
-          CustomDropdownButtonWidget(
-              title: 'دپارتمان',
-              options: departments,
-              screenSize: widget.screenSize,
-              selected: (String department) => setState(() {
-                    selectedDep = department;
-                  })),
-          SizedBox(height: 10),
-          CustomTextFieldWidget(
-            title: 'عنوان',
-            textEditingController: titleEditingController,
-          ),
-          SizedBox(height: 10),
-          CustomTextFieldWidget(
-            title: 'متن',
-            textEditingController: textEditingController,
-            lines: 4,
+          Container(
+            height:
+                // 300,
+                450 > _screenSize.height ? _screenSize.height - 150 : 330,
+            child: Row(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Column(
+                      children: [
+                        CustomDropdownButtonWidget(
+                            title: 'دپارتمان',
+                            options: departments,
+                            mediaQuery: MediaQuery.of(context),
+                            selected: (String department) => setState(() {
+                                  selectedDep = department;
+                                })),
+                        SizedBox(height: 10),
+                        CustomTextFieldWidget(
+                          title: 'عنوان',
+                          textEditingController: titleEditingController,
+                        ),
+                        SizedBox(height: 10),
+                        CustomTextFieldWidget(
+                          title: 'متن',
+                          textEditingController: textEditingController,
+                          lines: 4,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 20),
           AvakatanButtonWidget(

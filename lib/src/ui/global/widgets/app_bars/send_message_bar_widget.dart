@@ -12,10 +12,16 @@ import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.da
 
 class SendMessageBarWidget extends StatefulWidget {
   final Function(String) sendText;
+  final String hintText;
+  final bool isEnable;
+  final String disableText;
 
   const SendMessageBarWidget({
     Key key,
     this.sendText,
+    this.hintText,
+    this.isEnable,
+    this.disableText,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SendMessageBarWidgetState();
@@ -29,7 +35,6 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       color: Colors.white,
-      // color: Colors.red,
       height: 60,
       width: _screenSize.width,
       child: Container(
@@ -47,14 +52,19 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                 height: 40,
                 width: 40,
                 padding: EdgeInsets.all(7),
-                // color: Colors.grey,
-                child: context.locale.toString() == 'en_US'
-                    ? ProfileSvgImages.sendToLeftIcon
-                    : ProfileSvgImages.sendToRightIcon,
+                child: widget.isEnable
+                    ? context.locale.toString() == 'en_US'
+                        ? ProfileSvgImages.blueSendToLeftIcon
+                        : ProfileSvgImages.blueSendToRightIcon
+                    : context.locale.toString() == 'en_US'
+                        ? ProfileSvgImages.greySendToLeftIcon
+                        : ProfileSvgImages.greySendToRightIcon,
               ),
               onTap: () {
-                widget.sendText(textEditingController.text);
-                textEditingController.clear();
+                if (widget.isEnable) {
+                  widget.sendText(textEditingController.text);
+                  textEditingController.clear();
+                }
               },
             ),
             SizedBox(width: 10),
@@ -63,9 +73,13 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                 controller: textEditingController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'پیام خود را وراد کنید',
-                  hintStyle:
-                      TextStyle(fontFamily: 'IRANSansLight', fontSize: 14),
+                  enabled: widget.isEnable,
+                  hintText:
+                      widget.isEnable ? widget.hintText : widget.disableText,
+                  hintStyle: TextStyle(
+                    fontFamily: 'IRANSansLight',
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),

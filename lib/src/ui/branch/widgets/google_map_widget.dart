@@ -38,28 +38,21 @@ class GoogleMapWidget extends StatefulWidget {
 class GoogleMapWidgetState extends State<GoogleMapWidget>
     with WidgetsBindingObserver {
   GoogleMapController mapController;
-  //
   Set<Marker> markers;
   List<Branch> branches;
   bool isSelectedBranch;
   Branch selectedBranch;
   Branch closerBranch;
-  //
   double cameraLatitude;
   double cameraLongitude;
   double cameraZoom;
   CameraPosition initCameraPosition;
   CameraPosition userCameraPosition;
-  //
   PanelController panelController;
-  //
-
   SelectedBranchBloc _selectedBranchBloc;
 
-  //
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    print('!!! !!! AppLifecycleState : $state');
     if (state == AppLifecycleState.resumed) {
       setState(() {
         if (mapController != null) mapController.setMapStyle('[]');
@@ -81,12 +74,8 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
     panelController = new PanelController();
     _selectedBranchBloc = BlocProvider.of<SelectedBranchBloc>(context);
     initialUpdateCameraPosition();
-    //
     branches = widget.getedBranches;
-    // provideBranchesOnMap();
-    //
     WidgetsBinding.instance.addObserver(this);
-    //
   }
 
   @override
@@ -101,9 +90,6 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
     var screenSize = MediaQuery.of(context).size;
     return BlocListener<SelectedBranchBloc, SelectedBranchState>(
       listener: (context, selectedBranchState) {
-        print('.... SelectedBranch state change to % ' +
-            selectedBranchState.toString() +
-            ' %');
         if (selectedBranchState is SelectedBranchUpdating) {
           setState(() {
             selectedBranch = selectedBranchState.selectedBranch;
@@ -143,7 +129,6 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
             children: [
               Container(
                 height: screenSize.height - 100,
-                // height: screenSize.height - 140,
                 child: GoogleMap(
                   myLocationEnabled: true,
                   mapToolbarEnabled: false,
@@ -200,10 +185,6 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
     if (mapController != null)
       mapController
           .animateCamera(CameraUpdate.newCameraPosition(_cameraPosition));
-    else
-      print('#!!#!#!#!#1#!# mapController is Nulllllllllll');
-    print('#!!#!#!#!#1#!# mapController is NOTNULL : updating camera');
-    print('_cameraPosition : $_cameraPosition');
   }
 
   initialUpdateCameraPosition() async {
@@ -220,7 +201,6 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
 
   updateSelectedBranch(
       Branch _selectedBranch, CameraPosition _cameraPosition) async {
-    print('RUNNNNIG updateSelectedBranch method...');
     panelController.animatePanelToPosition(0.0,
         duration: Duration(milliseconds: 500));
     updateCamera(_cameraPosition);
@@ -235,7 +215,6 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
     panelController.animatePanelToPosition(1.0,
         duration: Duration(milliseconds: 500));
     _selectedBranchBloc.add(FinishSelectedBranchEvent(_selectedBranch));
-//
   }
 
   tapOnMarker(Branch _selectedBranch, CameraPosition _cameraPosition) {

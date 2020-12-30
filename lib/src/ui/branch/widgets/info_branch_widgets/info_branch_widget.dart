@@ -37,7 +37,6 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    print('((((((( selectedBranch : ' + widget.selectedBranch.depName);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       decoration: BoxDecoration(
@@ -64,8 +63,6 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // GestureDetector(
-              //   child:
               Container(
                 child: Text(
                   widget.selectedBranch.depName,
@@ -76,14 +73,6 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                   ),
                 ),
               ),
-              // onTap: () {
-              // widget.mapController.animateCamera(
-              //     CameraUpdate.newCameraPosition(CameraPosition(
-              //         target: LatLng(double.parse(_selectedBranch.lat),
-              //             double.parse(_selectedBranch.lng)),
-              //         zoom: 22)));
-              //   },
-              // ),
               SizedBox(
                 width: 10,
               ),

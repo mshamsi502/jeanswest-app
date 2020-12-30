@@ -22,14 +22,6 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
-  ScrollController _scrollController;
-
-  @override
-  void initState() {
-    _scrollController = new ScrollController();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(

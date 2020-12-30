@@ -63,7 +63,7 @@ class Order {
     this.finalSendPrice =
         checkFreeSend(this.sendPrice) ? 0 : int.parse(this.sendPrice);
 
-    int sumPayablePrice = 0;
+    // int sumPayablePrice = 0;
     for (var i = 0; i < this.products.length; i++) {
       sumOrgPrice = sumOrgPrice + int.parse(this.products[i].orgPrice);
       sumDiscountedPrice =

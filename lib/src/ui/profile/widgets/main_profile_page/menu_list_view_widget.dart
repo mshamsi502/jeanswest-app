@@ -35,8 +35,6 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var dpiSize = MediaQuery.of(context).devicePixelRatio;
-
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
@@ -94,9 +92,9 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
               indent: 60,
               height: 2,
             ),
-            SizedBox(
-              height: index == widget.titles.length - 1 ? 20 : 0,
-            ),
+            // SizedBox(
+            //   height: index == widget.titles.length - 1 ? 20 : 0,
+            // ),
           ],
         );
       },

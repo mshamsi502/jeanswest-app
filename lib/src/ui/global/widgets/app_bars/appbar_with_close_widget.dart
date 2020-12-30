@@ -25,12 +25,12 @@ class AppBarWithCloseWidget extends StatefulWidget {
 }
 
 class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
-  @override
+  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: 40,
+      height: heightBar,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -43,8 +43,9 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
           ),
           GestureDetector(
             child: Container(
-              height: 30,
-              width: 30,
+              height: heightBar,
+              width: heightBar,
+              padding: EdgeInsets.all(5),
               child: GlobalSvgImages.closeIcon,
             ),
             onTap: () {

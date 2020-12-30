@@ -50,7 +50,6 @@ class _BranchPageState extends State<BranchPage>
 
   Branch selectedBranch;
   bool isSelectedBranch;
-  //
 
   @override
   void initState() {
@@ -76,10 +75,7 @@ class _BranchPageState extends State<BranchPage>
     super.build(context);
     var screenSize = MediaQuery.of(context).size;
 
-    return
-        // Scaffold(
-        // body:
-        BlocConsumer<BranchAddressesScreenBloc, BranchAddressesScreenState>(
+    return BlocConsumer<BranchAddressesScreenBloc, BranchAddressesScreenState>(
       listener: (context, branchAddressesScreenState) {
         print('BranchAddressesScreen state change to % ' +
             branchAddressesScreenState.toString() +
@@ -111,8 +107,6 @@ class _BranchPageState extends State<BranchPage>
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
           return SlidingUpPanel(
-              // onPanelClosed: widget.changeShowButtonNavigationBar(true),
-              // onPanelOpened: widget.changeShowButtonNavigationBar(false),
               controller: panelController,
               minHeight: 0,
               maxHeight: screenSize.height,
