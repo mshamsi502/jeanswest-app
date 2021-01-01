@@ -71,7 +71,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       home: isSplash
           ? LoadingPage(
               text: 'بارگذاری',
-              widthText: 80,
+              widthText: 0.22, //80,
               milliSecond: 3000,
               closeLoading: () {
                 setState(() {
@@ -82,7 +82,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           : WillPopScope(
               onWillPop: () => _onWillPop(context),
               child: Scaffold(
-                key: scaffoldKey,
                 body: Container(
                   color: Colors.grey,
                   child: SafeArea(

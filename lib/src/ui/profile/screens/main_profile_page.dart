@@ -56,22 +56,29 @@ class _MainProfilePageState extends State<MainProfilePage>
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
+      color: F7_BACKGROUND_COLOR,
       child: SingleChildScrollView(
         controller: scrollController,
         child: Container(
-          color: F7_BACKGROUND_COLOR,
           // color: Colors.amberAccent,
+
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                padding: EdgeInsets.symmetric(
+                    vertical: 0.027 * _screenSize.width, horizontal: 15),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     AvakatanButtonWidget(
-                      icon: ProfileSvgImages.horMoreIcon,
+                      icon: SizedBox(
+                          height: 0.055 * _screenSize.width,
+                          width: 0.055 * _screenSize.width,
+                          child: ProfileSvgImages.horMoreIcon),
                       backgroundColor: Colors.white,
+                      height: 0.09 * _screenSize.width,
+                      width: 0.09 * _screenSize.width,
                       textColor: MAIN_BLUE_COLOR,
                       radius: 50,
                       borderColor: Colors.grey[200],
@@ -82,8 +89,13 @@ class _MainProfilePageState extends State<MainProfilePage>
                               builder: (context) => MorePage(title: 'بیشتر'))),
                     ),
                     AvakatanButtonWidget(
-                      icon: ProfileSvgImages.notificationIcon,
+                      icon: SizedBox(
+                          height: 0.055 * _screenSize.width,
+                          width: 0.055 * _screenSize.width,
+                          child: ProfileSvgImages.notificationIcon),
                       backgroundColor: Colors.white,
+                      height: 0.09 * _screenSize.width,
+                      width: 0.09 * _screenSize.width,
                       textColor: MAIN_BLUE_COLOR,
                       radius: 50,
                       borderColor: Colors.grey[200],
@@ -94,21 +106,23 @@ class _MainProfilePageState extends State<MainProfilePage>
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                margin:
+                    EdgeInsets.symmetric(horizontal: 0.023 * _screenSize.width),
                 color: F7_BACKGROUND_COLOR,
                 child: Column(
                   children: [
                     ProfileAppBarWidget(),
-                    SizedBox(height: 10),
                     GestureDetector(
                       child: Container(
-                        alignment: Alignment.topCenter,
-                        height: 85,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 0.016 * _screenSize.width),
+                        alignment: Alignment.center,
+                        height: 0.15 * _screenSize.height,
                         width: _screenSize.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: DecorationImage(
-                            fit: BoxFit.contain,
+                            fit: BoxFit.fitWidth,
                             image: new AssetImage(
                                 'assets/images/png_images/global/invite_friends.png'),
                           ),

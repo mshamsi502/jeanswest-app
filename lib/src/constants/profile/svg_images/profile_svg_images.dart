@@ -107,8 +107,8 @@ class ProfileSvgImages {
   static Widget horMoreIcon = SvgPicture.asset(
     'assets/images/svg_images/global/hor_more_icon.svg',
     color: MAIN_BLUE_COLOR,
-    width: 10,
-    height: 10,
+    // width: 10,
+    // height: 10,
   );
 
   static Widget pointerIcon = SvgPicture.asset(

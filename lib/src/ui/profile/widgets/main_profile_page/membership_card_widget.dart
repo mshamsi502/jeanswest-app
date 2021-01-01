@@ -38,12 +38,13 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       color: Colors.white,
       child: CarouselSlider(
         options: CarouselOptions(
-          height: 120,
+          height: 0.33 * _screenSize.width, // 120
           // aspectRatio: 16 / 9,
           viewportFraction: 0.5,
           initialPage: 0,
@@ -60,7 +61,7 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
             builder: (BuildContext context) {
               return Container(
                 alignment: Alignment.topCenter,
-                height: 120,
+                height: 0.33 * _screenSize.width, // 120
                 decoration: BoxDecoration(
                   // color: Colors.red,
                   borderRadius: BorderRadius.circular(10),

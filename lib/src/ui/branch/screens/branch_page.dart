@@ -103,7 +103,7 @@ class _BranchPageState extends State<BranchPage>
         } else if (branchAddressesScreenState is BranchAddressesScreenLoading) {
           return LoadingPage(
             text: 'لطفا تا بارگذاری کامل نقشه منتظر بمانید',
-            widthText: 270,
+            widthText: 0.75,
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
           return SlidingUpPanel(
