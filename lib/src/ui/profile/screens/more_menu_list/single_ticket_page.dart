@@ -58,7 +58,8 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                           child: Column(
                             children: [
                               Container(
-                                height: _screenSize.height - 125,
+                                height: _screenSize.height -
+                                    0.195 * _screenSize.height, //125,
                                 color: F7_BACKGROUND_COLOR,
                                 child: ListView.builder(
                                   reverse: true,
@@ -71,15 +72,26 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                       children: [
                                         Container(
                                           margin: EdgeInsets.only(
-                                              top: 10,
-                                              left: 15,
-                                              right: 15,
-                                              bottom: index == 0 ? 20 : 5),
-                                          padding: EdgeInsets.all(10),
+                                            top: 0.015 *
+                                                _screenSize.height, //10,
+                                            left: 0.0416 *
+                                                _screenSize.width, //15,
+                                            right: 0.0416 *
+                                                _screenSize.width, //15,
+                                            bottom: index == 0
+                                                ? 0.03125 *
+                                                    _screenSize.height //20
+                                                : 0.0078 *
+                                                    _screenSize.height, //5
+                                          ),
+                                          padding: EdgeInsets.all(
+                                            0.015 * _screenSize.height, //10,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
+                                            borderRadius: BorderRadius.circular(
+                                              0.011 * _screenSize.width, //4,
+                                            ),
                                             border: Border.all(
                                               color: Colors.grey[200],
                                             ),
@@ -88,7 +100,13 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                 spreadRadius: 0.8,
                                                 blurRadius: 4,
                                                 color: Colors.grey[300],
-                                                offset: Offset(5, 5),
+                                                offset: Offset(
+                                                  0.0078 *
+                                                      _screenSize.height, //5
+
+                                                  0.0078 *
+                                                      _screenSize.height, //5
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -97,8 +115,10 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                               Row(
                                                 children: [
                                                   Container(
-                                                    width: 30,
-                                                    height: 30,
+                                                    width: 0.083 *
+                                                        _screenSize.width, //30
+                                                    height: 0.083 *
+                                                        _screenSize.width, //30
                                                     child: Icon(
                                                       widget
                                                               .ticket
@@ -124,7 +144,9 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                               .isUser
                                                           ? Colors.green
                                                           : MAIN_BLUE_COLOR,
-                                                      size: 25,
+                                                      size: 0.069 *
+                                                          _screenSize
+                                                              .width, //25,
                                                     ),
                                                   ),
                                                   // SizedBox(width: 5),
@@ -142,7 +164,9 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                           //     .ticket.message[index]
                                                           .title,
                                                       style: TextStyle(
-                                                        fontSize: 13,
+                                                        fontSize: 0.036 *
+                                                            _screenSize
+                                                                .width, //13,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                       ),
@@ -165,7 +189,9 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                         // widget.ticket.message[index]
                                                         .text,
                                                     style: TextStyle(
-                                                      fontSize: 11,
+                                                      fontSize: 0.03 *
+                                                          _screenSize
+                                                              .width, //11,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),

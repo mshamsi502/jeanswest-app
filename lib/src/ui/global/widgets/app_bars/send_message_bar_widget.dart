@@ -33,25 +33,36 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      padding: EdgeInsets.symmetric(
+        horizontal: 0.027 * _screenSize.width, //10,
+        vertical: 0.0046 * _screenSize.height, //3,
+      ),
       color: Colors.white,
-      height: 60,
+      height: 0.093 * _screenSize.height, //60,
       width: _screenSize.width,
       child: Container(
-        margin: EdgeInsets.all(5),
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        height: 40,
+        margin: EdgeInsets.all(
+          0.013 * _screenSize.width, //5
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: 0.013 * _screenSize.width, //5
+        ),
+        height: 0.0625 * _screenSize.height, //40,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
+          borderRadius: BorderRadius.circular(
+            0.019 * _screenSize.width, //7
+          ),
           color: F7_BACKGROUND_COLOR,
         ),
         child: Row(
           children: [
             GestureDetector(
               child: Container(
-                height: 40,
-                width: 40,
-                padding: EdgeInsets.all(7),
+                height: 0.0625 * _screenSize.height, //40,
+                width: 0.0625 * _screenSize.height, //40,
+                padding: EdgeInsets.all(
+                  0.019 * _screenSize.width, //7
+                ),
                 child: widget.isEnable
                     ? context.locale.toString() == 'en_US'
                         ? ProfileSvgImages.blueSendToLeftIcon
@@ -67,7 +78,9 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                 }
               },
             ),
-            SizedBox(width: 10),
+            SizedBox(
+              width: 0.027 * _screenSize.width, //10,
+            ),
             Expanded(
               child: TextField(
                 controller: textEditingController,
@@ -78,7 +91,7 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                       widget.isEnable ? widget.hintText : widget.disableText,
                   hintStyle: TextStyle(
                     fontFamily: 'IRANSansLight',
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                   ),
                 ),
               ),

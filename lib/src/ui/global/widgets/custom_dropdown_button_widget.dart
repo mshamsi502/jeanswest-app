@@ -12,6 +12,7 @@ import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 
 class CustomDropdownButtonWidget extends StatefulWidget {
   final String title;
+  final String hintTitle;
   final MediaQueryData mediaQuery;
   final List<String> options;
   final Function(String) selected;
@@ -22,6 +23,7 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     this.options,
     this.mediaQuery,
     this.selected,
+    this.hintTitle,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomDropdownButtonWidgetState();
 }
@@ -34,21 +36,25 @@ class _CustomDropdownButtonWidgetState
   List<DropdownMenuItem<String>> _dropdownMenuItems;
   //
   double widthDropdown;
-  Orientation myOrientation;
+  // Orientation myOrientation;
   //
   @override
   void initState() {
-    heightTextField = 20;
-    heightTitle = 60;
+    heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
+    heightTitle = 0.0937 * widget.mediaQuery.size.height; // 60;
     widthDropdown = widget.mediaQuery.size.width;
-    _dropdownMenuItems = buildDropdownMenuItems(widget.options, widthDropdown);
-    myOrientation = widget.mediaQuery.orientation;
+    _dropdownMenuItems = buildDropdownMenuItems(
+      widget.options,
+      widthDropdown,
+      widget.mediaQuery.size,
+    );
+    // myOrientation = widget.mediaQuery.orientation;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    orientationDeviceListener();
+    // orientationDeviceListener();
     return Container(
       width: widthDropdown,
       height: heightTextField + heightTitle,
@@ -56,68 +62,84 @@ class _CustomDropdownButtonWidgetState
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: heightTitle - 35,
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            height: heightTitle - 0.054 * widget.mediaQuery.size.height, //30
+            width: widget.mediaQuery.size.width -
+                (0.19 * widget.mediaQuery.size.width), //70,
             child: Text(
               widget.title,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 14,
+                fontSize: 0.038 * widget.mediaQuery.size.width, // 14,
                 color: MAIN_BLUE_COLOR,
               ),
             ),
           ),
           SizedBox(
-            height: 5,
+            height: 0.0078 * widget.mediaQuery.size.height, //5
           ),
-          Container(
-            // width: widthDropdown,
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              color: Color(0xfff2f2f2),
-              // color: Colors.blueAccent,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    child: DropdownButton(
-                      value: dropdownValue,
-                      hint: Text(
-                        "انتخاب دپارتمان ...",
-                        style: TextStyle(
-                          fontFamily: 'IRANSans',
+          Expanded(
+            child: Container(
+              // width: widthDropdown,
+              margin: EdgeInsets.symmetric(
+                horizontal: 0.0275 * widget.mediaQuery.size.width, // 10,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.055 * widget.mediaQuery.size.width, // 20,
+              ),
+              decoration: BoxDecoration(
+                color: Color(0xfff2f2f2),
+                // color: Colors.blueAccent,
+                borderRadius: BorderRadius.circular(
+                  0.0078 * widget.mediaQuery.size.height, //5
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: DropdownButton(
+                        value: dropdownValue,
+                        hint: Text(
+                          widget.hintTitle,
+                          style: TextStyle(
+                            fontFamily: 'IRANSans',
+                            fontSize:
+                                0.033 * widget.mediaQuery.size.width, // 12,
+                          ),
                         ),
-                      ),
-                      underline: Container(),
-                      icon: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            GlobalSvgImages.svgArrowBottom,
-                          ],
+                        underline: Container(),
+                        icon: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                  height:
+                                      0.042 * widget.mediaQuery.size.width, //15
+                                  width:
+                                      0.042 * widget.mediaQuery.size.width, //15
+                                  child: GlobalSvgImages.svgArrowBottom),
+                            ],
+                          ),
                         ),
+                        iconSize: 0.0234 * widget.mediaQuery.size.height, //15
+                        elevation: (0.025 * widget.mediaQuery.size.height)
+                            .round(), //16
+                        style: TextStyle(color: Colors.black),
+                        onChanged: (String newValue) {
+                          FocusScope.of(context).unfocus();
+                          setState(() {
+                            dropdownValue = newValue;
+                            widget.selected(dropdownValue);
+                          });
+                        },
+                        items: _dropdownMenuItems,
+                        // items: null,
                       ),
-                      iconSize: 15,
-                      elevation: 16,
-                      style: TextStyle(color: Colors.black),
-                      onChanged: (String newValue) {
-                        FocusScope.of(context).unfocus();
-                        setState(() {
-                          dropdownValue = newValue;
-                          widget.selected(dropdownValue);
-                        });
-                      },
-                      // onChanged: null,
-                      items: _dropdownMenuItems,
-                      // items: null,
                     ),
                   ),
-                ),
-                // GlobalSvgImages.svgArrowBottom,
-              ],
+                ],
+              ),
             ),
           ),
         ],
@@ -125,25 +147,25 @@ class _CustomDropdownButtonWidgetState
     );
   }
 
-  /// => this method listen to change [Orientation] ([portrait] or [landscape]) device
-  /// and update [width] of [screenSize] and [widthDropdown]
-  void orientationDeviceListener() {
-    if (MediaQuery.of(context).orientation != myOrientation) {
-      if (MediaQuery.of(context).orientation == Orientation.portrait) {
-        setState(() {
-          widthDropdown = widget.mediaQuery.size.width;
-          myOrientation = Orientation.portrait;
-          print('Orientation.portrait : widthDropdown = $widthDropdown');
-        });
-      } else {
-        setState(() {
-          widthDropdown = widget.mediaQuery.size.width;
-          myOrientation = Orientation.landscape;
-          print('Orientation.landscape : widthDropdown = $widthDropdown');
-        });
-      }
-      _dropdownMenuItems =
-          buildDropdownMenuItems(widget.options, widthDropdown);
-    }
-  }
+  // /// => this method listen to change [Orientation] ([portrait] or [landscape]) device
+  // /// and update [width] of [screenSize] and [widthDropdown]
+  // void orientationDeviceListener() {
+  //   if (MediaQuery.of(context).orientation != myOrientation) {
+  //     if (MediaQuery.of(context).orientation == Orientation.portrait) {
+  //       setState(() {
+  //         widthDropdown = widget.mediaQuery.size.width;
+  //         myOrientation = Orientation.portrait;
+  //         print('Orientation.portrait : widthDropdown = $widthDropdown');
+  //       });
+  //     } else {
+  //       setState(() {
+  //         widthDropdown = widget.mediaQuery.size.width;
+  //         myOrientation = Orientation.landscape;
+  //         print('Orientation.landscape : widthDropdown = $widthDropdown');
+  //       });
+  //     }
+  //     _dropdownMenuItems =
+  //         buildDropdownMenuItems(widget.options, widthDropdown);
+  //   }
+  // }
 }

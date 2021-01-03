@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
 
-import 'file:///D:/MyProjects/%23AvaKatan/mobile_jeanswest_app_android/lib/src/constants/global/size_constants.dart';
-
 class BottomNavigationBarWidget extends StatefulWidget {
   final int selectedIndex;
   final Function(int) updateProp;
@@ -27,19 +25,27 @@ class BottomNavigationBarWidget extends StatefulWidget {
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return SizedBox(
-      height: BOTTOM_NAVIGATION_BAR_HEIGHT,
+      // height: BOTTOM_NAVIGATION_BAR_HEIGHT,
+      height: 0.09 * _screenSize.height, // 58,
       child: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
         selectedItemColor: MAIN_BLUE_COLOR,
-        selectedFontSize: 13,
-        unselectedFontSize: 11,
+        selectedFontSize: 0.02 * _screenSize.height, //13,
+        unselectedFontSize: 0.017 * _screenSize.height, //11,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: widget.selectedIndex == 0
-                ? BottomNavigationBarSvgImages.enableHomeIcon
-                : BottomNavigationBarSvgImages.disableHomeIcon,
+                ? SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child: BottomNavigationBarSvgImages.enableHomeIcon)
+                : SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child: BottomNavigationBarSvgImages.disableHomeIcon),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.home".tr(),
@@ -47,8 +53,14 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           ),
           BottomNavigationBarItem(
             icon: widget.selectedIndex == 1
-                ? BottomNavigationBarSvgImages.enableBranchIcon
-                : BottomNavigationBarSvgImages.disableBranchIcon,
+                ? SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child: BottomNavigationBarSvgImages.enableBranchIcon)
+                : SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child: BottomNavigationBarSvgImages.disableBranchIcon),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.branches".tr(),
@@ -58,7 +70,9 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             icon: Icon(
               Icons.store_mall_directory_outlined,
               color: widget.selectedIndex == 2 ? MAIN_BLUE_COLOR : Colors.grey,
-              size: widget.selectedIndex == 2 ? 23 : 20,
+              size: widget.selectedIndex == 2
+                  ? 0.035 * _screenSize.height //23
+                  : 0.031 * _screenSize.height, //20,
             ),
             // widget.selectedIndex == 2
             //     ? BottomNavigationBarSvgImages.enableBranchIcon
@@ -70,8 +84,16 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           ),
           BottomNavigationBarItem(
             icon: widget.selectedIndex == 3
-                ? BottomNavigationBarSvgImages.enableShoppingBasketIcon
-                : BottomNavigationBarSvgImages.disableShoppingBasketIcon,
+                ? SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child:
+                        BottomNavigationBarSvgImages.enableShoppingBasketIcon)
+                : SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child:
+                        BottomNavigationBarSvgImages.disableShoppingBasketIcon),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.shopping_basket".tr(),
@@ -79,8 +101,14 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           ),
           BottomNavigationBarItem(
             icon: widget.selectedIndex == 4
-                ? BottomNavigationBarSvgImages.enableProfileIcon
-                : BottomNavigationBarSvgImages.disableProfileIcon,
+                ? SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child: BottomNavigationBarSvgImages.enableProfileIcon)
+                : SizedBox(
+                    width: 0.035 * _screenSize.height, //23,
+                    height: 0.035 * _screenSize.height, //23,
+                    child: BottomNavigationBarSvgImages.disableProfileIcon),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.profile".tr(),

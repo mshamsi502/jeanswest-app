@@ -18,7 +18,8 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    print(_screenSize.width);
+    print('width : ${_screenSize.width}');
+    print('height : ${_screenSize.height}');
     return Container(
       width: _screenSize.width,
       child: Stack(

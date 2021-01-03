@@ -53,22 +53,30 @@ void addNewMessageInTicket(int numberOfTicket, String text) {
 }
 
 List<DropdownMenuItem<String>> buildDropdownMenuItems(
-    List<String> options, double myWidth) {
+    List<String> options, double myWidth, Size _screenSize) {
   List<DropdownMenuItem<String>> items = new List<DropdownMenuItem<String>>();
   for (String string in options) {
     items.add(DropdownMenuItem(
       value: string,
       child: Container(
-        width: myWidth - 130,
-        child: Row(
+        width: myWidth - (0.36 * _screenSize.width), //130,
+        height: 0.054 * _screenSize.height, // 30,
+        // color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-                child: Text(
-              string,
-              style: TextStyle(
-                fontFamily: 'IRANSans',
-              ),
-            )),
+            Row(
+              children: [
+                Expanded(
+                    child: Text(
+                  string,
+                  style: TextStyle(
+                    fontFamily: 'IRANSans',
+                    fontSize: 0.033 * _screenSize.width, // 12,
+                  ),
+                )),
+              ],
+            ),
           ],
         ),
       ),

@@ -51,7 +51,7 @@ class _SupportPageState extends State<SupportPage>
             child: SlidingUpPanel(
               controller: panelController,
               minHeight: 0,
-              maxHeight: 450,
+              maxHeight: 0.7 * _screenSize.height, //450,
               backdropEnabled: true,
               backdropTapClosesPanel: true,
               borderRadius: BorderRadius.only(
@@ -65,32 +65,36 @@ class _SupportPageState extends State<SupportPage>
                   });
                 },
                 closePanel: () => panelController.close(),
-                screenSize: _screenSize,
               ),
               body: Container(
                 width: _screenSize.width,
                 height: _screenSize.height,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(
+                    horizontal: 0.027 * _screenSize.width //10
+                    ),
                 child: Column(
                   children: [
                     AppBarWithCloseWidget(
                       title: 'پشتیبانی',
                       closeOnTap: () => Navigator.pop(context),
                     ),
-                    TabBar(
-                      controller: tabController,
-                      labelColor: MAIN_BLUE_COLOR,
-                      indicatorColor: MAIN_BLUE_COLOR,
-                      labelStyle: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'IRANSans'),
-                      indicatorWeight: 1.5,
-                      tabs: <Widget>[
-                        Tab(text: 'سوالات متداول'),
-                        Tab(text: 'پیام به پشتیبانی'),
-                        Tab(text: 'تماس با ما'),
-                      ],
+                    Container(
+                      height: 0.0625 * _screenSize.height, //40,
+                      child: TabBar(
+                        controller: tabController,
+                        labelColor: MAIN_BLUE_COLOR,
+                        indicatorColor: MAIN_BLUE_COLOR,
+                        labelStyle: TextStyle(
+                            fontSize: 0.034 * _screenSize.width, //12,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'IRANSans'),
+                        indicatorWeight: 0.0023 * _screenSize.height, //1.5,
+                        tabs: <Widget>[
+                          Tab(text: 'سوالات متداول'),
+                          Tab(text: 'پیام به پشتیبانی'),
+                          Tab(text: 'تماس با ما'),
+                        ],
+                      ),
                     ),
                     Expanded(
                       child: TabBarView(
