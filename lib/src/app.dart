@@ -1,3 +1,8 @@
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
+
 import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -71,7 +76,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       home: isSplash
           ? LoadingPage(
               text: 'بارگذاری',
-              widthText: 0.22, //80,
+              widthText: 0.22, //0.22 * _screenSize.width , 80,
               milliSecond: 3000,
               closeLoading: () {
                 setState(() {

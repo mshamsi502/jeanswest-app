@@ -1,8 +1,7 @@
-// // Project: JeansWest App
-// // Created by: Koorosh Karimnia
-// // Email: KooroshKarimnia@gmail.com
-// // Date: 2020-09-13
-// // Time: 11:56 AM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 //
 // import 'package:avakatan_profile/src/models/coupon/coupon.dart';
 // import 'package:avakatan_profile/src/models/order/exact_time_order.dart';

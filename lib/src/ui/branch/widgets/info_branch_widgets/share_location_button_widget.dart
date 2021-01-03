@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'dart:io';
 

@@ -1,9 +1,7 @@
-// Created By : Mohammad Shamsi
-// Email : mshamsi502@gmail.com
-// --------------------------------
-// Project Name : avakatan_branches
-// Create Date : 2020-10-03
-// Create Time : 10:44 AM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
