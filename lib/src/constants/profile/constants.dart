@@ -5,8 +5,9 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import 'file:///D:/MyProjects/%23AvaKatan/mobile_jeanswest_app_android/lib/src/ui/profile/screens/more_menu_list/support_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 
 import 'svg_images/profile_svg_images.dart';
 //
@@ -94,8 +95,8 @@ List<Widget> moreListIcons = [
 List<Widget> moreListWidgets = [
   // Container(),
   SupportPage(),
-  Container(),
-  // AboutUsScreen(),
-  Container(),
-  // ReturnProcedureScreen(),
+  // Container(),
+  AboutUsPage(),
+  // Container(),
+  ReturnProcessPage(),
 ];

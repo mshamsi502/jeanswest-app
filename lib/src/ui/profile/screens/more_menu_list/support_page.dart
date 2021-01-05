@@ -102,15 +102,15 @@ class _SupportPageState extends State<SupportPage>
                         children: <Widget>[
                           QuestionsWidget(
                               headerAsset:
-                                  'assets/images/png_images/profile/support_header.png'),
+                                  'assets/images/png_images/profile/more/support_header.png'),
                           MainTicketWidget(
                             openNewTicketPanel: () => panelController.open(),
                             headerAsset:
-                                'assets/images/png_images/profile/support_header.png',
+                                'assets/images/png_images/profile/more/support_header.png',
                           ),
                           ContactUsWidget(
                               headerAsset:
-                                  'assets/images/png_images/profile/support_header.png'),
+                                  'assets/images/png_images/profile/more/support_header.png'),
                         ],
                       ),
                     ),

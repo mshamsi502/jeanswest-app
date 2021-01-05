@@ -81,10 +81,10 @@ class _CustomDropdownButtonWidgetState
             child: Container(
               // width: widthDropdown,
               margin: EdgeInsets.symmetric(
-                horizontal: 0.0275 * widget.mediaQuery.size.width, // 10,
+                horizontal: 0.025 * widget.mediaQuery.size.width, // 10,
               ),
               padding: EdgeInsets.symmetric(
-                horizontal: 0.055 * widget.mediaQuery.size.width, // 20,
+                horizontal: 0.053 * widget.mediaQuery.size.width, // 20,
               ),
               decoration: BoxDecoration(
                 color: Color(0xfff2f2f2),
@@ -146,26 +146,4 @@ class _CustomDropdownButtonWidgetState
       ),
     );
   }
-
-  // /// => this method listen to change [Orientation] ([portrait] or [landscape]) device
-  // /// and update [width] of [screenSize] and [widthDropdown]
-  // void orientationDeviceListener() {
-  //   if (MediaQuery.of(context).orientation != myOrientation) {
-  //     if (MediaQuery.of(context).orientation == Orientation.portrait) {
-  //       setState(() {
-  //         widthDropdown = widget.mediaQuery.size.width;
-  //         myOrientation = Orientation.portrait;
-  //         print('Orientation.portrait : widthDropdown = $widthDropdown');
-  //       });
-  //     } else {
-  //       setState(() {
-  //         widthDropdown = widget.mediaQuery.size.width;
-  //         myOrientation = Orientation.landscape;
-  //         print('Orientation.landscape : widthDropdown = $widthDropdown');
-  //       });
-  //     }
-  //     _dropdownMenuItems =
-  //         buildDropdownMenuItems(widget.options, widthDropdown);
-  //   }
-  // }
 }
