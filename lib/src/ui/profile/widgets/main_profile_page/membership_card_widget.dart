@@ -45,7 +45,6 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
       child: CarouselSlider(
         options: CarouselOptions(
           height: 0.33 * _screenSize.width, // 120
-          // aspectRatio: 16 / 9,
           viewportFraction: 0.5,
           initialPage: 0,
           enableInfiniteScroll: true,
@@ -63,7 +62,6 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
                 alignment: Alignment.topCenter,
                 height: 0.33 * _screenSize.width, // 120
                 decoration: BoxDecoration(
-                  // color: Colors.red,
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     fit: BoxFit.contain,
