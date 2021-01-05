@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,23 +28,29 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-            backgroundColor: MAIN_GOLD_COLOR,
-            // mini: true,
-            child: Container(
-              padding: EdgeInsets.all(1),
-              child: GlobalSvgImages.editIconForLeft,
-              height: 25,
-              width: 25,
+        floatingActionButton: GestureDetector(
+          child: Container(
+            height: 0.14 * _screenSize.width, //55
+            width: 0.14 * _screenSize.width, //55
+            decoration: BoxDecoration(
+              color: MAIN_GOLD_COLOR,
+              borderRadius: BorderRadius.circular(
+                0.14 * _screenSize.width, // 50
+              ),
             ),
-            onPressed: () => widget.openNewTicketPanel()),
+            padding: EdgeInsets.all(
+              0.023 * _screenSize.height, //15
+            ),
+            child: GlobalSvgImages.editIconForLeft,
+          ),
+          onTap: () => widget.openNewTicketPanel(),
+        ),
         body: SingleChildScrollView(
           controller: scrollController,
           child: Column(
             children: [
-              SizedBox(height: 10),
               Container(
-                height: 200,
+                height: 0.3125 * _screenSize.height, //200
                 width: _screenSize.width,
                 decoration: BoxDecoration(
                   // color: Colors.red,
@@ -54,7 +60,9 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(
+                height: 0.015 * _screenSize.height, //10
+              ),
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: userTickets.length,
@@ -62,13 +70,20 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     child: Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                      padding: EdgeInsets.all(
+                        0.015 * _screenSize.height, //10
+                      ),
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 0.027 * _screenSize.width, //10
+                        vertical: 0.011 * _screenSize.height, //7
+                      ),
                       width: _screenSize.width,
                       // height: 60,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(
+                          0.015 * _screenSize.height, //10
+                        ),
                         border: Border.all(
                           color: Colors.grey[200],
                         ),
@@ -81,9 +96,13 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                 )
                               : BoxShadow(
                                   spreadRadius: 0.8,
-                                  blurRadius: 4,
+                                  blurRadius: 0.00625 * _screenSize.height, //10
                                   color: Colors.grey[300],
-                                  offset: Offset(5, 5),
+                                  offset: Offset(
+                                    0.0078 * _screenSize.height, //5
+
+                                    0.0078 * _screenSize.height, //5
+                                  ),
                                 )
                         ],
                       ),
@@ -96,14 +115,14 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 20,
-                                      height: 20,
+                                      width: 0.055 * _screenSize.width, //20
+                                      height: 0.055 * _screenSize.width, //20
                                       padding: EdgeInsets.all(userTickets[
                                                   userTickets.length -
                                                       1 -
                                                       index]
                                               .isClosed
-                                          ? 2.5
+                                          ? 0.0069 * _screenSize.width //2.5
                                           : 0),
                                       child: userTickets[userTickets.length -
                                                   1 -
@@ -112,14 +131,17 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                           ? GlobalSvgImages.greenTickIcon
                                           : GlobalSvgImages.loadingIcon,
                                     ),
-                                    SizedBox(width: 5),
+                                    SizedBox(
+                                      width: 0.0078 * _screenSize.height, //5
+                                    ),
                                     Expanded(
                                       child: Text(
                                         userTickets[
                                                 userTickets.length - 1 - index]
                                             .title,
                                         style: TextStyle(
-                                          fontSize: 11,
+                                          fontSize:
+                                              0.03 * _screenSize.width, //11,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -129,10 +151,13 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                 Row(
                                   children: [
                                     Container(
-                                      width: 15,
-                                      height: 15,
+                                      width: 0.023 * _screenSize.height, //15
+
+                                      height: 0.023 * _screenSize.height, //15
                                     ),
-                                    SizedBox(width: 5),
+                                    SizedBox(
+                                      width: 0.0078 * _screenSize.height, //5
+                                    ),
                                     Expanded(
                                       child: Text(
                                         userTickets[
@@ -146,7 +171,8 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                                 1]
                                             .text,
                                         style: TextStyle(
-                                          fontSize: 9,
+                                          fontSize:
+                                              0.025 * _screenSize.width, //9
                                           color: Colors.grey,
                                           fontWeight: FontWeight.w300,
                                         ),
@@ -162,8 +188,8 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                           ),
                           Container(
                             alignment: Alignment.topLeft,
-                            width: 30,
-                            height: 15,
+                            width: 0.046 * _screenSize.height, //30
+                            height: 0.023 * _screenSize.height, //15
                             // color: Colors.red,
                             child: GlobalSvgImages.leftIcon,
                           ),

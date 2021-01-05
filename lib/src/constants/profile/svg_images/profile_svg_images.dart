@@ -1,6 +1,6 @@
-// *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
-// *   Project Name :  avakatan_branches
-// *   Created Date & Time :  2020-10-12  ,  06:49 PM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
 import 'package:flutter/material.dart';
@@ -107,8 +107,8 @@ class ProfileSvgImages {
   static Widget horMoreIcon = SvgPicture.asset(
     'assets/images/svg_images/global/hor_more_icon.svg',
     color: MAIN_BLUE_COLOR,
-    width: 10,
-    height: 10,
+    // width: 10,
+    // height: 10,
   );
 
   static Widget pointerIcon = SvgPicture.asset(

@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.da
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 
 class SendNewTicketWidget extends StatefulWidget {
-  final Size screenSize;
   final Function() closePanel;
   final Function(String, String, String) sendMessage;
 
@@ -21,7 +20,6 @@ class SendNewTicketWidget extends StatefulWidget {
     Key key,
     this.closePanel,
     this.sendMessage,
-    this.screenSize,
   }) : super(key: key);
   State<StatefulWidget> createState() => _SendNewTicketWidgetState();
 }
@@ -46,21 +44,31 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      width: widget.screenSize.width,
+      width: _screenSize.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(
+          0.042 * _screenSize.width, //15
+        ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: 0.039 * _screenSize.height, //25
+        vertical: 0.015 * _screenSize.height, //10
+      ),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('ارسال پیام'),
+              Text(
+                'ارسال پیام',
+                style: TextStyle(
+                  fontSize: 0.042 * _screenSize.width, //15
+                ),
+              ),
               GestureDetector(
                   child: Container(
-                    width: 30,
-                    height: 30,
+                    width: 0.083 * _screenSize.width, //25
+                    height: 0.083 * _screenSize.width, //10
                     child: GlobalSvgImages.closeIcon,
                   ),
                   onTap: () {
@@ -69,11 +77,15 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                   }),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10
+          ),
           Container(
-            height:
-                // 300,
-                450 > _screenSize.height ? _screenSize.height - 150 : 330,
+            height: 0.7 * _screenSize.height //450
+                    >
+                    _screenSize.height
+                ? _screenSize.height - 0.023 * _screenSize.height //450
+                : 0.52 * _screenSize.height, //330,
             child: Row(
               children: [
                 Expanded(
@@ -83,20 +95,27 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                       children: [
                         CustomDropdownButtonWidget(
                             title: 'دپارتمان',
+                            hintTitle: "انتخاب دپارتمان ...",
                             options: departments,
                             mediaQuery: MediaQuery.of(context),
                             selected: (String department) => setState(() {
                                   selectedDep = department;
                                 })),
-                        SizedBox(height: 10),
+                        SizedBox(
+                          height: 0.015 * _screenSize.height, //10
+                        ),
                         CustomTextFieldWidget(
                           title: 'عنوان',
                           textEditingController: titleEditingController,
+                          screenSize: _screenSize,
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(
+                          height: 0.015 * _screenSize.height, //10
+                        ),
                         CustomTextFieldWidget(
                           title: 'متن',
                           textEditingController: textEditingController,
+                          screenSize: _screenSize,
                           lines: 4,
                         ),
                       ],
@@ -106,16 +125,18 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10
+          ),
           AvakatanButtonWidget(
             title: 'ثبت پیام',
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
             borderColor: MAIN_BLUE_COLOR,
-            height: 40,
-            width: widget.screenSize.width - 70,
+            height: 0.0625 * _screenSize.height, //40,
+            width: _screenSize.width - 0.19 * _screenSize.width, //70,
             radius: 4,
-            fontSize: 15,
+            fontSize: 0.042 * _screenSize.width, //15
             onTap: () async {
               if (selectedDep != null) {
                 widget.sendMessage(selectedDep, titleEditingController.text,

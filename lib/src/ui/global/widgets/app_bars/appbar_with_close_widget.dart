@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'dart:ui';
 
@@ -25,12 +25,14 @@ class AppBarWithCloseWidget extends StatefulWidget {
 }
 
 class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
-  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
-      height: heightBar,
+      height: 0.0625 * _screenSize.height, //40,
+      padding:
+          EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10)
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -38,14 +40,16 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
             widget.title,
             style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 17,
+                fontSize: 0.042 * _screenSize.width, //15,
                 color: MAIN_BLUE_COLOR),
+            overflow: TextOverflow.ellipsis,
           ),
           GestureDetector(
             child: Container(
-              height: heightBar,
-              width: heightBar,
-              padding: EdgeInsets.all(5),
+              height: 0.0625 * _screenSize.height, //40,
+              width: 0.0625 * _screenSize.height, //40,
+              padding: EdgeInsets.all(0.0078 * _screenSize.height //5
+                  ),
               child: GlobalSvgImages.closeIcon,
             ),
             onTap: () {

@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,12 +38,13 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       color: Colors.white,
       child: CarouselSlider(
         options: CarouselOptions(
-          height: 120,
+          height: 0.33 * _screenSize.width, // 120
           viewportFraction: 0.5,
           initialPage: 0,
           enableInfiniteScroll: true,
@@ -59,7 +60,7 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
             builder: (BuildContext context) {
               return Container(
                 alignment: Alignment.topCenter,
-                height: 120,
+                height: 0.33 * _screenSize.width, // 120
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(

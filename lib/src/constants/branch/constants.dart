@@ -1,14 +1,11 @@
-// // Project: JeansWest App
-// // Created by: Koorosh Karimnia
-// // Email: KooroshKarimnia@gmail.com
-// // Date: 2020-09-13
-// // Time: 11:56 AM
-//
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
+
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/branch/widgets/google_map_widget.dart';
 
-//
-// //
 // ignore: deprecated_member_use
 List<Branch> localBranches = new List<Branch>();
 //

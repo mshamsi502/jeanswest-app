@@ -1,13 +1,7 @@
-// *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
-// *   Project Name :  avakatan_profile
-// *   Created Date & Time :  2020-11-15  ,  03:05 PM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
-
-// Project: avakatan_list_country_code App
-// Created by: Koorosh Karimnia
-// Email: KooroshKarimnia@gmail.com
-// Date: 2020-09-27
-// Time: 10:06 AM
 
 class CountriesCodeList {
   static const ALL_COUNTRY_LIST = const {

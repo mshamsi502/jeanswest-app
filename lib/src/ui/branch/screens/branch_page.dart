@@ -1,6 +1,6 @@
-// *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
-// *   Project Name :  avakatan_branches
-// *   Created Date & Time :  2020-10-11  ,  12:33 PM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
 import 'package:dio/dio.dart';
@@ -101,7 +101,7 @@ class _BranchPageState extends State<BranchPage>
         } else if (branchAddressesScreenState is BranchAddressesScreenLoading) {
           return LoadingPage(
             text: 'لطفا تا بارگذاری کامل نقشه منتظر بمانید',
-            widthText: 270,
+            widthText: 0.75,
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
           return SlidingUpPanel(

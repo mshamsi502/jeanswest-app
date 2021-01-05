@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +33,8 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 10),
             Container(
-              height: 200,
+              height: 0.3125 * _screenSize.height, //200
               width: _screenSize.width,
               decoration: BoxDecoration(
                 // color: Colors.red,
@@ -45,75 +44,88 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 0.015 * _screenSize.height, //10
+            ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              padding: EdgeInsets.symmetric(
+                vertical: 0.03125 * _screenSize.height, //20
+                horizontal: 0.027 * _screenSize.width, //10
+              ),
               decoration: BoxDecoration(
                 color: F2_BACKGROUND_COLOR,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(
+                  0.023 * _screenSize.height, //15
+                ),
               ),
               child: Column(
                 children: [
                   Row(
                     children: [
                       SizedBox(
-                        width: 10,
+                        width: 0.027 * _screenSize.width, //10
                       ),
                       Icon(
                         Icons.phone,
                         color: MAIN_BLUE_COLOR,
-                        size: 15,
+                        size: 0.023 * _screenSize.height, //15
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 0.014 * _screenSize.width, //5
                       ),
                       Text(
                         '02191070544',
-                        style: TextStyle(fontSize: 12, color: MAIN_BLUE_COLOR),
+                        style: TextStyle(
+                            fontSize: 0.033 * _screenSize.width, //12
+                            color: MAIN_BLUE_COLOR),
                       )
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 0.015 * _screenSize.height, //10
                   ),
                   Row(
                     children: [
                       SizedBox(
-                        width: 10,
+                        width: 0.027 * _screenSize.width, //10
                       ),
                       Icon(
                         Icons.email_outlined,
                         color: MAIN_BLUE_COLOR,
-                        size: 15,
+                        size: 0.023 * _screenSize.height, //15
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 0.014 * _screenSize.width, //5
                       ),
                       Text(
                         'info@banimode.com',
-                        style: TextStyle(fontSize: 12, color: MAIN_BLUE_COLOR),
+                        style: TextStyle(
+                            fontSize: 0.033 * _screenSize.width, //12,
+                            color: MAIN_BLUE_COLOR),
                       )
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 0.015 * _screenSize.height, //10
                   ),
                   Row(
                     children: [
                       SizedBox(
-                        width: 10,
+                        width: 0.027 * _screenSize.width, //10
                       ),
                       Icon(
                         Icons.apartment_outlined,
                         color: Colors.black,
-                        size: 15,
+                        size: 0.023 * _screenSize.height, //15
                       ),
                       SizedBox(
-                        width: 5,
+                        width: 0.014 * _screenSize.width, //5
                       ),
                       Text(
                         '1475614566',
-                        style: TextStyle(fontSize: 12, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 0.033 * _screenSize.width, //12,
+                            color: Colors.black),
                       )
                     ],
                   ),
@@ -121,7 +133,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               ),
             ),
             Container(
-              height: 180,
+              height: 0.28 * _screenSize.height, //180,
               width: _screenSize.width,
               decoration: BoxDecoration(
                 // color: Colors.red,
@@ -133,33 +145,37 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               ),
             ),
             Divider(
-              height: 0.5,
-              thickness: 0.5,
+              height: 0.00138 * _screenSize.height, //0.5,
+              thickness: 0.00138 * _screenSize.height, //0.5,
               color: Colors.grey,
             ),
             SizedBox(
-              height: 10,
+              height: 0.015 * _screenSize.height, //10
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GlobalSvgImages.greyTimeIcon,
                 SizedBox(
-                  width: 5,
+                  height: 0.033 * _screenSize.width, //12
+                  width: 0.033 * _screenSize.width, //12
+                  child: GlobalSvgImages.greyTimeIcon,
+                ),
+                SizedBox(
+                  width: 0.014 * _screenSize.width, //5
                 ),
                 Expanded(
                   child: Text(
                     'میزبان صدای گرمتان هستیم... 7 روز هفته 24 ساعته',
                     style: TextStyle(
                         color: Colors.grey,
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10
                         fontWeight: FontWeight.w400),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 15,
+              height: 0.023 * _screenSize.height, //15
             ),
           ],
         ),

@@ -1,6 +1,6 @@
-// *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
-// *   Project Name :  avakatan_profile
-// *   Created Date & Time :  2020-10-24  ,  09:29 AM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';

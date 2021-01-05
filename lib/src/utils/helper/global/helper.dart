@@ -1,7 +1,7 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    5th October - 05/10/2020     _     14:32:15
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -113,4 +113,21 @@ showToast(String message, FToast fToast) {
 
 bool checkFreeSend(String sendPrice) {
   return (sendPrice == null || sendPrice == '' || sendPrice == 'ریگان');
+}
+
+/// => this method listen to change [Orientation] ([portrait] or [landscape]) device
+/// and update [width] of [screenSize] and [widthDropdown]
+Orientation orientationDeviceListener(
+    BuildContext context, Orientation myOrientation) {
+  Orientation newOrientation;
+  if (MediaQuery.of(context).orientation != myOrientation) {
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      print('####  Orientation change to :  portrait');
+      newOrientation = Orientation.portrait;
+    } else {
+      print('####  Orientation change to :  portrait');
+      newOrientation = Orientation.portrait;
+    }
+  }
+  return newOrientation;
 }

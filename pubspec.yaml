@@ -55,6 +55,7 @@ dependencies:
   dotted_border: ^1.0.7
   fdottedline: ^1.0.1
   carousel_slider: ^2.3.1
+  configurable_expansion_tile: ^1.0.0
 #----------------Map-----------------
   google_maps_flutter: ^0.5.32
   location: ^3.0.2

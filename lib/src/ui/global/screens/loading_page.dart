@@ -1,6 +1,6 @@
-// *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
-// *   Project Name :  avakatan_branches
-// *   Created Date & Time :  2020-10-11  ,  12:35 PM
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
 import 'package:easy_localization/easy_localization.dart';
@@ -64,6 +64,7 @@ class LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -71,8 +72,13 @@ class LoadingPageState extends State<LoadingPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(
-              backgroundColor: Colors.redAccent,
+            Container(
+              width: 0.09 * _screenSize.width,
+              height: 0.09 * _screenSize.width,
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.redAccent,
+                strokeWidth: 0.008 * _screenSize.width,
+              ),
             ),
             SizedBox(
               height: 20,
@@ -83,11 +89,11 @@ class LoadingPageState extends State<LoadingPage> {
                     alignment: context.locale.toString() == 'fa_IR'
                         ? Alignment.centerRight
                         : Alignment.centerLeft,
-                    width: widget.widthText,
+                    width: widget.widthText * _screenSize.width,
                     child: Text(
                       '${widget.text} $loading',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 0.0416 * _screenSize.width,
                         fontWeight: FontWeight.w500,
                       ),
                     ))

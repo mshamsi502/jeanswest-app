@@ -1,9 +1,8 @@
-//*  Created By:    Mohammad Shamsi        //*  Email:  mshamsi502@gmail.com
-//*  Project Name:  avakatan_branches
-//*  Created on:    7th October - 07/10/2020     _     15:23:37
-//****************************************************************************
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -35,6 +34,7 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
@@ -42,59 +42,76 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
-            Container(
-              color: widget.backgroundColor,
-              // color: Colors.blue,
-              height: 60,
-              child: ListTile(
-                title: Align(
-                  alignment: context.locale.toString() == 'en_US'
-                      ? Alignment(-1.15, -0.2)
-                      : Alignment(1.15, -0.3),
-                  child: Container(
-                    width: 170,
-                    // color: Colors.red,
-                    child: Text(
-                      widget.titles[index],
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        color:
-                            index == 6 ? Color(0xffF51F1F) : Color(0xff323B56),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => widget.widgets[index],
+                  ),
+                );
+              },
+              child: Container(
+                color: widget.backgroundColor,
+                // color: Colors.blue,
+                height: 0.166 * _screenSize.width, //60,
+                child: Row(
+                  children: [
+                    Expanded(flex: 1, child: SizedBox()),
+                    GestureDetector(
+                      child: Container(
+                        // color: Colors.red,
+                        height: 0.069 * _screenSize.width, //25,
+                        width: 0.069 * _screenSize.width, //25,
+                        child: widget.icons[index],
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => widget.widgets[index],
+                          ),
+                        );
+                      },
+                    ),
+                    Expanded(flex: 2, child: SizedBox()),
+                    Container(
+                      // color: Colors.greenAccent,
+                      width: 0.472 * _screenSize.width, //170,
+                      // color: Colors.red,
+                      child: Text(
+                        widget.titles[index],
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          color: index == 6
+                              ? Color(0xffF51F1F)
+                              : Color(0xff323B56),
+                          fontSize: 0.036 * _screenSize.width, //13,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  size: 15,
-                  color: Colors.grey[400],
-                ),
-                leading: Container(
-                  height: 25,
-                  width: 25,
-                  child: widget.icons[index],
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => widget.widgets[index],
+                    Expanded(flex: 10, child: SizedBox()),
+                    Container(
+                      width: 0.041 * _screenSize.width,
+                      // color: Colors.greenAccent,
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 0.041 * _screenSize.width, //15,
+                        color: Colors.grey[400],
+                      ),
                     ),
-                  );
-                },
+                    Expanded(flex: 1, child: SizedBox()),
+                  ],
+                ),
               ),
             ),
             Divider(
               color: Colors.grey,
-              thickness: 0.3,
-              indent: 60,
+              thickness: 0.001 * _screenSize.width, //0.3,
+              indent: 0.166 * _screenSize.width, //60,,
               height: 2,
             ),
-            // SizedBox(
-            //   height: index == widget.titles.length - 1 ? 20 : 0,
-            // ),
           ],
         );
       },
