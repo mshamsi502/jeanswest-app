@@ -46,7 +46,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     scaffoldKey = new GlobalKey();
     fToast = new FToast();
     fToast.init(context);
-    print('aaaa ${fToast.context}');
     showButtonNavigationBar = true;
 
     /// => add Pages of Bottom Navigation Bar to [_children]
