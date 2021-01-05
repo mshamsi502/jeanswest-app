@@ -34,7 +34,6 @@ class BranchAddressesScreenBloc
         // ignore: deprecated_member_use
         localBranches = new List<Branch>();
         // go on for loading
-        // await Future.delayed(Duration(seconds: 2));
         yield BranchAddressesScreenLoading();
 
         // get userCameraPosition and branches

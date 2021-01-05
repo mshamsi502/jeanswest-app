@@ -87,8 +87,6 @@ class _BranchPageState extends State<BranchPage>
             searchedBranches = branches;
           });
         } else if (branchAddressesScreenState is BranchAddressesScreenLoading) {
-          //
-
         } else if (branchAddressesScreenState
             is BranchAddressesScreenFailureForGetBarnches) {
           DioError e = branchAddressesScreenState.dioError;
@@ -167,7 +165,6 @@ class _BranchPageState extends State<BranchPage>
           );
         }
       },
-      // ),
     );
   }
 
@@ -177,12 +174,10 @@ class _BranchPageState extends State<BranchPage>
         changeTextFieldSearch('');
         panelController.animatePanelToPosition(1.0,
             duration: Duration(milliseconds: 500));
-        // panelController.open();
         FocusScope.of(context).requestFocus(inputNode);
       } else {
         panelController.animatePanelToPosition(0.0,
             duration: Duration(milliseconds: 500));
-        // panelController.close();
         if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
       }
     });
