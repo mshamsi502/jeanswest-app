@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
@@ -11,7 +12,7 @@ class BranchListWidget extends StatefulWidget {
   final List<Branch> branches;
   final CameraPosition userCameraPosition;
   final Function(bool) changeBranchListPanelState;
-  final Function(Branch, bool) changeSelectedBranch;
+  final Function(Branch) changeSelectedBranch;
 
   const BranchListWidget(
       {Key key,
@@ -68,23 +69,16 @@ class BranchListWidgetState extends State<BranchListWidget> {
                                   // textDirection: TextDirection.rtl,
                                   style: TextStyle(
                                     fontSize: 15,
-                                    color: Color(0xff2c3d73),
+                                    color: MAIN_BLUE_COLOR,
                                   ),
                                 ),
                                 SizedBox(
                                   width: 10,
                                 ),
                                 AvakatanLabelWidget(
-                                  text: '${(widget.branches[i].distance / 1000).toString().substring(0,
-                                          //
-                                          (widget.branches[i].distance / 1000).toString().substring(0, 2).endsWith('.')
-                                              //
-                                              ? 3 :
-                                              //
-                                              (widget.branches[i].distance / 1000).toString().substring(0, 3).endsWith('.')
-                                                  //
-                                                  ? 4 : 3)} ' +
-                                      "branch_screen.kilometer".tr(),
+                                  text:
+                                      '${(widget.branches[i].distance / 1000).toString().substring(0, (widget.branches[i].distance / 1000).toString().substring(0, 2).endsWith('.') ? 3 : (widget.branches[i].distance / 1000).toString().substring(0, 3).endsWith('.') ? 4 : 3)} ' +
+                                          "branch_screen.kilometer".tr(),
                                   textColor: Color(0xaa2c3d73),
                                   backgroundColor: Color(0x2f2B3E73),
                                 ),
@@ -107,12 +101,11 @@ class BranchListWidgetState extends State<BranchListWidget> {
                             ),
                             Text(
                               widget.branches[i].depAddress,
-                              // widget.branches[i].distanceDesc,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'IRANSansLight',
-                                color: Color(0xff2c3d73),
+                                color: MAIN_BLUE_COLOR,
                               ),
                             )
                           ],
@@ -126,7 +119,7 @@ class BranchListWidgetState extends State<BranchListWidget> {
                   onTap: () {
                     FocusScope.of(context).unfocus();
                     // change selected branch and true is for open info branch panel
-                    widget.changeSelectedBranch(widget.branches[i], true);
+                    widget.changeSelectedBranch(widget.branches[i]);
                     // close Branch-List-Widget Panel
                     widget.changeBranchListPanelState(false);
                   },

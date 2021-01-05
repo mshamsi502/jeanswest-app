@@ -8,7 +8,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class AppBarWithCloseWidget extends StatefulWidget {
@@ -25,12 +25,12 @@ class AppBarWithCloseWidget extends StatefulWidget {
 }
 
 class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
-  @override
+  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: 40,
+      height: heightBar,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -43,8 +43,9 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
           ),
           GestureDetector(
             child: Container(
-              height: 30,
-              width: 30,
+              height: heightBar,
+              width: heightBar,
+              padding: EdgeInsets.all(5),
               child: GlobalSvgImages.closeIcon,
             ),
             onTap: () {

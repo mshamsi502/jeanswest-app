@@ -4,6 +4,7 @@
 //****************************************************************************
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:retrofit/retrofit.dart';
 

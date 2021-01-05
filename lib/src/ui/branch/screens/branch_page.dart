@@ -10,24 +10,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/bloc/branch/events/branch_addresses_screen_event.dart';
+import 'package:jeanswest/src/bloc/branch/events/selected_branch_event.dart';
 import 'package:jeanswest/src/bloc/branch/main/branch_addresses_screen_bloc.dart';
+import 'package:jeanswest/src/bloc/branch/main/selected_branch_bloc.dart';
 import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.dart';
+import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/branch/widgets/branches_list_widget.dart';
 import 'package:jeanswest/src/ui/branch/widgets/branches_map_widget.dart';
 import 'package:jeanswest/src/ui/global/screens/loading_page.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/real_search_appbar_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/show_error_widget.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class BranchPage extends StatefulWidget {
-  final Function(bool) changeShowButtonNavigationBar;
   BranchPage({
     Key key,
     this.title,
-    this.changeShowButtonNavigationBar,
   }) : super(key: key);
   final String title;
 
@@ -38,6 +40,7 @@ class BranchPage extends StatefulWidget {
 class _BranchPageState extends State<BranchPage>
     with AutomaticKeepAliveClientMixin<BranchPage> {
   BranchAddressesScreenBloc _branchAddressesScreenBloc;
+  SelectedBranchBloc _selectedBranchBloc;
   PanelController panelController;
   List<Branch> branches;
   List<Branch> searchedBranches;
@@ -47,13 +50,13 @@ class _BranchPageState extends State<BranchPage>
 
   Branch selectedBranch;
   bool isSelectedBranch;
-  //
 
   @override
   void initState() {
     super.initState();
     _branchAddressesScreenBloc =
         BlocProvider.of<BranchAddressesScreenBloc>(context);
+    _selectedBranchBloc = BlocProvider.of<SelectedBranchBloc>(context);
     _branchAddressesScreenBloc.add(GetBranchAddressListEvent());
     panelController = new PanelController();
     // ignore: deprecated_member_use
@@ -67,33 +70,30 @@ class _BranchPageState extends State<BranchPage>
     userCameraPosition = await updateUserLocation();
   }
 
-  // @override
-  // void dispose() {
-  //   _branchAddressesScreenBloc.close();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     var screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: BlocConsumer<BranchAddressesScreenBloc, BranchAddressesScreenState>(
-          listener: (context, branchAddressesScreenState) {
+
+    return BlocConsumer<BranchAddressesScreenBloc, BranchAddressesScreenState>(
+      listener: (context, branchAddressesScreenState) {
         print('BranchAddressesScreen state change to % ' +
             branchAddressesScreenState.toString() +
             ' %');
         if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
           setState(() {
             branches = branchAddressesScreenState.branches;
+            selectedBranch = getCloserBranch(branches, userCameraPosition);
             searchedBranches = branches;
           });
+        } else if (branchAddressesScreenState is BranchAddressesScreenLoading) {
         } else if (branchAddressesScreenState
             is BranchAddressesScreenFailureForGetBarnches) {
           DioError e = branchAddressesScreenState.dioError;
           printErrorMessage(e);
         }
-      }, builder: (context, branchAddressesScreenState) {
+      },
+      builder: (context, branchAddressesScreenState) {
         if (branchAddressesScreenState is BranchAddressesScreenInitial) {
           return Container(
             color: Colors.white,
@@ -105,16 +105,11 @@ class _BranchPageState extends State<BranchPage>
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
           return SlidingUpPanel(
-              // onPanelClosed: widget.changeShowButtonNavigationBar(true),
-              // onPanelOpened: widget.changeShowButtonNavigationBar(false),
               controller: panelController,
               minHeight: 0,
               maxHeight: screenSize.height,
               backdropEnabled: true,
-              panel:
-                  // SafeArea(
-                  //   child:
-                  Column(
+              panel: Column(
                 children: [
                   RealSearchAppBarWidget(
                     title: '${"branch_screen.branches_list".tr()} ...',
@@ -131,43 +126,45 @@ class _BranchPageState extends State<BranchPage>
                   ),
                 ],
               ),
-              // ),
               body: Column(children: [
                 SearchAppBarWidget(
                   title: "branch_screen.branches_list".tr(),
                   changeBranchListPanelState: changeBranchListPanelState,
                 ),
-                BranchesMapWidget(
-                  branches: branchAddressesScreenState.branches,
-                  selectedBranch: selectedBranch,
-                  isSelectedBranch: isSelectedBranch,
-                )
+                Expanded(
+                  child: BranchesMapWidget(
+                    branches: branchAddressesScreenState.branches,
+                    selectedBranch: selectedBranch,
+                    isSelectedBranch: isSelectedBranch,
+                  ),
+                ),
+                SizedBox(height: BOTTOM_NAVIGATION_BAR_HEIGHT + 20),
               ]));
         } else if (branchAddressesScreenState
-            is BranchAddressesScreenFailureForCreateMap) {
-          return Container(
-            color: Colors.white,
-            child: Center(
-              child: Text('Create Map Faild :(('),
-            ),
+            is BranchAddressesScreenFailureForGetBarnches) {
+          return ShowErrorWidget(
+            errorMsg: branchAddressesScreenState.dioError.response.data,
+            tryAgainText: 'تلاش دوباره',
+            function: () =>
+                _branchAddressesScreenBloc.add(GetBranchAddressListEvent()),
           );
         } else if (branchAddressesScreenState
-            is BranchAddressesScreenFailureForGetBarnches) {
-          return Container(
-            color: Colors.white,
-            child: Center(
-              child: Text('Loading Branch on Map Faild :(('),
-            ),
+            is BranchAddressesScreenFailureForCreateMap) {
+          return ShowErrorWidget(
+            errorMsg: branchAddressesScreenState.dioError.response.data,
+            tryAgainText: 'تلاش دوباره',
+            function: () =>
+                _branchAddressesScreenBloc.add(GetBranchAddressListEvent()),
           );
         } else {
-          return Container(
-            color: Colors.white,
-            child: Center(
-              child: Text('Faild :(('),
-            ),
+          return ShowErrorWidget(
+            errorMsg: 'لطفا دوباره تلاش کنید.',
+            tryAgainText: 'تلاش دوباره',
+            function: () =>
+                _branchAddressesScreenBloc.add(GetBranchAddressListEvent()),
           );
         }
-      }),
+      },
     );
   }
 
@@ -177,32 +174,25 @@ class _BranchPageState extends State<BranchPage>
         changeTextFieldSearch('');
         panelController.animatePanelToPosition(1.0,
             duration: Duration(milliseconds: 500));
-        // panelController.open();
         FocusScope.of(context).requestFocus(inputNode);
       } else {
         panelController.animatePanelToPosition(0.0,
             duration: Duration(milliseconds: 500));
-        // panelController.close();
         if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
       }
-      widget.changeShowButtonNavigationBar(!opt);
     });
   }
 
-  changeSelectedBranch(Branch selectedBranch, bool openInfoBranch) async {
-    setState(
-      () {
-        this.isSelectedBranch = false;
-      },
-    );
-    // await Future.delayed(Duration(seconds: 1));
-    setState(
-      () {
-        this.selectedBranch = selectedBranch;
-        this.isSelectedBranch = true;
-        //
-      },
-    );
+  changeSelectedBranch(Branch selectedBranch) async {
+    _selectedBranchBloc.add(SetSelectedBranchEvent(selectedBranch));
+    setState(() {
+      this.isSelectedBranch = false;
+    });
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      this.selectedBranch = selectedBranch;
+      this.isSelectedBranch = true;
+    });
   }
 
   changeTextFieldSearch(String textFieldSearchValue) {
@@ -218,8 +208,6 @@ class _BranchPageState extends State<BranchPage>
                 objects: branches,
                 modelName: 'Branch')
             ?.cast<Branch>();
-        // getListOfBranchesStatic(
-        //     query: textFieldSearchValue, branches: branches);
       }
     });
   }

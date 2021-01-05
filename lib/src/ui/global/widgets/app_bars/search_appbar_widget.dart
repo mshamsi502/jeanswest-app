@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
@@ -25,23 +26,16 @@ class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+  double heightBar = 40;
   @override
   Widget build(BuildContext context) {
-    return
-        // SafeArea(
-        // child:
-        GestureDetector(
+    return GestureDetector(
       onTap: () {
         // open Branch-List-Widget Panel
         widget.changeBranchListPanelState(true);
       },
       child: Container(
-        height: 40,
+        height: heightBar,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(3),
           color: Colors.grey[300],
@@ -54,7 +48,7 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
               child: Text(
                 widget.title,
                 style: TextStyle(
-                    color: Color(0xff2c3d73), fontFamily: 'IRANSansBold'),
+                    color: MAIN_BLUE_COLOR, fontFamily: 'IRANSansBold'),
               ),
             ),
             Row(

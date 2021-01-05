@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 
 class BranchSvgImages {
   BranchSvgImages._();
@@ -15,7 +16,7 @@ class BranchSvgImages {
 
   static Widget callIcon = SvgPicture.asset(
     'assets/images/svg_images/branch/call_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 15,
     height: 15,
   );
@@ -29,21 +30,21 @@ class BranchSvgImages {
 
   static Widget distanceBranchIcon = SvgPicture.asset(
     'assets/images/svg_images/branch/distance_branch_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     width: 35,
     height: 35,
   );
 
   static Widget myLocationIcon = SvgPicture.asset(
     'assets/images/svg_images/branch/my_location_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     height: 15,
     width: 15,
   );
 
   static Widget flagIcon = SvgPicture.asset(
     'assets/images/svg_images/branch/flag_icon.svg',
-    color: Color(0xff2c3d73),
+    color: MAIN_BLUE_COLOR,
     height: 20,
     width: 20,
   );
