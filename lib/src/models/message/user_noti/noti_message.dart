@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class NotificationMessage {
   final String title;
+  final String sender;
   final Widget icon;
   final String pictureAssets;
   final String text;
@@ -24,6 +25,7 @@ class NotificationMessage {
   NotificationMessage({
     @required this.title,
     this.icon,
+    this.sender,
     this.pictureAssets,
     @required this.text,
     this.conditions,

@@ -100,7 +100,10 @@ class _MainProfilePageState extends State<MainProfilePage>
                       radius: 50,
                       borderColor: Colors.grey[200],
                       hasShadow: true,
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MorePage(title: 'بیشتر'))),
                     ),
                   ],
                 ),
