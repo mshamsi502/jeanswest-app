@@ -140,7 +140,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                 image: DecorationImage(
                   fit: BoxFit.contain,
                   image: new AssetImage(
-                      'assets/images/png_images/profile/contact_us.png'),
+                      'assets/images/png_images/profile/more/contact_us.png'),
                 ),
               ),
             ),

@@ -206,4 +206,12 @@ class ProfileSvgImages {
       // width: 20,
     ),
   );
+
+  //
+  static Widget familyTrust = SvgPicture.asset(
+    'assets/images/svg_images/profile/more/family_trust.svg',
+  );
+  static Widget delivery = SvgPicture.asset(
+    'assets/images/svg_images/profile/more/delivery.svg',
+  );
 }
