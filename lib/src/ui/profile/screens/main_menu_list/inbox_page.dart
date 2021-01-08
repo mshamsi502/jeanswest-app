@@ -6,11 +6,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/profile/constants.dart';
+import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/main_message_details.dart';
 
 class InboxPage extends StatefulWidget {
+  final Function changeHaveUnreadMessage;
+
+  const InboxPage({Key key, this.changeHaveUnreadMessage}) : super(key: key);
   @override
   _InboxPageState createState() => _InboxPageState();
 }
@@ -18,28 +21,46 @@ class InboxPage extends StatefulWidget {
 class _InboxPageState extends State<InboxPage> {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
       child: Scaffold(
         body: SafeArea(
           child: Container(
+            height: _screenSize.height,
+            width: _screenSize.width,
             color: Colors.white,
             child: Column(
               children: [
                 AppBarWithBackWidget(title: 'پیام ها'),
-                SizedBox(height: 20),
-                ListView.builder(
-                    itemCount: widget.text.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container();
-                    }),
-                MenuListViewWidget(
-                  titles: moreListTitles,
-                  icons: moreListIcons,
-                  widgets: moreListWidgets,
-                  backgroundColor: Colors.white,
+                Divider(
+                  height: 0.00138 * _screenSize.height, //0.5,
+                  thickness: 0.00138 * _screenSize.height, //0.5,
+                  color: Colors.grey[300],
+                ),
+                Expanded(
+                  child: Container(
+                    child: ListView.builder(
+                        itemCount: userMessages.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int messageIndex) {
+                          return Column(
+                            children: [
+                              MainMessageDetails(
+                                height: 0.234 * _screenSize.height, //150,
+                                messageIndex: messageIndex,
+                                changeHaveUnreadMessage:
+                                    widget.changeHaveUnreadMessage,
+                              ),
+                              Divider(
+                                height: 0.00138 * _screenSize.height, //0.5,
+                                thickness: 0.00138 * _screenSize.height, //0.5,
+                                color: Colors.grey[300],
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
                 ),
               ],
             ),
