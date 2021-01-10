@@ -6,17 +6,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 
 class MainDetailWidget extends StatefulWidget {
   final int count;
   final List<String> titles;
+  final TextStyle titleStyle;
   final List<String> values;
+  final TextStyle valueStyle;
 
   const MainDetailWidget({
     Key key,
     this.count,
     this.titles,
     this.values,
+    this.titleStyle,
+    this.valueStyle,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MainDetailWidgetState();
@@ -31,7 +36,11 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
       width: _screenSize.width,
       padding: EdgeInsets.all(5),
       margin: EdgeInsets.symmetric(horizontal: 15),
-      // color: BLUE_,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: LIGHT_BLUE_SKY_COLOR,
+      ),
+      // color: Colors.red,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -45,12 +54,12 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
                   Text(
                     widget.titles[0],
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 8,
-                      color: Colors.grey[500],
-                    ),
+                    style: widget.titleStyle,
                   ),
-                  Text(widget.values[0]),
+                  Text(
+                    widget.values[0],
+                    style: widget.valueStyle,
+                  ),
                 ],
               ),
             ),
@@ -89,16 +98,11 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
                                       Text(
                                         widget.titles[index + 1],
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 8,
-                                          color: Colors.grey[500],
-                                        ),
+                                        style: widget.titleStyle,
                                       ),
                                       Text(
                                         widget.values[index + 1],
-                                        style: TextStyle(
-                                          color: Color(0xFF32BE93),
-                                        ),
+                                        style: widget.valueStyle,
                                       ),
                                     ],
                                   ),

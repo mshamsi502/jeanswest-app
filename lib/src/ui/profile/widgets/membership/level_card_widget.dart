@@ -13,12 +13,14 @@ import 'circle_membership_widget.dart';
 
 class LevelCardWidget extends StatefulWidget {
   final LevelCard levelCard;
+  final String state;
   final bool isUserLevel;
 
   const LevelCardWidget({
     Key key,
     this.levelCard,
     this.isUserLevel,
+    this.state,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _LevelCardWidgetState();
@@ -63,7 +65,7 @@ class _LevelCardWidgetState extends State<LevelCardWidget> {
             alignment: Alignment.center,
             child: CircleMembershipWidget(
               level: widget.levelCard.title,
-              state: 'active',
+              state: widget.state,
               minMoneyPaying: int.parse(widget.levelCard.minPay),
               maxMoneyPaying: int.parse(widget.levelCard.maxPay),
               minPayIsActive: false,

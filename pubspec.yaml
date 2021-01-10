@@ -56,23 +56,18 @@ dependencies:
   fdottedline: ^1.0.1
   carousel_slider: ^2.3.1
   configurable_expansion_tile: ^1.0.0
+  bubble: ^1.1.9+1
+#----------------Converts-----------------
+  qr_flutter: ^3.2.0
+  shamsi_date: ^0.9.1
+
 #----------------Map-----------------
   google_maps_flutter: ^0.5.32
   location: ^3.0.2
   flutter_map: ^0.10.1+1
   latlong: ^0.6.1
   geolocator: ^6.0.0+4
-#----------------QRCode-----------------
-#  barcode: ^1.17.0
-#  qrscan: ^0.2.17
-#  image_gallery_saver: ^1.5.0
-#  image_picker: ^0.6.7+7
-  qr_flutter: ^3.2.0
-  #  lamp: ^0.0.6
-  #  flashlight: ^0.1.1
-  #  flutter_better_camera: ^0.6.1
-  #  torch_compat: ^1.0.2
-#  qr_code_scanner: ^0.0.13
+
 #-------------------------------------------------------------------
 
 dev_dependencies:
@@ -101,6 +96,7 @@ flutter:
     #------------------PNG Image--------------------
     - assets/images/png_images/
     - assets/images/png_images/global/
+    - assets/images/png_images/global/logo/
     - assets/images/png_images/branch/
     - assets/images/png_images/product/
     - assets/images/png_images/profile/

@@ -26,86 +26,92 @@ class LevelCardsInfoWidget extends StatefulWidget {
 }
 
 class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
-  ScrollController _scrollController = new ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                VerticalLinearLevelRoutingWidget(
-                  userLevel: widget.userLevel,
-                  moneyBuying: widget.moneyBuying,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Container(
-                      child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LevelCardWidget(
-                        levelCard: blueLevel,
-                        isUserLevel: widget.userLevel.title == blueLevel.title,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LevelCardWidget(
-                        levelCard: bluePlusLevel,
-                        isUserLevel:
-                            widget.userLevel.title == bluePlusLevel.title,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LevelCardWidget(
-                        levelCard: blueTwoPlusLevel,
-                        isUserLevel:
-                            widget.userLevel.title == blueTwoPlusLevel.title,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LevelCardWidget(
-                        levelCard: silverLevel,
-                        isUserLevel:
-                            widget.userLevel.title == silverLevel.title,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      LevelCardWidget(
-                        levelCard: goldLevel,
-                        isUserLevel: widget.userLevel.title == goldLevel.title,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  )),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 15,
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              VerticalLinearLevelRoutingWidget(
+                userLevel: widget.userLevel,
+                moneyBuying: widget.moneyBuying,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Container(
+                    child: Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LevelCardWidget(
+                      levelCard: blueLevel,
+                      isUserLevel: widget.userLevel.title == blueLevel.title,
+                      state: widget.moneyBuying > int.parse(blueLevel.minPay)
+                          ? 'active'
+                          : 'deactive',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LevelCardWidget(
+                      levelCard: bluePlusLevel,
+                      isUserLevel:
+                          widget.userLevel.title == bluePlusLevel.title,
+                      state:
+                          widget.moneyBuying > int.parse(bluePlusLevel.minPay)
+                              ? 'active'
+                              : 'deactive',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LevelCardWidget(
+                      levelCard: blueTwoPlusLevel,
+                      isUserLevel:
+                          widget.userLevel.title == blueTwoPlusLevel.title,
+                      state: widget.moneyBuying >
+                              int.parse(blueTwoPlusLevel.minPay)
+                          ? 'active'
+                          : 'deactive',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LevelCardWidget(
+                      levelCard: silverLevel,
+                      isUserLevel: widget.userLevel.title == silverLevel.title,
+                      state: widget.moneyBuying > int.parse(silverLevel.minPay)
+                          ? 'active'
+                          : 'deactive',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LevelCardWidget(
+                      levelCard: goldLevel,
+                      isUserLevel: widget.userLevel.title == goldLevel.title,
+                      state: widget.moneyBuying > int.parse(goldLevel.minPay)
+                          ? 'active'
+                          : 'deactive',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                )),
+              ),
+            ],
+          ),
+        ],
       ),
-      //   ),
-      // ),
     );
   }
 }

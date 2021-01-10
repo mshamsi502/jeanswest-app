@@ -8,6 +8,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 
 class CircleMembershipWidget extends StatefulWidget {
@@ -48,28 +49,24 @@ class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
                           boxShadow: [
                         BoxShadow(
                           color: widget.state != 'active'
-                              ? Colors.white
+                              ? Colors.grey
                               : widget.level == 'Silver'
                                   ? Colors.black54
                                   : widget.level == 'Gold'
-                                      ? Color(0xeeD6BC32)
-                                      : widget.level == 'Zero'
-                                          ? Colors.white
-                                          : Colors.lightBlue[200],
+                                      ? MAIN_GOLD_COLOR
+                                      : Colors.lightBlue[200],
                           blurRadius: widget.state == 'active'
                               ? widget.level == 'Blue' ||
-                                      widget.level == 'Blue +'
-                                  ? 2
-                                  : widget.level == 'Blue 2+'
-                                      // ? 2.5
-                                      ? 2
-                                      : 6
+                                      widget.level == 'Blue +' ||
+                                      widget.level == 'Blue 2+'
+                                  ? 3
+                                  : 6
                               : 0,
-                          spreadRadius: 0.2,
+                          spreadRadius: 0.05,
                         )
                       ]),
                   child: CircleAvatar(
-                    backgroundColor: Color(0xfff2f2f2),
+                    backgroundColor: Colors.white,
                     maxRadius: 25,
                     child: Container(
                       width: 45,

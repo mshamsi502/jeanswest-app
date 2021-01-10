@@ -49,14 +49,14 @@ class _CustomCircularPercentIndicatorWidgetState
     return Stack(
       children: [
         Container(
-          // color: Colors.greenAccent,
-          padding: EdgeInsets.only(
-              left: context.locale.toString() == 'en_US' ? 0 : 15,
-              right: context.locale.toString() == 'en_US' ? 15 : 0,
-              bottom: 15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(100),
+          ),
+          padding: EdgeInsets.only(bottom: 15),
           height: 120,
           width: 100,
-          color: Colors.white,
+          // color: Colors.transparent,
           child: CircularPercentIndicator(
             startAngle: 225,
             radius: 100.0,
@@ -89,8 +89,6 @@ class _CustomCircularPercentIndicatorWidgetState
         ),
         Positioned(
           bottom: 0,
-          left: context.locale.toString() == 'en_US' ? 0 : 15,
-          right: context.locale.toString() == 'en_US' ? 15 : 0,
           child: Container(
             width: 100,
             color: Colors.white,

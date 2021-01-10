@@ -66,7 +66,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      title: 'Branch Test',
+      title: 'Jeanswest',
       theme: ThemeData(
         fontFamily: 'IRANSans',
         primarySwatch: Colors.blue,
