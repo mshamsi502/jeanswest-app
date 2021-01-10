@@ -58,6 +58,7 @@ Future<Set<Marker>> onCreateMarkList(
     Function(Branch, CameraPosition) changeSelectedBranch,
     Branch selectedBranch) async {
   Set<Marker> _markers = {};
+
   BitmapDescriptor markIcon = await createMarkIcon(
       'assets/images/png_images/branch/marker_icon.png',
       (dpiSize * 23).toInt());
@@ -84,11 +85,6 @@ Future<Set<Marker>> onCreateMarkList(
                           selectedBranch.departmentInfoID)
                   ? selectedMarkIcon
                   : markIcon,
-          //
-          // infoWindow: InfoWindow(
-          //   title: _branch.depName,
-          // ),
-          //
           onTap: () {
             changeSelectedBranch(
                 _branch,
