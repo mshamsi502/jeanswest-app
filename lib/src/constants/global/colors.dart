@@ -10,3 +10,4 @@ const Color F7_BACKGROUND_COLOR = Color(0xfff7f7f7);
 const Color F2_BACKGROUND_COLOR = Color(0xfff2f2f2);
 const Color F1_BACKGROUND_COLOR = Color(0xfff1f1f1);
 const Color MAIN_GOLD_COLOR = Color(0xffFFC107);
+const Color LIGHT_BLUE = Color(0xffE4E9F8);
