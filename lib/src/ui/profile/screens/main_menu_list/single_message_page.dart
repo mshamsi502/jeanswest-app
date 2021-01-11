@@ -92,7 +92,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                   nipWidth: 0.03125 * _screenSize.height, //20,
                                   nipHeight: 0.0156 * _screenSize.height, //10,
                                   nip: BubbleNip.rightBottom,
-                                  color: LIGHT_BLUE,
+                                  color: BLUE_SKY_COLOR,
                                   child: Container(
                                     child: Column(
                                       crossAxisAlignment:

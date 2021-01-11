@@ -7,18 +7,17 @@
 
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 
-//
-// LevelCard zeroLevel = LevelCard(
-//   membership: '',
-//   title: 'Zero',
-//   perTitle: '',
-//   minPay: '0',
-//   maxPay: '200000',
-//   receiptConditions: '',
-//   subTitleOne: '',
-//   subTitleTwo: '',
-//   subTitleThree: '',
-// );
+LevelCard zeroLevel = LevelCard(
+  membership: '',
+  title: 'Zero',
+  perTitle: '',
+  minPay: '0',
+  maxPay: '200000',
+  receiptConditions: '',
+  subTitleOne: '',
+  subTitleTwo: '',
+  subTitleThree: '',
+);
 // //
 LevelCard blueLevel = LevelCard(
   membership: 'Membership',

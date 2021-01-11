@@ -7,10 +7,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
+import 'package:jeanswest/src/ui/profile/screens/membership_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
 
 class ProfileAppBarWidget extends StatefulWidget {
+  final LevelCard userLevel;
+  final LevelCard nextLevel;
+  final int moneyBuying;
+
+  const ProfileAppBarWidget({
+    Key key,
+    this.userLevel,
+    this.nextLevel,
+    this.moneyBuying,
+  }) : super(key: key);
   State<StatefulWidget> createState() => _ProfileAppBarWidgetState();
 }
 
@@ -86,6 +98,18 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                                   borderColor: MAIN_BLUE_COLOR,
                                   height: 0.059 * _screenSize.height,
                                   width: 0.4 * _screenSize.width,
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MembershipPage(
+                                        title: 'سطح عضویت',
+                                        selectedTab: 0,
+                                        userLevel: widget.userLevel,
+                                        nextLevel: widget.nextLevel,
+                                        moneyBuying: widget.moneyBuying,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],

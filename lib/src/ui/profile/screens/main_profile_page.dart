@@ -9,7 +9,6 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/constants/test_data/user.dart';
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
@@ -18,6 +17,7 @@ import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/profile_appbar_widget.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 
 import 'main_menu_list/inbox_page.dart';
 
@@ -40,6 +40,8 @@ class _MainProfilePageState extends State<MainProfilePage>
   @override
   void initState() {
     super.initState();
+    userLevel = userLevelProvider(moneyBuying);
+    nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
     for (var i = 0; i < userMessages.length; i++) {
       if (!userMessages[i].readed) {
@@ -49,24 +51,14 @@ class _MainProfilePageState extends State<MainProfilePage>
         haveUnreadMessage = false;
       }
     }
-    userLevel = moneyBuying < int.parse(goldLevel.minPay)
-        ? moneyBuying < int.parse(silverLevel.minPay)
-            ? moneyBuying < int.parse(blueTwoPlusLevel.minPay)
-                ? moneyBuying < int.parse(bluePlusLevel.minPay)
-                    ? blueLevel
-                    : bluePlusLevel
-                : blueTwoPlusLevel
-            : silverLevel
-        : goldLevel;
-    print('moneyBuying : $moneyBuying');
-    print('userLevel : ${userLevel.title}');
-    //
+
     scrollController = new ScrollController();
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    var dpiSize = MediaQuery.of(context).devicePixelRatio;
     return Container(
       color: F7_BACKGROUND_COLOR,
       child: SingleChildScrollView(
@@ -149,7 +141,10 @@ class _MainProfilePageState extends State<MainProfilePage>
                 color: F7_BACKGROUND_COLOR,
                 child: Column(
                   children: [
-                    ProfileAppBarWidget(),
+                    ProfileAppBarWidget(
+                        userLevel: userLevel,
+                        nextLevel: nextLevel,
+                        moneyBuying: moneyBuying),
                     GestureDetector(
                       child: Container(
                         margin: EdgeInsets.symmetric(
