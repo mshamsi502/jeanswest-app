@@ -58,7 +58,6 @@ class _MainProfilePageState extends State<MainProfilePage>
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    var dpiSize = MediaQuery.of(context).devicePixelRatio;
     return Container(
       color: F7_BACKGROUND_COLOR,
       child: SingleChildScrollView(
