@@ -16,11 +16,13 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 class VerticalLinearLevelRoutingWidget extends StatefulWidget {
   final LevelCard userLevel;
   final int moneyBuying;
+  final Size screenSize;
 
   const VerticalLinearLevelRoutingWidget({
     Key key,
     this.userLevel,
     this.moneyBuying,
+    this.screenSize,
   }) : super(key: key);
 
   State<StatefulWidget> createState() =>
@@ -67,7 +69,7 @@ class _VerticalLinearLevelRoutingWidgetState
         'isCenterLimit : ${(widget.moneyBuying == int.parse(widget.userLevel.minPay))}');
     //
 
-    moneyBuyingPositionAnimation();
+    moneyBuyingPositionAnimation(widget.screenSize);
     print('asdasd :  $dynamicMoneyBuyingPosition');
     moneyBuyingAnimation();
     super.initState();
@@ -75,20 +77,28 @@ class _VerticalLinearLevelRoutingWidgetState
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       // color: Colors.amber,
-      margin: EdgeInsets.only(top: 18, bottom: 25),
-      height: 620,
-      width: 70,
+      margin: EdgeInsets.only(
+        top: 0.028125 * _screenSize.height, //18,
+        bottom: 0.039 * _screenSize.height, //25
+      ),
+      height: 0.96875 * _screenSize.height, //620,
+      width: 0.19444 * _screenSize.width, //70,
       child: Stack(
         children: [
           // vertical progress bar
           Positioned(
-            right: context.locale.toString() == 'en_US' ? null : 25,
-            left: context.locale.toString() == 'en_US' ? 25 : null,
+            right: context.locale.toString() == 'en_US'
+                ? null
+                : 0.069 * _screenSize.width, //25,
+            left: context.locale.toString() == 'en_US'
+                ? 0.069 * _screenSize.width //25,
+                : null,
             child: Container(
-              height: 620,
-              width: 75,
+              height: 0.96875 * _screenSize.height, //620,
+              width: 0.2083 * _screenSize.width, // 75,
               child: RotatedBox(
                 quarterTurns: -3,
                 child: LinearPercentIndicator(
@@ -121,7 +131,7 @@ class _VerticalLinearLevelRoutingWidgetState
                   restartAnimation: true,
                   curve: Curves.linear,
                   animationDuration: 3200,
-                  lineHeight: 1.5,
+                  lineHeight: 0.00234 * _screenSize.height, //1.5,
                 ),
               ),
             ),
@@ -129,11 +139,16 @@ class _VerticalLinearLevelRoutingWidgetState
 
           // user level
           AnimatedPositioned(
-            right: context.locale.toString() == 'en_US' ? 5.5 : null,
-            left: context.locale.toString() == 'en_US' ? null : 5.5,
+            right: context.locale.toString() == 'en_US'
+                ? 0.01527 * _screenSize.width //5.5
+                : null,
+            left: context.locale.toString() == 'en_US'
+                ? null
+                : 0.01527 * _screenSize.width //5.5
+            ,
             duration: Duration(milliseconds: 3000),
             curve: Curves.linear,
-            top: dynamicMoneyBuyingPosition - 10,
+            top: dynamicMoneyBuyingPosition - 0.016 * _screenSize.height, //10,
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,8 +158,10 @@ class _VerticalLinearLevelRoutingWidgetState
                   children: [
                     Container(
                       // color: Colors.blue,
-                      width: 4,
-                      height: isAfterLimit ? 10 : 0,
+                      width: 0.011 * _screenSize.width, //4,
+                      height: isAfterLimit
+                          ? 0.016 * _screenSize.height //10
+                          : 0,
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 2),
@@ -153,7 +170,7 @@ class _VerticalLinearLevelRoutingWidgetState
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            blurRadius: 1,
+                            blurRadius: 0.00277 * _screenSize.width, //1,
                             spreadRadius: 0.005,
                             offset: Offset(0.5, 0.5),
                             color: Colors.grey,
@@ -162,23 +179,24 @@ class _VerticalLinearLevelRoutingWidgetState
                       ),
                       child: Text(toPriceStyle(dynamicMoneyBuying),
                           style: TextStyle(
-                              fontSize: 9, fontWeight: FontWeight.w500)),
+                              fontSize: 0.023 * _screenSize.width, //9,
+                              fontWeight: FontWeight.w500)),
                     ),
                     Container(
                       // color: Colors.blue,
-                      width: 4,
+                      width: 0.011 * _screenSize.width, //4,
                       height: (
                                   // isBeforeLimit ||
                                   widget.moneyBuying ==
                                       int.parse(widget.userLevel.minPay)) &&
                               (widget.moneyBuying > int.parse(blueLevel.minPay))
-                          ? 10
+                          ? 0.016 * _screenSize.height //10
                           : 0,
                     ),
                   ],
                 ),
                 SizedBox(
-                  width: 3,
+                  width: 0.0083 * _screenSize.width, //3,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -188,23 +206,27 @@ class _VerticalLinearLevelRoutingWidgetState
                       height: (widget.moneyBuying ==
                                   int.parse(widget.userLevel.minPay)) &&
                               (widget.moneyBuying > int.parse(blueLevel.minPay))
-                          ? 19
+                          ? 0.02968 * _screenSize.height //19,
                           : 0,
-                      width: 5,
+                      width: 0.013 * _screenSize.width, //5
                     ),
                     Container(
                       alignment: Alignment.center,
-                      height: 4,
-                      width: 4,
+                      height: 0.011 * _screenSize.width, //4,
+                      width: 0.011 * _screenSize.width, //4,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(
+                          0.138 * _screenSize.width, //50,
+                        ),
                         color: Color(0xff32BE93),
                       ),
                     ),
                     Container(
                       // color: Colors.red,
-                      height: isAfterLimit ? 19 : 0,
-                      width: 5,
+                      height: isAfterLimit
+                          ? 0.02968 * _screenSize.height //19,
+                          : 0,
+                      width: 0.013 * _screenSize.width, //5
                     ),
                   ],
                 ),
@@ -213,11 +235,15 @@ class _VerticalLinearLevelRoutingWidgetState
           ),
           // tick and money levels
           Positioned(
-            right: context.locale.toString() == 'en_US' ? null : 9,
-            left: context.locale.toString() == 'en_US' ? 9 : null,
+            right: context.locale.toString() == 'en_US'
+                ? null
+                : 0.023 * _screenSize.width, //9,
+            left: context.locale.toString() == 'en_US'
+                ? 0.023 * _screenSize.width //9,
+                : null,
             child: Container(
-              height: 630,
-              width: 65,
+              height: 0.9843 * _screenSize.height, //630,
+              width: 0.1805 * _screenSize.width, //65,
               child: Row(
                 children: [
                   Column(
@@ -225,11 +251,11 @@ class _VerticalLinearLevelRoutingWidgetState
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 20,
+                        height: 0.031 * _screenSize.height, //20,
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 90,
+                        height: 0.14 * _screenSize.height, //90,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -238,25 +264,25 @@ class _VerticalLinearLevelRoutingWidgetState
                               toPriceStyle(int.parse(blueLevel.minPay)),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 9,
+                                  fontSize: 0.025 * _screenSize.width, //9,
                                   color: MAIN_BLUE_COLOR),
                             ),
                             Text(
                               "profile_screen.toman".tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 6,
+                                  fontSize: 0.0166 * _screenSize.width, //6,
                                   color: MAIN_BLUE_COLOR),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 0.046 * _screenSize.height, //30
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 90,
+                        height: 0.14 * _screenSize.height, //90,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -265,25 +291,25 @@ class _VerticalLinearLevelRoutingWidgetState
                               toPriceStyle(int.parse(bluePlusLevel.minPay)),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 9,
+                                  fontSize: 0.025 * _screenSize.width, //9,
                                   color: MAIN_BLUE_COLOR),
                             ),
                             Text(
                               "profile_screen.toman".tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 6,
+                                  fontSize: 0.0166 * _screenSize.width, //6,
                                   color: MAIN_BLUE_COLOR),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: 40,
+                        height: 0.0625 * _screenSize.height, //40
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 90,
+                        height: 0.14 * _screenSize.height, //90,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -292,25 +318,25 @@ class _VerticalLinearLevelRoutingWidgetState
                               toPriceStyle(int.parse(blueTwoPlusLevel.minPay)),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 9,
+                                  fontSize: 0.025 * _screenSize.width, //9,
                                   color: MAIN_BLUE_COLOR),
                             ),
                             Text(
                               "profile_screen.toman".tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 6,
+                                  fontSize: 0.0166 * _screenSize.width, //6,
                                   color: MAIN_BLUE_COLOR),
                             ),
                           ],
                         ),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 0.046 * _screenSize.height, //30
                       ),
                       Container(
                         alignment: Alignment.center,
-                        height: 90,
+                        height: 0.14 * _screenSize.height, //90,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -319,25 +345,24 @@ class _VerticalLinearLevelRoutingWidgetState
                               toPriceStyle(int.parse(silverLevel.minPay)),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 9,
+                                  fontSize: 0.025 * _screenSize.width, //9,
                                   color: MAIN_BLUE_COLOR),
                             ),
                             Text(
                               "profile_screen.toman".tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 6,
+                                  fontSize: 0.0166 * _screenSize.width, //6,
                                   color: MAIN_BLUE_COLOR),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 35,
-                      ),
+                      SizedBox(height: 0.05468 * _screenSize.height //35,
+                          ),
                       Container(
                         alignment: Alignment.center,
-                        height: 90,
+                        height: 0.14 * _screenSize.height, //90,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -346,14 +371,14 @@ class _VerticalLinearLevelRoutingWidgetState
                               toPriceStyle(int.parse(goldLevel.minPay)),
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 9,
+                                  fontSize: 0.025 * _screenSize.width, //9,
                                   color: MAIN_BLUE_COLOR),
                             ),
                             Text(
                               "profile_screen.toman".tr(),
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 6,
+                                  fontSize: 0.0166 * _screenSize.width, //6,
                                   color: MAIN_BLUE_COLOR),
                             ),
                           ],
@@ -371,48 +396,46 @@ class _VerticalLinearLevelRoutingWidgetState
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 0.023 * _screenSize.height //15
+                          ),
                       Container(
                           alignment: Alignment.center,
-                          height: 90,
+                          height: 0.14 * _screenSize.height, //90,
                           child:
                               widget.moneyBuying >= int.parse(blueLevel.minPay)
                                   ? GlobalSvgImages.greenTickIcon
                                   : GlobalSvgImages.greyTickIcon),
                       SizedBox(
-                        height: 30,
+                        height: 0.046 * _screenSize.height, //30
                       ),
                       SizedBox(
-                          height: 90,
+                          height: 0.14 * _screenSize.height, //90,
                           child: widget.moneyBuying >=
                                   int.parse(bluePlusLevel.minPay)
                               ? GlobalSvgImages.greenTickIcon
                               : GlobalSvgImages.greyTickIcon),
                       SizedBox(
-                        height: 40,
+                        height: 0.0625 * _screenSize.height, //40
                       ),
                       SizedBox(
-                          height: 90,
+                          height: 0.14 * _screenSize.height, //90,
                           child: widget.moneyBuying >=
                                   int.parse(blueTwoPlusLevel.minPay)
                               ? GlobalSvgImages.greenTickIcon
                               : GlobalSvgImages.greyTickIcon),
                       SizedBox(
-                        height: 30,
+                        height: 0.046 * _screenSize.height, //30
                       ),
                       SizedBox(
-                          height: 90,
+                          height: 0.14 * _screenSize.height, //90,
                           child: widget.moneyBuying >=
                                   int.parse(silverLevel.minPay)
                               ? GlobalSvgImages.greenTickIcon
                               : GlobalSvgImages.greyTickIcon),
+                      SizedBox(height: 0.05468 * _screenSize.height //35,
+                          ),
                       SizedBox(
-                        height: 35,
-                      ),
-                      SizedBox(
-                          height: 90,
+                          height: 0.14 * _screenSize.height, //90,
                           child:
                               widget.moneyBuying >= int.parse(goldLevel.minPay)
                                   ? GlobalSvgImages.greenTickIcon
@@ -506,15 +529,15 @@ class _VerticalLinearLevelRoutingWidgetState
     });
   }
 
-  Future<void> moneyBuyingPositionAnimation() async {
-    dynamicMoneyBuyingPosition = 0.035 * 620;
+  Future<void> moneyBuyingPositionAnimation(Size _screenSize) async {
+    dynamicMoneyBuyingPosition = 0.035 * (0.96875 * _screenSize.height); //620;
     await Future.delayed(Duration(milliseconds: 1));
     setState(() {
       // example for blue+: ?(findPercentProgressIndicator(1430000) - 0.015) * 620
       double positionInCenterLimit =
           (findPercentProgressIndicator(int.parse(widget.userLevel.minPay)) -
                   0.025) *
-              620;
+              (0.96875 * _screenSize.height); //620;
       print('positionInCenterLimit : $positionInCenterLimit');
       //
 
@@ -530,7 +553,7 @@ class _VerticalLinearLevelRoutingWidgetState
                           // .toStringAsFixed(0)
                           )) -
                   0.015) *
-              620;
+              (0.96875 * _screenSize.height); //620;
       print('positionInMinLimit : $positionInMinLimit');
 
       //
@@ -548,17 +571,20 @@ class _VerticalLinearLevelRoutingWidgetState
 
                           )) +
                   0.017) *
-              620;
+              (0.96875 * _screenSize.height); //620;
       print('positionInMaxLimit : $positionInMaxLimit');
 
       dynamicMoneyBuyingPosition =
           //
           widget.moneyBuying < int.parse(blueLevel.minPay)
-              ? (0.06 * 620)
+              ? (0.06 * (0.96875 * _screenSize.height) //620;
+                  )
               : widget.userLevel.title == goldLevel.title
                   ? widget.moneyBuying == int.parse(widget.userLevel.minPay)
-                      ? (0.87 * 620)
-                      : (0.95 * 620)
+                      ? (0.87 * (0.96875 * _screenSize.height) //620;
+                          )
+                      : (0.95 * (0.96875 * _screenSize.height) //620;
+                      )
                   : widget.moneyBuying == int.parse(widget.userLevel.minPay)
                       ? positionInCenterLimit
                       : isBeforeLimit
@@ -568,7 +594,7 @@ class _VerticalLinearLevelRoutingWidgetState
                               : (findPercentProgressIndicator(
                                           widget.moneyBuying) -
                                       0.01) *
-                                  620;
+                                  (0.96875 * _screenSize.height); //620;
       // }
     });
   }

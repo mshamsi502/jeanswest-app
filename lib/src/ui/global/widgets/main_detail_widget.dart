@@ -32,12 +32,16 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 60,
+      height: 0.093 * _screenSize.height, //60,
       width: _screenSize.width,
       padding: EdgeInsets.all(5),
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: EdgeInsets.symmetric(
+        horizontal: 0.041 * _screenSize.width, //15,
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(
+          0.00625 * _screenSize.height, //4,
+        ),
         color: LIGHT_BLUE_SKY_COLOR,
       ),
       // color: Colors.red,
@@ -47,7 +51,10 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
           Expanded(
             flex: 1,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              padding: EdgeInsets.symmetric(
+                vertical: 0.008 * _screenSize.height, //5
+                horizontal: 0.0138 * _screenSize.width, //5
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -56,9 +63,12 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
                     textAlign: TextAlign.center,
                     style: widget.titleStyle,
                   ),
-                  Text(
-                    widget.values[0],
-                    style: widget.valueStyle,
+                  Expanded(
+                    child: Text(
+                      widget.values[0],
+                      overflow: TextOverflow.ellipsis,
+                      style: widget.valueStyle,
+                    ),
                   ),
                 ],
               ),
@@ -74,23 +84,25 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          width: 100,
+                          width: 0.277 * _screenSize.width, //100,
                           child: Row(
                             children: [
                               Container(
-                                height: 70,
+                                height: 0.1093 * _screenSize.height, //70,
                                 child: VerticalDivider(
                                   color: Colors.grey,
                                   // color: MAIN_BLUE_COLOR,
                                   thickness: 0.5,
-                                  indent: 15,
-                                  width: 5,
+                                  indent: 0.023 * _screenSize.height, //15
+                                  width: 0.0138 * _screenSize.width, //5
                                 ),
                               ),
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 5),
+                                    vertical: 0.008 * _screenSize.height, //5
+                                    horizontal: 0.0138 * _screenSize.width, //5
+                                  ),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
@@ -100,9 +112,12 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
                                         textAlign: TextAlign.center,
                                         style: widget.titleStyle,
                                       ),
-                                      Text(
-                                        widget.values[index + 1],
-                                        style: widget.valueStyle,
+                                      Expanded(
+                                        child: Text(
+                                          widget.values[index + 1],
+                                          overflow: TextOverflow.ellipsis,
+                                          style: widget.valueStyle,
+                                        ),
                                       ),
                                     ],
                                   ),

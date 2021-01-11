@@ -40,7 +40,7 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
         child: Column(
           children: [
             SizedBox(
-              height: 5,
+              height: 0.0078 * _screenSize.height, //5,
             ),
             CurrentLevelWidget(
               userLevel: widget.userLevel,
@@ -49,7 +49,7 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
               currentLevelWidgetAnimation: currentLevelWidgetAnimation,
             ),
             SizedBox(
-              height: 10,
+              height: 0.0156 * _screenSize.height, //10,
             ),
             LevelCardsInfoWidget(
               userLevel: widget.userLevel,

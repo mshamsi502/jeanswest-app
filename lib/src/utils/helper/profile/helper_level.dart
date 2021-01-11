@@ -4,6 +4,7 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
+import 'package:jeanswest/src/constants/test_data/user.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 
 LevelCard userLevelProvider(int moneyBuying) {
@@ -11,7 +12,9 @@ LevelCard userLevelProvider(int moneyBuying) {
       ? moneyBuying < int.parse(silverLevel.minPay)
           ? moneyBuying < int.parse(blueTwoPlusLevel.minPay)
               ? moneyBuying < int.parse(bluePlusLevel.minPay)
-                  ? blueLevel
+                  ? moneyBuying < int.parse(blueLevel.minPay)
+                      ? zeroLevel
+                      : blueLevel
                   : bluePlusLevel
               : blueTwoPlusLevel
           : silverLevel
@@ -19,13 +22,15 @@ LevelCard userLevelProvider(int moneyBuying) {
 }
 
 LevelCard nextLevelProvider(LevelCard userLevel) {
-  return userLevel.title == blueLevel.title
-      ? bluePlusLevel
-      : userLevel.title == bluePlusLevel.title
-          ? blueTwoPlusLevel
-          : userLevel.title == blueTwoPlusLevel.title
-              ? silverLevel
-              : userLevel.title == silverLevel.title
-                  ? goldLevel
-                  : userLevel;
+  return moneyBuying < int.parse(blueLevel.minPay)
+      ? blueLevel
+      : userLevel.title == blueLevel.title
+          ? bluePlusLevel
+          : userLevel.title == bluePlusLevel.title
+              ? blueTwoPlusLevel
+              : userLevel.title == blueTwoPlusLevel.title
+                  ? silverLevel
+                  : userLevel.title == silverLevel.title
+                      ? goldLevel
+                      : userLevel;
 }

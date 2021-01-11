@@ -28,6 +28,7 @@ class LevelCardsInfoWidget extends StatefulWidget {
 class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
       child: Column(
@@ -40,17 +41,17 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
               VerticalLinearLevelRoutingWidget(
                 userLevel: widget.userLevel,
                 moneyBuying: widget.moneyBuying,
+                screenSize: _screenSize,
               ),
               SizedBox(
-                width: 10,
+                width: 0.027 * _screenSize.width, //10,
               ),
               Expanded(
                 child: Container(
                     child: Column(
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 0.016 * _screenSize.height //10
+                        ),
                     LevelCardWidget(
                       levelCard: blueLevel,
                       isUserLevel: widget.userLevel.title == blueLevel.title,
@@ -70,9 +71,8 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                               ? 'active'
                               : 'deactive',
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 0.016 * _screenSize.height //10
+                        ),
                     LevelCardWidget(
                       levelCard: blueTwoPlusLevel,
                       isUserLevel:
@@ -82,9 +82,8 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           ? 'active'
                           : 'deactive',
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 0.016 * _screenSize.height //10,
+                        ),
                     LevelCardWidget(
                       levelCard: silverLevel,
                       isUserLevel: widget.userLevel.title == silverLevel.title,
@@ -92,9 +91,8 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           ? 'active'
                           : 'deactive',
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 0.016 * _screenSize.height //10
+                        ),
                     LevelCardWidget(
                       levelCard: goldLevel,
                       isUserLevel: widget.userLevel.title == goldLevel.title,
@@ -102,9 +100,8 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           ? 'active'
                           : 'deactive',
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 0.016 * _screenSize.height //10
+                        ),
                   ],
                 )),
               ),

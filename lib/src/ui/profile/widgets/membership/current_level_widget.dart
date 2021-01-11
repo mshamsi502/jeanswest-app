@@ -50,14 +50,17 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      height: 250,
+      padding: EdgeInsets.symmetric(vertical: 0.015 * _screenSize.height //10
+          ),
+      height: 0.4 * _screenSize.height, //250,
       width: _screenSize.width,
       color: Colors.white,
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding:
+                EdgeInsets.symmetric(horizontal: 0.0416 * _screenSize.width //15
+                    ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -65,30 +68,34 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                   '${"profile_screen.your_current_level".tr()} ',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 13,
+                      fontSize: 0.0361 * _screenSize.width, //13,
                       color: MAIN_BLUE_COLOR),
                 ),
                 Directionality(
                   textDirection: ltrTextDirection,
                   child: Text(
-                    '${widget.userLevel.title}',
+                    widget.userLevel.title == zeroLevel.title
+                        ? '_____'
+                        : '${widget.userLevel.title}',
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                        color: widget.userLevel.title == 'Blue'
-                            ? MAIN_BLUE_COLOR
-                            : widget.userLevel.title == 'Silver'
-                                ? Colors.grey
-                                : widget.userLevel.title == 'Gold'
-                                    ? Color(0xeeD6BC32)
-                                    : Colors.lightBlue),
+                        fontSize: 0.0361 * _screenSize.width, //13,
+                        color: widget.userLevel.title == zeroLevel.title
+                            ? Colors.grey
+                            : widget.userLevel.title == 'Blue'
+                                ? MAIN_BLUE_COLOR
+                                : widget.userLevel.title == 'Silver'
+                                    ? Colors.grey
+                                    : widget.userLevel.title == 'Gold'
+                                        ? Color(0xeeD6BC32)
+                                        : Colors.lightBlue),
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            height: 130,
+            height: 0.2 * _screenSize.height, //130,
             child: Stack(
               children: [
                 Column(
@@ -97,8 +104,8 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                     Expanded(flex: 8, child: Container()),
                     Divider(
                       color: MAIN_BLUE_COLOR,
-                      thickness: 1,
-                      height: 2,
+                      thickness: 0.00277 * _screenSize.width, //1,
+                      height: 0.00555 * _screenSize.width, //2,
                     ),
                     Expanded(flex: 10, child: Container()),
                   ],
@@ -111,22 +118,44 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                       child: Container(),
                     ),
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 170,
-                          height: 120,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            image: DecorationImage(
-                              fit: BoxFit.contain,
-                              image: new AssetImage(
-                                  assetsLevelCard.elementAt(userLevelIndex)),
-                            ),
-                          ),
-                        ),
                         SizedBox(
-                          height: 10,
+                          height: 0.0078125 * _screenSize.height, //5,
+                        ),
+                        widget.userLevel.title == zeroLevel.title
+                            ? Container(
+                                width: 0.455 * _screenSize.width, //164,
+                                height: 0.172 * _screenSize.height, //110,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  color: Colors.grey[200],
+                                ),
+                                child: Text(
+                                  'NO MEMBERSHIP',
+                                  style: TextStyle(
+                                    color: MAIN_BLUE_COLOR,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                width: 0.455 * _screenSize.width, //164,
+                                height: 0.172 * _screenSize.height, //110,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: new AssetImage(assetsLevelCard
+                                        .elementAt(userLevelIndex)),
+                                  ),
+                                ),
+                              ),
+                        SizedBox(
+                          height: 0.0156 * _screenSize.height, //10,
                         ),
                       ],
                     ),
@@ -159,7 +188,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
               'باقی مانده خرید',
             ],
             titleStyle: TextStyle(
-              fontSize: 10,
+              fontSize: 0.0277 * _screenSize.width, //10,
               color: Colors.grey[500],
             ),
             values: [
@@ -169,7 +198,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                   (int.parse(widget.userLevel.maxPay) - widget.moneyBuying)),
             ],
             valueStyle: TextStyle(
-              fontSize: 14,
+              fontSize: 0.0388 * _screenSize.width, //14,
               color: MAIN_BLUE_COLOR,
             ),
           ),

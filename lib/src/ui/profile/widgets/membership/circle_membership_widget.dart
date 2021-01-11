@@ -33,6 +33,7 @@ class CircleMembershipWidget extends StatefulWidget {
 class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Stack(
@@ -41,36 +42,38 @@ class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: 50,
-                  width: 50,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(50),
-                          // color: Colors.greenAccent,
-                          boxShadow: [
+                  height: 0.138 * _screenSize.width, //50,
+                  width: 0.138 * _screenSize.width, //50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        0.138 * _screenSize.width, //50,
+                      ),
+                      // color: Colors.greenAccent,
+                      boxShadow: [
                         BoxShadow(
-                          color: widget.state != 'active'
-                              ? Colors.grey
-                              : widget.level == 'Silver'
-                                  ? Colors.black54
-                                  : widget.level == 'Gold'
-                                      ? MAIN_GOLD_COLOR
-                                      : Colors.lightBlue[200],
-                          blurRadius: widget.state == 'active'
-                              ? widget.level == 'Blue' ||
-                                      widget.level == 'Blue +' ||
-                                      widget.level == 'Blue 2+'
-                                  ? 3
-                                  : 6
-                              : 0,
-                          spreadRadius: 0.05,
-                        )
+                            color: widget.state != 'active'
+                                ? Colors.grey
+                                : widget.level == 'Silver'
+                                    ? Colors.black54
+                                    : widget.level == 'Gold'
+                                        ? MAIN_GOLD_COLOR
+                                        : Colors.lightBlue[200],
+                            blurRadius: widget.state == 'active'
+                                ? widget.level == 'Blue' ||
+                                        widget.level == 'Blue +' ||
+                                        widget.level == 'Blue 2+'
+                                    ? 0.0083 * _screenSize.width //3,
+                                    : 0.0166 * _screenSize.width //6,
+                                : 0,
+                            spreadRadius: 0.000138 * _screenSize.width //0.05,
+                            )
                       ]),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    maxRadius: 25,
+                    maxRadius: 0.069 * _screenSize.width, //25,
                     child: Container(
-                      width: 45,
-                      height: 45,
+                      width: 0.125 * _screenSize.width, //45,
+                      height: 0.125 * _screenSize.width, //45,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -85,8 +88,8 @@ class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
                               style: TextStyle(
                                 fontSize: widget.level == 'Silver' ||
                                         widget.level == 'Gold'
-                                    ? 11
-                                    : 7,
+                                    ? 0.03 * _screenSize.width //11
+                                    : 0.0194 * _screenSize.width, //7,
                                 color: Colors.black,
                               ),
                             ),
@@ -99,7 +102,7 @@ class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
                                     ? ''
                                     : widget.level,
                                 style: TextStyle(
-                                  fontSize: 11,
+                                  fontSize: 0.03 * _screenSize.width, //11,
                                   color: widget.state == 'active'
                                       ? widget.level == 'Silver'
                                           ? Colors.black54
@@ -110,7 +113,7 @@ class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
                                 )),
                           ),
                           SizedBox(
-                            height: 4,
+                            height: 0.00625 * _screenSize.height, //4,
                           ),
                         ],
                       ),
@@ -118,15 +121,15 @@ class _CircleMembershipWidgetState extends State<CircleMembershipWidget> {
                   ),
                 ),
                 SizedBox(
-                  height: 5,
-                  width: 50,
+                  height: 0.0078 * _screenSize.height, //5,
+                  width: 0.138 * _screenSize.width, //50,
                 )
               ],
             ),
           ],
         ),
         SizedBox(
-          height: 5,
+          height: 0.0078 * _screenSize.height, //5,
         ),
       ],
     );

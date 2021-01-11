@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -46,6 +47,7 @@ class _CustomCircularPercentIndicatorWidgetState
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Stack(
       children: [
         Container(
@@ -53,15 +55,17 @@ class _CustomCircularPercentIndicatorWidgetState
             color: Colors.white,
             borderRadius: BorderRadius.circular(100),
           ),
-          padding: EdgeInsets.only(bottom: 15),
-          height: 120,
-          width: 100,
+          padding: EdgeInsets.only(
+            bottom: 0.0234 * _screenSize.height, //15
+          ),
+          height: 0.203 * _screenSize.height, //130,
+          width: 0.277 * _screenSize.width, //100,
           // color: Colors.transparent,
           child: CircularPercentIndicator(
             startAngle: 225,
-            radius: 100.0,
+            radius: 0.277 * _screenSize.width, //100,
             // reverse: true,
-            lineWidth: 3.0,
+            lineWidth: 0.0083 * _screenSize.width, //3,
             animation: widget.currentLevelWidgetAnimation,
             restartAnimation: widget.currentLevelWidgetAnimation,
             animationDuration: 2000,
@@ -78,7 +82,7 @@ class _CustomCircularPercentIndicatorWidgetState
                 '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : ((widget.moneyBuying - double.parse(widget.userLevel.minPay)) / (double.parse(widget.userLevel.maxPay) - double.parse(widget.userLevel.minPay)) * 100).toStringAsFixed(0) : loadPercent} %',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
-                  fontSize: 18,
+                  fontSize: 0.05 * _screenSize.width, //18,
                   color: MAIN_BLUE_COLOR,
                 ),
               ),
@@ -90,7 +94,7 @@ class _CustomCircularPercentIndicatorWidgetState
         Positioned(
           bottom: 0,
           child: Container(
-            width: 100,
+            width: 0.277 * _screenSize.width, //100,
             color: Colors.white,
             child: Column(
               children: [
@@ -98,7 +102,7 @@ class _CustomCircularPercentIndicatorWidgetState
                   "profile_screen.to_next_level".tr(),
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontSize: 11,
+                      fontSize: 0.03 * _screenSize.width, //11
                       color: MAIN_BLUE_COLOR),
                 ),
                 Directionality(
@@ -109,7 +113,7 @@ class _CustomCircularPercentIndicatorWidgetState
                         : '${widget.nextLevel.title}',
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 13,
+                        fontSize: 0.036 * _screenSize.width, //13,
                         color: widget.userLevel.title == 'Gold'
                             ? MAIN_BLUE_COLOR
                             : widget.nextLevel.title == 'Blue'
@@ -129,15 +133,6 @@ class _CustomCircularPercentIndicatorWidgetState
     );
   }
 
-  // Future<void> percentAnimation() async {
-  //   animationDuration();
-  //   do {
-  //     setState(() {
-  //       loadPercent = random(9, 100);
-  //     });
-  //     await Future.delayed(Duration(milliseconds: 50));
-  //   } while (!isEndAnimation);
-  // }
   Future<void> percentAnimation() async {
     loadPercent = 0;
     animationDuration();
