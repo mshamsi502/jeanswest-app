@@ -1,7 +1,7 @@
-// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
-// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
-// *   Created Date & Time:  2021-01-10  ,  11:05 AM
-// ****************************************************************************
+// ! *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// ! *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// ! *   Created Date & Time:  2021-01-10  ,  11:05 AM
+// ! ****************************************************************************
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
 class MembershipPage extends StatefulWidget {
   final String title;
@@ -63,6 +64,7 @@ class _MembershipPageState extends State<MembershipPage>
               children: [
                 AppBarWithBackWidget(title: widget.title),
                 Container(
+                  // padding: EdgeInsets.only(bottom: 2),
                   height: 0.0625 * _screenSize.height, //40,
                   child: TabBar(
                     controller: tabController,
@@ -88,7 +90,8 @@ class _MembershipPageState extends State<MembershipPage>
                         nextLevel: widget.nextLevel,
                         moneyBuying: widget.moneyBuying,
                       ),
-                      Container(),
+                      JeanpointAndCouponsPage(),
+                      // Container(),
                     ],
                   ),
                 ),

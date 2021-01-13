@@ -70,7 +70,6 @@ class _VerticalLinearLevelRoutingWidgetState
     //
 
     moneyBuyingPositionAnimation(widget.screenSize);
-    print('asdasd :  $dynamicMoneyBuyingPosition');
     moneyBuyingAnimation();
     super.initState();
   }
@@ -390,7 +389,7 @@ class _VerticalLinearLevelRoutingWidgetState
                     ],
                   ),
                   SizedBox(
-                    width: 7,
+                    width: 0.0194 * _screenSize.width, //7,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -399,47 +398,81 @@ class _VerticalLinearLevelRoutingWidgetState
                       SizedBox(height: 0.023 * _screenSize.height //15
                           ),
                       Container(
-                          alignment: Alignment.center,
-                          height: 0.14 * _screenSize.height, //90,
-                          child:
-                              widget.moneyBuying >= int.parse(blueLevel.minPay)
-                                  ? GlobalSvgImages.greenTickIcon
-                                  : GlobalSvgImages.greyTickIcon),
+                        alignment: Alignment.center,
+                        height: 0.14 * _screenSize.height, //90,
+                        child: widget.moneyBuying >= int.parse(blueLevel.minPay)
+                            ? Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greenTickIcon)
+                            : Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greyTickIcon),
+                      ),
                       SizedBox(
                         height: 0.046 * _screenSize.height, //30
                       ),
                       SizedBox(
-                          height: 0.14 * _screenSize.height, //90,
-                          child: widget.moneyBuying >=
-                                  int.parse(bluePlusLevel.minPay)
-                              ? GlobalSvgImages.greenTickIcon
-                              : GlobalSvgImages.greyTickIcon),
+                        height: 0.14 * _screenSize.height, //90,
+                        child: widget.moneyBuying >=
+                                int.parse(bluePlusLevel.minPay)
+                            ? Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greenTickIcon)
+                            : Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greyTickIcon),
+                      ),
                       SizedBox(
                         height: 0.0625 * _screenSize.height, //40
                       ),
                       SizedBox(
-                          height: 0.14 * _screenSize.height, //90,
-                          child: widget.moneyBuying >=
-                                  int.parse(blueTwoPlusLevel.minPay)
-                              ? GlobalSvgImages.greenTickIcon
-                              : GlobalSvgImages.greyTickIcon),
+                        height: 0.14 * _screenSize.height, //90,
+                        child: widget.moneyBuying >=
+                                int.parse(blueTwoPlusLevel.minPay)
+                            ? Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greenTickIcon)
+                            : Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greyTickIcon),
+                      ),
                       SizedBox(
                         height: 0.046 * _screenSize.height, //30
                       ),
                       SizedBox(
-                          height: 0.14 * _screenSize.height, //90,
-                          child: widget.moneyBuying >=
-                                  int.parse(silverLevel.minPay)
-                              ? GlobalSvgImages.greenTickIcon
-                              : GlobalSvgImages.greyTickIcon),
-                      SizedBox(height: 0.05468 * _screenSize.height //35,
-                          ),
+                        height: 0.14 * _screenSize.height, //90,
+                        child:
+                            widget.moneyBuying >= int.parse(silverLevel.minPay)
+                                ? Container(
+                                    height: 0.041 * _screenSize.width, //15,
+                                    width: 0.041 * _screenSize.width, //15,
+                                    child: GlobalSvgImages.greenTickIcon)
+                                : Container(
+                                    height: 0.041 * _screenSize.width, //15,
+                                    width: 0.041 * _screenSize.width, //15,
+                                    child: GlobalSvgImages.greyTickIcon),
+                      ),
                       SizedBox(
-                          height: 0.14 * _screenSize.height, //90,
-                          child:
-                              widget.moneyBuying >= int.parse(goldLevel.minPay)
-                                  ? GlobalSvgImages.greenTickIcon
-                                  : GlobalSvgImages.greyTickIcon),
+                        height: 0.05468 * _screenSize.height, //35,
+                      ),
+                      SizedBox(
+                        height: 0.14 * _screenSize.height, //90,
+                        child: widget.moneyBuying >= int.parse(goldLevel.minPay)
+                            ? Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greenTickIcon)
+                            : Container(
+                                height: 0.041 * _screenSize.width, //15,
+                                width: 0.041 * _screenSize.width, //15,
+                                child: GlobalSvgImages.greyTickIcon),
+                      ),
                     ],
                   ),
                 ],
