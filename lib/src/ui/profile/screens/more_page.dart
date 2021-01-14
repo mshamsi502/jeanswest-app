@@ -37,7 +37,6 @@ class _MorePageState extends State<MorePage> {
                 MenuListViewWidget(
                   titles: moreListTitles,
                   icons: moreListIcons,
-                  widgets: moreListWidgets,
                   backgroundColor: Colors.white,
                 ),
               ],

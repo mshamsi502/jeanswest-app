@@ -1,7 +1,7 @@
-// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
-// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
-// *   Created Date & Time:  2021-01-01  ,  10:00 AM
-// ****************************************************************************
+// !  *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// ! *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// ! *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ! ****************************************************************************
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -28,24 +28,6 @@ List<Widget> mainProfileListIcons = [
   ProfileSvgImages.friendsIcon,
   ProfileSvgImages.profileIcon,
   ProfileSvgImages.exitIcon,
-];
-List<Widget> mainProfileListWidgets = [
-  // JeanpointsAndCouponsScreen(),
-  Container(),
-  // OrderListScreen(),
-  Container(),
-  // FavoritesListScreen(),
-  Container(),
-  // AddressesListScreen(),
-  Container(),
-  // FriendsScreen(),
-  Container(),
-  // AccountInfoScreen(
-  //   initPanelState: PanelState.CLOSED,
-  // ),
-  Container(),
-// exit
-  Container(),
 ];
 
 List<String> moreListTitles = [

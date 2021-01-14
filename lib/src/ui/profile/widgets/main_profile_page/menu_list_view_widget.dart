@@ -6,18 +6,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/ui/profile/screens/membership_page.dart';
 
 class MenuListViewWidget extends StatefulWidget {
   final List<String> titles;
   final List<Widget> icons;
-  final List<Widget> widgets;
   final Color backgroundColor;
+  final LevelCard userLevel;
+  final LevelCard nextLevel;
+  final int moneyBuying;
   const MenuListViewWidget({
     Key key,
     this.titles,
     this.icons,
-    this.widgets,
     this.backgroundColor,
+    this.userLevel,
+    this.nextLevel,
+    this.moneyBuying,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MenuListViewWidgetState();
@@ -44,11 +50,11 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => widget.widgets[index],
-                  ),
+                openListMenu(
+                  index,
+                  widget.userLevel,
+                  widget.nextLevel,
+                  widget.moneyBuying,
                 );
               },
               child: Container(
@@ -58,27 +64,15 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
                 child: Row(
                   children: [
                     Expanded(flex: 1, child: SizedBox()),
-                    GestureDetector(
-                      child: Container(
-                        // color: Colors.red,
-                        height: 0.069 * _screenSize.width, //25,
-                        width: 0.069 * _screenSize.width, //25,
-                        child: widget.icons[index],
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => widget.widgets[index],
-                          ),
-                        );
-                      },
+                    Container(
+                      // color: Colors.red,
+                      height: 0.069 * _screenSize.width, //25,
+                      width: 0.069 * _screenSize.width, //25,
+                      child: widget.icons[index],
                     ),
                     Expanded(flex: 2, child: SizedBox()),
                     Container(
-                      // color: Colors.greenAccent,
                       width: 0.472 * _screenSize.width, //170,
-                      // color: Colors.red,
                       child: Text(
                         widget.titles[index],
                         textAlign: TextAlign.start,
@@ -115,6 +109,29 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
           ],
         );
       },
+    );
+  }
+
+  openListMenu(
+    int index,
+    LevelCard userLevel,
+    LevelCard nextLevel,
+    int moneyBuying,
+  ) {
+    print('0.0.0.0.0.0.0.0');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => index == 0
+            ? MembershipPage(
+                title: 'سطح عضویت',
+                selectedTab: 1,
+                userLevel: userLevel,
+                nextLevel: nextLevel,
+                moneyBuying: moneyBuying,
+              )
+            : Container(),
+      ),
     );
   }
 }

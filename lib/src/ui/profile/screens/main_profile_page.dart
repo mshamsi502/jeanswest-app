@@ -188,8 +188,11 @@ class _MainProfilePageState extends State<MainProfilePage>
               MenuListViewWidget(
                 titles: mainProfileListTitles,
                 icons: mainProfileListIcons,
-                widgets: mainProfileListWidgets,
+                // widgets: mainProfileListWidgets,
                 backgroundColor: F7_BACKGROUND_COLOR,
+                userLevel: userLevel,
+                nextLevel: nextLevel,
+                moneyBuying: moneyBuying,
               ),
               SizedBox(height: 5),
             ],
