@@ -389,7 +389,7 @@ class _VerticalLinearLevelRoutingWidgetState
                     ],
                   ),
                   SizedBox(
-                    width: 0.023 * _screenSize.width, //7,
+                    width: 0.023 * _screenSize.width, //8.3,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
