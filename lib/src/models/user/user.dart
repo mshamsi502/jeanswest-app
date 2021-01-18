@@ -15,6 +15,14 @@ class User {
   String dayOfBirth;
   String monthOfBirth;
   String yearOfBirth;
+  int moneyBuying;
+  //
+  int receivedGift;
+  int someOfInvited;
+  int someOfInstallFromInvited;
+  int someOfShoppingFromInvited;
+  List<User> friends;
+  //
 
   User({
     this.perName,
@@ -25,5 +33,13 @@ class User {
     this.dayOfBirth,
     this.monthOfBirth,
     this.yearOfBirth,
+    this.moneyBuying,
+    //
+    this.receivedGift,
+    this.someOfInvited,
+    this.someOfInstallFromInvited,
+    this.someOfShoppingFromInvited,
+    this.friends,
+    //
   });
 }

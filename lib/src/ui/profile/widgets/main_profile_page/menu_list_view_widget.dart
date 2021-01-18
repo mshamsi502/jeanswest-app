@@ -7,7 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
-import 'package:jeanswest/src/ui/profile/screens/membership_page.dart';
+import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
 class MenuListViewWidget extends StatefulWidget {
   final List<String> titles;
@@ -40,6 +45,7 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('user.friends.lenght : ${user.friends.length}');
     var _screenSize = MediaQuery.of(context).size;
     return ListView.builder(
       controller: _scrollController,
@@ -121,17 +127,60 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
     print('0.0.0.0.0.0.0.0');
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => index == 0
-            ? MembershipPage(
+      MaterialPageRoute(builder: (context) {
+        switch (index) {
+          case 0:
+            {
+              return TabBarViewPage(
                 title: 'سطح عضویت',
                 selectedTab: 1,
-                userLevel: userLevel,
-                nextLevel: nextLevel,
-                moneyBuying: moneyBuying,
-              )
-            : Container(),
-      ),
+                tabTitles: [
+                  'سطح عضویت من',
+                  ' جین پوینت ها و بن ها',
+                ],
+                tabWidgets: [
+                  MembershipLevelPage(
+                    userLevel: widget.userLevel,
+                    nextLevel: widget.nextLevel,
+                    moneyBuying: widget.moneyBuying,
+                  ),
+                  JeanpointAndCouponsPage(),
+                ],
+              );
+            }
+            break;
+          case 4:
+            {
+              return TabBarViewPage(
+                title: 'دوستان',
+                selectedTab: 1,
+                tabTitles: [
+                  'دعوت دوست',
+                  'دوستان من',
+                ],
+                tabWidgets: [
+                  InviteFrindePage(
+                    userId: 'user-${user.phoneNumber}',
+                    receivedGift: user.receivedGift,
+                    someOfInvited: user.someOfInvited,
+                    someOfInstallFromInvited: user.someOfInstallFromInvited,
+                    someOfShoppingFromInvited: user.someOfShoppingFromInvited,
+                  ),
+                  UserFriendsListPage(
+                    friends: user.friends,
+                  ),
+                ],
+                bottomButton: 'ارسال لینک',
+              );
+            }
+            break;
+          default:
+            {
+              return Container();
+            }
+            break;
+        }
+      }),
     );
   }
 }

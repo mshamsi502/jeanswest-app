@@ -2,7 +2,7 @@
 // *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
-
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,11 +13,18 @@ import 'package:jeanswest/src/constants/test_data/user.dart';
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
+import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/profile_appbar_widget.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
+import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
+import 'package:intent/action.dart' as android_action;
+import 'package:intent/intent.dart' as android_intent;
+import 'package:intent/extra.dart' as android_extra;
+import 'package:intent/typedExtra.dart' as android_typedExtra;
 
 import 'main_menu_list/inbox_page.dart';
 
@@ -40,7 +47,7 @@ class _MainProfilePageState extends State<MainProfilePage>
   @override
   void initState() {
     super.initState();
-    userLevel = userLevelProvider(moneyBuying);
+    userLevel = userLevelProvider(user.moneyBuying);
     nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
     for (var i = 0; i < userMessages.length; i++) {
@@ -143,7 +150,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                     ProfileAppBarWidget(
                         userLevel: userLevel,
                         nextLevel: nextLevel,
-                        moneyBuying: moneyBuying),
+                        moneyBuying: user.moneyBuying),
                     GestureDetector(
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -161,17 +168,35 @@ class _MainProfilePageState extends State<MainProfilePage>
                         ),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             InviteFriendsScreen(
-                        //               userId: 'user-9176509634',
-                        //               receivedGift: 250000,
-                        //               someOfInvited: 8,
-                        //               someOfInstallFromInvited: 5,
-                        //               someOfShoppingFromInvited: 3,
-                        //             )));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TabBarViewPage(
+                              title: 'دوستان',
+                              selectedTab: 0,
+                              tabTitles: [
+                                'دعوت دوست',
+                                'دوستان من',
+                              ],
+                              tabWidgets: [
+                                InviteFrindePage(
+                                  userId: 'user-${user.phoneNumber}',
+                                  receivedGift: user.receivedGift,
+                                  someOfInvited: user.someOfInvited,
+                                  someOfInstallFromInvited:
+                                      user.someOfInstallFromInvited,
+                                  someOfShoppingFromInvited:
+                                      user.someOfShoppingFromInvited,
+                                ),
+                                UserFriendsListPage(
+                                  friends: user.friends,
+                                ),
+                              ],
+                              bottomButton: 'ارسال لینک',
+                              bottomButtonFunction: bottomButtonFunction,
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -182,7 +207,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                   userLevel: userLevel,
                   nextLevel: nextLevel,
                   preLevel: preLevel,
-                  moneyBuying: moneyBuying,
+                  moneyBuying: user.moneyBuying,
                 ),
               ),
               MenuListViewWidget(
@@ -192,7 +217,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                 backgroundColor: F7_BACKGROUND_COLOR,
                 userLevel: userLevel,
                 nextLevel: nextLevel,
-                moneyBuying: moneyBuying,
+                moneyBuying: user.moneyBuying,
               ),
               SizedBox(height: 5),
             ],
@@ -206,5 +231,26 @@ class _MainProfilePageState extends State<MainProfilePage>
     setState(() {
       haveUnreadMessage = false;
     });
+  }
+
+  bottomButtonFunction() {
+    String link = 'club.avakatan.ir/public/jeanswest.apk';
+    String text = 'به جین وست ملحق شو :)\n$link';
+
+    if (Platform.isAndroid) {
+      android_intent.Intent()
+        ..setAction(android_action.Action.ACTION_SEND)
+        ..setType('text/plain')
+        ..putExtra(android_extra.Extra.EXTRA_TEXT, text)
+        ..startActivity().catchError((e) => print(e));
+    }
+    //  else if (Platform.isIOS) {
+    //   // IOS Intent to Map Apps
+    //   //   "comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"
+    //   Uri.parse(
+    //       'comgooglemaps://?saddr=Google+Inc,+8th+Avenue,+New+York,+NY&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit');
+    // } else {
+    //   // Other OS Intent to Map Apps
+    // }
   }
 }

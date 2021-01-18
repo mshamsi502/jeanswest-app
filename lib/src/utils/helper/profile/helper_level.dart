@@ -22,7 +22,7 @@ LevelCard userLevelProvider(int moneyBuying) {
 }
 
 LevelCard nextLevelProvider(LevelCard userLevel) {
-  return moneyBuying < int.parse(blueLevel.minPay)
+  return user.moneyBuying < int.parse(blueLevel.minPay)
       ? blueLevel
       : userLevel.title == blueLevel.title
           ? bluePlusLevel
