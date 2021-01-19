@@ -6,24 +6,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
-import 'package:jeanswest/src/ui/profile/screens/membership_page.dart';
+import 'package:jeanswest/src/constants/test_data/user.dart';
 
 class MenuListViewWidget extends StatefulWidget {
   final List<String> titles;
   final List<Widget> icons;
+  final List<Widget> pages;
   final Color backgroundColor;
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
-  final int moneyBuying;
+
   const MenuListViewWidget({
     Key key,
     this.titles,
     this.icons,
     this.backgroundColor,
-    this.userLevel,
-    this.nextLevel,
-    this.moneyBuying,
+    this.pages,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MenuListViewWidgetState();
@@ -40,21 +36,20 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('user.friends.lenght : ${user.friends.length}');
     var _screenSize = MediaQuery.of(context).size;
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
-      itemCount: widget.titles.length,
+      itemCount: widget.pages.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
             GestureDetector(
               onTap: () {
-                openListMenu(
-                  index,
-                  widget.userLevel,
-                  widget.nextLevel,
-                  widget.moneyBuying,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => widget.pages[index]),
                 );
               },
               child: Container(
@@ -109,29 +104,6 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
           ],
         );
       },
-    );
-  }
-
-  openListMenu(
-    int index,
-    LevelCard userLevel,
-    LevelCard nextLevel,
-    int moneyBuying,
-  ) {
-    print('0.0.0.0.0.0.0.0');
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => index == 0
-            ? MembershipPage(
-                title: 'سطح عضویت',
-                selectedTab: 1,
-                userLevel: userLevel,
-                nextLevel: nextLevel,
-                moneyBuying: moneyBuying,
-              )
-            : Container(),
-      ),
     );
   }
 }

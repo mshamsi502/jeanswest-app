@@ -2,7 +2,6 @@
 // *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,11 +12,15 @@ import 'package:jeanswest/src/constants/test_data/user.dart';
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
+import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/profile_appbar_widget.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
+import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 
 import 'main_menu_list/inbox_page.dart';
 
@@ -36,11 +39,13 @@ class _MainProfilePageState extends State<MainProfilePage>
   LevelCard nextLevel;
   LevelCard preLevel;
   bool haveUnreadMessage;
+  List<Widget> mainProfileListMenu;
+  List<Widget> moreListMenu;
 
   @override
   void initState() {
     super.initState();
-    userLevel = userLevelProvider(moneyBuying);
+    userLevel = userLevelProvider(user.moneyBuying);
     nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
     for (var i = 0; i < userMessages.length; i++) {
@@ -50,9 +55,11 @@ class _MainProfilePageState extends State<MainProfilePage>
       } else {
         haveUnreadMessage = false;
       }
+      scrollController = new ScrollController();
+      mainProfileListMenu =
+          createProfileListMenuPages(userLevel, nextLevel, user.moneyBuying);
+      moreListMenu = createMoreListMenuPages();
     }
-
-    scrollController = new ScrollController();
   }
 
   @override
@@ -89,7 +96,10 @@ class _MainProfilePageState extends State<MainProfilePage>
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MorePage(title: 'بیشتر'))),
+                              builder: (context) => MorePage(
+                                    title: 'بیشتر',
+                                    pages: moreListMenu,
+                                  ))),
                     ),
                     Stack(
                       children: [
@@ -143,7 +153,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                     ProfileAppBarWidget(
                         userLevel: userLevel,
                         nextLevel: nextLevel,
-                        moneyBuying: moneyBuying),
+                        moneyBuying: user.moneyBuying),
                     GestureDetector(
                       child: Container(
                         margin: EdgeInsets.symmetric(
@@ -161,17 +171,35 @@ class _MainProfilePageState extends State<MainProfilePage>
                         ),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             InviteFriendsScreen(
-                        //               userId: 'user-9176509634',
-                        //               receivedGift: 250000,
-                        //               someOfInvited: 8,
-                        //               someOfInstallFromInvited: 5,
-                        //               someOfShoppingFromInvited: 3,
-                        //             )));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TabBarViewPage(
+                              title: 'دوستان',
+                              selectedTab: 0,
+                              tabTitles: [
+                                'دعوت دوست',
+                                'دوستان من',
+                              ],
+                              tabWidgets: [
+                                InviteFrindePage(
+                                  userId: 'user-${user.phoneNumber}',
+                                  receivedGift: user.receivedGift,
+                                  someOfInvited: user.someOfInvited,
+                                  someOfInstallFromInvited:
+                                      user.someOfInstallFromInvited,
+                                  someOfShoppingFromInvited:
+                                      user.someOfShoppingFromInvited,
+                                ),
+                                UserFriendsListPage(
+                                  friends: user.friends,
+                                ),
+                              ],
+                              bottomButton: 'ارسال لینک',
+                              bottomButtonFunction: bottomButtonFunction,
+                            ),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -182,17 +210,17 @@ class _MainProfilePageState extends State<MainProfilePage>
                   userLevel: userLevel,
                   nextLevel: nextLevel,
                   preLevel: preLevel,
-                  moneyBuying: moneyBuying,
+                  moneyBuying: user.moneyBuying,
                 ),
               ),
               MenuListViewWidget(
                 titles: mainProfileListTitles,
                 icons: mainProfileListIcons,
-                // widgets: mainProfileListWidgets,
+                pages: mainProfileListMenu,
                 backgroundColor: F7_BACKGROUND_COLOR,
-                userLevel: userLevel,
-                nextLevel: nextLevel,
-                moneyBuying: moneyBuying,
+                // userLevel: userLevel,
+                // nextLevel: nextLevel,
+                // moneyBuying: user.moneyBuying,
               ),
               SizedBox(height: 5),
             ],

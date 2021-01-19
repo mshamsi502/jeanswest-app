@@ -5,6 +5,7 @@
 
 import 'package:jeanswest/src/models/user/gender.dart';
 import 'package:jeanswest/src/models/user/user.dart';
+import 'package:jeanswest/src/constants/test_data/friends.dart';
 
 User user = new User(
   perName: ' جواد خواجوی',
@@ -15,11 +16,9 @@ User user = new User(
   dayOfBirth: '24',
   monthOfBirth: '07',
   yearOfBirth: '1375',
-);
-
-int moneyBuying =
+  moneyBuying:
 //
-    // 50000; // zero level
+      // 50000; // zero level
 // 17000000; // infinty level
 //
 // 199000; // in limit before 200,000
@@ -41,7 +40,7 @@ int moneyBuying =
 // 4950000; // in limit before 5,000,000
 // 5000000; // in limit center 5,000,000
 // 5005000; // in limit after 5,000,000
-    8600000; // silver levelP
+      8600000, // silver levelP
 //
 // 14950000; // in limit before 15,000,000
 // 15000000; // in limit center 15,000,000
@@ -49,4 +48,10 @@ int moneyBuying =
 // 17500000; // gold level
 // 100000000; // gold level
 //
-//
+  receivedGift: 250000,
+  someOfInvited: 8,
+  someOfInstallFromInvited: 5,
+  someOfShoppingFromInvited: 3,
+  //
+  friends: friends,
+);

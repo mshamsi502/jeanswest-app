@@ -1,7 +1,7 @@
-// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
-// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
-// *   Created Date & Time:  2021-01-01  ,  13:46 AM
-// ****************************************************************************
+// ! *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// ! *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// ! *   Created Date & Time:  2021-01-01  ,  13:46 AM
+// ! ****************************************************************************
 
 import 'dart:math';
 
@@ -10,7 +10,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 

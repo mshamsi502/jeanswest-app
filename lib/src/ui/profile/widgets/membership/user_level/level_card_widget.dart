@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 
-import 'circle_membership_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/circle_membership_widget.dart';
 
 class LevelCardWidget extends StatefulWidget {
   final LevelCard levelCard;

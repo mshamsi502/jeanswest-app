@@ -12,6 +12,7 @@ class InfoCardWidget extends StatefulWidget {
   final List<Widget> icon;
   final String imagePAth;
   final TextDirection customDirection;
+  final Size screenSize;
 
   InfoCardWidget({
     Key key,
@@ -19,13 +20,14 @@ class InfoCardWidget extends StatefulWidget {
     this.imagePAth,
     this.customDirection,
     this.icon,
+    this.screenSize,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _InfoCardWidgetState();
 }
 
 class _InfoCardWidgetState extends State<InfoCardWidget> {
-  double imageSize = 100;
+  double imageSize;
   GlobalKey widgetKey = GlobalKey();
   Widget body;
   Size size;
@@ -34,6 +36,7 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => getSize());
+    imageSize = 0.27 * widget.screenSize.width; //100,
     super.initState();
   }
 
