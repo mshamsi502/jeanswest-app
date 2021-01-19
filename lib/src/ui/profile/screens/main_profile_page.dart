@@ -2,7 +2,6 @@
 // *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,10 +20,7 @@ import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_vie
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/profile_appbar_widget.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
-import 'package:intent/action.dart' as android_action;
-import 'package:intent/intent.dart' as android_intent;
-import 'package:intent/extra.dart' as android_extra;
-import 'package:intent/typedExtra.dart' as android_typedExtra;
+import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 
 import 'main_menu_list/inbox_page.dart';
 
@@ -43,6 +39,8 @@ class _MainProfilePageState extends State<MainProfilePage>
   LevelCard nextLevel;
   LevelCard preLevel;
   bool haveUnreadMessage;
+  List<Widget> mainProfileListMenu;
+  List<Widget> moreListMenu;
 
   @override
   void initState() {
@@ -57,9 +55,11 @@ class _MainProfilePageState extends State<MainProfilePage>
       } else {
         haveUnreadMessage = false;
       }
+      scrollController = new ScrollController();
+      mainProfileListMenu =
+          createProfileListMenuPages(userLevel, nextLevel, user.moneyBuying);
+      moreListMenu = createMoreListMenuPages();
     }
-
-    scrollController = new ScrollController();
   }
 
   @override
@@ -96,7 +96,10 @@ class _MainProfilePageState extends State<MainProfilePage>
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MorePage(title: 'بیشتر'))),
+                              builder: (context) => MorePage(
+                                    title: 'بیشتر',
+                                    pages: moreListMenu,
+                                  ))),
                     ),
                     Stack(
                       children: [
@@ -213,11 +216,11 @@ class _MainProfilePageState extends State<MainProfilePage>
               MenuListViewWidget(
                 titles: mainProfileListTitles,
                 icons: mainProfileListIcons,
-                // widgets: mainProfileListWidgets,
+                pages: mainProfileListMenu,
                 backgroundColor: F7_BACKGROUND_COLOR,
-                userLevel: userLevel,
-                nextLevel: nextLevel,
-                moneyBuying: user.moneyBuying,
+                // userLevel: userLevel,
+                // nextLevel: nextLevel,
+                // moneyBuying: user.moneyBuying,
               ),
               SizedBox(height: 5),
             ],
@@ -231,26 +234,5 @@ class _MainProfilePageState extends State<MainProfilePage>
     setState(() {
       haveUnreadMessage = false;
     });
-  }
-
-  bottomButtonFunction() {
-    String link = 'club.avakatan.ir/public/jeanswest.apk';
-    String text = 'به جین وست ملحق شو :)\n$link';
-
-    if (Platform.isAndroid) {
-      android_intent.Intent()
-        ..setAction(android_action.Action.ACTION_SEND)
-        ..setType('text/plain')
-        ..putExtra(android_extra.Extra.EXTRA_TEXT, text)
-        ..startActivity().catchError((e) => print(e));
-    }
-    //  else if (Platform.isIOS) {
-    //   // IOS Intent to Map Apps
-    //   //   "comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"
-    //   Uri.parse(
-    //       'comgooglemaps://?saddr=Google+Inc,+8th+Avenue,+New+York,+NY&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit');
-    // } else {
-    //   // Other OS Intent to Map Apps
-    // }
   }
 }

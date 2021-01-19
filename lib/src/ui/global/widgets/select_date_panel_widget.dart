@@ -75,37 +75,40 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
       child: SafeArea(
         child: Scaffold(
           body: Container(
             color: Colors.white,
-            height: 320,
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            height: 0.5 * _screenSize.height, //320,
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Stack(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: 0.039 * _screenSize.height, //25,
                     ),
                     Row(
                       children: [
                         SizedBox(
-                          width: 10,
+                          width: 0.027 * _screenSize.width, //10,
                         ),
                         Expanded(
                           child: Container(
-                            height: 200,
+                            height: 0.3125 * _screenSize.height, //200
                             // color: Colors.amberAccent,
                             alignment: Alignment.bottomCenter,
                             child: CupertinoPicker(
                               offAxisFraction: 0.0,
-                              diameterRatio: 100,
+                              diameterRatio: 0.27 * _screenSize.width, //100,
                               squeeze: 1,
-                              itemExtent: 40,
+                              itemExtent: 0.111 * _screenSize.width, //40,
                               scrollController: dayScrollController,
                               // selectionOverlay: Container(
                               //   height: 40,
@@ -125,21 +128,23 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                                   Column(
                                     children: [
                                       Container(
-                                        height: 8,
+                                        height:
+                                            0.0125 * _screenSize.height, //8,
                                       ),
                                       Text(
                                         (i + 1).toString().length == 1
                                             ? '0${(i + 1).toString()}'
                                             : (i + 1).toString(),
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize:
+                                              0.0444 * _screenSize.width, //16,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'IRANSans',
                                           color: MAIN_BLUE_COLOR,
                                         ),
                                       ),
                                       Container(
-                                        height: 5,
+                                        height: 0.008 * _screenSize.height, //5
                                       ),
                                     ],
                                   )
@@ -156,18 +161,18 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           ),
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 0.027 * _screenSize.width, //10,
                         ),
                         Expanded(
                           child: Container(
-                            height: 200,
+                            height: 0.3125 * _screenSize.height, //200
                             // color: Colors.amberAccent,
                             alignment: Alignment.bottomCenter,
                             child: CupertinoPicker(
                               offAxisFraction: 0.0,
-                              diameterRatio: 100,
+                              diameterRatio: 0.27 * _screenSize.width, //100,
                               squeeze: 1,
-                              itemExtent: 40,
+                              itemExtent: 0.111 * _screenSize.width, //40,
                               scrollController: monthScrollController,
                               // selectionOverlay: Container(
                               //   height: 40,
@@ -187,19 +192,21 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                                   Column(
                                     children: [
                                       Container(
-                                        height: 8,
+                                        height:
+                                            0.0125 * _screenSize.height, //8,
                                       ),
                                       Text(
                                         month[i],
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize:
+                                              0.0444 * _screenSize.width, //16,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'IRANSans',
                                           color: MAIN_BLUE_COLOR,
                                         ),
                                       ),
                                       Container(
-                                        height: 5,
+                                        height: 0.008 * _screenSize.height, //5
                                       ),
                                     ],
                                   )
@@ -223,17 +230,17 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           ),
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 0.027 * _screenSize.width, //10,
                         ),
                         Expanded(
                           child: Container(
-                            height: 200,
+                            height: 0.3125 * _screenSize.height, //200
                             alignment: Alignment.bottomCenter,
                             child: CupertinoPicker(
                               offAxisFraction: 0.0,
-                              diameterRatio: 100,
+                              diameterRatio: 0.27 * _screenSize.width, //100,
                               squeeze: 1,
-                              itemExtent: 40,
+                              itemExtent: 0.111 * _screenSize.width, //40,
                               scrollController: yearScrollController,
                               // selectionOverlay: Column(
                               //   children: [
@@ -261,12 +268,14 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                                   Column(
                                     children: [
                                       Container(
-                                        height: 8,
+                                        height:
+                                            0.0125 * _screenSize.height, //8,
                                       ),
                                       Text(
                                         i.toString(),
                                         style: TextStyle(
-                                          fontSize: 16,
+                                          fontSize:
+                                              0.0444 * _screenSize.width, //16,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'IRANSans',
                                           color: MAIN_BLUE_COLOR,
@@ -274,7 +283,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                                       ),
                                       // ),
                                       Container(
-                                        height: 5,
+                                        height: 0.008 * _screenSize.height, //5
                                       ),
                                     ],
                                   )
@@ -289,19 +298,23 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           ),
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 0.027 * _screenSize.width, //10,
                         ),
                       ],
                     ),
                   ],
                 ),
                 Positioned(
-                  bottom: 20,
-                  right: 25,
-                  left: 25,
+                  bottom: 0.016 * _screenSize.height, //10
+                  //  0.03125 * _screenSize.height, //20
+                  right: 0.069 * _screenSize.width, //25,
+                  left: 0.069 * _screenSize.width, //25,
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 0.03125 * _screenSize.height, //20
+                      horizontal: 0.027 * _screenSize.width, //10,
+                    ),
                     child: Row(
                       children: [
                         Expanded(
@@ -310,7 +323,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                             textColor: Colors.white,
                             borderColor: Colors.transparent,
                             title: 'انجام شد',
-                            height: 40,
+                            height: 0.0625 * _screenSize.height, //40
                             onTap: () {
                               // widget.closePanel();
                               widget.confirmDate(
@@ -322,8 +335,8 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                               // _monthValue = widget.monthValue;
                               // _yearValue = widget.yearValue;
                             },
-                            radius: 5,
-                            fontSize: 14,
+                            radius: 0.008 * _screenSize.height, //5
+                            fontSize: 0.038 * _screenSize.width, //14,
                           ),
                         ),
                       ],

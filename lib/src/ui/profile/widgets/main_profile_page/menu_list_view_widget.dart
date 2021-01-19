@@ -6,29 +6,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/constants/test_data/user.dart';
-import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
 class MenuListViewWidget extends StatefulWidget {
   final List<String> titles;
   final List<Widget> icons;
+  final List<Widget> pages;
   final Color backgroundColor;
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
-  final int moneyBuying;
+
   const MenuListViewWidget({
     Key key,
     this.titles,
     this.icons,
     this.backgroundColor,
-    this.userLevel,
-    this.nextLevel,
-    this.moneyBuying,
+    this.pages,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MenuListViewWidgetState();
@@ -50,17 +41,15 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
-      itemCount: widget.titles.length,
+      itemCount: widget.pages.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
             GestureDetector(
               onTap: () {
-                openListMenu(
-                  index,
-                  widget.userLevel,
-                  widget.nextLevel,
-                  widget.moneyBuying,
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => widget.pages[index]),
                 );
               },
               child: Container(
@@ -115,72 +104,6 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
           ],
         );
       },
-    );
-  }
-
-  openListMenu(
-    int index,
-    LevelCard userLevel,
-    LevelCard nextLevel,
-    int moneyBuying,
-  ) {
-    print('0.0.0.0.0.0.0.0');
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) {
-        switch (index) {
-          case 0:
-            {
-              return TabBarViewPage(
-                title: 'سطح عضویت',
-                selectedTab: 1,
-                tabTitles: [
-                  'سطح عضویت من',
-                  ' جین پوینت ها و بن ها',
-                ],
-                tabWidgets: [
-                  MembershipLevelPage(
-                    userLevel: widget.userLevel,
-                    nextLevel: widget.nextLevel,
-                    moneyBuying: widget.moneyBuying,
-                  ),
-                  JeanpointAndCouponsPage(),
-                ],
-              );
-            }
-            break;
-          case 4:
-            {
-              return TabBarViewPage(
-                title: 'دوستان',
-                selectedTab: 1,
-                tabTitles: [
-                  'دعوت دوست',
-                  'دوستان من',
-                ],
-                tabWidgets: [
-                  InviteFrindePage(
-                    userId: 'user-${user.phoneNumber}',
-                    receivedGift: user.receivedGift,
-                    someOfInvited: user.someOfInvited,
-                    someOfInstallFromInvited: user.someOfInstallFromInvited,
-                    someOfShoppingFromInvited: user.someOfShoppingFromInvited,
-                  ),
-                  UserFriendsListPage(
-                    friends: user.friends,
-                  ),
-                ],
-                bottomButton: 'ارسال لینک',
-              );
-            }
-            break;
-          default:
-            {
-              return Container();
-            }
-            break;
-        }
-      }),
     );
   }
 }

@@ -51,9 +51,9 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
               ),
             ),
             Divider(
-              thickness: 0.5,
+              thickness: 0.00138 * _screenSize.width, //0.5,
               color: MAIN_BLUE_COLOR,
-              height: 2,
+              height: 0.00555 * _screenSize.width, //2,
             ),
             SizedBox(
               height: 0.015 * _screenSize.height, //10,
@@ -132,7 +132,9 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
                     ),
                 Text(
                   '1475614566',
-                  style: TextStyle(fontSize: 12, color: Colors.black),
+                  style: TextStyle(
+                      fontSize: 0.034 * _screenSize.width, //12,
+                      color: Colors.black),
                 )
               ],
             ),

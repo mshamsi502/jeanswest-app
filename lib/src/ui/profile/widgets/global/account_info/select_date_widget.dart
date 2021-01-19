@@ -29,15 +29,17 @@ class SelectDateWidget extends StatefulWidget {
 class _SelectDateWidgetState extends State<SelectDateWidget> {
   @override
   Widget build(BuildContext context) {
-    print('${widget.yearOfBirth}/${widget.monthOfBirth}/${widget.dayOfBirth}');
+    var _screenSize = MediaQuery.of(context).size;
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(
+          horizontal: 0.054 * _screenSize.width, //20
+        ),
         child: Text(
           widget.title,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 14,
+            fontSize: 0.038 * _screenSize.width, //14,
             color: MAIN_BLUE_COLOR,
           ),
         ),
@@ -50,17 +52,26 @@ class _SelectDateWidgetState extends State<SelectDateWidget> {
           Expanded(
             child: GestureDetector(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.054 * _screenSize.width, //20
+                ),
                 alignment: Alignment.centerRight,
-                height: 50,
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                height: 0.078125 * _screenSize.height, //50,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 0.027 * _screenSize.width, //10,
+                ),
                 decoration: BoxDecoration(
                   color: Color(0xfff2f2f2),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius:
+                      BorderRadius.circular(0.0138 * _screenSize.width //5,
+
+                          ),
                 ),
                 child: Text(
                   '${widget.yearOfBirth}/${widget.monthOfBirth}/${widget.dayOfBirth}',
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(
+                    fontSize: 0.038 * _screenSize.width, //14,
+                  ),
                 ),
               ),
               onTap: () => widget.openPanel(),

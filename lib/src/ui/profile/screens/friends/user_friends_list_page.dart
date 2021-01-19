@@ -9,7 +9,6 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/user/user.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/edit_friend_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/edit_info_friend.dart';
@@ -52,26 +51,23 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
             defaultPanelState: PanelState.CLOSED,
             backdropEnabled: true,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
+              topLeft: Radius.circular(
+                0.041 * _screenSize.width, //15,
+              ),
+              topRight: Radius.circular(
+                0.041 * _screenSize.width, //15,
+              ),
             ),
             panel: Container(
               color: Colors.white,
               height: _screenSize.height,
               child: EditFriendInfoWidget(
-                title: 'ویرایش دوست',
+                title: 'ویرایش اطلاعات دوست',
                 name: widget.friends[selectedFriend].perName,
                 dayOfBirth: widget.friends[selectedFriend].dayOfBirth,
                 monthOfBirth: widget.friends[selectedFriend].monthOfBirth,
                 yearOfBirth: widget.friends[selectedFriend].yearOfBirth,
-                isNew: false,
-                // closePanel: () {
-                //   setState(() {
-                //     isNew = false;
-                //     editingPanel.close();
-                //   });
-                // },
-                // confirmInfo: confirmInfo,
+                confirmInfo: confirmInfo,
               ),
             ),
             body: Container(
@@ -79,16 +75,17 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
               child: Stack(
                 children: [
                   Container(
-                    height: _screenSize.height - 20,
+                    height:
+                        _screenSize.height - 0.03125 * _screenSize.height, //20,
                     child: SingleChildScrollView(
                       controller: _scrollController,
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 20,
+                            height: 0.03125 * _screenSize.height, //20,
                           ),
                           Container(
-                            height: 160,
+                            height: 0.25 * _screenSize.height, //160,
                             width: _screenSize.width,
                             decoration: BoxDecoration(
                               image: DecorationImage(
@@ -99,12 +96,12 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
                             ),
                           ),
                           Divider(
-                            thickness: 1.5,
+                            thickness: 0.00416 * _screenSize.width, //1.5,
                             color: MAIN_BLUE_COLOR,
-                            height: 1.5,
+                            height: 0.00416 * _screenSize.width, //1.5,
                           ),
                           SizedBox(
-                            height: 25,
+                            height: 0.039 * _screenSize.height, //25,
                           ),
                           ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
@@ -114,22 +111,28 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
                               return Column(
                                 children: [
                                   Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 15),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          0.041 * _screenSize.width, //15,
+                                    ),
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: 45,
-                                          width: 45,
+                                          height:
+                                              0.125 * _screenSize.width, //45,
+                                          width:
+                                              0.125 * _screenSize.width, //45,
                                           child: CircleAvatar(
                                             backgroundColor: Colors.blueGrey,
-                                            radius: 50,
+                                            radius:
+                                                0.138 * _screenSize.width, //50,
                                             backgroundImage: AssetImage(
                                                 'assets/images/png_images/global/profile_avatar.png'),
                                           ),
                                         ),
                                         SizedBox(
-                                          width: 15,
+                                          width:
+                                              0.041 * _screenSize.width, //15,
                                         ),
                                         Expanded(
                                           child: Column(
@@ -139,30 +142,42 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
                                               Text(
                                                 widget.friends[index].perName,
                                                 style: TextStyle(
-                                                    fontSize: 12,
+                                                    fontSize: 0.034 *
+                                                        _screenSize.width, //12,
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
                                               SizedBox(
-                                                height: 5,
-                                              ),
+                                                  height: 0.0078 *
+                                                      _screenSize.height //5,
+                                                  ),
                                               Text(
                                                 'تاریخ تولد : ${widget.friends[index].yearOfBirth}/${widget.friends[index].monthOfBirth}/${widget.friends[index].dayOfBirth}',
-                                                style: TextStyle(fontSize: 10),
+                                                style: TextStyle(
+                                                  fontSize: 0.027 *
+                                                      _screenSize.width, //10,
+                                                ),
                                               )
                                             ],
                                           ),
                                         ),
                                         GestureDetector(
                                           child: Container(
-                                              padding: EdgeInsets.all(5),
-                                              height: 25,
-                                              width: 25,
+                                              padding: EdgeInsets.all(0.0138 *
+                                                      _screenSize.width //5,
+                                                  ),
+                                              height: 0.069 *
+                                                  _screenSize.width, //25,
+                                              width: 0.069 *
+                                                  _screenSize.width, //25,
                                               decoration: BoxDecoration(
                                                 // color: Color(0xfff2f2f2),
                                                 color: Colors.white,
                                                 borderRadius:
-                                                    BorderRadius.circular(50),
+                                                    BorderRadius.circular(
+                                                  0.138 *
+                                                      _screenSize.width, //50,
+                                                ),
                                                 border: Border.all(
                                                   color: Colors.grey[200],
                                                 ),
@@ -186,7 +201,6 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
                                                 ),
                                               ),
                                             );
-
                                             await Future.delayed(
                                                 Duration(milliseconds: 500));
                                             setState(() {
@@ -201,53 +215,24 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 0.023 * _screenSize.height, //15
                                   ),
                                   Divider(
-                                    thickness: 0.3,
+                                    thickness: 0.001 * _screenSize.width, //0.3,
                                     color: MAIN_BLUE_COLOR,
-                                    height: 2,
+                                    height: 0.00555 * _screenSize.width, //2,
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 0.023 * _screenSize.height, //15
                                   ),
                                 ],
                               );
                             },
                           ),
                           SizedBox(
-                            height: 40,
+                            height: 0.0625 * _screenSize.height, //40
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 20,
-                    child: Container(
-                      alignment: Alignment.center,
-                      color: Colors.white,
-                      // color: Colors.red,
-                      width: _screenSize.width,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-                      child: AvakatanButtonWidget(
-                        backgroundColor: MAIN_BLUE_COLOR,
-                        textColor: Colors.white,
-                        title: 'افزودن دوست جدید',
-                        height: 40,
-                        // this.icon,
-                        width: _screenSize.width * 0.8,
-                        radius: 5,
-                        fontSize: 15,
-                        borderColor: MAIN_BLUE_COLOR,
-                        onTap: () {
-                          setState(() {
-                            selectedFriend = null;
-                            print('selectedFriend: nulll');
-                            editingPanel.open();
-                          });
-                        },
                       ),
                     ),
                   ),

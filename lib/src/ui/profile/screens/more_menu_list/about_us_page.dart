@@ -78,6 +78,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                               size: 0.041 * _screenSize.width, //15,
                             ),
                           ],
+                          screenSize: _screenSize,
                         ),
                         SizedBox(height: 0.0078 * _screenSize.height //5,
                             ),
@@ -86,6 +87,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                           imagePAth:
                               'assets/images/png_images/profile/more/jeanswest_shop.png',
                           customDirection: ltrTextDirection,
+                          screenSize: _screenSize,
                         ),
                         SizedBox(height: 0.0078 * _screenSize.height //5,
                             ),
@@ -94,6 +96,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                           imagePAth:
                               'assets/images/png_images/profile/more/shopping.png',
                           customDirection: rtlTextDirection,
+                          screenSize: _screenSize,
                           icon: [
                             Icon(
                               Icons.five_g,

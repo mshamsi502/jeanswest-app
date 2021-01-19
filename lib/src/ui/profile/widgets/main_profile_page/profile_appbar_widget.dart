@@ -118,6 +118,7 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                                           ),
                                           JeanpointAndCouponsPage(),
                                         ],
+                                        bottomButtonFunction: () {},
                                       ),
                                     ),
                                   ),

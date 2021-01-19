@@ -21,8 +21,6 @@ class EditFriendInfoWidget extends StatefulWidget {
   final String dayOfBirth;
   final String monthOfBirth;
   final String yearOfBirth;
-  final bool isNew;
-  // final Function() closePanel;
   final Function(
     String,
     String,
@@ -39,7 +37,6 @@ class EditFriendInfoWidget extends StatefulWidget {
     this.dayOfBirth,
     this.monthOfBirth,
     this.yearOfBirth,
-    this.isNew,
   }) : super(key: key);
   State<StatefulWidget> createState() => _EditFriendInfoWidgetState();
 }
@@ -69,16 +66,7 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('widget.isNew (1 in Build) : ${widget.isNew}');
-    print('isOpeningPanel (1 in Build) : $isOpeningPanel');
-    if (widget.isNew) {
-      setState(() {
-        isOpeningPanel = widget.isNew;
-        print('widget.isNew (2 in Build) : ${widget.isNew}');
-        print('isOpeningPanel (2 in Build) : $isOpeningPanel');
-      });
-    }
-
+    var _screenSize = MediaQuery.of(context).size;
     if (isOpeningPanel) {
       setState(() {
         nameEditingController.text = widget.name ?? '';
@@ -86,7 +74,6 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
         monthOfBirth = widget.monthOfBirth ?? '01';
         yearOfBirth = widget.yearOfBirth ?? '1374';
         isOpeningPanel = false;
-        print('widget.isNew (3 in Build) : ${widget.isNew}');
         print('isOpeningPanel (3 in Build) : $isOpeningPanel');
         print('---------------------------------------------');
       });
@@ -98,11 +85,15 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
           body: SlidingUpPanel(
             controller: selectDateController,
             minHeight: 0,
-            maxHeight: 320,
+            maxHeight: 0.5 * _screenSize.height, //320,
             backdropEnabled: true,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
+              topLeft: Radius.circular(
+                0.041 * _screenSize.width, //15,
+              ),
+              topRight: Radius.circular(
+                0.041 * _screenSize.width, //15,
+              ),
             ),
             panel: SelectDatePanelWidget(
               confirmDate: confirmDate,
@@ -112,7 +103,9 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
             ),
             body: Container(
               color: Colors.white,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.027 * _screenSize.width, //10,
+              ),
               child: Stack(
                 children: [
                   Column(
@@ -122,13 +115,17 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
                         title: widget.title,
                         closeOnTap: () => Navigator.pop(context),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(
+                        height: 0.03125 * _screenSize.height, //20
+                      ),
                       CustomTextFieldWidget(
                         title: 'نام و نام خانوادگی *',
                         textEditingController: nameEditingController,
                         initText: widget.name ?? 'محمد شمسی',
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(
+                        height: 0.03125 * _screenSize.height, //20
+                      ),
                       SelectDateWidget(
                         title: 'تاریخ تولد',
                         yearOfBirth: yearOfBirth,
@@ -138,19 +135,20 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
                           selectDateController.open();
                         },
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      SizedBox(height: 0.0078 * _screenSize.height //5,
+                          ),
                     ],
                   ),
                   Positioned(
-                    bottom: 20,
-                    right: 25,
-                    left: 25,
+                    bottom: 0.0625 * _screenSize.height, //40
+                    right: 0.069 * _screenSize.width, //25,
+                    left: 0.069 * _screenSize.width, //25,
                     child: Container(
                       alignment: Alignment.bottomCenter,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      padding: EdgeInsets.symmetric(
+                        vertical: 0.03125 * _screenSize.height, //20
+                        horizontal: 0.027 * _screenSize.width, //10,
+                      ),
                       child: Row(
                         children: [
                           Expanded(
@@ -159,7 +157,7 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
                               textColor: Colors.white,
                               borderColor: Colors.transparent,
                               title: 'تایید اطلاعات',
-                              height: 40,
+                              height: 0.0625 * _screenSize.height, //40
                               onTap: () {
                                 widget.confirmInfo(
                                   nameEditingController.text,
@@ -170,8 +168,8 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
                                 Navigator.pop(context);
                                 // widget.closePanel();
                               },
-                              radius: 5,
-                              fontSize: 14,
+                              radius: 0.0078 * _screenSize.height, //5,
+                              fontSize: 0.038 * _screenSize.width, //14,
                             ),
                           ),
                         ],

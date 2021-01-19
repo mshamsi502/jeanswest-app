@@ -23,7 +23,6 @@ class EditInfoFriendPage extends StatefulWidget {
 
 class _EditInfoFriendPageState extends State<EditInfoFriendPage> {
   bool currentLevelWidgetAnimation = true;
-  ScrollController _scrollController = ScrollController();
   PanelController editingPanel = PanelController();
   int selectedFriend;
   bool isNew;
@@ -45,18 +44,11 @@ class _EditInfoFriendPageState extends State<EditInfoFriendPage> {
             color: Colors.white,
             height: _screenSize.height,
             child: EditFriendInfoWidget(
-              title: '',
+              title: 'ویرایش اطلاعات دوست',
               name: widget.friend.perName,
               dayOfBirth: widget.friend.dayOfBirth,
               monthOfBirth: widget.friend.monthOfBirth,
               yearOfBirth: widget.friend.yearOfBirth,
-              isNew: false,
-              // closePanel: () {
-              //   setState(() {
-              //     isNew = false;
-              //     editingPanel.close();
-              //   });
-              // },
               confirmInfo: confirmInfo,
             ),
           ),

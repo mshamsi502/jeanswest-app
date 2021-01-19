@@ -53,7 +53,6 @@ class _TabBarViewPageState extends State<TabBarViewPage>
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
     return Container(
       color: Colors.grey,
       child: Scaffold(
@@ -99,7 +98,7 @@ class _TabBarViewPageState extends State<TabBarViewPage>
                     ? SizedBox()
                     : Container(
                         width: _screenSize.width,
-                        height: 60,
+                        height: 0.09375 * _screenSize.height, //60,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           // color: Colors.red,
@@ -118,10 +117,10 @@ class _TabBarViewPageState extends State<TabBarViewPage>
                               backgroundColor: MAIN_BLUE_COLOR,
                               textColor: Colors.white,
                               title: widget.bottomButton,
-                              height: 40,
+                              height: 0.0625 * _screenSize.height, //40,
                               width: _screenSize.width * 0.8,
-                              radius: 5,
-                              fontSize: 15,
+                              radius: 0.0138 * _screenSize.width, //5,
+                              fontSize: 0.041 * _screenSize.width, //15,
                               borderColor: MAIN_BLUE_COLOR,
                               onTap: () => widget.bottomButtonFunction(),
                             ),
