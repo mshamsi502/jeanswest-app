@@ -17,7 +17,8 @@ import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/profile_appbar_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/auth_profile_appbar_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/unauth_profile_appbar_widget.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
@@ -25,6 +26,9 @@ import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 import 'main_menu_list/inbox_page.dart';
 
 class MainProfilePage extends StatefulWidget {
+  final bool isAuth;
+
+  const MainProfilePage({Key key, this.isAuth}) : super(key: key);
   @override
   _MainProfilePageState createState() => _MainProfilePageState();
 }
@@ -74,134 +78,140 @@ class _MainProfilePageState extends State<MainProfilePage>
 
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: 0.027 * _screenSize.width, horizontal: 15),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AvakatanButtonWidget(
-                      icon: SizedBox(
-                          height: 0.055 * _screenSize.width,
-                          width: 0.055 * _screenSize.width,
-                          child: ProfileSvgImages.horMoreIcon),
-                      backgroundColor: Colors.white,
-                      height: 0.09 * _screenSize.width,
-                      width: 0.09 * _screenSize.width,
-                      textColor: MAIN_BLUE_COLOR,
-                      radius: 50,
-                      borderColor: Colors.grey[200],
-                      hasShadow: true,
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MorePage(
-                                    title: 'بیشتر',
-                                    pages: moreListMenu,
-                                  ))),
-                    ),
-                    Stack(
-                      children: [
-                        AvakatanButtonWidget(
-                          icon: SizedBox(
-                              height: 0.055 * _screenSize.width,
-                              width: 0.055 * _screenSize.width,
-                              child: ProfileSvgImages.notificationIcon),
-                          backgroundColor: Colors.white,
-                          height: 0.09 * _screenSize.width,
-                          width: 0.09 * _screenSize.width,
-                          textColor: MAIN_BLUE_COLOR,
-                          radius: 50,
-                          borderColor: Colors.grey[200],
-                          hasShadow: true,
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InboxPage(
-                                        changeHaveUnreadMessage:
-                                            changeHaveUnreadMessage,
-                                      ))),
-                        ),
-                        Positioned(
-                          bottom: 0.06 * _screenSize.width / 2,
-                          // right: 0.03 * _screenSize.width / 2,
-                          child: haveUnreadMessage
-                              ? Container(
-                                  height: 0.022 * _screenSize.width, //8,
-                                  width: 0.022 * _screenSize.width, //8,
-                                  decoration: BoxDecoration(
-                                    color: MAIN_GOLD_COLOR,
-                                    borderRadius: BorderRadius.circular(
-                                        0.138 * _screenSize.width //50
+              widget.isAuth
+                  ? Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 0.027 * _screenSize.width, horizontal: 15),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AvakatanButtonWidget(
+                            icon: SizedBox(
+                                height: 0.055 * _screenSize.width,
+                                width: 0.055 * _screenSize.width,
+                                child: ProfileSvgImages.horMoreIcon),
+                            backgroundColor: Colors.white,
+                            height: 0.09 * _screenSize.width,
+                            width: 0.09 * _screenSize.width,
+                            textColor: MAIN_BLUE_COLOR,
+                            radius: 50,
+                            borderColor: Colors.grey[200],
+                            hasShadow: true,
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MorePage(
+                                          title: 'بیشتر',
+                                          pages: moreListMenu,
+                                        ))),
+                          ),
+                          Stack(
+                            children: [
+                              AvakatanButtonWidget(
+                                icon: SizedBox(
+                                    height: 0.055 * _screenSize.width,
+                                    width: 0.055 * _screenSize.width,
+                                    child: ProfileSvgImages.notificationIcon),
+                                backgroundColor: Colors.white,
+                                height: 0.09 * _screenSize.width,
+                                width: 0.09 * _screenSize.width,
+                                textColor: MAIN_BLUE_COLOR,
+                                radius: 50,
+                                borderColor: Colors.grey[200],
+                                hasShadow: true,
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => InboxPage(
+                                              changeHaveUnreadMessage:
+                                                  changeHaveUnreadMessage,
+                                            ))),
+                              ),
+                              Positioned(
+                                bottom: 0.06 * _screenSize.width / 2,
+                                // right: 0.03 * _screenSize.width / 2,
+                                child: haveUnreadMessage
+                                    ? Container(
+                                        height: 0.022 * _screenSize.width, //8,
+                                        width: 0.022 * _screenSize.width, //8,
+                                        decoration: BoxDecoration(
+                                          color: MAIN_GOLD_COLOR,
+                                          borderRadius: BorderRadius.circular(
+                                              0.138 * _screenSize.width //50
+                                              ),
                                         ),
-                                  ),
-                                )
-                              : Container(),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+                                      )
+                                    : Container(),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
               Container(
                 margin:
                     EdgeInsets.symmetric(horizontal: 0.023 * _screenSize.width),
                 color: F7_BACKGROUND_COLOR,
                 child: Column(
                   children: [
-                    ProfileAppBarWidget(
-                        userLevel: userLevel,
-                        nextLevel: nextLevel,
-                        moneyBuying: user.moneyBuying),
-                    GestureDetector(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 0.016 * _screenSize.width),
-                        alignment: Alignment.center,
-                        height: 0.15 * _screenSize.height,
-                        width: _screenSize.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            fit: BoxFit.fitWidth,
-                            image: new AssetImage(
-                                'assets/images/png_images/global/invite_friends.png'),
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TabBarViewPage(
-                              title: 'دوستان',
-                              selectedTab: 0,
-                              tabTitles: [
-                                'دعوت دوست',
-                                'دوستان من',
-                              ],
-                              tabWidgets: [
-                                InviteFrindePage(
-                                  userId: 'user-${user.phoneNumber}',
-                                  receivedGift: user.receivedGift,
-                                  someOfInvited: user.someOfInvited,
-                                  someOfInstallFromInvited:
-                                      user.someOfInstallFromInvited,
-                                  someOfShoppingFromInvited:
-                                      user.someOfShoppingFromInvited,
+                    widget.isAuth
+                        ? AuthProfileAppBarWidget(
+                            userLevel: userLevel,
+                            nextLevel: nextLevel,
+                            moneyBuying: user.moneyBuying)
+                        : UnauthProfileAppBarWidget(),
+                    widget.isAuth
+                        ? GestureDetector(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 0.016 * _screenSize.width),
+                              alignment: Alignment.center,
+                              height: 0.15 * _screenSize.height,
+                              width: _screenSize.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  fit: BoxFit.fitWidth,
+                                  image: new AssetImage(
+                                      'assets/images/png_images/global/invite_friends.png'),
                                 ),
-                                UserFriendsListPage(
-                                  friends: user.friends,
-                                ),
-                              ],
-                              bottomButton: 'ارسال لینک',
-                              bottomButtonFunction: bottomButtonFunction,
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TabBarViewPage(
+                                    title: 'دوستان',
+                                    selectedTab: 0,
+                                    tabTitles: [
+                                      'دعوت دوست',
+                                      'دوستان من',
+                                    ],
+                                    tabWidgets: [
+                                      InviteFrindePage(
+                                        userId: 'user-${user.phoneNumber}',
+                                        receivedGift: user.receivedGift,
+                                        someOfInvited: user.someOfInvited,
+                                        someOfInstallFromInvited:
+                                            user.someOfInstallFromInvited,
+                                        someOfShoppingFromInvited:
+                                            user.someOfShoppingFromInvited,
+                                      ),
+                                      UserFriendsListPage(
+                                        friends: user.friends,
+                                      ),
+                                    ],
+                                    bottomButton: 'ارسال لینک',
+                                    bottomButtonFunction: bottomButtonFunction,
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        : Container()
                   ],
                 ),
               ),
@@ -218,9 +228,6 @@ class _MainProfilePageState extends State<MainProfilePage>
                 icons: mainProfileListIcons,
                 pages: mainProfileListMenu,
                 backgroundColor: F7_BACKGROUND_COLOR,
-                // userLevel: userLevel,
-                // nextLevel: nextLevel,
-                // moneyBuying: user.moneyBuying,
               ),
               SizedBox(height: 5),
             ],
