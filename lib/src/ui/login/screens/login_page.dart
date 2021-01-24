@@ -5,16 +5,15 @@
 
 import 'dart:ui';
 
-import 'package:avakatan_profile/src/constants/country_code_list.dart';
-import 'package:avakatan_profile/src/constants/svg_images/login_svg_images.dart';
-import 'package:avakatan_profile/src/models/country/country.dart';
-import 'package:avakatan_profile/src/ui/widgets/app_bars/real_search_appbar_widget.dart';
-import 'package:avakatan_profile/src/ui/widgets/login/confirm_code_widget.dart';
-import 'package:avakatan_profile/src/ui/widgets/login/country_list_widget.dart';
-import 'package:avakatan_profile/src/ui/widgets/login/custom_keyboard.dart';
-import 'package:avakatan_profile/src/ui/widgets/login/login_app_bar_widget.dart';
-import 'package:avakatan_profile/src/ui/widgets/login/login_body_widget.dart';
-import 'package:avakatan_profile/src/utils/helper/helper_search.dart';
+import 'package:jeanswest/src/constants/login/country_code_list.dart';
+import 'package:jeanswest/src/constants/login/svg_images/login_svg_images.dart';
+import 'package:jeanswest/src/models/country/country.dart';
+import 'package:jeanswest/src/ui/global/widgets/app_bars/real_search_appbar_widget.dart';
+import 'package:jeanswest/src/ui/login/widgets/confirm_code_widget.dart';
+import 'package:jeanswest/src/ui/login/widgets/country_list_widget.dart';
+import 'package:jeanswest/src/ui/login/widgets/login_app_bar_widget.dart';
+import 'package:jeanswest/src/ui/login/widgets/login_body_widget.dart';
+import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -196,12 +195,14 @@ class _LoginPageState extends State<LoginPage> {
                         keyboardIsOpen = false;
                       });
                     },
-                    panel: CustomKeyboardWidget(
-                      inputString: isInputPhoneStep ? inputPhone : inputCode,
-                      updateString: isInputPhoneStep
-                          ? updatePhoneString
-                          : updateCodeString,
-                    ),
+                    panel: Container(),
+                    // CustomKeyboardWidget(
+                    //   inputString: isInputPhoneStep ? inputPhone : inputCode,
+                    //   updateString: isInputPhoneStep
+                    //       ? updatePhoneString
+                    //       : updateCodeString,
+                    // ),
+
                     body: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 10),

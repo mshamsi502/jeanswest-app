@@ -3,8 +3,8 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:avakatan_profile/src/constants/svg_images/global_svg_images.dart';
-import 'package:avakatan_profile/src/constants/svg_images/login_svg_images.dart';
+import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+import 'package:jeanswest/src/constants/login/svg_images/login_svg_images.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

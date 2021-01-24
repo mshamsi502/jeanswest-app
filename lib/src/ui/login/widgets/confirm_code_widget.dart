@@ -16,8 +16,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import 'custom_keyboard_widgets/single_input_code_widget.dart';
-
 class ConfirmCodeWidget extends StatefulWidget {
   final PanelController keyboardPanelController;
   final bool keyboardIsOpen;
@@ -170,66 +168,67 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
           SizedBox(
             height: 20,
           ),
-          Directionality(
-            textDirection: rtlTextDirection,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SingleInputCodeWidget(
-                  keyboardPanelController: widget.keyboardPanelController,
-                  selectedChar: widget.selectedChar,
-                  inputCode: widget.inputCode,
-                  hasError: widget.hasError,
-                  updateSelectedChar: widget.updateSelectedChar,
-                  ordinal: 4,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                SingleInputCodeWidget(
-                  keyboardPanelController: widget.keyboardPanelController,
-                  selectedChar: widget.selectedChar,
-                  inputCode: widget.inputCode,
-                  hasError: widget.hasError,
-                  updateSelectedChar: widget.updateSelectedChar,
-                  ordinal: 3,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                SingleInputCodeWidget(
-                  keyboardPanelController: widget.keyboardPanelController,
-                  selectedChar: widget.selectedChar,
-                  inputCode: widget.inputCode,
-                  hasError: widget.hasError,
-                  updateSelectedChar: widget.updateSelectedChar,
-                  ordinal: 2,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                SingleInputCodeWidget(
-                  keyboardPanelController: widget.keyboardPanelController,
-                  selectedChar: widget.selectedChar,
-                  inputCode: widget.inputCode,
-                  hasError: widget.hasError,
-                  updateSelectedChar: widget.updateSelectedChar,
-                  ordinal: 1,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                SingleInputCodeWidget(
-                  keyboardPanelController: widget.keyboardPanelController,
-                  selectedChar: widget.selectedChar,
-                  inputCode: widget.inputCode,
-                  hasError: widget.hasError,
-                  updateSelectedChar: widget.updateSelectedChar,
-                  ordinal: 0,
-                ),
-              ],
-            ),
-          ),
+          // Directionality(
+          //   textDirection: rtlTextDirection,
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       SingleInputCodeWidget(
+          //         keyboardPanelController: widget.keyboardPanelController,
+          //         selectedChar: widget.selectedChar,
+          //         inputCode: widget.inputCode,
+          //         hasError: widget.hasError,
+          //         updateSelectedChar: widget.updateSelectedChar,
+          //         ordinal: 4,
+          //       ),
+          //       SizedBox(
+          //         width: 10,
+          //       ),
+          //       SingleInputCodeWidget(
+          //         keyboardPanelController: widget.keyboardPanelController,
+          //         selectedChar: widget.selectedChar,
+          //         inputCode: widget.inputCode,
+          //         hasError: widget.hasError,
+          //         updateSelectedChar: widget.updateSelectedChar,
+          //         ordinal: 3,
+          //       ),
+          //       SizedBox(
+          //         width: 10,
+          //       ),
+          //       SingleInputCodeWidget(
+          //         keyboardPanelController: widget.keyboardPanelController,
+          //         selectedChar: widget.selectedChar,
+          //         inputCode: widget.inputCode,
+          //         hasError: widget.hasError,
+          //         updateSelectedChar: widget.updateSelectedChar,
+          //         ordinal: 2,
+          //       ),
+          //       SizedBox(
+          //         width: 10,
+          //       ),
+          //       SingleInputCodeWidget(
+          //         keyboardPanelController: widget.keyboardPanelController,
+          //         selectedChar: widget.selectedChar,
+          //         inputCode: widget.inputCode,
+          //         hasError: widget.hasError,
+          //         updateSelectedChar: widget.updateSelectedChar,
+          //         ordinal: 1,
+          //       ),
+          //       SizedBox(
+          //         width: 10,
+          //       ),
+          //       SingleInputCodeWidget(
+          //         keyboardPanelController: widget.keyboardPanelController,
+          //         selectedChar: widget.selectedChar,
+          //         inputCode: widget.inputCode,
+          //         hasError: widget.hasError,
+          //         updateSelectedChar: widget.updateSelectedChar,
+          //         ordinal: 0,
+          //       ),
+          //     ],
+          //   ),
+          // ),
+
           SizedBox(
             height: 60,
           ),

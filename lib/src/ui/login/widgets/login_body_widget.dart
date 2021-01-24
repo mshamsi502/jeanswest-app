@@ -3,8 +3,9 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:avakatan_profile/src/constants/constants.dart';
-import 'package:avakatan_profile/src/models/country/country.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/models/country/country.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +41,6 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   void initState() {
     super.initState();
     openInitKeyboard();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
   }
 
   @override

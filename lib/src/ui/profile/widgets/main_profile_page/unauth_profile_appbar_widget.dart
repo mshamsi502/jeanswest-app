@@ -32,7 +32,6 @@ class _UnauthProfileAppBarWidgetState extends State<UnauthProfileAppBarWidget> {
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 height: 0.328 * _screenSize.height,
                 decoration: BoxDecoration(
-                  // color: Colors.red,
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -42,7 +41,7 @@ class _UnauthProfileAppBarWidgetState extends State<UnauthProfileAppBarWidget> {
                 ),
                 child: Column(
                   children: [
-                    Expanded(flex: 1, child: SizedBox()),
+                    Expanded(flex: 2, child: SizedBox()),
                     Row(
                       children: [
                         Expanded(flex: 1, child: SizedBox()),
@@ -53,12 +52,12 @@ class _UnauthProfileAppBarWidgetState extends State<UnauthProfileAppBarWidget> {
                               Row(
                                 children: [
                                   Expanded(
-                                    flex: 15,
+                                    flex: 20,
                                     child: SizedBox(),
                                   ),
                                   Container(
-                                    height: 0.0625 * _screenSize.height,
-                                    width: 0.33 * _screenSize.width,
+                                    height: 0.078125 * _screenSize.height, //50,
+                                    width: 0.4166 * _screenSize.width, //150,
                                     decoration: BoxDecoration(
                                       // color: Colors.redAccent,
                                       image: DecorationImage(
@@ -74,88 +73,48 @@ class _UnauthProfileAppBarWidgetState extends State<UnauthProfileAppBarWidget> {
                                   ),
                                 ],
                               ),
-                              Container(
-                                color: Colors.white,
-                                padding: EdgeInsets.all(5),
-                                child: AvakatanButtonWidget(
-                                  title: 'نمایش سطح عضویت',
-                                  fontSize: 0.03 * _screenSize.width,
-                                  backgroundColor: MAIN_BLUE_COLOR,
-                                  textColor: Colors.white,
-                                  borderColor: MAIN_BLUE_COLOR,
-                                  height: 0.059 * _screenSize.height,
-                                  width: 0.4 * _screenSize.width,
-                                  onTap: () => 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => LoginPage(),
-                                    ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
                         Expanded(flex: 1, child: SizedBox()),
                       ],
                     ),
-                    Expanded(flex: 1, child: SizedBox()),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: SizedBox(),
-                        ),
-                        Expanded(
-                          flex: 50,
-                          child: Divider(
-                            height: 0.5,
-                            thickness: 0.0008 * _screenSize.height,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: SizedBox(),
-                        ),
-                      ],
-                    ),
-                    Expanded(flex: 1, child: SizedBox()),
+                    Expanded(flex: 4, child: SizedBox()),
                     Text(
-                      'اگر کارت خود را فراموش کردید میتوانید از اینجا اسکن کنید',
+                      'برای عضویت در باشگاه مشتریان جین اینجا کلیک کنید',
                       style: TextStyle(
-                        fontSize: 0.027 * _screenSize.width,
+                        fontSize: 0.034 * _screenSize.width, //12,
+                        fontWeight: FontWeight.w600,
                         color: MAIN_BLUE_COLOR,
                       ),
                     ),
-                     Container(
-                                color: Colors.white,
-                                padding: EdgeInsets.all(5),
-                                child: AvakatanButtonWidget(
-                                  title: 'نمایش سطح عضویت',
-                                  fontSize: 0.03 * _screenSize.width,
-                                  backgroundColor: MAIN_BLUE_COLOR,
-                                  textColor: Colors.white,
-                                  borderColor: MAIN_BLUE_COLOR,
-                                  height: 0.059 * _screenSize.height,
-                                  width: 0.4 * _screenSize.width,
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => 
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            
+                    Expanded(flex: 1, child: SizedBox()),
+                    Container(
+                      color: Colors.white,
+                      padding: EdgeInsets.all(5),
+                      child: AvakatanButtonWidget(
+                        title: 'ورود به جین وست',
+                        fontSize: 0.03 * _screenSize.width,
+                        backgroundColor: MAIN_BLUE_COLOR,
+                        textColor: Colors.white,
+                        borderColor: MAIN_BLUE_COLOR,
+                        height: 0.059 * _screenSize.height,
+                        width: 0.5 * _screenSize.width, //180,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                        ),
+                      ),
+                    ),
                     Expanded(flex: 2, child: SizedBox(height: 10)),
                   ],
                 ),
               ),
             ],
           ),
-          ],
+        ],
       ),
     );
   }

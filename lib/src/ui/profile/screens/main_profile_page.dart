@@ -224,9 +224,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                 ),
               ),
               MenuListViewWidget(
-                titles: mainProfileListTitles,
-                icons: mainProfileListIcons,
-                pages: mainProfileListMenu,
+                titles: widget.isAuth ? mainProfileListTitles : moreListTitles,
+                icons: widget.isAuth ? mainProfileListIcons : moreListIcons,
+                pages: widget.isAuth ? mainProfileListMenu : moreListWidgets,
                 backgroundColor: F7_BACKGROUND_COLOR,
               ),
               SizedBox(height: 5),
