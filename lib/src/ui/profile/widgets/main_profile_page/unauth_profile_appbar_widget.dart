@@ -103,7 +103,9 @@ class _UnauthProfileAppBarWidgetState extends State<UnauthProfileAppBarWidget> {
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) => LoginPage(
+                              screenSize: _screenSize,
+                            ),
                           ),
                         ),
                       ),

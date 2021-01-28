@@ -14,10 +14,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class ConfirmCodeWidget extends StatefulWidget {
-  final PanelController keyboardPanelController;
+  // final PanelController keyboardPanelController;
+  final TextEditingController phoneTextEditingController;
+  final FocusNode focusNode;
   final bool keyboardIsOpen;
   final String inputPhone;
   final String inputCode;
@@ -33,7 +34,7 @@ class ConfirmCodeWidget extends StatefulWidget {
 
   const ConfirmCodeWidget({
     Key key,
-    this.keyboardPanelController,
+    // this.keyboardPanelController,
     this.keyboardIsOpen,
     this.inputPhone,
     this.hasError,
@@ -46,6 +47,8 @@ class ConfirmCodeWidget extends StatefulWidget {
     this.minuteTimer,
     this.secondTimer,
     this.startDownTimer,
+    this.phoneTextEditingController,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -242,6 +245,6 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
 
   void openInitKeyboard() async {
     await Future.delayed(Duration(milliseconds: 500));
-    widget.keyboardPanelController.open();
+    // widget.phoneTextEditingController;
   }
 }

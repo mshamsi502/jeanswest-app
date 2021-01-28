@@ -12,7 +12,7 @@ class CountryListWidget extends StatefulWidget {
   // final List<Country> countries;
   final List<Country> countries;
   final Country selectedCountry;
-  final Function(bool) changeCountryListPanelState;
+  final Function(bool, BuildContext) changeCountryListPanelState;
   final Function(Country) changeSelectedCountry;
 
   const CountryListWidget({
@@ -108,7 +108,7 @@ class CountryListWidgetState extends State<CountryListWidget> {
                     // change selected branch and true is for open info branch panel
                     widget.changeSelectedCountry(widget.countries[i]);
                     // close Branch-List-Widget Panel
-                    widget.changeCountryListPanelState(false);
+                    widget.changeCountryListPanelState(false, context);
                   },
                 ),
               ));

@@ -14,7 +14,7 @@ import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart
 
 class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final String title;
-  final Function(bool) changeBranchListPanelState;
+  final Function(bool, BuildContext) changeBranchListPanelState;
   @override
   Size get preferredSize => const Size.fromHeight(60);
 
@@ -32,7 +32,7 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
     return GestureDetector(
       onTap: () {
         // open Branch-List-Widget Panel
-        widget.changeBranchListPanelState(true);
+        widget.changeBranchListPanelState(true, context);
       },
       child: Container(
         height: heightBar,

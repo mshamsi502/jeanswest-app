@@ -1,15 +1,15 @@
-// *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
-// *   Project Name :  avakatan_branches
-// *   Created Date & Time :  2020-10-11  ,  12:33 PM
-// ****************************************************************************
+// ! *   Created By :  Mohammad Shamsi    *|*    Email :  mshamsi502@gmail.com
+// ! *   Project Name :  avakatan_branches
+// ! *   Created Date & Time :  2020-10-11  ,  12:33 PM
+// ! ****************************************************************************
 
 import 'dart:ui';
 
 import 'package:jeanswest/src/constants/login/country_code_list.dart';
-import 'package:jeanswest/src/constants/login/svg_images/login_svg_images.dart';
 import 'package:jeanswest/src/models/country/country.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/real_search_appbar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_code_widget.dart';
+import 'package:jeanswest/src/ui/login/widgets/confirm_button_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/country_list_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_app_bar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_body_widget.dart';
@@ -19,18 +19,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function(int, int) updateProp;
+  // final Function(int, int) updateProp;
+  final Size screenSize;
 
-  const LoginPage({Key key, this.updateProp}) : super(key: key);
+  const LoginPage({
+    Key key,
+    // this.updateProp,
+    this.screenSize,
+  }) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  PanelController keyboardPanelController = new PanelController();
+  // PanelController keyboardPanelController = new PanelController();
   bool keyboardIsOpen = false;
   PanelController preTelCodePanelController = new PanelController();
   bool preTelCodeIsOpen = false;
@@ -39,12 +45,19 @@ class _LoginPageState extends State<LoginPage> {
   bool hasError = false;
   bool isInputPhoneStep = true;
   int selectedCodeChar = 0;
+  ScrollController scrollController = new ScrollController();
   //
   String minuteTimer;
   String secondTimer;
   //
-  FocusNode inputNode = FocusNode();
-  TextEditingController textEditingController = new TextEditingController();
+  bool check;
+
+  FocusNode phoneInputNode = FocusNode();
+  TextEditingController phoneTextEditingController =
+      new TextEditingController();
+  FocusNode searchInputNode = FocusNode();
+  TextEditingController searchTextEditingController =
+      new TextEditingController();
   List<Country> allCountries = new List<Country>();
   List<Country> searchedCountries = new List<Country>();
   Map<String, dynamic> map = CountriesCodeList.PERSIAN_GULF_COUNTRY_LIST;
@@ -52,9 +65,24 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+    check = false;
+    getConteries();
+    minuteTimer = '00';
+    secondTimer = '00';
+    //
+    KeyboardVisibilityNotification().addNewListener(onHide: () {
+      scrollController.jumpTo(0);
+      //
+    }, onShow: () {
+      scrollController.jumpTo(widget.screenSize.width);
+    });
+
+    super.initState();
+  }
+
+  getConteries() async {
     selectedCountry = Country(
       name: map['countries_code'][0]['name_per'],
-      // name: map['countries_code'][i]['name_eng'],
       dialCode: map['countries_code'][0]['dial_code'],
       code: map['countries_code'][0]['code'],
       flag: Container(
@@ -67,11 +95,14 @@ class _LoginPageState extends State<LoginPage> {
             ),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+          borderRadius: BorderRadius.all(Radius.circular(
+            0.138 * widget.screenSize.width, //50,
+          )),
         ),
       ),
     );
-    Future.delayed(Duration.zero, () {
+
+    await Future.delayed(Duration.zero, () {
       for (var i = 0; i < map['countries_code'].length; i++) {
         Country country = Country(
           name: map['countries_code'][i][context.locale.toString() == 'fa_IR'
@@ -79,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
               : context.locale.toString() == 'ar_UA'
                   ? 'name_arb'
                   : 'name_eng'],
-          // name: map['countries_code'][i]['name_eng'],
           dialCode: map['countries_code'][i]['dial_code'],
           code: map['countries_code'][i]['code'],
           flag: new Container(
@@ -87,14 +117,14 @@ class _LoginPageState extends State<LoginPage> {
             height: 35,
             decoration: new BoxDecoration(
               image: new DecorationImage(
-                image:
-                    // AssetImage('assets/images/invite_friends.png'),
-                    new NetworkImage(
+                image: new NetworkImage(
                   map['countries_code'][i]['flag'],
                 ),
                 fit: BoxFit.cover,
               ),
-              borderRadius: new BorderRadius.all(new Radius.circular(50.0)),
+              borderRadius: new BorderRadius.all(new Radius.circular(
+                0.138 * widget.screenSize.width, //50,
+              )),
             ),
           ),
         );
@@ -105,206 +135,175 @@ class _LoginPageState extends State<LoginPage> {
       }
     });
     searchedCountries = allCountries;
-    setState(() {
-      minuteTimer = '00';
-      secondTimer = '00';
-    });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+
     return Container(
       color: Colors.grey,
+      width: _screenSize.width,
+      height: _screenSize.height,
       child: SafeArea(
         child: Scaffold(
-          body: SlidingUpPanel(
-            minHeight: 0,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                blurRadius: 0,
-                color: Color.fromRGBO(0, 0, 0, 0),
-              )
-            ],
-            maxHeight: _screenSize.height,
-            backdropEnabled: false,
-            backdropOpacity: 0,
-            backdropColor: Colors.transparent,
-            color: Colors.transparent,
-            defaultPanelState: PanelState.CLOSED,
-            controller: preTelCodePanelController,
-            onPanelOpened: () {
-              setState(() {
-                preTelCodeIsOpen = true;
-              });
-            },
-            onPanelClosed: () {
-              setState(() {
-                preTelCodeIsOpen = false;
-              });
-            },
-            panel: Container(
-              // height: _screenSize.height,,
-              color: Colors.white,
-              child: Column(
-                children: [
-                  RealSearchAppBarWidget(
-                    title: '${"login_screen.country_code".tr()} ...',
-                    changeListPanelState: changeCountryListPanelState,
-                    changeTextFieldSearch: changeTextFieldSearch,
-                    inputNode: inputNode,
-                    textEditingController: textEditingController,
-                  ),
-                  CountryListWidget(
-                    countries: searchedCountries,
-                    selectedCountry: selectedCountry,
-                    changeCountryListPanelState: changeCountryListPanelState,
-                    changeSelectedCountry: changeSelectedCountry,
-                  ),
+          resizeToAvoidBottomPadding: true,
+          body: SingleChildScrollView(
+            controller: scrollController,
+            physics: ClampingScrollPhysics(),
+            child: Container(
+              width: _screenSize.width,
+              height: 0.7 * _screenSize.height,
+              child: SlidingUpPanel(
+                minHeight: 0,
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    blurRadius: 0,
+                    color: Color.fromRGBO(0, 0, 0, 0),
+                  )
                 ],
-              ),
-            ),
-            body: Stack(
-              children: [
-                Container(
-                  color: Colors.grey,
-                  width: _screenSize.width,
-                  child: SlidingUpPanel(
-                    minHeight: 0,
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        blurRadius: 0,
-                        color: Color.fromRGBO(0, 0, 0, 0),
-                      )
+                maxHeight: _screenSize.height,
+                backdropEnabled: false,
+                backdropOpacity: 0,
+                backdropColor: Colors.transparent,
+                color: Colors.transparent,
+                defaultPanelState: PanelState.CLOSED,
+                controller: preTelCodePanelController,
+                onPanelOpened: () {
+                  setState(() {
+                    preTelCodeIsOpen = true;
+                  });
+                },
+                onPanelClosed: () {
+                  setState(() {
+                    preTelCodeIsOpen = false;
+                  });
+                },
+                panel: Container(
+                  height: _screenSize.height,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      RealSearchAppBarWidget(
+                        title: '${"login_screen.country_code".tr()} ...',
+                        changeListPanelState: changeCountryListPanelState,
+                        changeTextFieldSearch: changeTextFieldSearch,
+                        inputNode: searchInputNode,
+                        textEditingController: searchTextEditingController,
+                      ),
+                      CountryListWidget(
+                        countries: searchedCountries,
+                        selectedCountry: selectedCountry,
+                        changeCountryListPanelState:
+                            changeCountryListPanelState,
+                        changeSelectedCountry: changeSelectedCountry,
+                      ),
                     ],
-                    maxHeight: 250,
-                    backdropEnabled: false,
-                    backdropOpacity: 0,
-                    backdropColor: Colors.transparent,
-                    margin: EdgeInsets.only(bottom: 90),
-                    color: Colors.transparent,
-                    controller: keyboardPanelController,
-                    onPanelOpened: () {
-                      setState(() {
-                        keyboardIsOpen = true;
-                      });
-                    },
-                    onPanelClosed: () {
-                      setState(() {
-                        keyboardIsOpen = false;
-                      });
-                    },
-                    panel: Container(),
-                    // CustomKeyboardWidget(
-                    //   inputString: isInputPhoneStep ? inputPhone : inputCode,
-                    //   updateString: isInputPhoneStep
-                    //       ? updatePhoneString
-                    //       : updateCodeString,
-                    // ),
-
-                    body: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      color: Colors.white,
-                      child: Stack(
-                        // child: Stack(
-                        children: [
-                          LoginAppBarWidget(
-                            keyboardPanelController: keyboardPanelController,
+                  ),
+                ),
+                body: Container(
+                  width: _screenSize.width,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 0.15625 * _screenSize.height, //100,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 0.041 * _screenSize.width, //15,
+                              vertical: 0.016 * _screenSize.height //10
+                              ),
+                          // color: Colors.white,
+                          child: LoginAppBarWidget(
+                            phoneTextEditingController:
+                                phoneTextEditingController,
                             preTelCodePanelController:
                                 preTelCodePanelController,
-                            updateProp: widget.updateProp,
+                            // updateProp: widget.updateProp,
                           ),
-                          isInputPhoneStep
-                              ? LoginBodyWidget(
-                                  keyboardPanelController:
-                                      keyboardPanelController,
-                                  keyboardIsOpen: keyboardIsOpen,
-                                  preTelCodePanelController:
-                                      preTelCodePanelController,
-                                  inputPhone: inputPhone,
-                                  hasError: hasError,
-                                  // hasError: true,
-                                  selectedCountry: selectedCountry,
-                                )
-                              : ConfirmCodeWidget(
-                                  keyboardPanelController:
-                                      keyboardPanelController,
-                                  keyboardIsOpen: keyboardIsOpen,
-                                  inputPhone: inputPhone,
-                                  inputCode: inputCode,
-                                  hasError: hasError,
-                                  // hasError: true,
-                                  selectedCountry: selectedCountry,
-                                  backToInputPhoneStep: changeToInputPhoneStep,
-                                  updateSelectedChar: updateSelectedCodeChar,
-                                  selectedChar: selectedCodeChar,
-                                  updateInputCode: updateInputCode,
-                                  minuteTimer: minuteTimer,
-                                  secondTimer: secondTimer,
-                                  startDownTimer: startDownTimer,
-                                ),
-                        ],
+                        ),
                       ),
-                    ),
+                      Positioned(
+                        top: 0.2812 * _screenSize.height, //180,
+                        child: Column(
+                          children: [
+                            isInputPhoneStep
+                                ? LoginBodyWidget(
+                                    focusNode: phoneInputNode,
+                                    phoneTextEditingController:
+                                        phoneTextEditingController,
+                                    keyboardIsOpen: keyboardIsOpen,
+                                    preTelCodePanelController:
+                                        preTelCodePanelController,
+                                    inputPhone: inputPhone,
+                                    hasError: hasError,
+                                    // hasError: true,
+                                    selectedCountry: selectedCountry,
+                                    changeTextFieldSearch: (String newValue) {
+                                      print('update check');
+                                      setState(() {
+                                        inputPhone = newValue;
+                                        print('inputPhone : $inputPhone');
+                                      });
+                                      List response = checkCorrectPhone();
+                                      setState(() {
+                                        check = response[0];
+                                        print('check : $check');
+                                      });
+                                    },
+                                  )
+                                : ConfirmCodeWidget(
+                                    phoneTextEditingController:
+                                        phoneTextEditingController,
+                                    keyboardIsOpen: keyboardIsOpen,
+                                    inputPhone: inputPhone,
+                                    inputCode: inputCode,
+                                    hasError: hasError,
+                                    selectedCountry: selectedCountry,
+                                    backToInputPhoneStep: changeInputPhoneStep,
+                                    updateSelectedChar: updateSelectedCodeChar,
+                                    selectedChar: selectedCodeChar,
+                                    updateInputCode: updateInputCode,
+                                    minuteTimer: minuteTimer,
+                                    secondTimer: secondTimer,
+                                    startDownTimer: () =>
+                                        startDownTimer(_screenSize),
+                                  ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        top: 0.54 * _screenSize.height, //320,
+                        left: 0,
+                        right: 0,
+                        child: ConfirmButtonWidget(
+                          check: check,
+                          isInputPhoneStep: isInputPhoneStep,
+                          changeInputPhoneStep: changeInputPhoneStep,
+                          hasError: hasError,
+                          changeHasError: (bool newHasError) {
+                            setState(() {
+                              hasError = newHasError;
+                            });
+                          },
+                          checkCorrectCode: checkCorrectCode,
+                          checkCorrectPhone: checkCorrectPhone,
+                          closePreTelCodePanelController: () {
+                            preTelCodePanelController.close();
+                          },
+                          startDownTimer: () => startDownTimer(_screenSize),
+                          changeSelectedCodeChar: updateSelectedCodeChar,
+                          showSnackBarError:
+                              (String msg, BuildContext context) =>
+                                  showSnackBarError(msg, context, _screenSize),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  bottom: 30,
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    width: _screenSize.width,
-                    height: 80,
-                    color: Colors.white,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(),
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              List response = isInputPhoneStep
-                                  ? checkCorrectPhone()
-                                  : checkCorrectCode();
-                              bool check = response[0];
-                              String msg = response[1];
-                              setState(() {
-                                if (isInputPhoneStep) {
-                                  if (check) {
-                                    hasError = false;
-                                    preTelCodePanelController.close();
-                                    keyboardPanelController.close();
-                                    isInputPhoneStep = false;
-                                    startDownTimer();
-                                    selectedCodeChar = 0;
-                                  } else {
-                                    hasError = true;
-                                    showSnackBarError(msg);
-                                  }
-                                } else {
-                                  if (check) {
-                                    hasError = false;
-                                    preTelCodePanelController.close();
-                                    keyboardPanelController.close();
-                                    print('Code Is OK...');
-                                  } else {
-                                    hasError = true;
-                                    showSnackBarError(msg);
-                                    selectedCodeChar = 0;
-                                  }
-                                }
-                              });
-                            },
-                            child: LoginSvgImages.confirmIcon),
-                        Expanded(
-                          child: Container(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -313,60 +312,57 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //
-
-  showSnackBarError(String msg) {
+  showSnackBarError(String msg, BuildContext _context, Size _screenSize) {
     // ignore: deprecated_member_use
-    Scaffold.of(context).showSnackBar(
+    Scaffold.of(_context).showSnackBar(
       SnackBar(
         elevation: 0,
         content: GestureDetector(
           // ignore: deprecated_member_use
-          onTap: () => Scaffold.of(context).hideCurrentSnackBar(),
+          onTap: () => Scaffold.of(_context).hideCurrentSnackBar(),
           child: Container(
-            height: 110,
+            height: 0.172 * _screenSize.height, //110,
             color: Colors.transparent,
-            padding: EdgeInsets.only(
-              bottom: 65,
-            ),
+            padding: EdgeInsets.only(bottom: 0.1 * _screenSize.height //65,
+                ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                            // height: 10,
-                            // color: Colors.blue,
-                            ),
-                      ),
+                      Expanded(child: Container()),
                       Container(
                         width: (msg.length > 25)
-                            ? MediaQuery.of(context).size.width * 0.7
-                            : MediaQuery.of(context).size.width * 0.55,
+                            ? MediaQuery.of(_context).size.width * 0.7
+                            : MediaQuery.of(_context).size.width * 0.55,
                         padding: EdgeInsets.symmetric(
-                          horizontal: 20,
+                          horizontal: 0.054 * _screenSize.width, //20
                         ),
                         decoration: BoxDecoration(
                             color: Colors.red,
-                            borderRadius: BorderRadius.circular(50)),
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            )),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Icon(
                               Icons.info_outline,
                               // Icons.warning_amber_outlined,
-                              size: 16,
+                              size: 0.0444 * _screenSize.width, //16,
                             ),
                             SizedBox(
-                              width: 5,
+                              width: 0.0138 * _screenSize.width, //5,
                             ),
                             Expanded(
                               child: Text(
                                 msg,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontFamily: 'IRANSans', fontSize: 12),
+                                  fontFamily: 'IRANSans',
+                                  fontSize: 0.034 * _screenSize.width, //12,
+                                ),
                                 // ),
                               ),
                             ),
@@ -374,10 +370,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                            // height: 10,
-                            // color: Colors.blue,
-                            ),
+                        child: Container(),
                       ),
                     ],
                   ),
@@ -393,7 +386,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   List checkCorrectPhone() {
-    return inputPhone == null
+    return inputPhone == null || inputPhone == ''
         ? [false, "login_screen.phone_number_is_incorrect".tr()]
         : inputPhone.startsWith('0')
             ? [false, "login_screen.enter_phone_number_without_first_zero".tr()]
@@ -414,18 +407,18 @@ class _LoginPageState extends State<LoginPage> {
             ? [false, "login_screen.code_is_incorrect".tr()]
             : [true, ''];
   }
-
   //
 
-  changeToInputPhoneStep() async {
+  changeInputPhoneStep(bool _isInputPhoneStep) async {
     setState(() {
-      isInputPhoneStep = true;
+      isInputPhoneStep = _isInputPhoneStep;
+
+      check = false;
       inputPhone = '';
       updateInputCode('-----');
       selectedCodeChar = 0;
     });
   }
-
   //
 
   updatePhoneString(String updatedString) {
@@ -433,7 +426,6 @@ class _LoginPageState extends State<LoginPage> {
       inputPhone = updatedString;
     });
   }
-
   //
 
   updateCodeString(String updatedString) {
@@ -467,7 +459,7 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  startDownTimer() async {
+  startDownTimer(Size _screenSize) async {
     setState(() {
       minuteTimer = '00';
       secondTimer = '10';
@@ -491,19 +483,18 @@ class _LoginPageState extends State<LoginPage> {
     }
     String warningMsg =
         "login_screen.your_code_has_expired_please_click_on_resend".tr();
-    showSnackBarError(warningMsg);
+    showSnackBarError(warningMsg, context, _screenSize);
   }
 
-  //
-
-  changeCountryListPanelState(bool opt) async {
+  changeCountryListPanelState(bool opt, BuildContext _context) async {
+    changeInputPhoneStep(true);
     if (opt) {
       setState(() {
         changeTextFieldSearch('');
         preTelCodePanelController.animatePanelToPosition(1.0,
             duration: Duration(milliseconds: 500));
         // panelController.open();
-        FocusScope.of(context).requestFocus(inputNode);
+        FocusScope.of(_context).requestFocus(phoneInputNode);
       });
     } else {
       // panelController.close();
@@ -511,7 +502,7 @@ class _LoginPageState extends State<LoginPage> {
           duration: Duration(milliseconds: 500));
       setState(() {
         changeTextFieldSearch('');
-        if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
+        if (FocusScope.of(_context).hasFocus) FocusScope.of(_context).unfocus();
       });
     }
   }
@@ -521,7 +512,7 @@ class _LoginPageState extends State<LoginPage> {
       if (textFieldSearchValue == null ||
           textFieldSearchValue.isEmpty ||
           textFieldSearchValue == '') {
-        textEditingController.clear();
+        searchTextEditingController.clear();
         // searchedCountries = countries;
         searchedCountries = allCountries;
       } else {
@@ -542,7 +533,6 @@ class _LoginPageState extends State<LoginPage> {
       this.selectedCountry = selectedCountry;
     });
   }
-
   //
 
 }

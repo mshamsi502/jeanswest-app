@@ -168,7 +168,7 @@ class _BranchPageState extends State<BranchPage>
     );
   }
 
-  changeBranchListPanelState(bool opt) {
+  changeBranchListPanelState(bool opt, BuildContext context) {
     setState(() {
       if (opt) {
         changeTextFieldSearch('');

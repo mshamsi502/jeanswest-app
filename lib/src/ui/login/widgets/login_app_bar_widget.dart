@@ -4,7 +4,6 @@
 //****************************************************************************
 
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-import 'package:jeanswest/src/constants/login/svg_images/login_svg_images.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +11,12 @@ import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class LoginAppBarWidget extends StatefulWidget {
-  final Function(int, int) updateProp;
-  final PanelController keyboardPanelController;
+  final TextEditingController phoneTextEditingController;
   final PanelController preTelCodePanelController;
 
   const LoginAppBarWidget({
     Key key,
-    this.updateProp,
-    this.keyboardPanelController,
+    this.phoneTextEditingController,
     this.preTelCodePanelController,
   }) : super(key: key);
 
@@ -30,32 +27,42 @@ class LoginAppBarWidget extends StatefulWidget {
 class _LoginAppBarWidgetState extends State<LoginAppBarWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // AppBar
-        Row(
-          children: [
-            GestureDetector(
-              child: Container(
-                height: 20,
-                width: 20,
-                child: context.locale.toString() == 'en_US'
-                    ? GlobalSvgImages.leftIcon
-                    : GlobalSvgImages.rightIcon,
+    Size _screenSize = MediaQuery.of(context).size;
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              GestureDetector(
+                child: Container(
+                  height: 0.054 * _screenSize.width, //20
+                  width: 0.054 * _screenSize.width, //20
+                  child: context.locale.toString() == 'en_US'
+                      ? GlobalSvgImages.leftIcon
+                      : GlobalSvgImages.rightIcon,
+                ),
+                onTap: () {
+                  widget.preTelCodePanelController.close();
+                },
               ),
-              onTap: () {
-                widget.keyboardPanelController.close();
-                widget.preTelCodePanelController.close();
-                widget.updateProp(4, 4);
+            ],
+          ),
 
-                // Navigator.pop(context);
-              },
+          Container(
+            width: 180,
+            height: 50,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: new AssetImage(
+                  'assets/images/png_images/global/jeanswest_logo.png',
+                ),
+              ),
             ),
-          ],
-        ),
-        LoginSvgImages.jeanswestLogoIcon,
-        // AppBar
-      ],
+          ),
+          // LoginSvgImages.jeanswestLogoIcon,
+        ],
+      ),
     );
   }
 }
