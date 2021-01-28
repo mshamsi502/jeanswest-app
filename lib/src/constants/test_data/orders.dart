@@ -10,7 +10,6 @@ import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/models/order/period_time_order.dart';
 
 import 'addresses.dart';
-import 'friends.dart';
 
 Order firstOrder = new Order(
   code: 'B54008832',
@@ -54,7 +53,7 @@ Order firstOrder = new Order(
 );
 Order secondOrder = new Order(
   code: 'B54025644',
-  receiverName: friends[1].perName,
+  receiverName: user.friends[1].perName,
   phoneNumber: '09176509634',
   products: [
     secondFav,

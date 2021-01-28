@@ -1,7 +1,7 @@
-// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
-// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
-// *   Created Date & Time:  2021-01-01  ,  13:46 AM
-// ****************************************************************************
+// ! *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// ! *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// ! *   Created Date & Time:  2021-01-01  ,  13:46 AM
+// ! ****************************************************************************
 
 import 'dart:ui';
 

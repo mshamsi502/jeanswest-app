@@ -15,7 +15,7 @@ class RealSearchAppBarWidget extends StatefulWidget
     implements PreferredSizeWidget {
   final String title;
   final FocusNode inputNode;
-  final Function(bool) changeListPanelState;
+  final Function(bool, BuildContext) changeListPanelState;
   final Function(String) changeTextFieldSearch;
   final TextEditingController textEditingController;
   @override
@@ -67,7 +67,7 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
               onTap: () {
                 widget.textEditingController.clear();
                 widget.changeTextFieldSearch('');
-                widget.changeListPanelState(false);
+                widget.changeListPanelState(false, context);
               },
             ),
             SizedBox(
@@ -110,7 +110,7 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
   Future<bool> _onWillPop() async {
     widget.changeTextFieldSearch('');
     widget.textEditingController.clear();
-    widget.changeListPanelState(false);
+    widget.changeListPanelState(false, context);
     return false;
   }
 }

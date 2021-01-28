@@ -30,8 +30,8 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10),
+      // padding:
+      //     EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10),
       color: Colors.white,
       height: 0.0625 * _screenSize.height, //40
       child: Row(

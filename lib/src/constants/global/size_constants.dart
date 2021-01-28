@@ -9,4 +9,5 @@ const Duration POPUP_INFO_BRANCH_DURATION_ANIMATION =
     Duration(milliseconds: 300);
 const Duration POPUP_LIST_VIEW_BRANCH_DURATION_ANIMATION =
     Duration(milliseconds: 700);
+// ignore: non_constant_identifier_names
 double BOTTOM_NAVIGATION_BAR_HEIGHT = 58;

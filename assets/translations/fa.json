@@ -35,7 +35,7 @@
     "item_07" : "آیتم 7"
   },
   "login_screen": {
-    "enter_your_phone_number" : "شماره موبایل خود را وارد کنید:",
+    "enter_your_phone_number" : "برای ورود و یا ثبت نام در جین وست شماره موبایل خود را وارد نمایید",
     "country_code" : "پیش شماره",
     "edit" : "ویرایش",
     "resend_code" : "ارسال مجدد کد",

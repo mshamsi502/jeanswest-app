@@ -33,18 +33,28 @@ class InfoCardWithTitleWidget extends StatefulWidget {
 class _InfoCardWithTitleWidgetState extends State<InfoCardWithTitleWidget> {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: EdgeInsets.all(
+        0.027 * _screenSize.width, //10,
+      ),
+      margin: EdgeInsets.symmetric(
+        horizontal: 0.027 * _screenSize.width, //10,
+        vertical: 0.008 * _screenSize.height, //5
+      ),
       // height: boxHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            spreadRadius: -8,
-            blurRadius: 13,
-            offset: Offset(0, 3), // changes position of shadow
+            spreadRadius: -(0.022 * _screenSize.width //8,
+                ),
+            blurRadius: 0.036 * _screenSize.width, //13,
+            offset: Offset(
+              0,
+              0.0083 * _screenSize.width, //3,
+            ), // changes position of shadow
           ),
         ],
       ),
@@ -55,25 +65,27 @@ class _InfoCardWithTitleWidgetState extends State<InfoCardWithTitleWidget> {
         child: Column(
           children: [
             SizedBox(
-              height: 10,
+              height: 0.016 * _screenSize.height, //10
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 widget.cover,
                 SizedBox(
-                  width: 10,
+                  width: 0.027 * _screenSize.width, //10,
                 ),
                 Text(
                   widget.title,
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      fontSize: 0.036 * _screenSize.width, //13,
+                      fontWeight: FontWeight.w600),
                   overflow: TextOverflow.ellipsis,
                   textDirection: rtlTextDirection,
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 0.016 * _screenSize.height, //10
             ),
             ListView.builder(
               itemCount: widget.text.length,
@@ -81,7 +93,9 @@ class _InfoCardWithTitleWidgetState extends State<InfoCardWithTitleWidget> {
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: EdgeInsets.only(bottom: 5),
+                  padding: EdgeInsets.only(
+                    bottom: 0.008 * _screenSize.height, //5
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -92,16 +106,17 @@ class _InfoCardWithTitleWidgetState extends State<InfoCardWithTitleWidget> {
                           : Row(
                               children: [
                                 widget.icon[index],
-                                SizedBox(
-                                  width: 5,
-                                ),
+                                SizedBox(width: 0.0138 * _screenSize.width //5,
+                                    ),
                               ],
                             ),
                       Expanded(
                         child: Text(
                           widget.text[index],
                           style: widget.textStyle[index] == null
-                              ? TextStyle(fontSize: 10)
+                              ? TextStyle(
+                                  fontSize: 0.027 * _screenSize.width, //10,
+                                )
                               : widget.textStyle[index],
                           textDirection: rtlTextDirection,
                         ),

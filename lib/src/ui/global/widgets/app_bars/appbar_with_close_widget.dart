@@ -31,8 +31,8 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
     return Container(
       color: Colors.white,
       height: 0.0625 * _screenSize.height, //40,
-      padding:
-          EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10)
+      // padding:
+      //     EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10)
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
