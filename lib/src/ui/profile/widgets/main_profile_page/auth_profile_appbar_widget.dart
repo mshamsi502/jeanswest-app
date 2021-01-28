@@ -14,21 +14,21 @@ import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
-class ProfileAppBarWidget extends StatefulWidget {
+class AuthProfileAppBarWidget extends StatefulWidget {
   final LevelCard userLevel;
   final LevelCard nextLevel;
   final int moneyBuying;
 
-  const ProfileAppBarWidget({
+  const AuthProfileAppBarWidget({
     Key key,
     this.userLevel,
     this.nextLevel,
     this.moneyBuying,
   }) : super(key: key);
-  State<StatefulWidget> createState() => _ProfileAppBarWidgetState();
+  State<StatefulWidget> createState() => _AuthProfileAppBarWidgetState();
 }
 
-class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
+class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -52,7 +52,7 @@ class _ProfileAppBarWidgetState extends State<ProfileAppBarWidget> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: new AssetImage(
-                        'assets/images/png_images/profile/profile_appbar_background.png'),
+                        'assets/images/png_images/profile/auth_profile_appbar_background.png'),
                   ),
                 ),
                 child: Column(

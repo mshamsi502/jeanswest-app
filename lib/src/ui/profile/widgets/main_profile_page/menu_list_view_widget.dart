@@ -6,7 +6,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
 
 class MenuListViewWidget extends StatefulWidget {
   final List<String> titles;
@@ -36,7 +35,6 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print('user.friends.lenght : ${user.friends.length}');
     var _screenSize = MediaQuery.of(context).size;
     return ListView.builder(
       controller: _scrollController,

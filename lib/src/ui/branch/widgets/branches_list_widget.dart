@@ -16,7 +16,7 @@ import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 class BranchListWidget extends StatefulWidget {
   final List<Branch> branches;
   final CameraPosition userCameraPosition;
-  final Function(bool) changeBranchListPanelState;
+  final Function(bool, BuildContext) changeBranchListPanelState;
   final Function(Branch) changeSelectedBranch;
 
   const BranchListWidget(
@@ -126,7 +126,7 @@ class BranchListWidgetState extends State<BranchListWidget> {
                     // change selected branch and true is for open info branch panel
                     widget.changeSelectedBranch(widget.branches[i]);
                     // close Branch-List-Widget Panel
-                    widget.changeBranchListPanelState(false);
+                    widget.changeBranchListPanelState(false, context);
                   },
                 ),
               ));

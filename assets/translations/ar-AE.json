@@ -34,7 +34,7 @@
         "item_07" : "Item 7"
     },
     "login_screen": {
-        "enter_your_phone_number" : "Enter Your Phone Number:",
+        "enter_your_phone_number" : "for Login or Sign In, Enter Your Phone Number:",
         "country_code" : "Country Code",
         "edit" : "Edit",
         "resend_code" : "Resend Code",

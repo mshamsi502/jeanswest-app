@@ -23,6 +23,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool isSplash;
   String loading;
   bool isFirstLaunchBranch;
+  bool isAuth;
   AnimationController controller;
   int _selectedIndex = 4;
   GlobalKey scaffoldKey;
@@ -51,12 +52,18 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     /// => add Pages of Bottom Navigation Bar to [_children]
     // // _children.add(homePage);
     // _children.add(loginPage);
-    _children.add(Container(color: Colors.red));
+
+    // ! check user auth
+    _children.add(MainProfilePage(
+      isAuth: false,
+    ));
     _children.add(Container(color: Colors.white));
     _children.add(Container(color: Colors.blue));
     // _children.add(shoppingBasketPage);
     _children.add(Container(color: Colors.green));
-    _children.add(MainProfilePage());
+    _children.add(MainProfilePage(
+      isAuth: true,
+    ));
   }
 
   //
