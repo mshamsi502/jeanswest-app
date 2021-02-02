@@ -5,7 +5,6 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/utils/service_locator.dart';
 
 class LoadingPage extends StatefulWidget {
   final String text;
@@ -102,9 +101,4 @@ class LoadingPageState extends State<LoadingPage> {
       ),
     );
   }
-}
-
-Future<void> splashDuration() async {
-  await Future.delayed(Duration(seconds: 3));
-  return locator.allReady();
 }

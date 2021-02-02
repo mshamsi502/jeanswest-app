@@ -9,8 +9,8 @@ import 'package:jeanswest/src/bloc/branch/main/branch_addresses_screen_bloc.dart
 import 'package:jeanswest/src/bloc/branch/main/selected_branch_bloc.dart';
 import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.dart';
 import 'package:jeanswest/src/bloc/branch/states/selected_branch_state.dart';
-import 'package:jeanswest/src/services/branch/rest_client_for_branches_address.dart';
-import 'package:jeanswest/src/utils/service_locator.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/services/global/rest_client_global.dart';
 
 import 'branch_page.dart';
 
@@ -32,8 +32,7 @@ class _InitBranchPageState extends State<InitBranchPage>
         BlocProvider<BranchAddressesScreenBloc>(
           create: (BuildContext context) => BranchAddressesScreenBloc(
               BranchAddressesScreenInitial(),
-              restClientForBranchesAddress:
-                  locator<RestClientForBranchesAddress>()),
+              globalRestClient: globalLocator<GlobalRestClient>()),
         ),
         BlocProvider<SelectedBranchBloc>(
           create: (BuildContext context) => SelectedBranchBloc(

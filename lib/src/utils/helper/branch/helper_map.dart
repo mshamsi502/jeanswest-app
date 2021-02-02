@@ -12,7 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/services/branch/rest_client_for_branches_address.dart';
+import 'package:jeanswest/src/services/global/rest_client_global.dart';
 import 'package:jeanswest/src/utils/database/branch/sqflite_helper.dart';
 
 import '../global/helper.dart';
@@ -173,13 +173,13 @@ Branch getCloserBranch(
 }
 
 /// => [getBranches] loads [List] of [Branch] or from Internet or SQLite
-Future<Map<String, dynamic>> getBranches(LatLng latLng,
-    RestClientForBranchesAddress restClientForBranchesAddress) async {
+Future<Map<String, dynamic>> getBranches(
+    LatLng latLng, GlobalRestClient globalRestClient) async {
   if (await checkConnectionInternet()) {
     // ignore: deprecated_member_use
     List<Branch> branches = new List<Branch>();
     print('OoOoOoOoO -- load from Internet');
-    branches = await restClientForBranchesAddress.getBranchesAddress(
+    branches = await globalRestClient.getBranchesAddress2(
         latLng.latitude.toString(), latLng.longitude.toString());
     branches.sort((a, b) => a.distance.compareTo(b.distance));
 

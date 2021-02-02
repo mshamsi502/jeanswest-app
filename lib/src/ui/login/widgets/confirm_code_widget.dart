@@ -10,6 +10,7 @@ import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/country/country.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:jeanswest/src/ui/login/widgets/single_input_code_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class ConfirmCodeWidget extends StatefulWidget {
   final int selectedChar;
   final String minuteTimer;
   final String secondTimer;
-  final Function backToInputPhoneStep;
+  final Function(bool) backToInputPhoneStep;
   final Function(int) updateSelectedChar;
   final Function(String) updateInputCode;
   final Function() startDownTimer;
@@ -56,21 +57,21 @@ class ConfirmCodeWidget extends StatefulWidget {
 }
 
 class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
-  @override
-  void initState() {
-    openInitKeyboard();
-    super.initState();
-  }
+  TextEditingController textEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
+      height: 250,
       width: _screenSize.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 20,
+          ),
           Directionality(
             textDirection: rtlTextDirection,
             child: Row(
@@ -78,7 +79,7 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    widget.backToInputPhoneStep();
+                    widget.backToInputPhoneStep(true);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -127,6 +128,74 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
           SizedBox(
             height: 25,
           ),
+          Directionality(
+            textDirection: rtlTextDirection,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SingleInputCodeWidget(
+                  selectedChar: widget.selectedChar,
+                  inputCode: widget.inputCode,
+                  focusNode: widget.focusNode,
+                  hasError: widget.hasError,
+                  updateSelectedChar: widget.updateSelectedChar,
+                  updateChar: updateChar,
+                  ordinal: 4,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                SingleInputCodeWidget(
+                  selectedChar: widget.selectedChar,
+                  inputCode: widget.inputCode,
+                  focusNode: widget.focusNode,
+                  hasError: widget.hasError,
+                  updateSelectedChar: widget.updateSelectedChar,
+                  updateChar: updateChar,
+                  ordinal: 3,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                SingleInputCodeWidget(
+                  selectedChar: widget.selectedChar,
+                  inputCode: widget.inputCode,
+                  focusNode: widget.focusNode,
+                  hasError: widget.hasError,
+                  updateSelectedChar: widget.updateSelectedChar,
+                  updateChar: updateChar,
+                  ordinal: 2,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                SingleInputCodeWidget(
+                  selectedChar: widget.selectedChar,
+                  inputCode: widget.inputCode,
+                  focusNode: widget.focusNode,
+                  hasError: widget.hasError,
+                  updateSelectedChar: widget.updateSelectedChar,
+                  updateChar: updateChar,
+                  ordinal: 1,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                SingleInputCodeWidget(
+                  selectedChar: widget.selectedChar,
+                  inputCode: widget.inputCode,
+                  focusNode: widget.focusNode,
+                  hasError: widget.hasError,
+                  updateSelectedChar: widget.updateSelectedChar,
+                  updateChar: updateChar,
+                  ordinal: 0,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 90,
+          ),
           widget.minuteTimer == '00' && widget.secondTimer == '00'
               ? Container(
                   alignment: Alignment.center,
@@ -154,90 +223,23 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        '${widget.minuteTimer}:${widget.secondTimer}',
-                        style: TextStyle(
-                          color: MAIN_BLUE_COLOR,
-                          fontSize: 14,
-                        ),
-                      ),
+                      GlobalSvgImages.greyTimeIcon,
                       SizedBox(
                         width: 5,
                       ),
-                      GlobalSvgImages.blueTimeIcon,
+                      Text(
+                        'ارسال مجدد کد تا  ${widget.minuteTimer}:${widget.secondTimer}  دیگر',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-          SizedBox(
-            height: 20,
-          ),
-          // Directionality(
-          //   textDirection: rtlTextDirection,
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       SingleInputCodeWidget(
-          //         keyboardPanelController: widget.keyboardPanelController,
-          //         selectedChar: widget.selectedChar,
-          //         inputCode: widget.inputCode,
-          //         hasError: widget.hasError,
-          //         updateSelectedChar: widget.updateSelectedChar,
-          //         ordinal: 4,
-          //       ),
-          //       SizedBox(
-          //         width: 10,
-          //       ),
-          //       SingleInputCodeWidget(
-          //         keyboardPanelController: widget.keyboardPanelController,
-          //         selectedChar: widget.selectedChar,
-          //         inputCode: widget.inputCode,
-          //         hasError: widget.hasError,
-          //         updateSelectedChar: widget.updateSelectedChar,
-          //         ordinal: 3,
-          //       ),
-          //       SizedBox(
-          //         width: 10,
-          //       ),
-          //       SingleInputCodeWidget(
-          //         keyboardPanelController: widget.keyboardPanelController,
-          //         selectedChar: widget.selectedChar,
-          //         inputCode: widget.inputCode,
-          //         hasError: widget.hasError,
-          //         updateSelectedChar: widget.updateSelectedChar,
-          //         ordinal: 2,
-          //       ),
-          //       SizedBox(
-          //         width: 10,
-          //       ),
-          //       SingleInputCodeWidget(
-          //         keyboardPanelController: widget.keyboardPanelController,
-          //         selectedChar: widget.selectedChar,
-          //         inputCode: widget.inputCode,
-          //         hasError: widget.hasError,
-          //         updateSelectedChar: widget.updateSelectedChar,
-          //         ordinal: 1,
-          //       ),
-          //       SizedBox(
-          //         width: 10,
-          //       ),
-          //       SingleInputCodeWidget(
-          //         keyboardPanelController: widget.keyboardPanelController,
-          //         selectedChar: widget.selectedChar,
-          //         inputCode: widget.inputCode,
-          //         hasError: widget.hasError,
-          //         updateSelectedChar: widget.updateSelectedChar,
-          //         ordinal: 0,
-          //       ),
-          //     ],
-          //   ),
+          // SizedBox(
+          //   height: 20,
           // ),
-
-          SizedBox(
-            height: 60,
-          ),
-          Container(
-            height: widget.keyboardIsOpen ? 200 : 0,
-          ),
         ],
       ),
     );
@@ -246,5 +248,15 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
   void openInitKeyboard() async {
     await Future.delayed(Duration(milliseconds: 500));
     // widget.phoneTextEditingController;
+  }
+
+  updateChar(int index, String char) {
+    String oldCode = widget.inputCode;
+    String newCode =
+        oldCode.substring(0, index) + char + oldCode.substring(index + 1);
+    print('new inputCode : $oldCode');
+    setState(() {
+      widget.updateInputCode(newCode);
+    });
   }
 }

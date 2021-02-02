@@ -6,8 +6,13 @@
 //
 import 'dart:ui';
 
+import 'package:get_it/get_it.dart';
+
 const String TOKEN = 'token';
 const String BASE_URL_FOR_BRANCH_ADDRESS = 'https://jeanswest.club';
+// const String BASE_URL_FOR_LOGIN = 'https://localhost:3001';
+// const String BASE_URL_FOR_LOGIN = 'localhost:3001';
+const String BASE_URL_FOR_MOCKOON = 'http://10.0.2.2:3001';
 const TextDirection rtlTextDirection = TextDirection.rtl;
 const TextDirection ltrTextDirection = TextDirection.ltr;
 
@@ -17,34 +22,4 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 bool isInit = true;
 // GoogleMapWidget myGoogleMapWidget;
 //
-// /// for Test
-// //
-// Branch disableBranch = new Branch(
-//   departmentInfoID: '123',
-//   depName: 'شعبه تست غیرفعال',
-//   depAddress: 'وقتی غیر فعاله آدرس واسه چی میخوای؟! ...',
-//   depTel: '021000000',
-//   isActive: 0,
-//   locationPoint: '35.753539,51.335078',
-//   lat: '35.758539',
-//   lng: '51.331078',
-//   distance: 459235,
-//   distanceDesc: '459.2 کیلومتر از شما فاصله دارد.',
-//   workTime: 'همه روزه از 10 تا 22',
-// );
-//
-// Branch banimodeLocation = new Branch(
-//   departmentInfoID: '1113',
-//   depName: 'فروشگاه انلاین بانی مد',
-//   depAddress:
-//       'تهران - جنت آباد مرکزی - خیابان دانش - خیابان عابدی - خیابان شهید محمد نوروزی - پلاک 5',
-//   depTel: '02191070544',
-//   isActive: 1,
-//   locationPoint: '35.753539,51.335078',
-//   lat: '35.7536',
-//   lng: '51.3051',
-//   distance: 459235,
-//   distanceDesc: '459.2 کیلومتر از شما فاصله دارد.',
-//   workTime: 'همه روزه از 10 تا 22',
-// );
-//
+GetIt globalLocator = GetIt.instance;

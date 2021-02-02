@@ -24,11 +24,13 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 class LoginPage extends StatefulWidget {
   // final Function(int, int) updateProp;
   final Size screenSize;
+  final Function(BuildContext) navigatorPop;
 
   const LoginPage({
     Key key,
     // this.updateProp,
     this.screenSize,
+    this.navigatorPop,
   }) : super(key: key);
 
   @override
@@ -70,12 +72,29 @@ class _LoginPageState extends State<LoginPage> {
     minuteTimer = '00';
     secondTimer = '00';
     //
-    KeyboardVisibilityNotification().addNewListener(onHide: () {
-      scrollController.jumpTo(0);
-      //
-    }, onShow: () {
-      scrollController.jumpTo(widget.screenSize.width);
-    });
+
+    KeyboardVisibilityNotification().addNewListener(
+      onHide: () {
+        // if (scrollController.position.pixels < 51) {
+        // print(
+        //     'scrollController.position.pixels : ${scrollController.position.pixels}');
+        scrollController.jumpTo(0);
+        // }
+      },
+      onShow: () {
+        // print(
+        //     'scrollController.position.pixels : ${scrollController.position.pixels}');
+        // if (scrollController.position.pixels < 51) {
+        //   print(
+        //       'scrollController.position.pixels : ${scrollController.position.pixels}');
+        //   print('NOOT End: refrishing scrollController');
+        scrollController.jumpTo(widget.screenSize.width);
+        // } else {
+        //   print('is End');
+        //   scrollController.position.hold(() {});
+        // }
+      },
+    );
 
     super.initState();
   }
@@ -153,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
             physics: ClampingScrollPhysics(),
             child: Container(
               width: _screenSize.width,
-              height: 0.7 * _screenSize.height,
+              height: 0.8 * _screenSize.height,
               child: SlidingUpPanel(
                 minHeight: 0,
                 boxShadow: <BoxShadow>[
@@ -217,65 +236,84 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                           // color: Colors.white,
                           child: LoginAppBarWidget(
-                            phoneTextEditingController:
-                                phoneTextEditingController,
-                            preTelCodePanelController:
-                                preTelCodePanelController,
-                            // updateProp: widget.updateProp,
+                              phoneTextEditingController:
+                                  phoneTextEditingController,
+                              navigatorPop: (BuildContext context) {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => MyApp()));
+                                Navigator.pop(context);
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => MainProfilePage(
+                                //               isAuth: false,
+                                //             )));
+                              }),
+                        ),
+                      ),
+                      Positioned(
+                        top: isInputPhoneStep
+                            ? 0.2812 * _screenSize.height //180,
+                            : 200,
+                        child: Container(
+                          // color: Colors.amber,
+                          child: Column(
+                            children: [
+                              isInputPhoneStep
+                                  ? LoginBodyWidget(
+                                      focusNode: phoneInputNode,
+                                      phoneTextEditingController:
+                                          phoneTextEditingController,
+                                      keyboardIsOpen: keyboardIsOpen,
+                                      preTelCodePanelController:
+                                          preTelCodePanelController,
+                                      inputPhone: inputPhone,
+                                      hasError: hasError,
+                                      // hasError: true,
+                                      selectedCountry: selectedCountry,
+                                      changeTextFieldSearch: (String newValue) {
+                                        print('update check');
+                                        setState(() {
+                                          inputPhone = newValue;
+                                          print('inputPhone : $inputPhone');
+                                        });
+                                        List response = checkCorrectPhone();
+                                        setState(() {
+                                          check = response[0];
+                                          print('check : $check');
+                                        });
+                                      },
+                                    )
+                                  : ConfirmCodeWidget(
+                                      phoneTextEditingController:
+                                          phoneTextEditingController,
+                                      keyboardIsOpen: keyboardIsOpen,
+                                      inputPhone: inputPhone,
+                                      inputCode: inputCode,
+                                      hasError: hasError,
+                                      selectedCountry: selectedCountry,
+                                      backToInputPhoneStep:
+                                          changeInputPhoneStep,
+                                      updateSelectedChar:
+                                          updateSelectedCodeChar,
+                                      selectedChar: selectedCodeChar,
+                                      updateInputCode: updateInputCode,
+                                      minuteTimer: minuteTimer,
+                                      secondTimer: secondTimer,
+                                      startDownTimer: () =>
+                                          startDownTimer(_screenSize),
+                                    ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       Positioned(
-                        top: 0.2812 * _screenSize.height, //180,
-                        child: Column(
-                          children: [
-                            isInputPhoneStep
-                                ? LoginBodyWidget(
-                                    focusNode: phoneInputNode,
-                                    phoneTextEditingController:
-                                        phoneTextEditingController,
-                                    keyboardIsOpen: keyboardIsOpen,
-                                    preTelCodePanelController:
-                                        preTelCodePanelController,
-                                    inputPhone: inputPhone,
-                                    hasError: hasError,
-                                    // hasError: true,
-                                    selectedCountry: selectedCountry,
-                                    changeTextFieldSearch: (String newValue) {
-                                      print('update check');
-                                      setState(() {
-                                        inputPhone = newValue;
-                                        print('inputPhone : $inputPhone');
-                                      });
-                                      List response = checkCorrectPhone();
-                                      setState(() {
-                                        check = response[0];
-                                        print('check : $check');
-                                      });
-                                    },
-                                  )
-                                : ConfirmCodeWidget(
-                                    phoneTextEditingController:
-                                        phoneTextEditingController,
-                                    keyboardIsOpen: keyboardIsOpen,
-                                    inputPhone: inputPhone,
-                                    inputCode: inputCode,
-                                    hasError: hasError,
-                                    selectedCountry: selectedCountry,
-                                    backToInputPhoneStep: changeInputPhoneStep,
-                                    updateSelectedChar: updateSelectedCodeChar,
-                                    selectedChar: selectedCodeChar,
-                                    updateInputCode: updateInputCode,
-                                    minuteTimer: minuteTimer,
-                                    secondTimer: secondTimer,
-                                    startDownTimer: () =>
-                                        startDownTimer(_screenSize),
-                                  ),
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: 0.54 * _screenSize.height, //320,
+                        top: 350, //0.54 * _screenSize.height, //320,
                         left: 0,
                         right: 0,
                         child: ConfirmButtonWidget(
@@ -413,8 +451,8 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isInputPhoneStep = _isInputPhoneStep;
 
-      check = false;
-      inputPhone = '';
+      // check = false;
+      // inputPhone = '';
       updateInputCode('-----');
       selectedCodeChar = 0;
     });
@@ -446,6 +484,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   updateSelectedCodeChar(int selectedChar) {
+    print('selectedChar: $selectedChar');
     setState(() {
       selectedCodeChar = selectedChar;
     });

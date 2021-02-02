@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
@@ -41,6 +42,10 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    // ! check user auth
+    auth('+989176509634');
+
+    // !
     isSplash = true;
     isFirstLaunchBranch = true;
     loading = 'Loading';
@@ -52,17 +57,23 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     /// => add Pages of Bottom Navigation Bar to [_children]
     // // _children.add(homePage);
     // _children.add(loginPage);
+  }
 
-    // ! check user auth
+  auth(String phoneNumber) async {
+    // setState(() async {
+    isAuth = await checkIsAuthWithRetro(phoneNumber);
+    // isAuth = await checkIsAuth(phoneNumber);
+    // });
+    print('^*^*^ isAuth : $isAuth');
     _children.add(MainProfilePage(
-      isAuth: false,
+      isAuth: !isAuth,
     ));
     _children.add(Container(color: Colors.white));
     _children.add(Container(color: Colors.blue));
     // _children.add(shoppingBasketPage);
     _children.add(Container(color: Colors.green));
     _children.add(MainProfilePage(
-      isAuth: true,
+      isAuth: isAuth,
     ));
   }
 

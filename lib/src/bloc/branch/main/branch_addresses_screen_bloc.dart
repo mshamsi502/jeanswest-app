@@ -11,18 +11,18 @@ import 'package:jeanswest/src/bloc/branch/events/branch_addresses_screen_event.d
 import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.dart';
 import 'package:jeanswest/src/constants/branch/constants.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/services/branch/rest_client_for_branches_address.dart';
+import 'package:jeanswest/src/services/global/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 
 import '../states/branch_addresses_screen_state.dart';
 
 class BranchAddressesScreenBloc
     extends Bloc<BranchAddressesScreenEvent, BranchAddressesScreenState> {
-  final RestClientForBranchesAddress restClientForBranchesAddress;
+  final GlobalRestClient globalRestClient;
 
   BranchAddressesScreenBloc(BranchAddressesScreenState initialState,
-      {@required this.restClientForBranchesAddress})
-      : assert(restClientForBranchesAddress != null),
+      {@required this.globalRestClient})
+      : assert(globalRestClient != null),
         super(initialState);
 
   @override
@@ -38,8 +38,8 @@ class BranchAddressesScreenBloc
 
         // get userCameraPosition and branches
         userCameraPosition = await updateUserLocation();
-        Map<String, dynamic> myMap = await getBranches(
-            userCameraPosition.target, restClientForBranchesAddress);
+        Map<String, dynamic> myMap =
+            await getBranches(userCameraPosition.target, globalRestClient);
         if (myMap['res'] as bool) {
           localBranches = myMap['branches'] as List<Branch>;
           localBranches.add(disableBranch);

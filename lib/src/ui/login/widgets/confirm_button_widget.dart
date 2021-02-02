@@ -104,9 +104,15 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
         horizontal: 0.054 * _screenSize.width, //20
       ),
       child: AvakatanButtonWidget(
-          backgroundColor: widget.check ? MAIN_BLUE_COLOR : F7_BACKGROUND_COLOR,
-          textColor: widget.check ? Colors.white : Colors.grey,
-          borderColor: widget.check ? MAIN_BLUE_COLOR : Colors.grey[100],
+          backgroundColor: (!widget.isInputPhoneStep) || widget.check
+              ? MAIN_BLUE_COLOR
+              : F7_BACKGROUND_COLOR,
+          textColor: (!widget.isInputPhoneStep) || widget.check
+              ? Colors.white
+              : Colors.grey,
+          borderColor: (!widget.isInputPhoneStep) || widget.check
+              ? MAIN_BLUE_COLOR
+              : Colors.grey[100],
           hasShadow: false,
           title: widget.isInputPhoneStep ? 'ارسال کد تایید' : 'ورود',
           height: 0.07 * _screenSize.height, //45,

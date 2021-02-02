@@ -8,16 +8,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class LoginAppBarWidget extends StatefulWidget {
   final TextEditingController phoneTextEditingController;
-  final PanelController preTelCodePanelController;
+  final Function(BuildContext) navigatorPop;
 
   const LoginAppBarWidget({
     Key key,
     this.phoneTextEditingController,
-    this.preTelCodePanelController,
+    this.navigatorPop,
   }) : super(key: key);
 
   @override
@@ -42,7 +41,9 @@ class _LoginAppBarWidgetState extends State<LoginAppBarWidget> {
                       : GlobalSvgImages.rightIcon,
                 ),
                 onTap: () {
-                  widget.preTelCodePanelController.close();
+                  widget.navigatorPop(context);
+                  // Navigator.pop(context);
+                  // widget.preTelCodePanelController.close();
                 },
               ),
             ],
