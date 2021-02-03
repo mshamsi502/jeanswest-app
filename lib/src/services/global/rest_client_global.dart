@@ -25,11 +25,12 @@ abstract class GlobalRestClient {
     return _GlobalRestClient(dio, baseUrl: baseUrl);
   }
 
+  // ! Real API's
   // @GET('/v1/api/near_branch')
   // Future<List<Branch>> getBranchesAddress(
   //     @Query("lat") String lat, @Query("long") String long);
 
-  // !
+  // ! Mock Data API's
 
   // @GET('/v1/getBranches')
   // Future<List<Branch>> getBranchesAddress1(
@@ -43,6 +44,11 @@ abstract class GlobalRestClient {
   @POST('/v1/login2')
   Future<SuccessRespons> postLogin(@Field("phoneNumber") String phoneNumber);
 
+  @GET('/v1/verifyCode')
+  Future<LoginAndGetToken> getVerifyCode(
+    @Query("phoneNumber") String phoneNumber,
+    @Query("verifyCode") String verifyCode,
+  );
   @POST('/v1/verifyCode')
   Future<LoginAndGetToken> postVerifyCode(
     @Field("phoneNumber") String phoneNumber,

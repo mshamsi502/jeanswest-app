@@ -57,6 +57,28 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<LoginAndGetToken> getVerifyCode(phoneNumber, verifyCode) async {
+    ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
+    ArgumentError.checkNotNull(verifyCode, 'verifyCode');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'phoneNumber': phoneNumber,
+      r'verifyCode': verifyCode
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/v1/verifyCode',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = LoginAndGetToken.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<LoginAndGetToken> postVerifyCode(phoneNumber, verifyCode) async {
     ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
     ArgumentError.checkNotNull(verifyCode, 'verifyCode');

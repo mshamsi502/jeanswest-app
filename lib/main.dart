@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jeanswest/src/app.dart';
 import 'package:jeanswest/src/utils/service_locator/service_locator_global.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,20 +18,22 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(
-      EasyLocalization(
-        /// => select default application language
-        startLocale: Locale('fa', 'IR'),
-        // startLocale: Locale('en', 'US'),
-        //
-        supportedLocales: [
-          Locale('en', 'US'),
-          Locale('fa', 'IR'),
-          Locale('ar', 'AE')
-        ],
-        path: 'assets/translations', // <-- change patch to your
-        fallbackLocale: Locale('fa', 'IR'),
-        saveLocale: true,
-        child: MyApp(),
+      Phoenix(
+        child: EasyLocalization(
+          /// => select default application language
+          startLocale: Locale('fa', 'IR'),
+          // startLocale: Locale('en', 'US'),
+          //
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('fa', 'IR'),
+            Locale('ar', 'AE')
+          ],
+          path: 'assets/translations', // <-- change patch to your
+          fallbackLocale: Locale('fa', 'IR'),
+          saveLocale: true,
+          child: MyApp(),
+        ),
       ),
     );
   });

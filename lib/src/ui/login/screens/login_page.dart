@@ -318,6 +318,9 @@ class _LoginPageState extends State<LoginPage> {
                         right: 0,
                         child: ConfirmButtonWidget(
                           check: check,
+                          phoneNumber: inputPhone,
+                          verifyCode: inputCode,
+                          selectedCountry: selectedCountry,
                           isInputPhoneStep: isInputPhoneStep,
                           changeInputPhoneStep: changeInputPhoneStep,
                           hasError: hasError,
