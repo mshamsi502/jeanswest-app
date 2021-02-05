@@ -10,11 +10,17 @@ class LoadingPage extends StatefulWidget {
   final String text;
   final double widthText;
   final int milliSecond;
+  final bool allowFinish;
   final Function closeLoading;
 
-  const LoadingPage(
-      {Key key, this.text, this.widthText, this.milliSecond, this.closeLoading})
-      : super(key: key);
+  const LoadingPage({
+    Key key,
+    this.text,
+    this.widthText,
+    this.milliSecond,
+    this.closeLoading,
+    this.allowFinish,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => LoadingPageState();
 }
@@ -57,7 +63,11 @@ class LoadingPageState extends State<LoadingPage> {
   splashDuration() async {
     if (widget.milliSecond != null || widget.milliSecond == 0) {
       await Future.delayed(Duration(milliseconds: widget.milliSecond));
-      widget.closeLoading();
+      if (widget.allowFinish) {
+        widget.closeLoading();
+      } else {
+        splashDuration();
+      }
     }
   }
 

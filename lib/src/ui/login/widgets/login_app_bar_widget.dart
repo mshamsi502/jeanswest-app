@@ -50,8 +50,8 @@ class _LoginAppBarWidgetState extends State<LoginAppBarWidget> {
           ),
 
           Container(
-            width: 180,
-            height: 50,
+            width: 0.5 * _screenSize.width, //180,
+            height: 0.078125 * _screenSize.height, //50,
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,

@@ -13,14 +13,14 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // setupLocator();
-  setupLocator2();
+  setupLocator(isNeedToken: false);
   // setupLocatorWithoutAuth();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(
       Phoenix(
         child: EasyLocalization(
-          /// => select default application language
+          // ! => select default application language
           startLocale: Locale('fa', 'IR'),
           // startLocale: Locale('en', 'US'),
           //
@@ -29,7 +29,7 @@ void main() async {
             Locale('fa', 'IR'),
             Locale('ar', 'AE')
           ],
-          path: 'assets/translations', // <-- change patch to your
+          path: 'assets/translations', // ! <-- patch of translations files
           fallbackLocale: Locale('fa', 'IR'),
           saveLocale: true,
           child: MyApp(),

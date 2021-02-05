@@ -64,7 +64,6 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
         ? widget.checkCorrectPhone()
         : widget.checkCorrectCode();
     _check = response[0];
-    print('@@@@@@@ 2@@ , _check : $_check');
     String _msg = response[1];
     if (widget.isInputPhoneStep) {
       if (_check) {
@@ -102,11 +101,13 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
               .setString(TOKEN, loginAndGetToken.token);
           Phoenix.rebirth(context);
         } else {
+          widget.changeInputPhoneStep(false);
           print('success is ${loginAndGetToken.success}');
         }
         //
         print('Code Is OK...');
       } else {
+        widget.changeInputPhoneStep(false);
         widget.changeHasError(true);
         widget.showSnackBarError(_msg, context);
         widget.changeSelectedCodeChar(0);
@@ -149,8 +150,6 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
           fontSize: 0.05 * _screenSize.width, //18,
           radius: 0.011 * _screenSize.width, //4,
           onTap: () async {
-            print(
-                'widget.phoneNumber : ${widget.selectedCountry.dialCode}${widget.phoneNumber} , widget.verifyCode : ${widget.verifyCode}');
             widget.check
                 ? checkInput(context)
                 : print('checked and is NOT OK :(');

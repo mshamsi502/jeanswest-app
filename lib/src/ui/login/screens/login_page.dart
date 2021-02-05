@@ -55,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   bool check;
 
   FocusNode phoneInputNode = FocusNode();
+  FocusNode codeConfirmInputNode = FocusNode();
   TextEditingController phoneTextEditingController =
       new TextEditingController();
   FocusNode searchInputNode = FocusNode();
@@ -68,45 +69,32 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     check = false;
-    getConteries();
+
+    getConteries(widget.screenSize);
     minuteTimer = '00';
     secondTimer = '00';
     //
 
     KeyboardVisibilityNotification().addNewListener(
       onHide: () {
-        // if (scrollController.position.pixels < 51) {
-        // print(
-        //     'scrollController.position.pixels : ${scrollController.position.pixels}');
         scrollController.jumpTo(0);
-        // }
       },
       onShow: () {
-        // print(
-        //     'scrollController.position.pixels : ${scrollController.position.pixels}');
-        // if (scrollController.position.pixels < 51) {
-        //   print(
-        //       'scrollController.position.pixels : ${scrollController.position.pixels}');
-        //   print('NOOT End: refrishing scrollController');
         scrollController.jumpTo(widget.screenSize.width);
-        // } else {
-        //   print('is End');
-        //   scrollController.position.hold(() {});
-        // }
       },
     );
 
     super.initState();
   }
 
-  getConteries() async {
+  getConteries(Size _screenSize) async {
     selectedCountry = Country(
       name: map['countries_code'][0]['name_per'],
       dialCode: map['countries_code'][0]['dial_code'],
       code: map['countries_code'][0]['code'],
       flag: Container(
-        width: 35,
-        height: 35,
+        width: 0.05468 * _screenSize.height, //35,
+        height: 0.05468 * _screenSize.height, //35,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
@@ -132,8 +120,8 @@ class _LoginPageState extends State<LoginPage> {
           dialCode: map['countries_code'][i]['dial_code'],
           code: map['countries_code'][i]['code'],
           flag: new Container(
-            width: 35,
-            height: 35,
+            width: 0.05468 * _screenSize.height,
+            height: 0.05468 * _screenSize.height,
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new NetworkImage(
@@ -159,7 +147,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
     return Container(
       color: Colors.grey,
       width: _screenSize.width,
@@ -179,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                   BoxShadow(
                     blurRadius: 0,
                     color: Color.fromRGBO(0, 0, 0, 0),
-                  )
+                  ),
                 ],
                 maxHeight: _screenSize.height,
                 backdropEnabled: false,
@@ -234,31 +221,19 @@ class _LoginPageState extends State<LoginPage> {
                               horizontal: 0.041 * _screenSize.width, //15,
                               vertical: 0.016 * _screenSize.height //10
                               ),
-                          // color: Colors.white,
                           child: LoginAppBarWidget(
-                              phoneTextEditingController:
-                                  phoneTextEditingController,
-                              navigatorPop: (BuildContext context) {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => MyApp()));
-                                Navigator.pop(context);
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => MainProfilePage(
-                                //               isAuth: false,
-                                //             )));
-                              }),
+                            phoneTextEditingController:
+                                phoneTextEditingController,
+                            navigatorPop: (BuildContext context) =>
+                                Navigator.pop(context),
+                          ),
                         ),
                       ),
                       Positioned(
                         top: isInputPhoneStep
                             ? 0.2812 * _screenSize.height //180,
-                            : 200,
+                            : 0.34 * _screenSize.height, //217
                         child: Container(
-                          // color: Colors.amber,
                           child: Column(
                             children: [
                               isInputPhoneStep
@@ -287,6 +262,7 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                     )
                                   : ConfirmCodeWidget(
+                                      focusNode: codeConfirmInputNode,
                                       phoneTextEditingController:
                                           phoneTextEditingController,
                                       keyboardIsOpen: keyboardIsOpen,
@@ -306,14 +282,14 @@ class _LoginPageState extends State<LoginPage> {
                                           startDownTimer(_screenSize),
                                     ),
                               SizedBox(
-                                height: 25,
+                                height: 0.039 * _screenSize.height, //25,
                               ),
                             ],
                           ),
                         ),
                       ),
                       Positioned(
-                        top: 350, //0.54 * _screenSize.height, //320,
+                        top: 0.6 * _screenSize.height, //355,
                         left: 0,
                         right: 0,
                         child: ConfirmButtonWidget(

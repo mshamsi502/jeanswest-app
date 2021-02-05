@@ -8,7 +8,7 @@ import 'package:jeanswest/src/services/global/rest_client_global.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void setupLocator2() async {
+void setupLocator({bool isNeedToken}) async {
   globalLocator.registerSingletonAsync<SharedPreferences>(() async {
     final localStorageService = SharedPreferences.getInstance();
     return localStorageService;
@@ -19,9 +19,8 @@ void setupLocator2() async {
     Dio dio = new Dio();
     dio.interceptors
         .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
-      // locator<SharedPreferences>().setString(TOKEN,
-      //     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQ5MTQ5IiwidXVpZCI6InB3YS11dWlkIiwidXNlcl9pZCI6IjY2MjY4IiwiY3JlYXRlZF9hdCI6IjIwMjAtMDgtMTMgMjM6MTg6NDkiLCJ1cGRhdGVkX2F0IjoiMjAyMC0wOC0xMyAyMzo0Mzo0OCIsImV4cGlyZWRfYXQiOiIyMDIxLTA5LTI0IDEyOjQ4OjI1IiwiaXNfZXhwaXJlZCI6IjAiLCJub3RpZmljYXRpb25faWQiOiJlc1VnZW5EMVpua193ZThuRDM2b3ZWOkFQQTkxYkhBOVZBUklHNk1jdHlyeHZvTGlYUGM5c2pBWWNraDRTVHd6bDlRb2hfRjVTZHpRaVNMV1Ixeks3LUlUeWFFQ3YweXZvdmFOUEFOTUxjbzR0Zmx4R245SThtUWVnZ2RzaC04UTYxaW1GdXhQVTZjN2pFQUdNcXU5M3dBaGR0d1lDdm9xRHJNIiwiaXNfcHdhIjoiMSJ9.C_R_tZxIUATGq1dwtJES9EY9ce0mjJHzOuRZStgFBGg");
-      if (globalLocator<SharedPreferences>().getString(TOKEN) != null) {
+      if (isNeedToken ||
+          globalLocator<SharedPreferences>().getString(TOKEN) != null) {
         options.headers["Authorization"] =
             "Bearer " + globalLocator<SharedPreferences>().getString(TOKEN);
       }

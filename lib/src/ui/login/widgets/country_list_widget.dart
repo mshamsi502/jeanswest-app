@@ -33,7 +33,7 @@ class CountryListWidgetState extends State<CountryListWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: _screenSize.height - 80,
+      height: _screenSize.height - (0.125 * _screenSize.height), //80,
       width: _screenSize.width,
       child: ListView.separated(
         controller: scrollController,
@@ -41,8 +41,8 @@ class CountryListWidgetState extends State<CountryListWidget> {
         itemCount: widget.countries.length,
         separatorBuilder: (context, index) => Divider(
           color: Colors.grey,
-          height: 8,
-          thickness: 0.2,
+          height: 0.0125 * _screenSize.height, //8,
+          thickness: 0.00055 * _screenSize.width, //0.2,
         ),
         itemBuilder: (BuildContext context, int i) {
           return Material(
@@ -54,37 +54,37 @@ class CountryListWidgetState extends State<CountryListWidget> {
                     children: [
                       widget.countries[i].flag,
                       SizedBox(
-                        width: 10,
+                        width: 0.027 * _screenSize.width, //10,
                       ),
                       Container(
-                        width: 45,
+                        width: 0.125 * _screenSize.width, //45,
                         alignment: Alignment.center,
                         child: Text(
                           widget.countries[i].dialCode,
                           textDirection: ltrTextDirection,
                           style: TextStyle(
                             color: MAIN_BLUE_COLOR,
-                            fontSize: 14,
+                            fontSize: 0.038 * _screenSize.width, //14,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 0.027 * _screenSize.width, //10,
                       ),
                       Container(
-                        height: 25,
+                        height: 0.039 * _screenSize.height, //25,
                         // color: Colors.grey,
                         child: VerticalDivider(
                           // color: Colors.grey,
                           color: MAIN_BLUE_COLOR,
-                          thickness: 1.5,
+                          thickness: 0.00416 * _screenSize.width, //1.5,
                           indent: 0,
-                          width: 1,
+                          width: 0.00277 * _screenSize.width, //1,
                         ),
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 0.027 * _screenSize.width, //10,
                       ),
                       Expanded(
                         child: Text(
@@ -93,7 +93,7 @@ class CountryListWidgetState extends State<CountryListWidget> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: MAIN_BLUE_COLOR,
-                            fontSize: 14,
+                            fontSize: 0.038 * _screenSize.width, //14,
                             fontWeight: FontWeight.w500,
                           ),
                         ),

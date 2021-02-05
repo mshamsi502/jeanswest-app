@@ -11,7 +11,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
 class SingleInputCodeWidget extends StatefulWidget {
-  final FocusNode focusNode;
+  // final FocusNode focusNode;
+  final List<FocusNode> focusNode;
   final int selectedChar;
   final String inputCode;
   final bool hasError;
@@ -55,12 +56,10 @@ class _SingleInputCodeWidgetState extends State<SingleInputCodeWidget> {
       onTap: () {
         widget.updateSelectedChar(widget.ordinal);
         FocusScope.of(context).requestFocus();
-        // FocusScope.of(context).
-        // widget.keyboardPanelController.open();
       },
       child: Container(
-        width: 50,
-        height: 50,
+        width: 0.138 * _screenSize.width, //50,
+        height: 0.138 * _screenSize.width, //50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
@@ -80,7 +79,7 @@ class _SingleInputCodeWidgetState extends State<SingleInputCodeWidget> {
                   child: TextField(
                     textDirection: ltrTextDirection,
                     keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
+                    textInputAction: TextInputAction.next,
                     inputFormatters: [
                       // ignore: deprecated_member_use
                       WhitelistingTextInputFormatter(RegExp(r'(^[0-9]{1}$)')),
@@ -114,17 +113,19 @@ class _SingleInputCodeWidgetState extends State<SingleInputCodeWidget> {
                           else
                             selected++;
                         });
+                        widget.focusNode[selected].requestFocus();
                         widget.updateSelectedChar(selected);
                       }
                     },
-                    autofocus: true,
+                    autofocus: widget.ordinal == 0,
                     style: TextStyle(
                       fontSize: 0.047 * _screenSize.width, //17,
                     ),
                     maxLines: 1,
                     controller: _textEditingController,
                     showCursor: true,
-                    focusNode: widget.focusNode,
+                    focusNode: widget.focusNode[widget.ordinal],
+                    // focusNode: node,
                     decoration: InputDecoration(
                       hintStyle: TextStyle(
                         fontSize: 0.047 * _screenSize.width, //17,
@@ -142,7 +143,9 @@ class _SingleInputCodeWidgetState extends State<SingleInputCodeWidget> {
               // // //
               : Text(
                   widget.inputCode[widget.ordinal],
-                  style: TextStyle(fontSize: 22, color: MAIN_BLUE_COLOR),
+                  style: TextStyle(
+                      fontSize: 0.0611 * _screenSize.width,
+                      color: MAIN_BLUE_COLOR),
                 ),
           // //
         ),

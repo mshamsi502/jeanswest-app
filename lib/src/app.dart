@@ -22,6 +22,8 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool isSplash;
+  bool pagesCreatedFinished = false;
+
   String loading;
   bool isFirstLaunchBranch;
   bool isAuth;
@@ -42,6 +44,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     // ! check user auth
     auth('+989176509634');
 
@@ -75,6 +78,9 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     _children.add(MainProfilePage(
       isAuth: isAuth,
     ));
+    setState(() {
+      pagesCreatedFinished = true;
+    });
   }
 
   //
@@ -95,6 +101,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
               text: 'بارگذاری',
               widthText: 0.22, //0.22 * _screenSize.width , 80,
               milliSecond: 3000,
+              allowFinish: pagesCreatedFinished,
               closeLoading: () {
                 setState(() {
                   isSplash = false;
