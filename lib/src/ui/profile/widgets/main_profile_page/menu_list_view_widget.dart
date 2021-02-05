@@ -44,7 +44,7 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
         return Column(
           children: [
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => widget.pages[index]),
