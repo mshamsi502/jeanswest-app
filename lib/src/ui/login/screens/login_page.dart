@@ -24,11 +24,13 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 class LoginPage extends StatefulWidget {
   // final Function(int, int) updateProp;
   final Size screenSize;
+  final Function(BuildContext) navigatorPop;
 
   const LoginPage({
     Key key,
     // this.updateProp,
     this.screenSize,
+    this.navigatorPop,
   }) : super(key: key);
 
   @override
@@ -53,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
   bool check;
 
   FocusNode phoneInputNode = FocusNode();
+  FocusNode codeConfirmInputNode = FocusNode();
   TextEditingController phoneTextEditingController =
       new TextEditingController();
   FocusNode searchInputNode = FocusNode();
@@ -66,28 +69,32 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     check = false;
-    getConteries();
+
+    getConteries(widget.screenSize);
     minuteTimer = '00';
     secondTimer = '00';
     //
-    KeyboardVisibilityNotification().addNewListener(onHide: () {
-      scrollController.jumpTo(0);
-      //
-    }, onShow: () {
-      scrollController.jumpTo(widget.screenSize.width);
-    });
+
+    KeyboardVisibilityNotification().addNewListener(
+      onHide: () {
+        scrollController.jumpTo(0);
+      },
+      onShow: () {
+        scrollController.jumpTo(widget.screenSize.width);
+      },
+    );
 
     super.initState();
   }
 
-  getConteries() async {
+  getConteries(Size _screenSize) async {
     selectedCountry = Country(
       name: map['countries_code'][0]['name_per'],
       dialCode: map['countries_code'][0]['dial_code'],
       code: map['countries_code'][0]['code'],
       flag: Container(
-        width: 35,
-        height: 35,
+        width: 0.05468 * _screenSize.height, //35,
+        height: 0.05468 * _screenSize.height, //35,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
@@ -113,8 +120,8 @@ class _LoginPageState extends State<LoginPage> {
           dialCode: map['countries_code'][i]['dial_code'],
           code: map['countries_code'][i]['code'],
           flag: new Container(
-            width: 35,
-            height: 35,
+            width: 0.05468 * _screenSize.height,
+            height: 0.05468 * _screenSize.height,
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new NetworkImage(
@@ -140,7 +147,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
     return Container(
       color: Colors.grey,
       width: _screenSize.width,
@@ -153,14 +159,14 @@ class _LoginPageState extends State<LoginPage> {
             physics: ClampingScrollPhysics(),
             child: Container(
               width: _screenSize.width,
-              height: 0.7 * _screenSize.height,
+              height: 0.8 * _screenSize.height,
               child: SlidingUpPanel(
                 minHeight: 0,
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     blurRadius: 0,
                     color: Color.fromRGBO(0, 0, 0, 0),
-                  )
+                  ),
                 ],
                 maxHeight: _screenSize.height,
                 backdropEnabled: false,
@@ -215,71 +221,82 @@ class _LoginPageState extends State<LoginPage> {
                               horizontal: 0.041 * _screenSize.width, //15,
                               vertical: 0.016 * _screenSize.height //10
                               ),
-                          // color: Colors.white,
                           child: LoginAppBarWidget(
                             phoneTextEditingController:
                                 phoneTextEditingController,
-                            preTelCodePanelController:
-                                preTelCodePanelController,
-                            // updateProp: widget.updateProp,
+                            navigatorPop: (BuildContext context) =>
+                                Navigator.pop(context),
                           ),
                         ),
                       ),
                       Positioned(
-                        top: 0.2812 * _screenSize.height, //180,
-                        child: Column(
-                          children: [
-                            isInputPhoneStep
-                                ? LoginBodyWidget(
-                                    focusNode: phoneInputNode,
-                                    phoneTextEditingController:
-                                        phoneTextEditingController,
-                                    keyboardIsOpen: keyboardIsOpen,
-                                    preTelCodePanelController:
-                                        preTelCodePanelController,
-                                    inputPhone: inputPhone,
-                                    hasError: hasError,
-                                    // hasError: true,
-                                    selectedCountry: selectedCountry,
-                                    changeTextFieldSearch: (String newValue) {
-                                      print('update check');
-                                      setState(() {
-                                        inputPhone = newValue;
-                                        print('inputPhone : $inputPhone');
-                                      });
-                                      List response = checkCorrectPhone();
-                                      setState(() {
-                                        check = response[0];
-                                        print('check : $check');
-                                      });
-                                    },
-                                  )
-                                : ConfirmCodeWidget(
-                                    phoneTextEditingController:
-                                        phoneTextEditingController,
-                                    keyboardIsOpen: keyboardIsOpen,
-                                    inputPhone: inputPhone,
-                                    inputCode: inputCode,
-                                    hasError: hasError,
-                                    selectedCountry: selectedCountry,
-                                    backToInputPhoneStep: changeInputPhoneStep,
-                                    updateSelectedChar: updateSelectedCodeChar,
-                                    selectedChar: selectedCodeChar,
-                                    updateInputCode: updateInputCode,
-                                    minuteTimer: minuteTimer,
-                                    secondTimer: secondTimer,
-                                    startDownTimer: () =>
-                                        startDownTimer(_screenSize),
-                                  ),
-                          ],
+                        top: isInputPhoneStep
+                            ? 0.2812 * _screenSize.height //180,
+                            : 0.34 * _screenSize.height, //217
+                        child: Container(
+                          child: Column(
+                            children: [
+                              isInputPhoneStep
+                                  ? LoginBodyWidget(
+                                      focusNode: phoneInputNode,
+                                      phoneTextEditingController:
+                                          phoneTextEditingController,
+                                      keyboardIsOpen: keyboardIsOpen,
+                                      preTelCodePanelController:
+                                          preTelCodePanelController,
+                                      inputPhone: inputPhone,
+                                      hasError: hasError,
+                                      // hasError: true,
+                                      selectedCountry: selectedCountry,
+                                      changeTextFieldSearch: (String newValue) {
+                                        print('update check');
+                                        setState(() {
+                                          inputPhone = newValue;
+                                          print('inputPhone : $inputPhone');
+                                        });
+                                        List response = checkCorrectPhone();
+                                        setState(() {
+                                          check = response[0];
+                                          print('check : $check');
+                                        });
+                                      },
+                                    )
+                                  : ConfirmCodeWidget(
+                                      focusNode: codeConfirmInputNode,
+                                      phoneTextEditingController:
+                                          phoneTextEditingController,
+                                      keyboardIsOpen: keyboardIsOpen,
+                                      inputPhone: inputPhone,
+                                      inputCode: inputCode,
+                                      hasError: hasError,
+                                      selectedCountry: selectedCountry,
+                                      backToInputPhoneStep:
+                                          changeInputPhoneStep,
+                                      updateSelectedChar:
+                                          updateSelectedCodeChar,
+                                      selectedChar: selectedCodeChar,
+                                      updateInputCode: updateInputCode,
+                                      minuteTimer: minuteTimer,
+                                      secondTimer: secondTimer,
+                                      startDownTimer: () =>
+                                          startDownTimer(_screenSize),
+                                    ),
+                              SizedBox(
+                                height: 0.039 * _screenSize.height, //25,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Positioned(
-                        top: 0.54 * _screenSize.height, //320,
+                        top: 0.6 * _screenSize.height, //355,
                         left: 0,
                         right: 0,
                         child: ConfirmButtonWidget(
                           check: check,
+                          phoneNumber: inputPhone,
+                          verifyCode: inputCode,
+                          selectedCountry: selectedCountry,
                           isInputPhoneStep: isInputPhoneStep,
                           changeInputPhoneStep: changeInputPhoneStep,
                           hasError: hasError,
@@ -413,8 +430,8 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isInputPhoneStep = _isInputPhoneStep;
 
-      check = false;
-      inputPhone = '';
+      // check = false;
+      // inputPhone = '';
       updateInputCode('-----');
       selectedCodeChar = 0;
     });
@@ -446,6 +463,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   updateSelectedCodeChar(int selectedChar) {
+    print('selectedChar: $selectedChar');
     setState(() {
       selectedCodeChar = selectedChar;
     });

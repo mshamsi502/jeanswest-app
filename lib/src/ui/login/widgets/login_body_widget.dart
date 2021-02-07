@@ -46,6 +46,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
+      height: 0.2394 * _screenSize.height, //150,
       width: _screenSize.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +64,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
             ),
           ),
           SizedBox(
-            height: 0.039 * _screenSize.height, //25,
+            height: 0.078125 * _screenSize.height, //50,
           ),
           Container(
             height: 0.078125 * _screenSize.height, //50,
@@ -152,6 +153,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                           setState(() {
                             widget.preTelCodePanelController.close();
                             widget.focusNode.unfocus();
+
                             widget.phoneTextEditingController.clear();
                           });
                         },
@@ -204,7 +206,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                 ),
                 onTap: () {
                   widget.phoneTextEditingController.clear();
-                  widget.focusNode.unfocus();
+                  // widget.focusNode.unfocus();
                   widget.preTelCodePanelController.open();
                 },
               ),

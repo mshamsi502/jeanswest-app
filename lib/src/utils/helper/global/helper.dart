@@ -6,6 +6,19 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/models/api_response/success_response.dart';
+import 'package:jeanswest/src/services/global/rest_client_global.dart';
+
+Future<bool> checkIsAuthWithRetro(String phoneNumber) async {
+  bool isSuccess;
+  print('12315465498 -- phoneNumber : $phoneNumber');
+  SuccessRespons successRespons =
+      await globalLocator<GlobalRestClient>().postLogin(phoneNumber);
+  isSuccess = successRespons.success;
+  print('12315465498 -- successRespons.success : $isSuccess');
+  return isSuccess ?? false;
+}
 
 Future<bool> checkConnectionInternet() async {
   var connectivityResult = await (Connectivity().checkConnectivity());

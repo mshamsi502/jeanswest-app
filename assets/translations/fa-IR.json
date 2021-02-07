@@ -37,7 +37,7 @@
   "login_screen": {
     "enter_your_phone_number" : "برای ورود و یا ثبت نام در جین وست شماره موبایل خود را وارد نمایید",
     "country_code" : "پیش شماره",
-    "edit" : "ویرایش",
+    "edit" : "ویرایش شماره",
     "resend_code" : "ارسال مجدد کد",
     "phone_number_is_incorrect" : "شماره همراه وارد شده اشتباه است",
     "enter_phone_number_without_first_zero" : "شماره همراه را بدون صفر اولیه وارد کنید",

@@ -105,6 +105,8 @@ class _UnauthProfileAppBarWidgetState extends State<UnauthProfileAppBarWidget> {
                           MaterialPageRoute(
                             builder: (context) => LoginPage(
                               screenSize: _screenSize,
+                              navigatorPop: (BuildContext context) =>
+                                  Navigator.pop(context),
                             ),
                           ),
                         ),
