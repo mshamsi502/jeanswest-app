@@ -9,7 +9,7 @@ part of 'rest_client_global.dart';
 class _GlobalRestClient implements GlobalRestClient {
   _GlobalRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://10.0.2.2:3001';
+    baseUrl ??= 'http://10.1.2.94:3001';
   }
 
   final Dio _dio;
@@ -38,13 +38,14 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<SuccessRespons> postLogin(phoneNumber) async {
+  Future<SuccessRespons> reqForVerifyCode(phoneNumber) async {
     ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'phoneNumber': phoneNumber};
     _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>('/v1/login2',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/v1/reqVerifyCode',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -57,7 +58,7 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<LoginAndGetToken> getVerifyCode(phoneNumber, verifyCode) async {
+  Future<LoginAndGetTokenRes> getVerifyCode(phoneNumber, verifyCode) async {
     ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
     ArgumentError.checkNotNull(verifyCode, 'verifyCode');
     const _extra = <String, dynamic>{};
@@ -74,27 +75,79 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = LoginAndGetToken.fromJson(_result.data);
+    final value = LoginAndGetTokenRes.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<LoginAndGetToken> postVerifyCode(phoneNumber, verifyCode) async {
-    ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
-    ArgumentError.checkNotNull(verifyCode, 'verifyCode');
+  Future<UserMainInfoRes> getUserMainInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'phoneNumber': phoneNumber, 'verifyCode': verifyCode};
-    _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>('/v1/verifyCode',
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/v1/getUserMainInfo',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = LoginAndGetToken.fromJson(_result.data);
+    final value = UserMainInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserInviteInfoRes> getUserInviteInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/v1/getUserInviteInfo',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserInviteInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserFriendsInfoRes> getUserFriendsInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/v1/getUserFriendsInfo',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserFriendsInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserPaymentInfoRes> getUserPaymentInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/v1/getUserPaymentInfo',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserPaymentInfoRes.fromJson(_result.data);
     return value;
   }
 }

@@ -10,9 +10,8 @@ import 'package:get_it/get_it.dart';
 
 const String TOKEN = 'token';
 const String BASE_URL_FOR_BRANCH_ADDRESS = 'https://jeanswest.club';
-// const String BASE_URL_FOR_LOGIN = 'https://localhost:3001';
-// const String BASE_URL_FOR_LOGIN = 'localhost:3001';
-const String BASE_URL_FOR_MOCKOON = 'http://10.0.2.2:3001';
+const String BASE_URL_FOR_MOCKOON = 'http://10.1.2.94:3001';
+const String BASE_URL_FOR_JEANSWEST = 'http://10.0.1.111:5000';
 const TextDirection rtlTextDirection = TextDirection.rtl;
 const TextDirection ltrTextDirection = TextDirection.ltr;
 
@@ -22,4 +21,9 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 bool isInit = true;
 // GoogleMapWidget myGoogleMapWidget;
 //
+// GetIt mockoonGlobalLocator = GetIt.instance;
+// GetIt jeanswestGlobalLocator = GetIt.instance;
+// GetIt globalLocator = GetIt.instance;
 GetIt globalLocator = GetIt.instance;
+// GetIt jeanswestAuthLocator = GetIt.instance;
+// GetIt jeanswestUnAuthLocator = GetIt.instance;

@@ -7,15 +7,20 @@ import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/models/api_response/success_response.dart';
-import 'package:jeanswest/src/models/api_response/login_and_get_token.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/success_response.dart';
+import 'package:jeanswest/src/models/api_response/loginRes/mockoonRes/login-and-get-token-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
+import 'package:jeanswest/src/services/rest-client.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'rest_client_global.g.dart';
 
 // @RestApi(baseUrl: BASE_URL_FOR_BRANCH_ADDRESS)
 @RestApi(baseUrl: BASE_URL_FOR_MOCKOON)
-abstract class GlobalRestClient {
+abstract class GlobalRestClient extends RestClient {
   /// pre setting dio
   /// [dio] auto set in service_locator.dart file and
   /// optional named parameter [baseUrl] if you want change base url
@@ -41,17 +46,25 @@ abstract class GlobalRestClient {
       @Query("lat") String lat, @Query("long") String long);
   //
 
-  @POST('/v1/login2')
-  Future<SuccessRespons> postLogin(@Field("phoneNumber") String phoneNumber);
+  @POST('/v1/reqVerifyCode')
+  Future<SuccessRespons> reqForVerifyCode(
+      @Field("phoneNumber") String phoneNumber);
 
   @GET('/v1/verifyCode')
-  Future<LoginAndGetToken> getVerifyCode(
+  Future<LoginAndGetTokenRes> getVerifyCode(
     @Query("phoneNumber") String phoneNumber,
     @Query("verifyCode") String verifyCode,
   );
-  @POST('/v1/verifyCode')
-  Future<LoginAndGetToken> postVerifyCode(
-    @Field("phoneNumber") String phoneNumber,
-    @Field("verifyCode") String verifyCode,
-  );
+
+  @GET('/v1/getUserMainInfo')
+  Future<UserMainInfoRes> getUserMainInfo();
+
+  @GET('/v1/getUserInviteInfo')
+  Future<UserInviteInfoRes> getUserInviteInfo();
+
+  @GET('/v1/getUserFriendsInfo')
+  Future<UserFriendsInfoRes> getUserFriendsInfo();
+
+  @GET('/v1/getUserPaymentInfo')
+  Future<UserPaymentInfoRes> getUserPaymentInfo();
 }

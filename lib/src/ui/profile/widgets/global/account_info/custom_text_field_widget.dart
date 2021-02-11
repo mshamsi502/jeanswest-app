@@ -12,12 +12,14 @@ class CustomTextFieldWidget extends StatefulWidget {
   final TextEditingController textEditingController;
   final String title;
   final String initText;
+  final bool isEnable;
 
   const CustomTextFieldWidget({
     Key key,
     this.textEditingController,
     this.title,
     this.initText,
+    this.isEnable = true,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomTextFieldWidgetState();
 }
@@ -58,8 +60,10 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
         child: TextField(
           style: TextStyle(
             fontSize: 0.038 * _screenSize.width, //14,
+            color: widget.isEnable ? Colors.black : Colors.grey,
           ),
           controller: widget.textEditingController,
+          enabled: widget.isEnable,
           showCursor: true,
           decoration: InputDecoration(
             hintText: widget.initText,

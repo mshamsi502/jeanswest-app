@@ -6,13 +6,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/models/user/user.dart';
+import 'package:jeanswest/src/models/user/userInfo/user-main-info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/edit_friend_info_widget.dart';
 
 class EditInfoFriendPage extends StatefulWidget {
-  final User friend;
-  final Function(User) addFriend;
+  final UserMainInfo friend;
+  final Function(UserMainInfo) addFriend;
 
   const EditInfoFriendPage({Key key, this.friend, this.addFriend})
       : super(key: key);
@@ -45,7 +45,7 @@ class _EditInfoFriendPageState extends State<EditInfoFriendPage> {
             height: _screenSize.height,
             child: EditFriendInfoWidget(
               title: 'ویرایش اطلاعات دوست',
-              name: widget.friend.perName,
+              name: widget.friend.firstName,
               dayOfBirth: widget.friend.dayOfBirth,
               monthOfBirth: widget.friend.monthOfBirth,
               yearOfBirth: widget.friend.yearOfBirth,
@@ -58,14 +58,16 @@ class _EditInfoFriendPageState extends State<EditInfoFriendPage> {
   }
 
   confirmInfo(
-    String name,
+    String fistName,
+    String lastName,
     String dayOfBirth,
     String monthOfBirth,
     String yearOfBirth,
   ) {
     setState(() {
-      widget.addFriend(User(
-        perName: name,
+      widget.addFriend(UserMainInfo(
+        firstName: fistName,
+        lastName: lastName,
         dayOfBirth: dayOfBirth,
         monthOfBirth: monthOfBirth,
         yearOfBirth: yearOfBirth,
