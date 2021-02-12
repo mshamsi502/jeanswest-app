@@ -5,9 +5,7 @@
 
 import 'package:dio/dio.dart';
 // import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/jeanswestApis/rest_client_unauth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class JeanswestUnauth {
   //

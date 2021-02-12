@@ -7,7 +7,6 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 
 import 'package:jeanswest/src/ui/profile/widgets/global/account_info/select_date_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/global/account_info/select_gender_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/select_date_panel_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -168,7 +167,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                             children: [
                               SizedBox(height: 10),
                               CustomTextFieldWidget(
-                                title: 'نام *',
+                                title: 'نام',
                                 isEnable: true,
                                 textEditingController:
                                     firstNameEditingController,
@@ -176,7 +175,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
-                                title: 'نام خانوادگی *',
+                                title: 'نام خانوادگی',
                                 isEnable: true,
                                 textEditingController:
                                     lastNameEditingController,
@@ -192,7 +191,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
-                                title: 'شماره تماس *',
+                                title: 'شماره تماس',
                                 isEnable: false,
                                 textEditingController:
                                     phoneNumberEditingController,
@@ -208,8 +207,9 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               // ),
                               SizedBox(height: 20),
                               CustomDropdownButtonWidget(
-                                  title: 'جنسیت *',
-                                  hintTitle: "انتخاب جنسیت ...",
+                                  title: 'جنسیت',
+                                  hintTitle: widget.gender.perName ??
+                                      "انتخاب جنسیت ...",
                                   options: genders,
                                   mediaQuery: MediaQuery.of(context),
                                   selected: (String _selectedGender) =>
@@ -228,7 +228,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                       })),
                               SizedBox(height: 20),
                               SelectDateWidget(
-                                title: 'تاریخ تولد *',
+                                title: 'تاریخ تولد',
                                 yearOfBirth: yearOfBirth,
                                 monthOfBirth: monthOfBirth,
                                 dayOfBirth: dayOfBirth,
@@ -263,6 +263,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               title: 'تایید اطلاعات',
                               height: 40,
                               onTap: () {
+                                // ! send to server
                                 widget.confirmInfo(
                                   firstNameEditingController.text,
                                   lastNameEditingController.text,

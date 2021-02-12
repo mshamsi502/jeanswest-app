@@ -6,13 +6,12 @@
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/jeanswestApis/rest_client_unauth.dart';
-// import 'package:jeanswest/src/services/jeanswestApis/rest_client_unauth.dart';
 // import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
-import 'package:jeanswest/src/services/rest-client.dart';
+// import 'package:jeanswest/src/services/rest-client.dart';
 // import 'package:jeanswest/src/utils/service_locator/mockoonApis/mockoonUnauth.dart';
 // import 'package:jeanswest/src/utils/service_locator/mockoonApis/mockoonAuth.dart';
 // import 'package:jeanswest/src/utils/service_locator/jeanswestApis/jeanswestAuth.dart';
-import 'package:jeanswest/src/utils/service_locator/jeanswestApis/jeanswestUnauth.dart';
+// import 'package:jeanswest/src/utils/service_locator/jeanswestApis/jeanswestUnauth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void setupGlobalLocator() async {

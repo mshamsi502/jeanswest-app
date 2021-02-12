@@ -13,8 +13,11 @@ import 'package:retrofit/retrofit.dart';
 
 part 'rest_client_unauth.g.dart';
 
+
+
 // @RestApi(baseUrl: BASE_URL_FOR_BRANCH_ADDRESS)
-@RestApi(baseUrl: BASE_URL_FOR_JEANSWEST)
+@RestApi(baseUrl:  BASE_URL_FOR_JEANSWEST)
+@RestApi()
 abstract class UnAuthRestClient {
   /// pre setting dio
   /// [dio] auto set in service_locator.dart file and
