@@ -3,7 +3,7 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -32,7 +32,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             SizedBox(width: 10),
             Text(
-              user.perName,
+              user.firstName,
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 12,

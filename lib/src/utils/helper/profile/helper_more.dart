@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
 import 'package:jeanswest/src/models/message/user_ticket/ticket_message.dart';
 import 'package:jeanswest/src/models/message/user_ticket/user_ticket.dart';
@@ -14,7 +14,7 @@ void addTicketToUserTicket(String department, String title, String text) {
       title: title,
       message: [
         TicketMessage(
-          title: user.perName,
+          title: user.firstName,
           text: text,
           yearOfSend: DateTime.now().year.toString(),
           monthOfSend: DateTime.now().month.toString(),
@@ -34,7 +34,7 @@ void addTicketToUserTicket(String department, String title, String text) {
 
 void addNewMessageInTicket(int numberOfTicket, String text) {
   TicketMessage newMessage = new TicketMessage(
-    title: user.perName,
+    title: user.firstName,
     text: text,
     yearOfSend: DateTime.now().year.toString(),
     monthOfSend: DateTime.now().month.toString(),

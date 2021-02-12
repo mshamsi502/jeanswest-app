@@ -7,7 +7,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QrCodeWidget extends StatefulWidget {

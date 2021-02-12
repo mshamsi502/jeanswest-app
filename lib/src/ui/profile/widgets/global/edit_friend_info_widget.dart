@@ -2,7 +2,7 @@
 //*  Project Name:  avakatan_branches
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
-import 'package:jeanswest/src/models/user/gender.dart';
+import 'package:jeanswest/src/models/user/gender/gender.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 
@@ -22,6 +22,7 @@ class EditFriendInfoWidget extends StatefulWidget {
   final String monthOfBirth;
   final String yearOfBirth;
   final Function(
+    String,
     String,
     String,
     String,
@@ -160,6 +161,7 @@ class _EditFriendInfoWidgetState extends State<EditFriendInfoWidget> {
                               height: 0.0625 * _screenSize.height, //40
                               onTap: () {
                                 widget.confirmInfo(
+                                  nameEditingController.text,
                                   nameEditingController.text,
                                   dayOfBirth,
                                   monthOfBirth,

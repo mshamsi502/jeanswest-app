@@ -7,14 +7,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jeanswest/src/app.dart';
-import 'package:jeanswest/src/utils/service_locator/service_locator_global.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:jeanswest/src/utils/service_locator/global_service_locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // setupLocator();
-  setupLocator(isNeedToken: false);
-  // setupLocatorWithoutAuth();
+  setupGlobalLocator();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
     runApp(

@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/test_data/product.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:jeanswest/src/models/order/exact_time_order.dart';
 import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/models/order/period_time_order.dart';
@@ -13,7 +13,7 @@ import 'addresses.dart';
 
 Order firstOrder = new Order(
   code: 'B54008832',
-  receiverName: user.perName,
+  receiverName: "${user.firstName} ${user.lastName}",
   phoneNumber: '09337324560',
   products: [
     firstFav,
@@ -53,7 +53,9 @@ Order firstOrder = new Order(
 );
 Order secondOrder = new Order(
   code: 'B54025644',
-  receiverName: user.friends[1].perName,
+  receiverName: userFriends.friends[1] != null
+      ? "${userFriends.friends[1].firstName} ${userFriends.friends[1].lastName}"
+      : "${user.firstName} ${user.lastName}",
   phoneNumber: '09176509634',
   products: [
     secondFav,
@@ -93,7 +95,7 @@ Order secondOrder = new Order(
 );
 Order thirdOrder = new Order(
   code: 'B54081235',
-  receiverName: user.perName,
+  receiverName: "${user.firstName} ${user.lastName}",
   phoneNumber: '09337324560',
   products: [
     sixthFav,
@@ -135,7 +137,7 @@ Order thirdOrder = new Order(
 );
 Order fourthOrder = new Order(
   code: 'B54008832',
-  receiverName: user.perName,
+  receiverName: "${user.firstName} ${user.lastName}",
   phoneNumber: '09337324560',
   products: [
     firstFav,
