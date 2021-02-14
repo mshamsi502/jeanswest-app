@@ -2,6 +2,7 @@
 //*  Project Name:  avakatan_branches
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
@@ -82,15 +83,25 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
     genders.add(female.perName);
     genders.add(male.perName);
     genders.add(other.perName);
+    // setState(() {
+    //   firstNameEditingController.text = widget.firstName ?? '';
+    //   lastNameEditingController.text = widget.lastName ?? '';
+    //   emailEditingController.text = widget.email ?? '';
+    //   phoneNumberEditingController.text = widget.phoneNumber ?? '';
+    //   dayOfBirth = widget.dayOfBirth ?? '29';
+    //   monthOfBirth = widget.monthOfBirth ?? '01';
+    //   yearOfBirth = widget.yearOfBirth ?? '1374';
+    //   selectedGender = widget.gender ?? male;
+    // });
     setState(() {
-      firstNameEditingController.text = widget.firstName ?? '';
-      lastNameEditingController.text = widget.lastName ?? '';
-      emailEditingController.text = widget.email ?? '';
-      phoneNumberEditingController.text = widget.phoneNumber ?? '';
-      dayOfBirth = widget.dayOfBirth ?? '29';
-      monthOfBirth = widget.monthOfBirth ?? '01';
-      yearOfBirth = widget.yearOfBirth ?? '1374';
-      selectedGender = widget.gender ?? male;
+      firstNameEditingController.text = user.firstName ?? '';
+      lastNameEditingController.text = user.lastName ?? '';
+      emailEditingController.text = user.email ?? '';
+      phoneNumberEditingController.text = user.phoneNumber ?? '';
+      dayOfBirth = user.dayOfBirth ?? '29';
+      monthOfBirth = user.monthOfBirth ?? '01';
+      yearOfBirth = user.yearOfBirth ?? '1374';
+      selectedGender = user.gender ?? male;
     });
 
     super.initState();
@@ -110,14 +121,30 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
     }
 
     if (isOpeningPanel) {
+      // setState(() {
+      //   firstNameEditingController.text = widget.firstName ?? '';
+      //   emailEditingController.text = widget.email ?? '';
+      //   phoneNumberEditingController.text = widget.phoneNumber ?? '';
+      //   dayOfBirth = widget.dayOfBirth ?? '29';
+      //   monthOfBirth = widget.monthOfBirth ?? '01';
+      //   yearOfBirth = widget.yearOfBirth ?? '1374';
+      //   selectedGender = widget.gender ?? male;
+      //   isOpeningPanel = false;
+      //   print('widget.isNew (3 in Build) : ${widget.isNew}');
+      //   print('isOpeningPanel (3 in Build) : $isOpeningPanel');
+      //   print('---------------------------------------------');
+      //   print('()()()()( selectedGender.perName : ${selectedGender.perName}');
+      //   print('()()()()( widget.gender.perName : ${widget.gender.perName}');
+      //   print('---------------------------------------------');
+      // });
       setState(() {
-        firstNameEditingController.text = widget.firstName ?? '';
-        emailEditingController.text = widget.email ?? '';
-        phoneNumberEditingController.text = widget.phoneNumber ?? '';
-        dayOfBirth = widget.dayOfBirth ?? '29';
-        monthOfBirth = widget.monthOfBirth ?? '01';
-        yearOfBirth = widget.yearOfBirth ?? '1374';
-        selectedGender = widget.gender ?? male;
+        firstNameEditingController.text = user.firstName ?? '';
+        emailEditingController.text = user.email ?? '';
+        phoneNumberEditingController.text = user.phoneNumber ?? '';
+        dayOfBirth = user.dayOfBirth ?? '29';
+        monthOfBirth = user.monthOfBirth ?? '01';
+        yearOfBirth = user.yearOfBirth ?? '1374';
+        selectedGender = user.gender ?? male;
         isOpeningPanel = false;
         print('widget.isNew (3 in Build) : ${widget.isNew}');
         print('isOpeningPanel (3 in Build) : $isOpeningPanel');
@@ -171,7 +198,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                 isEnable: true,
                                 textEditingController:
                                     firstNameEditingController,
-                                initText: widget.firstName ?? 'کاربر',
+                                // initText: widget.firstName ?? 'کاربر',
+                                initText: user.firstName ?? 'کاربر',
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
@@ -179,7 +207,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                 isEnable: true,
                                 textEditingController:
                                     lastNameEditingController,
-                                initText: widget.firstName ?? 'جدید',
+                                // initText: widget.firstName ?? 'جدید',
+                                initText: user.firstName ?? 'جدید',
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
@@ -187,7 +216,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                 isEnable: true,
                                 textEditingController: emailEditingController,
                                 initText:
-                                    widget.email ?? 'mshamsi502@gmail.com',
+                                    // widget.email ?? 'mshamsi502@gmail.com',
+                                    user.email ?? 'mshamsi502@gmail.com',
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
@@ -195,7 +225,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                 isEnable: false,
                                 textEditingController:
                                     phoneNumberEditingController,
-                                initText: widget.phoneNumber ?? '9176509634',
+                                // initText: widget.phoneNumber ?? '9176509634',
+                                initText: user.phoneNumber ?? '9176509634',
                               ),
                               // SizedBox(height: 20),
                               // SelectGenderWidget(
@@ -208,8 +239,9 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               SizedBox(height: 20),
                               CustomDropdownButtonWidget(
                                   title: 'جنسیت',
-                                  hintTitle: widget.gender.perName ??
-                                      "انتخاب جنسیت ...",
+                                  // hintTitle: widget.gender.perName ??
+                                  hintTitle:
+                                      user.gender.perName ?? "انتخاب جنسیت ...",
                                   options: genders,
                                   mediaQuery: MediaQuery.of(context),
                                   selected: (String _selectedGender) =>

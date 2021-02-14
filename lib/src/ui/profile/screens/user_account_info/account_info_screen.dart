@@ -31,6 +31,10 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
   @override
   void initState() {
     isNew = true;
+    if (user.firstName != null)
+      print('user.firstName : ${user.firstName}');
+    else
+      print('user.firstName is null');
     super.initState();
   }
 
@@ -83,8 +87,9 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                       AppBarWithBackWidget(title: 'جزئیات حساب کاربری'),
                       SizedBox(height: 20),
                       Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: InfoWidget()),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: InfoWidget(),
+                      ),
                       SizedBox(
                         height: 15,
                       ),

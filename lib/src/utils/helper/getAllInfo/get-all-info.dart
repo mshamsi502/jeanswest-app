@@ -91,6 +91,7 @@ UserMainInfo createUserInfo(UserMainInfoRes userAccount) {
     lastName: userAccount.lastName,
     email: userAccount.email,
     gender: gender,
+    phoneNumber: userAccount.phoneNumber,
     yearOfBirth: jalali.year.toString(),
     monthOfBirth: jalali.month.toString(),
     dayOfBirth: jalali.day.toString(),
