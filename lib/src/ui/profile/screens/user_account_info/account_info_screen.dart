@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/user/gender/gender.dart';
-import 'package:jeanswest/src/models/user/userInfo/user-main-info.dart';
+import 'package:jeanswest/src/models/profile/gender/gender.dart';
+import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/edit_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/user_account_info/info_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
 
 class AccountInfoScreen extends StatefulWidget {
   final PanelState initPanelState;
@@ -31,6 +31,10 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
   @override
   void initState() {
     isNew = true;
+    if (user.firstName != null)
+      print('user.firstName : ${user.firstName}');
+    else
+      print('user.firstName is null');
     super.initState();
   }
 
@@ -83,8 +87,9 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                       AppBarWithBackWidget(title: 'جزئیات حساب کاربری'),
                       SizedBox(height: 20),
                       Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: InfoWidget()),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: InfoWidget(),
+                      ),
                       SizedBox(
                         height: 15,
                       ),

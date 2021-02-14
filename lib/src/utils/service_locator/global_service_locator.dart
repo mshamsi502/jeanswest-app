@@ -5,8 +5,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/services/jeanswestApis/rest_client_unauth.dart';
-// import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
+// import 'package:jeanswest/src/services/jeanswestApis/rest_client_unauth.dart';
+import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
 // import 'package:jeanswest/src/services/rest-client.dart';
 // import 'package:jeanswest/src/utils/service_locator/mockoonApis/mockoonUnauth.dart';
 // import 'package:jeanswest/src/utils/service_locator/mockoonApis/mockoonAuth.dart';
@@ -19,7 +19,9 @@ void setupGlobalLocator() async {
     final localStorageService = SharedPreferences.getInstance();
     return localStorageService;
   });
-  globalLocator.registerFactoryParam<UnAuthRestClient, String, void>(
+
+  globalLocator.registerFactoryParam<GlobalRestClient, String, void>(
+      // globalLocator.registerFactoryParam<UnAuthRestClient, String, void>(
       (String baseUrl, _) {
     Dio dio = new Dio();
     dio.interceptors
@@ -34,7 +36,9 @@ void setupGlobalLocator() async {
     }, onError: (DioError e) async {
       return e; //continue
     }));
-    final client = UnAuthRestClient(dio, baseUrl: baseUrl);
+
+    final client = GlobalRestClient(dio, baseUrl: baseUrl);
+    // final client = UnAuthRestClient(dio, baseUrl: baseUrl);
     return client;
   });
 }

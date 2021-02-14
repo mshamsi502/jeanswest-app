@@ -27,9 +27,9 @@ class AvakatanButtonWidget extends StatefulWidget {
     this.backgroundColor,
     this.textColor,
     this.title,
-    this.height,
+    this.height = 35,
     this.icon,
-    this.width,
+    this.width = 35,
     this.radius,
     this.fontSize,
     this.onTap,
@@ -47,8 +47,8 @@ class _AvakatanButtonWidgetState extends State<AvakatanButtonWidget> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
         alignment: Alignment.center,
-        height: widget.height ?? 35,
-        width: widget.width ?? 35,
+        height: widget.height,
+        width: widget.width,
         decoration: BoxDecoration(
           color: widget.backgroundColor ?? Colors.white,
           boxShadow: <BoxShadow>[

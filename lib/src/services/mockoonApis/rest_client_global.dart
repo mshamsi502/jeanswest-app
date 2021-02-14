@@ -13,6 +13,7 @@ import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-inf
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
 import 'package:jeanswest/src/services/rest-client.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -56,6 +57,7 @@ abstract class GlobalRestClient extends RestClient {
     @Query("verifyCode") String verifyCode,
   );
 
+//
   @GET('/v1/getUserMainInfo')
   Future<UserMainInfoRes> getUserMainInfo();
 
@@ -67,4 +69,7 @@ abstract class GlobalRestClient extends RestClient {
 
   @GET('/v1/getUserPaymentInfo')
   Future<UserPaymentInfoRes> getUserPaymentInfo();
+
+  @GET('/v1/getUserAddressesInfo')
+  Future<UserAddressesInfoRes> getUserAddressesInfo();
 }

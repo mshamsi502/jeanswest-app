@@ -4,7 +4,7 @@
 //****************************************************************************
 
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/user/gender/gender.dart';
+import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
