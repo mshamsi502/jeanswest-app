@@ -8,12 +8,15 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:jeanswest/src/utils/helper/getAllInfo/get-all-info.dart';
 
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
 import 'ui/profile/screens/main_profile_page.dart';
+
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -63,21 +66,26 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   auth(String phoneNumber) async {
-    // setState(() async {
-    isAuth = await checkIsAuthWithRetro(phoneNumber);
-    // isAuth = await checkIsAuth(phoneNumber);
-    // });
+    // String getToken =
+    //     mockoonGlobalLocator<SharedPreferences>().getString(TOKEN);
+    // globalLocator<SharedPreferences>().clear();
+    String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
+    if (getToken != null) {
+      print('user Have TOKEN : $getToken');
+      getAllUserInfo(token: getToken);
+      isAuth = true;
+    } else {
+      print('user NOTHave TOKEN!!');
+      isAuth = false;
+    }
+    // isAuth = false; // ! for test, DO MODIFY BY HAND
     print('^*^*^ isAuth : $isAuth');
-    _children.add(MainProfilePage(
-      isAuth: !isAuth,
-    ));
+    _children.add(MainProfilePage(isAuth: !isAuth));
     _children.add(Container(color: Colors.white));
     _children.add(Container(color: Colors.blue));
     // _children.add(shoppingBasketPage);
     _children.add(Container(color: Colors.green));
-    _children.add(MainProfilePage(
-      isAuth: isAuth,
-    ));
+    _children.add(MainProfilePage(isAuth: isAuth));
     setState(() {
       pagesCreatedFinished = true;
     });

@@ -4,16 +4,12 @@
 // ****************************************************************************
 
 // ignore: must_be_immutable
-class Gender {
-  String perName;
-  String engName;
+import 'package:jeanswest/src/models/user/userInfo/user-main-info.dart';
 
-  Gender({
-    this.perName,
-    this.engName,
+class UserFriendsInfo {
+  List<UserMainInfo> friends;
+
+  UserFriendsInfo({
+    this.friends,
   });
 }
-
-Gender female = new Gender(perName: 'زن', engName: 'Female');
-Gender male = new Gender(perName: 'مرد', engName: 'Male');
-Gender other = new Gender(perName: 'دیگر', engName: 'Other');

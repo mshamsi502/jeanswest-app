@@ -6,10 +6,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/user_account_info/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
@@ -59,20 +61,22 @@ List<Widget> createProfileListMenuPages(
       tabWidgets: [
         InviteFrindePage(
           userId: 'user-${user.phoneNumber}',
-          receivedGift: user.receivedGift,
-          someOfInvited: user.someOfInvited,
-          someOfInstallFromInvited: user.someOfInstallFromInvited,
-          someOfShoppingFromInvited: user.someOfShoppingFromInvited,
+          receivedGift: userInvite.receivedGift,
+          someOfInvited: userInvite.someOfInvited,
+          someOfInstallFromInvited: userInvite.someOfInstallFromInvited,
+          someOfShoppingFromInvited: userInvite.someOfShoppingFromInvited,
         ),
         UserFriendsListPage(
-          friends: user.friends,
+          friends: userFriends.friends,
         ),
       ],
       bottomButton: 'ارسال لینک',
       bottomButtonFunction: bottomButtonFunction,
     ),
   );
-  profileListMenu.add(Container());
+  profileListMenu.add(AccountInfoScreen(
+    initPanelState: PanelState.CLOSED,
+  ));
   return profileListMenu;
 }
 

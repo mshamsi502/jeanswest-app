@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
@@ -198,7 +198,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                         child: Container(
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            user.perName,
+                            "${user.firstName} ${user.lastName} ",
                             style: TextStyle(
                                 fontSize: 0.041 * _screenSize.width,
                                 color: Colors.black,

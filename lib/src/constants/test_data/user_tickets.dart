@@ -6,12 +6,11 @@
 import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/models/message/user_ticket/ticket_message.dart';
 import 'package:jeanswest/src/models/message/user_ticket/user_ticket.dart';
-
-import 'user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 
 //
 TicketMessage firstUserMessageFirstTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: shortLoremIpsum1,
   yearOfSend: '99',
   monthOfSend: '01',
@@ -32,7 +31,7 @@ TicketMessage firstSupportMessageFirstTicket = new TicketMessage(
   isUser: false,
 );
 TicketMessage secondUserMessageFirstTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: longLoremIpsum,
   yearOfSend: '99',
   monthOfSend: '01',
@@ -42,7 +41,7 @@ TicketMessage secondUserMessageFirstTicket = new TicketMessage(
   isUser: true,
 );
 TicketMessage thirdUserMessageFirstTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: veryShortLoremIpsum,
   yearOfSend: '99',
   monthOfSend: '01',
@@ -75,7 +74,7 @@ UserTicket firstTicket = UserTicket(
 
 //
 TicketMessage firstUserMessageSecondTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: medLoremIpsum,
   yearOfSend: '99',
   monthOfSend: '03',
@@ -85,7 +84,7 @@ TicketMessage firstUserMessageSecondTicket = new TicketMessage(
   isUser: true,
 );
 TicketMessage secondUserMessageSecondTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: veryShortLoremIpsum,
   yearOfSend: '99',
   monthOfSend: '03',
@@ -107,7 +106,7 @@ TicketMessage firstSupportMessageSecondTicket = new TicketMessage(
 );
 
 TicketMessage thirdUserMessageSecondTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: shortLoremIpsum2,
   yearOfSend: '99',
   monthOfSend: '05',
@@ -117,7 +116,7 @@ TicketMessage thirdUserMessageSecondTicket = new TicketMessage(
   isUser: true,
 );
 TicketMessage forthUserMessageSecondTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: shortLoremIpsum1,
   yearOfSend: '99',
   monthOfSend: '05',
@@ -161,7 +160,7 @@ TicketMessage firstSupportMessageThirdTicket = new TicketMessage(
   isUser: false,
 );
 TicketMessage firstUserMessageThirdTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: longLoremIpsum,
   yearOfSend: '99',
   monthOfSend: '10',
@@ -171,7 +170,7 @@ TicketMessage firstUserMessageThirdTicket = new TicketMessage(
   isUser: true,
 );
 TicketMessage secondUserMessageThirdTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: shortLoremIpsum2,
   yearOfSend: '99',
   monthOfSend: '10',
@@ -182,7 +181,7 @@ TicketMessage secondUserMessageThirdTicket = new TicketMessage(
 );
 
 TicketMessage thirdUserMessageThirdTicket = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: 'اوکی؟',
   yearOfSend: '99',
   monthOfSend: '10',
@@ -224,7 +223,7 @@ TicketMessage msg1 = new TicketMessage(
   isUser: false,
 );
 TicketMessage msg2 = new TicketMessage(
-  title: user.perName,
+  title: "${user.firstName} ${user.lastName}",
   text: 'دوم',
   yearOfSend: '99',
   monthOfSend: '10',

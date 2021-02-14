@@ -8,7 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
@@ -49,7 +50,7 @@ class _MainProfilePageState extends State<MainProfilePage>
   @override
   void initState() {
     super.initState();
-    userLevel = userLevelProvider(user.moneyBuying);
+    userLevel = userLevelProvider(userPayment.moneyBuying);
     nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
     for (var i = 0; i < userMessages.length; i++) {
@@ -60,8 +61,8 @@ class _MainProfilePageState extends State<MainProfilePage>
         haveUnreadMessage = false;
       }
       scrollController = new ScrollController();
-      mainProfileListMenu =
-          createProfileListMenuPages(userLevel, nextLevel, user.moneyBuying);
+      mainProfileListMenu = createProfileListMenuPages(
+          userLevel, nextLevel, userPayment.moneyBuying);
       moreListMenu = createMoreListMenuPages();
     }
   }
@@ -160,7 +161,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                         ? AuthProfileAppBarWidget(
                             userLevel: userLevel,
                             nextLevel: nextLevel,
-                            moneyBuying: user.moneyBuying)
+                            moneyBuying: userPayment.moneyBuying)
                         : UnauthProfileAppBarWidget(),
                     widget.isAuth
                         ? GestureDetector(
@@ -193,15 +194,15 @@ class _MainProfilePageState extends State<MainProfilePage>
                                     tabWidgets: [
                                       InviteFrindePage(
                                         userId: 'user-${user.phoneNumber}',
-                                        receivedGift: user.receivedGift,
-                                        someOfInvited: user.someOfInvited,
+                                        receivedGift: userInvite.receivedGift,
+                                        someOfInvited: userInvite.someOfInvited,
                                         someOfInstallFromInvited:
-                                            user.someOfInstallFromInvited,
-                                        someOfShoppingFromInvited:
-                                            user.someOfShoppingFromInvited,
+                                            userInvite.someOfInstallFromInvited,
+                                        someOfShoppingFromInvited: userInvite
+                                            .someOfShoppingFromInvited,
                                       ),
                                       UserFriendsListPage(
-                                        friends: user.friends,
+                                        friends: userFriends.friends,
                                       ),
                                     ],
                                     bottomButton: 'ارسال لینک',
@@ -220,7 +221,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                   userLevel: userLevel,
                   nextLevel: nextLevel,
                   preLevel: preLevel,
-                  moneyBuying: user.moneyBuying,
+                  moneyBuying: userPayment.moneyBuying,
                 ),
               ),
               MenuListViewWidget(

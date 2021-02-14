@@ -3,7 +3,7 @@
 // *   Created Date & Time:  2021-01-10  ,  15:30 AM
 // ****************************************************************************
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/constants/test_data/user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 import 'package:jeanswest/src/models/level_card/level_card.dart';
 
 LevelCard userLevelProvider(int moneyBuying) {
@@ -21,7 +21,7 @@ LevelCard userLevelProvider(int moneyBuying) {
 }
 
 LevelCard nextLevelProvider(LevelCard userLevel) {
-  return user.moneyBuying < int.parse(blueLevel.minPay)
+  return userPayment.moneyBuying < int.parse(blueLevel.minPay)
       ? blueLevel
       : userLevel.title == blueLevel.title
           ? bluePlusLevel

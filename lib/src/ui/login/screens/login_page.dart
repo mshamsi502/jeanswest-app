@@ -65,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
   List<Country> searchedCountries = new List<Country>();
   Map<String, dynamic> map = CountriesCodeList.PERSIAN_GULF_COUNTRY_LIST;
   Country selectedCountry;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -153,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
       height: _screenSize.height,
       child: SafeArea(
         child: Scaffold(
+          key: scaffoldKey,
           resizeToAvoidBottomPadding: true,
           body: SingleChildScrollView(
             controller: scrollController,
@@ -331,12 +333,13 @@ class _LoginPageState extends State<LoginPage> {
   //
   showSnackBarError(String msg, BuildContext _context, Size _screenSize) {
     // ignore: deprecated_member_use
-    Scaffold.of(_context).showSnackBar(
+    // Scaffold.of(_context).showSnackBar(
+    scaffoldKey.currentState.showSnackBar(
       SnackBar(
         elevation: 0,
         content: GestureDetector(
           // ignore: deprecated_member_use
-          onTap: () => Scaffold.of(_context).hideCurrentSnackBar(),
+          onTap: () => scaffoldKey.currentState.hideCurrentSnackBar(),
           child: Container(
             height: 0.172 * _screenSize.height, //110,
             color: Colors.transparent,
@@ -420,9 +423,9 @@ class _LoginPageState extends State<LoginPage> {
   List checkCorrectCode() {
     return inputCode == null || inputCode.length != 5 || inputCode.contains('-')
         ? [false, "login_screen.enter_the_code_more_carefully".tr()]
-        : inputCode != '23456'
-            ? [false, "login_screen.code_is_incorrect".tr()]
-            : [true, ''];
+        // : inputCode != '23456'
+        //     ? [false, "login_screen.code_is_incorrect".tr()]
+        : [true, ''];
   }
   //
 

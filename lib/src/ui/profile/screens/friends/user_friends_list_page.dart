@@ -7,15 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/user/user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
+import 'package:jeanswest/src/models/user/userInfo/user-main-info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/edit_friend_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/edit_info_friend.dart';
-import 'package:jeanswest/src/constants/test_data/friends.dart';
 
 class UserFriendsListPage extends StatefulWidget {
-  final List<User> friends;
+  final List<UserMainInfo> friends;
 
   const UserFriendsListPage({Key key, this.friends}) : super(key: key);
 
@@ -63,7 +63,7 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
               height: _screenSize.height,
               child: EditFriendInfoWidget(
                 title: 'ویرایش اطلاعات دوست',
-                name: widget.friends[selectedFriend].perName,
+                name: widget.friends[selectedFriend].firstName,
                 dayOfBirth: widget.friends[selectedFriend].dayOfBirth,
                 monthOfBirth: widget.friends[selectedFriend].monthOfBirth,
                 yearOfBirth: widget.friends[selectedFriend].yearOfBirth,
@@ -140,7 +140,7 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                widget.friends[index].perName,
+                                                widget.friends[index].firstName,
                                                 style: TextStyle(
                                                     fontSize: 0.034 *
                                                         _screenSize.width, //12,
@@ -246,14 +246,16 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
   }
 
   confirmInfo(
-    String name,
+    String firstName,
+    String lastName,
     String dayOfBirth,
     String monthOfBirth,
     String yearOfBirth,
   ) {
     setState(() {
-      widget.friends[selectedFriend] = new User(
-        perName: name,
+      widget.friends[selectedFriend] = new UserMainInfo(
+        firstName: firstName,
+        lastName: lastName,
         dayOfBirth: dayOfBirth,
         monthOfBirth: monthOfBirth,
         yearOfBirth: yearOfBirth,
@@ -261,9 +263,12 @@ class _UserFriendsListPageState extends State<UserFriendsListPage> {
     });
   }
 
-  addFriend(User friend) {
+  addFriend(UserMainInfo friend) {
     setState(() {
-      friends[selectedFriend] = friend;
+      userFriends.friends[selectedFriend] = friend;
     });
+
+    // ! ==> send new friend by "addFriend" API
+    // ! ==> get (update) user friends by "getUserFriendsInfo" API
   }
 }

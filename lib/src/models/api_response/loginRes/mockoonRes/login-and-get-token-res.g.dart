@@ -1,19 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_and_get_token.dart';
+part of 'login-and-get-token-res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-LoginAndGetToken _$LoginAndGetTokenFromJson(Map<String, dynamic> json) {
-  return LoginAndGetToken(
+LoginAndGetTokenRes _$LoginAndGetTokenResFromJson(Map<String, dynamic> json) {
+  return LoginAndGetTokenRes(
     success: json['success'] as bool,
     token: json['token'] as String,
   );
 }
 
-Map<String, dynamic> _$LoginAndGetTokenToJson(LoginAndGetToken instance) =>
+Map<String, dynamic> _$LoginAndGetTokenResToJson(
+        LoginAndGetTokenRes instance) =>
     <String, dynamic>{
       'success': instance.success,
       'token': instance.token,

@@ -3,13 +3,12 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/models/user_address/user_address.dart';
+import 'package:jeanswest/src/models/user/userAddress/user-address.dart';
 
-import 'friends.dart';
-import 'user.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo.dart';
 
 UserAddress firstAddress = new UserAddress(
-  name: user.perName,
+  name: "${user.firstName} ${user.lastName}",
   mobilePhoneNumber: user.phoneNumber,
   homePhoneNumber: '021443147209',
   stateAddress: 'تهران',
@@ -22,7 +21,7 @@ UserAddress firstAddress = new UserAddress(
   explain: ' خودم - دفتر اشرفی',
 );
 UserAddress secondAddress = new UserAddress(
-  name: user.perName,
+  name: "${user.firstName} ${user.lastName}",
   mobilePhoneNumber: user.phoneNumber,
   homePhoneNumber: '021443147209',
   stateAddress: 'تهران',
@@ -34,8 +33,10 @@ UserAddress secondAddress = new UserAddress(
   explain: ' خودم - خونه شقایق',
 );
 UserAddress thirdAddress = new UserAddress(
-  name: firstFriend.perName,
-  mobilePhoneNumber: firstFriend.phoneNumber,
+  name: "${user.firstName} ${user.lastName}",
+  mobilePhoneNumber: userFriends.friends[0] != null
+      ? userFriends.friends[0].phoneNumber
+      : user.phoneNumber,
   stateAddress: 'تهران',
   cityAddress: 'تهران',
   blockAddress: 'منطقه 5 - پونک',
