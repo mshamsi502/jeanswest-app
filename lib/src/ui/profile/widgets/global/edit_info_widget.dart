@@ -84,7 +84,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
     genders.add(other.perName);
     setState(() {
       firstNameEditingController.text = widget.firstName ?? '';
-      lastNameEditingController.text = widget.firstName ?? '';
+      lastNameEditingController.text = widget.lastName ?? '';
       emailEditingController.text = widget.email ?? '';
       phoneNumberEditingController.text = widget.phoneNumber ?? '';
       dayOfBirth = widget.dayOfBirth ?? '29';
