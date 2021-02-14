@@ -6,9 +6,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/user_account_info/account_info_screen.dart';
@@ -49,7 +52,9 @@ List<Widget> createProfileListMenuPages(
   );
   profileListMenu.add(Container());
   profileListMenu.add(Container());
-  profileListMenu.add(Container());
+  profileListMenu.add(AddressesListPage(
+    title: 'لیست آدرس ها',
+  ));
   profileListMenu.add(
     TabBarViewPage(
       title: 'دوستان',

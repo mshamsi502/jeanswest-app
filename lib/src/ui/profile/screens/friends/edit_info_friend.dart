@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/models/user/userInfo/user-main-info.dart';
+import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/edit_friend_info_widget.dart';
 

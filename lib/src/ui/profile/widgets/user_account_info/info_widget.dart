@@ -3,7 +3,7 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';

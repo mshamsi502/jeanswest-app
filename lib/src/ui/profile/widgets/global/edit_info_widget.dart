@@ -2,7 +2,7 @@
 //*  Project Name:  avakatan_branches
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
-import 'package:jeanswest/src/models/user/gender/gender.dart';
+import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 

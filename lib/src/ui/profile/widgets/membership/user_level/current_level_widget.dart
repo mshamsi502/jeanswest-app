@@ -10,7 +10,7 @@ import 'package:flutter/painting.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/main_detail_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 

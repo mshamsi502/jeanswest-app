@@ -5,7 +5,7 @@
 
 //
 
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 
 LevelCard zeroLevel = LevelCard(
   membership: '',

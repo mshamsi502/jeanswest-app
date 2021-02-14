@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/message/user_ticket/user_ticket.dart';
+import 'package:jeanswest/src/models/profile/message/user_ticket/user_ticket.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/send_message_bar_widget.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';

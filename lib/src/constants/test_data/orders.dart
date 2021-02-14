@@ -4,12 +4,12 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/test_data/product.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/models/order/exact_time_order.dart';
 import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/models/order/period_time_order.dart';
-
-import 'addresses.dart';
 
 Order firstOrder = new Order(
   code: 'B54008832',
@@ -45,7 +45,7 @@ Order firstOrder = new Order(
     minuteOfDate: '12',
     perExplain: 'پنجشنبه 01 مرداد',
   ),
-  address: firstAddress.postAddress,
+  address: userAddresses[0],
   trackingCode: '654566682314900861',
   paymentPlan: 'درگاه بانک سامان',
   paymentTrackingCode: '189432',
@@ -87,7 +87,7 @@ Order secondOrder = new Order(
     minuteOfDate: '08',
     perExplain: 'شنبه 13 اردیبهشت',
   ),
-  address: secondAddress.postAddress,
+  address: userAddresses[userAddresses.length - 1],
   trackingCode: '654724686314728865',
   paymentPlan: 'نقدی - درب منزل',
   paymentTrackingCode: '',
@@ -129,7 +129,7 @@ Order thirdOrder = new Order(
     minuteOfDate: '12',
     perExplain: 'پنجشنبه 01 مرداد',
   ),
-  address: thirdAddress.postAddress,
+  address: userAddresses[0],
   trackingCode: '654566682314900861',
   paymentPlan: 'درگاه بانک سامان',
   paymentTrackingCode: '189432',
@@ -168,7 +168,7 @@ Order fourthOrder = new Order(
     minuteOfDate: '12',
     perExplain: 'پنجشنبه 01 مرداد',
   ),
-  address: firstAddress.postAddress,
+  address: userAddresses[0],
   trackingCode: '654566682314900861',
   paymentPlan: 'درگاه بانک سامان',
   paymentTrackingCode: '189432',

@@ -3,7 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/models/message/user_noti/noti_message.dart';
+import 'package:jeanswest/src/models/profile/message/user_noti/noti_message.dart';
 
 class UserNotification {
   final String title;

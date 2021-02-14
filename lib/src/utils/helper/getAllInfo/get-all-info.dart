@@ -3,17 +3,25 @@ import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite
 import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
 //
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-addresses-info.dart';
+//
+import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
+import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
+import 'package:jeanswest/src/models/profile/user/user-invite-info.dart';
+import 'package:jeanswest/src/models/profile/user/user-payment-info.dart';
+import 'package:jeanswest/src/models/address/address.dart';
+import 'package:jeanswest/src/models/dateTimeOnData/date-time-on-data.dart';
+//
+import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
-//
-import 'package:jeanswest/src/models/user/userInfo/user-main-info.dart';
-import 'package:jeanswest/src/models/user/userInfo/user-friends-info.dart';
-import 'package:jeanswest/src/models/user/userInfo/user-invite-info.dart';
-import 'package:jeanswest/src/models/user/userInfo/user-payment-info.dart';
-//
-import 'package:jeanswest/src/models/user/gender/gender.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 getAllUserInfo({String token}) async {
@@ -41,10 +49,22 @@ getAllUserInfo({String token}) async {
   print(
       '_=_ get successfully UserPaymentInfo: ${userPaymentInfoRes.moneyBuying}');
   // ! ==> get and create successfully UserPaymentInfo
-  // ! ==> get and create successfully UserInviteInfo
-  // ! ==> get and create successfully UserInviteInfo
-  // ! ==> get and create successfully UserInviteInfo
+  UserAddressesInfoRes userAddressesInfoRes =
+      await globalLocator<GlobalRestClient>().getUserAddressesInfo();
+  userAddresses = createuserAddresses(userAddressesInfoRes);
+  print(
+      '_=_ get successfully userAddresses: ${userAddresses.length}, ${userAddresses[0].title}');
+  // ! ==> get and create successfully UserAddressesInfo
+
+  // TODO ==> get and create successfully UserPaymentInfo
+  // ! ==> get and create successfully UserAddressesInfo
+  // TODO ==> get and create successfully UserInviteInfo
+  // ! ==> get and create successfully UserAddressesInfo
+  // TODO ==> get and create successfully UserInviteInfo
+  // ! ==> get and create successfully UserAddressesInfo
 }
+
+// ***
 
 UserInviteInfo createUserInvites(UserInviteInfoRes userInviteInfoRes) {
   return UserInviteInfo(
@@ -102,4 +122,39 @@ UserFriendsInfo createUserFriends(UserFriendsInfoRes userFriendsInfoRes) {
   });
 
   return UserFriendsInfo(friends: friends);
+}
+
+List<Address> createuserAddresses(UserAddressesInfoRes userAddressesInfoRes) {
+  List<AddressInfoRes> userAddressesInfo = userAddressesInfoRes.addresses;
+  List<Address> addresses = new List<Address>();
+  userAddressesInfo.forEach((address) {
+    addresses.add(
+      Address(
+        id: address.id,
+        title: address.title,
+        recieverFirstName: address.recieverFirstName,
+        recieverLastName: address.recieverLastName,
+        recieverMobile: address.recieverMobile,
+        country: address.country,
+        province: address.province,
+        city: address.city,
+        district: address.district,
+        address: address.address,
+        houseNumber: address.houseNumber,
+        unitNumber: address.unitNumber,
+        postalCode: address.postalCode,
+        latitude: address.latitude,
+        longtitude: address.longtitude,
+        active: address.active,
+        isUser: address.isUser,
+        personId: address.personId,
+        datetime: DateTimeOnData(
+          createdAt: address.dateTime.createdAt,
+          updatedAt: address.dateTime.updatedAt,
+          deletedAt: address.dateTime.deletedAt,
+        ),
+      ),
+    );
+  });
+  return addresses;
 }
