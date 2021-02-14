@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/models/order/exact_time_order.dart';
 import 'package:jeanswest/src/models/order/period_time_order.dart';
 import 'package:jeanswest/src/models/product/product.dart';
+import 'package:jeanswest/src/models/address/address.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 class Order {
@@ -21,7 +22,7 @@ class Order {
   final PeriodTimeOrder recieveDate;
   final ExactTimeOrder paymentDate;
   //
-  final String address;
+  final Address address;
   final String phoneNumber;
   final String trackingCode;
   final String paymentPlan;

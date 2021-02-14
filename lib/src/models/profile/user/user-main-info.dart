@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 // ignore: must_be_immutable
-import '../gender/gender.dart';
+import 'package:jeanswest/src/models/profile/gender/gender.dart';
 
 class UserMainInfo {
   String firstName;

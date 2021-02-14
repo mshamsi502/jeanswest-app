@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 

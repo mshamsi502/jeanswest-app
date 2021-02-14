@@ -3,16 +3,16 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/models/message/user_ticket/ticket_message.dart';
+// ignore: must_be_immutable
 
-class UserTicket {
-  final String title;
-  final List<TicketMessage> message;
-  final bool isClosed;
+class DateTimeOnData {
+  final String createdAt;
+  final String updatedAt;
+  final String deletedAt;
 
-  UserTicket({
-    this.title,
-    this.message,
-    this.isClosed,
+  DateTimeOnData({
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
   });
 }

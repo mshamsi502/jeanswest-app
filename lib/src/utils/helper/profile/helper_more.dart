@@ -4,10 +4,10 @@
 // ****************************************************************************
 
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
-import 'package:jeanswest/src/models/message/user_ticket/ticket_message.dart';
-import 'package:jeanswest/src/models/message/user_ticket/user_ticket.dart';
+import 'package:jeanswest/src/models/profile/message/user_ticket/ticket_message.dart';
+import 'package:jeanswest/src/models/profile/message/user_ticket/user_ticket.dart';
 
 void addTicketToUserTicket(String department, String title, String text) {
   userTickets.add(UserTicket(

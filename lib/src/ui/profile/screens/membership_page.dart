@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';

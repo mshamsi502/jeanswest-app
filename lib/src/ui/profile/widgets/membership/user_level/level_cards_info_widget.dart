@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/vertical_linear_level_routing_widget.dart';
 
 import 'level_card_widget.dart';

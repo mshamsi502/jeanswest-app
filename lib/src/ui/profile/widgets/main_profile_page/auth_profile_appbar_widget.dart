@@ -6,8 +6,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
-import 'package:jeanswest/src/models/level_card/level_card.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';

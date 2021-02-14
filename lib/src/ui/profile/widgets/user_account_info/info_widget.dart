@@ -3,7 +3,7 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/global/userAllInfo.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -32,7 +32,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             SizedBox(width: 10),
             Text(
-              "${user.firstName} ${user.lastName} ",
+              "${user.firstName ?? ""} ${user.lastName ?? ""} ",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 12,
@@ -61,7 +61,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             SizedBox(width: 10),
             Text(
-              user.email,
+              user.email ?? "",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 12,
@@ -90,7 +90,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             SizedBox(width: 10),
             Text(
-              user.phoneNumber,
+              user.phoneNumber ?? "",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 12,
@@ -119,7 +119,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             SizedBox(width: 10),
             Text(
-              user.gender.perName,
+              user.gender.perName ?? "",
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 12,
@@ -148,7 +148,7 @@ class _InfoWidgetState extends State<InfoWidget> {
           children: [
             SizedBox(width: 10),
             Text(
-              '${user.yearOfBirth}/${user.monthOfBirth}/${user.dayOfBirth}',
+              '${user.yearOfBirth ?? ""}/${user.monthOfBirth ?? ""}/${user.dayOfBirth ?? ""}',
               style: TextStyle(
                 fontWeight: FontWeight.w300,
                 fontSize: 12,
