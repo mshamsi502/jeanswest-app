@@ -9,12 +9,14 @@ class SingleAddressInListWidget extends StatefulWidget {
   final int indexAddress;
   final int selected;
   final Function(int) changeSelected;
+  final Function(int) editAddress;
   SingleAddressInListWidget({
     Key key,
     this.address,
     this.indexAddress,
     this.selected,
     this.changeSelected,
+    this.editAddress,
   }) : super(key: key);
 
   @override
@@ -145,6 +147,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                           ],
                         ),
                         onTap: () {
+                          widget.editAddress(widget.indexAddress);
                           // ! edit Address
                           print("editting address");
                         },

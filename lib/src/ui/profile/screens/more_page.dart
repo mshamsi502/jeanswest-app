@@ -42,7 +42,10 @@ class _MorePageState extends State<MorePage> {
             color: Colors.white,
             child: Column(
               children: [
-                AppBarWithBackWidget(title: widget.title),
+                AppBarWithBackWidget(
+                  title: widget.title,
+                  onTap: () => Navigator.pop(context),
+                ),
                 SizedBox(height: 20),
                 MenuListViewWidget(
                   titles: moreListTitles,

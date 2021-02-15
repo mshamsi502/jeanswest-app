@@ -63,7 +63,10 @@ class _TabBarViewPageState extends State<TabBarViewPage>
             color: Colors.white,
             child: Column(
               children: [
-                AppBarWithBackWidget(title: widget.title),
+                AppBarWithBackWidget(
+                  title: widget.title,
+                  onTap: () => Navigator.pop(context),
+                ),
                 Container(
                   height: 0.0625 * _screenSize.height, //40,
                   child: TabBar(

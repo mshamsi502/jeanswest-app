@@ -33,6 +33,7 @@ class _CustomDropdownButtonWidgetState
   double heightTextField;
   double heightTitle;
   String dropdownValue;
+  String fisrtTempOptions;
   List<DropdownMenuItem<String>> _dropdownMenuItems;
   //
   double widthDropdown;
@@ -48,12 +49,25 @@ class _CustomDropdownButtonWidgetState
       widthDropdown,
       widget.mediaQuery.size,
     );
+    dropdownValue = _dropdownMenuItems[0].value;
+    fisrtTempOptions = widget.options[0];
     // myOrientation = widget.mediaQuery.orientation;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.options[0] != fisrtTempOptions) {
+      setState(() {
+        fisrtTempOptions = widget.options[0];
+        _dropdownMenuItems = buildDropdownMenuItems(
+          widget.options,
+          widthDropdown,
+          widget.mediaQuery.size,
+        );
+        dropdownValue = _dropdownMenuItems[0].value;
+      });
+    }
     // orientationDeviceListener();
     return Container(
       width: widthDropdown,
@@ -101,7 +115,7 @@ class _CustomDropdownButtonWidgetState
                       child: DropdownButton(
                         value: dropdownValue,
                         hint: Text(
-                          widget.hintTitle,
+                          widget.hintTitle ?? "انتخاب کنید ...",
                           style: TextStyle(
                             fontFamily: 'IRANSans',
                             fontSize:
