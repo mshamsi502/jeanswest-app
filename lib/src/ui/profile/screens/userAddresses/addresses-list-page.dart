@@ -24,6 +24,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
   int selectForEdit;
   PanelState mapPanelState;
   PanelController panelController;
+  bool isInitial;
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
     panelController = new PanelController();
     mapPanelState = PanelState.CLOSED;
     selectForEdit = 0;
+    isInitial = true;
     super.initState();
   }
 
@@ -57,6 +59,18 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 print('closing');
                 panelController.close();
               },
+              // closeMapPanelState: () {
+              //   // if (!mounted)
+              //   setState(() {
+              //     mapPanelState = PanelState.CLOSED;
+              //   });
+              //   print('asdsadsadasd asdasdasd');
+              // },
+              isInitial: isInitial,
+              disableIsInitial: () => setState(() {
+                isInitial = false;
+                print('24165461656 asdasdasd isInitial : $isInitial');
+              }),
             ),
             body: Container(
               width: _screenSize.width,
@@ -137,6 +151,8 @@ class _AddressesListPageState extends State<AddressesListPage> {
                       radius: 4,
                       onTap: () {
                         setState(() {
+                          selectedAddress = 0;
+                          isInitial = true;
                           mapPanelState = PanelState.OPEN;
                         });
                         panelController.open();

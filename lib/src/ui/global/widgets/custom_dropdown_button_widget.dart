@@ -13,6 +13,7 @@ import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 class CustomDropdownButtonWidget extends StatefulWidget {
   final String title;
   final String hintTitle;
+  final Color titleColor;
   final MediaQueryData mediaQuery;
   final List<String> options;
   final Function(String) selected;
@@ -24,6 +25,7 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     this.mediaQuery,
     this.selected,
     this.hintTitle,
+    this.titleColor = MAIN_BLUE_COLOR,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomDropdownButtonWidgetState();
 }
@@ -33,14 +35,14 @@ class _CustomDropdownButtonWidgetState
   double heightTextField;
   double heightTitle;
   String dropdownValue;
-  String fisrtTempOptions;
+  bool hasEdit;
   List<DropdownMenuItem<String>> _dropdownMenuItems;
-  //
   double widthDropdown;
-  // Orientation myOrientation;
-  //
+
   @override
   void initState() {
+    hasEdit = false;
+    // dropdownValue = widget.hintTitle ?? widget.options[0];
     heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
     heightTitle = 0.0937 * widget.mediaQuery.size.height; // 60;
     widthDropdown = widget.mediaQuery.size.width;
@@ -49,42 +51,40 @@ class _CustomDropdownButtonWidgetState
       widthDropdown,
       widget.mediaQuery.size,
     );
-    dropdownValue = _dropdownMenuItems[0].value;
-    fisrtTempOptions = widget.options[0];
-    // myOrientation = widget.mediaQuery.orientation;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.options[0] != fisrtTempOptions) {
+    if (widget.title == 'شهر *') {
       setState(() {
-        fisrtTempOptions = widget.options[0];
-        _dropdownMenuItems = buildDropdownMenuItems(
-          widget.options,
-          widthDropdown,
-          widget.mediaQuery.size,
-        );
-        dropdownValue = _dropdownMenuItems[0].value;
+        hasEdit = true;
+        // dropdownValue = widget.hintTitle ?? widget.options[0];
       });
+
+      print('222 hintTitle : ${widget.hintTitle}');
+      _dropdownMenuItems = buildDropdownMenuItems(
+        widget.options,
+        widthDropdown,
+        widget.mediaQuery.size,
+      );
     }
-    // orientationDeviceListener();
     return Container(
-      width: widthDropdown,
+      padding: EdgeInsets.symmetric(
+        horizontal: 0.027 * widget.mediaQuery.size.width, //10,
+      ),
       height: heightTextField + heightTitle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: heightTitle - 0.054 * widget.mediaQuery.size.height, //30
-            width: widget.mediaQuery.size.width -
-                (0.19 * widget.mediaQuery.size.width), //70,
             child: Text(
               widget.title,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 0.038 * widget.mediaQuery.size.width, // 14,
-                color: MAIN_BLUE_COLOR,
+                color: widget.titleColor,
               ),
             ),
           ),
@@ -93,13 +93,6 @@ class _CustomDropdownButtonWidgetState
           ),
           Expanded(
             child: Container(
-              // width: widthDropdown,
-              margin: EdgeInsets.symmetric(
-                horizontal: 0.025 * widget.mediaQuery.size.width, // 10,
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: 0.053 * widget.mediaQuery.size.width, // 20,
-              ),
               decoration: BoxDecoration(
                 color: Color(0xfff2f2f2),
                 // color: Colors.blueAccent,
@@ -115,9 +108,17 @@ class _CustomDropdownButtonWidgetState
                       child: DropdownButton(
                         value: dropdownValue,
                         hint: Text(
-                          widget.hintTitle ?? "انتخاب کنید ...",
+                          (widget.hintTitle == null ||
+                                      widget.hintTitle == "") ||
+                                  hasEdit
+                              ? "انتخاب کنید ..."
+                              : widget.hintTitle,
                           style: TextStyle(
                             fontFamily: 'IRANSans',
+                            color: widget.hintTitle == null ||
+                                    widget.hintTitle == ""
+                                ? Colors.grey
+                                : Colors.black,
                             fontSize:
                                 0.033 * widget.mediaQuery.size.width, // 12,
                           ),

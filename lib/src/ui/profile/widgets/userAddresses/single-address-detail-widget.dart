@@ -1,21 +1,33 @@
+import 'package:bitmap/bitmap.dart';
+import 'package:bitmap/bitmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:bitmap/bitmap.dart';
+import 'dart:math';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
 
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/models/address/address.dart';
 //
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 
 class SingleAddressDetailWidget extends StatefulWidget {
   final String title;
   final Address address;
   final int indexAddress;
   final PanelState mapPanelState;
+  final bool isInitial;
+
+  final Function() closeMapPanelState;
   final Function(int) changeSelected;
   final Function() closeEditPanel;
+  final Function() disableIsInitial;
   SingleAddressDetailWidget({
     Key key,
     this.address,
@@ -24,6 +36,9 @@ class SingleAddressDetailWidget extends StatefulWidget {
     this.mapPanelState,
     this.title,
     this.closeEditPanel,
+    this.closeMapPanelState,
+    this.isInitial,
+    this.disableIsInitial,
   }) : super(key: key);
 
   @override
@@ -34,67 +49,46 @@ class SingleAddressDetailWidget extends StatefulWidget {
 class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   ScrollController scrollController;
   PanelController panelController;
+  GoogleMapController mapController;
+  //
+  TextEditingController addressTextEditingController;
+  TextEditingController houseNumberTextEditingController;
+  TextEditingController unitNumberTextEditingController;
+  TextEditingController postalCodeTextEditingController;
+  TextEditingController recieverNameTextEditingController;
+  TextEditingController recieverPhoneNumberTextEditingController;
   //
   String selectedProvince;
-  bool isInitial;
-  List<String> availableCities;
-
+  String selectedCity;
+  bool recieverIsUser;
   //
-  List<String> provinces = [
-    "تهران",
-    "شیراز",
-    "اصفهان",
-  ];
-  List<String> tehranCities = [
-    "تهران",
-    "ورامین",
-    "رباط کریم",
-    "شهر ری",
-  ];
-  List<String> shirazCities = [
-    "شیراز",
-    "جهرم",
-    "لار",
-    "اوز",
-  ];
-  List<String> esfahanCities = [
-    "اصفهان",
-    "نجف آباد",
-    "شاهین شهر",
-    "کاشان",
-  ];
-  Map<String, List<String>> provinceCities;
-
+  int tempAddressId;
+  List<String> availableCities;
+  Set<Marker> addressMarker = new Set<Marker>();
   //
 
   @override
   void initState() {
     scrollController = new ScrollController();
     panelController = new PanelController();
-    isInitial = true;
-    selectedProvince = widget.address.province ?? "انتخاب استان ...";
-    //
-    provinceCities = {
-      provinces[0]: tehranCities,
-      provinces[1]: shirazCities,
-      provinces[2]: esfahanCities,
-    };
-    availableCities = tehranCities;
-    print('availableCities : ${availableCities.length}');
-    print('availableCities : ${availableCities[0]}, ${availableCities[1]}');
+    selectedProvince = widget.address.province;
+    availableCities = provinceCities[selectedProvince];
+    selectedCity = widget.address.city;
+    createGoogleMap();
+
+    updateSelectedAddress(isNewAddress: false);
+    recieverIsUser = widget.address.isUser;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.address.id == null || widget.address.id != tempAddressId)
+      updateSelectedAddress(isNewAddress: false);
+    if (widget.isInitial && widget.mapPanelState == PanelState.OPEN)
+      updateSelectedAddress(isNewAddress: true);
     var _screenSize = MediaQuery.of(context).size;
-    if (isInitial && widget.mapPanelState == PanelState.OPEN) {
-      panelController.open();
-      setState(() {
-        isInitial = false;
-      });
-    }
-    print('selectedProvince : $selectedProvince');
+    //
     return Container(
       child: SlidingUpPanel(
         defaultPanelState: widget.mapPanelState,
@@ -125,46 +119,190 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                   children: [
                     Container(
                       margin: EdgeInsets.all(15),
-                      height: 500,
                       width: _screenSize.width,
-                      color: Colors.amberAccent,
                       child: Column(
                         children: [
                           Container(
                             height: 110,
+                            padding: EdgeInsets.all(1),
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              // color: Colors.red,
                               borderRadius:
                                   BorderRadius.all(const Radius.circular(5)),
                               border: Border.all(
                                 color: MAIN_BLUE_COLOR,
                               ),
                             ),
+                            child: Stack(
+                              children: [
+                                GoogleMap(
+                                  scrollGesturesEnabled: false,
+                                  // myLocationEnabled: true,
+                                  mapToolbarEnabled: false,
+                                  myLocationButtonEnabled: false,
+                                  zoomControlsEnabled: false,
+                                  markers: addressMarker,
+                                  mapType: MapType.normal,
+                                  initialCameraPosition: CameraPosition(
+                                      target: LatLng(
+                                          widget.address.latitude ?? 35.7447,
+                                          widget.address.longtitude ?? 51.3340),
+                                      zoom: widget.address.latitude != null
+                                          ? 16
+                                          : 14),
+                                ),
+                                Positioned(
+                                  bottom: 5,
+                                  left: 5,
+                                  child: AvakatanButtonWidget(
+                                    backgroundColor: MAIN_BLUE_COLOR,
+                                    borderColor: MAIN_BLUE_COLOR,
+                                    textColor: Colors.white,
+                                    hasShadow: false,
+                                    title: "ویرایش",
+                                    height: 30,
+                                    width: 90,
+                                    radius: 5,
+                                    fontSize: 13,
+                                    onTap: () {
+                                      panelController.open();
+                                      setState(() {});
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           SizedBox(height: 10),
                           CustomDropdownButtonWidget(
                             title: 'استان *',
                             hintTitle: selectedProvince,
+                            titleColor: Colors.black,
                             options: provinces,
                             mediaQuery: MediaQuery.of(context),
-                            selected: (String _selectedProvince) => setState(
-                              () {
-                                selectedProvince = _selectedProvince;
-                                availableCities =
-                                    provinceCities[selectedProvince];
-                              },
-                            ),
+                            selected: (String _selectedProvince) =>
+                                setState(() {
+                              selectedProvince = _selectedProvince;
+                              print(
+                                  '++++ selectedProvince : $selectedProvince');
+                              availableCities =
+                                  provinceCities[selectedProvince];
+                              print(
+                                  '++++ availableCities.first : ${availableCities[0]}');
+                            }),
                           ),
                           SizedBox(height: 10),
                           CustomDropdownButtonWidget(
                             title: 'شهر *',
-                            hintTitle:
-                                widget.address.province ?? "انتخاب استان ...",
+                            hintTitle: selectedCity,
+                            titleColor: Colors.black,
                             options: availableCities,
                             mediaQuery: MediaQuery.of(context),
-                            selected: (String _selectedGender) => setState(
-                              () {},
+                            selected: (String _selectedCity) => setState(() {
+                              selectedCity = _selectedCity;
+                            }),
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFieldWidget(
+                            title: 'آدرس پستی *',
+                            titleColor: Colors.black,
+                            textEditingController: addressTextEditingController,
+                            mediaQuery: MediaQuery.of(context),
+                            lines: 3,
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFieldWidget(
+                            title: 'پلاک *',
+                            textEditingController:
+                                houseNumberTextEditingController,
+                            titleColor: Colors.black,
+                            mediaQuery: MediaQuery.of(context),
+                            lines: 1,
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFieldWidget(
+                            title: 'واحد',
+                            textEditingController:
+                                unitNumberTextEditingController,
+                            titleColor: Colors.black,
+                            mediaQuery: MediaQuery.of(context),
+                            lines: 1,
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFieldWidget(
+                            title: 'کد پستی *',
+                            textEditingController:
+                                postalCodeTextEditingController,
+                            titleColor: Colors.black,
+                            mediaQuery: MediaQuery.of(context),
+                            lines: 1,
+                          ),
+                          SizedBox(height: 20),
+                          Divider(
+                            height: 0.05,
+                            thickness: 2,
+                            indent: 10,
+                            endIndent: 10,
+                            color: Colors.grey[300],
+                          ),
+                          SizedBox(height: 20),
+                          GestureDetector(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 25,
+                                    height: 25,
+                                    color: recieverIsUser
+                                        ? Colors.green
+                                        : Colors.grey,
+                                  ),
+                                  SizedBox(width: 15),
+                                  Text(
+                                    'گیرنده سفارش خودم هستم',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
+                            onTap: () => setState(() {
+                              recieverIsUser = !recieverIsUser;
+                              if (recieverIsUser) {
+                                recieverNameTextEditingController.text =
+                                    "${user.firstName} ${user.lastName}";
+                                recieverPhoneNumberTextEditingController.text =
+                                    user.phoneNumber;
+                              }
+                            }),
+                          ),
+                          SizedBox(height: 15),
+                          CustomTextFieldWidget(
+                            title: 'نام و نام خانوادگی گیرنده *',
+                            textEditingController:
+                                recieverNameTextEditingController,
+                            // initText: hintRecieverName,
+                            titleColor: Colors.black,
+                            textColor:
+                                recieverIsUser ? Colors.grey : Colors.black,
+                            isEnable: !recieverIsUser,
+                            mediaQuery: MediaQuery.of(context),
+                            lines: 1,
+                          ),
+                          SizedBox(height: 10),
+                          CustomTextFieldWidget(
+                            title: 'شماره تلفن گیرنده *',
+                            textEditingController:
+                                recieverPhoneNumberTextEditingController,
+                            titleColor: Colors.black,
+                            textColor:
+                                recieverIsUser ? Colors.grey : Colors.black,
+                            isEnable: !recieverIsUser,
+                            mediaQuery: MediaQuery.of(context),
+                            lines: 1,
                           ),
                         ],
                       ),
@@ -197,6 +335,65 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  onMapCreated(GoogleMapController controller) {
+    setState(() {
+      mapController = controller;
+    });
+  }
+
+  void updateSelectedAddress({bool isNewAddress}) {
+    setState(() {
+      if (isNewAddress) {
+        addressTextEditingController.clear();
+        houseNumberTextEditingController.clear();
+        unitNumberTextEditingController.clear();
+        postalCodeTextEditingController.clear();
+        recieverNameTextEditingController.clear();
+        recieverPhoneNumberTextEditingController.clear();
+        recieverIsUser = true;
+        selectedCity = "";
+        selectedProvince = "";
+        if (widget.isInitial) panelController.open();
+        Future.delayed(Duration.zero, () async {
+          widget.disableIsInitial();
+        });
+      } else {
+        addressTextEditingController = new TextEditingController();
+        addressTextEditingController.text = widget.address.address ?? "";
+        houseNumberTextEditingController = new TextEditingController();
+        houseNumberTextEditingController.text =
+            widget.address.houseNumber ?? "";
+        unitNumberTextEditingController = new TextEditingController();
+        unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
+        postalCodeTextEditingController = new TextEditingController();
+        postalCodeTextEditingController.text = widget.address.postalCode ?? "";
+        recieverNameTextEditingController = new TextEditingController();
+        recieverNameTextEditingController.text =
+            "${widget.address.recieverFirstName} ${widget.address.recieverLastName}" ??
+                "";
+        recieverPhoneNumberTextEditingController = new TextEditingController();
+        recieverPhoneNumberTextEditingController.text =
+            widget.address.recieverMobile ?? "";
+        tempAddressId = widget.address.id;
+        recieverIsUser = widget.address.isUser;
+        selectedCity = widget.address.city;
+        selectedProvince = widget.address.province;
+      }
+    });
+  }
+
+  void createGoogleMap() async {
+    addressMarker.add(
+      Marker(
+        markerId: MarkerId("addressId-${widget.address.id ?? ""}"),
+        position: LatLng(widget.address.latitude ?? 35.7447,
+            widget.address.longtitude ?? 51.3340),
+        draggable: false,
+        icon: BitmapDescriptor.defaultMarker,
       ),
     );
   }

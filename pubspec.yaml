@@ -62,6 +62,7 @@ dependencies:
   configurable_expansion_tile: ^1.0.0
   bubble: ^1.1.9+1
   extended_text: ^4.1.0
+  bitmap: ^0.0.6
 #----------------Converts-----------------
   qr_flutter: ^3.2.0
   shamsi_date: ^0.9.1
