@@ -14,6 +14,7 @@ import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart
 class RealSearchAppBarWidget extends StatefulWidget
     implements PreferredSizeWidget {
   final String title;
+  final bool haveSearchInText;
   final FocusNode inputNode;
   final Function(bool, BuildContext) changeListPanelState;
   final Function(String) changeTextFieldSearch;
@@ -27,7 +28,8 @@ class RealSearchAppBarWidget extends StatefulWidget
       this.inputNode,
       this.changeListPanelState,
       this.changeTextFieldSearch,
-      this.textEditingController})
+      this.textEditingController,
+      this.haveSearchInText})
       : super(key: key);
   @override
   State<StatefulWidget> createState() => _RealSearchAppBarWidgetState();
@@ -82,7 +84,10 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
                 },
                 decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: '${"search_in_list_hint".tr()} ${widget.title}',
+                  hintText:
+                      widget.haveSearchInText || widget.haveSearchInText == null
+                          ? '${"search_in_list_hint".tr()} ${widget.title}'
+                          : '${widget.title}',
                   hintStyle:
                       TextStyle(fontFamily: 'IRANSansLight', fontSize: 14),
                 ),

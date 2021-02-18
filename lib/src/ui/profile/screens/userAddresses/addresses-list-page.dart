@@ -51,6 +51,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
             isDraggable: false,
             panel: SingleAddressDetailWidget(
               title: 'جزئیات آدرس',
+              screenSize: _screenSize,
               address: userAddresses[selectForEdit],
               indexAddress: selectForEdit,
               mapPanelState: mapPanelState,
