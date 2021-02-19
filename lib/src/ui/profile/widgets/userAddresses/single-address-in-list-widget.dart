@@ -29,26 +29,30 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(
+        0.027 * _screenSize.width, //10,
+      ),
       width: _screenSize.width,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 30,
-            alignment: Alignment.topCenter,
-            child: Container(
-              height: 30,
-              child: Radio(
-                value: widget.indexAddress,
-                groupValue: widget.selected,
-                activeColor: MAIN_BLUE_COLOR,
-                onChanged: (int value) {
-                  widget.changeSelected(value);
-                },
-              ),
-            ),
-          ),
+              width: 0.083 * _screenSize.width, //30,
+              alignment: Alignment.topCenter,
+              child: Container(
+                height: 0.0506 * _screenSize.height, //30,
+                child: Transform.scale(
+                  scale: _screenSize.width / 360,
+                  child: Radio(
+                    value: widget.indexAddress,
+                    groupValue: widget.selected,
+                    activeColor: MAIN_BLUE_COLOR,
+                    onChanged: (int value) {
+                      widget.changeSelected(value);
+                    },
+                  ),
+                ),
+              )),
           Expanded(
             child: Column(
               children: [
@@ -56,75 +60,102 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                   alignment: Alignment.topRight,
                   child: Text(
                     widget.address.address,
+                    style: TextStyle(
+                      fontSize: 0.038 * _screenSize.width, //12,
+                    ),
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 Row(
                   children: [
                     Icon(
                       Icons.edit_road_outlined,
                       color: Colors.grey,
-                      size: 18,
+                      size: 0.05 * _screenSize.width, //18,
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(
+                      width: 0.041 * _screenSize.width, //15,
+                    ),
                     // Expanded(
                     //   child:
                     Text(
                       "${widget.address.province}، ${widget.address.city}، ${widget.address.district}",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(
+                        fontSize: 0.034 * _screenSize.width, //12,
+                      ),
                     ),
                     // ),
                   ],
                 ),
-                SizedBox(height: 3),
+                SizedBox(
+                  height: 0.0046 * _screenSize.height, //3,
+                ),
                 Row(
                   children: [
                     Icon(
                       Icons.email_outlined,
                       color: Colors.grey,
-                      size: 18,
+                      size: 0.05 * _screenSize.width, //18,
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(
+                      width: 0.041 * _screenSize.width, //15,
+                    ),
                     Expanded(
                         child: Text(
                       "${widget.address.postalCode}",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(
+                        fontSize: 0.034 * _screenSize.width, //12,
+                      ),
                     ))
                   ],
                 ),
-                SizedBox(height: 3),
+                SizedBox(
+                  height: 0.0046 * _screenSize.height, //3,
+                ),
                 Row(
                   children: [
                     Icon(
                       Icons.phone,
                       color: Colors.grey,
-                      size: 18,
+                      size: 0.05 * _screenSize.width, //18,
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(
+                      width: 0.041 * _screenSize.width, //15,
+                    ),
                     Expanded(
                         child: Text(
                       "${widget.address.recieverMobile}",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(
+                        fontSize: 0.034 * _screenSize.width, //12,
+                      ),
                     ))
                   ],
                 ),
-                SizedBox(height: 3),
+                SizedBox(
+                  height: 0.0046 * _screenSize.height, //3,
+                ),
                 Row(
                   children: [
                     Icon(
                       Icons.person_outline,
                       color: Colors.grey,
-                      size: 18,
+                      size: 0.05 * _screenSize.width, //18,
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(
+                      width: 0.041 * _screenSize.width, //15,
+                    ),
                     Expanded(
                         child: Text(
                       "${widget.address.recieverFirstName} ${widget.address.recieverLastName}",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(
+                        fontSize: 0.034 * _screenSize.width, //12,
+                      ),
                     ))
                   ],
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 Row(
                   children: [
                     Expanded(
@@ -134,15 +165,17 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                             Text(
                               "ویرایش آدرس",
                               style: TextStyle(
-                                fontSize: 13,
+                                fontSize: 0.036 * _screenSize.width, //13,
                                 color: MAIN_BLUE_COLOR,
                               ),
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(
+                              width: 0.0138 * _screenSize.width, //5,
+                            ),
                             Icon(
                               Icons.arrow_back_ios_rounded,
                               color: MAIN_BLUE_COLOR,
-                              size: 15,
+                              size: 0.041 * _screenSize.width, //15,
                             ),
                           ],
                         ),
@@ -153,18 +186,20 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                         },
                       ),
                     ),
-                    SizedBox(width: 50),
+                    SizedBox(
+                      width: 0.138 * _screenSize.width, //50,
+                    ),
                     AvakatanButtonWidget(
                       hasShadow: true,
                       backgroundColor: Colors.white,
                       borderColor: Colors.grey[200],
-                      radius: 50,
-                      height: 35,
-                      width: 35,
+                      radius: 0.138 * _screenSize.width, //50,
+                      height: 0.09722 * _screenSize.width, //35,
+                      width: 0.09722 * _screenSize.width, //35,
                       icon: Icon(
                         Icons.delete_outline_outlined,
                         color: Colors.amber,
-                        size: 23,
+                        size: 0.06388 * _screenSize.width, //23,
                       ),
                       onTap: () {
                         // ! delete Address

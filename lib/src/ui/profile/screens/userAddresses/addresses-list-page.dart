@@ -51,7 +51,6 @@ class _AddressesListPageState extends State<AddressesListPage> {
             isDraggable: false,
             panel: SingleAddressDetailWidget(
               title: 'جزئیات آدرس',
-              screenSize: _screenSize,
               address: userAddresses[selectForEdit],
               indexAddress: selectForEdit,
               mapPanelState: mapPanelState,
@@ -79,13 +78,15 @@ class _AddressesListPageState extends State<AddressesListPage> {
               child: Column(
                 children: [
                   Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 0.0078 * _screenSize.height //5,
+                          ),
                       child: AppBarWithBackWidget(
                         title: widget.title,
                         onTap: () => Navigator.pop(context),
                       )),
                   Container(
-                    height: 5,
+                    height: 0.0138 * _screenSize.width, //5,
                     color: Colors.grey[200],
                   ),
                   Expanded(
@@ -118,37 +119,43 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                     },
                                   ),
                                   Divider(
-                                    height: 0.05,
-                                    thickness: 2,
+                                    height: 0.0138 * _screenSize.width, //5,
+                                    thickness: 0.00555 * _screenSize.width, //2,
                                     color: Colors.grey[300],
                                   ),
                                 ],
                               );
                             },
                           ),
-                          SizedBox(height: 10)
+                          SizedBox(
+                            height: 0.015 * _screenSize.height, //10,
+                          )
                         ],
                       ),
                     ),
                   ),
                   Container(
                     padding: EdgeInsets.only(
-                        left: 25, right: 25, bottom: 25, top: 10),
+                      left: 0.069 * _screenSize.width, //25,
+                      right: 0.069 * _screenSize.width, //25,
+                      bottom: 0.039 * _screenSize.height, //25,
+                      top: 0.015 * _screenSize.height, //10,
+                    ),
                     child: AvakatanButtonWidget(
                       backgroundColor: MAIN_BLUE_COLOR,
                       textColor: Colors.white,
                       borderColor: MAIN_BLUE_COLOR,
                       hasShadow: false,
                       title: 'افزودن آدرس جدید',
-                      height: 45,
+                      height: 0.07 * _screenSize.height, //45,
                       width: _screenSize.width,
                       icon: Icon(
                         Icons.add_location_outlined,
-                        size: 25,
+                        size: 0.069 * _screenSize.width, //25,
                         color: Colors.white,
                       ),
-                      fontSize: 18,
-                      radius: 4,
+                      fontSize: 0.05 * _screenSize.width, //18,
+                      radius: 0.011 * _screenSize.width, //4,
                       onTap: () {
                         setState(() {
                           selectedAddress = 0;
@@ -162,7 +169,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 0.03125 * _screenSize.height, //20,
                   ),
                 ],
               ),

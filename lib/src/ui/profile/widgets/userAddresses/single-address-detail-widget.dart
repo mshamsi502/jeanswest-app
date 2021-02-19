@@ -27,7 +27,6 @@ class SingleAddressDetailWidget extends StatefulWidget {
   final int indexAddress;
   final PanelState mapPanelState;
   final bool isInitial;
-  final Size screenSize;
 
   final Function() closeMapPanelState;
   final Function(int) changeSelected;
@@ -44,7 +43,6 @@ class SingleAddressDetailWidget extends StatefulWidget {
     this.closeMapPanelState,
     this.isInitial,
     this.disableIsInitial,
-    this.screenSize,
   }) : super(key: key);
 
   @override
@@ -96,15 +94,19 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
           children: [
             map,
             Positioned(
-              top: 80,
-              right: 15,
+              top: 0.125 * _screenSize.height, //80,
+              right: 0.041 * _screenSize.width, //15,
               child: Container(
-                padding: EdgeInsets.all(7),
-                height: 43,
-                width: 43,
+                padding: EdgeInsets.all(
+                  0.0194 * _screenSize.width, //7,
+                ),
+                height: 0.1194 * _screenSize.width, //43,
+                width: 0.1194 * _screenSize.width, //43,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(50)),
+                    borderRadius: BorderRadius.circular(
+                      0.138 * _screenSize.width, //50,
+                    )),
                 child: GestureDetector(
                   child: BranchSvgImages.myLocationIcon,
                   onTap: () async {
@@ -120,31 +122,35 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
               ),
             ),
             Positioned(
-              top: (_screenSize.width / 2) + 90,
-              left: (_screenSize.width / 2) - 20,
+              top: (_screenSize.height / 2) - 0.031 * _screenSize.height, //20,
+              left: (_screenSize.width / 2) - 0.0555 * _screenSize.width, //20,
               child: Icon(
                 Icons.location_on,
                 color: MAIN_BLUE_COLOR,
-                size: 40,
+                size: 0.111 * _screenSize.width, //40,
               ),
             ),
             Positioned(
-              bottom: 20,
+              bottom: 0.031 * _screenSize.height, //20,
               left: 0,
               right: 0,
               child: Container(
-                padding:
-                    EdgeInsets.only(left: 25, right: 25, bottom: 30, top: 10),
+                padding: EdgeInsets.only(
+                  left: 0.069 * _screenSize.width, //25,
+                  right: 0.069 * _screenSize.width, //25,
+                  bottom: 0.0506 * _screenSize.height, //30,
+                  top: 0.015 * _screenSize.height, //10,
+                ),
                 child: AvakatanButtonWidget(
                   backgroundColor: MAIN_BLUE_COLOR,
                   textColor: Colors.white,
                   borderColor: MAIN_BLUE_COLOR,
                   hasShadow: false,
                   title: 'تایید',
-                  height: 45,
+                  height: 0.07 * _screenSize.height, //45,
                   width: _screenSize.width,
-                  fontSize: 18,
-                  radius: 4,
+                  fontSize: 0.05 * _screenSize.width, //18,
+                  radius: 0.011 * _screenSize.width, //4,
                   onTap: () {
                     // ! get center screen location
                     // ! return location and update Lat & Lng in Address
@@ -159,7 +165,10 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
               left: 0,
               right: 0,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                padding: EdgeInsets.symmetric(
+                  vertical: 0.0078 * _screenSize.height, //5,
+                  horizontal: 0.027 * _screenSize.width, //10,
+                ),
                 width: _screenSize.width,
                 color: Colors.white,
                 child: Row(
@@ -168,11 +177,11 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                     GestureDetector(
                       child: Container(
                         color: Colors.white,
-                        height: 55,
+                        height: 0.0929 * _screenSize.height, //55,
                         width: 0.0625 * _screenSize.height, //40
                         padding: EdgeInsets.symmetric(
-                          horizontal: 0.016 * _screenSize.height, //10
-                          vertical: 17,
+                          horizontal: 0.027 * _screenSize.width, //10,
+                          vertical: 0.0287 * _screenSize.height, //17
                         ),
                         child: GlobalSvgImages.rightIcon,
                       ),
@@ -216,31 +225,40 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         body: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.symmetric(
+                  vertical: 0.0078 * _screenSize.height //5,
+                  ),
               child: AppBarWithBackWidget(
                 title: widget.title,
                 onTap: () => widget.closeEditPanel(),
               ),
             ),
             Container(
-              height: 3,
+              height: 0.0046 * _screenSize.height, //3,
               color: Colors.grey[200],
             ),
             Expanded(
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Container(
-                  margin: EdgeInsets.all(15),
+                  margin: EdgeInsets.all(
+                    0.041 * _screenSize.width, //15,
+                  ),
                   width: _screenSize.width,
                   child: Column(
                     children: [
                       Container(
-                        height: 110,
-                        padding: EdgeInsets.all(1),
+                        height: 0.172 * _screenSize.height, //110,
+                        padding: EdgeInsets.all(
+                          0.00277 * _screenSize.width, //1,
+                        ),
                         decoration: BoxDecoration(
                           // color: Colors.red,
-                          borderRadius:
-                              BorderRadius.all(const Radius.circular(5)),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(
+                              0.0138 * _screenSize.width, //5,
+                            ),
+                          ),
                           border: Border.all(
                             color: MAIN_BLUE_COLOR,
                           ),
@@ -249,36 +267,41 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                           children: [
                             map,
                             Positioned(
-                              bottom: 5,
-                              left: 5,
+                              bottom: 0.0078 * _screenSize.height, //5,
+                              left: 0.0138 * _screenSize.width, //5,
                               child: AvakatanButtonWidget(
                                 backgroundColor: MAIN_BLUE_COLOR,
                                 borderColor: MAIN_BLUE_COLOR,
                                 textColor: Colors.white,
                                 hasShadow: false,
                                 title: "ویرایش",
-                                height: 30,
-                                width: 90,
-                                radius: 5,
-                                fontSize: 13,
+                                height: 0.0506 * _screenSize.height, //30,
+                                width: 0.25 * _screenSize.width, //90,
+                                radius: 0.0138 * _screenSize.width, //5,
+                                fontSize: 0.036 * _screenSize.width, //13,
                                 onTap: () {
                                   panelController.open();
                                 },
                               ),
                             ),
                             Positioned(
-                              top: 35,
-                              left: (_screenSize.width / 2) - 20 - 15,
+                              top: 0.05468 * _screenSize.height, //35,
+                              left: (_screenSize.width / 2) -
+                                  0.0555 * _screenSize.width //20,
+                                  -
+                                  0.041 * _screenSize.width, //15,
                               child: Icon(
                                 Icons.location_on,
                                 color: MAIN_BLUE_COLOR,
-                                size: 40,
+                                size: 0.111 * _screenSize.width, //40,
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(
+                        height: 0.031 * _screenSize.height, //20,
+                      ),
                       SingleAddressTextDetailWidget(
                         title: "",
                         address: widget.address,
@@ -294,20 +317,26 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                         },
                         disableIsInitial: widget.disableIsInitial,
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(
+                        height: 0.015 * _screenSize.height, //10,
+                      ),
                       Container(
                         padding: EdgeInsets.only(
-                            left: 10, right: 10, bottom: 20, top: 20),
+                          left: 0.027 * _screenSize.width, //10,
+                          right: 0.027 * _screenSize.width, //10,
+                          bottom: 0.031 * _screenSize.height, //20,
+                          top: 0.031 * _screenSize.height, //20,
+                        ),
                         child: AvakatanButtonWidget(
                           backgroundColor: MAIN_BLUE_COLOR,
                           textColor: Colors.white,
                           borderColor: MAIN_BLUE_COLOR,
                           hasShadow: false,
                           title: 'ثبت آدرس',
-                          height: 45,
+                          height: 0.07 * _screenSize.height, //45,
                           width: _screenSize.width,
-                          fontSize: 18,
-                          radius: 4,
+                          fontSize: 0.05 * _screenSize.width, //18,
+                          radius: 0.011 * _screenSize.width, //4,
                           onTap: () {
                             widget.closeEditPanel();
                             // ! add new Address
@@ -321,7 +350,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 0.031 * _screenSize.height, //20,
             ),
           ],
         ),

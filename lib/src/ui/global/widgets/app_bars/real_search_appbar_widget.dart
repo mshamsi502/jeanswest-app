@@ -108,7 +108,6 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
           ],
         ),
       ),
-      // ),
     );
   }
 

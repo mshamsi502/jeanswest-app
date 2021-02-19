@@ -75,9 +75,7 @@ class _SingleAddressTextDetailWidgetState
       updateSelectedAddress(isNewAddress: false);
     if (widget.isInitial && widget.mapPanelState == PanelState.OPEN)
       updateSelectedAddress(isNewAddress: true);
-    var _screenSize = MediaQuery.of(context).size;
-    //
-
+    Size _screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         CustomDropdownButtonWidget(
@@ -93,7 +91,9 @@ class _SingleAddressTextDetailWidgetState
             print('++++ availableCities.first : ${availableCities[0]}');
           }),
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.0156 * _screenSize.height, //10,
+        ),
         CustomDropdownButtonWidget(
           title: 'شهر *',
           hintTitle: selectedCity,
@@ -104,7 +104,9 @@ class _SingleAddressTextDetailWidgetState
             selectedCity = _selectedCity;
           }),
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.0156 * _screenSize.height, //10,
+        ),
         CustomTextFieldWidget(
           title: 'آدرس پستی *',
           titleColor: Colors.black,
@@ -112,7 +114,9 @@ class _SingleAddressTextDetailWidgetState
           mediaQuery: MediaQuery.of(context),
           lines: 3,
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.0156 * _screenSize.height, //10,
+        ),
         CustomTextFieldWidget(
           title: 'پلاک *',
           textEditingController: houseNumberTextEditingController,
@@ -120,7 +124,9 @@ class _SingleAddressTextDetailWidgetState
           mediaQuery: MediaQuery.of(context),
           lines: 1,
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.0156 * _screenSize.height, //10,
+        ),
         CustomTextFieldWidget(
           title: 'واحد',
           textEditingController: unitNumberTextEditingController,
@@ -128,7 +134,9 @@ class _SingleAddressTextDetailWidgetState
           mediaQuery: MediaQuery.of(context),
           lines: 1,
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.0156 * _screenSize.height, //10,
+        ),
         CustomTextFieldWidget(
           title: 'کد پستی *',
           textEditingController: postalCodeTextEditingController,
@@ -136,30 +144,38 @@ class _SingleAddressTextDetailWidgetState
           mediaQuery: MediaQuery.of(context),
           lines: 1,
         ),
-        SizedBox(height: 20),
+        SizedBox(
+          height: 0.03125 * _screenSize.height, //20,
+        ),
         Divider(
-          height: 0.05,
-          thickness: 2,
-          indent: 10,
-          endIndent: 10,
+          height: 0.000138 * _screenSize.width, //0.05,
+          thickness: 0.00555 * _screenSize.width, //2,
+          indent: 0.027 * _screenSize.width, //10,
+          endIndent: 0.027 * _screenSize.width, //10,
           color: Colors.grey[300],
         ),
-        SizedBox(height: 20),
+        SizedBox(
+          height: 0.03125 * _screenSize.height, //20,
+        ),
         GestureDetector(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               children: [
                 Container(
-                  width: 25,
-                  height: 25,
+                  width: 0.069 * _screenSize.width, //25,
+                  height: 0.069 * _screenSize.width, //25,
                   color: recieverIsUser ? Colors.green : Colors.grey,
                 ),
-                SizedBox(width: 15),
+                SizedBox(
+                  width: 0.041 * _screenSize.width, //15,
+                ),
                 Text(
                   'گیرنده سفارش خودم هستم',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 0.041 * _screenSize.width, //15,
                   ),
                 ),
               ],
@@ -174,7 +190,9 @@ class _SingleAddressTextDetailWidgetState
             }
           }),
         ),
-        SizedBox(height: 15),
+        SizedBox(
+          height: 0.023 * _screenSize.height, //15,
+        ),
         CustomTextFieldWidget(
           title: 'نام و نام خانوادگی گیرنده *',
           textEditingController: recieverNameTextEditingController,
@@ -185,7 +203,9 @@ class _SingleAddressTextDetailWidgetState
           mediaQuery: MediaQuery.of(context),
           lines: 1,
         ),
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.0156 * _screenSize.height, //10,
+        ),
         CustomTextFieldWidget(
           title: 'شماره تلفن گیرنده *',
           textEditingController: recieverPhoneNumberTextEditingController,
