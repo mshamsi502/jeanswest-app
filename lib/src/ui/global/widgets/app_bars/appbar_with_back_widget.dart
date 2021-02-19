@@ -15,11 +15,13 @@ import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart
 class AppBarWithBackWidget extends StatefulWidget {
   final String title;
   final Widget option;
+  final Function() onTap;
 
   const AppBarWithBackWidget({
     Key key,
     this.title,
     this.option,
+    @required this.onTap,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AppBarWithBackWidgetState();
@@ -48,9 +50,10 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                   ? GlobalSvgImages.leftIcon
                   : GlobalSvgImages.rightIcon,
             ),
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: widget.onTap,
+            // () {
+            //   Navigator.pop(context);
+            // },
           ),
           SizedBox(width: 0.016 * _screenSize.height //10
               ),

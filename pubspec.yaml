@@ -37,6 +37,7 @@ dependencies:
   integration_test: ^1.0.1
   keyboard_visibility: ^0.5.6
   flutter_phoenix: "^0.1.0"
+  android_metadata: ^0.1.3
 #----------------Connectivity and DataBase-----------------
   retrofit: ^1.3.4
   dio: ^3.0.10
@@ -67,12 +68,12 @@ dependencies:
   shamsi_date: ^0.9.1
 
 #----------------Map-----------------
-  google_maps_flutter: ^0.5.32
+  google_maps_flutter: ^0.5.13
   location: ^3.0.2
   flutter_map: ^0.10.1+1
   latlong: ^0.6.1
   geolocator: ^6.0.0+4
-
+  search_map_place: ^0.3.0
 #-------------------------------------------------------------------
 
 dev_dependencies:

@@ -32,7 +32,10 @@ class _InboxPageState extends State<InboxPage> {
             color: Colors.white,
             child: Column(
               children: [
-                AppBarWithBackWidget(title: 'پیام ها'),
+                AppBarWithBackWidget(
+                  title: 'پیام ها',
+                  onTap: () => Navigator.pop(context),
+                ),
                 Divider(
                   height: 0.00138 * _screenSize.height, //0.5,
                   thickness: 0.00138 * _screenSize.height, //0.5,

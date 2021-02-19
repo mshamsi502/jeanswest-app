@@ -24,7 +24,7 @@ import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
-getAllUserInfo({String token}) async {
+Future<void> getAllUserInfo({String token}) async {
   UserMainInfoRes userAccount =
       await globalLocator<GlobalRestClient>().getUserMainInfo();
   user = createUserInfo(userAccount);

@@ -15,6 +15,7 @@ import 'package:jeanswest/src/bloc/branch/main/branch_addresses_screen_bloc.dart
 import 'package:jeanswest/src/bloc/branch/main/selected_branch_bloc.dart';
 import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/branch/widgets/branches_list_widget.dart';
 import 'package:jeanswest/src/ui/branch/widgets/branches_map_widget.dart';
@@ -23,6 +24,7 @@ import 'package:jeanswest/src/ui/global/widgets/app_bars/real_search_appbar_widg
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/show_error_widget.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -129,7 +131,9 @@ class _BranchPageState extends State<BranchPage>
               body: Column(children: [
                 SearchAppBarWidget(
                   title: "branch_screen.branches_list".tr(),
-                  changeBranchListPanelState: changeBranchListPanelState,
+                  icon: GlobalSvgImages.searchIcon,
+                  onTapIcon: () {},
+                  openRealSearchPanel: changeBranchListPanelState,
                 ),
                 Expanded(
                   child: BranchesMapWidget(

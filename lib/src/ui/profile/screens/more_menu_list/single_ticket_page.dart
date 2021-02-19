@@ -44,7 +44,10 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
             children: [
               Container(
                 width: _screenSize.width,
-                child: AppBarWithBackWidget(title: widget.ticket.title),
+                child: AppBarWithBackWidget(
+                  title: widget.ticket.title,
+                  onTap: () => Navigator.pop(context),
+                ),
               ),
               Expanded(
                 child: Container(

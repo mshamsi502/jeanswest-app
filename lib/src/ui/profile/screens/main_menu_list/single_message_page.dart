@@ -39,7 +39,10 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
             height: _screenSize.height,
             child: Column(
               children: [
-                AppBarWithBackWidget(title: widget.notificationMessage.sender),
+                AppBarWithBackWidget(
+                  title: widget.notificationMessage.sender,
+                  onTap: () => Navigator.pop(context),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     controller: scrollController,
