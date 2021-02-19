@@ -8,15 +8,11 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jeanswest/src/utils/helper/getAllInfo/get-all-info.dart';
-
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
-import 'ui/profile/screens/main_profile_page.dart';
-
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jeanswest/src/utils/helper/initCreate/init-create.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -26,13 +22,10 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool isSplash;
   bool pagesCreatedFinished = false;
-
   String loading;
   bool isFirstLaunchBranch;
-  bool isAuth;
   AnimationController controller;
   int _selectedIndex = 4;
-  GlobalKey scaffoldKey;
 
   /// => [showButtonNavigationBar] is for when Bottom Navigation Bar Should to Hide Like [LoginPage]
   bool showButtonNavigationBar;
@@ -42,52 +35,29 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   DateTime currentBackPressTime;
 
   /// => [_children] is Pages of Bottom Navigation Bar
-  final List<Widget> _children = [];
+  List<Widget> _children = [];
 
   @override
   void initState() {
     super.initState();
-
-    // ! check user auth
-    auth('+989176509634');
-
-    // !
     isSplash = true;
-    isFirstLaunchBranch = true;
-    loading = 'Loading';
-    scaffoldKey = new GlobalKey();
+    _children = new List<Widget>();
     fToast = new FToast();
     fToast.init(context);
     showButtonNavigationBar = true;
-
-    /// => add Pages of Bottom Navigation Bar to [_children]
-    // // _children.add(homePage);
-    // _children.add(loginPage);
+    isFirstLaunchBranch = true;
+    loading = 'Loading';
+    // ! check user auth and Create Pages
+    auth();
   }
 
-  auth(String phoneNumber) async {
-    // String getToken =
-    //     mockoonGlobalLocator<SharedPreferences>().getString(TOKEN);
-    // globalLocator<SharedPreferences>().clear();
-    String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
-    if (getToken != null) {
-      print('user Have TOKEN : $getToken');
-      getAllUserInfo(token: getToken);
-      isAuth = true;
-    } else {
-      print('user NOTHave TOKEN!!');
-      isAuth = false;
-    }
-    // isAuth = false; // ! for test, DO MODIFY BY HAND
-    print('^*^*^ isAuth : $isAuth');
-    _children.add(MainProfilePage(isAuth: !isAuth));
-    _children.add(Container(color: Colors.white));
-    _children.add(Container(color: Colors.blue));
-    // _children.add(shoppingBasketPage);
-    _children.add(Container(color: Colors.green));
-    _children.add(MainProfilePage(isAuth: isAuth));
+  auth() async {
+    Map<String, dynamic> authServiceRes = await authService();
     setState(() {
-      pagesCreatedFinished = true;
+      userIsAuth = authServiceRes['userIsAuth'];
+      pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];
+      // ! => add Pages of Bottom Navigation Bar to [_children]
+      _children = authServiceRes['children'];
     });
   }
 

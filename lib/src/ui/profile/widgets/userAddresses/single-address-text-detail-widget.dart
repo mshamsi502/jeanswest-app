@@ -1,0 +1,242 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'dart:async';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:jeanswest/src/constants/global/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/models/address/address.dart';
+
+import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
+
+class SingleAddressTextDetailWidget extends StatefulWidget {
+  final String title;
+  final Address address;
+  final int indexAddress;
+  final PanelState mapPanelState;
+  final bool isInitial;
+  final Size screenSize;
+
+  final Function(bool) isOpenEditPanel;
+  final Function() disableIsInitial;
+  SingleAddressTextDetailWidget({
+    Key key,
+    this.address,
+    this.indexAddress,
+    this.mapPanelState,
+    this.title,
+    this.isInitial,
+    this.disableIsInitial,
+    this.screenSize,
+    this.isOpenEditPanel,
+  }) : super(key: key);
+
+  @override
+  _SingleAddressTextDetailWidgetState createState() =>
+      _SingleAddressTextDetailWidgetState();
+}
+
+class _SingleAddressTextDetailWidgetState
+    extends State<SingleAddressTextDetailWidget> {
+  TextEditingController addressTextEditingController;
+  TextEditingController houseNumberTextEditingController;
+  TextEditingController unitNumberTextEditingController;
+  TextEditingController postalCodeTextEditingController;
+  TextEditingController recieverNameTextEditingController;
+  TextEditingController recieverPhoneNumberTextEditingController;
+  //
+  String selectedProvince;
+  String selectedCity;
+  bool recieverIsUser;
+  //
+  int tempAddressId;
+  List<String> availableCities;
+  Set<Marker> addressMarker = new Set<Marker>();
+  Widget map;
+  //
+
+  @override
+  void initState() {
+    selectedProvince = widget.address.province;
+    availableCities = provinceCities[selectedProvince];
+    selectedCity = widget.address.city;
+
+    updateSelectedAddress(isNewAddress: false);
+    recieverIsUser = widget.address.isUser;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.address.id == null || widget.address.id != tempAddressId)
+      updateSelectedAddress(isNewAddress: false);
+    if (widget.isInitial && widget.mapPanelState == PanelState.OPEN)
+      updateSelectedAddress(isNewAddress: true);
+    var _screenSize = MediaQuery.of(context).size;
+    //
+
+    return Column(
+      children: [
+        CustomDropdownButtonWidget(
+          title: 'استان *',
+          hintTitle: selectedProvince,
+          titleColor: Colors.black,
+          options: provinces,
+          mediaQuery: MediaQuery.of(context),
+          selected: (String _selectedProvince) => setState(() {
+            selectedProvince = _selectedProvince;
+            print('++++ selectedProvince : $selectedProvince');
+            availableCities = provinceCities[selectedProvince];
+            print('++++ availableCities.first : ${availableCities[0]}');
+          }),
+        ),
+        SizedBox(height: 10),
+        CustomDropdownButtonWidget(
+          title: 'شهر *',
+          hintTitle: selectedCity,
+          titleColor: Colors.black,
+          options: availableCities,
+          mediaQuery: MediaQuery.of(context),
+          selected: (String _selectedCity) => setState(() {
+            selectedCity = _selectedCity;
+          }),
+        ),
+        SizedBox(height: 10),
+        CustomTextFieldWidget(
+          title: 'آدرس پستی *',
+          titleColor: Colors.black,
+          textEditingController: addressTextEditingController,
+          mediaQuery: MediaQuery.of(context),
+          lines: 3,
+        ),
+        SizedBox(height: 10),
+        CustomTextFieldWidget(
+          title: 'پلاک *',
+          textEditingController: houseNumberTextEditingController,
+          titleColor: Colors.black,
+          mediaQuery: MediaQuery.of(context),
+          lines: 1,
+        ),
+        SizedBox(height: 10),
+        CustomTextFieldWidget(
+          title: 'واحد',
+          textEditingController: unitNumberTextEditingController,
+          titleColor: Colors.black,
+          mediaQuery: MediaQuery.of(context),
+          lines: 1,
+        ),
+        SizedBox(height: 10),
+        CustomTextFieldWidget(
+          title: 'کد پستی *',
+          textEditingController: postalCodeTextEditingController,
+          titleColor: Colors.black,
+          mediaQuery: MediaQuery.of(context),
+          lines: 1,
+        ),
+        SizedBox(height: 20),
+        Divider(
+          height: 0.05,
+          thickness: 2,
+          indent: 10,
+          endIndent: 10,
+          color: Colors.grey[300],
+        ),
+        SizedBox(height: 20),
+        GestureDetector(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                Container(
+                  width: 25,
+                  height: 25,
+                  color: recieverIsUser ? Colors.green : Colors.grey,
+                ),
+                SizedBox(width: 15),
+                Text(
+                  'گیرنده سفارش خودم هستم',
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          onTap: () => setState(() {
+            recieverIsUser = !recieverIsUser;
+            if (recieverIsUser) {
+              recieverNameTextEditingController.text =
+                  "${user.firstName} ${user.lastName}";
+              recieverPhoneNumberTextEditingController.text = user.phoneNumber;
+            }
+          }),
+        ),
+        SizedBox(height: 15),
+        CustomTextFieldWidget(
+          title: 'نام و نام خانوادگی گیرنده *',
+          textEditingController: recieverNameTextEditingController,
+          // initText: hintRecieverName,
+          titleColor: Colors.black,
+          textColor: recieverIsUser ? Colors.grey : Colors.black,
+          isEnable: !recieverIsUser,
+          mediaQuery: MediaQuery.of(context),
+          lines: 1,
+        ),
+        SizedBox(height: 10),
+        CustomTextFieldWidget(
+          title: 'شماره تلفن گیرنده *',
+          textEditingController: recieverPhoneNumberTextEditingController,
+          titleColor: Colors.black,
+          textColor: recieverIsUser ? Colors.grey : Colors.black,
+          isEnable: !recieverIsUser,
+          mediaQuery: MediaQuery.of(context),
+          lines: 1,
+        ),
+      ],
+    );
+  }
+
+  void updateSelectedAddress({bool isNewAddress}) {
+    setState(() {
+      if (isNewAddress) {
+        addressTextEditingController.clear();
+        houseNumberTextEditingController.clear();
+        unitNumberTextEditingController.clear();
+        postalCodeTextEditingController.clear();
+        recieverNameTextEditingController.clear();
+        recieverPhoneNumberTextEditingController.clear();
+        recieverIsUser = true;
+        selectedCity = "";
+        selectedProvince = "";
+        if (widget.isInitial) widget.isOpenEditPanel(true);
+        Future.delayed(Duration.zero, () async {
+          widget.disableIsInitial();
+        });
+      } else {
+        addressTextEditingController = new TextEditingController();
+        addressTextEditingController.text = widget.address.address ?? "";
+        houseNumberTextEditingController = new TextEditingController();
+        houseNumberTextEditingController.text =
+            widget.address.houseNumber ?? "";
+        unitNumberTextEditingController = new TextEditingController();
+        unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
+        postalCodeTextEditingController = new TextEditingController();
+        postalCodeTextEditingController.text = widget.address.postalCode ?? "";
+        recieverNameTextEditingController = new TextEditingController();
+        recieverNameTextEditingController.text =
+            "${widget.address.recieverFirstName} ${widget.address.recieverLastName}" ??
+                "";
+        recieverPhoneNumberTextEditingController = new TextEditingController();
+        recieverPhoneNumberTextEditingController.text =
+            widget.address.recieverMobile ?? "";
+        tempAddressId = widget.address.id;
+        recieverIsUser = widget.address.isUser;
+        selectedCity = widget.address.city;
+        selectedProvince = widget.address.province;
+      }
+    });
+  }
+}

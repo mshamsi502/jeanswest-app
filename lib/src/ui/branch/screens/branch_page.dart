@@ -24,6 +24,7 @@ import 'package:jeanswest/src/ui/global/widgets/app_bars/real_search_appbar_widg
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/show_error_widget.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 

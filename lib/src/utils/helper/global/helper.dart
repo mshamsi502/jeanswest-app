@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,17 +38,6 @@ class CustomException implements Exception {
 
 throwException() {
   throw new CustomException('This is my first custom exception');
-}
-
-Color fadeColor(String color, double controller) {
-  // print('controller[150, 120] :  ${controller.round()}');
-  // print(
-  //     'opacity :  ${((8.5 * (controller) - 1020).round())} : ${((8.5 * (controller) - 1020).round()).toRadixString(16)}');
-
-  String colorCode =
-      '0x${((8.5 * (controller) - 1020).round()).toRadixString(16)}$color';
-  // print('colorCode $colorCode');
-  return Color(int.parse(colorCode));
 }
 
 String toPriceStyle(int price) {
@@ -143,4 +133,19 @@ Orientation orientationDeviceListener(
     }
   }
   return newOrientation;
+}
+
+/// => [printErrorMessage] is handling try-catch and print Errors
+printErrorMessage(DioError e) {
+  if (e.response != null) {
+    print("111111111111111111111111");
+    print(e.response.data);
+    print(e.response.headers);
+    print(e.response.request);
+  } else {
+    // Something happened in setting up or sending the request that triggered an Error
+    print("222222222222222222222222");
+    print(e.request);
+    print(e.message);
+  }
 }

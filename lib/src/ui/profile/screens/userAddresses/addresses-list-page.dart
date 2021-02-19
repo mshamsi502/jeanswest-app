@@ -91,12 +91,10 @@ class _AddressesListPageState extends State<AddressesListPage> {
                   Expanded(
                     child: SingleChildScrollView(
                       controller: scrollController,
-                      // physics: NeverScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           ListView.builder(
                             itemCount: userAddresses.length,
-                            // controller: scrollController,
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int index) {
@@ -134,14 +132,15 @@ class _AddressesListPageState extends State<AddressesListPage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.only(
+                        left: 25, right: 25, bottom: 25, top: 10),
                     child: AvakatanButtonWidget(
                       backgroundColor: MAIN_BLUE_COLOR,
                       textColor: Colors.white,
                       borderColor: MAIN_BLUE_COLOR,
                       hasShadow: false,
                       title: 'افزودن آدرس جدید',
-                      height: 40,
+                      height: 45,
                       width: _screenSize.width,
                       icon: Icon(
                         Icons.add_location_outlined,

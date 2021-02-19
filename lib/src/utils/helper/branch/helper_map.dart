@@ -7,7 +7,6 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -195,21 +194,6 @@ Future<Map<String, dynamic>> getBranches(
   } else {
     print('OoOoOoOoO -- load from SQFLite');
     return await getAllBranchesFromSqLite(latLng);
-  }
-}
-
-/// => [printErrorMessage] is handling try-catch and print Errors
-printErrorMessage(DioError e) {
-  if (e.response != null) {
-    print("111111111111111111111111");
-    print(e.response.data);
-    print(e.response.headers);
-    print(e.response.request);
-  } else {
-    // Something happened in setting up or sending the request that triggered an Error
-    print("222222222222222222222222");
-    print(e.request);
-    print(e.message);
   }
 }
 
