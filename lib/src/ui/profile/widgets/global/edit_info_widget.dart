@@ -239,7 +239,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               SizedBox(height: 20),
                               CustomDropdownButtonWidget(
                                   title: 'جنسیت',
-                                  // hintTitle: widget.gender.perName ??
+                                  titleColor: MAIN_BLUE_COLOR,
                                   hintTitle:
                                       user.gender.perName ?? "انتخاب جنسیت ...",
                                   options: genders,

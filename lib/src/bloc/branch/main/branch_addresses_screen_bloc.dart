@@ -13,6 +13,7 @@ import 'package:jeanswest/src/constants/branch/constants.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 import '../states/branch_addresses_screen_state.dart';
 

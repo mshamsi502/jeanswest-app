@@ -19,6 +19,8 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 // List<Branch> localBranches = new List<Branch>();
 //
 bool isInit = true;
+bool userIsAuth = false;
+int tryToGetAllUserInfo = 4;
 // GoogleMapWidget myGoogleMapWidget;
 //
 // GetIt mockoonGlobalLocator = GetIt.instance;

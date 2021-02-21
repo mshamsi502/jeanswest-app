@@ -96,6 +96,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                         CustomDropdownButtonWidget(
                             title: 'دپارتمان',
                             hintTitle: "انتخاب دپارتمان ...",
+                            titleColor: MAIN_BLUE_COLOR,
                             options: departments,
                             mediaQuery: MediaQuery.of(context),
                             selected: (String department) => setState(() {
@@ -107,7 +108,8 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                         CustomTextFieldWidget(
                           title: 'عنوان',
                           textEditingController: titleEditingController,
-                          screenSize: _screenSize,
+                          titleColor: MAIN_BLUE_COLOR,
+                          mediaQuery: MediaQuery.of(context),
                         ),
                         SizedBox(
                           height: 0.015 * _screenSize.height, //10
@@ -115,7 +117,8 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                         CustomTextFieldWidget(
                           title: 'متن',
                           textEditingController: textEditingController,
-                          screenSize: _screenSize,
+                          titleColor: MAIN_BLUE_COLOR,
+                          mediaQuery: MediaQuery.of(context),
                           lines: 4,
                         ),
                       ],

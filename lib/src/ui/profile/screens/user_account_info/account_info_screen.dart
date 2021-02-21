@@ -84,7 +84,10 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppBarWithBackWidget(title: 'جزئیات حساب کاربری'),
+                      AppBarWithBackWidget(
+                        title: 'جزئیات حساب کاربری',
+                        onTap: () => Navigator.pop(context),
+                      ),
                       SizedBox(height: 20),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
