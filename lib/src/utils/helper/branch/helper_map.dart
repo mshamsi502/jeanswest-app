@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
+import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:jeanswest/src/utils/database/branch/sqflite_helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
@@ -177,7 +177,7 @@ Future<Map<String, dynamic>> getBranches(
     // ignore: deprecated_member_use
     List<Branch> branches = new List<Branch>();
     print('OoOoOoOoO -- load from Internet');
-    branches = await globalRestClient.getBranchesAddress2(
+    branches = await globalRestClient.getBranchesAddress(
         latLng.latitude.toString(), latLng.longitude.toString());
     branches.sort((a, b) => a.distance.compareTo(b.distance));
 

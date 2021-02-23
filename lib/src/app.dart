@@ -41,6 +41,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     isSplash = true;
+    // ignore: deprecated_member_use
     _children = new List<Widget>();
     fToast = new FToast();
     fToast.init(context);

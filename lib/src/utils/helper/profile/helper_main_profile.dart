@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
@@ -21,6 +21,9 @@ import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupon
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/favoritesList/favorites-list-screen.dart';
+
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
 
 import 'dart:io';
 
@@ -30,6 +33,7 @@ import 'package:intent/extra.dart' as android_extra;
 
 List<Widget> createProfileListMenuPages(
     LevelCard userLevel, LevelCard nextLevel, int moneyBuying) {
+  // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
   profileListMenu.add(
     TabBarViewPage(
@@ -51,7 +55,10 @@ List<Widget> createProfileListMenuPages(
     ),
   );
   profileListMenu.add(Container());
-  profileListMenu.add(Container());
+  profileListMenu.add(FavoritesListScreen(
+    title: "علاقه مندی ها",
+    products: userFavorites,
+  ));
   profileListMenu.add(AddressesListPage(
     title: 'لیست آدرس ها',
   ));
@@ -86,6 +93,7 @@ List<Widget> createProfileListMenuPages(
 }
 
 List<Widget> createMoreListMenuPages() {
+  // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
   profileListMenu.add(SupportPage());
   profileListMenu.add(AboutUsPage());

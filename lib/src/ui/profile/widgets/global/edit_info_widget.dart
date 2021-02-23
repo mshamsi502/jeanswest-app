@@ -2,7 +2,7 @@
 //*  Project Name:  avakatan_branches
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
@@ -75,6 +75,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
   bool isOpeningPanel;
   //
   String selectedGend;
+  // ignore: deprecated_member_use
   List<String> genders = new List<String>();
 
   @override

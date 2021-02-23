@@ -62,6 +62,7 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
   FocusNode focusNodes2 = new FocusNode();
   FocusNode focusNodes3 = new FocusNode();
   FocusNode focusNodes4 = new FocusNode();
+  // ignore: deprecated_member_use
   List<FocusNode> myFocusNodes = List<FocusNode>();
   @override
   void initState() {

@@ -8,15 +8,20 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/success_response.dart';
-import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
+import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
+import 'package:jeanswest/src/services/rest_client_global.dart';
 
 Future<bool> checkIsAuthWithRetro(String phoneNumber) async {
   bool isSuccess;
-  print('12315465498 -- phoneNumber : $phoneNumber');
-  SuccessRespons successRespons =
-      await globalLocator<GlobalRestClient>().reqForVerifyCode(phoneNumber);
-  isSuccess = successRespons.success;
+  Map<String, String> reqBody = {
+    "phoneNumber": "0$phoneNumber",
+  };
+  GlobalResponseJData globalResponseJData =
+      await globalLocator<GlobalRestClient>().reqOtp(reqBody);
+
+  // SuccessRespons successRespons =
+  // await globalLocator<GlobalRestClient>().reqForVerifyCode(phoneNumber);
+  isSuccess = globalResponseJData.data == "message sent";
   print('12315465498 -- successRespons.success : $isSuccess');
   return isSuccess ?? false;
 }
@@ -138,14 +143,14 @@ Orientation orientationDeviceListener(
 /// => [printErrorMessage] is handling try-catch and print Errors
 printErrorMessage(DioError e) {
   if (e.response != null) {
-    print("111111111111111111111111");
-    print(e.response.data);
-    print(e.response.headers);
-    print(e.response.request);
+    print("respone is NOOOOT Null");
+    print("%% pEM - e..res.data : ${e.response.data}");
+    print("%% pEM - e..res.headers : ${e.response.headers}");
+    print("%% pEM - e..res.request : ${e.response.request}");
   } else {
     // Something happened in setting up or sending the request that triggered an Error
-    print("222222222222222222222222");
-    print(e.request);
-    print(e.message);
+    print("respone is Null");
+    print("%% pEM - e.req : ${e.request}");
+    print("%% pEM - e.mess : ${e.message}");
   }
 }
