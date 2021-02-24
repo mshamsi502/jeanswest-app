@@ -7,11 +7,11 @@ import 'package:equatable/equatable.dart';
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimode-detail-product-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'single-favorites-info-res.g.dart';
+part 'single-product-info-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class SingleFavoriteInfoRes extends Equatable {
+class SingleProductInfoRes extends Equatable {
   @JsonKey(name: 'active')
   bool active;
   @JsonKey(name: 'quantity')
@@ -22,25 +22,22 @@ class SingleFavoriteInfoRes extends Equatable {
   int basePrice;
   @JsonKey(name: 'salePrice')
   int salePrice;
-  @JsonKey(name: 'banimodeCode')
-  int banimodeCode;
   @JsonKey(name: 'banimodeDetails')
   BanimodeDetailsProductRes banimodeDetails;
 
-  SingleFavoriteInfoRes({
+  SingleProductInfoRes({
     this.active,
     this.quantity,
     this.barcode,
     this.basePrice,
     this.salePrice,
-    this.banimodeCode,
     this.banimodeDetails,
   });
 
-  factory SingleFavoriteInfoRes.fromJson(Map<String, dynamic> json) =>
-      _$SingleFavoriteInfoResFromJson(json);
+  factory SingleProductInfoRes.fromJson(Map<String, dynamic> json) =>
+      _$SingleProductInfoResFromJson(json);
 
-  Map<String, dynamic> toJson() => _$SingleFavoriteInfoResToJson(this);
+  Map<String, dynamic> toJson() => _$SingleProductInfoResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -49,7 +46,6 @@ class SingleFavoriteInfoRes extends Equatable {
       'barcode': barcode,
       'basePrice': basePrice,
       'salePrice': salePrice,
-      'banimodeCode': banimodeCode,
       'banimodeDetails': banimodeDetails,
     };
   }
@@ -61,7 +57,6 @@ class SingleFavoriteInfoRes extends Equatable {
         barcode,
         basePrice,
         salePrice,
-        banimodeCode,
         banimodeDetails,
       ];
 }

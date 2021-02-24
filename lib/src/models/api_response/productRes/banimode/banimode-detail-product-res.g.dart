@@ -9,6 +9,9 @@ part of 'banimode-detail-product-res.dart';
 BanimodeDetailsProductRes _$BanimodeDetailsProductResFromJson(
     Map<String, dynamic> json) {
   return BanimodeDetailsProductRes(
+    productSizeGuide: (json['product_size_guide'] as List)
+        ?.map((e) => (e as List)?.map((e) => e as String)?.toList())
+        ?.toList(),
     size: (json['size'] as List)
         ?.map((e) => e == null
             ? null
@@ -30,6 +33,7 @@ BanimodeDetailsProductRes _$BanimodeDetailsProductResFromJson(
 Map<String, dynamic> _$BanimodeDetailsProductResToJson(
         BanimodeDetailsProductRes instance) =>
     <String, dynamic>{
+      'product_size_guide': instance.productSizeGuide,
       'size': instance.size,
       'images': instance.images,
       'id_color': instance.idColor,

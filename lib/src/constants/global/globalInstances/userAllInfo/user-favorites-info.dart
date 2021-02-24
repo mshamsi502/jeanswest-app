@@ -2,19 +2,18 @@ import 'package:jeanswest/src/models/api_response/productRes/banimode/banimode-d
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimodeSubDetails/banimode-image-product-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimodeSubDetails/banimode-size-product-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/dataFavorite/data-favorites-info-res.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userFavorite/dataFavorite/single-favorites-info-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 
 UserFavoriteInfoRes userFavorites = UserFavoriteInfoRes(
   data: DataFavoriteInfoRes(
     result: [
-      SingleFavoriteInfoRes(
+      SingleProductInfoRes(
         active: false,
         quantity: 0,
         barcode: "",
         basePrice: 0,
         salePrice: 0,
-        banimodeCode: 0,
         banimodeDetails: BanimodeDetailsProductRes(
           size: [
             BanimodeSizeProductRes(),

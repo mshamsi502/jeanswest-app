@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userFavorite/dataFavorite/single-favorites-info-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'data-favorites-info-res.g.dart';
@@ -13,7 +13,7 @@ part 'data-favorites-info-res.g.dart';
 // ignore: must_be_immutable
 class DataFavoriteInfoRes extends Equatable {
   @JsonKey(name: 'result')
-  List<SingleFavoriteInfoRes> result;
+  List<SingleProductInfoRes> result;
   @JsonKey(name: 'page')
   int page;
   @JsonKey(name: 'perPage')

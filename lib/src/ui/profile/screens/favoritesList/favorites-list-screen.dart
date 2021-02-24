@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/ui/profile/widgets/favoritesList/add-to-card-panel-widget.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -13,7 +14,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/product-info-grid-view-widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/favoritesList/delete-panel-widget.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 
 class FavoritesListScreen extends StatefulWidget {
   final String title;

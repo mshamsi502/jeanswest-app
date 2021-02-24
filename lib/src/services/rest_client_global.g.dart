@@ -208,8 +208,7 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<AddToCardProductDetailRes> getAddToCardProductDetailInfo(
-      barcode) async {
+  Future<ListOfProductsRes> getAddToCardProductDetailInfo(barcode) async {
     ArgumentError.checkNotNull(barcode, 'barcode');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -224,7 +223,7 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = AddToCardProductDetailRes.fromJson(_result.data);
+    final value = ListOfProductsRes.fromJson(_result.data);
     return value;
   }
 }

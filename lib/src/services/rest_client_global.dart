@@ -5,7 +5,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
-import 'package:jeanswest/src/models/api_response/productRes/add-to-card-product-detail-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
@@ -87,6 +87,6 @@ abstract class GlobalRestClient extends RestClient {
 
   // ! from Mockoon API
   @POST('http://10.1.2.94:3002/v1/getAddToCardProductDetail')
-  Future<AddToCardProductDetailRes> getAddToCardProductDetailInfo(
+  Future<ListOfProductsRes> getAddToCardProductDetailInfo(
       @Body() Map<String, dynamic> barcode);
 }

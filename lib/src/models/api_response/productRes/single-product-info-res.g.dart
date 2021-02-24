@@ -1,20 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'single-favorites-info-res.dart';
+part of 'single-product-info-res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SingleFavoriteInfoRes _$SingleFavoriteInfoResFromJson(
-    Map<String, dynamic> json) {
-  return SingleFavoriteInfoRes(
+SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
+  return SingleProductInfoRes(
     active: json['active'] as bool,
     quantity: json['quantity'] as int,
     barcode: json['barcode'] as String,
     basePrice: json['basePrice'] as int,
     salePrice: json['salePrice'] as int,
-    banimodeCode: json['banimodeCode'] as int,
     banimodeDetails: json['banimodeDetails'] == null
         ? null
         : BanimodeDetailsProductRes.fromJson(
@@ -22,14 +20,13 @@ SingleFavoriteInfoRes _$SingleFavoriteInfoResFromJson(
   );
 }
 
-Map<String, dynamic> _$SingleFavoriteInfoResToJson(
-        SingleFavoriteInfoRes instance) =>
+Map<String, dynamic> _$SingleProductInfoResToJson(
+        SingleProductInfoRes instance) =>
     <String, dynamic>{
       'active': instance.active,
       'quantity': instance.quantity,
       'barcode': instance.barcode,
       'basePrice': instance.basePrice,
       'salePrice': instance.salePrice,
-      'banimodeCode': instance.banimodeCode,
       'banimodeDetails': instance.banimodeDetails,
     };

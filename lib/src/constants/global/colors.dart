@@ -13,6 +13,7 @@ const Color F2_BACKGROUND_COLOR = Color(0xfff2f2f2);
 const Color F1_BACKGROUND_COLOR = Color(0xfff1f1f1);
 const Color FE_BACKGROUND_COLOR = Color(0xffFEFEFE);
 const Color GREY_FADE_BACKGROUND_COLOR = Color(0x90bdbdbd);
+const Color GREY_FADE_SELECTED_COLOR = Color(0x50bdbdbd);
 //
 const Color MAIN_GOLD_COLOR = Color(0xFFFFC107);
 const Color MAIN_ORANGE_COLOR = Color(0xFFFEC233);

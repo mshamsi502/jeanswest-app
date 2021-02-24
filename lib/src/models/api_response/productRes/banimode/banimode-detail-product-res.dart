@@ -13,6 +13,8 @@ part 'banimode-detail-product-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class BanimodeDetailsProductRes extends Equatable {
+  @JsonKey(name: 'product_size_guide')
+  List<List<String>> productSizeGuide;
   @JsonKey(name: 'size')
   List<BanimodeSizeProductRes> size;
   @JsonKey(name: 'images')
@@ -31,6 +33,7 @@ class BanimodeDetailsProductRes extends Equatable {
   String productManufacturerEnName;
 
   BanimodeDetailsProductRes({
+    this.productSizeGuide,
     this.size,
     this.images,
     this.idColor,
@@ -48,6 +51,7 @@ class BanimodeDetailsProductRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'product_size_guide': productSizeGuide,
       'size': size,
       'images': images,
       'id_color': idColor,
@@ -61,6 +65,7 @@ class BanimodeDetailsProductRes extends Equatable {
 
   @override
   List<Object> get props => [
+        productSizeGuide,
         size,
         images,
         idColor,

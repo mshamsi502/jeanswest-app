@@ -6,8 +6,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
-import 'package:jeanswest/src/models/api_response/productRes/add-to-card-product-detail-res.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userFavorite/dataFavorite/single-favorites-info-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
@@ -16,7 +16,7 @@ import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
 class ProductInfoGridViewWidget extends StatefulWidget {
   final double width;
-  final SingleFavoriteInfoRes product;
+  final SingleProductInfoRes product;
   final int productIndex;
   final bool hasDelete;
   final bool hasAddToFav;
@@ -95,7 +95,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                                 6
                             ? 2
                             : 0] ??
-                        'https://www.jeanswest.ir/b2b/assets/img/brand/avakatan.png',
+                        EMPTY_IMAGE,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -258,7 +258,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                         Map<String, String> reqBody = {
                           "barcode": widget.product.barcode,
                         };
-                        AddToCardProductDetailRes _addToCardProductDetailRes =
+                        ListOfProductsRes _addToCardProductDetailRes =
                             await globalLocator<GlobalRestClient>()
                                 .getAddToCardProductDetailInfo(reqBody);
                         setState(() {

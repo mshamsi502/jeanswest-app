@@ -11,7 +11,7 @@ DataFavoriteInfoRes _$DataFavoriteInfoResFromJson(Map<String, dynamic> json) {
     result: (json['result'] as List)
         ?.map((e) => e == null
             ? null
-            : SingleFavoriteInfoRes.fromJson(e as Map<String, dynamic>))
+            : SingleProductInfoRes.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     page: json['page'] as int,
     perPage: json['perPage'] as int,
