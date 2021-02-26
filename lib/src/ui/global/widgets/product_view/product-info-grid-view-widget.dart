@@ -21,6 +21,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
   final bool hasDelete;
   final bool hasAddToFav;
   final bool isFave;
+  final bool productIsActive;
   final Function(int) deleteFromFav;
   final Function(int) addToCardFromFav;
 
@@ -34,15 +35,18 @@ class ProductInfoGridViewWidget extends StatefulWidget {
     this.deleteFromFav,
     this.productIndex,
     this.addToCardFromFav,
+    this.productIsActive,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoGridViewWidgetState();
 }
 
 class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
-  bool productIsActive;
-  int sizeIsActive;
+  // bool productIsActive;
   int discountPercent;
+  //
+  int selectedColor;
+  int selectedSize;
 
   @override
   void initState() {
@@ -51,14 +55,13 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
             100)
         .round();
     print('discountPercent : $discountPercent');
-    productIsActive = false;
-    for (int i = 0; i < widget.product.banimodeDetails.size.length; i++) {
-      sizeIsActive = widget.product.banimodeDetails.size[i].active;
-      if (sizeIsActive == 1) {
-        productIsActive = true;
-        break;
-      }
-    }
+    // productIsActive = false;
+    // for (int i = 0; i < widget.product.banimodeDetails.size.length; i++) {
+    //   if (widget.product.banimodeDetails.size[i].quantity != 0) {
+    //     productIsActive = true;
+    //     break;
+    //   }
+    // }
 
     super.initState();
   }
@@ -99,7 +102,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                productIsActive
+                widget.productIsActive
                     ? SizedBox()
                     : Container(
                         color: GREY_FADE_BACKGROUND_COLOR,
@@ -135,8 +138,13 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                           width: 35,
                           padding: EdgeInsets.all(6),
                           child: GestureDetector(
-                            onTap: () =>
-                                widget.deleteFromFav(widget.productIndex),
+                            onTap: () {
+                              // !!!!!
+
+                              widget.deleteFromFav(widget.productIndex);
+
+                              // productIsActive = false;
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -187,7 +195,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        productIsActive && discountPercent != 0
+                        widget.productIsActive && discountPercent != 0
                             ? Text(
                                 toPriceStyle(widget.product.basePrice),
                                 style: TextStyle(
@@ -197,11 +205,11 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                               )
                             : SizedBox(),
                         Text(
-                          productIsActive
+                          widget.productIsActive
                               ? toPriceStyle(widget.product.salePrice)
                               : 'ناموجود',
                           style: TextStyle(
-                            color: productIsActive
+                            color: widget.productIsActive
                                 ? Colors.black
                                 : MAIN_ORANGE_COLOR,
                             fontSize: 14,
@@ -216,7 +224,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                     // color: Colors.green,
                     width: 40,
                     height: 45,
-                    child: productIsActive && discountPercent != 0
+                    child: widget.productIsActive && discountPercent != 0
                         ? Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -251,7 +259,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                 width: 45,
                 child: GestureDetector(
                   onTap: () async {
-                    if (widget.productIndex == 2) {
+                    if (widget.productIsActive) {
+                      print('barcode : ${widget.product.barcode}');
                       // ! if is sfor test, delete it
                       try {
                         print('barcode : ${widget.product.barcode}');
@@ -273,7 +282,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                         print('error :(');
                       }
                     } else // ! for test, delete it
-                      print('no data :)');
+                      print('no exist :)');
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -286,7 +295,9 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                     child: Icon(
                       Icons.add_shopping_cart,
                       size: 25,
-                      color: MAIN_BLUE_COLOR,
+                      color: widget.productIsActive
+                          ? MAIN_BLUE_COLOR
+                          : Colors.grey,
                     ),
                   ),
                 ),

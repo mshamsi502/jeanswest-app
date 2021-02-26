@@ -21,3 +21,4 @@ const Color RED_ERROR_COLOR = Color(0x15FF1717);
 const Color BLUE_SKY_COLOR = Color(0xffE4E9F8);
 const Color LIGHT_BLUE_SKY_COLOR = Color(0xFFF8FAFF);
 const Color YELLOW_SKIN_COLOR = Color.fromRGBO(0xff, 0xa5, 0x13, 0.18);
+const Color BLUE_SKY_FADE_COLOR = Color.fromRGBO(0xb4, 0xd9, 0xff, 0.35);

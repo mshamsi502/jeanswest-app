@@ -33,14 +33,41 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
   PanelController deleteProductPanel;
   PanelController addToCardPanel;
   int selectedProduct;
+  List<bool> activeProducts;
+  //
+  int selectedColor;
+  int selectedSize;
 
   @override
   void initState() {
     scrollController = new ScrollController();
     deleteProductPanel = new PanelController();
     addToCardPanel = new PanelController();
+    activeProducts = createActiveProducts();
     selectedProduct = 0;
+    selectedColor = 0;
+    selectedSize = -1;
+    //
+
     super.initState();
+  }
+
+  List<bool> createActiveProducts() {
+    // ignore: deprecated_member_use
+    List<bool> activtionProducts = new List<bool>();
+    for (int j = 0; j < widget.products.data.result.length; j++) {
+      bool isBreak = false;
+      for (int i = 0;
+          i < widget.products.data.result[j].banimodeDetails.size.length;
+          i++) {
+        if (widget.products.data.result[j].banimodeDetails.size[i].quantity !=
+            0) {
+          isBreak = true;
+        }
+      }
+      isBreak ? activtionProducts.add(true) : activtionProducts.add(false);
+    }
+    return activtionProducts;
   }
 
   @override
@@ -66,19 +93,38 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 closeDeletePanel: () {
                   setState(() {});
                   deleteProductPanel.close();
+                  // ignore: deprecated_member_use
+                  List<bool> activtionProducts = new List<bool>();
+
+                  activtionProducts = createActiveProducts();
+                  setState(() {
+                    activeProducts = activtionProducts;
+                  });
                 }),
             body: SlidingUpPanel(
               controller: addToCardPanel,
               minHeight: 0,
-              maxHeight: 300,
+              maxHeight: 390,
               backdropEnabled: true,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
               ),
+              onPanelClosed: () => setState(() {
+                selectedColor = 0;
+                selectedSize = -1;
+              }),
               panel: AddToCardPanelWidget(
                 productDetail: addToCardProductDetailRes,
                 closeAddToCardPanel: () => addToCardPanel.close(),
+                selectedColor: selectedColor,
+                selectedSize: selectedSize,
+                changeSelectedColor: (int value) => setState(() {
+                  selectedColor = value;
+                }),
+                changeSelectedSize: (int value) => setState(() {
+                  selectedSize = value;
+                }),
               ),
               body: Column(
                 children: [
@@ -122,6 +168,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                     productIndex: index * 2,
                                     hasDelete: true,
                                     hasAddToFav: false,
+                                    productIsActive: activeProducts[index * 2],
                                     addToCardFromFav: (int productIndex) {
                                       setState(() {
                                         selectedProduct = productIndex;
@@ -147,6 +194,8 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                           hasDelete: true,
                                           hasAddToFav: false,
                                           isFave: index == 0,
+                                          productIsActive:
+                                              activeProducts[(index * 2) + 1],
                                           addToCardFromFav: (int productIndex) {
                                             setState(() {
                                               selectedProduct = productIndex;
