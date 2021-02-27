@@ -4,9 +4,9 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/test_data/product.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/models/order/exact_time_order.dart';
 import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/models/order/period_time_order.dart';

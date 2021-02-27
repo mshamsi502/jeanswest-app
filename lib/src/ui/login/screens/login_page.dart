@@ -61,7 +61,9 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode searchInputNode = FocusNode();
   TextEditingController searchTextEditingController =
       new TextEditingController();
+  // ignore: deprecated_member_use
   List<Country> allCountries = new List<Country>();
+  // ignore: deprecated_member_use
   List<Country> searchedCountries = new List<Country>();
   Map<String, dynamic> map = CountriesCodeList.PERSIAN_GULF_COUNTRY_LIST;
   Country selectedCountry;
@@ -334,6 +336,7 @@ class _LoginPageState extends State<LoginPage> {
   showSnackBarError(String msg, BuildContext _context, Size _screenSize) {
     // ignore: deprecated_member_use
     // Scaffold.of(_context).showSnackBar(
+    // ignore: deprecated_member_use
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         elevation: 0,

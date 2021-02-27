@@ -14,7 +14,7 @@ import 'package:jeanswest/src/ui/profile/widgets/global/edit_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/user_account_info/info_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 
 class AccountInfoScreen extends StatefulWidget {
   final PanelState initPanelState;

@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';

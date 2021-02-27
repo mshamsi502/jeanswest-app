@@ -32,6 +32,7 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
   bool haveUnreadMessage;
   @override
   void initState() {
+    // ignore: deprecated_member_use
     readMessages = new List<bool>();
     for (var i = 0; i < userMessages.length; i++) {
       readMessages.add(false);

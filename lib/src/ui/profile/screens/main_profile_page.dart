@@ -9,10 +9,10 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-payment-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-invite-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
 //
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';

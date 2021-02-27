@@ -14,8 +14,7 @@ import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 // import 'package:jeanswest/src/models/api_response/loginRes/mockoonRes/login-and-get-token-res.dart';
 // import 'package:jeanswest/src/models/api_response/loginRes/mockoonRes/login-and-get-token-res.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-// import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
-import 'package:jeanswest/src/services/jeanswestApis/rest_client_unauth.dart';
+import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/getAllInfo/get-all-info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -67,7 +66,7 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
       };
       print('widget.phoneNumber : 0${widget.phoneNumber}');
       GlobalResponseJData globalResponseJData =
-          await globalLocator<UnAuthRestClient>().reqOtp(reqBody);
+          await globalLocator<GlobalRestClient>().reqOtp(reqBody);
       if (globalResponseJData.data == "message sent") {
         // if (globalResponseJData.statusCode == 201) {
         print('req is successfuly , data ${globalResponseJData.data}');
@@ -115,7 +114,7 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
       };
 
       AuthRes authRes =
-          await globalLocator<UnAuthRestClient>().reqAuth(reqBody);
+          await globalLocator<GlobalRestClient>().reqAuth(reqBody);
       if (authRes.token != null) {
         print('req is successfuly , token ${authRes.token}');
         globalLocator<SharedPreferences>().setString(TOKEN, authRes.token);
