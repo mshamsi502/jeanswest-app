@@ -6,13 +6,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:math' as math; // im
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
-import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
-import 'package:jeanswest/src/utils/helper/profile/helper_favorite.dart';
 
 class SizeGuideProductWidget extends StatefulWidget {
   final ListOfProductsRes productDetail;
@@ -32,21 +27,28 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 500,
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      // color: Colors.amber,
+      padding: EdgeInsets.symmetric(
+        horizontal: 0.054 * _screenSize.width, //20
+      ),
       child: Column(
         children: [
           Row(
             children: [
-              Text('راهنمای انتخاب سایز'),
+              Text(
+                'راهنمای انتخاب سایز',
+                style: TextStyle(
+                  fontSize: 0.038 * _screenSize.width, //14,
+                ),
+              ),
               Expanded(child: SizedBox()),
               GestureDetector(
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(
+                    0.0138 * _screenSize.width, //5
+                  ),
                   child: Icon(
                     Icons.close,
-                    size: 25,
+                    size: 0.069 * _screenSize.width, //25,
                     color: Colors.black,
                   ),
                 ),
@@ -54,19 +56,20 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
               ),
             ],
           ),
-          SizedBox(height: 15),
-          // Expanded(
-          //   child:
+          SizedBox(
+            height: 0.023 * _screenSize.height, //15
+          ),
           Container(
-            // color: Colors.green,
-            height: 300,
+            height: 0.5067 * _screenSize.height, //300,
             child: Stack(
               children: [
                 Positioned(
-                  top: 20,
+                  top: 0.03125 * _screenSize.height, //20
                   child: Container(
-                    height: 20,
-                    width: _screenSize.width - 40,
+                    height: 0.03125 * _screenSize.height, //20
+                    width: _screenSize.width -
+                        (0.111 * _screenSize.width //40,
+                        ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.symmetric(
@@ -76,8 +79,10 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                   ),
                 ),
                 Container(
-                  height: 40,
-                  width: _screenSize.width - 40,
+                  height: 0.0625 * _screenSize.height, //40
+                  width: _screenSize.width -
+                      (0.111 * _screenSize.width //40,
+                      ),
                   child: ListView.builder(
                     itemCount: widget.productDetail.data[0].banimodeDetails
                         .productSizeGuide[0].length,
@@ -86,45 +91,58 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        height: 40,
+                        height: 0.0625 * _screenSize.height, //40
                         alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(horizontal: 5),
-                        width: (_screenSize.width - 40) /
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 0.0138 * _screenSize.width, //5
+                        ),
+                        width: (_screenSize.width -
+                                (0.111 * _screenSize.width //40,
+                                )) /
                             (widget.productDetail.data[0].banimodeDetails
                                 .productSizeGuide[0].length),
                         decoration: BoxDecoration(
                           color: BLUE_SKY_FADE_COLOR,
                           borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(index == 0 ? 30 : 0),
-                            topRight: Radius.circular(index == 0 ? 30 : 0),
+                            bottomRight: Radius.circular(index == 0
+                                ? 0.083 * _screenSize.width //30
+                                : 0),
+                            topRight: Radius.circular(index == 0
+                                ? 0.083 * _screenSize.width //30
+                                : 0),
                             topLeft: Radius.circular(index ==
                                     widget.productDetail.data[0].banimodeDetails
                                             .productSizeGuide[0].length -
                                         1
-                                ? 30
+                                ? 0.083 * _screenSize.width //30
                                 : 0),
                             bottomLeft: Radius.circular(index ==
                                     widget.productDetail.data[0].banimodeDetails
                                             .productSizeGuide[0].length -
                                         1
-                                ? 30
+                                ? 0.083 * _screenSize.width //30
                                 : 0),
                           ),
                         ),
                         child: Text(
                           widget.productDetail.data[0].banimodeDetails
                               .productSizeGuide[0][index],
-                          style: TextStyle(fontSize: 12),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 0.03 * _screenSize.width, //12,
+                          ),
                         ),
                       );
                     },
                   ),
                 ),
                 Positioned(
-                  top: 40,
+                  top: 0.0625 * _screenSize.height, //40
                   child: Container(
-                    height: 250,
-                    width: _screenSize.width - 40,
+                    height: 0.4 * _screenSize.height, //250,
+                    width: _screenSize.width -
+                        (0.111 * _screenSize.width //40,
+                        ),
                     child: ListView.builder(
                       itemCount: widget.productDetail.data[0].banimodeDetails
                           .productSizeGuide.length,
@@ -135,9 +153,11 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                         return indexInColumn == 0
                             ? SizedBox()
                             : Container(
-                                height: 40,
+                                height: 0.0625 * _screenSize.height, //40
                                 alignment: Alignment.center,
-                                width: _screenSize.width - 40,
+                                width: _screenSize.width -
+                                    (0.111 * _screenSize.width //40,
+                                    ),
                                 child: ListView.builder(
                                   itemCount: widget
                                       .productDetail
@@ -151,11 +171,15 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                                   itemBuilder:
                                       (BuildContext context, int indexInRow) {
                                     return Container(
-                                      height: 40,
+                                      height: 0.0625 * _screenSize.height, //40
                                       alignment: Alignment.center,
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      width: (_screenSize.width - 40) /
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            0.0138 * _screenSize.width, //5
+                                      ),
+                                      width: (_screenSize.width -
+                                              (0.111 * _screenSize.width //40,
+                                              )) /
                                           (widget
                                               .productDetail
                                               .data[0]
@@ -181,7 +205,11 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                                                 .banimodeDetails
                                                 .productSizeGuide[indexInColumn]
                                             [indexInRow],
-                                        style: TextStyle(fontSize: 12),
+                                        // textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize:
+                                              0.034 * _screenSize.width, //12,
+                                        ),
                                       ),
                                     );
                                   },

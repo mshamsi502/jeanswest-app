@@ -45,12 +45,18 @@ class _AddToCardPanelWidgetState extends State<AddToCardPanelWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.008 * _screenSize.height, //5
+      ),
       decoration: BoxDecoration(
         // color: Colors.red,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(11),
-          topRight: Radius.circular(11),
+          topLeft: Radius.circular(
+            0.03 * _screenSize.width, //11
+          ),
+          topRight: Radius.circular(
+            0.03 * _screenSize.width, //11
+          ),
         ),
       ),
       child: showSizeGuid

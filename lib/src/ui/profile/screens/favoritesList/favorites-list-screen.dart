@@ -81,21 +81,24 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
           body: SlidingUpPanel(
             controller: deleteProductPanel,
             minHeight: 0,
-            maxHeight: 150,
+            maxHeight: 0.234 * _screenSize.height, //150,
             backdropEnabled: true,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              topLeft: Radius.circular(
+                0.083 * _screenSize.width, //30
+              ),
+              topRight: Radius.circular(
+                0.083 * _screenSize.width, //30
+              ),
             ),
             panel: DeletePanelWidget(
-                height: 150,
+                height: 0.234 * _screenSize.height, //150,
                 selectedProduct: selectedProduct,
                 closeDeletePanel: () {
                   setState(() {});
                   deleteProductPanel.close();
                   // ignore: deprecated_member_use
                   List<bool> activtionProducts = new List<bool>();
-
                   activtionProducts = createActiveProducts();
                   setState(() {
                     activeProducts = activtionProducts;
@@ -104,11 +107,15 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
             body: SlidingUpPanel(
               controller: addToCardPanel,
               minHeight: 0,
-              maxHeight: 390,
+              maxHeight: 0.6587 * _screenSize.height, //390,
               backdropEnabled: true,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+                topLeft: Radius.circular(
+                  0.083 * _screenSize.width, //30
+                ),
+                topRight: Radius.circular(
+                  0.083 * _screenSize.width, //30
+                ),
               ),
               onPanelClosed: () => setState(() {
                 selectedColor = 0;
@@ -130,7 +137,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 children: [
                   Container(
                     color: Colors.white,
-                    height: 5,
+                    height: 0.008 * _screenSize.height, //5
                   ),
                   AppBarWithBackWidget(
                     title: widget.title,
@@ -138,16 +145,22 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                   ),
                   Container(
                     color: Colors.white,
-                    height: 5,
+                    height: 0.008 * _screenSize.height, //5
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 5),
+                    margin: EdgeInsets.symmetric(
+                      vertical: 0.008 * _screenSize.height, //5
+                    ),
                     color: Colors.grey[300],
-                    height: 3,
+                    height: 0.0046 * _screenSize.height, //3,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    height: _screenSize.height - 70,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.027 * _screenSize.width, //10,
+                    ),
+                    height: _screenSize.height -
+                        (0.19 * _screenSize.width //70
+                        ),
                     color: Colors.white,
                     child: SingleChildScrollView(
                       child: ListView.builder(
@@ -162,7 +175,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                               Row(
                                 children: [
                                   ProductInfoGridViewWidget(
-                                    width: ((_screenSize.width / 2) - 15),
+                                    width: ((_screenSize.width / 2) -
+                                        (0.041 * _screenSize.width //15,
+                                        )),
                                     product:
                                         widget.products.data.result[index * 2],
                                     productIndex: index * 2,
@@ -182,12 +197,16 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                       deleteProductPanel.open();
                                     },
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(
+                                    width: 0.027 * _screenSize.width, //10,
+                                  ),
                                   (widget.products.data.result.length / 2)
                                               .floor() >
                                           index
                                       ? ProductInfoGridViewWidget(
-                                          width: ((_screenSize.width / 2) - 15),
+                                          width: ((_screenSize.width / 2) -
+                                              (0.041 * _screenSize.width //15,
+                                              )),
                                           product: widget.products.data
                                               .result[(index * 2) + 1],
                                           productIndex: (index * 2) + 1,
@@ -212,7 +231,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                       : Container(),
                                 ],
                               ),
-                              SizedBox(height: 30),
+                              SizedBox(
+                                height: 0.046 * _screenSize.height, //30
+                              ),
                             ],
                           );
                         },

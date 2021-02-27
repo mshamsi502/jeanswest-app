@@ -70,27 +70,36 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
             Expanded(child: SizedBox()),
             GestureDetector(
               child: Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(
+                  0.0138 * _screenSize.width, //5
+                ),
                 child: Icon(
                   Icons.close,
-                  size: 25,
+                  size: 0.069 * _screenSize.width, //25,
                   color: Colors.black,
                 ),
               ),
               onTap: () => widget.closeAddToCardPanel(),
             ),
-            SizedBox(width: 15),
+            SizedBox(
+              width: 0.041 * _screenSize.width, //15,
+            ),
           ],
         ),
-        SizedBox(height: 5),
+        SizedBox(
+          height: 0.008 * _screenSize.height, //5
+        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          padding: EdgeInsets.symmetric(
+            horizontal: 0.054 * _screenSize.width, //20
+            vertical: 0.008 * _screenSize.height, //5
+          ),
           child: Row(
             children: [
               Text(
                 "انتخاب سایز : ",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 0.038 * _screenSize.width, //14,
                 ),
               ),
               Text(
@@ -98,7 +107,7 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                     ? ""
                     : "( ${widget.productDetail.data[widget.selectedColor].banimodeDetails.size[widget.selectedSize].name} )",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 0.038 * _screenSize.width, //14,
                 ),
               ),
               Expanded(child: SizedBox()),
@@ -108,24 +117,31 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                   icon: Transform(
                     alignment: Alignment.center,
                     transform: Matrix4.rotationY(math.pi),
-                    child: Icon(Icons.help_outline,
-                        color: MAIN_BLUE_COLOR, size: 18),
+                    child: Icon(
+                      Icons.help_outline,
+                      color: MAIN_BLUE_COLOR,
+                      size: 0.05 * _screenSize.width, //18,
+                    ),
                   ),
                   textColor: MAIN_BLUE_COLOR,
                   backgroundColor: Colors.grey[200],
-                  textSize: 11,
+                  textSize: 0.03 * _screenSize.width, //11
                   fontWeight: FontWeight.w600,
                   borderColor: Colors.grey[200],
                 ),
                 onTap: () => widget.showSizeGuid(),
               ),
-              SizedBox(width: 5),
+              SizedBox(
+                width: 0.0138 * _screenSize.width, //5
+              ),
             ],
           ),
         ),
-        SizedBox(height: 5),
+        SizedBox(
+          height: 0.008 * _screenSize.height, //5
+        ),
         Container(
-          height: 30,
+          height: 0.046 * _screenSize.height, //30
           width: _screenSize.width,
           child: ListView.builder(
             controller: sizeScrollController,
@@ -136,7 +152,10 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
             itemBuilder: (BuildContext context, int index) {
               return Row(
                 children: [
-                  SizedBox(width: index == 0 ? 20 : 0),
+                  SizedBox(
+                      width: index == 0
+                          ? 0.054 * _screenSize.width //20
+                          : 0),
                   GestureDetector(
                       child: AvakatanLabelWidget(
                         text: widget.productDetail.data[widget.selectedColor]
@@ -161,7 +180,7 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                                 0
                             ? Colors.grey[300]
                             : Colors.white,
-                        textSize: 13,
+                        textSize: 0.033 * _screenSize.width, //13,
                         fontWeight: widget
                                         .productDetail
                                         .data[widget.selectedColor]
@@ -192,13 +211,15 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                         else
                           print('this size is not exist');
                       }),
-                  SizedBox(width: 5),
+                  SizedBox(
+                    width: 0.0138 * _screenSize.width, //5
+                  ),
                   SizedBox(
                     width: index ==
                             widget.productDetail.data[widget.selectedColor]
                                     .banimodeDetails.size.length -
                                 1
-                        ? 15
+                        ? 0.041 * _screenSize.width //15,
                         : 0,
                   ),
                 ],
@@ -206,28 +227,33 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
             },
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(
+          height: 0.023 * _screenSize.height, //15
+        ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(
+              horizontal: 0.054 * _screenSize.width, //20
+              vertical: 0.016 * _screenSize.height //10
+              ),
           child: Row(
             children: [
               Text(
                 "انتخاب رنگ : ",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 0.038 * _screenSize.width, //14,
                 ),
               ),
               Text(
                 "( ${widget.productDetail.data[widget.selectedColor].banimodeDetails.colorName} )",
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 0.038 * _screenSize.width, //14,
                 ),
               ),
             ],
           ),
         ),
         Container(
-          height: 100,
+          height: 0.15625 * _screenSize.height, //100,
           width: _screenSize.width,
           child: ListView.builder(
             controller: colorScrollController,
@@ -237,14 +263,21 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
             itemBuilder: (BuildContext context, int index) {
               return Row(
                 children: [
-                  SizedBox(width: index == 0 ? 20 : 0),
+                  SizedBox(
+                      width: index == 0
+                          ? 0.054 * _screenSize.width //20
+                          : 0),
                   GestureDetector(
                       child: Container(
-                        width: 70,
-                        margin: EdgeInsets.all(2),
+                        width: 0.19 * _screenSize.width, //70,
+                        margin: EdgeInsets.all(
+                          0.00555 * _screenSize.width, //2,
+                        ),
                         decoration: BoxDecoration(
                           // color: Colors.red,
-                          borderRadius: BorderRadius.circular(2),
+                          borderRadius: BorderRadius.circular(
+                            0.00555 * _screenSize.width, //2,
+                          ),
                           border: Border.all(
                             color: Colors.grey[300],
                           ),
@@ -265,24 +298,31 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                                   : Colors.transparent,
                             ),
                             Positioned(
-                              top: 7,
+                              top: 0.011 * _screenSize.height, //7
                               right: 0,
                               child: productIsActive[index]
                                   ? Container()
                                   : Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 5),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            0.0138 * _screenSize.width, //5
+                                      ),
                                       decoration: BoxDecoration(
                                         color: MAIN_ORANGE_COLOR,
                                         borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(50),
-                                          bottomLeft: Radius.circular(50),
+                                          topLeft: Radius.circular(
+                                            0.138 * _screenSize.width, //50
+                                          ),
+                                          bottomLeft: Radius.circular(
+                                            0.138 * _screenSize.width, //50
+                                          ),
                                         ),
                                       ),
                                       child: Text(
                                         'ناموجود',
                                         style: TextStyle(
-                                          fontSize: 11,
+                                          fontSize:
+                                              0.03 * _screenSize.width, //11
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -297,26 +337,33 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                             .productDetail.data[index].banimodeDetails.size);
                         widget.changeSelectedSize(selectedSize);
                       }),
-                  SizedBox(width: 5),
                   SizedBox(
-                    width:
-                        index == widget.productDetail.data.length - 1 ? 15 : 0,
+                    width: 0.0138 * _screenSize.width, //5
+                  ),
+                  SizedBox(
+                    width: index == widget.productDetail.data.length - 1
+                        ? 0.041 * _screenSize.width //15,
+                        : 0,
                   ),
                 ],
               );
             },
           ),
         ),
-        SizedBox(height: 25),
+        SizedBox(
+          height: 0.039 * _screenSize.height, //25,
+        ),
         AvakatanButtonWidget(
           backgroundColor: MAIN_BLUE_COLOR,
           textColor: Colors.white,
           borderColor: Colors.transparent,
           title: 'تایید و ادامه',
-          width: _screenSize.width - 40,
-          height: 43,
+          width: _screenSize.width -
+              (0.111 * _screenSize.width //40,
+              ),
+          height: 0.07263 * _screenSize.height, //43,
           radius: 0.008 * _screenSize.height, //5
-          fontSize: 16,
+          fontSize: 0.0444 * _screenSize.width, //16,
           onTap: () {
             // ! add to shopping baskets
           },

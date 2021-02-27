@@ -16,7 +16,13 @@ UserFavoriteInfoRes userFavorites = UserFavoriteInfoRes(
         salePrice: 0,
         banimodeDetails: BanimodeDetailsProductRes(
           size: [
-            BanimodeSizeProductRes(),
+            BanimodeSizeProductRes(
+              name: "",
+              active: 0,
+              idSize: 0,
+              position: 0,
+              quantity: 0,
+            ),
           ],
           images: BanimodeImageProductRes(
             cartDefault: [""],
