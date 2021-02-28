@@ -17,6 +17,7 @@ const Color GREY_FADE_SELECTED_COLOR = Color(0x50bdbdbd);
 //
 const Color MAIN_GOLD_COLOR = Color(0xFFFFC107);
 const Color MAIN_ORANGE_COLOR = Color(0xFFFEC233);
+const Color GREEN_TEXT_COLOR = Color(0xFF32BE93);
 const Color RED_ERROR_COLOR = Color(0x15FF1717);
 const Color BLUE_SKY_COLOR = Color(0xffE4E9F8);
 const Color LIGHT_BLUE_SKY_COLOR = Color(0xFFF8FAFF);

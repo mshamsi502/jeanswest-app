@@ -8,12 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
-import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
+// import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
+// import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/user_account_info/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
@@ -62,33 +62,35 @@ List<Widget> createProfileListMenuPages(
   profileListMenu.add(AddressesListPage(
     title: 'لیست آدرس ها',
   ));
-  profileListMenu.add(
-    TabBarViewPage(
-      title: 'دوستان',
-      selectedTab: 1,
-      tabTitles: [
-        'دعوت دوست',
-        'دوستان من',
-      ],
-      tabWidgets: [
-        InviteFrindePage(
-          userId: 'user-${user.phoneNumber}',
-          receivedGift: userInvite.receivedGift,
-          someOfInvited: userInvite.someOfInvited,
-          someOfInstallFromInvited: userInvite.someOfInstallFromInvited,
-          someOfShoppingFromInvited: userInvite.someOfShoppingFromInvited,
-        ),
-        UserFriendsListPage(
-          friends: userFriends.friends,
-        ),
-      ],
-      bottomButton: 'ارسال لینک',
-      bottomButtonFunction: bottomButtonFunction,
-    ),
-  );
+  // profileListMenu.add(
+
+  // TabBarViewPage(
+  //   title: 'دوستان',
+  //   selectedTab: 1,
+  //   tabTitles: [
+  //     'دعوت دوست',
+  //     'دوستان من',
+  //   ],
+  //   tabWidgets: [
+  //     InviteFrindePage(
+  //       userId: 'user-${user.phoneNumber}',
+  //       receivedGift: userInvite.receivedGift,
+  //       someOfInvited: userInvite.someOfInvited,
+  //       someOfInstallFromInvited: userInvite.someOfInstallFromInvited,
+  //       someOfShoppingFromInvited: userInvite.someOfShoppingFromInvited,
+  //     ),
+  //     UserFriendsListPage(
+  //       friends: userFriends.friends,
+  //     ),
+  //   ],
+  //   bottomButton: 'ارسال لینک',
+  //   bottomButtonFunction: bottomButtonFunction,
+  // ),
+  // );
   profileListMenu.add(AccountInfoScreen(
     initPanelState: PanelState.CLOSED,
   ));
+
   return profileListMenu;
 }
 
@@ -101,15 +103,15 @@ List<Widget> createMoreListMenuPages() {
   return profileListMenu;
 }
 
-bottomButtonFunction() {
-  String link = 'club.avakatan.ir/public/jeanswest.apk';
-  String text = 'به جین وست ملحق شو :)\n$link';
+bottomButtonFunction(String textLink) {
+  // String link = 'club.avakatan.ir/public/jeanswest.apk';
+  // String text = 'به جین وست ملحق شو :)\n$link';
 
   if (Platform.isAndroid) {
     android_intent.Intent()
       ..setAction(android_action.Action.ACTION_SEND)
       ..setType('text/plain')
-      ..putExtra(android_extra.Extra.EXTRA_TEXT, text)
+      ..putExtra(android_extra.Extra.EXTRA_TEXT, textLink)
       ..startActivity().catchError((e) => print(e));
   }
   //  else if (Platform.isIOS) {

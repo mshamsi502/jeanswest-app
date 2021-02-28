@@ -16,7 +16,7 @@ List<String> mainProfileListTitles = [
   "profile_screen.my_orders".tr(),
   "profile_screen.favourite_list".tr(),
   "profile_screen.my_addresses".tr(),
-  "profile_screen.friends".tr(),
+  // "profile_screen.friends".tr(),
   "profile_screen.info_account".tr(),
   "profile_screen.exit_from_account".tr(),
 ];
@@ -25,7 +25,7 @@ List<Widget> mainProfileListIcons = [
   ProfileSvgImages.myOrdersIcon,
   ProfileSvgImages.favoriteIcon,
   ProfileSvgImages.addressesIcon,
-  ProfileSvgImages.friendsIcon,
+  // ProfileSvgImages.friendsIcon,
   ProfileSvgImages.profileIcon,
   ProfileSvgImages.exitIcon,
 ];

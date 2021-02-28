@@ -16,7 +16,8 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.dart';
 
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'account_info/custom_text_field_widget.dart';
+
+import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 
 class EditInfoWidget extends StatefulWidget {
   final String title;
@@ -201,6 +202,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                     firstNameEditingController,
                                 // initText: widget.firstName ?? 'کاربر',
                                 initText: user.firstName ?? 'کاربر',
+                                mediaQuery: MediaQuery.of(context),
+                                lines: 1,
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
@@ -210,6 +213,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                     lastNameEditingController,
                                 // initText: widget.firstName ?? 'جدید',
                                 initText: user.firstName ?? 'جدید',
+                                mediaQuery: MediaQuery.of(context),
+                                lines: 1,
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
@@ -219,6 +224,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                 initText:
                                     // widget.email ?? 'mshamsi502@gmail.com',
                                     user.email ?? 'mshamsi502@gmail.com',
+                                mediaQuery: MediaQuery.of(context),
+                                lines: 1,
                               ),
                               SizedBox(height: 20),
                               CustomTextFieldWidget(
@@ -228,6 +235,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                                     phoneNumberEditingController,
                                 // initText: widget.phoneNumber ?? '9176509634',
                                 initText: user.phoneNumber ?? '9176509634',
+                                mediaQuery: MediaQuery.of(context),
+                                lines: 1,
                               ),
                               // SizedBox(height: 20),
                               // SelectGenderWidget(

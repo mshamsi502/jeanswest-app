@@ -38,3 +38,18 @@ const List<String> answerStrings = [
   shortLoremIpsum1,
   shortLoremIpsum2,
 ];
+//
+const List<String> friendsQueFaq = [
+  veryShortLoremIpsum,
+  shortLoremIpsum1,
+  veryShortLoremIpsum,
+  medLoremIpsum,
+  shortLoremIpsum2,
+];
+const List<String> friendsAnsFaq = [
+  shortLoremIpsum1,
+  shortLoremIpsum2,
+  medLoremIpsum,
+  veryShortLoremIpsum,
+  shortLoremIpsum1,
+];
