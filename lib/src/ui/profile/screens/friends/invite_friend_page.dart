@@ -51,139 +51,154 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
       color: Colors.grey,
       child: Scaffold(
         body: SafeArea(
-          child: SlidingUpPanel(
-            controller: sendingPanel,
-            minHeight: 0,
-            maxHeight: 365,
-            backdropEnabled: true,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(11),
-              topRight: Radius.circular(11),
-            ),
-            panel: InviteFriendPanelWidget(
-              closePanel: () => sendingPanel.close(),
-              inviteLink:
-                  "https://jeanswest.club/v1/jwclub/register?code=udilxv",
-            ),
-            body: Column(
-              children: [
-                Container(
-                  height: _screenSize.height - 95,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 0.027 * _screenSize.width, //10,
-                  ),
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    child: Column(
-                      children: [
-                        AppBarWithCloseWidget(
-                          title: widget.title,
-                          closeOnTap: () => Navigator.pop(context),
+          child: Container(
+            // color: Colors.red,
+            child: SlidingUpPanel(
+              controller: sendingPanel,
+              minHeight: 0,
+              maxHeight: 0.61655 * _screenSize.height, //365,
+              backdropEnabled: true,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(
+                  0.03 * _screenSize.width, //11,
+                ),
+                topRight: Radius.circular(
+                  0.03 * _screenSize.width, //11,
+                ),
+              ),
+              panel: InviteFriendPanelWidget(
+                closePanel: () => sendingPanel.close(),
+                inviteLink:
+                    "https://jeanswest.club/v1/jwclub/register?code=udilxv",
+              ),
+              body: Column(
+                children: [
+                  Container(
+                    height: _screenSize.height -
+                        (0.16047 * _screenSize.height //95
                         ),
-                        Divider(
-                          height: 2,
-                          thickness: 2,
-                          color: Colors.grey[300],
-                        ),
-                        SizedBox(height: 0.016 * _screenSize.height //10
-                            ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 0.027 * _screenSize.width, //10,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.027 * _screenSize.width, //10,
+                    ),
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Column(
+                        children: [
+                          AppBarWithCloseWidget(
+                            title: widget.title,
+                            closeOnTap: () => Navigator.pop(context),
+                          ),
+                          Divider(
+                            height: 0.003125 * _screenSize.height, //2,
+                            thickness: 0.00555 * _screenSize.width, //2,
+                            color: Colors.grey[300],
+                          ),
+                          SizedBox(height: 0.016 * _screenSize.height //10
                               ),
-                              child: InviteTableWidget(
-                                receivedGift: widget.receivedGift,
-                                someOfShoppingFromInvited:
-                                    widget.someOfShoppingFromInvited,
-                                someOfInstallFromInvited:
-                                    widget.someOfInstallFromInvited,
-                              ),
-                            ),
-                            //
-                            SizedBox(
-                              height: 0.03125 * _screenSize.height, //20
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 0.041 * _screenSize.width, //15,
-                              ),
-                              child: Text(
-                                'شما میتونین با دعوت دوستانتون به اپلیکشن جین وست هم خودتون و هم دوستتون جوایز نقدی دریافت کنین',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  // color: MAIN_BLUE_COLOR,
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
+                          Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 0.027 * _screenSize.width, //10,
+                                ),
+                                child: InviteTableWidget(
+                                  receivedGift: widget.receivedGift,
+                                  someOfShoppingFromInvited:
+                                      widget.someOfShoppingFromInvited,
+                                  someOfInstallFromInvited:
+                                      widget.someOfInstallFromInvited,
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 0.016 * _screenSize.height //10
-                                ),
-                            Container(
-                              height: 0.234 * _screenSize.height, //150,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.contain,
-                                  image: new AssetImage(
-                                      'assets/images/png_images/profile/friends_banner.png'),
-                                ),
+                              //
+                              SizedBox(
+                                height: 0.03125 * _screenSize.height, //20
                               ),
-                            ),
-                            SizedBox(height: 0.016 * _screenSize.height //10
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 0.041 * _screenSize.width, //15,
                                 ),
-
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                SizedBox(width: 5),
-                                Container(
-                                  height: 85,
-                                  width: 85,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      fit: BoxFit.contain,
-                                      image: new AssetImage(
-                                          'assets/images/png_images/profile/delivery_motor.png'),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  'حالا مراحلی که باید تا جایزه گرفتن طی کنی :',
+                                child: Text(
+                                  'شما میتونین با دعوت دوستانتون به اپلیکشن جین وست هم خودتون و هم دوستتون جوایز نقدی دریافت کنین',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
+                                    // color: MAIN_BLUE_COLOR,
                                     color: Colors.black,
-                                    fontSize: 13,
+                                    fontSize: 0.038 * _screenSize.width, //14,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                SizedBox(width: 15),
-                              ],
-                            ),
-                            DottedBoxInviteHelpWidget(),
-                            SizedBox(height: 15),
-                            ExpansionTileWidget(
-                              title: 'سوالات متداول',
-                              que: widget.queFaq,
-                              ans: widget.ansFaq,
-                            ),
-                          ],
-                        ),
-                      ],
+                              ),
+                              SizedBox(height: 0.016 * _screenSize.height //10
+                                  ),
+                              Container(
+                                height: 0.234 * _screenSize.height, //150,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.contain,
+                                    image: new AssetImage(
+                                        'assets/images/png_images/profile/friends_banner.png'),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 0.016 * _screenSize.height //10
+                                  ),
+
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                    width: 0.0138 * _screenSize.width, //5
+                                  ),
+                                  Container(
+                                    height: 0.23611 * _screenSize.width, //85,
+                                    width: 0.23611 * _screenSize.width, //85,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        fit: BoxFit.contain,
+                                        image: new AssetImage(
+                                            'assets/images/png_images/profile/delivery_motor.png'),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'حالا مراحلی که باید تا جایزه گرفتن طی کنی :',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 0.036 * _screenSize.width, //13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 0.041 * _screenSize.width, //15,
+                                  ),
+                                ],
+                              ),
+                              DottedBoxInviteHelpWidget(),
+                              SizedBox(
+                                height: 0.023 * _screenSize.height, //15
+                              ),
+                              ExpansionTileWidget(
+                                title: 'سوالات متداول',
+                                que: widget.queFaq,
+                                ans: widget.ansFaq,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  height: 72,
-                  child: FixBottomButtonBarWidget(
-                    title: 'ارسال لینک',
-                    // bottomButtonFunction: () => bottomButtonFunction(),
-                    bottomButtonFunction: () => sendingPanel.open(),
+                  Expanded(
+                    child: FixBottomButtonBarWidget(
+                      title: 'ارسال لینک',
+                      bottomButtonFunction: () => sendingPanel.open(),
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 20),
+                ],
+              ),
             ),
           ),
         ),

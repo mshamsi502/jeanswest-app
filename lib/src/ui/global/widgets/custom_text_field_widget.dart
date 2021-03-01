@@ -63,7 +63,9 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
     else
       heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
     heightTitle = 0.093 * widget.mediaQuery.size.height; // 60;
-    heightError = widget.hasValidation ? 40 : 0;
+    heightError = widget.hasValidation
+        ? 0.0625 * widget.mediaQuery.size.height //40,
+        : 0;
 
     super.initState();
   }
@@ -75,7 +77,11 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
       padding: EdgeInsets.symmetric(
         horizontal: 0.027 * widget.mediaQuery.size.width, //10,
       ),
-      height: heightTextField + heightTitle + heightError + 15,
+      height: heightTextField +
+          heightTitle +
+          heightError +
+          0.023 * widget.mediaQuery.size.height //15,
+      ,
       width: widget.mediaQuery.size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +95,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
               widget.title,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 14,
+                fontSize: 0.038 * widget.mediaQuery.size.width, //14,
                 color: widget.hasValidation
                     ? widget.isValid
                         ? widget.titleColor
@@ -157,18 +163,23 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  width: 0.027 * widget.mediaQuery.size.width, //10,
+                ),
                 widget.externalIcon ?? SizedBox(),
               ],
             ),
           ),
-          SizedBox(height: 7),
+          SizedBox(
+            height: 0.01182 * widget.mediaQuery.size.height, // 7,
+          ),
           Container(
             child: widget.hasValidation
                 ? Expanded(
                     child: Text(
                       widget.validationError,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 0.034 * widget.mediaQuery.size.width, //12,
                         color: Colors.red,
                       ),
                     ),

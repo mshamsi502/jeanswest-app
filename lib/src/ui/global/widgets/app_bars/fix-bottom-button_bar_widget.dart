@@ -28,7 +28,7 @@ class _FixBottomButtonBarWidgetState extends State<FixBottomButtonBarWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,
-      height: 72,
+      height: 0.12162 * _screenSize.height, //72
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow>[
@@ -40,7 +40,10 @@ class _FixBottomButtonBarWidgetState extends State<FixBottomButtonBarWidget> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: EdgeInsets.symmetric(
+          horizontal: 0.054 * _screenSize.width, //20
+          vertical: 0.023 * _screenSize.height, //15
+        ),
         child: AvakatanButtonWidget(
           backgroundColor: MAIN_BLUE_COLOR,
           textColor: Colors.white,
