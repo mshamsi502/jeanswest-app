@@ -33,11 +33,13 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
       children: [
         widget.title != null
             ? Container(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(
+                  bottom: 0.015 * _screenSize.height, //10,
+                ),
                 child: Text(
                   widget.title,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 0.0444 * _screenSize.width, //16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -60,10 +62,12 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                           child: Icon(
                             Icons.help,
                             color: MAIN_BLUE_COLOR,
-                            size: 22,
+                            size: 0.06111 * _screenSize.width, //22,
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(
+                          width: 0.027 * _screenSize.width, //10,
+                        ),
                         Expanded(
                           child: Text(
                             widget.que[index],
@@ -81,11 +85,15 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                         Stack(
                           children: [
                             Container(
-                              width: 17,
-                              height: 17,
-                              margin: EdgeInsets.all(3),
+                              width: 0.047 * _screenSize.width, //17,
+                              height: 0.047 * _screenSize.width, //17,
+                              margin: EdgeInsets.all(
+                                  (0.0083 * _screenSize.width //3,
+                                  )),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(
+                                  0.138 * _screenSize.width, //50,
+                                ),
                                 color: MAIN_BLUE_COLOR,
                               ),
                             ),
@@ -95,12 +103,14 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               child: Icon(
                                 Icons.help,
                                 color: BLUE_SKY_COLOR,
-                                size: 22,
+                                size: 0.06111 * _screenSize.width, //22,
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(
+                          width: 0.027 * _screenSize.width, //10,
+                        ),
                         Expanded(
                           child: Text(
                             widget.que[index],
@@ -129,7 +139,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                       child: Text(
                         widget.ans[index],
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 0.0333 * _screenSize.width, //12,
                           color: Colors.grey,
                         ),
                       ),

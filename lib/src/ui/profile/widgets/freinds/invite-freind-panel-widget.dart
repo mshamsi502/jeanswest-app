@@ -52,12 +52,19 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(
+        horizontal: 0.027 * _screenSize.width, //10,
+        vertical: 0.016 * _screenSize.height, //10
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(11),
-          topRight: Radius.circular(11),
+          topLeft: Radius.circular(
+            0.03 * _screenSize.width, //11,
+          ),
+          topRight: Radius.circular(
+            0.03 * _screenSize.width, //11,
+          ),
         ),
       ),
       child: Column(
@@ -67,7 +74,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
               Text(
                 'دعوت دوستان',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 0.0444 * _screenSize.width, //16,
                 ),
               ),
               Expanded(child: SizedBox()),
@@ -103,10 +110,14 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
             internalIcon: GestureDetector(
                 child: Container(
                   // color: Colors.green,
-                  padding: EdgeInsets.only(top: 5, bottom: 5, left: 10),
+                  padding: EdgeInsets.only(
+                    top: 0.0078 * _screenSize.height, //5,
+                    bottom: 0.0078 * _screenSize.height, //5,
+                    left: 0.027 * _screenSize.width, //10,
+                  ),
                   child: Icon(
                     Icons.copy_outlined,
-                    size: 25,
+                    size: 0.069 * _screenSize.width, //25,
                     color: MAIN_BLUE_COLOR,
                   ),
                 ),
@@ -117,6 +128,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                     //   message: "متن دعوت نامه در کلیبورد کپی شد.",
                     //   fToast: fToast,
                     // );
+                    // ignore: deprecated_member_use
                     Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text("متن دعوت نامه در کلیبورد کپی شد.")));
                   });
@@ -124,10 +136,14 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
             externalIcon: GestureDetector(
               child: Container(
                 // color: Colors.red,
-                padding: const EdgeInsets.only(top: 5, bottom: 5, right: 10),
+                padding: EdgeInsets.only(
+                  top: 0.0078 * _screenSize.height, //5,
+                  bottom: 0.0078 * _screenSize.height, //5,
+                  left: 0.027 * _screenSize.width, //10,
+                ),
                 child: Icon(
                   Icons.share_outlined,
-                  size: 25,
+                  size: 0.069 * _screenSize.width, //25,
                   color: MAIN_BLUE_COLOR,
                 ),
               ),
@@ -138,10 +154,10 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
             height: 0.023 * _screenSize.height, //15
           ),
           Divider(
-            height: 0.05,
+            height: 0.000078 * _screenSize.height, //0.05,
             thickness: 1,
-            indent: 10,
-            endIndent: 10,
+            indent: 0.027 * _screenSize.width, //10,,
+            endIndent: 0.027 * _screenSize.width, //10,,
             color: Colors.grey[300],
           ),
           SizedBox(
@@ -169,7 +185,9 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
               hasShadow: false,
               title: 'ارسال دعوت نامه',
               height: 0.07 * _screenSize.height, //45,
-              width: _screenSize.width - 40,
+              width: _screenSize.width -
+                  (0.111 * _screenSize.width //40,
+                  ),
               fontSize: 0.05 * _screenSize.width, //18,
               radius: 0.011 * _screenSize.width, //4,
               onTap: () {
@@ -185,7 +203,9 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                 } else
                   print('not valid : ${validationResult[1]}');
               }),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.016 * _screenSize.height, //10
+          ),
         ],
       ),
     );

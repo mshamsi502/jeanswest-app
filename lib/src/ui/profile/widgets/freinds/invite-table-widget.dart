@@ -58,12 +58,12 @@ class _InviteTableWidgetState extends State<InviteTableWidget> {
               child: Column(
                 children: [
                   Container(
-                    height: 35,
+                    height: 0.05468 * _screenSize.height, //35,
                     child: Text(
                       'جایزه های دریافتی من',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10,
                         color: Colors.grey[600],
                       ),
                     ),
@@ -74,7 +74,7 @@ class _InviteTableWidgetState extends State<InviteTableWidget> {
                   Text(
                     toPriceStyle(widget.receivedGift),
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 0.038 * _screenSize.width, //14,
                     ),
                   ),
                 ],
@@ -100,12 +100,12 @@ class _InviteTableWidgetState extends State<InviteTableWidget> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 35,
+                    height: 0.05468 * _screenSize.height, //35,
                     child: Text(
                       'دوستانی که از ما خرید کرده اند',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10,
                         color: Colors.grey[600],
                       ),
                     ),
@@ -116,7 +116,7 @@ class _InviteTableWidgetState extends State<InviteTableWidget> {
                   Text(
                     widget.someOfShoppingFromInvited.toString(),
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 0.038 * _screenSize.width, //14,
                       color: GREEN_TEXT_COLOR,
                     ),
                   ),
@@ -144,12 +144,12 @@ class _InviteTableWidgetState extends State<InviteTableWidget> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   SizedBox(
-                    height: 35,
+                    height: 0.05468 * _screenSize.height, //35,
                     child: Text(
                       'دوستانی که اپلیکشن را نصب کرده اند',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10,
                         color: Colors.grey[600],
                       ),
                     ),
@@ -160,7 +160,7 @@ class _InviteTableWidgetState extends State<InviteTableWidget> {
                   Text(
                     widget.someOfInstallFromInvited.toString(),
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 0.038 * _screenSize.width, //14,
                     ),
                   ),
                 ],
