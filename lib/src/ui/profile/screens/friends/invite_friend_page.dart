@@ -54,7 +54,7 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
           child: SlidingUpPanel(
             controller: sendingPanel,
             minHeight: 0,
-            maxHeight: 350,
+            maxHeight: 365,
             backdropEnabled: true,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(11),
