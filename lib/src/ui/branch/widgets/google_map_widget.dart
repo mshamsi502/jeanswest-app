@@ -81,7 +81,7 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    mapController.dispose();
+    // mapController.dispose();
     super.dispose();
   }
 

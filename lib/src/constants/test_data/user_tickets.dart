@@ -6,7 +6,7 @@
 import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/models/profile/message/user_ticket/ticket_message.dart';
 import 'package:jeanswest/src/models/profile/message/user_ticket/user_ticket.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 
 //
 TicketMessage firstUserMessageFirstTicket = new TicketMessage(

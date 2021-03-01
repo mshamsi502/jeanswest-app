@@ -3,7 +3,7 @@
 // *   Created Date & Time:  2021-01-10  ,  15:30 AM
 // ****************************************************************************
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 
 LevelCard userLevelProvider(int moneyBuying) {

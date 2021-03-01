@@ -1,4 +1,5 @@
 //
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
@@ -6,11 +7,11 @@ import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payme
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
 //
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-payment-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-invite-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 //
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
@@ -21,7 +22,7 @@ import 'package:jeanswest/src/models/dateTimeOnData/date-time-on-data.dart';
 //
 import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/services/mockoonApis/rest_client_global.dart';
+import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 Future<void> getAllUserInfo({String token}) async {
@@ -51,17 +52,16 @@ Future<void> getAllUserInfo({String token}) async {
   // ! ==> get and create successfully UserPaymentInfo
   UserAddressesInfoRes userAddressesInfoRes =
       await globalLocator<GlobalRestClient>().getUserAddressesInfo();
-  userAddresses = createuserAddresses(userAddressesInfoRes);
+  userAddresses = createUserAddresses(userAddressesInfoRes);
   print(
       '_=_ get successfully userAddresses: ${userAddresses.length}, ${userAddresses[0].title}');
   // ! ==> get and create successfully UserAddressesInfo
 
-  // TODO ==> get and create successfully UserPaymentInfo
-  // ! ==> get and create successfully UserAddressesInfo
-  // TODO ==> get and create successfully UserInviteInfo
-  // ! ==> get and create successfully UserAddressesInfo
-  // TODO ==> get and create successfully UserInviteInfo
-  // ! ==> get and create successfully UserAddressesInfo
+  userFavorites = await globalLocator<GlobalRestClient>().getUserFavoriteInfo();
+  print('_=_ get successfully userFavorite: ${userFavorites.data.perPage}');
+  print(
+      '_=_ get successfully userFavorite: ${userFavorites.data.result[0].banimodeDetails.productName}');
+  // ! ==> get and create successfully UserFavoriteInfo
 }
 
 // ***
@@ -99,6 +99,7 @@ UserMainInfo createUserInfo(UserMainInfoRes userAccount) {
 }
 
 UserFriendsInfo createUserFriends(UserFriendsInfoRes userFriendsInfoRes) {
+  // ignore: deprecated_member_use
   List<UserMainInfo> friends = new List<UserMainInfo>();
   userFriendsInfoRes.friends.forEach((friend) {
     Gender gender = friend.gender == 'male'
@@ -125,8 +126,9 @@ UserFriendsInfo createUserFriends(UserFriendsInfoRes userFriendsInfoRes) {
   return UserFriendsInfo(friends: friends);
 }
 
-List<Address> createuserAddresses(UserAddressesInfoRes userAddressesInfoRes) {
+List<Address> createUserAddresses(UserAddressesInfoRes userAddressesInfoRes) {
   List<AddressInfoRes> userAddressesInfo = userAddressesInfoRes.addresses;
+  // ignore: deprecated_member_use
   List<Address> addresses = new List<Address>();
   userAddressesInfo.forEach((address) {
     addresses.add(

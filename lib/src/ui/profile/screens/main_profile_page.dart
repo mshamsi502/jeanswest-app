@@ -9,23 +9,24 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-payment-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-invite-info.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-friends-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/test_data/texts.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
 //
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
+// import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/auth_profile_appbar_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/unauth_profile_appbar_widget.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
-import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
+// import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 
 import 'main_menu_list/inbox_page.dart';
@@ -79,8 +80,6 @@ class _MainProfilePageState extends State<MainProfilePage>
       child: SingleChildScrollView(
         controller: scrollController,
         child: Container(
-          // color: Colors.amberAccent,
-
           child: Column(
             children: [
               widget.isAuth
@@ -188,29 +187,17 @@ class _MainProfilePageState extends State<MainProfilePage>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TabBarViewPage(
-                                    title: 'دوستان',
-                                    selectedTab: 0,
-                                    tabTitles: [
-                                      'دعوت دوست',
-                                      'دوستان من',
-                                    ],
-                                    tabWidgets: [
-                                      InviteFrindePage(
-                                        userId: 'user-${user.phoneNumber}',
-                                        receivedGift: userInvite.receivedGift,
-                                        someOfInvited: userInvite.someOfInvited,
-                                        someOfInstallFromInvited:
-                                            userInvite.someOfInstallFromInvited,
-                                        someOfShoppingFromInvited: userInvite
-                                            .someOfShoppingFromInvited,
-                                      ),
-                                      UserFriendsListPage(
-                                        friends: userFriends.friends,
-                                      ),
-                                    ],
-                                    bottomButton: 'ارسال لینک',
-                                    bottomButtonFunction: bottomButtonFunction,
+                                  builder: (context) => InviteFrindePage(
+                                    title: 'دعوت دوستان',
+                                    userId: 'user-${user.phoneNumber}',
+                                    receivedGift: userInvite.receivedGift,
+                                    someOfInvited: userInvite.someOfInvited,
+                                    someOfInstallFromInvited:
+                                        userInvite.someOfInstallFromInvited,
+                                    someOfShoppingFromInvited:
+                                        userInvite.someOfShoppingFromInvited,
+                                    queFaq: friendsQueFaq,
+                                    ansFaq: friendsAnsFaq,
                                   ),
                                 ),
                               );

@@ -10,6 +10,7 @@ import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/ui/global/widgets/info_card_widget/info_card_with_title_widget.dart';
 
 List<Widget> buildOnlineReturnProcessChildren(Size _screenSize) {
+  // ignore: deprecated_member_use
   List<Widget> onlineReturnProcessChildren = new List<Widget>();
   onlineReturnProcessChildren.add(InfoCardWithTitleWidget(
     title: '7 روز ضمانت بازگشت کالا',
@@ -119,6 +120,7 @@ List<Widget> buildOnlineReturnProcessChildren(Size _screenSize) {
 }
 
 List<Widget> buildOfflineReturnProcessChildren(Size _screenSize) {
+  // ignore: deprecated_member_use
   List<Widget> offlineReturnProcessChildren = new List<Widget>();
   offlineReturnProcessChildren.add(InfoCardWithTitleWidget(
     title: '7 روز ضمانت بازگشت کالا',

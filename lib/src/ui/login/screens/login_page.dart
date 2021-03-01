@@ -14,6 +14,7 @@ import 'package:jeanswest/src/ui/login/widgets/country_list_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_app_bar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_body_widget.dart';
 import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,9 @@ class _LoginPageState extends State<LoginPage> {
   FocusNode searchInputNode = FocusNode();
   TextEditingController searchTextEditingController =
       new TextEditingController();
+  // ignore: deprecated_member_use
   List<Country> allCountries = new List<Country>();
+  // ignore: deprecated_member_use
   List<Country> searchedCountries = new List<Country>();
   Map<String, dynamic> map = CountriesCodeList.PERSIAN_GULF_COUNTRY_LIST;
   Country selectedCountry;
@@ -256,7 +259,9 @@ class _LoginPageState extends State<LoginPage> {
                                           inputPhone = newValue;
                                           print('inputPhone : $inputPhone');
                                         });
-                                        List response = checkCorrectPhone();
+                                        List response = checkCorrectPhone(
+                                            inputPhone: inputPhone,
+                                            startWithZero: false);
                                         setState(() {
                                           check = response[0];
                                           print('check : $check');
@@ -307,8 +312,10 @@ class _LoginPageState extends State<LoginPage> {
                               hasError = newHasError;
                             });
                           },
-                          checkCorrectCode: checkCorrectCode,
-                          checkCorrectPhone: checkCorrectPhone,
+                          checkCorrectCode: () =>
+                              checkCorrectCode(inputVerifyCode: inputCode),
+                          checkCorrectPhone: () => checkCorrectPhone(
+                              inputPhone: inputPhone, startWithZero: false),
                           closePreTelCodePanelController: () {
                             preTelCodePanelController.close();
                           },
@@ -334,6 +341,7 @@ class _LoginPageState extends State<LoginPage> {
   showSnackBarError(String msg, BuildContext _context, Size _screenSize) {
     // ignore: deprecated_member_use
     // Scaffold.of(_context).showSnackBar(
+    // ignore: deprecated_member_use
     scaffoldKey.currentState.showSnackBar(
       SnackBar(
         elevation: 0,
@@ -405,28 +413,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  List checkCorrectPhone() {
-    return inputPhone == null || inputPhone == ''
-        ? [false, "login_screen.phone_number_is_incorrect".tr()]
-        : inputPhone.startsWith('0')
-            ? [false, "login_screen.enter_phone_number_without_first_zero".tr()]
-            : inputPhone.length != 10
-                ? [false, "login_screen.phone_number_must_be_ten_number".tr()]
-                : !inputPhone.startsWith('9')
-                    ? [
-                        false,
-                        "login_screen.phone_number_must_be_start_with_nine".tr()
-                      ]
-                    : [true, ''];
-  }
-
-  List checkCorrectCode() {
-    return inputCode == null || inputCode.length != 5 || inputCode.contains('-')
-        ? [false, "login_screen.enter_the_code_more_carefully".tr()]
-        // : inputCode != '23456'
-        //     ? [false, "login_screen.code_is_incorrect".tr()]
-        : [true, ''];
-  }
   //
 
   changeInputPhoneStep(bool _isInputPhoneStep) async {

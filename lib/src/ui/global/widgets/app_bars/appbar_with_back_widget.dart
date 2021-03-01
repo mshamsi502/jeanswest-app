@@ -35,7 +35,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
       // padding:
       //     EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10),
       color: Colors.white,
-      height: 0.0625 * _screenSize.height, //40
+      height: 0.078125 * _screenSize.height, //50,
       child: Row(
         children: [
           SizedBox(width: 0.008 * _screenSize.height //5
@@ -71,8 +71,11 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
               ),
           GestureDetector(
                 child: Container(
-                  width: 0.039 * _screenSize.height, //25,
-                  height: 0.039 * _screenSize.height, //25,
+                  height: 0.138 * _screenSize.width, //50,
+                  width: 0.138 * _screenSize.width, //50,
+                  padding: EdgeInsets.all(
+                    0.027 * _screenSize.width, //10,
+                  ),
                   child: widget.option,
                 ),
                 onTap: () {},

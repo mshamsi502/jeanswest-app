@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
 import 'package:jeanswest/src/models/profile/message/user_ticket/ticket_message.dart';
 import 'package:jeanswest/src/models/profile/message/user_ticket/user_ticket.dart';
@@ -54,6 +54,7 @@ void addNewMessageInTicket(int numberOfTicket, String text) {
 
 List<DropdownMenuItem<String>> buildDropdownMenuItems(
     List<String> options, double myWidth, Size _screenSize) {
+  // ignore: deprecated_member_use
   List<DropdownMenuItem<String>> items = new List<DropdownMenuItem<String>>();
   for (String string in options) {
     items.add(DropdownMenuItem(

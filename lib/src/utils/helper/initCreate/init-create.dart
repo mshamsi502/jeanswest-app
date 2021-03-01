@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
+  // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
   _children.add(MainProfilePage(isAuth: !isAuth));
@@ -29,6 +30,7 @@ Future<Map<String, dynamic>> authService() async {
   // globalLocator<SharedPreferences>().clear();
 
   String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
+  // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
   bool isAuth = false;

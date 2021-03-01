@@ -30,9 +30,8 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
-      height: 0.0625 * _screenSize.height, //40,
-      // padding:
-      //     EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10)
+      height: 0.078125 * _screenSize.height, //50,
+      padding: EdgeInsets.only(right: 0.016 * _screenSize.height), //10)
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -46,10 +45,11 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
           ),
           GestureDetector(
             child: Container(
-              height: 0.0625 * _screenSize.height, //40,
-              width: 0.0625 * _screenSize.height, //40,
-              padding: EdgeInsets.all(0.0078 * _screenSize.height //5
-                  ),
+              height: 0.138 * _screenSize.width, //50,
+              width: 0.138 * _screenSize.width, //50,
+              padding: EdgeInsets.all(
+                0.027 * _screenSize.width, //10,
+              ),
               child: GlobalSvgImages.closeIcon,
             ),
             onTap: () {

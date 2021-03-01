@@ -39,16 +39,19 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
-      itemCount: widget.pages.length,
+      itemCount: widget.titles.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
             GestureDetector(
               onTap: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => widget.pages[index]),
-                );
+                index == widget.titles.length - 1
+                    ? print('exiting')
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => widget.pages[index]),
+                      );
               },
               child: Container(
                 color: widget.backgroundColor,

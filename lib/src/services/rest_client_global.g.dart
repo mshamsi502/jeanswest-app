@@ -9,7 +9,6 @@ part of 'rest_client_global.dart';
 class _GlobalRestClient implements GlobalRestClient {
   _GlobalRestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://10.1.2.94:3001';
   }
 
   final Dio _dio;
@@ -17,13 +16,14 @@ class _GlobalRestClient implements GlobalRestClient {
   String baseUrl;
 
   @override
-  Future<List<Branch>> getBranchesAddress2(lat, long) async {
+  Future<List<Branch>> getBranchesAddress(lat, long) async {
     ArgumentError.checkNotNull(lat, 'lat');
     ArgumentError.checkNotNull(long, 'long');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'lat': lat, r'long': long};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>('/v1/getBranches',
+    final _result = await _dio.request<List<dynamic>>(
+        'http://10.1.2.94:3001/v1/getBranches',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -38,36 +38,14 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<SuccessRespons> reqForVerifyCode(phoneNumber) async {
-    ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
+  Future<List<Branch>> getBranchesAddressOldClub(lat, long) async {
+    ArgumentError.checkNotNull(lat, 'lat');
+    ArgumentError.checkNotNull(long, 'long');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = {'phoneNumber': phoneNumber};
-    _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/v1/reqVerifyCode',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = SuccessRespons.fromJson(_result.data);
-    return value;
-  }
-
-  @override
-  Future<LoginAndGetTokenRes> getVerifyCode(phoneNumber, verifyCode) async {
-    ArgumentError.checkNotNull(phoneNumber, 'phoneNumber');
-    ArgumentError.checkNotNull(verifyCode, 'verifyCode');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'phoneNumber': phoneNumber,
-      r'verifyCode': verifyCode
-    };
+    final queryParameters = <String, dynamic>{r'lat': lat, r'long': long};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/v1/verifyCode',
+    final _result = await _dio.request<List<dynamic>>(
+        'https://jeanswest.club/v1/api/near_branch',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -75,7 +53,49 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = LoginAndGetTokenRes.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => Branch.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<GlobalResponseJData> reqOtp(map) async {
+    ArgumentError.checkNotNull(map, 'map');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(map ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:5000/otp/request',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GlobalResponseJData.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<AuthRes> reqAuth(map) async {
+    ArgumentError.checkNotNull(map, 'map');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(map ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:5000/account/authentication',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AuthRes.fromJson(_result.data);
     return value;
   }
 
@@ -85,7 +105,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/v1/getUserMainInfo',
+        'http://10.1.2.94:3003/v1/getUserMainInfo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -103,7 +123,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/v1/getUserInviteInfo',
+        'http://10.1.2.94:3003/v1/getUserInviteInfo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -121,7 +141,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/v1/getUserFriendsInfo',
+        'http://10.1.2.94:3003/v1/getUserFriendsInfo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -139,7 +159,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/v1/getUserPaymentInfo',
+        'http://10.1.2.94:3003/v1/getUserPaymentInfo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -157,7 +177,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        '/v1/getUserAddressesInfo',
+        'http://10.1.2.94:3003/v1/getUserAddressesInfo',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -166,6 +186,44 @@ class _GlobalRestClient implements GlobalRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = UserAddressesInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserFavoriteInfoRes> getUserFavoriteInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3003/v1/getUserFavorite',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserFavoriteInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ListOfProductsRes> getAddToCardProductDetailInfo(barcode) async {
+    ArgumentError.checkNotNull(barcode, 'barcode');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(barcode ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3002/v1/getAddToCardProductDetail',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ListOfProductsRes.fromJson(_result.data);
     return value;
   }
 }
