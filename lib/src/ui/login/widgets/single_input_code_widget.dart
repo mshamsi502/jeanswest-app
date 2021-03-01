@@ -63,7 +63,7 @@ class _SingleInputCodeWidgetState extends State<SingleInputCodeWidget> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: widget.hasError ? Color(0x15ff1717) : Color(0xfff2f2f2),
+          color: widget.hasError ? RED_ERROR_COLOR : F2_BACKGROUND_COLOR,
           border: Border.all(
             color: widget.selectedChar == widget.ordinal
                 ? MAIN_BLUE_COLOR

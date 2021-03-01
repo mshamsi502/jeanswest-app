@@ -42,7 +42,10 @@
         "resend_code" : "Resend Code",
         "phone_number_is_incorrect" : "Phone Number is Incorrect",
         "enter_phone_number_without_first_zero" : "Enter Phone Number Without First Zero",
-        "phone_number_must_be_ten_number" : "Phone Number Must be Ten Number",
+        
+        "enter_phone_number_with_first_zero" : "Enter Phone Number With First Zero",
+        "phone_number_must_be_ten_number" : "Phone Number Must be 10 Number",
+        "phone_number_must_be_eleven_number" : "Phone Number Must be 11 Number",
         "phone_number_must_be_start_with_nine" : "Phone Number Must be Start With Nine",
         "enter_the_code_more_carefully" : "Enter the Code More Carefully",
         "code_is_incorrect" : "Code is Incorrect",
