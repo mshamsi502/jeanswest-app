@@ -66,10 +66,18 @@ class _MainProfilePageState extends State<MainProfilePage>
         haveUnreadMessage = false;
       }
       scrollController = new ScrollController();
-      mainProfileListMenu = createProfileListMenuPages(
-          userLevel, nextLevel, userPayment.moneyBuying);
+      buildProfile();
       moreListMenu = createMoreListMenuPages();
     }
+  }
+
+  buildProfile() {
+    mainProfileListMenu = createProfileListMenuPages(
+      userLevel: userLevel,
+      nextLevel: nextLevel,
+      moneyBuying: userPayment.moneyBuying,
+      rebuild: () => buildProfile(),
+    );
   }
 
   @override

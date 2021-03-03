@@ -10,6 +10,7 @@ const Color MAIN_BLUE_00_COLOR = Color(0xff003974);
 //
 const Color F7_BACKGROUND_COLOR = Color(0xfff7f7f7);
 const Color F2_BACKGROUND_COLOR = Color(0xfff2f2f2);
+const Color GREY_SELCTED_FADE_BACKGROUND_COLOR = Color(0x11020202);
 const Color F1_BACKGROUND_COLOR = Color(0xfff1f1f1);
 const Color FE_BACKGROUND_COLOR = Color(0xffFEFEFE);
 const Color GREY_FADE_BACKGROUND_COLOR = Color(0x90bdbdbd);
