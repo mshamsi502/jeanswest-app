@@ -158,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
       child: SafeArea(
         child: Scaffold(
           key: scaffoldKey,
-          resizeToAvoidBottomPadding: true,
+          resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
             controller: scrollController,
             physics: ClampingScrollPhysics(),
