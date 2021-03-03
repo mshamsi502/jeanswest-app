@@ -42,13 +42,11 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
 
   getSize() {
     if (widgetKey != null && widgetKey.currentContext != null) {
-      print('++ widgetKey is NOOOOT NULLLL');
       RenderBox box = widgetKey.currentContext.findRenderObject() as RenderBox;
       size = box.size;
       if (size != null) {
         print('height : ${size.height}');
         print('width : ${size.width}');
-        print('++ size is NOOOOT NULLLL');
       } else
         print('-- size is NULLLL');
     } else

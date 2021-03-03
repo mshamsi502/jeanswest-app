@@ -122,184 +122,210 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
           SizedBox(
             height: 0.023 * _screenSize.height, //15
           ),
-          Row(
-            children: [
-              SizedBox(
-                width: 0.054 * _screenSize.width, //20
-              ),
-              Expanded(
-                child: Container(
-                  height: 0.3125 * _screenSize.height, //200
-                  // color: Colors.amberAccent,
-                  alignment: Alignment.bottomCenter,
-                  child: CupertinoPicker(
-                    offAxisFraction: 0.0,
-                    diameterRatio: 0.27 * _screenSize.width, //100,
-                    squeeze: 1,
-                    itemExtent: 0.111 * _screenSize.width, //40,
-                    scrollController: dayScrollController,
-                    selectionOverlay: Container(
+          Container(
+            height: 190,
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 72,
+                  left: 20,
+                  right: 20,
+                  child: Center(
+                    child: Container(
+                      height: 40,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight:
-                              Radius.circular(0.022 * _screenSize.width //8
+                        color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
+                        borderRadius:
+                            BorderRadius.circular(0.022 * _screenSize.width //8
+                                ),
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 0.054 * _screenSize.width, //20
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 0.3125 * _screenSize.height, //200
+                        // color: Colors.amberAccent,
+                        alignment: Alignment.bottomCenter,
+                        child: CupertinoPicker(
+                          offAxisFraction: 0.0,
+                          diameterRatio: 0.27 * _screenSize.width, //100,
+                          squeeze: 1,
+                          itemExtent: 0.111 * _screenSize.width, //40,
+                          scrollController: dayScrollController,
+                          // selectionOverlay: Container(
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.only(
+                          //       topRight:
+                          //           Radius.circular(0.022 * _screenSize.width //8
+                          //               ),
+                          //       bottomRight:
+                          //           Radius.circular(0.022 * _screenSize.width //8
+                          //               ),
+                          //     ),
+                          //     color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
+                          //   ),
+                          // ),
+                          children: [
+                            for (var i = 0; i < someDayOfMonth; i++)
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 0.0125 * _screenSize.height, //8,
                                   ),
-                          bottomRight:
-                              Radius.circular(0.022 * _screenSize.width //8
+                                  Text(
+                                    (i + 1).toString().length == 1
+                                        ? '0${(i + 1).toString()}'
+                                        : (i + 1).toString(),
+                                    style: TextStyle(
+                                      fontSize:
+                                          0.0444 * _screenSize.width, //16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'IRANSans',
+                                      color: Colors.black,
+                                    ),
                                   ),
+                                  Container(
+                                    height: 0.008 * _screenSize.height, //5
+                                  ),
+                                ],
+                              )
+                          ],
+                          onSelectedItemChanged: (int value) {
+                            setState(() {
+                              _dayValue = (value + 1).toString().length == 1
+                                  ? '0${(value + 1).toString()}'
+                                  : (value + 1).toString();
+                            });
+                            print('day is : $_dayValue');
+                          },
                         ),
-                        color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
                       ),
                     ),
-                    children: [
-                      for (var i = 0; i < someDayOfMonth; i++)
-                        Column(
+                    Expanded(
+                      child: Container(
+                        height: 0.3125 * _screenSize.height, //200
+                        // color: Colors.amberAccent,
+                        alignment: Alignment.bottomCenter,
+                        child: CupertinoPicker(
+                          offAxisFraction: 0.0,
+                          diameterRatio: 0.27 * _screenSize.width, //100,
+                          squeeze: 1,
+                          itemExtent: 0.111 * _screenSize.width, //40,
+                          scrollController: monthScrollController,
+                          // selectionOverlay: Container(
+                          //   decoration: BoxDecoration(
+                          //     color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
+                          //   ),
+                          // ),
                           children: [
-                            Container(
-                              height: 0.0125 * _screenSize.height, //8,
-                            ),
-                            Text(
-                              (i + 1).toString().length == 1
-                                  ? '0${(i + 1).toString()}'
-                                  : (i + 1).toString(),
-                              style: TextStyle(
-                                fontSize: 0.0444 * _screenSize.width, //16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'IRANSans',
-                                color: Colors.black,
-                              ),
-                            ),
-                            Container(
-                              height: 0.008 * _screenSize.height, //5
-                            ),
+                            for (var i = 0; i < month.length; i++)
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 0.0125 * _screenSize.height, //8,
+                                  ),
+                                  Text(
+                                    month[i],
+                                    style: TextStyle(
+                                      fontSize:
+                                          0.0444 * _screenSize.width, //16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'IRANSans',
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 0.008 * _screenSize.height, //5
+                                  ),
+                                ],
+                              )
                           ],
-                        )
-                    ],
-                    onSelectedItemChanged: (int value) {
-                      setState(() {
-                        _dayValue = (value + 1).toString().length == 1
-                            ? '0${(value + 1).toString()}'
-                            : (value + 1).toString();
-                      });
-                      print('day is : $_dayValue');
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 0.3125 * _screenSize.height, //200
-                  // color: Colors.amberAccent,
-                  alignment: Alignment.bottomCenter,
-                  child: CupertinoPicker(
-                    offAxisFraction: 0.0,
-                    diameterRatio: 0.27 * _screenSize.width, //100,
-                    squeeze: 1,
-                    itemExtent: 0.111 * _screenSize.width, //40,
-                    scrollController: monthScrollController,
-                    selectionOverlay: Container(
-                      decoration: BoxDecoration(
-                        color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
+                          onSelectedItemChanged: (int value) {
+                            setState(
+                              () {
+                                _monthValue = (value + 1).toString().length == 1
+                                    ? '0${(value + 1).toString()}'
+                                    : (value + 1).toString();
+                                if (value >= 0 && value <= 5)
+                                  someDayOfMonth = 31;
+                                else
+                                  someDayOfMonth = 30;
+                              },
+                            );
+                            print('month is : $_monthValue');
+                          },
+                        ),
                       ),
                     ),
-                    children: [
-                      for (var i = 0; i < month.length; i++)
-                        Column(
-                          children: [
-                            Container(
-                              height: 0.0125 * _screenSize.height, //8,
-                            ),
-                            Text(
-                              month[i],
-                              style: TextStyle(
-                                fontSize: 0.0444 * _screenSize.width, //16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'IRANSans',
-                                color: Colors.black,
-                              ),
-                            ),
-                            Container(
-                              height: 0.008 * _screenSize.height, //5
-                            ),
-                          ],
-                        )
-                    ],
-                    onSelectedItemChanged: (int value) {
-                      setState(
-                        () {
-                          _monthValue = (value + 1).toString().length == 1
-                              ? '0${(value + 1).toString()}'
-                              : (value + 1).toString();
-                          if (value >= 0 && value <= 5)
-                            someDayOfMonth = 31;
-                          else
-                            someDayOfMonth = 30;
-                        },
-                      );
-                      print('month is : $_monthValue');
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 0.3125 * _screenSize.height, //200
-                  alignment: Alignment.bottomCenter,
-                  child: CupertinoPicker(
-                    offAxisFraction: 0.0,
-                    diameterRatio: 0.27 * _screenSize.width, //100,
-                    squeeze: 1,
-                    itemExtent: 0.111 * _screenSize.width, //40,
-                    scrollController: yearScrollController,
-                    selectionOverlay: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(0.022 * _screenSize.width //8
+                    Expanded(
+                      child: Container(
+                        height: 0.3125 * _screenSize.height, //200
+                        alignment: Alignment.bottomCenter,
+                        child: CupertinoPicker(
+                          offAxisFraction: 0.0,
+                          diameterRatio: 0.27 * _screenSize.width, //100,
+                          squeeze: 1,
+                          itemExtent: 0.111 * _screenSize.width, //40,
+                          scrollController: yearScrollController,
+                          // selectionOverlay: Container(
+                          //   decoration: BoxDecoration(
+                          //     borderRadius: BorderRadius.only(
+                          //       topLeft: Radius.circular(0.022 * _screenSize.width //8
 
-                              ),
-                          bottomLeft:
-                              Radius.circular(0.022 * _screenSize.width //8
+                          //           ),
+                          //       bottomLeft:
+                          //           Radius.circular(0.022 * _screenSize.width //8
+                          //               ),
+                          //     ),
+                          //     color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
+                          //   ),
+                          // ),
+                          children: [
+                            for (var i = 1300; i < 1401; i++)
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 0.0125 * _screenSize.height, //8,
                                   ),
+                                  Text(
+                                    i.toString(),
+                                    style: TextStyle(
+                                      fontSize:
+                                          0.0444 * _screenSize.width, //16,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'IRANSans',
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // ),
+                                  Container(
+                                    height: 0.008 * _screenSize.height, //5
+                                  ),
+                                ],
+                              )
+                          ],
+                          onSelectedItemChanged: (int value) {
+                            setState(() {
+                              _yearValue = (1300 + value).toString();
+                              print('years is : $_yearValue');
+                            });
+                          },
                         ),
-                        color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
                       ),
                     ),
-                    children: [
-                      for (var i = 1300; i < 1401; i++)
-                        Column(
-                          children: [
-                            Container(
-                              height: 0.0125 * _screenSize.height, //8,
-                            ),
-                            Text(
-                              i.toString(),
-                              style: TextStyle(
-                                fontSize: 0.0444 * _screenSize.width, //16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'IRANSans',
-                                color: Colors.black,
-                              ),
-                            ),
-                            // ),
-                            Container(
-                              height: 0.008 * _screenSize.height, //5
-                            ),
-                          ],
-                        )
-                    ],
-                    onSelectedItemChanged: (int value) {
-                      setState(() {
-                        _yearValue = (1300 + value).toString();
-                        print('years is : $_yearValue');
-                      });
-                    },
-                  ),
+                    SizedBox(
+                      width: 0.054 * _screenSize.width, //20
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                width: 0.054 * _screenSize.width, //20
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(
             height: 0.046 * _screenSize.height, //30
