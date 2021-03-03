@@ -37,23 +37,38 @@ Future<Map<String, dynamic>> authService() async {
 //
   if (getToken != null) {
     print('user Have TOKEN : $getToken');
-    try {
-      await getAllUserInfo(token: getToken);
-      isAuth = true;
-      print('^*^*^ getAllUserInfo : Successfully');
-    } catch (e) {
-      print('^*^*^ getAllUserInfo : NOOOT Successfully');
-      printErrorMessage(e);
-      isAuth = false;
-      tryToGetAllUserInfo--;
-      print('try to getAllUser : remaind $tryToGetAllUserInfo time');
-      if (tryToGetAllUserInfo >= 0) await authService();
+
+    while (tryToGetAllUserInfo >= 0 || !isAuth) {
+      try {
+        await getAllUserInfo(token: getToken);
+        isAuth = true;
+        print('^*^*^ getAllUserInfo : Successfully');
+        Map<String, dynamic> initCreateRes =
+            createBottomNavigationBarPages(isAuth: isAuth);
+        print('created BottomNavigationBarPages');
+        _children = initCreateRes['children'];
+        pagesCreatedFinished = initCreateRes['success'];
+        //
+        return {
+          'userIsAuth': isAuth,
+          'pagesCreatedFinished': pagesCreatedFinished,
+          'children': _children,
+        };
+      } catch (e) {
+        print('^*^*^ getAllUserInfo : NOOOT Successfully');
+        printErrorMessage(e);
+        isAuth = false;
+        tryToGetAllUserInfo--;
+        print('try to getAllUser : remaind $tryToGetAllUserInfo time');
+        //
+      }
     }
   } else {
     print('user NOOOT Have TOKEN!!');
     isAuth = false;
   }
   //
+
   Map<String, dynamic> initCreateRes =
       createBottomNavigationBarPages(isAuth: isAuth);
   print('created BottomNavigationBarPages');
@@ -66,4 +81,5 @@ Future<Map<String, dynamic>> authService() async {
     'pagesCreatedFinished': pagesCreatedFinished,
     'children': _children,
   };
+  // }
 }

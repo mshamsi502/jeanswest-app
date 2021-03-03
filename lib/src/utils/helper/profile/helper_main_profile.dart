@@ -6,15 +6,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
-// import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
-// import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/user_account_info/account_info_screen.dart';
+
+import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
+import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
@@ -31,8 +28,12 @@ import 'package:intent/action.dart' as android_action;
 import 'package:intent/intent.dart' as android_intent;
 import 'package:intent/extra.dart' as android_extra;
 
-List<Widget> createProfileListMenuPages(
-    LevelCard userLevel, LevelCard nextLevel, int moneyBuying) {
+List<Widget> createProfileListMenuPages({
+  LevelCard userLevel,
+  LevelCard nextLevel,
+  int moneyBuying,
+  Function() rebuild,
+}) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
   profileListMenu.add(
@@ -62,34 +63,16 @@ List<Widget> createProfileListMenuPages(
   profileListMenu.add(AddressesListPage(
     title: 'لیست آدرس ها',
   ));
-  // profileListMenu.add(
 
-  // TabBarViewPage(
-  //   title: 'دوستان',
-  //   selectedTab: 1,
-  //   tabTitles: [
-  //     'دعوت دوست',
-  //     'دوستان من',
-  //   ],
-  //   tabWidgets: [
-  //     InviteFrindePage(
-  //       userId: 'user-${user.phoneNumber}',
-  //       receivedGift: userInvite.receivedGift,
-  //       someOfInvited: userInvite.someOfInvited,
-  //       someOfInstallFromInvited: userInvite.someOfInstallFromInvited,
-  //       someOfShoppingFromInvited: userInvite.someOfShoppingFromInvited,
-  //     ),
-  //     UserFriendsListPage(
-  //       friends: userFriends.friends,
-  //     ),
-  //   ],
-  //   bottomButton: 'ارسال لینک',
-  //   bottomButtonFunction: bottomButtonFunction,
-  // ),
-  // );
-  profileListMenu.add(AccountInfoScreen(
-    initPanelState: PanelState.CLOSED,
-  ));
+  profileListMenu.add(
+    AccountInfoScreen(
+        title: 'جزئیات حساب کاربری',
+        userAccountInfo: user,
+        updateUser: (UserMainInfo userMainInfo) {
+          user = userMainInfo;
+          rebuild();
+        }),
+  );
 
   return profileListMenu;
 }
