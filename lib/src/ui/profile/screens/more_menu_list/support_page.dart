@@ -7,7 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
+import 'package:jeanswest/src/ui/login/screens/login_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/contact_us_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/main_ticket_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/questions_widget.dart';
@@ -25,11 +29,26 @@ class _SupportPageState extends State<SupportPage>
   int selectedTab = 0;
   TabController tabController;
   PanelController panelController;
+  bool newTicketIsValid;
+  bool floatingisShowing;
+  List<Map<String, dynamic>> resCheckIsValid = new List<Map<String, dynamic>>();
 
   @override
   void initState() {
+    resCheckIsValid = [
+      {
+        'isValid': true,
+        'errorMessage': '',
+      },
+      {
+        'isValid': true,
+        'errorMessage': '',
+      },
+    ];
+    newTicketIsValid = false;
     tabController = new TabController(initialIndex: 0, length: 3, vsync: this);
     panelController = new PanelController();
+    floatingisShowing = true;
     tabController.addListener(() {
       setState(() {
         selectedTab = tabController.index;
@@ -45,33 +64,102 @@ class _SupportPageState extends State<SupportPage>
       color: Colors.grey,
       child: SafeArea(
         child: Scaffold(
+          floatingActionButton: floatingisShowing
+              ? GestureDetector(
+                  child: Container(
+                    height: 0.14 * _screenSize.width, //55
+                    width: 0.14 * _screenSize.width, //55
+                    decoration: BoxDecoration(
+                      color: MAIN_GOLD_COLOR,
+                      borderRadius: BorderRadius.circular(
+                        0.14 * _screenSize.width, // 50
+                      ),
+                    ),
+                    padding: EdgeInsets.all(
+                      0.023 * _screenSize.height, //15
+                    ),
+                    child: GlobalSvgImages.editIconForLeft,
+                  ),
+                  onTap: () {
+                    if (userIsAuth) {
+                      setState(() {
+                        floatingisShowing = false;
+                      });
+
+                      panelController.open();
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(
+                            screenSize: _screenSize,
+                            navigatorPop: (BuildContext context) =>
+                                Navigator.pop(context),
+                          ),
+                        ),
+                      );
+                    }
+                  })
+              : SizedBox(),
           body: Container(
             width: _screenSize.width,
             height: _screenSize.height,
             child: SlidingUpPanel(
               controller: panelController,
               minHeight: 0,
-              maxHeight: 0.7 * _screenSize.height, //450,
+              maxHeight: 430, // 0.7 * _screenSize.height, //450,
               backdropEnabled: true,
               backdropTapClosesPanel: true,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.0),
                 topRight: Radius.circular(15.0),
               ),
+              onPanelClosed: () {
+                setState(() {
+                  resCheckIsValid = [
+                    {
+                      'isValid': true,
+                      'errorMessage': '',
+                    },
+                    {
+                      'isValid': true,
+                      'errorMessage': '',
+                    },
+                  ];
+                });
+              },
               panel: SendNewTicketWidget(
-                sendMessage: (String department, String title, String text) {
+                resCheckIsValid: resCheckIsValid,
+                checkIsValid: (String title, String text) {
+                  List<Map<String, dynamic>> _resCheckIsValid =
+                      checkTicketIsValid(title: title, text: text);
                   setState(() {
-                    addTicketToUserTicket(department, title, text);
+                    resCheckIsValid = _resCheckIsValid;
+                    newTicketIsValid = (resCheckIsValid[0]['isValid'] &&
+                        resCheckIsValid[1]['isValid']);
+                  });
+                  print('00 title isValid : ${resCheckIsValid[0]['isValid']}');
+                  print('00 text isValid : ${resCheckIsValid[1]['isValid']}');
+                },
+                canSendMessage: newTicketIsValid,
+                sendMessage: (String title, String text) {
+                  // ! call send new ticket api
+                  setState(() {
+                    addTicketToUserTicket(title, text);
                   });
                 },
-                closePanel: () => panelController.close(),
+                closePanel: () async {
+                  await panelController.close().then((value) {
+                    setState(() {
+                      floatingisShowing = true;
+                    });
+                  });
+                },
               ),
               body: Container(
                 width: _screenSize.width,
                 height: _screenSize.height,
-                padding: EdgeInsets.symmetric(
-                    horizontal: 0.027 * _screenSize.width //10
-                    ),
+                color: Colors.white,
                 child: Column(
                   children: [
                     AppBarWithCloseWidget(
@@ -104,9 +192,11 @@ class _SupportPageState extends State<SupportPage>
                               headerAsset:
                                   'assets/images/png_images/profile/more/support_header.png'),
                           MainTicketWidget(
-                            openNewTicketPanel: () => panelController.open(),
                             headerAsset:
                                 'assets/images/png_images/profile/more/support_header.png',
+                            emptyTicketAsset:
+                                'assets/images/png_images/profile/more/create-ticket-help.png',
+                            ticket: userTickets,
                           ),
                           ContactUsWidget(
                               headerAsset:

@@ -93,7 +93,7 @@ class _InfoWidgetState extends State<InfoWidget> {
                               right: 0.027 * _screenSize.width, //10,
                             ),
                             child: Icon(
-                              Icons.chevron_right_rounded,
+                              Icons.chevron_left_rounded,
                               size: 0.069 * _screenSize.width, //25,
                               color: Colors.grey,
                             ),

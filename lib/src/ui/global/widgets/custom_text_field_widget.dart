@@ -48,46 +48,42 @@ class CustomTextFieldWidget extends StatefulWidget {
 }
 
 class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
-  double heightTextField;
-  double heightTitle;
-  double heightError;
-  // ignore: deprecated_member_use
-  List<dynamic> validationResult = new List<dynamic>();
-  @override
-  void initState() {
-    if (widget.lines != null)
-      heightTextField = 0.03125 *
-          widget.mediaQuery.size.height // 20
-          *
-          widget.lines.toInt();
-    else
-      heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
-    heightTitle = 0.093 * widget.mediaQuery.size.height; // 60;
-    heightError = widget.hasValidation
-        ? 0.0625 * widget.mediaQuery.size.height //40,
-        : 0;
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    if (widget.lines != null) {
+      print('2555555 : ${(0.033 * widget.mediaQuery.size.height // 20
+          * widget.lines.toInt())}');
+    }
+
     return Container(
       // color: Colors.green,
       padding: EdgeInsets.symmetric(
         horizontal: 0.027 * widget.mediaQuery.size.width, //10,
       ),
-      height: heightTextField +
-          heightTitle +
-          heightError +
-          0.023 * widget.mediaQuery.size.height //15,
-      ,
+      height: ( // ! heightTextField
+
+              (widget.lines == null || widget.lines == 1)
+                  ? (0.03125 * widget.mediaQuery.size.height) //20
+                  : (0.034 *
+                      widget.mediaQuery.size.height // 20
+                      *
+                      widget.lines.toInt())) +
+          ( // ! heightTitle
+              (0.093 * widget.mediaQuery.size.height) //60
+          ) +
+          ( // ! heightError
+              ((!widget.hasValidation || widget.isValid) ? 0 : 20)) +
+          0.033 * widget.mediaQuery.size.height, //15,
       width: widget.mediaQuery.size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: heightTitle - 0.054 * widget.mediaQuery.size.height, //30
+            height: (
+                    // ! heightTitle
+                    (0.093 * widget.mediaQuery.size.height) //60
+                ) -
+                0.054 * widget.mediaQuery.size.height, //30
             padding: EdgeInsets.symmetric(
               horizontal: 0.027 * widget.mediaQuery.size.width, //10,
             ),
@@ -141,8 +137,9 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                               fontSize:
                                   0.0388 * widget.mediaQuery.size.width, // 14,
                             ),
-                            maxLines: widget.lines,
+                            maxLines: widget.lines ?? 1,
                             controller: widget.textEditingController,
+                            
                             cursorColor: MAIN_BLUE_COLOR,
                             showCursor: true,
                             decoration: InputDecoration(

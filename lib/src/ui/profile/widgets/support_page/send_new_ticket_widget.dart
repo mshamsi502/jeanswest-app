@@ -7,19 +7,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-import 'package:jeanswest/src/constants/test_data/department.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/call-apis-helper.dart';
 
 class SendNewTicketWidget extends StatefulWidget {
   final Function() closePanel;
-  final Function(String, String, String) sendMessage;
+  final Function(String, String) sendMessage;
+  final bool canSendMessage;
+  final Function(String, String) checkIsValid;
+  final List<Map<String, dynamic>> resCheckIsValid;
 
   const SendNewTicketWidget({
     Key key,
     this.closePanel,
     this.sendMessage,
+    this.checkIsValid,
+    this.resCheckIsValid,
+    this.canSendMessage = false,
   }) : super(key: key);
   State<StatefulWidget> createState() => _SendNewTicketWidgetState();
 }
@@ -27,8 +32,6 @@ class SendNewTicketWidget extends StatefulWidget {
 class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
   TextEditingController titleEditingController;
   TextEditingController textEditingController;
-  String selectedDep;
-  int initSelectDep;
 
   ScrollController scrollController;
   @override
@@ -42,6 +45,8 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('00 canSendMessage : ${widget.canSendMessage}');
+
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,
@@ -73,7 +78,10 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                   ),
                   onTap: () {
                     FocusScope.of(context).unfocus();
+
                     widget.closePanel();
+                    titleEditingController.clear();
+                    textEditingController.clear();
                   }),
             ],
           ),
@@ -81,11 +89,13 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             height: 0.015 * _screenSize.height, //10
           ),
           Container(
-            height: 0.7 * _screenSize.height //450
-                    >
-                    _screenSize.height
-                ? _screenSize.height - 0.023 * _screenSize.height //450
-                : 0.52 * _screenSize.height, //330,
+            height: 320,
+
+            //  0.7 * _screenSize.height //450
+            //         >
+            //         _screenSize.height
+            //     ? _screenSize.height - 0.023 * _screenSize.height //450
+            //     : 0.52 * _screenSize.height, //330,
             child: Row(
               children: [
                 Expanded(
@@ -93,23 +103,15 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                     controller: scrollController,
                     child: Column(
                       children: [
-                        CustomDropdownButtonWidget(
-                            title: 'دپارتمان',
-                            hintTitle: "انتخاب دپارتمان ...",
-                            titleColor: MAIN_BLUE_COLOR,
-                            options: departments,
-                            mediaQuery: MediaQuery.of(context),
-                            selected: (String department) => setState(() {
-                                  selectedDep = department;
-                                })),
-                        SizedBox(
-                          height: 0.015 * _screenSize.height, //10
-                        ),
                         CustomTextFieldWidget(
                           title: 'عنوان',
                           textEditingController: titleEditingController,
                           titleColor: MAIN_BLUE_COLOR,
                           mediaQuery: MediaQuery.of(context),
+                          hasValidation: true,
+                          validationError: widget.resCheckIsValid[0]
+                              ['errorMessage'],
+                          isValid: widget.resCheckIsValid[0]['isValid'],
                         ),
                         SizedBox(
                           height: 0.015 * _screenSize.height, //10
@@ -119,7 +121,11 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                           textEditingController: textEditingController,
                           titleColor: MAIN_BLUE_COLOR,
                           mediaQuery: MediaQuery.of(context),
-                          lines: 4,
+                          lines: 7,
+                          hasValidation: true,
+                          validationError: widget.resCheckIsValid[1]
+                              ['errorMessage'],
+                          isValid: widget.resCheckIsValid[1]['isValid'],
                         ),
                       ],
                     ),
@@ -141,14 +147,31 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             radius: 4,
             fontSize: 0.042 * _screenSize.width, //15
             onTap: () async {
-              if (selectedDep != null) {
-                widget.sendMessage(selectedDep, titleEditingController.text,
-                    textEditingController.text);
-                widget.closePanel();
-                titleEditingController.clear();
-                textEditingController.clear();
-                FocusScope.of(context).unfocus();
-              }
+              widget.checkIsValid(
+                  titleEditingController.text, textEditingController.text);
+              await Future.delayed(Duration(milliseconds: 100));
+              setState(() {});
+              await Future.delayed(Duration(milliseconds: 100))
+                  .then((value) async {
+                if (widget.canSendMessage) {
+                  setState(() {});
+                  bool res = await callAPIsProvider(callApi: () {
+                    // ! call api
+                  });
+                  if (res ?? true // ! true is for test
+                      ) {
+                    widget.sendMessage(titleEditingController.text,
+                        textEditingController.text);
+                    widget.closePanel();
+                    titleEditingController.clear();
+                    textEditingController.clear();
+                    FocusScope.of(context).unfocus();
+                  }
+                }
+              });
+              // setState(() {
+
+              // });
             },
           ),
         ],
