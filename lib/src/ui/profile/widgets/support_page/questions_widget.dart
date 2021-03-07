@@ -39,11 +39,13 @@ class _QuestionsWidgetState extends State<QuestionsWidget> {
               ),
             ),
             Divider(
-              thickness: 1,
-              height: 0.5,
+              thickness: 0.001689 * _screenSize.height, //1,
+              height: 0.00138 * _screenSize.height, //0.5,
               color: MAIN_BLUE_COLOR,
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 0.031 * _screenSize.height, //20,
+            ),
             ExpansionTileWidget(
               que: questionStrings,
               ans: answerStrings,

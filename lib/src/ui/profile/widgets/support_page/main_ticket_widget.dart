@@ -49,14 +49,18 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                 ),
               ),
               Divider(
-                thickness: 1,
-                height: 0.5,
+                thickness: 0.001689 * _screenSize.height, //1,
+                height: 0.00138 * _screenSize.height, //0.5,
                 color: MAIN_BLUE_COLOR,
               ),
-              SizedBox(height: widget.ticket.length <= 0 ? 0 : 20),
+              SizedBox(
+                height: widget.ticket.length <= 0
+                    ? 0
+                    : 0.031 * _screenSize.height, //20,
+              ),
               widget.ticket.length <= 0
                   ? Container(
-                      height: 280,
+                      height: 0.47297 * _screenSize.height, //280,
                       decoration: BoxDecoration(
                         // color: Colors.red,
                         image: DecorationImage(
@@ -93,12 +97,15 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                 widget.ticket[widget.ticket.length - 1 - index]
                                         .isClosed
                                     ? BoxShadow(
-                                        spreadRadius: 0.2,
-                                        blurRadius: 0.5,
+                                        spreadRadius:
+                                            0.00055 * _screenSize.width, //0.2,
+                                        blurRadius:
+                                            0.00138 * _screenSize.height, //0.5,
                                         color: Colors.grey[100],
                                       )
                                     : BoxShadow(
-                                        spreadRadius: 0.8,
+                                        spreadRadius:
+                                            0.00222 * _screenSize.width, //0.8,
                                         blurRadius:
                                             0.00625 * _screenSize.height, //10
                                         color: Colors.grey[300],

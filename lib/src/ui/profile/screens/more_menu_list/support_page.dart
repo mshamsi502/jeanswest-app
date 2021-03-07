@@ -107,7 +107,7 @@ class _SupportPageState extends State<SupportPage>
             child: SlidingUpPanel(
               controller: panelController,
               minHeight: 0,
-              maxHeight: 430, // 0.7 * _screenSize.height, //450,
+              maxHeight: 0.72635 * _screenSize.height, //430
               backdropEnabled: true,
               backdropTapClosesPanel: true,
               borderRadius: BorderRadius.only(
@@ -204,7 +204,9 @@ class _SupportPageState extends State<SupportPage>
                         ],
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(
+                      height: 0.046 * _screenSize.height, //30
+                    ),
                   ],
                 ),
               ),

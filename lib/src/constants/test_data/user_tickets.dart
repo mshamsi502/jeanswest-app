@@ -251,19 +251,21 @@ UserTicket testTicket = UserTicket(
     ],
     isClosed: false);
 //
-
-// List<UserTicket> userTickets = [
-//   firstTicket,
-//   secondTicket,
-//   thirdTicket,
-//   firstTicket,
-//   secondTicket,
-//   firstTicket,
-//   secondTicket,
-//   firstTicket,
-//   thirdTicket,
-//   testTicket,
-// ];
+// ! user have tickets
 List<UserTicket> userTickets = [
-  
+  firstTicket,
+  secondTicket,
+  thirdTicket,
+  firstTicket,
+  secondTicket,
+  firstTicket,
+  secondTicket,
+  firstTicket,
+  thirdTicket,
+  testTicket,
 ];
+
+// ! empty ticket
+// List<UserTicket> userTickets = [
+
+// ];

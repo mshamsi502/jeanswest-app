@@ -35,38 +35,47 @@ Future<Map<String, dynamic>> authService() async {
   bool pagesCreatedFinished = false;
   bool isAuth = false;
 //
-  if (getToken != null) {
-    print('user Have TOKEN : $getToken');
-
-    while (tryToGetAllUserInfo >= 0 || !isAuth) {
-      try {
-        await getAllUserInfo(token: getToken);
-        isAuth = true;
-        print('^*^*^ getAllUserInfo : Successfully');
-        Map<String, dynamic> initCreateRes =
-            createBottomNavigationBarPages(isAuth: isAuth);
-        print('created BottomNavigationBarPages');
-        _children = initCreateRes['children'];
-        pagesCreatedFinished = initCreateRes['success'];
-        //
-        return {
-          'userIsAuth': isAuth,
-          'pagesCreatedFinished': pagesCreatedFinished,
-          'children': _children,
-        };
-      } catch (e) {
-        print('^*^*^ getAllUserInfo : NOOOT Successfully');
-        printErrorMessage(e);
+  bool hasNet = await checkConnectionInternet();
+  if (hasNet) {
+    if (getToken != null) {
+      print('user Have TOKEN : $getToken');
+      if (!isAuth) {
+        while (tryToGetAllUserInfo >= 0) {
+          try {
+            await getAllUserInfo(token: getToken);
+            isAuth = true;
+            print('^*^*^ getAllUserInfo : Successfully');
+            Map<String, dynamic> initCreateRes =
+                createBottomNavigationBarPages(isAuth: isAuth);
+            print('created BottomNavigationBarPages');
+            _children = initCreateRes['children'];
+            pagesCreatedFinished = initCreateRes['success'];
+            //
+            return {
+              'userIsAuth': isAuth,
+              'pagesCreatedFinished': pagesCreatedFinished,
+              'children': _children,
+            };
+          } catch (e) {
+            print('^*^*^ getAllUserInfo : NOOOT Successfully');
+            printErrorMessage(e);
+            isAuth = false;
+            tryToGetAllUserInfo--;
+            print('try to getAllUser : remaind $tryToGetAllUserInfo time');
+            //
+          }
+        }
+        // ! server is down, try agian
         isAuth = false;
-        tryToGetAllUserInfo--;
-        print('try to getAllUser : remaind $tryToGetAllUserInfo time');
-        //
       }
+    } else {
+      print('user NOOOT Have TOKEN!!');
+      isAuth = false;
     }
   } else {
-    print('user NOOOT Have TOKEN!!');
-    isAuth = false;
+    // ! no internet, turn on and try again
   }
+
   //
 
   Map<String, dynamic> initCreateRes =

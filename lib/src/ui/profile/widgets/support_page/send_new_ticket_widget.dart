@@ -89,7 +89,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             height: 0.015 * _screenSize.height, //10
           ),
           Container(
-            height: 320,
+            height: 0.54054 * _screenSize.height, //320,
 
             //  0.7 * _screenSize.height //450
             //         >
@@ -144,7 +144,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             borderColor: MAIN_BLUE_COLOR,
             height: 0.0625 * _screenSize.height, //40,
             width: _screenSize.width - 0.19 * _screenSize.width, //70,
-            radius: 4,
+            radius: 0.011 * _screenSize.width, //4,
             fontSize: 0.042 * _screenSize.width, //15
             onTap: () async {
               widget.checkIsValid(

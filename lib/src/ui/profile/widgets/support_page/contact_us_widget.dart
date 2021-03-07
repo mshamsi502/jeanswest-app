@@ -31,7 +31,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(
-        horizontal: 20,
+        horizontal: 0.054 * _screenSize.width, //20
       ),
       color: Colors.white,
       child: SingleChildScrollView(
@@ -49,11 +49,13 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               ),
             ),
             Divider(
-              thickness: 1,
-              height: 0.5,
+              thickness: 0.001689 * _screenSize.height, //1,
+              height: 0.00138 * _screenSize.height, //0.5,
               color: MAIN_BLUE_COLOR,
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 0.031 * _screenSize.height, //20,
+            ),
             Container(
               padding: EdgeInsets.symmetric(
                 vertical: 0.03125 * _screenSize.height, //20
@@ -142,7 +144,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 0.031 * _screenSize.height, //20,
+            ),
             Container(
               height: 0.28 * _screenSize.height, //180,
               width: _screenSize.width,

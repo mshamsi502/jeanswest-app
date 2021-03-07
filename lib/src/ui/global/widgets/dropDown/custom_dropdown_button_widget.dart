@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 
-import 'package:jeanswest/src/ui/global/widgets/dropDown/drop-list-model.dart';
+import 'package:jeanswest/src/models/dropDown/drop-list-model.dart';
 import 'package:jeanswest/src/ui/global/widgets/dropDown/select_drop_list.dart';
 
 class CustomDropdownButtonWidget extends StatefulWidget {
@@ -69,14 +69,17 @@ class _CustomDropdownButtonWidgetState
 
   @override
   Widget build(BuildContext context) {
+    Size _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.transparent,
-      padding: EdgeInsets.symmetric(
-        horizontal: 0.027 * widget.mediaQuery.size.width, //10,
-      ),
       height: heightTextField +
           heightTitle + //
-          (isShowDropDown ? (50 * widget.options.length) : 5 // !
+          (isShowDropDown
+              ? (0.0844594 *
+                  _screenSize.height //50,
+                  *
+                  widget.options.length)
+              : 0.008 * _screenSize.height //5 // !
           ),
       width: widget.mediaQuery.size.width,
       child: Column(
@@ -84,6 +87,9 @@ class _CustomDropdownButtonWidgetState
         children: [
           Container(
             height: heightTitle - 0.054 * widget.mediaQuery.size.height, //30
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * widget.mediaQuery.size.width, //10,
+            ),
             child: Text(
               widget.title,
               style: TextStyle(
