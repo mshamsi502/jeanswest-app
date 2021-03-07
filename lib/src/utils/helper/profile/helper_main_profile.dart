@@ -15,6 +15,7 @@ import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_sc
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/orderList/order_list_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
@@ -55,7 +56,7 @@ List<Widget> createProfileListMenuPages({
       bottomButtonFunction: () {},
     ),
   );
-  profileListMenu.add(Container());
+  profileListMenu.add(OrderListScreen());
   profileListMenu.add(FavoritesListScreen(
     title: "علاقه مندی ها",
     products: userFavorites,
