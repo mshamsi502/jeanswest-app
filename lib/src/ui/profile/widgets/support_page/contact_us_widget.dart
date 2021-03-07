@@ -30,22 +30,31 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 0.054 * _screenSize.width, //20
+      ),
+      color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           children: [
             Container(
               height: 0.3125 * _screenSize.height, //200
+
               width: _screenSize.width,
               decoration: BoxDecoration(
-                // color: Colors.red,
                 image: DecorationImage(
                   fit: BoxFit.contain,
                   image: new AssetImage(widget.headerAsset),
                 ),
               ),
             ),
+            Divider(
+              thickness: 0.001689 * _screenSize.height, //1,
+              height: 0.00138 * _screenSize.height, //0.5,
+              color: MAIN_BLUE_COLOR,
+            ),
             SizedBox(
-              height: 0.015 * _screenSize.height, //10
+              height: 0.031 * _screenSize.height, //20,
             ),
             Container(
               padding: EdgeInsets.symmetric(
@@ -61,76 +70,82 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
               child: Column(
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
                         width: 0.027 * _screenSize.width, //10
-                      ),
-                      Icon(
-                        Icons.phone,
-                        color: MAIN_BLUE_COLOR,
-                        size: 0.023 * _screenSize.height, //15
-                      ),
-                      SizedBox(
-                        width: 0.014 * _screenSize.width, //5
                       ),
                       Text(
                         '02191070544',
                         style: TextStyle(
                             fontSize: 0.033 * _screenSize.width, //12
                             color: MAIN_BLUE_COLOR),
-                      )
+                      ),
+                      SizedBox(
+                        width: 0.014 * _screenSize.width, //5
+                      ),
+                      Icon(
+                        Icons.phone,
+                        color: MAIN_BLUE_COLOR,
+                        size: 0.023 * _screenSize.height, //15
+                      ),
                     ],
                   ),
                   SizedBox(
                     height: 0.015 * _screenSize.height, //10
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
                         width: 0.027 * _screenSize.width, //10
-                      ),
-                      Icon(
-                        Icons.email_outlined,
-                        color: MAIN_BLUE_COLOR,
-                        size: 0.023 * _screenSize.height, //15
-                      ),
-                      SizedBox(
-                        width: 0.014 * _screenSize.width, //5
                       ),
                       Text(
                         'info@banimode.com',
                         style: TextStyle(
                             fontSize: 0.033 * _screenSize.width, //12,
                             color: MAIN_BLUE_COLOR),
-                      )
+                      ),
+                      SizedBox(
+                        width: 0.014 * _screenSize.width, //5
+                      ),
+                      Icon(
+                        Icons.email_outlined,
+                        color: MAIN_BLUE_COLOR,
+                        size: 0.023 * _screenSize.height, //15
+                      ),
                     ],
                   ),
                   SizedBox(
                     height: 0.015 * _screenSize.height, //10
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(
                         width: 0.027 * _screenSize.width, //10
-                      ),
-                      Icon(
-                        Icons.apartment_outlined,
-                        color: Colors.black,
-                        size: 0.023 * _screenSize.height, //15
-                      ),
-                      SizedBox(
-                        width: 0.014 * _screenSize.width, //5
                       ),
                       Text(
                         '1475614566',
                         style: TextStyle(
                             fontSize: 0.033 * _screenSize.width, //12,
                             color: Colors.black),
-                      )
+                      ),
+                      SizedBox(
+                        width: 0.014 * _screenSize.width, //5
+                      ),
+                      Icon(
+                        Icons.apartment_outlined,
+                        color: Colors.black,
+                        size: 0.023 * _screenSize.height, //15
+                      ),
                     ],
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 0.031 * _screenSize.height, //20,
             ),
             Container(
               height: 0.28 * _screenSize.height, //180,

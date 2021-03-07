@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/expansion-tile_widget.dart';
 
@@ -37,8 +38,14 @@ class _QuestionsWidgetState extends State<QuestionsWidget> {
                 ),
               ),
             ),
-            SizedBox(height: 0.015 * _screenSize.height //10
-                ),
+            Divider(
+              thickness: 0.001689 * _screenSize.height, //1,
+              height: 0.00138 * _screenSize.height, //0.5,
+              color: MAIN_BLUE_COLOR,
+            ),
+            SizedBox(
+              height: 0.031 * _screenSize.height, //20,
+            ),
             ExpansionTileWidget(
               que: questionStrings,
               ans: answerStrings,

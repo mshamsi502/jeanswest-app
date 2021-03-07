@@ -4,7 +4,7 @@
 //****************************************************************************
 
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
-import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/dropDown/custom_dropdown_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +88,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               mediaQuery: MediaQuery.of(context),
                               titleColor: Colors.black,
                               textColor: Colors.black,
-                              lines: 1,
+                              // lines: 1,
                             ),
                             onTap: () {
                               if (widget.isSelectDate)
