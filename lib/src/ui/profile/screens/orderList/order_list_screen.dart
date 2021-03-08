@@ -7,6 +7,7 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/test_data/orders.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_list_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/online-tabs-widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -86,18 +87,15 @@ class _OrderListScreenState extends State<OrderListScreen>
                               EdgeInsets.symmetric(horizontal: 10),
                           indicatorWeight: 1.5,
                           tabs: <Widget>[
-                            Tab(text: 'درحال انجام'),
-                            Tab(text: 'تکمیل شده'),
+                            Tab(text: 'آنلاین'),
+                            Tab(text: 'آفلاین'),
                           ],
                         ),
                         Expanded(
                           child: TabBarView(
                             controller: tabController,
                             children: <Widget>[
-                              OrderListWidget(
-                                orders: inProgressOrders,
-                                status: 'در حال پردازش',
-                              ),
+                              OnlineTabsWidget(),
                               OrderListWidget(
                                 orders: endedOrders,
                                 status: 'تکمیل شده',

@@ -12,11 +12,13 @@ import 'package:flutter/widgets.dart';
 class OrderListWidget extends StatefulWidget {
   final List<Order> orders;
   final String status;
+  final bool isOnlineOrder;
 
   const OrderListWidget({
     Key key,
     this.orders,
     this.status,
+    this.isOnlineOrder = false,
   }) : super(key: key);
   @override
   _OrderListWidgetState createState() => _OrderListWidgetState();
