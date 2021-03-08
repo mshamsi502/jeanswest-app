@@ -28,7 +28,10 @@ Future<Map<String, dynamic>> authService() async {
   // String getToken =
   //     mockoonGlobalLocator<SharedPreferences>().getString(TOKEN);
   // globalLocator<SharedPreferences>().clear();
-
+  //
+  // bool isSuccess = await globalLocator<SharedPreferences>().setString(
+  //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
+  //
   String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
