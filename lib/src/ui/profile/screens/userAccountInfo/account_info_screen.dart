@@ -75,7 +75,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       ],
       [
         'جنسیت',
-        userInfo.gender ?? "",
+        userInfo.gender ?? Gender(perName: '', engName: ''),
         false,
       ],
       [

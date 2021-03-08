@@ -80,7 +80,7 @@ UserMainInfo createUserInfo(UserMainInfoRes userAccount) {
       ? male
       : userAccount.gender == 'female'
           ? female
-          : other;
+          : null;
   List<String> date = userAccount.birthDate.split("-");
   Gregorian gregorian =
       new Gregorian(int.parse(date[0]), int.parse(date[1]), int.parse(date[2]));
@@ -106,7 +106,7 @@ UserFriendsInfo createUserFriends(UserFriendsInfoRes userFriendsInfoRes) {
         ? male
         : friend.gender == 'female'
             ? female
-            : other;
+            : null;
     List<String> date = friend.birthDate.split("-");
     Gregorian gregorian = new Gregorian(
         int.parse(date[0]), int.parse(date[1]), int.parse(date[2]));

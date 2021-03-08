@@ -11,12 +11,22 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
-  _children.add(MainProfilePage(isAuth: !isAuth));
+  _children.add(MainProfilePage(
+    isAuth: !isAuth,
+    showCompeletProfileMessage: showCompeletProfileMessage,
+    changeCompeletProfileMessage: (bool value) =>
+        showCompeletProfileMessage = value,
+  ));
   _children.add(Container(color: Colors.white));
   _children.add(Container(color: Colors.blue));
   // _children.add(shoppingBasketPage);
   _children.add(Container(color: Colors.green));
-  _children.add(MainProfilePage(isAuth: isAuth));
+  _children.add(MainProfilePage(
+    isAuth: isAuth,
+    showCompeletProfileMessage: showCompeletProfileMessage,
+    changeCompeletProfileMessage: (bool value) =>
+        showCompeletProfileMessage = value,
+  ));
   pagesCreatedFinished = true;
   return {
     'success': pagesCreatedFinished,

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
@@ -17,10 +18,12 @@ import 'package:jeanswest/src/constants/test_data/texts.dart';
 //
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 // import 'package:jeanswest/src/ui/profile/screens/friends/user_friends_list_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/auth_profile_appbar_widget.dart';
@@ -28,13 +31,21 @@ import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/unauth_profil
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 // import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'main_menu_list/inbox_page.dart';
 
 class MainProfilePage extends StatefulWidget {
   final bool isAuth;
+  final bool showCompeletProfileMessage;
+  final Function(bool) changeCompeletProfileMessage;
 
-  const MainProfilePage({Key key, this.isAuth}) : super(key: key);
+  const MainProfilePage({
+    Key key,
+    this.isAuth,
+    this.showCompeletProfileMessage,
+    this.changeCompeletProfileMessage,
+  }) : super(key: key);
   @override
   _MainProfilePageState createState() => _MainProfilePageState();
 }
@@ -51,10 +62,13 @@ class _MainProfilePageState extends State<MainProfilePage>
   bool haveUnreadMessage;
   List<Widget> mainProfileListMenu;
   List<Widget> moreListMenu;
+  //
+  int percentCompleteProfile;
 
   @override
   void initState() {
     super.initState();
+    percentCompleteProfile = 100;
     userLevel = userLevelProvider(userPayment.moneyBuying);
     nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
@@ -72,6 +86,35 @@ class _MainProfilePageState extends State<MainProfilePage>
   }
 
   buildProfile() {
+    percentCompleteProfile = 100;
+    if (user.firstName == null || user.firstName == '') {
+      print(' 10 : firstName is empty');
+      percentCompleteProfile = percentCompleteProfile - 10;
+    }
+    if (user.lastName == null || user.lastName == '') {
+      print(' 10 : lastName is empty');
+      percentCompleteProfile = percentCompleteProfile - 10;
+    }
+    if (user.email == null || user.email == '') {
+      print(' 20 : email is empty');
+      percentCompleteProfile = percentCompleteProfile - 20;
+    }
+    if (user.gender == null ||
+        user.gender.perName == null ||
+        user.gender.perName == '') {
+      print(' 20 : gender is empty');
+      percentCompleteProfile = percentCompleteProfile - 20;
+    }
+    if (user.dayOfBirth == null ||
+        user.dayOfBirth == '' ||
+        user.monthOfBirth == null ||
+        user.monthOfBirth == '' ||
+        user.yearOfBirth == null ||
+        user.yearOfBirth == '') {
+      print(' 20 : dateOfBirth is empty');
+      percentCompleteProfile = percentCompleteProfile - 20;
+    }
+    print('percentCompleteProfile : $percentCompleteProfile %');
     mainProfileListMenu = createProfileListMenuPages(
       userLevel: userLevel,
       nextLevel: nextLevel,
@@ -162,6 +205,135 @@ class _MainProfilePageState extends State<MainProfilePage>
                       ),
                     )
                   : Container(),
+              // widget.showCompeletProfileMessage
+              widget.isAuth && showCompeletProfileMessage
+                  ? Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      height: 115,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                // color: Colors.red,
+                                child: GestureDetector(
+                                  child: Container(
+                                    width: 18,
+                                    height: 18,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 12),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: BLUE_SKY_FADE_COLOR,
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    child: Icon(
+                                      Icons.close,
+                                      size: 14,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  onTap: () => setState(() {
+                                    showCompeletProfileMessage = false;
+                                    print('closing');
+                                    widget.changeCompeletProfileMessage(false);
+                                  }),
+                                ),
+                              ),
+                              Expanded(
+                                child: SizedBox(),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'اطلاعات حساب کاربری خود را تکمیل کنید',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                  ),
+                                ),
+                                AvakatanButtonWidget(
+                                  backgroundColor: MAIN_BLUE_COLOR,
+                                  textColor: Colors.white,
+                                  borderColor: MAIN_BLUE_COLOR,
+                                  hasShadow: false,
+                                  title: 'تکمیل اطلاعات',
+                                  height: 28,
+                                  width: 100,
+                                  radius: 4,
+                                  fontSize: 11,
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => AccountInfoScreen(
+                                          title: 'جزئیات حساب کاربری',
+                                          userAccountInfo: user,
+                                          updateUser:
+                                              (UserMainInfo userMainInfo) {
+                                            user = userMainInfo;
+                                            buildProfile();
+                                          }),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 7),
+                            child: GestureDetector(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '$percentCompleteProfile%',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: LinearPercentIndicator(
+                                      percent: percentCompleteProfile / 100,
+                                      progressColor: Color(0xff32BE93),
+                                      animation: true,
+                                      restartAnimation: true,
+                                      curve: Curves.linear,
+                                      animationDuration: 3200,
+                                      lineHeight: 7,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AccountInfoScreen(
+                                      title: 'جزئیات حساب کاربری',
+                                      userAccountInfo: user,
+                                      updateUser: (UserMainInfo userMainInfo) {
+                                        user = userMainInfo;
+                                        buildProfile();
+                                      }),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                        ],
+                      ),
+                    )
+                  : SizedBox(),
+              SizedBox(height: 20),
               Container(
                 margin:
                     EdgeInsets.symmetric(horizontal: 0.023 * _screenSize.width),

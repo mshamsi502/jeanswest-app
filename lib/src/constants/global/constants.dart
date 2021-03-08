@@ -25,6 +25,8 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 bool isInit = true;
 bool userIsAuth = false;
 int tryToGetAllUserInfo = 4;
+
+bool showCompeletProfileMessage = true;
 // GoogleMapWidget myGoogleMapWidget;
 //
 // GetIt mockoonGlobalLocator = GetIt.instance;

@@ -16,5 +16,4 @@ class Gender {
 
 Gender female = new Gender(perName: 'زن', engName: 'Female');
 Gender male = new Gender(perName: 'مرد', engName: 'Male');
-Gender other = new Gender(perName: 'دیگر', engName: 'Other');
 //
