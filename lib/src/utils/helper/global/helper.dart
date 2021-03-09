@@ -10,6 +10,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+Future<bool> backPanelClose(
+    PanelController panelController, BuildContext context) async {
+  if (panelController.isPanelClosed) {
+    Navigator.pop(context);
+    return true;
+  } else {
+    panelController.close();
+    return false;
+  }
+}
 
 Future<bool> checkIsAuthWithRetro(String phoneNumber) async {
   bool isSuccess;
