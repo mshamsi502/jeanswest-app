@@ -24,13 +24,15 @@ class _AddressesListPageState extends State<AddressesListPage> {
   ScrollController scrollController;
   int selectForEdit;
   PanelState mapPanelState;
-  PanelController panelController;
+  PanelController editPanelController;
+  PanelController mapPanelController;
   bool isInitial;
 
   @override
   void initState() {
     scrollController = new ScrollController();
-    panelController = new PanelController();
+    editPanelController = new PanelController();
+    mapPanelController = new PanelController();
     mapPanelState = PanelState.CLOSED;
     selectForEdit = 0;
     isInitial = true;
@@ -44,11 +46,21 @@ class _AddressesListPageState extends State<AddressesListPage> {
     return Container(
       color: Colors.grey,
       child: WillPopScope(
-        onWillPop: () => backPanelClose(panelController, context),
+        onWillPop: () async {
+          if (mapPanelController.isPanelOpen &&
+              mapPanelState == PanelState.CLOSED)
+            return await backPanelClose(mapPanelController, context);
+          if (editPanelController.isPanelOpen)
+            return await backPanelClose(editPanelController, context);
+          if (mapPanelController.isPanelOpen &&
+              mapPanelState == PanelState.OPEN)
+            return await backPanelClose(mapPanelController, context);
+          return false;
+        },
         child: Scaffold(
           body: SafeArea(
             child: SlidingUpPanel(
-              controller: panelController,
+              controller: editPanelController,
               minHeight: 0,
               maxHeight: _screenSize.height,
               isDraggable: false,
@@ -56,11 +68,12 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 title: 'جزئیات آدرس',
                 address: userAddresses[selectForEdit],
                 indexAddress: selectForEdit,
+                mapPanelController: mapPanelController,
                 mapPanelState: mapPanelState,
                 changeSelected: (int selected) {},
                 closeEditPanel: () {
                   print('closing');
-                  panelController.close();
+                  editPanelController.close();
                 },
                 // closeMapPanelState: () {
                 //   // if (!mounted)
@@ -118,7 +131,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                           mapPanelState = PanelState.CLOSED;
                                           selectForEdit = seleted;
                                         });
-                                        panelController.open();
+                                        editPanelController.open();
                                       },
                                     ),
                                     Divider(
@@ -166,7 +179,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                             isInitial = true;
                             mapPanelState = PanelState.OPEN;
                           });
-                          panelController.open();
+                          editPanelController.open();
                           // ! add new Address
                           print('/*/*// add new address');
                         },

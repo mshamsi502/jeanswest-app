@@ -200,6 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         RealSearchAppBarWidget(
                           title: '${"login_screen.country_code".tr()} ...',
+                          haveSearchInText: true,
                           changeListPanelState: changeCountryListPanelState,
                           changeTextFieldSearch: changeTextFieldSearch,
                           inputNode: searchInputNode,

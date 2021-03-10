@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
@@ -26,6 +27,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool isFirstLaunchBranch;
   AnimationController controller;
   int _selectedIndex = 4;
+  PanelController searchPanelController;
 
   /// => [showButtonNavigationBar] is for when Bottom Navigation Bar Should to Hide Like [LoginPage]
   bool showButtonNavigationBar;
@@ -41,6 +43,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     isSplash = true;
+    searchPanelController = new PanelController();
     // ignore: deprecated_member_use
     _children = new List<Widget>();
     fToast = new FToast();
@@ -67,6 +70,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
+      debugShowCheckedModeBanner: false,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: 'Jeanswest',
@@ -125,7 +129,9 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   updateProp(int selectedIndex) {
     setState(() {
       if (isFirstLaunchBranch) {
-        _children[1] = InitBranchPage();
+        _children[1] = InitBranchPage(
+          searchPanelController: searchPanelController,
+        );
         isFirstLaunchBranch = false;
       }
       _selectedIndex = selectedIndex;
@@ -143,25 +149,35 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   /// and Exit from App when TapOn Back Button Twice
   Future<bool> _onWillPop(BuildContext context) {
     if (!showButtonNavigationBar) {
+      print('bbbbbbb');
       return Future.value(true);
     } else {
-      DateTime now = DateTime.now();
-      if (currentBackPressTime == null ||
-          now.difference(currentBackPressTime) > Duration(seconds: 1)) {
-        // showToast("برای خروج دوبار دکمه بازگشت را بزنید.", fToast);
-        Fluttertoast.showToast(
-            msg: "برای خروج دوبار دکمه بازگشت را بزنید.",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Color(0xAA000000),
-            textColor: Colors.white,
-            fontSize: 14.0);
+      print('ccccccc');
+      if (searchPanelController.isPanelOpen) {
+        print('dddddd');
+        searchPanelController.close();
+        return Future.value(true);
+      } else {
+        print('eeeeee');
+        DateTime now = DateTime.now();
+        if (currentBackPressTime == null ||
+            now.difference(currentBackPressTime) > Duration(seconds: 1)) {
+          print('fffff');
+          // showToast("برای خروج دوبار دکمه بازگشت را بزنید.", fToast);
+          Fluttertoast.showToast(
+              msg: "برای خروج دوبار دکمه بازگشت را بزنید.",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Color(0xAA000000),
+              textColor: Colors.white,
+              fontSize: 14.0);
 
-        return Future.value(false);
+          return Future.value(true);
+        }
+        exit(0);
+        // return Future.value(true);
       }
-      exit(0);
-      // return Future.value(true);
     }
   }
 }

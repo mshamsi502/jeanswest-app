@@ -50,11 +50,6 @@ class CustomTextFieldWidget extends StatefulWidget {
 class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
   @override
   Widget build(BuildContext context) {
-    if (widget.lines != null) {
-      print('2555555 : ${(0.033 * widget.mediaQuery.size.height // 20
-          * widget.lines.toInt())}');
-    }
-
     return Container(
       // color: Colors.green,
       padding: EdgeInsets.symmetric(
@@ -139,7 +134,6 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                             ),
                             maxLines: widget.lines ?? 1,
                             controller: widget.textEditingController,
-                            
                             cursorColor: MAIN_BLUE_COLOR,
                             showCursor: true,
                             decoration: InputDecoration(

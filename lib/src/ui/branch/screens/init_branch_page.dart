@@ -11,10 +11,14 @@ import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.d
 import 'package:jeanswest/src/bloc/branch/states/selected_branch_state.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'branch_page.dart';
 
 class InitBranchPage extends StatefulWidget {
+  final PanelController searchPanelController;
+
+  const InitBranchPage({Key key, this.searchPanelController}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _InitBranchPageState();
 }
@@ -40,7 +44,9 @@ class _InitBranchPageState extends State<InitBranchPage>
           ),
         ),
       ],
-      child: BranchPage(),
+      child: BranchPage(
+        searchPanelController: widget.searchPanelController,
+      ),
     );
   }
 }

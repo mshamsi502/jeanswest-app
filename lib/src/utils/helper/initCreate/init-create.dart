@@ -114,11 +114,12 @@ checkCompleteProfileMsgDateTime() {
       null) {
     completeProfileMsgDateTime = globalLocator<SharedPreferences>()
         .getString('completeProfileMsgDataTime');
-
-    if (DateTime.parse(completeProfileMsgDateTime)
-            .difference(DateTime.now())
+    if (DateTime.now()
+            .difference(DateTime.parse(completeProfileMsgDateTime))
             .inDays >
         7) {
+      //     .inSeconds >
+      // 15) {
       completeProfileMsgDateTime = DateTime.now().toString();
       globalLocator<SharedPreferences>()
           .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);

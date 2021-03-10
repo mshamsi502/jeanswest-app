@@ -421,6 +421,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                 titles: widget.isAuth ? mainProfileListTitles : moreListTitles,
                 icons: widget.isAuth ? mainProfileListIcons : moreListIcons,
                 pages: widget.isAuth ? mainProfileListMenu : moreListWidgets,
+                haveExit: widget.isAuth,
                 backgroundColor: F7_BACKGROUND_COLOR,
               ),
               SizedBox(height: 5),
