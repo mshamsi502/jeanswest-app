@@ -3,6 +3,8 @@
 // ! *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ! ****************************************************************************
 
+import 'package:flutter/material.dart';
+
 const int RECEIVE_TIMEOUT = 5000;
 const int CONNECT_TIMEOUT = 5000;
 const Duration POPUP_INFO_BRANCH_DURATION_ANIMATION =
@@ -10,4 +12,7 @@ const Duration POPUP_INFO_BRANCH_DURATION_ANIMATION =
 const Duration POPUP_LIST_VIEW_BRANCH_DURATION_ANIMATION =
     Duration(milliseconds: 700);
 // ignore: non_constant_identifier_names
-double BOTTOM_NAVIGATION_BAR_HEIGHT = 58;
+double CREATE_BOTTOM_NAVIGATION_BAR_HEIGHT(Size _screenSize) {
+  return (0.097972 * _screenSize.height //58
+      );
+}

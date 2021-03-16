@@ -32,6 +32,7 @@ class _SupportPageState extends State<SupportPage>
   PanelController panelController;
   bool newTicketIsValid;
   bool floatingisShowing;
+  // ignore: deprecated_member_use
   List<Map<String, dynamic>> resCheckIsValid = new List<Map<String, dynamic>>();
 
   @override

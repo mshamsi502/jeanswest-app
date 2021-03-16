@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
@@ -36,7 +36,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
   String textLink;
   // ignore: deprecated_member_use
   List<dynamic> validationResult = new List<dynamic>();
-  FToast fToast;
+  // FToast fToast;
   @override
   void initState() {
     validationResult = [true, ''];

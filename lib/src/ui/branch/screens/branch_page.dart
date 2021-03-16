@@ -159,7 +159,10 @@ class _BranchPageState extends State<BranchPage>
                   isSelectedBranch: isSelectedBranch,
                 ),
               ),
-              SizedBox(height: BOTTOM_NAVIGATION_BAR_HEIGHT + 20),
+              SizedBox(
+                height: CREATE_BOTTOM_NAVIGATION_BAR_HEIGHT(screenSize) +
+                    0.031 * screenSize.height, //20,
+              ),
             ]),
             // ),
             //   ),

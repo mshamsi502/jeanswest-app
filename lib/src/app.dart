@@ -7,7 +7,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
@@ -33,7 +33,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   bool showButtonNavigationBar;
 
   /// => [fToast] and [currentBackPressTime] are for Exit App by Back Button
-  FToast fToast;
+  // FToast fToast;
   DateTime currentBackPressTime;
 
   /// => [_children] is Pages of Bottom Navigation Bar
@@ -46,13 +46,15 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     searchPanelController = new PanelController();
     // ignore: deprecated_member_use
     _children = new List<Widget>();
-    fToast = new FToast();
-    fToast.init(context);
+    // fToast = new FToast();
+    // fToast.init(context);
+    currentBackPressTime = DateTime.now();
     showButtonNavigationBar = true;
     isFirstLaunchBranch = true;
     loading = 'Loading';
     // ! check user auth and Create Pages
     auth();
+    createEasyLoading();
   }
 
   auth() async {
@@ -63,6 +65,29 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       // ! => add Pages of Bottom Navigation Bar to [_children]
       _children = authServiceRes['children'];
     });
+  }
+
+  void createEasyLoading() {
+    EasyLoading.instance
+      ..displayDuration = const Duration(milliseconds: 2000)
+      //
+      ..maskType = EasyLoadingMaskType.none
+      //
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..indicatorSize = 0
+      ..indicatorColor = Colors.black
+      //
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..radius = 5
+      //
+      ..textColor = Colors.black
+      ..fontSize = 13
+      //
+      ..backgroundColor = Colors.grey
+      ..contentPadding = EdgeInsets.symmetric(horizontal: 15, vertical: 5)
+      ..textPadding = EdgeInsets.symmetric(horizontal: 15, vertical: 5)
+      ..userInteractions = false
+      ..dismissOnTap = true;
   }
 
   //
@@ -79,6 +104,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      builder: EasyLoading.init(),
       home: isSplash
           ? LoadingPage(
               text: 'بارگذاری',
@@ -147,36 +173,33 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   /// => [_onWillPop] is show a Toast when TapOn Back Button Once,
   /// and Exit from App when TapOn Back Button Twice
-  Future<bool> _onWillPop(BuildContext context) {
+  Future<bool> _onWillPop(BuildContext context) async {
     if (!showButtonNavigationBar) {
-      print('bbbbbbb');
       return Future.value(true);
     } else {
-      print('ccccccc');
-      if (searchPanelController.isPanelOpen) {
-        print('dddddd');
+      if (searchPanelController != null &&
+          searchPanelController.isAttached &&
+          !searchPanelController.isPanelClosed) {
         searchPanelController.close();
-        return Future.value(true);
+        return Future.value(false);
       } else {
-        print('eeeeee');
         DateTime now = DateTime.now();
         if (currentBackPressTime == null ||
             now.difference(currentBackPressTime) > Duration(seconds: 1)) {
-          print('fffff');
-          // showToast("برای خروج دوبار دکمه بازگشت را بزنید.", fToast);
-          Fluttertoast.showToast(
-              msg: "برای خروج دوبار دکمه بازگشت را بزنید.",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 2,
-              backgroundColor: Color(0xAA000000),
-              textColor: Colors.white,
-              fontSize: 14.0);
-
-          return Future.value(true);
+          // await EasyLoading.show(
+          //   status: "برای خروج دوبار دکمه بازگشت را بزنید.",
+          // );
+          await EasyLoading.showToast(
+            "برای خروج دوبار دکمه بازگشت را بزنید.",
+            toastPosition: EasyLoadingToastPosition.bottom,
+          );
+          await Future.delayed(Duration(seconds: 2));
+          await EasyLoading.dismiss();
+          return Future.value(false);
+        } else {
+          exit(0);
+          // return Future.value(true);
         }
-        exit(0);
-        // return Future.value(true);
       }
     }
   }

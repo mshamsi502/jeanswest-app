@@ -144,17 +144,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 ),
                 body: Column(
                   children: [
-                    Container(
-                      color: Colors.white,
-                      height: 0.008 * _screenSize.height, //5
-                    ),
                     AppBarWithBackWidget(
                       title: widget.title,
                       onTap: () => Navigator.pop(context),
-                    ),
-                    Container(
-                      color: Colors.white,
-                      height: 0.008 * _screenSize.height, //5
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(
