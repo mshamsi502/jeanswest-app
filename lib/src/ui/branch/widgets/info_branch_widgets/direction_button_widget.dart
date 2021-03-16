@@ -29,29 +29,32 @@ class DirectionButtonWidget extends StatefulWidget {
 class _DirectionButtonWidgetState extends State<DirectionButtonWidget> {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    var _screenSize = MediaQuery.of(context).size;
     return GestureDetector(
       child: Container(
         alignment: Alignment.center,
-        height: 36,
-        width: screenSize.width * 0.5,
+        height: 0.06081 * _screenSize.height, //36,
+        width: _screenSize.width * 0.5,
         decoration: BoxDecoration(
           color: MAIN_BLUE_COLOR,
-          borderRadius: BorderRadius.all(const Radius.circular(5)),
+          borderRadius: BorderRadius.all(Radius.circular(
+            0.0138 * _screenSize.width, //5
+          )),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BranchSvgImages.directionIcon,
             SizedBox(
-              width: 7,
+              width: 0.0194 * _screenSize.width, //7,
             ),
             Text(
               "branch_screen.direction".tr(),
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14),
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 0.038 * _screenSize.width, //14,
+              ),
             ),
           ],
         ),

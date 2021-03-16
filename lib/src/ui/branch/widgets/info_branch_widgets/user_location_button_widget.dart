@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
+import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 
 class UserLocationButtonWidget extends StatefulWidget {
   final Branch selectedBranch;
@@ -26,6 +27,9 @@ class _UserLocationButtonWidgetState extends State<UserLocationButtonWidget> {
     return GestureDetector(
       child: BranchSvgImages.flagIcon,
       onTap: () {
+        createAddressFiled(double.parse(widget.selectedBranch.lat),
+            double.parse(widget.selectedBranch.lng));
+
         widget.changeCameraPosition(CameraPosition(
             target: LatLng(double.parse(widget.selectedBranch.lat),
                 double.parse(widget.selectedBranch.lng)),

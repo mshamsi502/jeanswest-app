@@ -29,11 +29,13 @@ import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class BranchPage extends StatefulWidget {
+  final String title;
+  final PanelController searchPanelController;
   BranchPage({
     Key key,
     this.title,
+    this.searchPanelController,
   }) : super(key: key);
-  final String title;
 
   @override
   _BranchPageState createState() => _BranchPageState();
@@ -43,7 +45,7 @@ class _BranchPageState extends State<BranchPage>
     with AutomaticKeepAliveClientMixin<BranchPage> {
   BranchAddressesScreenBloc _branchAddressesScreenBloc;
   SelectedBranchBloc _selectedBranchBloc;
-  PanelController panelController;
+  // PanelController panelController;
   List<Branch> branches;
   List<Branch> searchedBranches;
   CameraPosition userCameraPosition;
@@ -60,7 +62,7 @@ class _BranchPageState extends State<BranchPage>
         BlocProvider.of<BranchAddressesScreenBloc>(context);
     _selectedBranchBloc = BlocProvider.of<SelectedBranchBloc>(context);
     _branchAddressesScreenBloc.add(GetBranchAddressListEvent());
-    panelController = new PanelController();
+    // panelController = new PanelController();
     // ignore: deprecated_member_use
     branches = new List<Branch>();
     isSelectedBranch = false;
@@ -106,44 +108,66 @@ class _BranchPageState extends State<BranchPage>
             widthText: 0.75,
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
-          return SlidingUpPanel(
-              controller: panelController,
-              minHeight: 0,
-              maxHeight: screenSize.height,
-              backdropEnabled: true,
-              panel: Column(
-                children: [
-                  RealSearchAppBarWidget(
-                    title: '${"branch_screen.branches_list".tr()} ...',
-                    changeListPanelState: changeBranchListPanelState,
-                    changeTextFieldSearch: changeTextFieldSearch,
-                    inputNode: inputNode,
-                    textEditingController: textEditingController,
-                  ),
-                  BranchListWidget(
-                    userCameraPosition: userCameraPosition,
-                    branches: searchedBranches,
-                    changeBranchListPanelState: changeBranchListPanelState,
-                    changeSelectedBranch: changeSelectedBranch,
-                  ),
-                ],
+          return
+              // Scaffold(
+              //   body: WillPopScope(
+              //     onWillPop: () async {
+              //       if (panelController.isPanelOpen) {
+              //         panelController.close();
+              //         return true;
+              //       } else {
+              //         Navigator.pop(context);
+              //         return false;
+              //       }
+              //     },
+              //     child: Scaffold(
+              //       body:
+              SlidingUpPanel(
+            controller: widget.searchPanelController,
+            minHeight: 0,
+            maxHeight: screenSize.height,
+            backdropEnabled: true,
+            panel: Column(
+              children: [
+                RealSearchAppBarWidget(
+                  title: '${"branch_screen.branches_list".tr()} ...',
+                  changeListPanelState: changeBranchListPanelState,
+                  haveSearchInText: true,
+                  changeTextFieldSearch: changeTextFieldSearch,
+                  inputNode: inputNode,
+                  textEditingController: textEditingController,
+                ),
+                BranchListWidget(
+                  userCameraPosition: userCameraPosition,
+                  branches: searchedBranches,
+                  changeBranchListPanelState: changeBranchListPanelState,
+                  changeSelectedBranch: changeSelectedBranch,
+                ),
+              ],
+            ),
+            body: Column(children: [
+              SearchAppBarWidget(
+                title: "branch_screen.branches_list".tr(),
+                icon: GlobalSvgImages.searchIcon,
+                onTapIcon: () {},
+                openRealSearchPanel: changeBranchListPanelState,
               ),
-              body: Column(children: [
-                SearchAppBarWidget(
-                  title: "branch_screen.branches_list".tr(),
-                  icon: GlobalSvgImages.searchIcon,
-                  onTapIcon: () {},
-                  openRealSearchPanel: changeBranchListPanelState,
+              Expanded(
+                child: BranchesMapWidget(
+                  branches: branchAddressesScreenState.branches,
+                  selectedBranch: selectedBranch,
+                  isSelectedBranch: isSelectedBranch,
                 ),
-                Expanded(
-                  child: BranchesMapWidget(
-                    branches: branchAddressesScreenState.branches,
-                    selectedBranch: selectedBranch,
-                    isSelectedBranch: isSelectedBranch,
-                  ),
-                ),
-                SizedBox(height: BOTTOM_NAVIGATION_BAR_HEIGHT + 20),
-              ]));
+              ),
+              SizedBox(
+                height: CREATE_BOTTOM_NAVIGATION_BAR_HEIGHT(screenSize) +
+                    0.031 * screenSize.height, //20,
+              ),
+            ]),
+            // ),
+            //   ),
+            // ),
+          );
         } else if (branchAddressesScreenState
             is BranchAddressesScreenFailureForGetBarnches) {
           return ShowErrorWidget(
@@ -176,12 +200,12 @@ class _BranchPageState extends State<BranchPage>
     setState(() {
       if (opt) {
         changeTextFieldSearch('');
-        panelController.animatePanelToPosition(1.0,
-            duration: Duration(milliseconds: 500));
+        widget.searchPanelController
+            .animatePanelToPosition(1.0, duration: Duration(milliseconds: 500));
         FocusScope.of(context).requestFocus(inputNode);
       } else {
-        panelController.animatePanelToPosition(0.0,
-            duration: Duration(milliseconds: 500));
+        widget.searchPanelController
+            .animatePanelToPosition(0.0, duration: Duration(milliseconds: 500));
         if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
       }
     });

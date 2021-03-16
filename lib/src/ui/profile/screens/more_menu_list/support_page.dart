@@ -16,6 +16,7 @@ import 'package:jeanswest/src/ui/profile/widgets/support_page/contact_us_widget.
 import 'package:jeanswest/src/ui/profile/widgets/support_page/main_ticket_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/questions_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/send_new_ticket_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -31,6 +32,7 @@ class _SupportPageState extends State<SupportPage>
   PanelController panelController;
   bool newTicketIsValid;
   bool floatingisShowing;
+  // ignore: deprecated_member_use
   List<Map<String, dynamic>> resCheckIsValid = new List<Map<String, dynamic>>();
 
   @override
@@ -63,151 +65,155 @@ class _SupportPageState extends State<SupportPage>
     return Container(
       color: Colors.grey,
       child: SafeArea(
-        child: Scaffold(
-          floatingActionButton: floatingisShowing
-              ? GestureDetector(
-                  child: Container(
-                    height: 0.14 * _screenSize.width, //55
-                    width: 0.14 * _screenSize.width, //55
-                    decoration: BoxDecoration(
-                      color: MAIN_GOLD_COLOR,
-                      borderRadius: BorderRadius.circular(
-                        0.14 * _screenSize.width, // 50
-                      ),
-                    ),
-                    padding: EdgeInsets.all(
-                      0.023 * _screenSize.height, //15
-                    ),
-                    child: GlobalSvgImages.editIconForLeft,
-                  ),
-                  onTap: () {
-                    if (userIsAuth) {
-                      setState(() {
-                        floatingisShowing = false;
-                      });
-
-                      panelController.open();
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginPage(
-                            screenSize: _screenSize,
-                            navigatorPop: (BuildContext context) =>
-                                Navigator.pop(context),
-                          ),
+        child: WillPopScope(
+          onWillPop: () => backPanelClose(panelController, context),
+          child: Scaffold(
+            floatingActionButton: floatingisShowing
+                ? GestureDetector(
+                    child: Container(
+                      height: 0.14 * _screenSize.width, //55
+                      width: 0.14 * _screenSize.width, //55
+                      decoration: BoxDecoration(
+                        color: MAIN_GOLD_COLOR,
+                        borderRadius: BorderRadius.circular(
+                          0.14 * _screenSize.width, // 50
                         ),
-                      );
-                    }
-                  })
-              : SizedBox(),
-          body: Container(
-            width: _screenSize.width,
-            height: _screenSize.height,
-            child: SlidingUpPanel(
-              controller: panelController,
-              minHeight: 0,
-              maxHeight: 0.72635 * _screenSize.height, //430
-              backdropEnabled: true,
-              backdropTapClosesPanel: true,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15.0),
-                topRight: Radius.circular(15.0),
-              ),
-              onPanelClosed: () {
-                setState(() {
-                  resCheckIsValid = [
-                    {
-                      'isValid': true,
-                      'errorMessage': '',
-                    },
-                    {
-                      'isValid': true,
-                      'errorMessage': '',
-                    },
-                  ];
-                });
-              },
-              panel: SendNewTicketWidget(
-                resCheckIsValid: resCheckIsValid,
-                checkIsValid: (String title, String text) {
-                  List<Map<String, dynamic>> _resCheckIsValid =
-                      checkTicketIsValid(title: title, text: text);
-                  setState(() {
-                    resCheckIsValid = _resCheckIsValid;
-                    newTicketIsValid = (resCheckIsValid[0]['isValid'] &&
-                        resCheckIsValid[1]['isValid']);
-                  });
-                  print('00 title isValid : ${resCheckIsValid[0]['isValid']}');
-                  print('00 text isValid : ${resCheckIsValid[1]['isValid']}');
-                },
-                canSendMessage: newTicketIsValid,
-                sendMessage: (String title, String text) {
-                  // ! call send new ticket api
-                  setState(() {
-                    addTicketToUserTicket(title, text);
-                  });
-                },
-                closePanel: () async {
-                  await panelController.close().then((value) {
-                    setState(() {
-                      floatingisShowing = true;
-                    });
-                  });
-                },
-              ),
-              body: Container(
-                width: _screenSize.width,
-                height: _screenSize.height,
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    AppBarWithCloseWidget(
-                      title: 'پشتیبانی',
-                      closeOnTap: () => Navigator.pop(context),
-                    ),
-                    Container(
-                      height: 0.0625 * _screenSize.height, //40,
-                      child: TabBar(
-                        controller: tabController,
-                        labelColor: MAIN_BLUE_COLOR,
-                        indicatorColor: MAIN_BLUE_COLOR,
-                        labelStyle: TextStyle(
-                            fontSize: 0.034 * _screenSize.width, //12,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'IRANSans'),
-                        indicatorWeight: 0.0023 * _screenSize.height, //1.5,
-                        tabs: <Widget>[
-                          Tab(text: 'سوالات متداول'),
-                          Tab(text: 'پیام به پشتیبانی'),
-                          Tab(text: 'تماس با ما'),
-                        ],
                       ),
+                      padding: EdgeInsets.all(
+                        0.023 * _screenSize.height, //15
+                      ),
+                      child: GlobalSvgImages.editIconForLeft,
                     ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: tabController,
-                        children: <Widget>[
-                          QuestionsWidget(
-                              headerAsset:
-                                  'assets/images/png_images/profile/more/support_header.png'),
-                          MainTicketWidget(
-                            headerAsset:
-                                'assets/images/png_images/profile/more/support_header.png',
-                            emptyTicketAsset:
-                                'assets/images/png_images/profile/more/create-ticket-help.png',
-                            ticket: userTickets,
+                    onTap: () {
+                      if (userIsAuth) {
+                        setState(() {
+                          floatingisShowing = false;
+                        });
+
+                        panelController.open();
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(
+                              screenSize: _screenSize,
+                              navigatorPop: (BuildContext context) =>
+                                  Navigator.pop(context),
+                            ),
                           ),
-                          ContactUsWidget(
-                              headerAsset:
-                                  'assets/images/png_images/profile/more/support_header.png'),
-                        ],
+                        );
+                      }
+                    })
+                : SizedBox(),
+            body: Container(
+              width: _screenSize.width,
+              height: _screenSize.height,
+              child: SlidingUpPanel(
+                controller: panelController,
+                minHeight: 0,
+                maxHeight: 0.72635 * _screenSize.height, //430
+                backdropEnabled: true,
+                backdropTapClosesPanel: true,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15.0),
+                  topRight: Radius.circular(15.0),
+                ),
+                onPanelClosed: () {
+                  setState(() {
+                    resCheckIsValid = [
+                      {
+                        'isValid': true,
+                        'errorMessage': '',
+                      },
+                      {
+                        'isValid': true,
+                        'errorMessage': '',
+                      },
+                    ];
+                  });
+                },
+                panel: SendNewTicketWidget(
+                  resCheckIsValid: resCheckIsValid,
+                  checkIsValid: (String title, String text) {
+                    List<Map<String, dynamic>> _resCheckIsValid =
+                        checkTicketIsValid(title: title, text: text);
+                    setState(() {
+                      resCheckIsValid = _resCheckIsValid;
+                      newTicketIsValid = (resCheckIsValid[0]['isValid'] &&
+                          resCheckIsValid[1]['isValid']);
+                    });
+                    print(
+                        '00 title isValid : ${resCheckIsValid[0]['isValid']}');
+                    print('00 text isValid : ${resCheckIsValid[1]['isValid']}');
+                  },
+                  canSendMessage: newTicketIsValid,
+                  sendMessage: (String title, String text) {
+                    // ! call send new ticket api
+                    setState(() {
+                      addTicketToUserTicket(title, text);
+                    });
+                  },
+                  closePanel: () async {
+                    await panelController.close().then((value) {
+                      setState(() {
+                        floatingisShowing = true;
+                      });
+                    });
+                  },
+                ),
+                body: Container(
+                  width: _screenSize.width,
+                  height: _screenSize.height,
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      AppBarWithCloseWidget(
+                        title: 'پشتیبانی',
+                        closeOnTap: () => Navigator.pop(context),
                       ),
-                    ),
-                    SizedBox(
-                      height: 0.046 * _screenSize.height, //30
-                    ),
-                  ],
+                      Container(
+                        height: 0.0625 * _screenSize.height, //40,
+                        child: TabBar(
+                          controller: tabController,
+                          labelColor: MAIN_BLUE_COLOR,
+                          indicatorColor: MAIN_BLUE_COLOR,
+                          labelStyle: TextStyle(
+                              fontSize: 0.034 * _screenSize.width, //12,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'IRANSans'),
+                          indicatorWeight: 0.0023 * _screenSize.height, //1.5,
+                          tabs: <Widget>[
+                            Tab(text: 'سوالات متداول'),
+                            Tab(text: 'پیام به پشتیبانی'),
+                            Tab(text: 'تماس با ما'),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          controller: tabController,
+                          children: <Widget>[
+                            QuestionsWidget(
+                                headerAsset:
+                                    'assets/images/png_images/profile/more/support_header.png'),
+                            MainTicketWidget(
+                              headerAsset:
+                                  'assets/images/png_images/profile/more/support_header.png',
+                              emptyTicketAsset:
+                                  'assets/images/png_images/profile/more/create-ticket-help.png',
+                              ticket: userTickets,
+                            ),
+                            ContactUsWidget(
+                                headerAsset:
+                                    'assets/images/png_images/profile/more/support_header.png'),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 0.046 * _screenSize.height, //30
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

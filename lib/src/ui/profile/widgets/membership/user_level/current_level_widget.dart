@@ -148,7 +148,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   image: DecorationImage(
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     image: new AssetImage(assetsLevelCard
                                         .elementAt(userLevelIndex)),
                                   ),

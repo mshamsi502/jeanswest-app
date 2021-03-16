@@ -6,10 +6,23 @@
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+Future<bool> backPanelClose(
+    PanelController panelController, BuildContext context) async {
+  if (panelController.isPanelClosed) {
+    Navigator.pop(context);
+    return true;
+  } else {
+    panelController.close();
+    return false;
+  }
+}
 
 Future<bool> checkIsAuthWithRetro(String phoneNumber) async {
   bool isSuccess;
@@ -77,45 +90,70 @@ String toPhoneStyle(String phone) {
   return phone;
 }
 
-showToast({String message, FToast fToast}) {
-  Widget toast = Container(
-    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(25.0),
-      color: Color(0xAA000000),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Icon(Icons.alternate_email),
-        // SizedBox(
-        //   width: 12.0,
-        // ),
-        Text(
-          message,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 12.0,
-            fontFamily: 'IRANSans',
-          ),
-        ),
-      ],
-    ),
-  );
+showToast({
+  String message,
+// FToast fToast
+}) {
+  // Widget toast = Container(
+  //   padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+  //   decoration: BoxDecoration(
+  //     borderRadius: BorderRadius.circular(25.0),
+  //     color: Color(0xAA000000),
+  //   ),
+  //   child: Row(
+  //     mainAxisSize: MainAxisSize.min,
+  //     children: [
+  //       // Icon(Icons.alternate_email),
+  //       // SizedBox(
+  //       //   width: 12.0,
+  //       // ),
+  //       Text(
+  //         message,
+  //         style: TextStyle(
+  //           color: Colors.white,
+  //           fontSize: 12.0,
+  //           fontFamily: 'IRANSans',
+  //         ),
+  //       ),
+  //     ],
+  //   ),
+  // );
   // print(message);
-  fToast.showToast(
-    child: toast,
-    gravity: ToastGravity.CENTER,
-    toastDuration: Duration(seconds: 1),
-    positionedToastBuilder: (context, child) {
-      return Positioned(
-        child: child,
-        bottom: MediaQuery.of(context).size.height / 6,
-        left: 10,
-        right: 10,
-      );
-    },
+
+  //!
+  // fToast.showToast(
+  //   child: toast,
+  //   gravity: ToastGravity.CENTER,
+  //   toastDuration: Duration(seconds: 1),
+  //   positionedToastBuilder: (context, child) {
+  //     return Positioned(
+  //       child: child,
+  //       bottom: MediaQuery.of(context).size.height / 6,
+  //       left: 10,
+  //       right: 10,
+  //     );
+  //   },
+  // );
+  //!
+  EasyLoading.instance
+        ..displayDuration = const Duration(milliseconds: 2000)
+        ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+        ..loadingStyle = EasyLoadingStyle.dark
+        ..indicatorSize = 45.0
+        ..radius = 10.0
+        ..progressColor = Colors.yellow
+        ..backgroundColor = Colors.green
+        ..indicatorColor = Colors.yellow
+        ..textColor = Colors.yellow
+        ..maskColor = Colors.blue.withOpacity(0.5)
+        ..userInteractions = true
+        ..dismissOnTap = false
+      // ..customAnimation = EasyLoadingAnimation()
+      ;
+  EasyLoading.show(
+    status: message,
   );
+  //!
   // print('bbbbbb ${fToast.context}');
 }
 

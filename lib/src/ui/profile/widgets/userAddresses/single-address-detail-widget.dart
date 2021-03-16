@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+
 import 'package:search_map_place/search_map_place.dart';
 
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -15,9 +15,6 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/models/address/address.dart';
 //
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-// import 'package:jeanswest/src/ui/global/widgets/custom_dropdown_button_widget.dart';
-// import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
-
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 
@@ -26,6 +23,8 @@ class SingleAddressDetailWidget extends StatefulWidget {
   final Address address;
   final int indexAddress;
   final PanelState mapPanelState;
+  final PanelController mapPanelController;
+  // final Function(bool) changeMapPanelController;
   final bool isInitial;
 
   final Function() closeMapPanelState;
@@ -43,6 +42,8 @@ class SingleAddressDetailWidget extends StatefulWidget {
     this.closeMapPanelState,
     this.isInitial,
     this.disableIsInitial,
+    this.mapPanelController,
+    // this.changeMapPanelController,
   }) : super(key: key);
 
   @override
@@ -52,7 +53,7 @@ class SingleAddressDetailWidget extends StatefulWidget {
 
 class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   ScrollController scrollController;
-  PanelController panelController;
+  // PanelController panelController;
   Completer<GoogleMapController> mapController = Completer();
   //
   String selectedProvince;
@@ -65,7 +66,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   @override
   void initState() {
     scrollController = new ScrollController();
-    panelController = new PanelController();
+    // panelController = new PanelController();
     selectedProvince = widget.address.province;
     availableCities = provinceCities[selectedProvince];
     selectedCity = widget.address.city;
@@ -82,10 +83,14 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    return Container(
+    return
+        // WillPopScope(
+        //   onWillPop: () => backPanelClose(widget.mapPanelController, context),
+        //   child:
+        Container(
       child: SlidingUpPanel(
         defaultPanelState: widget.mapPanelState,
-        controller: panelController,
+        controller: widget.mapPanelController,
         isDraggable: false,
         minHeight: 0,
         maxHeight: _screenSize.height,
@@ -103,10 +108,11 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                 height: 0.1194 * _screenSize.width, //43,
                 width: 0.1194 * _screenSize.width, //43,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      0.138 * _screenSize.width, //50,
-                    )),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    0.138 * _screenSize.width, //50,
+                  ),
+                ),
                 child: GestureDetector(
                   child: BranchSvgImages.myLocationIcon,
                   onTap: () async {
@@ -155,7 +161,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                     // ! get center screen location
                     // ! return location and update Lat & Lng in Address
                     print('/*/*/ confirm location');
-                    panelController.close();
+                    widget.mapPanelController.close();
                   },
                 ),
               ),
@@ -185,7 +191,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                         ),
                         child: GlobalSvgImages.rightIcon,
                       ),
-                      onTap: () => panelController.close(),
+                      onTap: () => widget.mapPanelController.close(),
                     ),
                     Expanded(
                       child: SearchMapPlaceWidget(
@@ -280,7 +286,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                 radius: 0.0138 * _screenSize.width, //5,
                                 fontSize: 0.036 * _screenSize.width, //13,
                                 onTap: () {
-                                  panelController.open();
+                                  widget.mapPanelController.open();
                                 },
                               ),
                             ),
@@ -311,9 +317,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                         screenSize: _screenSize,
                         isOpenEditPanel: (bool isOpen) {
                           if (isOpen)
-                            panelController.open();
+                            widget.mapPanelController.open();
                           else
-                            panelController.close();
+                            widget.mapPanelController.close();
                         },
                         disableIsInitial: widget.disableIsInitial,
                       ),
@@ -355,6 +361,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
           ],
         ),
       ),
+      // ),
     );
   }
 

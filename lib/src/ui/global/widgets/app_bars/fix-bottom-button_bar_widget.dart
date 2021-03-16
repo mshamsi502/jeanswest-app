@@ -42,7 +42,7 @@ class _FixBottomButtonBarWidgetState extends State<FixBottomButtonBarWidget> {
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 0.054 * _screenSize.width, //20
-          vertical: 0.023 * _screenSize.height, //15
+          vertical: 0.0287 * _screenSize.height, //17
         ),
         child: AvakatanButtonWidget(
           backgroundColor: MAIN_BLUE_COLOR,

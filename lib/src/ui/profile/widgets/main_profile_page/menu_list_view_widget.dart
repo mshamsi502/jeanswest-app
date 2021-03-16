@@ -12,6 +12,7 @@ class MenuListViewWidget extends StatefulWidget {
   final List<Widget> icons;
   final List<Widget> pages;
   final Color backgroundColor;
+  final bool haveExit;
 
   const MenuListViewWidget({
     Key key,
@@ -19,6 +20,7 @@ class MenuListViewWidget extends StatefulWidget {
     this.icons,
     this.backgroundColor,
     this.pages,
+    this.haveExit,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MenuListViewWidgetState();
@@ -45,7 +47,7 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
           children: [
             GestureDetector(
               onTap: () async {
-                index == widget.titles.length - 1
+                widget.haveExit && index == widget.titles.length - 1
                     ? print('exiting')
                     : Navigator.push(
                         context,

@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-account-panel-widget.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -75,7 +76,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       ],
       [
         'جنسیت',
-        userInfo.gender ?? "",
+        userInfo.gender ?? Gender(perName: '', engName: ''),
         false,
       ],
       [
@@ -97,81 +98,84 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
     return Container(
       color: Colors.grey,
       child: SafeArea(
-        child: Scaffold(
-          body: SlidingUpPanel(
-            color: Colors.transparent,
-            controller: editingPanel,
-            minHeight: 0,
-            maxHeight: _screenSize.height,
-            panel: EditAccountPanelWidget(
-              userData: userData,
-              selectedUserData: selectedOption,
-              closePanel: () => editingPanel.close(),
-              confirmChanges: (
-                String firstName,
-                String lastName,
-                String email,
-                Gender gender,
-                String dayOfBirth,
-                String monthOfBirth,
-                String yearOfBirth,
-              ) {
-                UserMainInfo _userInfo = new UserMainInfo(
-                  firstName: firstName,
-                  lastName: lastName,
-                  phoneNumber: widget.userAccountInfo.phoneNumber,
-                  email: email,
-                  gender: gender,
-                  dayOfBirth: dayOfBirth,
-                  monthOfBirth: monthOfBirth,
-                  yearOfBirth: yearOfBirth,
-                );
-                widget.updateUser(_userInfo);
-                setState(() {
-                  buildUserData(userInfo: _userInfo);
-                });
-              },
-            ),
-            body: Container(
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 0.008 * _screenSize.height, //5
-                  ),
-                  AppBarWithBackWidget(
-                    title: widget.title,
-                    onTap: () => Navigator.pop(context),
-                  ),
-                  SizedBox(
-                    height: 0.008 * _screenSize.height, //5
-                  ),
-                  Divider(
-                    height: 0.000078 * _screenSize.height, //0.05,
-                    thickness: 0.003125 * _screenSize.height, //2,
-                    color: Colors.grey[300],
-                  ),
-                  SizedBox(
-                    height: 0.016 * _screenSize.height, //10
-                  ),
-                  Expanded(
-                    child: Container(
-                      width: _screenSize.width,
-                      child: InfoWidget(
-                        userData: userData,
-                        selectedOption: selectedOption,
-                        changeSelectedOptions: (int value) => setState(() {
-                          selectedOption = value;
-                          editingPanel.open();
-                        }),
+        child: WillPopScope(
+          onWillPop: () => backPanelClose(editingPanel, context),
+          child: Scaffold(
+            body: SlidingUpPanel(
+              color: Colors.transparent,
+              controller: editingPanel,
+              minHeight: 0,
+              maxHeight: _screenSize.height,
+              panel: EditAccountPanelWidget(
+                userData: userData,
+                selectedUserData: selectedOption,
+                closePanel: () => editingPanel.close(),
+                confirmChanges: (
+                  String firstName,
+                  String lastName,
+                  String email,
+                  Gender gender,
+                  String dayOfBirth,
+                  String monthOfBirth,
+                  String yearOfBirth,
+                ) {
+                  UserMainInfo _userInfo = new UserMainInfo(
+                    firstName: firstName,
+                    lastName: lastName,
+                    phoneNumber: widget.userAccountInfo.phoneNumber,
+                    email: email,
+                    gender: gender,
+                    dayOfBirth: dayOfBirth,
+                    monthOfBirth: monthOfBirth,
+                    yearOfBirth: yearOfBirth,
+                  );
+                  widget.updateUser(_userInfo);
+                  setState(() {
+                    buildUserData(userInfo: _userInfo);
+                  });
+                },
+              ),
+              body: Container(
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 0.008 * _screenSize.height, //5
+                    ),
+                    AppBarWithBackWidget(
+                      title: widget.title,
+                      onTap: () => Navigator.pop(context),
+                    ),
+                    SizedBox(
+                      height: 0.008 * _screenSize.height, //5
+                    ),
+                    Divider(
+                      height: 0.000078 * _screenSize.height, //0.05,
+                      thickness: 0.003125 * _screenSize.height, //2,
+                      color: Colors.grey[300],
+                    ),
+                    SizedBox(
+                      height: 0.016 * _screenSize.height, //10
+                    ),
+                    Expanded(
+                      child: Container(
+                        width: _screenSize.width,
+                        child: InfoWidget(
+                          userData: userData,
+                          selectedOption: selectedOption,
+                          changeSelectedOptions: (int value) => setState(() {
+                            selectedOption = value;
+                            editingPanel.open();
+                          }),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 0.023 * _screenSize.height, //15
-                  ),
-                ],
+                    SizedBox(
+                      height: 0.023 * _screenSize.height, //15
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

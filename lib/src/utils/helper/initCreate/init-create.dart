@@ -11,12 +11,22 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
-  _children.add(MainProfilePage(isAuth: !isAuth));
+  _children.add(MainProfilePage(
+    isAuth: !isAuth,
+    showCompeletProfileMessage: showCompeletProfileMessage,
+    changeCompeletProfileMessage: (bool value) =>
+        showCompeletProfileMessage = value,
+  ));
   _children.add(Container(color: Colors.white));
   _children.add(Container(color: Colors.blue));
   // _children.add(shoppingBasketPage);
   _children.add(Container(color: Colors.green));
-  _children.add(MainProfilePage(isAuth: isAuth));
+  _children.add(MainProfilePage(
+    isAuth: isAuth,
+    showCompeletProfileMessage: showCompeletProfileMessage,
+    changeCompeletProfileMessage: (bool value) =>
+        showCompeletProfileMessage = value,
+  ));
   pagesCreatedFinished = true;
   return {
     'success': pagesCreatedFinished,
@@ -43,13 +53,17 @@ Future<Map<String, dynamic>> authService() async {
         while (tryToGetAllUserInfo >= 0) {
           try {
             await getAllUserInfo(token: getToken);
+
             isAuth = true;
+
             print('^*^*^ getAllUserInfo : Successfully');
             Map<String, dynamic> initCreateRes =
                 createBottomNavigationBarPages(isAuth: isAuth);
             print('created BottomNavigationBarPages');
             _children = initCreateRes['children'];
             pagesCreatedFinished = initCreateRes['success'];
+            //
+            checkCompleteProfileMsgDateTime();
             //
             return {
               'userIsAuth': isAuth,
@@ -91,4 +105,30 @@ Future<Map<String, dynamic>> authService() async {
     'children': _children,
   };
   // }
+}
+
+checkCompleteProfileMsgDateTime() {
+  // !
+  if (globalLocator<SharedPreferences>()
+          .getString('completeProfileMsgDataTime') !=
+      null) {
+    completeProfileMsgDateTime = globalLocator<SharedPreferences>()
+        .getString('completeProfileMsgDataTime');
+    if (DateTime.now()
+            .difference(DateTime.parse(completeProfileMsgDateTime))
+            .inDays >
+        7) {
+      //     .inSeconds >
+      // 15) {
+      completeProfileMsgDateTime = DateTime.now().toString();
+      globalLocator<SharedPreferences>()
+          .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);
+      showCompeletProfileMessage = true;
+    }
+  } else {
+    completeProfileMsgDateTime = DateTime.now().toString();
+    globalLocator<SharedPreferences>()
+        .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);
+    showCompeletProfileMessage = true;
+  }
 }

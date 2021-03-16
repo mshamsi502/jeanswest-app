@@ -7,7 +7,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
+// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
@@ -214,4 +216,24 @@ String createCoordinatesUrl(double latitude, double longitude, [String label]) {
   }
   print(uri?.toString());
   return uri?.toString();
+}
+
+/// => [createCoordinatesUrl] is a [Uri] (Link) Creator for intent a [Location] to another apps
+createAddressFiled(double latitude, double longitude) async {
+  List<Placemark> placemarks = await placemarkFromCoordinates(
+      latitude, longitude,
+      localeIdentifier: 'fa');
+  //
+  print('name : ${placemarks[0].name}');
+  print('country : ${placemarks[0].country}');
+  print('isoCountryCode : ${placemarks[0].isoCountryCode}');
+  print('locality : ${placemarks[0].locality}');
+  print('postalCode : ${placemarks[0].postalCode}');
+  print('street : ${placemarks[0].street}');
+  print('subLocality : ${placemarks[0].subLocality}');
+  print('subAdministrativeArea : ${placemarks[0].subAdministrativeArea}');
+  print('subThoroughfare : ${placemarks[0].subThoroughfare}');
+  print('thoroughfare : ${placemarks[0].thoroughfare}');
+
+  //
 }
