@@ -66,7 +66,10 @@ class _SupportPageState extends State<SupportPage>
       color: Colors.grey,
       child: SafeArea(
         child: WillPopScope(
-          onWillPop: () => backPanelClose(panelController, context),
+          onWillPop: () => backPanelClose(
+            [panelController],
+            context,
+          ),
           child: Scaffold(
             floatingActionButton: floatingisShowing
                 ? GestureDetector(

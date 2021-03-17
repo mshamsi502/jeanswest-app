@@ -62,7 +62,10 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
     return Container(
       color: Colors.grey,
       child: WillPopScope(
-        onWillPop: () => backPanelClose(sendingPanel, context),
+        onWillPop: () => backPanelClose(
+          [sendingPanel],
+          context,
+        ),
         child: Scaffold(
           body: SafeArea(
             child: Container(

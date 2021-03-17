@@ -14,7 +14,6 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/constants/test_data/texts.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
 //
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
@@ -30,6 +29,9 @@ import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/unauth_profil
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import 'package:jeanswest/src/ui/profile/widgets/global/log-out-panel-widget.dart';
 
 import 'main_menu_list/inbox_page.dart';
 
@@ -52,6 +54,7 @@ class _MainProfilePageState extends State<MainProfilePage>
     with SingleTickerProviderStateMixin {
   ScrollController scrollController;
 
+  PanelController logOutPanel;
   Color fadeBlackColor;
   ScrollController listViewScrollController;
   LevelCard userLevel;
@@ -78,6 +81,7 @@ class _MainProfilePageState extends State<MainProfilePage>
         haveUnreadMessage = false;
       }
       scrollController = new ScrollController();
+      logOutPanel = new PanelController();
       buildProfile();
       moreListMenu = createMoreListMenuPages();
     }
@@ -126,307 +130,335 @@ class _MainProfilePageState extends State<MainProfilePage>
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: F7_BACKGROUND_COLOR,
-      child: SingleChildScrollView(
-        controller: scrollController,
-        child: Container(
-          child: Column(
-            children: [
-              widget.isAuth
-                  ? Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 0.027 * _screenSize.width,
-                        horizontal: 0.041 * _screenSize.width, //15,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AvakatanButtonWidget(
-                            icon: SizedBox(
-                                height: 0.055 * _screenSize.width,
-                                width: 0.055 * _screenSize.width,
-                                child: ProfileSvgImages.horMoreIcon),
-                            backgroundColor: Colors.white,
-                            height: 0.09 * _screenSize.width,
-                            width: 0.09 * _screenSize.width,
-                            textColor: MAIN_BLUE_COLOR,
-                            radius: 0.138 * _screenSize.width, //50,
-                            borderColor: Colors.grey[200],
-                            hasShadow: true,
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MorePage(
-                                          title: 'بیشتر',
-                                          pages: moreListMenu,
-                                        ))),
-                          ),
-                          Stack(
-                            children: [
-                              AvakatanButtonWidget(
-                                icon: SizedBox(
-                                    height: 0.055 * _screenSize.width,
-                                    width: 0.055 * _screenSize.width,
-                                    child: ProfileSvgImages.notificationIcon),
-                                backgroundColor: Colors.white,
-                                height: 0.09 * _screenSize.width,
-                                width: 0.09 * _screenSize.width,
-                                textColor: MAIN_BLUE_COLOR,
-                                radius: 0.138 * _screenSize.width, //50,
-                                borderColor: Colors.grey[200],
-                                hasShadow: true,
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => InboxPage(
-                                              changeHaveUnreadMessage:
-                                                  changeHaveUnreadMessage,
-                                            ))),
-                              ),
-                              Positioned(
-                                bottom: 0.06 * _screenSize.width / 2,
-                                // right: 0.03 * _screenSize.width / 2,
-                                child: haveUnreadMessage
-                                    ? Container(
-                                        height: 0.022 * _screenSize.width, //8,
-                                        width: 0.022 * _screenSize.width, //8,
-                                        decoration: BoxDecoration(
-                                          color: MAIN_GOLD_COLOR,
-                                          borderRadius: BorderRadius.circular(
-                                              0.138 * _screenSize.width //50
-                                              ),
-                                        ),
-                                      )
-                                    : Container(),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(),
-              // widget.showCompeletProfileMessage
-              widget.isAuth && showCompeletProfileMessage
-                  ? Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 0.041 * _screenSize.width, //15,
-                      ),
-                      height: 0.19425 * _screenSize.height, //115,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(
-                          0.011 * _screenSize.width, //4,
+      child: SlidingUpPanel(
+        controller: logOutPanel,
+        minHeight: 0,
+        maxHeight: 0.234 * _screenSize.height, //150,
+        backdropEnabled: true,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(
+            0.083 * _screenSize.width, //30
+          ),
+          topRight: Radius.circular(
+            0.083 * _screenSize.width, //30
+          ),
+        ),
+        panel: LogOutPanelWidget(
+          height: 0.234 * _screenSize.height, //150,
+          closeLogOutPanel: () => logOutPanel.close(),
+        ),
+        body: SingleChildScrollView(
+          controller: scrollController,
+          child: Container(
+            child: Column(
+              children: [
+                widget.isAuth
+                    ? Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 0.027 * _screenSize.width,
+                          horizontal: 0.041 * _screenSize.width, //15,
                         ),
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                // color: Colors.red,
-                                child: GestureDetector(
-                                  child: Container(
-                                    width: 0.05 * _screenSize.width, //18,
-                                    height: 0.05 * _screenSize.width, //18,
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: 0.016 * _screenSize.height, //10
-                                      horizontal:
-                                          0.0333 * _screenSize.width, //12,
-                                    ),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: BLUE_SKY_FADE_COLOR,
-                                      borderRadius: BorderRadius.circular(
-                                        0.138 * _screenSize.width, //50,
-                                      ),
-                                    ),
-                                    child: Icon(
-                                      Icons.close,
-                                      size: 0.038 * _screenSize.width, //14,
-                                      color: Colors.grey[600],
-                                    ),
-                                  ),
-                                  onTap: () => setState(() {
-                                    showCompeletProfileMessage = false;
-                                    print('closing');
-                                    widget.changeCompeletProfileMessage(false);
-                                  }),
-                                ),
-                              ),
-                              Expanded(
-                                child: SizedBox(),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 0.041 * _screenSize.width, //15,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AvakatanButtonWidget(
+                              icon: SizedBox(
+                                  height: 0.055 * _screenSize.width,
+                                  width: 0.055 * _screenSize.width,
+                                  child: ProfileSvgImages.horMoreIcon),
+                              backgroundColor: Colors.white,
+                              height: 0.09 * _screenSize.width,
+                              width: 0.09 * _screenSize.width,
+                              textColor: MAIN_BLUE_COLOR,
+                              radius: 0.138 * _screenSize.width, //50,
+                              borderColor: Colors.grey[200],
+                              hasShadow: true,
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MorePage(
+                                            title: 'بیشتر',
+                                            pages: moreListMenu,
+                                          ))),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Stack(
                               children: [
-                                Text(
-                                  'اطلاعات حساب کاربری خود را تکمیل کنید',
-                                  style: TextStyle(
-                                    fontSize: 0.03 * _screenSize.width, //11
-                                  ),
-                                ),
                                 AvakatanButtonWidget(
-                                  backgroundColor: MAIN_BLUE_COLOR,
-                                  textColor: Colors.white,
-                                  borderColor: MAIN_BLUE_COLOR,
-                                  hasShadow: false,
-                                  title: 'تکمیل اطلاعات',
-                                  height: 0.04729 * _screenSize.height, //28
-                                  width: 0.27 * _screenSize.width, //100,
-                                  radius: 0.011 * _screenSize.width, //4,
-                                  fontSize: 0.03 * _screenSize.width, //11
+                                  icon: SizedBox(
+                                      height: 0.055 * _screenSize.width,
+                                      width: 0.055 * _screenSize.width,
+                                      child: ProfileSvgImages.notificationIcon),
+                                  backgroundColor: Colors.white,
+                                  height: 0.09 * _screenSize.width,
+                                  width: 0.09 * _screenSize.width,
+                                  textColor: MAIN_BLUE_COLOR,
+                                  radius: 0.138 * _screenSize.width, //50,
+                                  borderColor: Colors.grey[200],
+                                  hasShadow: true,
                                   onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AccountInfoScreen(
-                                          title: 'جزئیات حساب کاربری',
-                                          userAccountInfo: user,
-                                          updateUser:
-                                              (UserMainInfo userMainInfo) {
-                                            user = userMainInfo;
-                                            buildProfile();
-                                          }),
-                                    ),
-                                  ),
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => InboxPage(
+                                                changeHaveUnreadMessage:
+                                                    changeHaveUnreadMessage,
+                                              ))),
+                                ),
+                                Positioned(
+                                  bottom: 0.06 * _screenSize.width / 2,
+                                  // right: 0.03 * _screenSize.width / 2,
+                                  child: haveUnreadMessage
+                                      ? Container(
+                                          height:
+                                              0.022 * _screenSize.width, //8,
+                                          width: 0.022 * _screenSize.width, //8,
+                                          decoration: BoxDecoration(
+                                            color: MAIN_GOLD_COLOR,
+                                            borderRadius: BorderRadius.circular(
+                                                0.138 * _screenSize.width //50
+                                                ),
+                                          ),
+                                        )
+                                      : Container(),
                                 ),
                               ],
                             ),
+                          ],
+                        ),
+                      )
+                    : Container(),
+                // widget.showCompeletProfileMessage
+                widget.isAuth && showCompeletProfileMessage
+                    ? Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 0.041 * _screenSize.width, //15,
+                        ),
+                        height: 0.19425 * _screenSize.height, //115,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(
+                            0.011 * _screenSize.width, //4,
                           ),
-                          SizedBox(
-                            height: 0.023 * _screenSize.height, //15,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 0.019 * _screenSize.width, //7
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  // color: Colors.red,
+                                  child: GestureDetector(
+                                    child: Container(
+                                      width: 0.05 * _screenSize.width, //18,
+                                      height: 0.05 * _screenSize.width, //18,
+                                      margin: EdgeInsets.symmetric(
+                                        vertical:
+                                            0.016 * _screenSize.height, //10
+                                        horizontal:
+                                            0.0333 * _screenSize.width, //12,
+                                      ),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: BLUE_SKY_FADE_COLOR,
+                                        borderRadius: BorderRadius.circular(
+                                          0.138 * _screenSize.width, //50,
+                                        ),
+                                      ),
+                                      child: Icon(
+                                        Icons.close,
+                                        size: 0.038 * _screenSize.width, //14,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                    onTap: () => setState(() {
+                                      showCompeletProfileMessage = false;
+                                      print('closing');
+                                      widget
+                                          .changeCompeletProfileMessage(false);
+                                    }),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: SizedBox(),
+                                ),
+                              ],
                             ),
-                            child: GestureDetector(
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 0.041 * _screenSize.width, //15,
+                              ),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    '$percentCompleteProfile%',
+                                    'اطلاعات حساب کاربری خود را تکمیل کنید',
                                     style: TextStyle(
-                                      fontSize: 0.027 * _screenSize.width, //10,
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w600,
+                                      fontSize: 0.03 * _screenSize.width, //11
                                     ),
                                   ),
-                                  Expanded(
-                                    child: LinearPercentIndicator(
-                                      percent: percentCompleteProfile / 100,
-                                      progressColor: Color(0xff32BE93),
-                                      animation: true,
-                                      restartAnimation: true,
-                                      curve: Curves.linear,
-                                      animationDuration: 3200,
-                                      lineHeight:
-                                          0.011 * _screenSize.height, //7
+                                  AvakatanButtonWidget(
+                                    backgroundColor: MAIN_BLUE_COLOR,
+                                    textColor: Colors.white,
+                                    borderColor: MAIN_BLUE_COLOR,
+                                    hasShadow: false,
+                                    title: 'تکمیل اطلاعات',
+                                    height: 0.04729 * _screenSize.height, //28
+                                    width: 0.27 * _screenSize.width, //100,
+                                    radius: 0.011 * _screenSize.width, //4,
+                                    fontSize: 0.03 * _screenSize.width, //11
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => AccountInfoScreen(
+                                            title: 'جزئیات حساب کاربری',
+                                            userAccountInfo: user,
+                                            updateUser:
+                                                (UserMainInfo userMainInfo) {
+                                              user = userMainInfo;
+                                              buildProfile();
+                                            }),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AccountInfoScreen(
-                                      title: 'جزئیات حساب کاربری',
-                                      userAccountInfo: user,
-                                      updateUser: (UserMainInfo userMainInfo) {
-                                        user = userMainInfo;
-                                        buildProfile();
-                                      }),
-                                ),
-                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 0.023 * _screenSize.height, //15,
-                          ),
-                        ],
-                      ),
-                    )
-                  : SizedBox(),
-              SizedBox(
-                height: 0.03125 * _screenSize.height, //20
-              ),
-              Container(
-                margin:
-                    EdgeInsets.symmetric(horizontal: 0.023 * _screenSize.width),
-                color: F7_BACKGROUND_COLOR,
-                child: Column(
-                  children: [
-                    widget.isAuth
-                        ? AuthProfileAppBarWidget(
-                            userLevel: userLevel,
-                            nextLevel: nextLevel,
-                            moneyBuying: userPayment.moneyBuying)
-                        : UnauthProfileAppBarWidget(),
-                    widget.isAuth
-                        ? GestureDetector(
-                            child: Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: 0.016 * _screenSize.width),
-                              alignment: Alignment.center,
-                              height: 0.15 * _screenSize.height,
-                              width: _screenSize.width,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  0.027 * _screenSize.width, //10,
-                                ),
-                                image: DecorationImage(
-                                  fit: BoxFit.fitWidth,
-                                  image: new AssetImage(
-                                      'assets/images/png_images/global/invite_friends.png'),
-                                ),
-                              ),
+                            SizedBox(
+                              height: 0.023 * _screenSize.height, //15,
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => InviteFrindePage(
-                                    title: 'دعوت دوستان',
-                                    userId: 'user-${user.phoneNumber}',
-                                    receivedGift: userInvite.receivedGift,
-                                    someOfInvited: userInvite.someOfInvited,
-                                    someOfInstallFromInvited:
-                                        userInvite.someOfInstallFromInvited,
-                                    someOfShoppingFromInvited:
-                                        userInvite.someOfShoppingFromInvited,
-                                    queFaq: friendsQueFaq,
-                                    ansFaq: friendsAnsFaq,
-                                    // screenSize: _screenSize,
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 0.019 * _screenSize.width, //7
+                              ),
+                              child: GestureDetector(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '$percentCompleteProfile%',
+                                      style: TextStyle(
+                                        fontSize:
+                                            0.027 * _screenSize.width, //10,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: LinearPercentIndicator(
+                                        percent: percentCompleteProfile / 100,
+                                        progressColor: Color(0xff32BE93),
+                                        animation: true,
+                                        restartAnimation: true,
+                                        curve: Curves.linear,
+                                        animationDuration: 3200,
+                                        lineHeight:
+                                            0.011 * _screenSize.height, //7
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AccountInfoScreen(
+                                        title: 'جزئیات حساب کاربری',
+                                        userAccountInfo: user,
+                                        updateUser:
+                                            (UserMainInfo userMainInfo) {
+                                          user = userMainInfo;
+                                          buildProfile();
+                                        }),
                                   ),
                                 ),
-                              );
-                            },
-                          )
-                        : Container()
-                  ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.023 * _screenSize.height, //15,
+                            ),
+                          ],
+                        ),
+                      )
+                    : SizedBox(),
+                SizedBox(
+                  height: 0.03125 * _screenSize.height, //20
                 ),
-              ),
-              GestureDetector(
-                child: MembershipCardWidget(
-                  userLevel: userLevel,
-                  nextLevel: nextLevel,
-                  preLevel: preLevel,
-                  moneyBuying: userPayment.moneyBuying,
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: 0.023 * _screenSize.width),
+                  color: F7_BACKGROUND_COLOR,
+                  child: Column(
+                    children: [
+                      widget.isAuth
+                          ? AuthProfileAppBarWidget(
+                              userLevel: userLevel,
+                              nextLevel: nextLevel,
+                              moneyBuying: userPayment.moneyBuying)
+                          : UnauthProfileAppBarWidget(),
+                      widget.isAuth
+                          ? GestureDetector(
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 0.016 * _screenSize.width),
+                                alignment: Alignment.center,
+                                height: 0.15 * _screenSize.height,
+                                width: _screenSize.width,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    0.027 * _screenSize.width, //10,
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.fitWidth,
+                                    image: new AssetImage(
+                                        'assets/images/png_images/global/invite_friends.png'),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => InviteFrindePage(
+                                      title: 'دعوت دوستان',
+                                      userId: 'user-${user.phoneNumber}',
+                                      receivedGift: userInvite.receivedGift,
+                                      someOfInvited: userInvite.someOfInvited,
+                                      someOfInstallFromInvited:
+                                          userInvite.someOfInstallFromInvited,
+                                      someOfShoppingFromInvited:
+                                          userInvite.someOfShoppingFromInvited,
+                                      queFaq: friendsQueFaq,
+                                      ansFaq: friendsAnsFaq,
+                                      // screenSize: _screenSize,
+                                    ),
+                                  ),
+                                );
+                              },
+                            )
+                          : Container()
+                    ],
+                  ),
                 ),
-              ),
-              MenuListViewWidget(
-                titles: widget.isAuth ? mainProfileListTitles : moreListTitles,
-                icons: widget.isAuth ? mainProfileListIcons : moreListIcons,
-                pages: widget.isAuth ? mainProfileListMenu : moreListWidgets,
-                haveExit: widget.isAuth,
-                backgroundColor: F7_BACKGROUND_COLOR,
-              ),
-              SizedBox(height: 5),
-            ],
+                GestureDetector(
+                  child: MembershipCardWidget(
+                    userLevel: userLevel,
+                    nextLevel: nextLevel,
+                    preLevel: preLevel,
+                    moneyBuying: userPayment.moneyBuying,
+                  ),
+                ),
+                MenuListViewWidget(
+                  titles:
+                      widget.isAuth ? mainProfileListTitles : moreListTitles,
+                  icons: widget.isAuth ? mainProfileListIcons : moreListIcons,
+                  pages: widget.isAuth ? mainProfileListMenu : moreListWidgets,
+                  haveExit: widget.isAuth,
+                  backgroundColor: F7_BACKGROUND_COLOR,
+                  openLogOutPanel: () => logOutPanel.open(),
+                ),
+                SizedBox(
+                  height: 0.14 * _screenSize.height, //90,
+                ),
+              ],
+            ),
           ),
         ),
       ),

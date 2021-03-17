@@ -14,14 +14,18 @@ import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-Future<bool> backPanelClose(
-    PanelController panelController, BuildContext context) async {
-  if (panelController.isPanelClosed) {
+backPanelClose(List<PanelController> panelControllers, BuildContext context) {
+  bool isColse = false;
+  for (int index = 0; index < panelControllers.length; index++) {
+    if (panelControllers[index].isPanelOpen) {
+      panelControllers[index].close();
+      isColse = true;
+    }
+    if (isColse) break;
+  }
+  if (!isColse) {
+    print('all panel is close, navigation.pop');
     Navigator.pop(context);
-    return true;
-  } else {
-    panelController.close();
-    return false;
   }
 }
 

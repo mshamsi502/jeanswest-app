@@ -79,13 +79,10 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
       color: Colors.grey,
       child: SafeArea(
         child: WillPopScope(
-          onWillPop: () async {
-            if (addToCardPanel.isPanelOpen)
-              return await backPanelClose(addToCardPanel, context);
-            if (deleteProductPanel.isPanelOpen)
-              return await backPanelClose(deleteProductPanel, context);
-            return false;
-          },
+          onWillPop: () => backPanelClose(
+            [addToCardPanel, deleteProductPanel],
+            context,
+          ),
           child: Scaffold(
             body: SlidingUpPanel(
               controller: deleteProductPanel,

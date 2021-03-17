@@ -153,7 +153,10 @@ class _LoginPageState extends State<LoginPage> {
       height: _screenSize.height,
       child: SafeArea(
         child: WillPopScope(
-          onWillPop: () => backPanelClose(preTelCodePanelController, context),
+          onWillPop: () => backPanelClose(
+            [preTelCodePanelController],
+            context,
+          ),
           child: Scaffold(
             key: scaffoldKey,
             resizeToAvoidBottomInset: true,
