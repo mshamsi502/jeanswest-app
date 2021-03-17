@@ -281,12 +281,13 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       // ! if is sfor test, delete it
                       try {
                         print('barcode : ${widget.product.barcode}');
-                        Map<String, String> reqBody = {
-                          "barcode": widget.product.barcode,
-                        };
+                        // Map<String, String> reqBody = {
+                        //   "barcode": widget.product.barcode,
+                        // };
                         ListOfProductsRes _addToCardProductDetailRes =
                             await globalLocator<GlobalRestClient>()
-                                .getAddToCardProductDetailInfo(reqBody);
+                                .getAddToCardProductDetailInfo(
+                                    widget.product.barcode);
                         setState(() {
                           addToCardProductDetailRes =
                               _addToCardProductDetailRes;

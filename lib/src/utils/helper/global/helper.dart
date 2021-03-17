@@ -11,6 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 Future<bool> backPanelClose(
@@ -191,4 +192,15 @@ printErrorMessage(DioError e) {
     print("%% pEM - e.req : ${e.request}");
     print("%% pEM - e.mess : ${e.message}");
   }
+}
+
+scrollJumpAfterKeyborad({ScrollController scrollController, Size screenSize}) {
+  KeyboardVisibilityNotification().addNewListener(
+    onHide: () {
+      scrollController.jumpTo(0);
+    },
+    onShow: () {
+      scrollController.jumpTo(screenSize.width);
+    },
+  );
 }

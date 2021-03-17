@@ -21,7 +21,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class LoginPage extends StatefulWidget {
   // final Function(int, int) updateProp;
@@ -80,13 +79,9 @@ class _LoginPageState extends State<LoginPage> {
     secondTimer = '00';
     //
 
-    KeyboardVisibilityNotification().addNewListener(
-      onHide: () {
-        scrollController.jumpTo(0);
-      },
-      onShow: () {
-        scrollController.jumpTo(widget.screenSize.width);
-      },
+    scrollJumpAfterKeyborad(
+      scrollController: scrollController,
+      screenSize: widget.screenSize,
     );
 
     super.initState();

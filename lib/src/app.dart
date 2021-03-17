@@ -125,15 +125,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   child: SafeArea(
                     child: Container(
                       color: Colors.white,
-                      child: IndexedStack(
-                        index: _selectedIndex,
-                        children: [
-                          _children[0],
-                          _children[1],
-                          _children[2],
-                          _children[3],
-                          _children[4],
-                        ],
+                      child: Directionality(
+                        textDirection: context.locale == Locale('en', 'US')
+                            ? ltrTextDirection
+                            : rtlTextDirection,
+                        child: IndexedStack(
+                          index: _selectedIndex,
+                          children: [
+                            _children[0],
+                            _children[1],
+                            _children[2],
+                            _children[3],
+                            _children[4],
+                          ],
+                        ),
                       ),
                       // ),
                     ),
@@ -185,15 +190,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       } else {
         DateTime now = DateTime.now();
         if (currentBackPressTime == null ||
-            now.difference(currentBackPressTime) > Duration(seconds: 1)) {
+            now.difference(currentBackPressTime) >
+                Duration(milliseconds: 1800)) {
           // await EasyLoading.show(
           //   status: "برای خروج دوبار دکمه بازگشت را بزنید.",
           // );
+          setState(() {
+            currentBackPressTime = DateTime.now();
+          });
+
           await EasyLoading.showToast(
             "برای خروج دوبار دکمه بازگشت را بزنید.",
             toastPosition: EasyLoadingToastPosition.bottom,
           );
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(Duration(milliseconds: 1500));
           await EasyLoading.dismiss();
           return Future.value(false);
         } else {
