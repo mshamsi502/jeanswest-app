@@ -45,76 +45,77 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Container(
-        height: heightBar,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(3),
-          color: Colors.grey[300],
-        ),
-        margin: EdgeInsets.all(8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            GestureDetector(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                height: heightBar,
-                width: heightBar,
-                child: context.locale.toString() == 'en_US'
-                    ? GlobalSvgImages.leftIcon
-                    : GlobalSvgImages.rightIcon,
-              ),
-              onTap: () {
-                widget.textEditingController.clear();
-                widget.changeTextFieldSearch('');
-                widget.changeListPanelState(false, context);
-              },
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: TextField(
-                focusNode: widget.inputNode,
-                controller: widget.textEditingController,
-                onChanged: (value) {
-                  widget.changeTextFieldSearch(value);
-                },
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText:
-                      widget.haveSearchInText || widget.haveSearchInText == null
-                          ? '${"search_in_list_hint".tr()} ${widget.title}'
-                          : '${widget.title}',
-                  hintStyle:
-                      TextStyle(fontFamily: 'IRANSansLight', fontSize: 14),
-                ),
-              ),
-            ),
-            GestureDetector(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                height: heightBar,
-                width: heightBar,
-                child: GlobalSvgImages.clearTextFieldIcon,
-              ),
-              onTap: () {
-                widget.changeTextFieldSearch('');
-                widget.textEditingController.clear();
-              },
-            ),
-          ],
-        ),
+    return
+        // WillPopScope(
+        //   onWillPop: _onWillPop,
+        //   child:
+        Container(
+      height: heightBar,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
+        color: Colors.grey[300],
       ),
+      margin: EdgeInsets.all(8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          GestureDetector(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              height: heightBar,
+              width: heightBar,
+              child: context.locale.toString() == 'en_US'
+                  ? GlobalSvgImages.leftIcon
+                  : GlobalSvgImages.rightIcon,
+            ),
+            onTap: () {
+              widget.textEditingController.clear();
+              widget.changeTextFieldSearch('');
+              widget.changeListPanelState(false, context);
+            },
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: TextField(
+              focusNode: widget.inputNode,
+              controller: widget.textEditingController,
+              onChanged: (value) {
+                widget.changeTextFieldSearch(value);
+              },
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText:
+                    widget.haveSearchInText || widget.haveSearchInText == null
+                        ? '${"search_in_list_hint".tr()} ${widget.title}'
+                        : '${widget.title}',
+                hintStyle: TextStyle(fontFamily: 'IRANSansLight', fontSize: 14),
+              ),
+            ),
+          ),
+          GestureDetector(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              height: heightBar,
+              width: heightBar,
+              child: GlobalSvgImages.clearTextFieldIcon,
+            ),
+            onTap: () {
+              widget.changeTextFieldSearch('');
+              widget.textEditingController.clear();
+            },
+          ),
+        ],
+      ),
+      // ),
     );
   }
 
-  Future<bool> _onWillPop() async {
-    widget.changeTextFieldSearch('');
-    widget.textEditingController.clear();
-    widget.changeListPanelState(false, context);
-    return false;
-  }
+  // Future<bool> _onWillPop() async {
+  //   widget.changeTextFieldSearch('');
+  //   widget.textEditingController.clear();
+  //   widget.changeListPanelState(false, context);
+  //   return false;
+  // }
 }

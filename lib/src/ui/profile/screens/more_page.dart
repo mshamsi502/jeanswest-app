@@ -8,23 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 
 class MorePage extends StatefulWidget {
   final String title;
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
-  final int moneyBuying;
   final List<Widget> pages;
 
   const MorePage({
     Key key,
     this.title,
-    this.userLevel,
-    this.nextLevel,
-    this.moneyBuying,
     this.pages,
   }) : super(key: key);
   @override
@@ -50,10 +43,8 @@ class _MorePageState extends State<MorePage> {
                 MenuListViewWidget(
                   titles: moreListTitles,
                   icons: moreListIcons,
-                  // nextLevel: widget.nextLevel,
-                  // userLevel: widget.userLevel,
-                  // moneyBuying: widget.moneyBuying,
                   pages: widget.pages,
+                  haveExit: false,
                   backgroundColor: Colors.white,
                 ),
               ],

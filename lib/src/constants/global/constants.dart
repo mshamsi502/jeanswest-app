@@ -25,6 +25,9 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 bool isInit = true;
 bool userIsAuth = false;
 int tryToGetAllUserInfo = 4;
+String completeProfileMsgDateTime = '';
+
+bool showCompeletProfileMessage = false;
 // GoogleMapWidget myGoogleMapWidget;
 //
 // GetIt mockoonGlobalLocator = GetIt.instance;

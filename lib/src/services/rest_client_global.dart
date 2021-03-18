@@ -86,7 +86,8 @@ abstract class GlobalRestClient extends RestClient {
   // * PRODUCT *****************************************************************
 
   // ! from Mockoon API
-  @POST('http://10.1.2.94:3002/v1/getAddToCardProductDetail')
+  @GET('http://10.1.2.94:3002/v1/getAddToCardProductDetail')
   Future<ListOfProductsRes> getAddToCardProductDetailInfo(
-      @Body() Map<String, dynamic> barcode);
+    @Query("barcode") String barcode,
+  );
 }

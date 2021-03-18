@@ -37,10 +37,16 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.016 * _screenSize.height, //10
+        horizontal: 0.041 * _screenSize.width, //15,
+      ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(
+          0.011 * _screenSize.width, //4,
+        ),
         color: Colors.white,
       ),
       child: Column(
@@ -48,17 +54,17 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
         children: [
           Center(
             child: SizedBox(
-              width: 25,
-              height: 0.1,
+              width: 0.069 * _screenSize.width, //25,
+              height: 0.00138 * _screenSize.height, //0.5,
               child: Divider(
-                height: 0.05,
-                thickness: 2,
+                height: 0.00138 * _screenSize.height, //0.5,
+                thickness: 0.003125 * _screenSize.height, //2,
                 color: Colors.grey[300],
               ),
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 0.016 * _screenSize.height, //10
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,13 +74,13 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                   widget.selectedBranch.depName,
                   style: TextStyle(
                     fontFamily: 'IRANSansBold',
-                    fontSize: 16,
+                    fontSize: 0.0444 * _screenSize.width, //16,
                     color: MAIN_BLUE_COLOR,
                   ),
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 0.027 * _screenSize.width, //10,
               ),
               widget.isCloserBranch
                   ? AvakatanLabelWidget(
@@ -91,7 +97,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                 changeCameraPosition: changeCameraPosition,
               ),
               SizedBox(
-                width: 15,
+                width: 0.041 * _screenSize.width, //15,
               ),
               ShareLocationButtonWidget(
                 selectedBranch: widget.selectedBranch,
@@ -103,12 +109,12 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
             children: [
               Expanded(
                 child: SizedBox(
-                  height: 60,
+                  height: 0.093 * _screenSize.height, //60,
                   child: Text(
                     widget.selectedBranch.depAddress,
                     style: TextStyle(
                         color: MAIN_BLUE_COLOR,
-                        fontSize: 12,
+                        fontSize: 0.0333 * _screenSize.width, //12,
                         fontFamily: 'IRANSansLight'),
                   ),
                 ),
@@ -120,21 +126,22 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                 ? GlobalSvgImages.blueTimeIcon
                 : GlobalSvgImages.redTimeIcon,
             SizedBox(
-              width: 5,
+              width: 0.0138 * _screenSize.width, //5,
             ),
             Text(
               widget.selectedBranch.isActive == 1
                   ? widget.selectedBranch.workTime
                   : 'در حال حاضر این شعبه غیر فعال است.',
               style: TextStyle(
-                  color: widget.selectedBranch.isActive == 1
-                      ? MAIN_BLUE_COLOR
-                      : Colors.red,
-                  fontSize: 10),
+                color: widget.selectedBranch.isActive == 1
+                    ? MAIN_BLUE_COLOR
+                    : Colors.red,
+                fontSize: 0.027 * _screenSize.width, //10,
+              ),
             ),
           ]),
           SizedBox(
-            height: 10,
+            height: 0.016 * _screenSize.height, //10
           ),
           Row(
             children: [
@@ -146,7 +153,7 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                 ),
               ),
               SizedBox(
-                width: 10,
+                width: 0.027 * _screenSize.width, //10,
               ),
               CallButtonWidget(depTel: widget.selectedBranch.depTel),
             ],
