@@ -46,15 +46,23 @@ class _AddressesListPageState extends State<AddressesListPage> {
     return Container(
       color: Colors.grey,
       child: WillPopScope(
-        onWillPop: () async {
+        onWillPop: ()
+            // => backPanelClose(
+            //   // mapPanelState == PanelState.CLOSED
+            //   //     ? [editPanelController]
+            //   //     :
+            //   [mapPanelController, editPanelController],
+            //   context,
+            // ),
+            async {
           if (mapPanelController.isPanelOpen &&
               mapPanelState == PanelState.CLOSED)
-            return await backPanelClose(mapPanelController, context);
+            return await backPanelClose([mapPanelController], context);
           if (editPanelController.isPanelOpen)
-            return await backPanelClose(editPanelController, context);
+            return await backPanelClose([editPanelController], context);
           if (mapPanelController.isPanelOpen &&
               mapPanelState == PanelState.OPEN)
-            return await backPanelClose(mapPanelController, context);
+            return await backPanelClose([mapPanelController], context);
           return false;
         },
         child: Scaffold(

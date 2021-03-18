@@ -21,6 +21,8 @@ void setupGlobalLocator() async {
     dio.interceptors
         .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
       if (globalLocator<SharedPreferences>().getString(TOKEN) != null) {
+        print(
+            'toooken sended : Bearer ${globalLocator<SharedPreferences>().getString(TOKEN)}');
         options.headers["Authorization"] =
             "Bearer " + globalLocator<SharedPreferences>().getString(TOKEN);
       }

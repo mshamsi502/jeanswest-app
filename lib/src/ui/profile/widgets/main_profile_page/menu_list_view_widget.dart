@@ -13,6 +13,7 @@ class MenuListViewWidget extends StatefulWidget {
   final List<Widget> pages;
   final Color backgroundColor;
   final bool haveExit;
+  final Function() openLogOutPanel;
 
   const MenuListViewWidget({
     Key key,
@@ -21,6 +22,7 @@ class MenuListViewWidget extends StatefulWidget {
     this.backgroundColor,
     this.pages,
     this.haveExit,
+    this.openLogOutPanel,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MenuListViewWidgetState();
@@ -29,16 +31,22 @@ class MenuListViewWidget extends StatefulWidget {
 class _MenuListViewWidgetState extends State<MenuListViewWidget> {
   ScrollController _scrollController;
 
+  // PanelController logOutPanel;
+
   @override
   void initState() {
     _scrollController = new ScrollController();
+
+    // logOutPanel = new PanelController();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    return ListView.builder(
+    return
+
+        ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
       itemCount: widget.titles.length,
@@ -48,7 +56,8 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
             GestureDetector(
               onTap: () async {
                 widget.haveExit && index == widget.titles.length - 1
-                    ? print('exiting')
+                    // ? logOutPanel.open()
+                    ? widget.openLogOutPanel()
                     : Navigator.push(
                         context,
                         MaterialPageRoute(

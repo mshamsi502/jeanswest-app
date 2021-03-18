@@ -24,6 +24,7 @@ class InviteFrindePage extends StatefulWidget {
   final int someOfShoppingFromInvited;
   final List<String> queFaq;
   final List<String> ansFaq;
+  // final Size screenSize;
 
   const InviteFrindePage({
     Key key,
@@ -35,6 +36,7 @@ class InviteFrindePage extends StatefulWidget {
     this.title,
     this.queFaq,
     this.ansFaq,
+    // this.screenSize,
   }) : super(key: key);
   @override
   _InviteFrindePageState createState() => _InviteFrindePageState();
@@ -46,12 +48,24 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
   PanelController sendingPanel = PanelController();
 
   @override
+  void initState() {
+    // scrollJumpAfterKeyborad(
+    //   scrollController: _scrollController,
+    //   screenSize: widget.screenSize,
+    // );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
       child: WillPopScope(
-        onWillPop: () => backPanelClose(sendingPanel, context),
+        onWillPop: () => backPanelClose(
+          [sendingPanel],
+          context,
+        ),
         child: Scaffold(
           body: SafeArea(
             child: Container(
@@ -61,6 +75,7 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                 minHeight: 0,
                 maxHeight: 0.61655 * _screenSize.height, //365,
                 backdropEnabled: true,
+                onPanelClosed: () => FocusScope.of(context).unfocus(),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(
                     0.03 * _screenSize.width, //11,
@@ -73,6 +88,8 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                   closePanel: () => sendingPanel.close(),
                   inviteLink:
                       "https://jeanswest.club/v1/jwclub/register?code=udilxv",
+                  screenSize: _screenSize,
+                  scrollController: _scrollController,
                 ),
                 body: Column(
                   children: [
@@ -200,7 +217,9 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                         bottomButtonFunction: () => sendingPanel.open(),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(
+                      height: 0.031 * _screenSize.height, //20,
+                    ),
                   ],
                 ),
               ),

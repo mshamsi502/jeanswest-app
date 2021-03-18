@@ -32,31 +32,36 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      // padding:
-      //     EdgeInsets.symmetric(horizontal: 0.016 * _screenSize.height), //10),
       color: Colors.white,
       height: 0.078125 * _screenSize.height, //50,
       child: Row(
         children: [
-          SizedBox(width: 0.008 * _screenSize.height //5
+          Container(
+            color: Colors.transparent,
+            child: GestureDetector(
+              child: Container(
+                color: Colors.transparent,
+                child: Row(
+                  children: [
+                    Container(
+                      width: 10,
+                      height: 40,
+                    ),
+                    Container(
+                      height: 0.0625 * _screenSize.height, //40
+                      width: 40,
+                      padding: EdgeInsets.all(0.016 * _screenSize.height //10
+                          ),
+                      child: context.locale.toString() == 'en_US'
+                          ? GlobalSvgImages.leftIcon
+                          : GlobalSvgImages.rightIcon,
+                    ),
+                  ],
+                ),
               ),
-          GestureDetector(
-            child: Container(
-              height: 0.0625 * _screenSize.height, //40
-              width: 0.0625 * _screenSize.height, //40
-              padding: EdgeInsets.all(0.016 * _screenSize.height //10
-                  ),
-              child: context.locale.toString() == 'en_US'
-                  ? GlobalSvgImages.leftIcon
-                  : GlobalSvgImages.rightIcon,
+              onTap: widget.onTap,
             ),
-            onTap: widget.onTap,
-            // () {
-            //   Navigator.pop(context);
-            // },
           ),
-          SizedBox(width: 0.016 * _screenSize.height //10
-              ),
           Expanded(
             child: Text(
               widget.title,

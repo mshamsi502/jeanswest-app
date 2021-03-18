@@ -211,14 +211,13 @@ class _GlobalRestClient implements GlobalRestClient {
   Future<ListOfProductsRes> getAddToCardProductDetailInfo(barcode) async {
     ArgumentError.checkNotNull(barcode, 'barcode');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'barcode': barcode};
     final _data = <String, dynamic>{};
-    _data.addAll(barcode ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
         'http://10.1.2.94:3002/v1/getAddToCardProductDetail',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

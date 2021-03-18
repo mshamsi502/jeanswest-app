@@ -99,7 +99,10 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       color: Colors.grey,
       child: SafeArea(
         child: WillPopScope(
-          onWillPop: () => backPanelClose(editingPanel, context),
+          onWillPop: () => backPanelClose(
+            [editingPanel],
+            context,
+          ),
           child: Scaffold(
             body: SlidingUpPanel(
               color: Colors.transparent,

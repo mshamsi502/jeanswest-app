@@ -109,24 +109,12 @@ class _BranchPageState extends State<BranchPage>
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
           return
-              // Scaffold(
-              //   body: WillPopScope(
-              //     onWillPop: () async {
-              //       if (panelController.isPanelOpen) {
-              //         panelController.close();
-              //         return true;
-              //       } else {
-              //         Navigator.pop(context);
-              //         return false;
-              //       }
-              //     },
-              //     child: Scaffold(
-              //       body:
               SlidingUpPanel(
             controller: widget.searchPanelController,
             minHeight: 0,
             maxHeight: screenSize.height,
             backdropEnabled: true,
+            onPanelClosed: () => FocusScope.of(context).unfocus(),
             panel: Column(
               children: [
                 RealSearchAppBarWidget(
