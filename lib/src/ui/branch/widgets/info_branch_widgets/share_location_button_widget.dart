@@ -31,7 +31,6 @@ class _ShareLocationButtonWidgetState extends State<ShareLocationButtonWidget> {
         if (Platform.isAndroid) {
           android_intent.Intent()
             ..setAction(android_action.Action.ACTION_SEND)
-            ..setAction(action)
             ..setType("*/location")
             ..putExtra(Extra.EXTRA_TEXT, '''
 فروشگاه جین وست
