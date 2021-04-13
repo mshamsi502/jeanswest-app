@@ -22,6 +22,9 @@ class Order {
   final PeriodTimeOrder recieveDate;
   final ExactTimeOrder paymentDate;
   //
+  final String statusShopping;
+  final String statusStep;
+  //
   final Address address;
   final String phoneNumber;
   final String trackingCode;
@@ -46,6 +49,8 @@ class Order {
     @required this.confirmDate,
     @required this.recieveDate,
     @required this.paymentDate,
+    @required this.statusShopping,
+    @required this.statusStep,
     @required this.address,
     @required this.trackingCode,
     @required this.paymentPlan,

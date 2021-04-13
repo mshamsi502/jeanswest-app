@@ -121,13 +121,13 @@ Product sixthFav = new Product(
     'قد پشت لباس: برای سایز 150 (10-9 سال)، حدودا 68 سانتی متر',
   ],
 );
-List<Product> myFavorites = [
-  firstFav,
-  secondFav,
-  thirdFav,
-  fourthFav,
-  fifthFav,
-  sixthFav,
-  firstFav,
-  firstFav,
-];
+// List<Product> myFavorites = [
+//   firstFav,
+//   secondFav,
+//   thirdFav,
+//   fourthFav,
+//   fifthFav,
+//   sixthFav,
+//   firstFav,
+//   firstFav,
+// ];

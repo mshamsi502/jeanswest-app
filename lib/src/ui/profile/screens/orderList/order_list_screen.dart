@@ -69,7 +69,6 @@ class _OrderListScreenState extends State<OrderListScreen>
               //       });
               //     },
               //     confirmInfo: confirmInfo),
-              //
             ),
             body: Container(
               color: Colors.white,
@@ -95,10 +94,15 @@ class _OrderListScreenState extends State<OrderListScreen>
                           child: TabBarView(
                             controller: tabController,
                             children: <Widget>[
-                              OnlineTabsWidget(),
+                              OnlineTabsWidget(
+                                // ignore: deprecated_member_use
+                                inProgressOrders: inProgressOrders,
+                                compeletedOrders: compeletedOrders,
+                                returnedOrders: returnedOrders,
+                              ),
                               OrderListWidget(
                                 orders: endedOrders,
-                                status: 'تکمیل شده',
+                                isOffline: true,
                               ),
                             ],
                           ),

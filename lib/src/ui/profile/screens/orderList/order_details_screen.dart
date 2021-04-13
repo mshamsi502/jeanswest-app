@@ -3,15 +3,19 @@
 // *   Created Date & Time :  2020-10-11  ,  12:33 PM
 // ****************************************************************************
 
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/sec_one_order_detail_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/reciver_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/sec_three_order_detail_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/sec_two_order_detail_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -59,7 +63,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
             body: Container(
               // color: Colors.white,
-              color: Color(0xfff1f1f1),
+              color: F7_BACKGROUND_COLOR,
               child: Stack(
                 children: [
                   Positioned(
@@ -70,25 +74,49 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         controller: scrollController,
                         child: Column(
                           children: [
-                            SecOneOrderDetailWidget(
+                            Container(
+                              width: _screenSize.width,
+                              color: F7_BACKGROUND_COLOR,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 25,
+                                vertical: 15,
+                              ),
+                              child: OrderMainInfoWidget(
+                                backgroungColor: Colors.white,
+                                radius: 4,
+                                firstTitle: 'کد سفارش',
+                                firstValue: widget.order.code,
+                                secTitle: 'قیمت قابل پرداخت',
+                                secValue: toPriceStyle(
+                                    int.parse(widget.order.payablePrice)),
+                                // countProducts: widget.order.countProducts,
+                                thirdTitle: 'تحویل گیرنده',
+                                thirdValue: widget.order.receiverName,
+                              ),
+                            ),
+                            ReciverInfoWidget(
                               order: widget.order,
-                              state: widget.state,
                               totalCount: widget.totalCount,
                             ),
-                            SizedBox(height: 3),
-                            SecTwoOrderDetailWidget(
-                              order: widget.order,
-                              state: widget.state,
-                              totalCount: widget.totalCount,
-                            ),
-                            SizedBox(height: 3),
-                            SecThreeOrderDetailWidget(
-                              totalCount: widget.totalCount,
-                              orgPrice: widget.order.orgPrice,
-                              // sendPrice: widget.,
-                              payablePrice: widget.order.payablePrice,
-                              finalSendPrice: widget.order.finalSendPrice,
-                            ),
+                            // SecOneOrderDetailWidget(
+                            //   order: widget.order,
+                            //   state: widget.state,
+                            //   totalCount: widget.totalCount,
+                            // ),
+                            // SizedBox(height: 3),
+                            // SecTwoOrderDetailWidget(
+                            //   order: widget.order,
+                            //   state: widget.state,
+                            //   totalCount: widget.totalCount,
+                            // ),
+                            // SizedBox(height: 3),
+                            // SecThreeOrderDetailWidget(
+                            //   totalCount: widget.totalCount,
+                            //   orgPrice: widget.order.orgPrice,
+                            //   // sendPrice: widget.,
+                            //   payablePrice: widget.order.payablePrice,
+                            //   finalSendPrice: widget.order.finalSendPrice,
+                            // ),
                           ],
                         ),
                       ),

@@ -5,12 +5,24 @@
 
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/test_data/orders.dart';
+import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_list_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+// ignore: must_be_immutable
 class OnlineTabsWidget extends StatefulWidget {
+  List<Order> inProgressOrders;
+  List<Order> compeletedOrders;
+  List<Order> returnedOrders;
+
+  OnlineTabsWidget({
+    Key key,
+    this.inProgressOrders,
+    this.compeletedOrders,
+    this.returnedOrders,
+  }) : super(key: key);
   @override
   _OnlineTabsWidgetState createState() => _OnlineTabsWidgetState();
 }
@@ -89,7 +101,8 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 5, vertical: 2),
                                       child: Text(
-                                        inProgressOrders.length.toString(),
+                                        widget.inProgressOrders.length
+                                            .toString(),
                                         style: TextStyle(
                                             fontSize: 11, color: Colors.white),
                                       ),
@@ -130,7 +143,8 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 5, vertical: 2),
                                       child: Text(
-                                        inProgressOrders.length.toString(),
+                                        widget.compeletedOrders.length
+                                            .toString(),
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.white),
                                       ),
@@ -171,7 +185,7 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 5, vertical: 2),
                                       child: Text(
-                                        inProgressOrders.length.toString(),
+                                        widget.returnedOrders.length.toString(),
                                         style: TextStyle(
                                             fontSize: 11, color: Colors.white),
                                       ),
@@ -195,15 +209,15 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                           children: <Widget>[
                             OrderListWidget(
                               orders: inProgressOrders,
-                              status: 'در حال پردازش',
+                              isOffline: false,
                             ),
                             OrderListWidget(
-                              orders: endedOrders,
-                              status: 'تکمیل شده',
+                              orders: compeletedOrders,
+                              isOffline: false,
                             ),
                             OrderListWidget(
-                              orders: endedOrders,
-                              status: 'مرجوعی',
+                              orders: returnedOrders,
+                              isOffline: false,
                             ),
                           ],
                         ),

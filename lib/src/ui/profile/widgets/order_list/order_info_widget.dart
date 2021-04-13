@@ -4,7 +4,7 @@
 //****************************************************************************
 
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/ui/profile/screens/orderList/order_details_screen.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
@@ -14,12 +14,12 @@ import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 class OrderInfoWidget extends StatefulWidget {
   final Order order;
-  final String state;
+  final bool isOffline;
 
   OrderInfoWidget({
     Key key,
     this.order,
-    this.state,
+    this.isOffline,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _OrderInfoWidgetState();
@@ -55,6 +55,7 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
     // print('.||||||||||||||||||||||||||||||||||.');
     return GestureDetector(
       child: Container(
+        width: _screenSize.width,
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
@@ -63,24 +64,73 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                 Text(
                   'کد سفارش',
                   style: TextStyle(
-                    color: MAIN_BLUE_COLOR,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 14,
+                    // fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(
-                  width: 5,
-                ),
+                SizedBox(width: 5),
                 Text(
                   widget.order.code,
                   style: TextStyle(
-                    color: MAIN_BLUE_COLOR,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 14,
+                    // fontWeight: FontWeight.w600,
                   ),
                 ),
+                SizedBox(width: 5),
+
+                !widget.isOffline && widget.order.statusShopping == 'مرجوعی'
+                    ?
+                    // Expanded(
+                    //     child:
+                    Container(
+                        // width: 50,
+                        alignment: Alignment.centerRight,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                        decoration: BoxDecoration(
+                          color: LIGHT_YELLOW_SKIN_COLOR,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.timer_outlined,
+                              size: 18,
+                              color: MAIN_GOLD_COLOR,
+                            ),
+                            SizedBox(width: 5),
+                            // Expanded(
+                            //   child:
+                            Container(
+                              width: widget.order.statusStep.length > 20
+                                  ? 100
+                                  : null,
+                              child: Text(
+                                widget.order.statusStep,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: MAIN_GOLD_COLOR,
+                                ),
+                              ),
+                            ),
+                            // ),
+                          ],
+                        ),
+                      )
+                    // ,
+                    // )
+                    : SizedBox(),
                 Expanded(child: SizedBox()),
-                GlobalSvgImages.leftIcon,
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: 20,
+                  color: Colors.black87,
+                ),
+                // GlobalSvgImages.leftIcon,
               ],
             ),
             Row(
@@ -104,12 +154,12 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                         height: 70,
                         width: 70,
                         decoration: BoxDecoration(
-                          // color: Colors.red,
-                          image: DecorationImage(
-                            image: new AssetImage(
-                                widget.order.products[index].assets),
-                          ),
-                        ),
+                            // color: Colors.red,
+                            // image: DecorationImage(
+                            //     // image: new AssetImage(
+                            //     //     widget.order.products[index].assets),
+                            //     ),
+                            ),
                       );
                     },
                   ),
@@ -122,22 +172,33 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                         width: 35,
                         height: 35,
                         alignment: Alignment.center,
-                        child: Icon(
-                          Icons.more_horiz,
-                          size: 35,
-                          color: Colors.grey,
+                        child: Text(
+                          "+ ${widget.order.countProducts.length - maxItem}",
+                          textDirection: ltrTextDirection,
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
+                        // Icon(
+                        //   Icons.more_horiz,
+                        //   size: 35,
+                        //   color: Colors.grey,
+                        // ),
                       )
-                    : Container(),
+                    : SizedBox(),
               ],
             ),
             OrderMainInfoWidget(
-              state: widget.state,
-              confirmDate:
+              backgroungColor: FB_BACKGROUND_COLOR,
+              radius: 4,
+              firstTitle: 'تاریخ ثبت سفارش',
+              firstValue:
                   '${widget.order.confirmDate.yearOfDate}/${widget.order.confirmDate.mouthOfDate}/${widget.order.confirmDate.dayOfDate}',
-              totalPrice: toPriceStyle(int.parse(widget.order.payablePrice)),
+              secTitle: 'قیمت پرداخت شده',
+              secValue: toPriceStyle(int.parse(widget.order.payablePrice)),
               // countProducts: widget.order.countProducts,
-              totalCount: totalCount,
+              thirdTitle: 'تعداد کالا',
+              thirdValue: totalCount.toString(),
             ),
           ],
         ),
@@ -148,7 +209,6 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
             MaterialPageRoute(
                 builder: (context) => OrderDetailsScreen(
                       order: widget.order,
-                      state: widget.state,
                       totalCount: totalCount,
                     )));
       },

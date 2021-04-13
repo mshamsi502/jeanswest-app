@@ -57,12 +57,12 @@ class _DetailOrderInfoWidgetState extends State<DetailOrderInfoWidget> {
                   margin: EdgeInsets.symmetric(horizontal: 5),
                   height: 90,
                   width: 90,
-                  decoration: BoxDecoration(
-                    // color: Colors.red,
-                    image: DecorationImage(
-                      image: new AssetImage(widget.product.assets),
-                    ),
-                  ),
+                  // decoration: BoxDecoration(
+                  //   // color: Colors.red,
+                  //   image: DecorationImage(
+                  //     image: new AssetImage(widget.product.assets),
+                  //   ),
+                  // ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
