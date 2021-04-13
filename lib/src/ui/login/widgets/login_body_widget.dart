@@ -119,9 +119,9 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                         child: Directionality(
                           textDirection: ltrTextDirection,
                           child: Container(
-                            color: Colors.transparent,
+                            // color: Colors.red,
                             width: _screenSize.width,
-                            height: 0.03125 * _screenSize.height, //20
+                            // height: 0.03125 * _screenSize.height, //20
                             child: TextField(
                               textDirection: ltrTextDirection,
                               keyboardType: TextInputType.number,
@@ -141,7 +141,8 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                                 ),
                                 hintText: '9125432778',
                                 contentPadding: EdgeInsets.symmetric(
-                                  vertical: 0.015 * _screenSize.height, // 10,
+                                  //   vertical:
+                                  //       0.015 * _screenSize.height, // 10,
                                   horizontal: 0.055 * _screenSize.width, // 20,
                                 ),
                                 border: InputBorder.none,

@@ -47,8 +47,10 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                   child: SingleChildScrollView(
                     controller: scrollController,
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 0.0156 * _screenSize.height, //10
+                      padding: EdgeInsets.only(
+                        right: 0.0156 * _screenSize.height, //10
+                        left: 0.0156 * _screenSize.height, //10
+                        bottom: 0.0156 * _screenSize.height, //10
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -84,138 +86,168 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                             width: 0.0138 * _screenSize.width, //5
                           ),
                           Expanded(
-                            child: Column(
+                            child: Stack(
                               children: [
-                                Bubble(
-                                  margin: BubbleEdges.only(
-                                      top: 0.028 * _screenSize.width //10
-                                      ),
-                                  nipOffset: 0.0078 * _screenSize.height, //5,
-                                  alignment: Alignment.bottomLeft,
-                                  nipWidth: 0.03125 * _screenSize.height, //20,
-                                  nipHeight: 0.0156 * _screenSize.height, //10,
-                                  nip: BubbleNip.rightBottom,
-                                  color: BLUE_SKY_COLOR,
-                                  child: Container(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          widget.notificationMessage.title,
-                                          style: TextStyle(
-                                              fontSize: 0.038 *
-                                                  _screenSize.width, //14,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              0.0156 * _screenSize.height, //10
-                                        ),
-                                        Container(
-                                          height: 0.2812 *
-                                              _screenSize.height, //180,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              fit: BoxFit.contain,
-                                              image: new AssetImage(
-                                                  'assets/images/png_images/profile/big_jeanswest_shop.png'),
-                                            ),
+                                Column(
+                                  children: [
+                                    Bubble(
+                                      margin: BubbleEdges.only(
+                                          top: 0.028 * _screenSize.width //10
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              0.0156 * _screenSize.height, //10
-                                        ),
-                                        Row(
+                                      radius: Radius.circular(3),
+                                      shadowColor: Colors.transparent,
+                                      nipOffset:
+                                          0.0078 * _screenSize.height, //5,
+                                      alignment: Alignment.bottomLeft,
+                                      nipWidth:
+                                          0.03125 * _screenSize.height, //20,
+                                      nipHeight:
+                                          0.0156 * _screenSize.height, //10,
+                                      nip: BubbleNip.rightBottom,
+                                      color: BLUE_SKY_COLOR,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Expanded(
-                                              child: Text(
-                                                widget.notificationMessage.text,
-                                                style: TextStyle(
-                                                    fontSize: 0.033 *
-                                                        _screenSize.width, //12,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.grey),
+                                            Text(
+                                              widget.notificationMessage.title,
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            SizedBox(
+                                              height: 190,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    widget.notificationMessage
+                                                        .text,
+                                                    style: TextStyle(
+                                                        fontSize: 0.033 *
+                                                            _screenSize
+                                                                .width, //12,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 0.0156 *
+                                                  _screenSize.height, //10
+                                            ),
+                                            ListView.builder(
+                                                itemCount: widget
+                                                    .notificationMessage
+                                                    .conditions
+                                                    .length,
+                                                physics:
+                                                    NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int conditionsIndex) {
+                                                  return Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                              child: Text(
+                                                            widget.notificationMessage
+                                                                    .conditions[
+                                                                conditionsIndex],
+                                                            style: TextStyle(
+                                                              fontSize: 0.028 *
+                                                                  _screenSize
+                                                                      .width, //10
+                                                              color:
+                                                                  MAIN_BLUE_COLOR,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                            ),
+                                                          )),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: 0.0078 *
+                                                            _screenSize
+                                                                .height, //5
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
+                                            SizedBox(
+                                              height: 0.0078 *
+                                                  _screenSize.height, //5
+                                            ),
+                                            Text(
+                                              'مبلغ ${widget.notificationMessage.price} تومان',
+                                              style: TextStyle(
+                                                fontSize: 0.03 *
+                                                    _screenSize.width, //11
+                                                color: MAIN_BLUE_COLOR,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    '${widget.notificationMessage.hourOfSend}:${widget.notificationMessage.minOfSend}',
+                                                    style: TextStyle(
+                                                      fontSize: 0.028 *
+                                                          _screenSize
+                                                              .width, //10
+                                                      color: MAIN_BLUE_COLOR,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  )
+                                                ]),
                                           ],
                                         ),
-                                        SizedBox(
-                                          height:
-                                              0.0156 * _screenSize.height, //10
+                                      ),
+                                    ),
+                                    SizedBox(height: 10),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    SizedBox(height: 30),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 15,
+                                          height: 200,
                                         ),
-                                        ListView.builder(
-                                            itemCount: widget
-                                                .notificationMessage
-                                                .conditions
-                                                .length,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemBuilder: (BuildContext context,
-                                                int conditionsIndex) {
-                                              return Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Expanded(
-                                                          child: Text(
-                                                        widget.notificationMessage
-                                                                .conditions[
-                                                            conditionsIndex],
-                                                        style: TextStyle(
-                                                          fontSize: 0.028 *
-                                                              _screenSize
-                                                                  .width, //10
-                                                          color:
-                                                              MAIN_BLUE_COLOR,
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                        ),
-                                                      )),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: 0.0078 *
-                                                        _screenSize.height, //5
-                                                  ),
-                                                ],
-                                              );
-                                            }),
-                                        SizedBox(
-                                          height:
-                                              0.0078 * _screenSize.height, //5
-                                        ),
-                                        Text(
-                                          'مبلغ ${widget.notificationMessage.price} تومان',
-                                          style: TextStyle(
-                                            fontSize:
-                                                0.03 * _screenSize.width, //11
-                                            color: MAIN_BLUE_COLOR,
-                                            fontWeight: FontWeight.w600,
+                                        Expanded(
+                                          child: Container(
+                                            height: 180,
+                                            width: 260,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                fit: BoxFit.fitWidth,
+                                                image: new AssetImage(
+                                                    'assets/images/png_images/profile/big_jeanswest_shop.png'),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                '${widget.notificationMessage.hourOfSend}:${widget.notificationMessage.minOfSend}',
-                                                style: TextStyle(
-                                                  fontSize: 0.028 *
-                                                      _screenSize.width, //10
-                                                  color: MAIN_BLUE_COLOR,
-                                                  fontWeight: FontWeight.w300,
-                                                ),
-                                              )
-                                            ]),
+                                        Container(
+                                          width: 15,
+                                          height: 200,
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 0.0156 * _screenSize.height, //10
+                                  ],
                                 ),
                               ],
                             ),

@@ -87,7 +87,7 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
+    var _screenSize = MediaQuery.of(context).size;
     return BlocListener<SelectedBranchBloc, SelectedBranchState>(
       listener: (context, selectedBranchState) {
         if (selectedBranchState is SelectedBranchUpdating) {
@@ -107,7 +107,11 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
       },
       child: Container(
         child: SlidingUpPanel(
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+          margin: EdgeInsets.symmetric(
+            vertical: 0.016 * _screenSize.height, //10
+
+            horizontal: 0.027 * _screenSize.width, //10,
+          ),
           color: Colors.transparent,
           controller: panelController,
           minHeight: 0,
@@ -128,7 +132,9 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
           body: Stack(
             children: [
               Container(
-                height: screenSize.height - 100,
+                height:
+                    _screenSize.height - 0.15625 * _screenSize.height, //100,
+
                 child: GoogleMap(
                   myLocationEnabled: true,
                   mapToolbarEnabled: false,
@@ -141,15 +147,19 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
                 ),
               ),
               Positioned(
-                top: 10,
-                right: 10,
+                top: 0.016 * _screenSize.height, //10
+                right: 0.027 * _screenSize.width, //10,
                 child: Container(
-                  padding: EdgeInsets.all(7),
-                  height: 43,
-                  width: 43,
+                  padding: EdgeInsets.all(
+                    0.0194 * _screenSize.width, //7,
+                  ),
+                  height: 0.1194 * _screenSize.width, //43,
+                  width: 0.1194 * _screenSize.width, //43,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(50)),
+                      borderRadius: BorderRadius.circular(
+                        0.138 * _screenSize.width, //50,
+                      )),
                   child: GestureDetector(
                     child: BranchSvgImages.myLocationIcon,
                     onTap: () async {

@@ -13,6 +13,7 @@ import 'package:jeanswest/src/ui/login/widgets/confirm_button_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/country_list_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_app_bar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_body_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,7 +21,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class LoginPage extends StatefulWidget {
   // final Function(int, int) updateProp;
@@ -79,13 +79,9 @@ class _LoginPageState extends State<LoginPage> {
     secondTimer = '00';
     //
 
-    KeyboardVisibilityNotification().addNewListener(
-      onHide: () {
-        scrollController.jumpTo(0);
-      },
-      onShow: () {
-        scrollController.jumpTo(widget.screenSize.width);
-      },
+    scrollJumpAfterKeyborad(
+      scrollController: scrollController,
+      screenSize: widget.screenSize,
     );
 
     super.initState();
@@ -156,177 +152,185 @@ class _LoginPageState extends State<LoginPage> {
       width: _screenSize.width,
       height: _screenSize.height,
       child: SafeArea(
-        child: Scaffold(
-          key: scaffoldKey,
-          resizeToAvoidBottomInset: true,
-          body: SingleChildScrollView(
-            controller: scrollController,
-            physics: ClampingScrollPhysics(),
-            child: Container(
-              width: _screenSize.width,
-              height: 0.8 * _screenSize.height,
-              child: SlidingUpPanel(
-                minHeight: 0,
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    blurRadius: 0,
-                    color: Color.fromRGBO(0, 0, 0, 0),
-                  ),
-                ],
-                maxHeight: _screenSize.height,
-                backdropEnabled: false,
-                backdropOpacity: 0,
-                backdropColor: Colors.transparent,
-                color: Colors.transparent,
-                defaultPanelState: PanelState.CLOSED,
-                controller: preTelCodePanelController,
-                onPanelOpened: () {
-                  setState(() {
-                    preTelCodeIsOpen = true;
-                  });
-                },
-                onPanelClosed: () {
-                  setState(() {
-                    preTelCodeIsOpen = false;
-                  });
-                },
-                panel: Container(
-                  height: _screenSize.height,
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      RealSearchAppBarWidget(
-                        title: '${"login_screen.country_code".tr()} ...',
-                        changeListPanelState: changeCountryListPanelState,
-                        changeTextFieldSearch: changeTextFieldSearch,
-                        inputNode: searchInputNode,
-                        textEditingController: searchTextEditingController,
-                      ),
-                      CountryListWidget(
-                        countries: searchedCountries,
-                        selectedCountry: selectedCountry,
-                        changeCountryListPanelState:
-                            changeCountryListPanelState,
-                        changeSelectedCountry: changeSelectedCountry,
-                      ),
-                    ],
-                  ),
-                ),
-                body: Container(
-                  width: _screenSize.width,
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          height: 0.15625 * _screenSize.height, //100,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 0.041 * _screenSize.width, //15,
-                              vertical: 0.016 * _screenSize.height //10
-                              ),
-                          child: LoginAppBarWidget(
-                            phoneTextEditingController:
-                                phoneTextEditingController,
-                            navigatorPop: (BuildContext context) =>
-                                Navigator.pop(context),
-                          ),
+        child: WillPopScope(
+          onWillPop: () => backPanelClose(
+            [preTelCodePanelController],
+            context,
+          ),
+          child: Scaffold(
+            key: scaffoldKey,
+            resizeToAvoidBottomInset: true,
+            body: SingleChildScrollView(
+              controller: scrollController,
+              physics: ClampingScrollPhysics(),
+              child: Container(
+                width: _screenSize.width,
+                height: 0.8 * _screenSize.height,
+                child: SlidingUpPanel(
+                  minHeight: 0,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      blurRadius: 0,
+                      color: Color.fromRGBO(0, 0, 0, 0),
+                    ),
+                  ],
+                  maxHeight: _screenSize.height,
+                  backdropEnabled: false,
+                  backdropOpacity: 0,
+                  backdropColor: Colors.transparent,
+                  color: Colors.transparent,
+                  defaultPanelState: PanelState.CLOSED,
+                  controller: preTelCodePanelController,
+                  onPanelOpened: () {
+                    setState(() {
+                      preTelCodeIsOpen = true;
+                    });
+                  },
+                  onPanelClosed: () {
+                    setState(() {
+                      preTelCodeIsOpen = false;
+                    });
+                  },
+                  panel: Container(
+                    height: _screenSize.height,
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        RealSearchAppBarWidget(
+                          title: '${"login_screen.country_code".tr()} ...',
+                          haveSearchInText: true,
+                          changeListPanelState: changeCountryListPanelState,
+                          changeTextFieldSearch: changeTextFieldSearch,
+                          inputNode: searchInputNode,
+                          textEditingController: searchTextEditingController,
                         ),
-                      ),
-                      Positioned(
-                        top: isInputPhoneStep
-                            ? 0.2812 * _screenSize.height //180,
-                            : 0.34 * _screenSize.height, //217
-                        child: Container(
-                          child: Column(
-                            children: [
-                              isInputPhoneStep
-                                  ? LoginBodyWidget(
-                                      focusNode: phoneInputNode,
-                                      phoneTextEditingController:
-                                          phoneTextEditingController,
-                                      keyboardIsOpen: keyboardIsOpen,
-                                      preTelCodePanelController:
-                                          preTelCodePanelController,
-                                      inputPhone: inputPhone,
-                                      hasError: hasError,
-                                      // hasError: true,
-                                      selectedCountry: selectedCountry,
-                                      changeTextFieldSearch: (String newValue) {
-                                        print('update check');
-                                        setState(() {
-                                          inputPhone = newValue;
-                                          print('inputPhone : $inputPhone');
-                                        });
-                                        List response = checkCorrectPhone(
-                                            inputPhone: inputPhone,
-                                            startWithZero: false);
-                                        setState(() {
-                                          check = response[0];
-                                          print('check : $check');
-                                        });
-                                      },
-                                    )
-                                  : ConfirmCodeWidget(
-                                      focusNode: codeConfirmInputNode,
-                                      phoneTextEditingController:
-                                          phoneTextEditingController,
-                                      keyboardIsOpen: keyboardIsOpen,
-                                      inputPhone: inputPhone,
-                                      inputCode: inputCode,
-                                      hasError: hasError,
-                                      selectedCountry: selectedCountry,
-                                      backToInputPhoneStep:
-                                          changeInputPhoneStep,
-                                      updateSelectedChar:
-                                          updateSelectedCodeChar,
-                                      selectedChar: selectedCodeChar,
-                                      updateInputCode: updateInputCode,
-                                      minuteTimer: minuteTimer,
-                                      secondTimer: secondTimer,
-                                      startDownTimer: () =>
-                                          startDownTimer(_screenSize),
-                                    ),
-                              SizedBox(
-                                height: 0.039 * _screenSize.height, //25,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 0.6 * _screenSize.height, //355,
-                        left: 0,
-                        right: 0,
-                        child: ConfirmButtonWidget(
-                          check: check,
-                          phoneNumber: inputPhone,
-                          verifyCode: inputCode,
+                        CountryListWidget(
+                          countries: searchedCountries,
                           selectedCountry: selectedCountry,
-                          isInputPhoneStep: isInputPhoneStep,
-                          changeInputPhoneStep: changeInputPhoneStep,
-                          hasError: hasError,
-                          changeHasError: (bool newHasError) {
-                            setState(() {
-                              hasError = newHasError;
-                            });
-                          },
-                          checkCorrectCode: () =>
-                              checkCorrectCode(inputVerifyCode: inputCode),
-                          checkCorrectPhone: () => checkCorrectPhone(
-                              inputPhone: inputPhone, startWithZero: false),
-                          closePreTelCodePanelController: () {
-                            preTelCodePanelController.close();
-                          },
-                          startDownTimer: () => startDownTimer(_screenSize),
-                          changeSelectedCodeChar: updateSelectedCodeChar,
-                          showSnackBarError:
-                              (String msg, BuildContext context) =>
-                                  showSnackBarError(msg, context, _screenSize),
+                          changeCountryListPanelState:
+                              changeCountryListPanelState,
+                          changeSelectedCountry: changeSelectedCountry,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                  body: Container(
+                    width: _screenSize.width,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: 0.15625 * _screenSize.height, //100,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 0.041 * _screenSize.width, //15,
+                                vertical: 0.016 * _screenSize.height //10
+                                ),
+                            child: LoginAppBarWidget(
+                              phoneTextEditingController:
+                                  phoneTextEditingController,
+                              navigatorPop: (BuildContext context) =>
+                                  Navigator.pop(context),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: isInputPhoneStep
+                              ? 0.2812 * _screenSize.height //180,
+                              : 0.34 * _screenSize.height, //217
+                          child: Container(
+                            child: Column(
+                              children: [
+                                isInputPhoneStep
+                                    ? LoginBodyWidget(
+                                        focusNode: phoneInputNode,
+                                        phoneTextEditingController:
+                                            phoneTextEditingController,
+                                        keyboardIsOpen: keyboardIsOpen,
+                                        preTelCodePanelController:
+                                            preTelCodePanelController,
+                                        inputPhone: inputPhone,
+                                        hasError: hasError,
+                                        // hasError: true,
+                                        selectedCountry: selectedCountry,
+                                        changeTextFieldSearch:
+                                            (String newValue) {
+                                          print('update check');
+                                          setState(() {
+                                            inputPhone = newValue;
+                                            print('inputPhone : $inputPhone');
+                                          });
+                                          List response = checkCorrectPhone(
+                                              inputPhone: inputPhone,
+                                              startWithZero: false);
+                                          setState(() {
+                                            check = response[0];
+                                            print('check : $check');
+                                          });
+                                        },
+                                      )
+                                    : ConfirmCodeWidget(
+                                        focusNode: codeConfirmInputNode,
+                                        phoneTextEditingController:
+                                            phoneTextEditingController,
+                                        keyboardIsOpen: keyboardIsOpen,
+                                        inputPhone: inputPhone,
+                                        inputCode: inputCode,
+                                        hasError: hasError,
+                                        selectedCountry: selectedCountry,
+                                        backToInputPhoneStep:
+                                            changeInputPhoneStep,
+                                        updateSelectedChar:
+                                            updateSelectedCodeChar,
+                                        selectedChar: selectedCodeChar,
+                                        updateInputCode: updateInputCode,
+                                        minuteTimer: minuteTimer,
+                                        secondTimer: secondTimer,
+                                        startDownTimer: () =>
+                                            startDownTimer(_screenSize),
+                                      ),
+                                SizedBox(
+                                  height: 0.039 * _screenSize.height, //25,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0.6 * _screenSize.height, //355,
+                          left: 0,
+                          right: 0,
+                          child: ConfirmButtonWidget(
+                            check: check,
+                            phoneNumber: inputPhone,
+                            verifyCode: inputCode,
+                            selectedCountry: selectedCountry,
+                            isInputPhoneStep: isInputPhoneStep,
+                            changeInputPhoneStep: changeInputPhoneStep,
+                            hasError: hasError,
+                            changeHasError: (bool newHasError) {
+                              setState(() {
+                                hasError = newHasError;
+                              });
+                            },
+                            checkCorrectCode: () =>
+                                checkCorrectCode(inputVerifyCode: inputCode),
+                            checkCorrectPhone: () => checkCorrectPhone(
+                                inputPhone: inputPhone, startWithZero: false),
+                            closePreTelCodePanelController: () {
+                              preTelCodePanelController.close();
+                            },
+                            startDownTimer: () => startDownTimer(_screenSize),
+                            changeSelectedCodeChar: updateSelectedCodeChar,
+                            showSnackBarError: (String msg,
+                                    BuildContext context) =>
+                                showSnackBarError(msg, context, _screenSize),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
