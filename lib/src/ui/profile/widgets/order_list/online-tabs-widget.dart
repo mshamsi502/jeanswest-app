@@ -35,7 +35,7 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
 
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
+    // var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
       child: SafeArea(
