@@ -18,6 +18,8 @@ class Order {
   final List<Product> products;
   final List<int> countProducts;
   //
+  final String sendMethod;
+  //
   final ExactTimeOrder confirmDate;
   final PeriodTimeOrder recieveDate;
   final ExactTimeOrder paymentDate;
@@ -46,6 +48,7 @@ class Order {
     @required this.receiverName,
     @required this.phoneNumber,
     @required this.countProducts,
+    @required this.sendMethod,
     @required this.confirmDate,
     @required this.recieveDate,
     @required this.paymentDate,

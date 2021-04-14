@@ -12,6 +12,7 @@ import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:shamsi_date/shamsi_date.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 backPanelClose(List<PanelController> panelControllers, BuildContext context) {
@@ -61,6 +62,51 @@ class CustomException implements Exception {
 
 throwException() {
   throw new CustomException('This is my first custom exception');
+}
+
+String shamsiDayOfWeek(int year, int mouth, int day) {
+  String shamsiDay;
+  Jalali j = Jalali(year, mouth, day);
+
+  int dayOfWeek = j.weekDay;
+  switch (dayOfWeek) {
+    case 0:
+      {
+        shamsiDay = 'جمعه';
+      }
+      break;
+    case 1:
+      {
+        shamsiDay = 'شنبه';
+      }
+      break;
+    case 2:
+      {
+        shamsiDay = 'یک شنبه';
+      }
+      break;
+    case 3:
+      {
+        shamsiDay = 'دوشنبه';
+      }
+      break;
+    case 4:
+      {
+        shamsiDay = 'سه شنبه';
+      }
+      break;
+    case 5:
+      {
+        shamsiDay = 'چهار شنبه';
+      }
+      break;
+    case 6:
+      {
+        shamsiDay = 'پنج شنبه';
+      }
+      break;
+  }
+  return shamsiDay;
 }
 
 String toPriceStyle(int price) {

@@ -15,6 +15,7 @@ Order firstOrder = new Order(
   code: 'B54008832',
   receiverName: "${user.firstName ?? "کاربر"} ${user.lastName ?? "جدید"}",
   phoneNumber: '09337324560',
+  sendMethod: 'اکسپرس بانی مد',
   // statusShopping: 'در حال انجام',
   // statusStep: 'در حال انجام',
   statusShopping: 'تکمیل شده',
@@ -60,6 +61,7 @@ Order secondOrder = new Order(
   receiverName: userFriends.friends[1] != null
       ? "${userFriends.friends[1].firstName ?? "کاربر"} ${userFriends.friends[1].lastName ?? "جدید"}"
       : "${user.firstName} ${user.lastName}",
+  sendMethod: 'اکسپرس بانی مد',
   phoneNumber: '09176509634',
   statusShopping: 'تکمیل شده',
   statusStep: 'تکمیل شده',
@@ -103,6 +105,7 @@ Order secondOrder = new Order(
 Order fourthOrder = new Order(
   code: 'B54008832',
   receiverName: "${user.firstName ?? "کاربر"} ${user.lastName ?? "جدید"}",
+  sendMethod: 'اکسپرس بانی مد',
   phoneNumber: '09337324560',
   statusShopping: 'مرجوعی',
   statusStep: 'در حال بررسی',
@@ -146,6 +149,7 @@ Order fifthOrder = new Order(
   receiverName: userFriends.friends[1] != null
       ? "${userFriends.friends[1].firstName ?? "کاربر"} ${userFriends.friends[1].lastName ?? "جدید"}"
       : "${user.firstName} ${user.lastName}",
+  sendMethod: 'اکسپرس بانی مد',
   phoneNumber: '09176509634',
   statusShopping: 'مرجوعی',
   statusStep: 'در انتظار دریافت کالای مرجوعی',
@@ -188,6 +192,7 @@ Order fifthOrder = new Order(
 Order sixthOrder = new Order(
   code: 'B54008832',
   receiverName: "${user.firstName ?? "کاربر"} ${user.lastName ?? "جدید"}",
+  sendMethod: 'اکسپرس بانی مد',
   phoneNumber: '09337324560',
   statusShopping: 'مرجوعی',
   statusStep: 'به پایان رسیده',

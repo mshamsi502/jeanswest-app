@@ -7,10 +7,8 @@ import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/sec_one_order_detail_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/package_sender_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/reciver_info_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/sec_three_order_detail_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/sec_two_order_detail_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -95,6 +93,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                               ),
                             ),
                             ReciverInfoWidget(
+                              order: widget.order,
+                              totalCount: widget.totalCount,
+                            ),
+                            SizedBox(height: 15),
+                            PackageSenderInfoWidget(
                               order: widget.order,
                               totalCount: widget.totalCount,
                             ),

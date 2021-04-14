@@ -3,15 +3,10 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-// import 'package:jeanswest/src/constants/constants.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/order/order.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
-import 'package:jeanswest/src/utils/helper/global/helper.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ReciverInfoWidget extends StatefulWidget {
   final Order order;
