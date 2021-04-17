@@ -80,6 +80,6 @@ class Order {
     }
     this.orgPrice = sumOrgPrice.toString();
     this.discountedPrice = sumDiscountedPrice.toString();
-    this.payablePrice = (sumOrgPrice + finalSendPrice ?? 0).toString();
+    this.payablePrice = (sumDiscountedPrice + finalSendPrice ?? 0).toString();
   }
 }

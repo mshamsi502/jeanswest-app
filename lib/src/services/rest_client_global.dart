@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/authRes/auth-res.dart';
@@ -56,7 +57,7 @@ abstract class GlobalRestClient extends RestClient {
   //   @Query("verifyCode") String verifyCode,
   // );
   // ! from Local JeansWest API
-  @POST('http://10.0.1.111:5000/otp/request')
+  @POST('http://10.0.1.111:8000/api/v1/otp/request')
   Future<GlobalResponseJData> reqOtp(@Body() Map<String, dynamic> map);
 
   @POST('http://10.0.1.111:5000/account/authentication')
@@ -82,6 +83,9 @@ abstract class GlobalRestClient extends RestClient {
 
   @GET('http://10.1.2.94:3003/v1/getUserFavorite')
   Future<UserFavoriteInfoRes> getUserFavoriteInfo();
+
+  @GET('http://10.1.2.94:3003/v1/getUserOrders')
+  Future<UserOrderDataRes> getUserOrdersInfo();
 
   // * PRODUCT *****************************************************************
 

@@ -54,7 +54,7 @@ Order firstOrder = new Order(
   trackingCode: '654566682314900861',
   paymentPlan: 'درگاه بانک سامان',
   paymentTrackingCode: '189432',
-  sendPrice: '',
+  sendPrice: '0',
 );
 Order secondOrder = new Order(
   code: 'B54025644',

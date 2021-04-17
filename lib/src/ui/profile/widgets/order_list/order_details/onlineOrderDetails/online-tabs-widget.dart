@@ -4,18 +4,18 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/test_data/orders.dart';
-import 'package:jeanswest/src/models/order/order.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_list_widget.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online_order_list_widget.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // ignore: must_be_immutable
 class OnlineTabsWidget extends StatefulWidget {
-  List<Order> inProgressOrders;
-  List<Order> compeletedOrders;
-  List<Order> returnedOrders;
+  List<UserOnlineOrderRes> inProgressOrders;
+  List<UserOnlineOrderRes> compeletedOrders;
+  List<UserOnlineOrderRes> returnedOrders;
 
   OnlineTabsWidget({
     Key key,
@@ -207,18 +207,30 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                         child: TabBarView(
                           controller: tabController,
                           children: <Widget>[
-                            OrderListWidget(
-                              orders: inProgressOrders,
-                              isOffline: false,
+                            OnlineOrderListWidget(
+                              onlineOrders: userOrders.data.inProgressOrders,
                             ),
-                            OrderListWidget(
-                              orders: compeletedOrders,
-                              isOffline: false,
+                            OnlineOrderListWidget(
+                              onlineOrders: userOrders.data.compeletedOrders,
                             ),
-                            OrderListWidget(
-                              orders: returnedOrders,
-                              isOffline: false,
+                            OnlineOrderListWidget(
+                              onlineOrders: userOrders.data.returnedOrders,
                             ),
+                            // OrderListWidget(
+                            //   onlineOrders: userOrders.data.inProgressOrders,
+                            //   offlineOrders: userOrders.data.offlineOrders,
+                            //   isOffline: false,
+                            // ),
+                            // OrderListWidget(
+                            //   onlineOrders: userOrders.data.compeletedOrders,
+                            //   offlineOrders: userOrders.data.offlineOrders,
+                            //   isOffline: false,
+                            // ),
+                            // OrderListWidget(
+                            //   onlineOrders: userOrders.data.returnedOrders,
+                            //   offlineOrders: userOrders.data.offlineOrders,
+                            //   isOffline: false,
+                            // ),
                           ],
                         ),
                       ),

@@ -3,13 +3,13 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/models/order/order.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ReciverInfoWidget extends StatefulWidget {
-  final Order order;
+  final UserOnlineOrderRes order;
   final int totalCount;
 
   ReciverInfoWidget({

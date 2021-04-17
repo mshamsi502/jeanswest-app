@@ -5,50 +5,59 @@
 
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/models/order/order.dart';
-import 'package:jeanswest/src/ui/profile/screens/orderList/order_details_screen.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/offlineOrder/user-offline-order-res.dart';
+
+import 'package:jeanswest/src/ui/profile/screens/orderList/offline_order_details_screen.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
-class OrderInfoWidget extends StatefulWidget {
-  final Order order;
-  final bool isOffline;
+class OfflineOrderInfoWidget extends StatefulWidget {
+  final UserOfflineOrderRes offlineOrder;
 
-  OrderInfoWidget({
+  OfflineOrderInfoWidget({
     Key key,
-    this.order,
-    this.isOffline,
+    this.offlineOrder,
   }) : super(key: key);
 
-  State<StatefulWidget> createState() => _OrderInfoWidgetState();
+  State<StatefulWidget> createState() => _OfflineOrderInfoWidgetState();
 }
 
-class _OrderInfoWidgetState extends State<OrderInfoWidget> {
+class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
   ScrollController scrollController = new ScrollController();
   int totalCount = 0;
   bool isBigger = false;
   int maxItem;
+  //
+  int payblePrice = 0;
   @override
   void initState() {
-    widget.order.countProducts.forEach((count) {
+    for (var i = 0; i < widget.offlineOrder.products.length; i++) {
+      payblePrice = payblePrice +
+          int.parse(widget.offlineOrder.products[i].discountedPrice);
+    }
+    widget.offlineOrder.countProducts.forEach((count) {
       totalCount = totalCount + count;
     });
+    maxItem = widget.offlineOrder.countProducts.length;
+
     // print('totalCount : $totalCount');
     // print('count : ${widget.order.countProducts.length}');
-    maxItem = widget.order.countProducts.length;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    isBigger =
-        (widget.order.countProducts.length) * 90 > (_screenSize.width - 20);
+
+    isBigger = (widget.offlineOrder.countProducts.length) * 60 >
+        (_screenSize.width - 20);
     if (isBigger) {
-      maxItem = ((_screenSize.width - 75) / 90).round();
+      maxItem = ((_screenSize.width - 75) / 60).round();
     }
+
     // print('maxItem : $maxItem');
     // print('_screenSize.width - 30 : ${_screenSize.width - 20}');
     // print('isBigger : $isBigger');
@@ -71,7 +80,7 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                 ),
                 SizedBox(width: 5),
                 Text(
-                  widget.order.code,
+                  widget.offlineOrder.code,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -80,50 +89,6 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                 ),
                 SizedBox(width: 5),
 
-                !widget.isOffline && widget.order.statusShopping == 'مرجوعی'
-                    ?
-                    // Expanded(
-                    //     child:
-                    Container(
-                        // width: 50,
-                        alignment: Alignment.centerRight,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                        decoration: BoxDecoration(
-                          color: LIGHT_YELLOW_SKIN_COLOR,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.timer_outlined,
-                              size: 18,
-                              color: MAIN_GOLD_COLOR,
-                            ),
-                            SizedBox(width: 5),
-                            // Expanded(
-                            //   child:
-                            Container(
-                              width: widget.order.statusStep.length > 20
-                                  ? 100
-                                  : null,
-                              child: Text(
-                                widget.order.statusStep,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: MAIN_GOLD_COLOR,
-                                ),
-                              ),
-                            ),
-                            // ),
-                          ],
-                        ),
-                      )
-                    // ,
-                    // )
-                    : SizedBox(),
                 Expanded(child: SizedBox()),
                 Icon(
                   Icons.arrow_forward_ios_rounded,
@@ -142,24 +107,21 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                   height: 100,
                   child: ListView.builder(
                     // itemCount: widget.order.products.length,
-                    itemCount:
-                        isBigger ? maxItem : widget.order.products.length,
+                    itemCount: isBigger
+                        ? maxItem
+                        : widget.offlineOrder.products.length,
                     controller: scrollController,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(horizontal: 5),
-                        height: 70,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            // color: Colors.red,
-                            // image: DecorationImage(
-                            //     // image: new AssetImage(
-                            //     //     widget.order.products[index].assets),
-                            //     ),
-                            ),
+                        // padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        height: 50,
+                        width: 50,
+                        // color: Colors.red,
+                        child: Image.network(
+                            widget.offlineOrder.products[index].assets),
                       );
                     },
                   ),
@@ -173,7 +135,7 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
                         height: 35,
                         alignment: Alignment.center,
                         child: Text(
-                          "+ ${widget.order.countProducts.length - maxItem}",
+                          "+ ${(widget.offlineOrder.countProducts.length) - maxItem}",
                           textDirection: ltrTextDirection,
                           style: TextStyle(
                             fontSize: 16,
@@ -191,12 +153,10 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
             OrderMainInfoWidget(
               backgroungColor: FB_BACKGROUND_COLOR,
               radius: 4,
-              firstTitle: 'تاریخ ثبت سفارش',
-              firstValue:
-                  '${widget.order.confirmDate.yearOfDate}/${widget.order.confirmDate.mouthOfDate}/${widget.order.confirmDate.dayOfDate}',
-              secTitle: 'قیمت پرداخت شده',
-              secValue: toPriceStyle(int.parse(widget.order.payablePrice)),
-              // countProducts: widget.order.countProducts,
+              firstTitle: 'شعبه',
+              firstValue: widget.offlineOrder.shortBranchName,
+              secTitle: 'مبلغ پرداخت شده',
+              secValue: toPriceStyle(payblePrice),
               thirdTitle: 'تعداد کالا',
               thirdValue: totalCount.toString(),
             ),
@@ -207,8 +167,8 @@ class _OrderInfoWidgetState extends State<OrderInfoWidget> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => OrderDetailsScreen(
-                      order: widget.order,
+                builder: (context) => OfflineOrderDetailsScreen(
+                      order: widget.offlineOrder,
                       totalCount: totalCount,
                     )));
       },

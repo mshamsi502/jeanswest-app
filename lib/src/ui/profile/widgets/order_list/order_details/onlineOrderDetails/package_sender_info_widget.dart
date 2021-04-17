@@ -4,14 +4,14 @@
 //****************************************************************************
 
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/order/order.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
+
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
-import 'package:shamsi_date/shamsi_date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PackageSenderInfoWidget extends StatefulWidget {
-  final Order order;
+  final UserOnlineOrderRes order;
   final int totalCount;
 
   PackageSenderInfoWidget({
@@ -25,11 +25,19 @@ class PackageSenderInfoWidget extends StatefulWidget {
 
 class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
   String shamsiDay = '';
+  String year;
 
   @override
   void initState() {
+    // if (widget.order.recieveDate.yearOfDate.length == 4)
+    //   year = widget.order.recieveDate.yearOfDate;
+    // else if (widget.order.recieveDate.yearOfDate.length == 2)
+    //   year = '13${widget.order.recieveDate.yearOfDate}';
+    // else
+    //   year = '1400';
     shamsiDay = shamsiDayOfWeek(
-      int.parse('13${widget.order.recieveDate.yearOfDate}'),
+      // int.parse(year),
+      int.parse(widget.order.recieveDate.yearOfDate),
       int.parse(widget.order.recieveDate.mouthOfDate),
       int.parse(widget.order.recieveDate.dayOfDate),
     );
@@ -246,6 +254,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
           ListView.builder(
             itemCount: widget.order.products.length,
             shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               //
               double tempDiscountedPrice = double.parse(
@@ -255,16 +264,21 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
               String totalPrice = toPriceStyle(int.parse(
                   (tempDiscountedPrice * tempCountProduct).toStringAsFixed(0)));
               //
-              return Padding(
+              return Container(
+                width: _screenSize.width,
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: EdgeInsets.symmetric(vertical: 5),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Container(
                           width: 100,
+                          padding: EdgeInsets.symmetric(horizontal: 5),
                           height: 120,
-                          color: Colors.green,
+                          // color: Colors.green,
+                          child: Image.network(
+                              widget.order.products[index].assets),
                         ),
                         Expanded(
                           child: Column(
@@ -273,12 +287,9 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                               Text(widget.order.products[index].brand),
                               Container(
                                 height: 40,
-                                // color: Colors.red,
-                                child: Expanded(
-                                  child: Text(
-                                    widget.order.products[index].name,
-                                    style: TextStyle(fontSize: 12),
-                                  ),
+                                child: Text(
+                                  widget.order.products[index].name,
+                                  style: TextStyle(fontSize: 12),
                                 ),
                               ),
                               SizedBox(height: 5),

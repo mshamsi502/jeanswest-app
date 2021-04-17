@@ -4,10 +4,10 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/test_data/orders.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_list_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/online-tabs-widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline_order_list_widget.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online-tabs-widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,10 +23,6 @@ class _OrderListScreenState extends State<OrderListScreen>
   PanelController editingPanel = new PanelController();
   int selectedTab = 0;
   TabController tabController;
-  //
-  // bool isNew;
-  //
-  // int selectedIndex;
   @override
   void initState() {
     tabController = new TabController(initialIndex: 0, length: 2, vsync: this);
@@ -57,18 +53,6 @@ class _OrderListScreenState extends State<OrderListScreen>
             panel: Container(
               color: Colors.white,
               height: _screenSize.height,
-              //
-              // child: EditInfoAddressWidget(
-              //     title: 'اطلاعات آدرس',
-              //     name: user.perName,
-              //     isNew: isNew,
-              //     closePanel: () {
-              //       setState(() {
-              //         isNew = false;
-              //         editingPanel.close();
-              //       });
-              //     },
-              //     confirmInfo: confirmInfo),
             ),
             body: Container(
               color: Colors.white,
@@ -96,14 +80,16 @@ class _OrderListScreenState extends State<OrderListScreen>
                             children: <Widget>[
                               OnlineTabsWidget(
                                 // ignore: deprecated_member_use
-                                inProgressOrders: inProgressOrders,
-                                compeletedOrders: compeletedOrders,
-                                returnedOrders: returnedOrders,
+                                inProgressOrders:
+                                    userOrders.data.inProgressOrders,
+                                compeletedOrders:
+                                    userOrders.data.compeletedOrders,
+                                returnedOrders: userOrders.data.returnedOrders,
                               ),
-                              OrderListWidget(
-                                orders: endedOrders,
-                                isOffline: true,
+                              OfflineOrderListWidget(
+                                offlineOrders: userOrders.data.offlineOrders,
                               ),
+                            
                             ],
                           ),
                         ),

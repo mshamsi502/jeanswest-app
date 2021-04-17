@@ -46,15 +46,6 @@ class OrderMainInfoWidget extends StatefulWidget {
 }
 
 class _OrderMainInfoWidgetState extends State<OrderMainInfoWidget> {
-  // int totalCount = 0;
-
-  @override
-  void initState() {
-    // widget.countProducts.forEach((count) {
-    //   totalCount = totalCount + count;
-    // });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

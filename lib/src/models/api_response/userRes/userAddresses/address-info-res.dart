@@ -5,7 +5,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/date-time-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/time/c-u-d-at-time-res.dart';
 
 part 'address-info-res.g.dart';
 
@@ -49,7 +49,7 @@ class AddressInfoRes extends Equatable {
   @JsonKey(name: 'personId')
   int personId;
   @JsonKey(name: 'dateTime')
-  DateTimeRes dateTime;
+  CUDAtTimeRes dateTime;
 
   AddressInfoRes({
     this.id,

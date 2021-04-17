@@ -12,6 +12,9 @@ import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widge
 import 'package:jeanswest/src/ui/profile/widgets/support_page/return_process_widget.dart';
 
 class ReturnProcessPage extends StatefulWidget {
+  final int initialTab;
+
+  const ReturnProcessPage({Key key, this.initialTab}) : super(key: key);
   @override
   _ReturnProcessPageState createState() => _ReturnProcessPageState();
 }
@@ -24,7 +27,8 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
   @override
   void initState() {
     scrollController = new ScrollController();
-    tabController = new TabController(initialIndex: 0, length: 2, vsync: this);
+    tabController = new TabController(
+        initialIndex: widget.initialTab, length: 2, vsync: this);
     tabController.addListener(() {
       setState(() {
         selectedTab = tabController.index;

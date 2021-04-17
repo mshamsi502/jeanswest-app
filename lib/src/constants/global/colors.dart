@@ -14,6 +14,7 @@ const Color FB_BACKGROUND_COLOR = Color(0xffFBFBFB);
 const Color GREY_SELCTED_FADE_BACKGROUND_COLOR = Color(0x11020202);
 const Color F1_BACKGROUND_COLOR = Color(0xFF080606);
 const Color FE_BACKGROUND_COLOR = Color(0xffFEFEFE);
+const Color GREY_EB_BACKGROUND_COLOR = Color(0xffEBEBEB);
 const Color GREY_FADE_BACKGROUND_COLOR = Color(0x90bdbdbd);
 const Color GREY_FADE_SELECTED_COLOR = Color(0x50bdbdbd);
 //
@@ -22,6 +23,8 @@ const Color MAIN_ORANGE_COLOR = Color(0xFFFEC233);
 const Color LIGHT_YELLOW_SKIN_COLOR = Color(0xFFFFF8E8);
 //
 const Color GREEN_TEXT_COLOR = Color(0xFF32BE93);
+const Color RED_LABEL_TEXT_COLOR = Color(0xFFF34440);
+const Color BACKGROUND_RED_LABEL_TEXT_COLOR = Color(0xFFFFEBEB);
 const Color RED_ERROR_COLOR = Color(0x15FF1717);
 const Color BLUE_SKY_COLOR = Color(0xffE4E9F8);
 const Color LIGHT_BLUE_SKY_COLOR = Color(0xFFF8FAFF);

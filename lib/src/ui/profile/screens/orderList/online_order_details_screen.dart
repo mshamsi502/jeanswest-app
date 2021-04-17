@@ -5,37 +5,47 @@
 
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
-import 'package:jeanswest/src/models/order/order.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/package_sender_info_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/reciver_info_widget.dart';
+import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/package_sender_info_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/reciver_info_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online_payment_detail_widget.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online_payment_info_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class OrderDetailsScreen extends StatefulWidget {
-  final Order order;
+class OnlineOrderDetailsScreen extends StatefulWidget {
+  final UserOnlineOrderRes order;
   final String state;
   final int totalCount;
 
-  const OrderDetailsScreen({
+  const OnlineOrderDetailsScreen({
     Key key,
     this.order,
     this.state,
     this.totalCount,
   }) : super(key: key);
   @override
-  _OrderDetailsScreenState createState() => _OrderDetailsScreenState();
+  _OnlineOrderDetailsScreenState createState() =>
+      _OnlineOrderDetailsScreenState();
 }
 
-class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
+class _OnlineOrderDetailsScreenState extends State<OnlineOrderDetailsScreen> {
   PanelController editingPanel = new PanelController();
   ScrollController scrollController = new ScrollController();
+  int payblePrice = 0;
   @override
   void initState() {
+    for (var i = 0; i < widget.order.products.length; i++) {
+      payblePrice =
+          payblePrice + int.parse(widget.order.products[i].discountedPrice);
+    }
     super.initState();
   }
 
@@ -85,8 +95,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 firstTitle: 'کد سفارش',
                                 firstValue: widget.order.code,
                                 secTitle: 'قیمت قابل پرداخت',
-                                secValue: toPriceStyle(
-                                    int.parse(widget.order.payablePrice)),
+                                secValue: toPriceStyle(payblePrice),
                                 // countProducts: widget.order.countProducts,
                                 thirdTitle: 'تحویل گیرنده',
                                 thirdValue: widget.order.receiverName,
@@ -95,31 +104,58 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                             ReciverInfoWidget(
                               order: widget.order,
                               totalCount: widget.totalCount,
+                              // totalCount: 2,
                             ),
                             SizedBox(height: 15),
                             PackageSenderInfoWidget(
                               order: widget.order,
                               totalCount: widget.totalCount,
                             ),
-                            // SecOneOrderDetailWidget(
-                            //   order: widget.order,
-                            //   state: widget.state,
-                            //   totalCount: widget.totalCount,
-                            // ),
-                            // SizedBox(height: 3),
-                            // SecTwoOrderDetailWidget(
-                            //   order: widget.order,
-                            //   state: widget.state,
-                            //   totalCount: widget.totalCount,
-                            // ),
-                            // SizedBox(height: 3),
-                            // SecThreeOrderDetailWidget(
-                            //   totalCount: widget.totalCount,
-                            //   orgPrice: widget.order.orgPrice,
-                            //   // sendPrice: widget.,
-                            //   payablePrice: widget.order.payablePrice,
-                            //   finalSendPrice: widget.order.finalSendPrice,
-                            // ),
+                            SizedBox(height: 15),
+                            PaymentDetailWidget(
+                              order: widget.order,
+                              totalCount: widget.totalCount,
+                            ),
+                            SizedBox(height: 15),
+                            OnlinePaymentInfoWidget(
+                              order: widget.order,
+                              totalCount: widget.totalCount,
+                            ),
+                            SizedBox(height: 15),
+                            GestureDetector(
+                              child: Container(
+                                width: _screenSize.width,
+                                height: 50,
+                                color: GREY_EB_BACKGROUND_COLOR,
+                                child: Row(
+                                  children: [
+                                    SizedBox(width: 20),
+                                    Icon(
+                                      Icons.swap_horizontal_circle_outlined,
+                                      size: 28,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'شرایط بازگشت کالا',
+                                      style: TextStyle(fontSize: 14),
+                                    ),
+                                    Expanded(child: SizedBox()),
+                                    Icon(
+                                      Icons.arrow_forward_ios_outlined,
+                                      size: 18,
+                                      color: Colors.grey[700],
+                                    ),
+                                    SizedBox(width: 20),
+                                  ],
+                                ),
+                              ),
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ReturnProcessPage(
+                                            initialTab: 0,
+                                          ))),
+                            ),
                           ],
                         ),
                       ),

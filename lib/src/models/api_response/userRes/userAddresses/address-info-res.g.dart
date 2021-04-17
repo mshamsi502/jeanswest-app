@@ -28,7 +28,7 @@ AddressInfoRes _$AddressInfoResFromJson(Map<String, dynamic> json) {
     personId: json['personId'] as int,
     dateTime: json['dateTime'] == null
         ? null
-        : DateTimeRes.fromJson(json['dateTime'] as Map<String, dynamic>),
+        : CUDAtTimeRes.fromJson(json['dateTime'] as Map<String, dynamic>),
   );
 }
 
