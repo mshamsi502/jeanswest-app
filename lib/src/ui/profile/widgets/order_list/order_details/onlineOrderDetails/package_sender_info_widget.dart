@@ -53,28 +53,37 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            spreadRadius: 0.5,
-            blurRadius: 10,
+            spreadRadius: 0.00138 * _screenSize.width, //0.5,
+            blurRadius: 0.027 * _screenSize.width, //10,
             color: Colors.grey[200],
           ),
         ],
       ),
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.0078 * _screenSize.height, //5,
+        horizontal: 0.041 * _screenSize.width, //15,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.016 * _screenSize.height, //10
+          ),
           Text(
             'اطلاعات بسته ارسالی',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 14,
+              fontSize: 0.038 * _screenSize.width, //14,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -82,7 +91,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   'نوع ارسال:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -90,16 +99,20 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   widget.order.sendMethod,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -107,7 +120,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   'تاریخ ثبت سفارش:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -118,13 +131,13 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                       '${widget.order.confirmDate.hourOfDate}:${widget.order.confirmDate.minuteOfDate}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Container(
-                      height: 20,
-                      width: 20,
+                      height: 0.054 * _screenSize.width, //20
+                      width: 0.054 * _screenSize.width, //20
                       child: VerticalDivider(
                         color: Colors.grey,
                         // color: MAIN_BLUE_COLOR,
@@ -136,7 +149,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                       '${widget.order.confirmDate.yearOfDate}/${widget.order.confirmDate.mouthOfDate}/${widget.order.confirmDate.dayOfDate}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -145,9 +158,13 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -155,7 +172,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   'تاریخ تحویل سفارش:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -166,13 +183,13 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                       shamsiDay,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Container(
-                      height: 20,
-                      width: 20,
+                      height: 0.054 * _screenSize.width, //20
+                      width: 0.054 * _screenSize.width, //20
                       child: VerticalDivider(
                         color: Colors.grey,
                         // color: MAIN_BLUE_COLOR,
@@ -184,7 +201,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                       '${widget.order.recieveDate.yearOfDate}/${widget.order.recieveDate.mouthOfDate}/${widget.order.recieveDate.dayOfDate}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -193,9 +210,13 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -203,7 +224,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   'زمان تحویل سفارش:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -211,16 +232,20 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   'ساعت: ${widget.order.recieveDate.startHourOfDate} تا ${widget.order.recieveDate.endHourOfDate}',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -228,7 +253,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   'وضعیت پرداخت:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -236,19 +261,21 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                   widget.order.paymentPlan,
                   style: TextStyle(
                     color: GREEN_TEXT_COLOR,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.016 * _screenSize.height, //10
+          ),
           Divider(
-            thickness: 0.5,
+            thickness: 0.00138 * _screenSize.width, //0.5,
             color: Colors.grey,
-            indent: 10,
-            endIndent: 10,
+            indent: 0.027 * _screenSize.width, //10,
+            endIndent: 0.027 * _screenSize.width, //10,
           ),
           // SizedBox(height: 10),
           ListView.builder(
@@ -266,16 +293,23 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
               //
               return Container(
                 width: _screenSize.width,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                margin: EdgeInsets.symmetric(vertical: 5),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.027 * _screenSize.width, //10,
+                  vertical: 0.016 * _screenSize.height, //10
+                ),
+                margin: EdgeInsets.symmetric(
+                  vertical: 0.0078 * _screenSize.height, //5
+                ),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Container(
-                          width: 100,
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          height: 120,
+                          width: 0.27 * _screenSize.width, //100,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 0.0138 * _screenSize.width, //5,
+                          ),
+                          height: 0.2027 * _screenSize.height, //120,
                           // color: Colors.green,
                           child: Image.network(
                               widget.order.products[index].assets),
@@ -284,15 +318,24 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.order.products[index].brand),
-                              Container(
-                                height: 40,
-                                child: Text(
-                                  widget.order.products[index].name,
-                                  style: TextStyle(fontSize: 12),
+                              Text(
+                                widget.order.products[index].perBrand,
+                                style: TextStyle(
+                                  fontSize: 0.038 * _screenSize.width, //14,
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              Container(
+                                height: 0.0625 * _screenSize.height, //40
+                                child: Text(
+                                  widget.order.products[index].name,
+                                  style: TextStyle(
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 0.0078 * _screenSize.height, //5,
+                              ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -302,7 +345,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                       Text(
                                         'رنگ: ',
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -310,22 +354,24 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                       Text(
                                         widget.order.products[index].color,
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       Text(
                                         ' (${widget.order.products[index].code})',
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ],
                                   ),
                                   Container(
-                                    height: 20,
-                                    width: 20,
+                                    height: 0.054 * _screenSize.width, //20
+                                    width: 0.054 * _screenSize.width, //20
                                     child: VerticalDivider(
                                       color: Colors.grey,
                                       // color: MAIN_BLUE_COLOR,
@@ -339,7 +385,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                       Text(
                                         'سایز: ',
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
                                           color: Colors.black54,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -347,7 +394,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                       Text(
                                         widget.order.products[index].size,
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -355,13 +403,16 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(
+                                height: 0.0078 * _screenSize.height, //5,
+                              ),
                               Row(
                                 children: [
                                   Text(
                                     'کد کالا: ',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize:
+                                          0.0333 * _screenSize.width, //12,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -369,7 +420,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                   Text(
                                     widget.order.products[index].code,
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize:
+                                          0.0333 * _screenSize.width, //12,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -380,15 +432,21 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(
+                      height: 0.023 * _screenSize.height, //15
+                    ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.027 * _screenSize.width, //10,
+                      ),
                       decoration: BoxDecoration(
                         color: FB_BACKGROUND_COLOR,
                       ),
                       child: Column(
                         children: [
-                          SizedBox(height: 10),
+                          SizedBox(
+                            height: 0.016 * _screenSize.height, //10
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -397,7 +455,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                   Text(
                                     'قیمت واحد: ',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize:
+                                          0.0333 * _screenSize.width, //12,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -406,14 +465,14 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                     toPriceStyle(int.parse(widget.order
                                         .products[index].discountedPrice)),
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 0.038 * _screenSize.width, //14,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   Text(
                                     ' تومان',
                                     style: TextStyle(
-                                      fontSize: 10,
+                                      fontSize: 0.027 * _screenSize.width, //10,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -421,8 +480,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                 ],
                               ),
                               Container(
-                                height: 20,
-                                width: 20,
+                                height: 0.054 * _screenSize.width, //20
+                                width: 0.054 * _screenSize.width, //20
                                 child: VerticalDivider(
                                   color: Colors.grey,
                                   // color: MAIN_BLUE_COLOR,
@@ -435,7 +494,8 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                   Text(
                                     'تعداد: ',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize:
+                                          0.0333 * _screenSize.width, //12,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -444,7 +504,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                     widget.order.countProducts[index]
                                         .toString(),
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 0.038 * _screenSize.width, //14,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -453,7 +513,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                             ],
                           ),
                           Divider(
-                            thickness: 0.5,
+                            thickness: 0.00138 * _screenSize.width, //0.5,
                             color: Colors.grey,
                           ),
                           Row(
@@ -462,7 +522,7 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                               Text(
                                 'قیمت نهایی: ',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 0.0333 * _screenSize.width, //12,
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -472,14 +532,14 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                                   Text(
                                     totalPrice,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 0.038 * _screenSize.width, //14,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                   Text(
                                     ' تومان',
                                     style: TextStyle(
-                                      fontSize: 10,
+                                      fontSize: 0.027 * _screenSize.width, //10,
                                       color: Colors.black54,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -488,7 +548,9 @@ class _PackageSenderInfoWidgetState extends State<PackageSenderInfoWidget> {
                               )
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(
+                            height: 0.016 * _screenSize.height, //10
+                          ),
                         ],
                       ),
                     ),

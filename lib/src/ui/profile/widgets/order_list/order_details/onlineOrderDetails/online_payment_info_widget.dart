@@ -72,28 +72,37 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            spreadRadius: 0.5,
-            blurRadius: 10,
+            spreadRadius: 0.00138 * _screenSize.width, //0.5,
+            blurRadius: 0.027 * _screenSize.width, //10,
             color: Colors.grey[200],
           ),
         ],
       ),
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.0078 * _screenSize.height, //5
+        horizontal: 0.041 * _screenSize.width, //15,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.016 * _screenSize.height, //10
+          ),
           Text(
             'اطلاعات پرداخت',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 14,
+              fontSize: 0.038 * _screenSize.width, //14,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,7 +110,7 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                   ' نحوه پرداخت:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -109,16 +118,19 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                   widget.order.paymentPlan,
                   style: TextStyle(
                     color: GREEN_TEXT_COLOR,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -126,7 +138,7 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                   'تاریخ و زمان پرداخت:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -137,13 +149,13 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                       '${widget.order.paymentDate.hourOfDate}:${widget.order.paymentDate.minuteOfDate}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Container(
-                      height: 20,
-                      width: 20,
+                      height: 0.054 * _screenSize.width, //20
+                      width: 0.054 * _screenSize.width, //20
                       child: VerticalDivider(
                         color: Colors.grey,
                         // color: MAIN_BLUE_COLOR,
@@ -155,7 +167,7 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                       '${widget.order.paymentDate.yearOfDate}/${widget.order.paymentDate.mouthOfDate}/${widget.order.paymentDate.dayOfDate}',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -166,7 +178,9 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
           ),
           SizedBox(height: 5),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -174,7 +188,7 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                   'کد پیگیری پرداخت:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -182,14 +196,15 @@ class _OnlinePaymentInfoWidgetState extends State<OnlinePaymentInfoWidget> {
                   widget.order.paymentTrackingCode,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
         ],
       ),
     );

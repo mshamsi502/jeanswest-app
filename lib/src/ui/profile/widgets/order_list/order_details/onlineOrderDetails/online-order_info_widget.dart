@@ -51,10 +51,19 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
 
-    isBigger = (widget.onlineOrder.countProducts.length) * 60 >
-        (_screenSize.width - 20);
+    isBigger = (widget.onlineOrder.countProducts.length) *
+            (0.166 * _screenSize.width //60,
+            ) >
+        (_screenSize.width -
+            (0.054 * _screenSize.width //20
+            ));
     if (isBigger) {
-      maxItem = ((_screenSize.width - 75) / 60).round();
+      maxItem = ((_screenSize.width -
+                  (0.20833 * _screenSize.width //70
+                  )) /
+              (0.166 * _screenSize.width //60,
+              ))
+          .round();
     }
 
     // print('maxItem : $maxItem');
@@ -64,7 +73,9 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
     return GestureDetector(
       child: Container(
         width: _screenSize.width,
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(
+          0.027 * _screenSize.width, //10,
+        ),
         child: Column(
           children: [
             Row(
@@ -73,50 +84,61 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                   'کد سفارش',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     // fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
                 Text(
                   widget.onlineOrder.code,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     // fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
 
                 widget.onlineOrder.statusShopping == 'مرجوعی'
                     ? Container(
                         alignment: Alignment.centerRight,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 0.0138 * _screenSize.width, //5,
+                          vertical: 0.001689 * _screenSize.height, //1,
+                        ),
                         decoration: BoxDecoration(
                           color: LIGHT_YELLOW_SKIN_COLOR,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(
+                            0.0138 * _screenSize.width, //5,
+                          ),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.timer_outlined,
-                              size: 18,
+                              size: 0.05 * _screenSize.width, //18,
                               color: MAIN_GOLD_COLOR,
                             ),
-                            SizedBox(width: 5),
+                            SizedBox(
+                              width: 0.0138 * _screenSize.width, //5,
+                            ),
                             Container(
                               width:
                                   widget.onlineOrder.statusStepReturn.length >
-                                          20
-                                      ? 100
+                                          // 0.054 * _screenSize.width //20
+                                          0.03611 * _screenSize.width //13
+                                      ? 0.27 * _screenSize.width //100,
                                       : null,
                               child: Text(
                                 widget.onlineOrder.statusStepReturn,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 0.0333 * _screenSize.width, //12,
                                   color: MAIN_GOLD_COLOR,
                                 ),
                               ),
@@ -131,20 +153,22 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                 Expanded(child: SizedBox()),
                 Icon(
                   Icons.arrow_forward_ios_rounded,
-                  size: 20,
+                  size: 0.054 * _screenSize.width, //20
                   color: Colors.black87,
                 ),
                 // GlobalSvgImages.leftIcon,
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 0.016 * _screenSize.height, //10
+            ),
             Row(
               children: [
                 // Expanded(
                 //   child:
                 Container(
                   // color: Colors.red,
-                  height: 50,
+                  height: 0.078125 * _screenSize.height, //50,
                   child: ListView.builder(
                     // itemCount: widget.order.products.length,
                     itemCount:
@@ -155,9 +179,11 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         // padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(horizontal: 2),
-                        height: 50,
-                        width: 50,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 0.00555 * _screenSize.width, //2,
+                        ),
+                        height: 0.078125 * _screenSize.height, //50,
+                        width: 0.078125 * _screenSize.height, //50,
                         // color: Colors.red,
                         child: Image.network(
                             widget.onlineOrder.products[index].assets),
@@ -166,18 +192,20 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                   ),
                   // ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
                 isBigger
                     ? Container(
                         // color: Colors.blue,
-                        width: 35,
-                        height: 35,
+                        width: 0.09722 * _screenSize.width, //35,
+                        height: 0.09722 * _screenSize.width, //35,
                         alignment: Alignment.center,
                         child: Text(
                           "+ ${(widget.onlineOrder.countProducts.length) - maxItem}",
                           textDirection: ltrTextDirection,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 0.0444 * _screenSize.width, //16,
                           ),
                         ),
                         // Icon(
@@ -189,10 +217,12 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                     : SizedBox(),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 0.016 * _screenSize.height, //10
+            ),
             OrderMainInfoWidget(
               backgroungColor: FB_BACKGROUND_COLOR,
-              radius: 4,
+              radius: 0.011 * _screenSize.width, //4,
               firstTitle: 'تاریخ ثبت سفارش',
               firstValue:
                   '${widget.onlineOrder.confirmDate.yearOfDate}/${widget.onlineOrder.confirmDate.mouthOfDate}/${widget.onlineOrder.confirmDate.dayOfDate}',

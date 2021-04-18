@@ -31,28 +31,37 @@ class _ReciverInfoWidgetState extends State<ReciverInfoWidget> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            spreadRadius: 0.5,
-            blurRadius: 10,
+            spreadRadius: 0.00138 * _screenSize.width, //0.5,
+            blurRadius: 0.027 * _screenSize.width, //10,
             color: Colors.grey[200],
           ),
         ],
       ),
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.0078 * _screenSize.height, //5
+        horizontal: 0.041 * _screenSize.width, //15,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.027 * _screenSize.width, //10,
+          ),
           Text(
             'اطلاعات تحویل گیرنده',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 14,
+              fontSize: 0.038 * _screenSize.width, //14,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.016 * _screenSize.height, //10
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -60,7 +69,7 @@ class _ReciverInfoWidgetState extends State<ReciverInfoWidget> {
                   'تحویل گیرنده:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -68,16 +77,20 @@ class _ReciverInfoWidgetState extends State<ReciverInfoWidget> {
                   widget.order.receiverName,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -85,7 +98,7 @@ class _ReciverInfoWidgetState extends State<ReciverInfoWidget> {
                   'شماره تماس:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -93,16 +106,20 @@ class _ReciverInfoWidgetState extends State<ReciverInfoWidget> {
                   widget.order.phoneNumber,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,17 +128,19 @@ class _ReciverInfoWidgetState extends State<ReciverInfoWidget> {
                   'آدرس:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(
+                  width: 0.027 * _screenSize.width, //10,
+                ),
                 Expanded(
                   child: Text(
                     widget.order.address.address,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 14,
+                      fontSize: 0.038 * _screenSize.width, //14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

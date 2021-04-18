@@ -47,7 +47,7 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
 
   @override
   Widget build(BuildContext context) {
-    // var _screenSize = MediaQuery.of(context).size;
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
       child: SafeArea(
@@ -63,24 +63,32 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                         controller: scrollController,
                         scrollDirection: Axis.horizontal,
                         child: Container(
-                          width: 470,
+                          width: 1.3055 * _screenSize.width, //470
                           padding: EdgeInsets.only(
-                              top: 10, bottom: 5, left: 10, right: 10),
+                            top: 0.016 * _screenSize.height, //10
+                            bottom: 0.0078 * _screenSize.height, //5,
+                            left: 0.027 * _screenSize.width, //10,
+                            right: 0.027 * _screenSize.width, //10,
+                          ),
                           child: TabBar(
                             controller: tabController,
                             labelColor: MAIN_BLUE_COLOR,
                             indicatorColor: Colors.transparent,
                             indicatorSize: TabBarIndicatorSize.label,
                             labelPadding: EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 5),
+                              horizontal: 0.0194 * _screenSize.width, //7,
+                              vertical: 0.0078 * _screenSize.height, //5,
+                            ),
                             tabs: <Widget>[
                               Container(
-                                height: 35,
+                                height: 0.05468 * _screenSize.height, //35,
                                 decoration: BoxDecoration(
                                   color: tabController.index == 0
                                       ? BLUE_SKY_FADE_COLOR
                                       : Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(
+                                    0.011 * _screenSize.width, //4,
+                                  ),
                                   border: Border.all(
                                       color: tabController.index == 0
                                           ? MAIN_BLUE_COLOR
@@ -91,38 +99,53 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                   children: [
                                     Text(
                                       'در حال انجام',
-                                      style: TextStyle(fontSize: 13),
+                                      style: TextStyle(
+                                        fontSize:
+                                            0.036 * _screenSize.width, //13,
+                                      ),
                                     ),
-                                    SizedBox(width: 10),
+                                    SizedBox(
+                                      width: 0.027 * _screenSize.width, //10,
+                                    ),
                                     Container(
                                       alignment: Alignment.center,
-                                      width: 25,
-                                      height: 25,
+                                      width: 0.069 * _screenSize.width, //25,
+                                      height: 0.069 * _screenSize.width, //25,
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 2),
+                                        horizontal:
+                                            0.0138 * _screenSize.width, //5,
+                                        vertical:
+                                            0.003125 * _screenSize.height, //2,
+                                      ),
                                       child: Text(
                                         widget.inProgressOrders.length
                                             .toString(),
                                         style: TextStyle(
-                                            fontSize: 11, color: Colors.white),
+                                            fontSize:
+                                                0.03 * _screenSize.width, //11
+                                            color: Colors.white),
                                       ),
                                       decoration: BoxDecoration(
                                         color: tabController.index == 0
                                             ? MAIN_BLUE_COLOR
                                             : Colors.grey,
-                                        borderRadius: BorderRadius.circular(4),
+                                        borderRadius: BorderRadius.circular(
+                                          0.011 * _screenSize.width, //4,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               Container(
-                                height: 35,
+                                height: 0.05468 * _screenSize.height, //35,
                                 decoration: BoxDecoration(
                                   color: tabController.index == 1
                                       ? BLUE_SKY_FADE_COLOR
                                       : Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(
+                                    0.011 * _screenSize.width, //4,
+                                  ),
                                   border: Border.all(
                                       color: tabController.index == 1
                                           ? MAIN_BLUE_COLOR
@@ -133,38 +156,53 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                   children: [
                                     Text(
                                       'تکمیل شده',
-                                      style: TextStyle(fontSize: 13),
+                                      style: TextStyle(
+                                        fontSize:
+                                            0.036 * _screenSize.width, //13,
+                                      ),
                                     ),
-                                    SizedBox(width: 10),
+                                    SizedBox(
+                                      width: 0.027 * _screenSize.width, //10,
+                                    ),
                                     Container(
                                       alignment: Alignment.center,
-                                      width: 25,
-                                      height: 25,
+                                      width: 0.069 * _screenSize.width, //25,
+                                      height: 0.069 * _screenSize.width, //25,
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 2),
+                                        horizontal:
+                                            0.0138 * _screenSize.width, //5,
+                                        vertical:
+                                            0.003125 * _screenSize.height, //2,
+                                      ),
                                       child: Text(
                                         widget.compeletedOrders.length
                                             .toString(),
                                         style: TextStyle(
-                                            fontSize: 12, color: Colors.white),
+                                            fontSize:
+                                                0.03 * _screenSize.width, //11
+                                            color: Colors.white),
                                       ),
                                       decoration: BoxDecoration(
                                         color: tabController.index == 1
                                             ? MAIN_BLUE_COLOR
                                             : Colors.grey,
-                                        borderRadius: BorderRadius.circular(4),
+                                        borderRadius: BorderRadius.circular(
+                                          0.011 * _screenSize.width, //4,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
                               Container(
-                                height: 35,
+                                height: 0.05468 * _screenSize.height, //35,
                                 decoration: BoxDecoration(
                                   color: tabController.index == 2
                                       ? BLUE_SKY_FADE_COLOR
                                       : Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
+                                  borderRadius: BorderRadius.circular(
+                                    0.011 * _screenSize.width, //4,
+                                  ),
                                   border: Border.all(
                                       color: tabController.index == 2
                                           ? MAIN_BLUE_COLOR
@@ -175,25 +213,38 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                   children: [
                                     Text(
                                       'مرجوعی',
-                                      style: TextStyle(fontSize: 13),
+                                      style: TextStyle(
+                                        fontSize:
+                                            0.036 * _screenSize.width, //13,
+                                      ),
                                     ),
-                                    SizedBox(width: 10),
+                                    SizedBox(
+                                      width: 0.027 * _screenSize.width, //10,
+                                    ),
                                     Container(
                                       alignment: Alignment.center,
-                                      width: 25,
-                                      height: 25,
+                                      width: 0.069 * _screenSize.width, //25,
+                                      height: 0.069 * _screenSize.width, //25,
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 2),
+                                        horizontal:
+                                            0.0138 * _screenSize.width, //5,
+                                        vertical:
+                                            0.003125 * _screenSize.height, //2,
+                                      ),
                                       child: Text(
                                         widget.returnedOrders.length.toString(),
                                         style: TextStyle(
-                                            fontSize: 11, color: Colors.white),
+                                            fontSize:
+                                                0.03 * _screenSize.width, //11
+                                            color: Colors.white),
                                       ),
                                       decoration: BoxDecoration(
                                         color: tabController.index == 2
                                             ? MAIN_BLUE_COLOR
                                             : Colors.grey,
-                                        borderRadius: BorderRadius.circular(4),
+                                        borderRadius: BorderRadius.circular(
+                                          0.011 * _screenSize.width, //4,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -216,21 +267,6 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                             OnlineOrderListWidget(
                               onlineOrders: userOrders.data.returnedOrders,
                             ),
-                            // OrderListWidget(
-                            //   onlineOrders: userOrders.data.inProgressOrders,
-                            //   offlineOrders: userOrders.data.offlineOrders,
-                            //   isOffline: false,
-                            // ),
-                            // OrderListWidget(
-                            //   onlineOrders: userOrders.data.compeletedOrders,
-                            //   offlineOrders: userOrders.data.offlineOrders,
-                            //   isOffline: false,
-                            // ),
-                            // OrderListWidget(
-                            //   onlineOrders: userOrders.data.returnedOrders,
-                            //   offlineOrders: userOrders.data.offlineOrders,
-                            //   isOffline: false,
-                            // ),
                           ],
                         ),
                       ),

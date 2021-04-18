@@ -46,17 +46,17 @@ class OrderMainInfoWidget extends StatefulWidget {
 }
 
 class _OrderMainInfoWidgetState extends State<OrderMainInfoWidget> {
-
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         color: widget.backgroungColor,
         borderRadius: BorderRadius.circular(widget.radius),
         boxShadow: [
           BoxShadow(
-            spreadRadius: 0.5,
-            blurRadius: 10,
+            spreadRadius: 0.00138 * _screenSize.width, //0.5,
+            blurRadius: 0.027 * _screenSize.width, //10,
             color: Colors.grey[200],
           ),
         ],
@@ -64,9 +64,12 @@ class _OrderMainInfoWidgetState extends State<OrderMainInfoWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(width: 5),
+          SizedBox(width: 0.0138 * _screenSize.width //5,
+              ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(
+              vertical: 0.016 * _screenSize.height, //10
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -74,37 +77,44 @@ class _OrderMainInfoWidgetState extends State<OrderMainInfoWidget> {
                   widget.firstTitle,
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 12,
+                    fontSize: 0.0333 * _screenSize.width, //12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 Text(
                   widget.firstValue,
                   textDirection: ltrTextDirection,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(width: 2),
-          Container(
-            height: 70,
-            child: VerticalDivider(
-              color: Colors.grey[400],
-              thickness: 0.5,
-              indent: 8,
-              endIndent: 8,
-              width: 5,
-            ),
+          SizedBox(
+            width: 0.00555 * _screenSize.width, //2,
           ),
-          SizedBox(width: 2),
+          Container(
+            height: 0.1093 * _screenSize.height, //70,
+            child: VerticalDivider(
+                color: Colors.grey[400],
+                thickness: 0.00138 * _screenSize.width, //0.5,
+                indent: 0.022 * _screenSize.width, //8,
+                endIndent: 0.022 * _screenSize.width, //8,
+                width: 0.0138 * _screenSize.width //5,
+                ),
+          ),
+          SizedBox(
+            width: 0.00555 * _screenSize.width, //2,
+          ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(
+              vertical: 0.016 * _screenSize.height, //10
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,36 +122,43 @@ class _OrderMainInfoWidgetState extends State<OrderMainInfoWidget> {
                   widget.secTitle,
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 12,
+                    fontSize: 0.0333 * _screenSize.width, //12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 Text(
                   widget.secValue,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(width: 2),
-          Container(
-            height: 70,
-            child: VerticalDivider(
-              color: Colors.grey[400],
-              thickness: 0.5,
-              indent: 8,
-              endIndent: 8,
-              width: 5,
-            ),
+          SizedBox(
+            width: 0.00555 * _screenSize.width, //2,
           ),
-          SizedBox(width: 2),
+          Container(
+            height: 0.1093 * _screenSize.height, //70,
+            child: VerticalDivider(
+                color: Colors.grey[400],
+                thickness: 0.00138 * _screenSize.width, //0.5,
+                indent: 0.022 * _screenSize.width, //8,
+                endIndent: 0.022 * _screenSize.width, //8,
+                width: 0.0138 * _screenSize.width //5,
+                ),
+          ),
+          SizedBox(
+            width: 0.00555 * _screenSize.width, //2,
+          ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(
+              vertical: 0.016 * _screenSize.height, //10
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -149,24 +166,26 @@ class _OrderMainInfoWidgetState extends State<OrderMainInfoWidget> {
                   widget.thirdTitle,
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 12,
+                    fontSize: 0.0333 * _screenSize.width, //12,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 Text(
                   // totalCount.toString(),
                   widget.thirdValue,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(width: 5),
+          SizedBox(width: 0.0138 * _screenSize.width //5,
+              ),
         ],
       ),
     );

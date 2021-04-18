@@ -52,10 +52,19 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
 
-    isBigger = (widget.offlineOrder.countProducts.length) * 60 >
-        (_screenSize.width - 20);
+    isBigger = (widget.offlineOrder.countProducts.length) *
+            (0.166 * _screenSize.width //60,
+            ) >
+        (_screenSize.width -
+            (0.054 * _screenSize.width //20
+            ));
     if (isBigger) {
-      maxItem = ((_screenSize.width - 75) / 60).round();
+      maxItem = ((_screenSize.width -
+                  (0.20833 * _screenSize.width //70
+                  )) /
+              (0.166 * _screenSize.width //60,
+              ))
+          .round();
     }
 
     // print('maxItem : $maxItem');
@@ -65,7 +74,9 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
     return GestureDetector(
       child: Container(
         width: _screenSize.width,
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(
+          0.027 * _screenSize.width, //10,
+        ),
         child: Column(
           children: [
             Row(
@@ -74,25 +85,29 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
                   'کد سفارش',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     // fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
                 Text(
                   widget.offlineOrder.code,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     // fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
 
                 Expanded(child: SizedBox()),
                 Icon(
                   Icons.arrow_forward_ios_rounded,
-                  size: 20,
+                  size: 0.054 * _screenSize.width, //20
                   color: Colors.black87,
                 ),
                 // GlobalSvgImages.leftIcon,
@@ -104,7 +119,7 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
                 //   child:
                 Container(
                   // color: Colors.red,
-                  height: 100,
+                  height: 0.15625 * _screenSize.height, //100,
                   child: ListView.builder(
                     // itemCount: widget.order.products.length,
                     itemCount: isBigger
@@ -116,9 +131,11 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         // padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.symmetric(horizontal: 2),
-                        height: 50,
-                        width: 50,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 0.00555 * _screenSize.width, //2,
+                        ),
+                        height: 0.138 * _screenSize.width, //50,
+                        width: 0.138 * _screenSize.width, //50,
                         // color: Colors.red,
                         child: Image.network(
                             widget.offlineOrder.products[index].assets),
@@ -127,18 +144,20 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
                   ),
                   // ),
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
                 isBigger
                     ? Container(
                         // color: Colors.blue,
-                        width: 35,
-                        height: 35,
+                        width: 0.09722 * _screenSize.width, //35,
+                        height: 0.09722 * _screenSize.width, //35,
                         alignment: Alignment.center,
                         child: Text(
                           "+ ${(widget.offlineOrder.countProducts.length) - maxItem}",
                           textDirection: ltrTextDirection,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 0.0444 * _screenSize.width, //16,
                           ),
                         ),
                         // Icon(
@@ -152,7 +171,7 @@ class _OfflineOrderInfoWidgetState extends State<OfflineOrderInfoWidget> {
             ),
             OrderMainInfoWidget(
               backgroungColor: FB_BACKGROUND_COLOR,
-              radius: 4,
+              radius: 0.011 * _screenSize.width, //4,
               firstTitle: 'شعبه',
               firstValue: widget.offlineOrder.shortBranchName,
               secTitle: 'مبلغ پرداخت شده',

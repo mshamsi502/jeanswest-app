@@ -72,28 +72,37 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            spreadRadius: 0.5,
-            blurRadius: 10,
+            spreadRadius: 0.00138 * _screenSize.width, //0.5,
+            blurRadius: 0.027 * _screenSize.width, //10,
             color: Colors.grey[200],
           ),
         ],
       ),
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.0078 * _screenSize.height, //5
+        horizontal: 0.041 * _screenSize.width, //15,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.016 * _screenSize.height, //10
+          ),
           Text(
             'جزییات پرداخت',
             style: TextStyle(
               color: Colors.black,
-              fontSize: 14,
+              fontSize: 0.038 * _screenSize.width, //14,
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(
+            height: 0.0078 * _screenSize.height, //5,
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -101,7 +110,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                   'مبلغ کل:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -111,14 +120,14 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                       toPriceStyle(totalOrgPrice),
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       ' تومان',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10,
                         color: Colors.black54,
                         fontWeight: FontWeight.w500,
                       ),
@@ -128,9 +137,12 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -138,7 +150,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                   'سود شما:',
                   style: TextStyle(
                     color: MAIN_BLUE_COLOR,
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -150,14 +162,14 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                           : '0',
                       style: TextStyle(
                         color: MAIN_BLUE_COLOR,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       ' تومان',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10,
                         color: MAIN_BLUE_COLOR,
                         fontWeight: FontWeight.w500,
                       ),
@@ -167,9 +179,12 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -177,7 +192,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                   'هزینه ارسال:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -186,7 +201,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                         'رایگان',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
                           fontWeight: FontWeight.w500,
                         ),
                       )
@@ -196,7 +211,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                             toPriceStyle(int.parse(widget.order.sendPrice)),
                             style: TextStyle(
                               color: Colors.black,
-                              fontSize: 14,
+                              fontSize: 0.038 * _screenSize.width, //14,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -213,14 +228,18 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Divider(
-            thickness: 0.5,
+            thickness: 0.00138 * _screenSize.width, //0.5,
             color: Colors.grey[300],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -228,7 +247,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                   'مبلغ قابل پرداخت:',
                   style: TextStyle(
                     color: Colors.grey[500],
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -238,14 +257,14 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                       toPriceStyle(payblePrice),
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       ' تومان',
                       style: TextStyle(
-                        fontSize: 10,
+                        fontSize: 0.027 * _screenSize.width, //10,
                         color: Colors.black54,
                         fontWeight: FontWeight.w500,
                       ),

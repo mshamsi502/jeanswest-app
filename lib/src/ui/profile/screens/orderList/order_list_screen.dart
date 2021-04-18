@@ -47,8 +47,12 @@ class _OrderListScreenState extends State<OrderListScreen>
             maxHeight: _screenSize.height,
             backdropEnabled: true,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
+              topLeft: Radius.circular(
+                0.041 * _screenSize.width, //15,
+              ),
+              topRight: Radius.circular(
+                0.041 * _screenSize.width, //15,
+              ),
             ),
             panel: Container(
               color: Colors.white,
@@ -61,18 +65,34 @@ class _OrderListScreenState extends State<OrderListScreen>
                   Container(
                     child: Column(
                       children: [
-                        SizedBox(height: 40),
-                        TabBar(
-                          controller: tabController,
-                          labelColor: MAIN_BLUE_COLOR,
-                          indicatorColor: MAIN_BLUE_COLOR,
-                          indicatorPadding:
-                              EdgeInsets.symmetric(horizontal: 10),
-                          indicatorWeight: 1.5,
-                          tabs: <Widget>[
-                            Tab(text: 'آنلاین'),
-                            Tab(text: 'آفلاین'),
-                          ],
+                        SizedBox(
+                          height: 0.078125 * _screenSize.height, //40
+                        ),
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          height: 0.0625 * _screenSize.height, //50,
+                          // color: Colors.red,
+                          child: TabBar(
+                            controller: tabController,
+                            labelColor: MAIN_BLUE_COLOR,
+                            labelPadding: EdgeInsets.only(
+                              top: 0.00625 * _screenSize.height, //5,
+                              bottom: 0.00625 * _screenSize.height, //5,
+                            ),
+                            indicatorColor: MAIN_BLUE_COLOR,
+                            labelStyle: TextStyle(
+                                fontSize: 0.038 * _screenSize.width, //14,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'IRANSans'),
+                            indicatorPadding: EdgeInsets.symmetric(
+                              horizontal: 0.027 * _screenSize.width, //10,
+                            ),
+                            indicatorWeight: 0.00416 * _screenSize.width, //1.5,
+                            tabs: <Widget>[
+                              Tab(text: 'آنلاین'),
+                              Tab(text: 'آفلاین'),
+                            ],
+                          ),
                         ),
                         Expanded(
                           child: TabBarView(
@@ -89,7 +109,6 @@ class _OrderListScreenState extends State<OrderListScreen>
                               OfflineOrderListWidget(
                                 offlineOrders: userOrders.data.offlineOrders,
                               ),
-                            
                             ],
                           ),
                         ),
