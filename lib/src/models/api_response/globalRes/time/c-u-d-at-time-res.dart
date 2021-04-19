@@ -6,11 +6,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'date-time-res.g.dart';
+part 'c-u-d-at-time-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class DateTimeRes extends Equatable {
+class CUDAtTimeRes extends Equatable {
   @JsonKey(name: 'createdAt')
   String createdAt;
   @JsonKey(name: 'updatedAt')
@@ -18,17 +18,17 @@ class DateTimeRes extends Equatable {
   @JsonKey(name: 'deletedAt')
   String deletedAt;
 
-  DateTimeRes({
+  CUDAtTimeRes({
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
   });
 
-  factory DateTimeRes.fromJson(Map<String, dynamic> json) =>
-      _$DateTimeResFromJson(json);
+  factory CUDAtTimeRes.fromJson(Map<String, dynamic> json) =>
+      _$CUDAtTimeResFromJson(json);
 
   // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
-  Map<String, dynamic> toJson() => _$DateTimeResToJson(this);
+  Map<String, dynamic> toJson() => _$CUDAtTimeResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

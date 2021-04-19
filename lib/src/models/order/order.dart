@@ -18,9 +18,14 @@ class Order {
   final List<Product> products;
   final List<int> countProducts;
   //
+  final String sendMethod;
+  //
   final ExactTimeOrder confirmDate;
   final PeriodTimeOrder recieveDate;
   final ExactTimeOrder paymentDate;
+  //
+  final String statusShopping;
+  final String statusStep;
   //
   final Address address;
   final String phoneNumber;
@@ -43,9 +48,12 @@ class Order {
     @required this.receiverName,
     @required this.phoneNumber,
     @required this.countProducts,
+    @required this.sendMethod,
     @required this.confirmDate,
     @required this.recieveDate,
     @required this.paymentDate,
+    @required this.statusShopping,
+    @required this.statusStep,
     @required this.address,
     @required this.trackingCode,
     @required this.paymentPlan,
@@ -72,6 +80,6 @@ class Order {
     }
     this.orgPrice = sumOrgPrice.toString();
     this.discountedPrice = sumDiscountedPrice.toString();
-    this.payablePrice = (sumOrgPrice + finalSendPrice ?? 0).toString();
+    this.payablePrice = (sumDiscountedPrice + finalSendPrice ?? 0).toString();
   }
 }

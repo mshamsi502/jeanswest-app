@@ -49,5 +49,7 @@ List<Widget> moreListWidgets = [
   // Container(),
   AboutUsPage(),
   // Container(),
-  ReturnProcessPage(),
+  ReturnProcessPage(
+    initialTab: 0,
+  ),
 ];

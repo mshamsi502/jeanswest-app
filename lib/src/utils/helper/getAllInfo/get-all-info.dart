@@ -12,6 +12,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
 //
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
@@ -61,6 +62,19 @@ Future<void> getAllUserInfo({String token}) async {
   print('_=_ get successfully userFavorite: ${userFavorites.data.perPage}');
   print(
       '_=_ get successfully userFavorite: ${userFavorites.data.result[0].banimodeDetails.productName}');
+  // ! ==> get and create successfully UserFavoriteInfo
+
+  userOrders = await globalLocator<GlobalRestClient>().getUserOrdersInfo();
+  print(
+      '_=_ get successfully, offlineOrders length: ${userOrders.data.offlineOrders.length}');
+  print(
+      '_=_ get successfully, inProgressOrders length: ${userOrders.data.inProgressOrders.length}');
+  print(
+      '_=_ get successfully, compeletedOrders length: ${userOrders.data.compeletedOrders.length}');
+  print(
+      '_=_ get successfully, returnedOrders length: ${userOrders.data.returnedOrders.length}');
+  print(
+      '_=_ first offlineOrders code: ${userOrders.data.offlineOrders[0].code}');
   // ! ==> get and create successfully UserFavoriteInfo
 }
 

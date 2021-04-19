@@ -122,4 +122,13 @@ class GlobalSvgImages {
     height: 12,
     width: 12,
   );
+
+  //
+  // -----------------------------------------------------
+  //
+  static Widget emptyBox = SvgPicture.asset(
+    'assets/images/svg_images/global/empty_box.svg',
+    // height: 60,
+    // width: 60,
+  );
 }

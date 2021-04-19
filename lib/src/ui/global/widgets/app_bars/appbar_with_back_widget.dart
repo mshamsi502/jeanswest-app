@@ -34,6 +34,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
     return Container(
       color: Colors.white,
       height: 0.078125 * _screenSize.height, //50,
+      width: _screenSize.width,
       child: Row(
         children: [
           Container(
@@ -44,12 +45,12 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                 child: Row(
                   children: [
                     Container(
-                      width: 10,
-                      height: 40,
+                      width: 0.027 * _screenSize.width, //10,
+                      height: 0.111 * _screenSize.width, //40,
                     ),
                     Container(
-                      height: 0.0625 * _screenSize.height, //40
-                      width: 40,
+                      height: 0.111 * _screenSize.width, //40,
+                      width: 0.111 * _screenSize.width, //40,
                       padding: EdgeInsets.all(0.016 * _screenSize.height //10
                           ),
                       child: context.locale.toString() == 'en_US'

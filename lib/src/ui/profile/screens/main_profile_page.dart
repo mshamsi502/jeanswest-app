@@ -90,21 +90,21 @@ class _MainProfilePageState extends State<MainProfilePage>
   buildProfile() {
     percentCompleteProfile = 100;
     if (user.firstName == null || user.firstName == '') {
-      print(' 10 : firstName is empty');
+      // print(' 10 : firstName is empty');
       percentCompleteProfile = percentCompleteProfile - 10;
     }
     if (user.lastName == null || user.lastName == '') {
-      print(' 10 : lastName is empty');
+      // print(' 10 : lastName is empty');
       percentCompleteProfile = percentCompleteProfile - 10;
     }
     if (user.email == null || user.email == '') {
-      print(' 20 : email is empty');
+      // print(' 20 : email is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }
     if (user.gender == null ||
         user.gender.perName == null ||
         user.gender.perName == '') {
-      print(' 20 : gender is empty');
+      // print(' 20 : gender is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }
     if (user.dayOfBirth == null ||
@@ -113,10 +113,10 @@ class _MainProfilePageState extends State<MainProfilePage>
         user.monthOfBirth == '' ||
         user.yearOfBirth == null ||
         user.yearOfBirth == '') {
-      print(' 20 : dateOfBirth is empty');
+      // print(' 20 : dateOfBirth is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }
-    print('percentCompleteProfile : $percentCompleteProfile %');
+    // print('percentCompleteProfile : $percentCompleteProfile %');
     mainProfileListMenu = createProfileListMenuPages(
       userLevel: userLevel,
       nextLevel: nextLevel,
