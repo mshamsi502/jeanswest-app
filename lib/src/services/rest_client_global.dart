@@ -5,12 +5,12 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
+import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
-import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/authRes/auth-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
@@ -58,10 +58,10 @@ abstract class GlobalRestClient extends RestClient {
   // );
   // ! from Local JeansWest API
   @POST('http://10.0.1.111:8000/api/v1/otp/request')
-  Future<GlobalResponseJData> reqOtp(@Body() Map<String, dynamic> map);
+  Future<GeneralRespons> reqOtp(@Body() Map<String, dynamic> map);
 
-  @POST('http://10.0.1.111:5000/account/authentication')
-  Future<AuthRes> reqAuth(@Body() Map<String, dynamic> map);
+  @POST('http://10.0.1.111:8000/api/v1/customerAuth')
+  Future<AuthReqRespons> reqAuth(@Body() Map<String, dynamic> map);
 
   // * USER ALL INFO *****************************************************************
 

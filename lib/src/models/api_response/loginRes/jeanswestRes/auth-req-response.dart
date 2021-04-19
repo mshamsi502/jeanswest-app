@@ -4,34 +4,36 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
+import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/get-token-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'global-response.g.dart';
+part 'auth-req-response.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class GlobalResponse extends Equatable {
-  @JsonKey(name: 'code')
-  int code;
+class AuthReqRespons extends Equatable {
+  @JsonKey(name: 'statusCode')
+  int statusCode;
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  String data;
+  GetTokenRes data;
 
-  GlobalResponse({
-    this.code,
+  AuthReqRespons({
+    this.statusCode,
     this.message,
     this.data,
   });
 
-  factory GlobalResponse.fromJson(Map<String, dynamic> json) =>
-      _$GlobalResponseFromJson(json);
+  factory AuthReqRespons.fromJson(Map<String, dynamic> json) =>
+      _$AuthReqResponsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GlobalResponseToJson(this);
+  // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
+  Map<String, dynamic> toJson() => _$AuthReqResponsToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'code': code,
+      'statusCode': statusCode,
       'message': message,
       'data': data,
     };
@@ -39,7 +41,7 @@ class GlobalResponse extends Equatable {
 
   @override
   List<Object> get props => [
-        code,
+        statusCode,
         message,
         data,
       ];

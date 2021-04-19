@@ -6,31 +6,31 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'auth-res.g.dart';
+part 'get-token-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class AuthRes extends Equatable {
-  @JsonKey(name: 'token')
-  String token;
+class GetTokenRes extends Equatable {
+  @JsonKey(name: 'accessToken')
+  String accessToken;
 
-  AuthRes({
-    this.token,
+  GetTokenRes({
+    this.accessToken,
   });
 
-  factory AuthRes.fromJson(Map<String, dynamic> json) =>
-      _$AuthResFromJson(json);
+  factory GetTokenRes.fromJson(Map<String, dynamic> json) =>
+      _$GetTokenResFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AuthResToJson(this);
+  Map<String, dynamic> toJson() => _$GetTokenResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'token': token,
+      'accessToken': accessToken,
     };
   }
 
   @override
   List<Object> get props => [
-        token,
+        accessToken,
       ];
 }

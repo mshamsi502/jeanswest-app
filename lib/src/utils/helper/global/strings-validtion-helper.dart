@@ -59,11 +59,24 @@ List<dynamic> checkCorrectPhone(
 }
 
 List<dynamic> checkCorrectCode({String inputVerifyCode}) {
-  return inputVerifyCode == null ||
-          inputVerifyCode.length != 5 ||
-          inputVerifyCode.contains('-')
+  print('0000000000000000 : $inputVerifyCode');
+  String newValue = inputVerifyCode.replaceAll(' ', '');
+  return newValue == null ||
+          newValue.length != 5 ||
+          !isNaturalNumeric(newValue) ||
+          newValue.contains('-')
       ? [false, "login_screen.enter_the_code_more_carefully".tr()]
       // : inputCode != '23456'
       //     ? [false, "login_screen.code_is_incorrect".tr()]
       : [true, ''];
+}
+
+bool isNaturalNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return
+      //  double.parse(s, (e) => null) != null ||
+      // ignore: deprecated_member_use
+      int.parse(s, onError: (e) => null) != null && int.parse(s) >= 0;
 }

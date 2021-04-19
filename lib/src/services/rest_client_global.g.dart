@@ -60,7 +60,7 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<GlobalResponseJData> reqOtp(map) async {
+  Future<GeneralRespons> reqOtp(map) async {
     ArgumentError.checkNotNull(map, 'map');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -75,19 +75,19 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = GlobalResponseJData.fromJson(_result.data);
+    final value = GeneralRespons.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<AuthRes> reqAuth(map) async {
+  Future<AuthReqRespons> reqAuth(map) async {
     ArgumentError.checkNotNull(map, 'map');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(map ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:5000/account/authentication',
+        'http://10.0.1.111:8000/api/v1/customerAuth',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -95,7 +95,7 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = AuthRes.fromJson(_result.data);
+    final value = AuthReqRespons.fromJson(_result.data);
     return value;
   }
 

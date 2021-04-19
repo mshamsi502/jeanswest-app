@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/global-response-jdata.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
@@ -35,7 +35,7 @@ Future<bool> checkIsAuthWithRetro(String phoneNumber) async {
   Map<String, String> reqBody = {
     "phoneNumber": "0$phoneNumber",
   };
-  GlobalResponseJData globalResponseJData =
+  GeneralRespons globalResponseJData =
       await globalLocator<GlobalRestClient>().reqOtp(reqBody);
 
   // SuccessRespons successRespons =

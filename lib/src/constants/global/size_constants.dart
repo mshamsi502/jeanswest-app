@@ -5,6 +5,8 @@
 
 import 'package:flutter/material.dart';
 
+// const int RECEIVE_TIMEOUT = 10000;
+// const int CONNECT_TIMEOUT = 10000;
 const int RECEIVE_TIMEOUT = 5000;
 const int CONNECT_TIMEOUT = 5000;
 const Duration POPUP_INFO_BRANCH_DURATION_ANIMATION =
