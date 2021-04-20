@@ -3,6 +3,7 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
+import 'package:flutter/services.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/country/country.dart';
@@ -11,28 +12,32 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
+// import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class LoginBodyWidget extends StatefulWidget {
   final TextEditingController phoneTextEditingController;
   final FocusNode focusNode;
-  final bool keyboardIsOpen;
-  final PanelController preTelCodePanelController;
+  // final PanelController preTelCodePanelController;
   final String inputPhone;
   final bool hasError;
+  final bool check;
   final Country selectedCountry;
   final Function(String) changeTextFieldSearch;
+  final Function(List<dynamic>) changeHasError;
 
   const LoginBodyWidget({
     Key key,
     this.phoneTextEditingController,
-    this.keyboardIsOpen,
-    this.preTelCodePanelController,
+    // this.preTelCodePanelController,
     this.inputPhone,
     this.hasError,
     this.selectedCountry,
     this.focusNode,
     this.changeTextFieldSearch,
+    this.changeHasError,
+    this.check,
   }) : super(key: key);
 
   @override
@@ -40,17 +45,38 @@ class LoginBodyWidget extends StatefulWidget {
 }
 
 class _LoginBodyWidgetState extends State<LoginBodyWidget> {
-  String hintPhone = '9125432778';
+  String hintPhone = '9 - - - - - - - - -';
+  bool keyboardIsOpen;
+
+  @override
+  void initState() {
+    keyboardIsOpen = false;
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        if (visible)
+          setState(() {
+            keyboardIsOpen = true;
+          });
+        else {
+          widget.focusNode.unfocus();
+          setState(() {
+            keyboardIsOpen = false;
+          });
+        }
+      },
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 0.2394 * _screenSize.height, //150,
       width: _screenSize.width,
+      // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             margin: EdgeInsets.symmetric(
@@ -64,7 +90,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
             ),
           ),
           SizedBox(
-            height: 0.078125 * _screenSize.height, //50,
+            height: 0.031 * _screenSize.height, //20,
           ),
           Container(
             height: 0.078125 * _screenSize.height, //50,
@@ -76,23 +102,26 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
               horizontal: 0.027 * _screenSize.width, //10,
             ),
             decoration: BoxDecoration(
-              color: widget.hasError ? RED_ERROR_COLOR : FE_BACKGROUND_COLOR,
+              color: (widget.hasError
+                      // || !widget.check
+                      ) &&
+                      !(widget.inputPhone == null || widget.inputPhone == '')
+                  ? RED_ERROR_COLOR
+                  : keyboardIsOpen
+                      ? Colors.white
+                      : F2_BACKGROUND_COLOR,
               borderRadius: BorderRadius.circular(
                 0.0166 * _screenSize.width, //6,
               ),
-              boxShadow: [
-                BoxShadow(
-                  spreadRadius: 0.00138 * _screenSize.width, //0.5,
-                  blurRadius: 0.0083 * _screenSize.width, //3,
-                  color: Colors.grey[300],
-                  offset: Offset(
-                    0.0083 * _screenSize.width, //3,
-                    0.0138 * _screenSize.width, //5,
-                  ), //
-                ),
-              ],
               border: Border.all(
-                color: widget.hasError ? Colors.red : Color(0xfff2f2f2),
+                color: (widget.hasError
+                        // || !widget.check
+                        ) &&
+                        !(widget.inputPhone == null || widget.inputPhone == '')
+                    ? Colors.red
+                    : keyboardIsOpen
+                        ? MAIN_BLUE_COLOR
+                        : F2_BACKGROUND_COLOR,
               ),
             ),
             child: Directionality(
@@ -100,20 +129,28 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
               child: GestureDetector(
                 child: Row(
                   children: [
-                    GestureDetector(
-                      child: Container(
-                        padding: EdgeInsets.all(
-                          0.027 * _screenSize.width, //10,
-                        ),
-                        height: 0.111 * _screenSize.width, //40,
-                        width: 0.111 * _screenSize.width, //40,
-                        child: GlobalSvgImages.clearTextFieldIcon,
-                      ),
-                      onTap: () {
-                        widget.changeTextFieldSearch('');
-                        widget.phoneTextEditingController.clear();
-                      },
-                    ),
+                    widget.phoneTextEditingController.text == ''
+                        ? SizedBox()
+                        : GestureDetector(
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                0.027 * _screenSize.width, //10,
+                              ),
+                              height: 0.111 * _screenSize.width, //40,
+                              width: 0.111 * _screenSize.width, //40,
+                              child: (widget.hasError
+                                      // || !widget.check
+                                      ) &&
+                                      !(widget.inputPhone == null ||
+                                          widget.inputPhone == '')
+                                  ? GlobalSvgImages.whiteClearTextFieldIcon
+                                  : GlobalSvgImages.greyClearTextFieldIcon,
+                            ),
+                            onTap: () {
+                              widget.changeTextFieldSearch('');
+                              widget.phoneTextEditingController.clear();
+                            },
+                          ),
                     Expanded(
                       child: GestureDetector(
                         child: Directionality(
@@ -123,11 +160,20 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                             width: _screenSize.width,
                             // height: 0.03125 * _screenSize.height, //20
                             child: TextField(
+                              inputFormatters: [
+                                new LengthLimitingTextInputFormatter(10),
+                              ],
                               textDirection: ltrTextDirection,
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
                               onChanged: widget.changeTextFieldSearch,
-                              autofocus: true,
+                              autofocus: false,
+                              onSubmitted: (value) {
+                                List<dynamic> checkPhone = checkCorrectPhone(
+                                    inputPhone: value, startWithZero: false);
+                                widget.changeHasError(checkPhone);
+                                widget.focusNode.unfocus();
+                              },
                               style: TextStyle(
                                 fontSize: 0.047 * _screenSize.width, //17,
                               ),
@@ -139,7 +185,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                                 hintStyle: TextStyle(
                                   fontSize: 0.047 * _screenSize.width, //17,
                                 ),
-                                hintText: '9125432778',
+                                hintText: hintPhone,
                                 contentPadding: EdgeInsets.symmetric(
                                   //   vertical:
                                   //       0.015 * _screenSize.height, // 10,
@@ -152,71 +198,47 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            widget.preTelCodePanelController.close();
                             widget.focusNode.unfocus();
-
                             widget.phoneTextEditingController.clear();
                           });
                         },
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(
-                        0.0138 * _screenSize.width, //5,
+                      child: VerticalDivider(
+                        thickness: 0.00138 * _screenSize.width, //0.5,
+                        width: 0.00277 * _screenSize.width, //1,
+                        color: Colors.grey,
+                        indent: 0.0194 * _screenSize.width, //7,
+                        endIndent: 0.0194 * _screenSize.width, //7,
                       ),
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 0.0138 * _screenSize.width, //5,
-                        vertical: 0.0125 * _screenSize.height, //8,
+                    ),
+                    SizedBox(
+                      width: 0.041 * _screenSize.width, //15,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 0.00625 * _screenSize.height, //4,
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(3),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 0.00138 * _screenSize.width, //0.5,
-                            blurRadius: 0.027 * _screenSize.width, //10,
-                            color: Colors.grey[300],
-                            offset: Offset(
-                              0.0138 * _screenSize.width, //5,
-
-                              0.0138 * _screenSize.width, //5,
-                            ), //
-                          ),
-                        ],
+                      child: Text(
+                        '+98',
+                        textDirection: ltrTextDirection,
+                        style: TextStyle(
+                          fontSize: 0.041 * _screenSize.width, //15,
+                          color: Colors.grey,
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Directionality(
-                              textDirection: ltrTextDirection,
-                              child: Text(
-                                widget.selectedCountry.dialCode,
-                                style: TextStyle(
-                                  fontSize: 0.041 * _screenSize.width, //15,
-                                  color: MAIN_BLUE_COLOR,
-                                ),
-                              )),
-                          Icon(
-                            Icons.phone,
-                            color: MAIN_BLUE_COLOR,
-                            size: 0.05 * _screenSize.width, //18,
-                          ),
-                        ],
-                      ),
+                    ),
+                    SizedBox(
+                      width: 0.027 * _screenSize.width, //10,
                     ),
                   ],
                 ),
                 onTap: () {
                   widget.phoneTextEditingController.clear();
-                  // widget.focusNode.unfocus();
-                  widget.preTelCodePanelController.open();
                 },
               ),
             ),
-          ),
-          Container(
-            height: widget.keyboardIsOpen
-                ? 0.4 * _screenSize.height //250,
-                : 0,
           ),
         ],
       ),

@@ -5,16 +5,17 @@
 
 import 'dart:ui';
 
+import 'package:jeanswest/src/constants/global/api_respones.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/constants/login/country_code_list.dart';
 import 'package:jeanswest/src/models/country/country.dart';
-import 'package:jeanswest/src/ui/global/widgets/app_bars/real_search_appbar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_code_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_button_widget.dart';
-import 'package:jeanswest/src/ui/login/widgets/country_list_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_app_bar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_body_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
-import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
+import 'package:jeanswest/src/utils/helper/login/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,20 +41,22 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // PanelController keyboardPanelController = new PanelController();
-  bool keyboardIsOpen = false;
+  // bool keyboardIsOpen = false;
   PanelController preTelCodePanelController = new PanelController();
   bool preTelCodeIsOpen = false;
-  String inputPhone = '9176509634';
-  String inputCode = '-----';
+  String inputPhone = '';
+  String inputCode = '';
   bool hasError = false;
   bool isInputPhoneStep = true;
-  int selectedCodeChar = 0;
+  // int selectedCodeChar = 0;
   ScrollController scrollController = new ScrollController();
   //
   String minuteTimer;
   String secondTimer;
   //
   bool check;
+  String errorMsg;
+  bool resendCode;
 
   FocusNode phoneInputNode = FocusNode();
   FocusNode codeConfirmInputNode = FocusNode();
@@ -73,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     check = false;
-
+    resendCode = false;
+    errorMsg = '';
     getConteries(widget.screenSize);
     minuteTimer = '00';
     secondTimer = '00';
@@ -164,66 +168,17 @@ class _LoginPageState extends State<LoginPage> {
               controller: scrollController,
               physics: ClampingScrollPhysics(),
               child: Container(
+                // color: Colors.red,
                 width: _screenSize.width,
-                height: 0.8 * _screenSize.height,
-                child: SlidingUpPanel(
-                  minHeight: 0,
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      blurRadius: 0,
-                      color: Color.fromRGBO(0, 0, 0, 0),
-                    ),
-                  ],
-                  maxHeight: _screenSize.height,
-                  backdropEnabled: false,
-                  backdropOpacity: 0,
-                  backdropColor: Colors.transparent,
-                  color: Colors.transparent,
-                  defaultPanelState: PanelState.CLOSED,
-                  controller: preTelCodePanelController,
-                  onPanelOpened: () {
-                    setState(() {
-                      preTelCodeIsOpen = true;
-                    });
-                  },
-                  onPanelClosed: () {
-                    setState(() {
-                      preTelCodeIsOpen = false;
-                    });
-                  },
-                  panel: Container(
-                    height: _screenSize.height,
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        RealSearchAppBarWidget(
-                          title: '${"login_screen.country_code".tr()} ...',
-                          haveSearchInText: true,
-                          changeListPanelState: changeCountryListPanelState,
-                          changeTextFieldSearch: changeTextFieldSearch,
-                          inputNode: searchInputNode,
-                          textEditingController: searchTextEditingController,
-                        ),
-                        CountryListWidget(
-                          countries: searchedCountries,
-                          selectedCountry: selectedCountry,
-                          changeCountryListPanelState:
-                              changeCountryListPanelState,
-                          changeSelectedCountry: changeSelectedCountry,
-                        ),
-                      ],
-                    ),
-                  ),
-                  body: Container(
-                    width: _screenSize.width,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            height: 0.15625 * _screenSize.height, //100,
+                height: (isInputPhoneStep ? 0.65 : 0.75) * _screenSize.height,
+                child: Container(
+                  width: _screenSize.width,
+                  child: Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            height: 0.234 * _screenSize.height, //150,
                             padding: EdgeInsets.symmetric(
                                 horizontal: 0.041 * _screenSize.width, //15,
                                 vertical: 0.016 * _screenSize.height //10
@@ -235,39 +190,31 @@ class _LoginPageState extends State<LoginPage> {
                                   Navigator.pop(context),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: isInputPhoneStep
-                              ? 0.2812 * _screenSize.height //180,
-                              : 0.34 * _screenSize.height, //217
-                          child: Container(
+                          Container(
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 isInputPhoneStep
                                     ? LoginBodyWidget(
                                         focusNode: phoneInputNode,
                                         phoneTextEditingController:
                                             phoneTextEditingController,
-                                        keyboardIsOpen: keyboardIsOpen,
-                                        preTelCodePanelController:
-                                            preTelCodePanelController,
                                         inputPhone: inputPhone,
                                         hasError: hasError,
+                                        check: check,
+                                        changeHasError:
+                                            (List<dynamic> checkPhone) {},
                                         // hasError: true,
                                         selectedCountry: selectedCountry,
                                         changeTextFieldSearch:
                                             (String newValue) {
+                                          hasError = false;
                                           print('update check');
                                           setState(() {
                                             inputPhone = newValue;
                                             print('inputPhone : $inputPhone');
-                                          });
-                                          List response = checkCorrectPhone(
-                                              inputPhone: inputPhone,
-                                              startWithZero: false);
-                                          setState(() {
-                                            check = response[0];
-                                            print('check : $check');
+                                            check = inputPhone.length == 10;
+                                            errorMsg = '';
                                           });
                                         },
                                       )
@@ -275,64 +222,121 @@ class _LoginPageState extends State<LoginPage> {
                                         focusNode: codeConfirmInputNode,
                                         phoneTextEditingController:
                                             phoneTextEditingController,
-                                        keyboardIsOpen: keyboardIsOpen,
                                         inputPhone: inputPhone,
-                                        inputCode: inputCode,
                                         hasError: hasError,
-                                        selectedCountry: selectedCountry,
                                         backToInputPhoneStep:
                                             changeInputPhoneStep,
-                                        updateSelectedChar:
-                                            updateSelectedCodeChar,
-                                        selectedChar: selectedCodeChar,
                                         updateInputCode: updateInputCode,
                                         minuteTimer: minuteTimer,
                                         secondTimer: secondTimer,
+                                        resendCodeToAlreadyPhone: () =>
+                                            checkPhoneInput(
+                                          context: context,
+                                          phoneNumber: inputPhone,
+                                          statusCodes: statusCodes,
+                                          changeHasError: (bool newHasError) {
+                                            setState(() {
+                                              hasError = newHasError;
+                                            });
+                                          },
+                                          changeErrorMsg: (String msg) =>
+                                              setState(() {
+                                            errorMsg = msg;
+                                          }),
+                                          changeInputPhoneStep:
+                                              changeInputPhoneStep,
+                                          startDownTimer: () =>
+                                              startDownTimer(_screenSize),
+                                          apiResponse:
+                                              (Map<String, dynamic> response) =>
+                                                  setState(() {
+                                            print(
+                                                'statusCode : ${response['statusCode']}');
+                                            print(
+                                                'msg : ${statusCodes[response['statusCode']]['perMessage']}');
+                                            if (response['statusCode'] == 200) {
+                                              hasError = false;
+                                              errorMsg = '';
+                                            } else {
+                                              hasError = true;
+                                              errorMsg = statusCodes[
+                                                      response['statusCode']]
+                                                  ['perMessage'];
+                                            }
+                                          }),
+                                        ),
+                                        updateHasError: (bool newHasError) {
+                                          setState(() {
+                                            hasError = newHasError;
+                                          });
+                                        },
                                         startDownTimer: () =>
                                             startDownTimer(_screenSize),
                                       ),
                                 SizedBox(
-                                  height: 0.039 * _screenSize.height, //25,
-                                ),
+                                    height: 0.0078 * _screenSize.height //5,
+                                    ),
                               ],
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: 0.6 * _screenSize.height, //355,
-                          left: 0,
-                          right: 0,
-                          child: ConfirmButtonWidget(
-                            check: check,
-                            phoneNumber: inputPhone,
-                            verifyCode: inputCode,
-                            selectedCountry: selectedCountry,
-                            isInputPhoneStep: isInputPhoneStep,
-                            changeInputPhoneStep: changeInputPhoneStep,
-                            hasError: hasError,
-                            changeHasError: (bool newHasError) {
-                              setState(() {
+                        ],
+                      ),
+                      Positioned(
+                        top: 0.45608 * _screenSize.height, //270,
+                        left: 0,
+                        right: 0,
+                        child: Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 0.069 * _screenSize.width, //25,
+                              ),
+                              child: Text(
+                                inputPhone == '' || inputPhone == null
+                                    ? ''
+                                    : errorMsg,
+                                style: TextStyle(
+                                  color: RED_LABEL_TEXT_COLOR,
+                                  fontSize: 0.038 * _screenSize.width, //14,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 0.031 * _screenSize.height, //20,
+                            ),
+                            ConfirmButtonWidget(
+                              check: check,
+                              phoneNumber: inputPhone,
+                              verifyCode: inputCode,
+                              // selectedCountry: selectedCountry,
+                              isInputPhoneStep: isInputPhoneStep,
+                              changeInputPhoneStep: changeInputPhoneStep,
+                              hasError: hasError,
+                              changeErrorMessage: (String newErrorMsg) =>
+                                  setState(() {
+                                errorMsg = newErrorMsg;
+                                hasError = true;
+                              }),
+                              changeHasError: (bool newHasError) =>
+                                  setState(() {
                                 hasError = newHasError;
-                              });
-                            },
-                            checkCorrectCode: () =>
-                                checkCorrectCode(inputVerifyCode: inputCode),
-                            checkCorrectPhone: () => checkCorrectPhone(
-                                inputPhone: inputPhone, startWithZero: false),
-                            closePreTelCodePanelController: () {
-                              preTelCodePanelController.close();
-                            },
-                            startDownTimer: () => startDownTimer(_screenSize),
-                            changeSelectedCodeChar: updateSelectedCodeChar,
-                            showSnackBarError: (String msg,
-                                    BuildContext context) =>
-                                showSnackBarError(msg, context, _screenSize),
-                          ),
+                              }),
+
+                              checkCorrectCode: () =>
+                                  checkCorrectCode(inputVerifyCode: inputCode),
+                              checkCorrectPhone: () => checkCorrectPhone(
+                                  inputPhone: inputPhone, startWithZero: false),
+
+                              startDownTimer: () => startDownTimer(_screenSize),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+                // ),
               ),
             ),
           ),
@@ -341,92 +345,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  //
-  showSnackBarError(String msg, BuildContext _context, Size _screenSize) {
-    // ignore: deprecated_member_use
-    // Scaffold.of(_context).showSnackBar(
-    // ignore: deprecated_member_use
-    scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        elevation: 0,
-        content: GestureDetector(
-          // ignore: deprecated_member_use
-          onTap: () => scaffoldKey.currentState.hideCurrentSnackBar(),
-          child: Container(
-            height: 0.172 * _screenSize.height, //110,
-            color: Colors.transparent,
-            padding: EdgeInsets.only(bottom: 0.1 * _screenSize.height //65,
-                ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(child: Container()),
-                      Container(
-                        width: (msg.length > 25)
-                            ? MediaQuery.of(_context).size.width * 0.7
-                            : MediaQuery.of(_context).size.width * 0.55,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 0.054 * _screenSize.width, //20
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(
-                              0.138 * _screenSize.width, //50,
-                            )),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.info_outline,
-                              // Icons.warning_amber_outlined,
-                              size: 0.0444 * _screenSize.width, //16,
-                            ),
-                            SizedBox(
-                              width: 0.0138 * _screenSize.width, //5,
-                            ),
-                            Expanded(
-                              child: Text(
-                                msg,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'IRANSans',
-                                  fontSize: 0.034 * _screenSize.width, //12,
-                                ),
-                                // ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        duration: Duration(milliseconds: 3000),
-      ),
-    );
-  }
-
-  //
-
-  changeInputPhoneStep(bool _isInputPhoneStep) async {
+  changeInputPhoneStep(bool _isInputPhoneStep) {
     setState(() {
       isInputPhoneStep = _isInputPhoneStep;
-
-      // check = false;
-      // inputPhone = '';
-      updateInputCode('-----');
-      selectedCodeChar = 0;
+      print('aaaaaaa isInputPhoneStep : $isInputPhoneStep');
+      hasError = false;
+      errorMsg = '';
     });
   }
   //
@@ -436,44 +360,20 @@ class _LoginPageState extends State<LoginPage> {
       inputPhone = updatedString;
     });
   }
-  //
-
-  updateCodeString(String updatedString) {
-    String updateChar = updatedString.substring(updatedString.length - 1);
-    setState(() {
-      bool isRemove = updatedString.length < 5;
-
-      inputCode =
-          '${inputCode.substring(0, selectedCodeChar)}${isRemove ? '-' : updateChar}${inputCode.substring(selectedCodeChar + 1)}';
-      selectedCodeChar = isRemove
-          ? selectedCodeChar == 0
-              ? 0
-              : selectedCodeChar - 1
-          : selectedCodeChar == 4
-              ? 0
-              : selectedCodeChar + 1;
-    });
-  }
-
-  updateSelectedCodeChar(int selectedChar) {
-    print('selectedChar: $selectedChar');
-    setState(() {
-      selectedCodeChar = selectedChar;
-    });
-  }
 
   updateInputCode(String newInputCode) {
     setState(() {
       inputCode = newInputCode;
       hasError = false;
-      selectedCodeChar = 0;
+      errorMsg = '';
+      // selectedCodeChar = 0;
     });
   }
 
   startDownTimer(Size _screenSize) async {
     setState(() {
-      minuteTimer = '00';
-      secondTimer = '10';
+      minuteTimer = LOGIN_LIMIT_MIN_TIMEOUT;
+      secondTimer = LOGIN_LIMIT_SEC_TIMEOUT;
     });
     print('1timer : $minuteTimer:$secondTimer');
     while (!(minuteTimer == '00' && secondTimer == '00')) {
@@ -492,58 +392,5 @@ class _LoginPageState extends State<LoginPage> {
       });
       print('2timer : $minuteTimer:$secondTimer');
     }
-    String warningMsg =
-        "login_screen.your_code_has_expired_please_click_on_resend".tr();
-    showSnackBarError(warningMsg, context, _screenSize);
   }
-
-  changeCountryListPanelState(bool opt, BuildContext _context) async {
-    changeInputPhoneStep(true);
-    if (opt) {
-      setState(() {
-        changeTextFieldSearch('');
-        preTelCodePanelController.animatePanelToPosition(1.0,
-            duration: Duration(milliseconds: 500));
-        // panelController.open();
-        FocusScope.of(_context).requestFocus(phoneInputNode);
-      });
-    } else {
-      // panelController.close();
-      await preTelCodePanelController.animatePanelToPosition(0.0,
-          duration: Duration(milliseconds: 500));
-      setState(() {
-        changeTextFieldSearch('');
-        if (FocusScope.of(_context).hasFocus) FocusScope.of(_context).unfocus();
-      });
-    }
-  }
-
-  changeTextFieldSearch(String textFieldSearchValue) {
-    setState(() {
-      if (textFieldSearchValue == null ||
-          textFieldSearchValue.isEmpty ||
-          textFieldSearchValue == '') {
-        searchTextEditingController.clear();
-        // searchedCountries = countries;
-        searchedCountries = allCountries;
-      } else {
-        searchedCountries = getListOfObjectsStatic(
-                query: textFieldSearchValue,
-                // objects: countries,
-                objects: allCountries,
-                modelName: 'Country')
-            ?.cast<Country>();
-      }
-      print(
-          '.+..+..+.. searchedCountries Length : ${searchedCountries.length}');
-    });
-  }
-
-  changeSelectedCountry(Country selectedCountry) async {
-    setState(() {
-      this.selectedCountry = selectedCountry;
-    });
-  }
-  //
-
 }

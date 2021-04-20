@@ -99,7 +99,7 @@ class _RealSearchAppBarWidgetState extends State<RealSearchAppBarWidget> {
               padding: EdgeInsets.all(10),
               height: heightBar,
               width: heightBar,
-              child: GlobalSvgImages.clearTextFieldIcon,
+              child: GlobalSvgImages.greyClearTextFieldIcon,
             ),
             onTap: () {
               widget.changeTextFieldSearch('');

@@ -28,6 +28,7 @@ class _LoginAppBarWidgetState extends State<LoginAppBarWidget> {
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
     return Container(
+      // color: Colors.green,
       child: Column(
         children: [
           Row(
@@ -48,7 +49,9 @@ class _LoginAppBarWidgetState extends State<LoginAppBarWidget> {
               ),
             ],
           ),
-
+          SizedBox(
+            height: 0.0625 * _screenSize.height, //40,
+          ),
           Container(
             width: 0.5 * _screenSize.width, //180,
             height: 0.078125 * _screenSize.height, //50,

@@ -6,41 +6,37 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'global-response.g.dart';
+part 'otp-req-response.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class GlobalResponse extends Equatable {
-  @JsonKey(name: 'code')
-  int code;
+class OTPReqResponse extends Equatable {
+  @JsonKey(name: 'statusCode')
+  int statusCode;
   @JsonKey(name: 'message')
   String message;
-  @JsonKey(name: 'data')
-  String data;
 
-  GlobalResponse({
-    this.code,
+  OTPReqResponse({
+    this.statusCode,
     this.message,
-    this.data,
   });
 
-  factory GlobalResponse.fromJson(Map<String, dynamic> json) =>
-      _$GlobalResponseFromJson(json);
+  factory OTPReqResponse.fromJson(Map<String, dynamic> json) =>
+      _$OTPReqResponseFromJson(json);
 
-  Map<String, dynamic> toJson() => _$GlobalResponseToJson(this);
+  // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
+  Map<String, dynamic> toJson() => _$OTPReqResponseToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'code': code,
+      'statusCode': statusCode,
       'message': message,
-      'data': data,
     };
   }
 
   @override
   List<Object> get props => [
-        code,
+        statusCode,
         message,
-        data,
       ];
 }

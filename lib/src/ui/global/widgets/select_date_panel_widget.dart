@@ -123,16 +123,16 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
             height: 0.023 * _screenSize.height, //15
           ),
           Container(
-            height: 190,
+            height: 0.3209 * _screenSize.height, //190
             child: Stack(
               children: [
                 Positioned(
-                  top: 72,
-                  left: 20,
-                  right: 20,
+                  top: 0.12162 * _screenSize.height, //72
+                  left: 0.054 * _screenSize.width, //20
+                  right: 0.054 * _screenSize.width, //20
                   child: Center(
                     child: Container(
-                      height: 40,
+                      height: 0.0625 * _screenSize.height, //40
                       decoration: BoxDecoration(
                         color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
                         borderRadius:
@@ -158,19 +158,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           squeeze: 1,
                           itemExtent: 0.111 * _screenSize.width, //40,
                           scrollController: dayScrollController,
-                          // selectionOverlay: Container(
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.only(
-                          //       topRight:
-                          //           Radius.circular(0.022 * _screenSize.width //8
-                          //               ),
-                          //       bottomRight:
-                          //           Radius.circular(0.022 * _screenSize.width //8
-                          //               ),
-                          //     ),
-                          //     color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
-                          //   ),
-                          // ),
+
                           children: [
                             for (var i = 0; i < someDayOfMonth; i++)
                               Column(
@@ -273,19 +261,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           squeeze: 1,
                           itemExtent: 0.111 * _screenSize.width, //40,
                           scrollController: yearScrollController,
-                          // selectionOverlay: Container(
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.only(
-                          //       topLeft: Radius.circular(0.022 * _screenSize.width //8
 
-                          //           ),
-                          //       bottomLeft:
-                          //           Radius.circular(0.022 * _screenSize.width //8
-                          //               ),
-                          //     ),
-                          //     color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
-                          //   ),
-                          // ),
                           children: [
                             for (var i = 1300; i < 1401; i++)
                               Column(
