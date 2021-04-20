@@ -8,7 +8,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jeanswest/src/constants/global/api_respones.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
+import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
@@ -19,53 +19,78 @@ checkPhoneInput({
   @required String phoneNumber,
   @required Map<int, Map<String, dynamic>> statusCodes,
   @required Function(bool) changeHasError,
-  @required Function() closePreTelCodePanelController,
+  @required Function(String) changeErrorMsg,
+  // @required Function() closePreTelCodePanelController,
   @required Function(bool) changeInputPhoneStep,
   @required Function() startDownTimer,
-  @required Function(String, BuildContext) showSnackBarError,
+  @required Function(Map<String, dynamic>) apiResponse,
 }) async {
-  Map<String, String> otpReqBody = {
-    "phoneNumber": "0$phoneNumber",
-  };
-  print('widget.phoneNumber : 0$phoneNumber');
-  GeneralRespons otpReq =
-      await globalLocator<GlobalRestClient>().reqOtp(otpReqBody);
-  if (otpReq.statusCode == 200) {
-    // if (globalResponseJData.statusCode == 201) {
-    print('req is successfuly , message : ${otpReq.message}');
-    changeHasError(false);
-    closePreTelCodePanelController();
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-      currentFocus.focusedChild.unfocus();
-    }
-    changeInputPhoneStep(false);
-    startDownTimer();
-  } else {
-    changeInputPhoneStep(true);
-    print('req is NOOOOT successfuly');
+  List<dynamic> phoneStringIsValid =
+      checkCorrectPhone(inputPhone: phoneNumber, startWithZero: false);
+  if (!phoneStringIsValid[0]) {
     changeHasError(true);
-    showSnackBarError(statusCodes[otpReq]["perMessage"], context);
+    changeErrorMsg(phoneStringIsValid[1]);
+  } else {
+    Map<String, String> otpReqBody = {
+      "phoneNumber": "0$phoneNumber",
+    };
+    print('widget.phoneNumber : 0$phoneNumber');
+    try {
+      OTPReqResponse otpReq =
+          await globalLocator<GlobalRestClient>().reqOtp(otpReqBody);
+      if (otpReq.statusCode == 200) {
+        // if (globalResponseJData.statusCode == 201) {
+        print('req is successfuly , message : ${otpReq.message}');
+        changeHasError(false);
+        // closePreTelCodePanelController();
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus &&
+            currentFocus.focusedChild != null) {
+          currentFocus.focusedChild.unfocus();
+        }
+        changeInputPhoneStep(false);
+        startDownTimer();
+      } else {
+        changeInputPhoneStep(true);
+        print('req is NOOOOT successfuly');
+        changeHasError(true);
+        apiResponse(statusCodes[otpReq]);
+      }
+    } catch (e) {
+      print('aaaaaaaaaaaaaa : ${e.response.data['statusCode']}');
+      print(
+          'aaaaaaaaaaaaaa : ${statusCodes[e.response.data['statusCode']]['perMessage']}');
+      changeInputPhoneStep(true);
+      print('req is NOOOOT successfuly');
+      changeHasError(true);
+      apiResponse(statusCodes[e.response.data['statusCode']]);
+      // printErrorMessage(e);
+    }
   }
 }
 
 checkCodeInput({
-  BuildContext context,
-  String phoneNumber,
-  String verifyCode,
-  Function(bool) changeHasError,
-  Function() closePreTelCodePanelController,
-  Function(bool) changeInputPhoneStep,
-  Function(String, BuildContext) showSnackBarError,
+  @required BuildContext context,
+  @required String phoneNumber,
+  @required String verifyCode,
+  @required Function(bool) changeHasError,
+  @required Function(String) changeErrorMsg,
+  @required Function(bool) changeInputPhoneStep,
+  // @required Function(String, BuildContext) showSnackBarError,
 }) async {
-  changeHasError(false);
-  closePreTelCodePanelController();
-  FocusScopeNode currentFocus = FocusScope.of(context);
-  if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-    currentFocus.focusedChild.unfocus();
-  }
-  bool checkVerifyCode = checkCodeValidation(verifyCode);
-  if (checkVerifyCode) {
+  List<dynamic> codeStringIsValid = checkCorrectCode(
+    inputVerifyCode: verifyCode,
+  );
+  if (!codeStringIsValid[0]) {
+    changeHasError(true);
+    changeErrorMsg(codeStringIsValid[1]);
+  } else {
+    changeHasError(false);
+    // closePreTelCodePanelController();
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+      currentFocus.focusedChild.unfocus();
+    }
     Map<String, String> authReqBody = {
       "phoneNumber": "0$phoneNumber",
       "pin": verifyCode
@@ -94,23 +119,27 @@ checkCodeInput({
       } else {
         print('statusCodes : ${statusCodes[authReq]["statusCodes"]}');
         print('message : ${statusCodes[authReq]["perMessage"]}');
-        showSnackBarError(statusCodes[authReq]["perMessage"], context);
+        changeHasError(true);
+        changeErrorMsg(statusCodes[authReq]["perMessage"]);
+        // showSnackBarError(statusCodes[authReq]["perMessage"], context);
       }
     } catch (e) {
+      changeErrorMsg(statusCodes[e.response.data['statusCode']]['perMessage']);
+      changeHasError(true);
       printErrorMessage(e);
       print('error :(');
     }
-  } else
-    changeHasError(true);
+  }
+  // !
 }
 
-bool checkCodeValidation(String pin) {
-  print('pin : $pin');
-  print('update checkVerifyCode');
-  List response = checkCorrectCode(
-    inputVerifyCode: pin,
-  );
-  bool checkVerifyCode = response[0];
-  print('checkVerifyCode : $checkVerifyCode');
-  return checkVerifyCode;
-}
+// bool checkCodeValidation(String pin) {
+//   print('pin : $pin');
+//   print('update checkVerifyCode');
+//   List response = checkCorrectCode(
+//     inputVerifyCode: pin,
+//   );
+//   bool checkVerifyCode = response[0];
+//   print('checkVerifyCode : $checkVerifyCode');
+//   return checkVerifyCode;
+// }

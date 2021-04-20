@@ -8,8 +8,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
+import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
@@ -35,12 +35,12 @@ Future<bool> checkIsAuthWithRetro(String phoneNumber) async {
   Map<String, String> reqBody = {
     "phoneNumber": "0$phoneNumber",
   };
-  GeneralRespons globalResponseJData =
+  OTPReqResponse oTPReqResponse =
       await globalLocator<GlobalRestClient>().reqOtp(reqBody);
 
   // SuccessRespons successRespons =
   // await globalLocator<GlobalRestClient>().reqForVerifyCode(phoneNumber);
-  isSuccess = globalResponseJData.data == "message sent";
+  isSuccess = oTPReqResponse.statusCode == 200;
   print('12315465498 -- successRespons.success : $isSuccess');
   return isSuccess ?? false;
 }
@@ -250,7 +250,13 @@ scrollJumpAfterKeyborad({ScrollController scrollController, Size screenSize}) {
       scrollController.jumpTo(0);
     },
     onShow: () {
-      scrollController.jumpTo(screenSize.width);
+      // scrollController.jumpTo(screenSize.height);
+      double pos = screenSize.height;
+      while (pos <= scrollController.position.maxScrollExtent) {
+        pos = pos + 10;
+      }
+      // scrollController.jumpTo(scrollController.position.maxScrollExtent);
+      scrollController.jumpTo(pos);
     },
   );
 }

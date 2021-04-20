@@ -13,62 +13,37 @@ List<dynamic> checkCorrectPhone(
   } else {
     if (startWithZero) {
       //
-      if (inputPhone.length != 11)
-        return [false, "login_screen.phone_number_must_be_eleven_number".tr()];
-      else if (!(inputPhone.startsWith('0')))
+      if (!(inputPhone.startsWith('0')))
         return [false, "login_screen.enter_phone_number_with_first_zero".tr()];
+      else if (inputPhone.length != 11)
+        return [false, "login_screen.phone_number_must_be_eleven_number".tr()];
       else
         return [true, ''];
       //
     } else {
       //
-      if (inputPhone.length != 10)
-        return [false, "login_screen.phone_number_must_be_ten_number".tr()];
       if (!(inputPhone.startsWith('9')))
         return [
           false,
           "login_screen.phone_number_must_be_start_with_nine".tr()
         ];
+      else if (inputPhone.length != 10)
+        return [false, "login_screen.phone_number_must_be_ten_number".tr()];
       else
         return [true, ''];
       //
     }
   }
-
-  //
-  // return inputPhone == null || inputPhone == ''
-  //     ? [false, "login_screen.phone_number_is_incorrect".tr()]
-  //     : startWithZero && inputPhone.length != 11
-  //         ? [false, "login_screen.phone_number_must_be_ten_number".tr()]
-  //         : startWithZero && inputPhone.length != 10
-  //             ? [false, "login_screen.phone_number_must_be_ten_number".tr()]
-  //             : !inputPhone.startsWith('9')
-  //                 ? [
-  //                     false,
-  //                     "login_screen.phone_number_must_be_start_with_nine".tr()
-  //                   ]
-  //                 : startWithZero && inputPhone.startsWith('0')
-  //                     ? [true, '']
-  //                     : !startWithZero && inputPhone.startsWith('0')
-  //                         ? [
-  //                             false,
-  //                             "login_screen.enter_phone_number_without_first_zero"
-  //                                 .tr()
-  //                           ]
-  //                         : [true, ''];
 }
 
 List<dynamic> checkCorrectCode({String inputVerifyCode}) {
-  print('0000000000000000 : $inputVerifyCode');
   String newValue = inputVerifyCode.replaceAll(' ', '');
-  return newValue == null ||
-          newValue.length != 5 ||
-          !isNaturalNumeric(newValue) ||
-          newValue.contains('-')
-      ? [false, "login_screen.enter_the_code_more_carefully".tr()]
-      // : inputCode != '23456'
-      //     ? [false, "login_screen.code_is_incorrect".tr()]
-      : [true, ''];
+  if (!isNaturalNumeric(newValue))
+    return [false, 'پر کردن همه فیلدها الزامیست'];
+  else if (newValue.length < 5)
+    return [false, 'تنها اعداد (بین 0 تا 9) میتوانید وارد کنید'];
+  else
+    return [true, ''];
 }
 
 bool isNaturalNumeric(String s) {
@@ -76,7 +51,6 @@ bool isNaturalNumeric(String s) {
     return false;
   }
   return
-      //  double.parse(s, (e) => null) != null ||
       // ignore: deprecated_member_use
       int.parse(s, onError: (e) => null) != null && int.parse(s) >= 0;
 }

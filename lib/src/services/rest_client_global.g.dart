@@ -60,7 +60,7 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<GeneralRespons> reqOtp(map) async {
+  Future<OTPReqResponse> reqOtp(map) async {
     ArgumentError.checkNotNull(map, 'map');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -75,7 +75,7 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = GeneralRespons.fromJson(_result.data);
+    final value = OTPReqResponse.fromJson(_result.data);
     return value;
   }
 

@@ -5,7 +5,7 @@
 
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/api_respones.dart';
-import 'package:jeanswest/src/models/country/country.dart';
+// import 'package:jeanswest/src/models/country/country.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,17 +17,18 @@ class ConfirmButtonWidget extends StatefulWidget {
   final bool check;
   final String phoneNumber;
   final String verifyCode;
-  final Country selectedCountry;
+  // final Country selectedCountry;
   final bool isInputPhoneStep;
   final Function(bool) changeInputPhoneStep;
   final bool hasError;
   final Function(bool) changeHasError;
+  final Function(String) changeErrorMessage;
   final Function() checkCorrectPhone;
   final Function() checkCorrectCode;
-  final Function() closePreTelCodePanelController;
+  // final Function() closePreTelCodePanelController;
   final Function() startDownTimer;
-  final Function(int) changeSelectedCodeChar;
-  final Function(String, BuildContext) showSnackBarError;
+  // final Function(int) changeSelectedCodeChar;
+  // final Function(String, BuildContext) showSnackBarError;
 
   const ConfirmButtonWidget({
     Key key,
@@ -38,13 +39,14 @@ class ConfirmButtonWidget extends StatefulWidget {
     this.changeHasError,
     this.checkCorrectPhone,
     this.checkCorrectCode,
-    this.closePreTelCodePanelController,
+    // this.closePreTelCodePanelController,
     this.startDownTimer,
-    this.changeSelectedCodeChar,
-    this.showSnackBarError,
+    // this.changeSelectedCodeChar,
+    // this.showSnackBarError,
     this.phoneNumber,
     this.verifyCode,
-    this.selectedCountry,
+    // this.selectedCountry,
+    this.changeErrorMessage,
   }) : super(key: key);
 
   @override
@@ -83,21 +85,30 @@ class _ConfirmButtonWidgetState extends State<ConfirmButtonWidget> {
                         phoneNumber: widget.phoneNumber,
                         statusCodes: statusCodes,
                         changeHasError: widget.changeHasError,
-                        closePreTelCodePanelController:
-                            widget.closePreTelCodePanelController,
+                        changeErrorMsg: (String msg) =>
+                            widget.changeErrorMessage(msg),
                         changeInputPhoneStep: widget.changeInputPhoneStep,
                         startDownTimer: widget.startDownTimer,
-                        showSnackBarError: widget.showSnackBarError,
+                        apiResponse: (Map<String, dynamic> response) =>
+                            setState(() {
+                          if (response['statusCode'] == 200) {
+                            widget.changeHasError(false);
+                            widget.changeErrorMessage('');
+                          } else {
+                            widget.changeHasError(true);
+                            String errorMsg = response['perMessage'];
+                            widget.changeErrorMessage(errorMsg);
+                          }
+                        }),
                       )
                     : checkCodeInput(
                         context: context,
                         phoneNumber: widget.phoneNumber,
                         verifyCode: widget.verifyCode,
                         changeHasError: widget.changeHasError,
-                        closePreTelCodePanelController:
-                            widget.closePreTelCodePanelController,
+                        changeErrorMsg: (String msg) =>
+                            widget.changeErrorMessage(msg),
                         changeInputPhoneStep: widget.changeInputPhoneStep,
-                        showSnackBarError: widget.showSnackBarError,
                       )
                 : print('checked and is NOT OK :(');
           }),

@@ -3,6 +3,7 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
+import 'package:flutter/services.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/country/country.dart';
@@ -13,12 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
+// import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class LoginBodyWidget extends StatefulWidget {
   final TextEditingController phoneTextEditingController;
   final FocusNode focusNode;
-  final PanelController preTelCodePanelController;
+  // final PanelController preTelCodePanelController;
   final String inputPhone;
   final bool hasError;
   final bool check;
@@ -29,7 +30,7 @@ class LoginBodyWidget extends StatefulWidget {
   const LoginBodyWidget({
     Key key,
     this.phoneTextEditingController,
-    this.preTelCodePanelController,
+    // this.preTelCodePanelController,
     this.inputPhone,
     this.hasError,
     this.selectedCountry,
@@ -71,11 +72,11 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 0.2394 * _screenSize.height, //150,
       width: _screenSize.width,
+      // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             margin: EdgeInsets.symmetric(
@@ -89,7 +90,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
             ),
           ),
           SizedBox(
-            height: 0.078125 * _screenSize.height, //50,
+            height: 0.031 * _screenSize.height, //20,
           ),
           Container(
             height: 0.078125 * _screenSize.height, //50,
@@ -101,7 +102,10 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
               horizontal: 0.027 * _screenSize.width, //10,
             ),
             decoration: BoxDecoration(
-              color: widget.hasError && widget.check
+              color: (widget.hasError
+                      // || !widget.check
+                      ) &&
+                      !(widget.inputPhone == null || widget.inputPhone == '')
                   ? RED_ERROR_COLOR
                   : keyboardIsOpen
                       ? Colors.white
@@ -110,7 +114,10 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                 0.0166 * _screenSize.width, //6,
               ),
               border: Border.all(
-                color: widget.hasError && widget.check
+                color: (widget.hasError
+                        // || !widget.check
+                        ) &&
+                        !(widget.inputPhone == null || widget.inputPhone == '')
                     ? Colors.red
                     : keyboardIsOpen
                         ? MAIN_BLUE_COLOR
@@ -131,7 +138,13 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                               ),
                               height: 0.111 * _screenSize.width, //40,
                               width: 0.111 * _screenSize.width, //40,
-                              child: GlobalSvgImages.clearTextFieldIcon,
+                              child: (widget.hasError
+                                      // || !widget.check
+                                      ) &&
+                                      !(widget.inputPhone == null ||
+                                          widget.inputPhone == '')
+                                  ? GlobalSvgImages.whiteClearTextFieldIcon
+                                  : GlobalSvgImages.greyClearTextFieldIcon,
                             ),
                             onTap: () {
                               widget.changeTextFieldSearch('');
@@ -147,6 +160,9 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                             width: _screenSize.width,
                             // height: 0.03125 * _screenSize.height, //20
                             child: TextField(
+                              inputFormatters: [
+                                new LengthLimitingTextInputFormatter(10),
+                              ],
                               textDirection: ltrTextDirection,
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
@@ -182,9 +198,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            widget.preTelCodePanelController.close();
                             widget.focusNode.unfocus();
-
                             widget.phoneTextEditingController.clear();
                           });
                         },
@@ -192,75 +206,36 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                     ),
                     Container(
                       child: VerticalDivider(
-                        thickness: 0.5,
-                        width: 1,
+                        thickness: 0.00138 * _screenSize.width, //0.5,
+                        width: 0.00277 * _screenSize.width, //1,
                         color: Colors.grey,
-                        indent: 7,
-                        endIndent: 7,
+                        indent: 0.0194 * _screenSize.width, //7,
+                        endIndent: 0.0194 * _screenSize.width, //7,
                       ),
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(
+                      width: 0.041 * _screenSize.width, //15,
+                    ),
                     Padding(
-                      padding: EdgeInsets.only(top: 4),
+                      padding: EdgeInsets.only(
+                        top: 0.00625 * _screenSize.height, //4,
+                      ),
                       child: Text(
                         '+98',
                         textDirection: ltrTextDirection,
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 0.041 * _screenSize.width, //15,
                           color: Colors.grey,
                         ),
                       ),
                     ),
-                    SizedBox(width: 10),
-                    // Container(
-                    //   padding: EdgeInsets.all(
-                    //     0.0138 * _screenSize.width, //5,
-                    //   ),
-                    //   margin: EdgeInsets.symmetric(
-                    //     horizontal: 0.0138 * _screenSize.width, //5,
-                    //     vertical: 0.0125 * _screenSize.height, //8,
-                    //   ),
-                    //   decoration: BoxDecoration(
-                    //     color: Colors.white,
-                    //     borderRadius: BorderRadius.circular(3),
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //         spreadRadius: 0.00138 * _screenSize.width, //0.5,
-                    //         blurRadius: 0.027 * _screenSize.width, //10,
-                    //         color: Colors.grey[300],
-                    //         offset: Offset(
-                    //           0.0138 * _screenSize.width, //5,
-                    //           0.0138 * _screenSize.width, //5,
-                    //         ), //
-                    //       ),
-                    //     ],
-                    //   ),
-                    //   child:
-                    //   Row(
-                    //     children: [
-                    //       Directionality(
-                    //           textDirection: ltrTextDirection,
-                    //           child: Text(
-                    //             widget.selectedCountry.dialCode,
-                    //             style: TextStyle(
-                    //               fontSize: 0.041 * _screenSize.width, //15,
-                    //               color: MAIN_BLUE_COLOR,
-                    //             ),
-                    //           )),
-                    //       Icon(
-                    //         Icons.phone,
-                    //         color: MAIN_BLUE_COLOR,
-                    //         size: 0.05 * _screenSize.width, //18,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    SizedBox(
+                      width: 0.027 * _screenSize.width, //10,
+                    ),
                   ],
                 ),
                 onTap: () {
                   widget.phoneTextEditingController.clear();
-                  // widget.focusNode.unfocus();
-                  widget.preTelCodePanelController.open();
                 },
               ),
             ),

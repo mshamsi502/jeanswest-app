@@ -39,11 +39,15 @@ class GlobalSvgImages {
     height: 20,
   );
 
-  static Widget clearTextFieldIcon = SvgPicture.asset(
-    'assets/images/svg_images/global/clear_text_field_icon.svg',
-    color: MAIN_BLUE_COLOR,
-    width: 15,
-    height: 15,
+  static Widget greyClearTextFieldIcon = SvgPicture.asset(
+    'assets/images/svg_images/global/grey_clear_text_field_icon.svg',
+    width: 14,
+    height: 14,
+  );
+  static Widget whiteClearTextFieldIcon = SvgPicture.asset(
+    'assets/images/svg_images/global/white_clear_text_field_icon.svg',
+    width: 14,
+    height: 14,
   );
 
   static Widget shareIcon = SvgPicture.asset(
