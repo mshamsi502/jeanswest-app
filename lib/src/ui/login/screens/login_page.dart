@@ -282,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       Positioned(
-                        top: 0.45608 * _screenSize.height, //270,
+                        top: 0.43074 * _screenSize.height, //255,
                         left: 0,
                         right: 0,
                         child: Column(
