@@ -6,18 +6,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:jeanswest/src/models/coupon/coupon.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/single_coupon_info_widget.dart';
 
 import 'package:flutter/material.dart';
 
 class CouponsInfoWidget extends StatefulWidget {
   final List<Coupon> coupons;
   final ScrollController scrollController;
+  final Function(int) openPanel;
 
   CouponsInfoWidget({
     Key key,
     this.coupons,
     this.scrollController,
+    this.openPanel,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _CouponsInfoWidgetState();
@@ -27,78 +28,127 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(
-            top: 0.016 * _screenSize.height, //10
-            left: 0.069 * _screenSize.width, //25,
-            right: 0.069 * _screenSize.width, //25,
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: 0.0138 * _screenSize.height, //5,
-            horizontal: 0.0138 * _screenSize.width, //5,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(
-              0.0054 * _screenSize.width, //2
-            ),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.grey[400],
-                blurRadius: 0.00138 * _screenSize.height, //0.5,
-                spreadRadius: 0.0003125 * _screenSize.height, //0.2,
-              )
-            ],
-          ),
-          child: Row(
+    return
+        // Container(
+        //   height: 300,
+        //   child:
+        ListView.builder(
+      controller: widget.scrollController,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: widget.coupons.length,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          width: _screenSize.width,
+          // height: 75,
+          child: Column(
             children: [
-              Icon(
-                Icons.attach_money,
-                size: 0.054 * _screenSize.width, //20
-                color: MAIN_BLUE_COLOR,
+              GestureDetector(
+                child: Container(
+                  width: _screenSize.width,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      width: 18,
+                                      height: 18,
+                                      decoration: BoxDecoration(
+                                          color: index.isEven
+                                              ? MAIN_GOLD_COLOR
+                                              : Colors.blueGrey[200],
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                    ),
+                                    Icon(
+                                      Icons.stars,
+                                      size: 20,
+                                      color: index.isEven
+                                          ? Colors.amberAccent[100]
+                                          : BLUE_SKY_COLOR,
+                                    ),
+                                  ],
+                                ),
+                                // Container(
+                                //   width: 20,
+                                //   height: 20,
+                                //   padding: EdgeInsets.all(1),
+                                //   decoration: BoxDecoration(
+                                //       color: index.isEven
+                                //           ? MAIN_GOLD_COLOR
+                                //           : Colors.blueGrey[200],
+                                //       borderRadius:
+                                //           BorderRadius.circular(50)),
+                                //   child: Icon(
+                                //     Icons.stars,
+                                //     size: 20,
+                                //     color: index.isEven
+                                //         ? Colors.amberAccent[100]
+                                //         : BLUE_SKY_COLOR,
+                                //   ),
+                                // ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    widget.coupons[index].perName,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 7),
+                            Row(
+                              children: [
+                                SizedBox(width: 30),
+                                Text(
+                                  // '',
+                                  'مدت اعتبار از تاریخ ${widget.coupons[index].yearOfStartDate}/${widget.coupons[index].monthOfStartDate}/${widget.coupons[index].dayOfStartDate} تا ${widget.coupons[index].yearOfEndDate}/${widget.coupons[index].monthOfEndDate}/${widget.coupons[index].dayOfEndDate}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Icon(
+                        Icons.info_outline,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () => widget.openPanel(index),
               ),
-              SizedBox(
-                width: 0.0138 * _screenSize.width, //5,
-              ),
-              Text(
-                '${widget.coupons.length} بن',
-                style: TextStyle(
-                    fontSize: 0.036 * _screenSize.width, //13,
-                    color: MAIN_BLUE_COLOR),
-              ),
+              SizedBox(height: 5),
+              index == widget.coupons.length - 1
+                  ? SizedBox()
+                  : Divider(
+                      thickness: 0.5,
+                      height: 1,
+                    ),
+              SizedBox(height: index == widget.coupons.length - 1 ? 0 : 5),
             ],
           ),
-        ),
-        Container(
-          child: ListView.builder(
-            controller: widget.scrollController,
-            itemCount: widget.coupons.length,
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return Container(
-                child: Column(
-                  children: [
-                    Container(
-                      color: Colors.white,
-                      padding: EdgeInsets.only(
-                        bottom: 0.03125 * _screenSize.height, //20,
-                        left: 0.027 * _screenSize.width, //10,
-                        right: 0.027 * _screenSize.width, //10,
-                      ),
-                      child: SingleCouponInfoWidget(
-                        coupon: widget.coupons[index],
-                        screenSize: _screenSize,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
-      ],
+        );
+      },
+      // ),
     );
   }
 }
