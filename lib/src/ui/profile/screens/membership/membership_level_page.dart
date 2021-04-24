@@ -43,7 +43,7 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
               bottom: 0,
               child: Container(
                 width: _screenSize.width,
-                height: 225,
+                height: 0.38006 * _screenSize.height, //225,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   // color: Colors.red,
@@ -61,7 +61,7 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
               bottom: 0,
               child: Container(
                 width: _screenSize.width,
-                height: 225,
+                height: 0.38006 * _screenSize.height, //225,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -93,18 +93,29 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
                   nextLevel: widget.nextLevel,
                   currentLevelWidgetAnimation: currentLevelWidgetAnimation,
                 ),
-                SizedBox(height: 15),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 0.054 * _screenSize.width, //20
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 0.011 * _screenSize.height, //7
+                    horizontal: 0.041 * _screenSize.width, //15,
+                  ),
                   decoration: BoxDecoration(
                     color: BLUE_SKY_FADE_COLOR,
-                    borderRadius: BorderRadius.circular(2),
+                    borderRadius: BorderRadius.circular(
+                      0.00555 * _screenSize.width, //2,
+                    ),
                   ),
                   child: Text(
                     'در ادامه میتونی اطلاعات مربوط به هر سطح رو مطالعه کنی',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(
+                      fontSize: 0.038 * _screenSize.width, //14,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -115,7 +126,7 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
                   moneyBuying: widget.moneyBuying,
                 ),
                 SizedBox(
-                  height: 205,
+                  height: 0.34628 * _screenSize.height, //205,
                 ),
               ],
             ),

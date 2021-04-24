@@ -55,16 +55,23 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
             color: Colors.white,
             padding: EdgeInsets.symmetric(
               vertical: 0.015 * _screenSize.height, //10
-              horizontal: 20,
+              horizontal: 0.054 * _screenSize.width, //20
             ),
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 0.023 * _screenSize.height, //15
+                  ),
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 0.011824 * _screenSize.height, //7,
+                      horizontal: 0.041 * _screenSize.width, //15,
+                    ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(
+                        0.0138 * _screenSize.width, //5,
+                      ),
                       color: MAIN_ORANGE_COLOR,
                     ),
                     child: Text(
@@ -73,7 +80,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                 ),
                 Container(
                   // color: Colors.red,
-                  height: 125,
+                  height: 0.22 * _screenSize.height, //130,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -94,7 +101,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                         child: Container(),
                       ),
                       Container(
-                        width: 155,
+                        width: 0.430555 * _screenSize.width, //155,
                         // height: 0.172 * _screenSize.height, //110,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -117,7 +124,9 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                 widget.userLevel == zeroLevel
                     ? Column(
                         children: [
-                          SizedBox(height: 15),
+                          SizedBox(
+                            height: 0.023 * _screenSize.height, //15
+                          ),
                           Text(
                             'میتونی با خرید بالای 200 هزار تومان به باشگاه مشتریان جین وست بپیوندی',
                             textAlign: TextAlign.center,
@@ -129,7 +138,9 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                         ],
                       )
                     : SizedBox(),
-                SizedBox(height: 15),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
                 Divider(
                   height: 1,
                   thickness: 1,
@@ -144,7 +155,9 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                   width: 110,
                   height: 40,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 6, horizontal: 0.054 * _screenSize.width, //20
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: MAIN_BLUE_COLOR,
@@ -164,7 +177,9 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                   width: 110,
                   height: 40,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 6, horizontal: 0.054 * _screenSize.width, //20
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: BLUE_SKY_FADE_COLOR,
@@ -186,7 +201,9 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                   width: 110,
                   height: 40,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 6, horizontal: 0.054 * _screenSize.width, //20
+                  ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
                     color: MAIN_GOLD_COLOR,
