@@ -10,6 +10,7 @@ import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
@@ -84,6 +85,9 @@ abstract class GlobalRestClient extends RestClient {
 
   @GET('http://10.1.2.94:3003/v1/getUserFavorite')
   Future<UserFavoriteInfoRes> getUserFavoriteInfo();
+
+  @GET('http://10.1.2.94:3003/v1/getUserJeanpointBons')
+  Future<UserJeanpointsResponse> getUserJeanpointBonsInfo();
 
   @GET('http://10.1.2.94:3003/v1/getUserOrders')
   Future<UserOrderDataRes> getUserOrdersInfo();

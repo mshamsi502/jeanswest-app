@@ -1,6 +1,8 @@
 //
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
@@ -13,6 +15,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/models/coupon/coupon.dart';
 //
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
@@ -75,6 +78,30 @@ Future<void> getAllUserInfo({String token}) async {
       '_=_ get successfully, returnedOrders length: ${userOrders.data.returnedOrders.length}');
   print(
       '_=_ first offlineOrders code: ${userOrders.data.offlineOrders[0].code}');
+  // ! ==> get and create successfully UserFavoriteInfo
+  //
+
+  UserJeanpointsResponse userJeanpointBonsRes =
+      await globalLocator<GlobalRestClient>().getUserJeanpointBonsInfo();
+  // ignore: deprecated_member_use
+  userJeanpointBons = new List<Coupon>();
+  userJeanpointBonsRes.data.forEach((element) {
+    userJeanpointBons.add(
+      Coupon(
+        code: element.code,
+        engName: element.engName,
+        perName: element.perName,
+        description: element.description,
+        price: element.price,
+        minShopping: element.minShopping,
+        startDate: element.startDate,
+        endDate: element.endDate,
+      ),
+    );
+  });
+  print(
+      '_=_ get successfully userJeanpointBons length: ${userJeanpointBons.length}');
+  print('_=_  first userJeanpointBons code: ${userJeanpointBons[0].code}');
   // ! ==> get and create successfully UserFavoriteInfo
 }
 
