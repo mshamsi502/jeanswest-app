@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 
 import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/circle_membership_widget.dart';
@@ -92,13 +93,15 @@ class _LevelCardWidgetState extends State<LevelCardWidget> {
               // color: Colors.lightGreenAccent,
               height: 0.125 * _screenSize.height, //80,
               alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
+              child: ListView.builder(
+                shrinkWrap: true,
+                // !
+                itemCount: levels.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      widget.levelCard.subTitleOne != ''
+                      widget.levelCard.subtitles[index] != ''
                           ? Icon(
                               Icons.fact_check_outlined,
                               size: 0.034 * _screenSize.width, //12,
@@ -107,10 +110,10 @@ class _LevelCardWidgetState extends State<LevelCardWidget> {
                       SizedBox(
                         width: 0.0083 * _screenSize.width, //3,
                       ),
-                      widget.levelCard.subTitleOne != ''
+                      widget.levelCard.subtitles[index] != ''
                           ? Expanded(
                               child: Text(
-                                widget.levelCard.subTitleOne,
+                                widget.levelCard.subtitles[index],
                                 style: TextStyle(
                                   fontSize: 0.027 * _screenSize.width, //10,
                                 ),
@@ -118,80 +121,110 @@ class _LevelCardWidgetState extends State<LevelCardWidget> {
                             )
                           : Container(),
                     ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      widget.levelCard.subTitleTwo != ''
-                          ? Icon(
-                              Icons.date_range_outlined,
-                              size: 0.033 * _screenSize.width, //12,
-                            )
-                          : Container(),
-                      SizedBox(width: 0.0138 * _screenSize.width //5,
-                          ),
-                      widget.levelCard.subTitleTwo != ''
-                          ? Expanded(
-                              child: Text(
-                                widget.levelCard.subTitleTwo,
-                                style: TextStyle(
-                                  fontSize: 0.027 * _screenSize.width, //10,
-                                ),
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      widget.levelCard.subTitleThree != ''
-                          ? Icon(
-                              Icons.card_giftcard_outlined,
-                              size: 0.033 * _screenSize.width, //12,
-                            )
-                          : Container(),
-                      SizedBox(
-                        width: 0.013 * _screenSize.width, //5
-                      ),
-                      widget.levelCard.subTitleThree != ''
-                          ? Expanded(
-                              child: Text(
-                                widget.levelCard.subTitleThree,
-                                style: TextStyle(
-                                  fontSize: 0.027 * _screenSize.width, //10,
-                                ),
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      widget.levelCard.subTitleFour != ''
-                          ? Icon(
-                              Icons.rss_feed,
-                              size: 0.033 * _screenSize.width, //12,
-                            )
-                          : Container(),
-                      SizedBox(
-                        width: 0.013 * _screenSize.width, //5
-                      ),
-                      widget.levelCard.subTitleFour != ''
-                          ? Expanded(
-                              child: Text(
-                                widget.levelCard.subTitleFour,
-                                style: TextStyle(
-                                  fontSize: 0.027 * _screenSize.width, //10,
-                                ),
-                              ),
-                            )
-                          : Container(),
-                    ],
-                  ),
-                ],
+                  );
+                },
               ),
+
+              //  Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         widget.levelCard.subTitleOne != ''
+              //             ? Icon(
+              //                 Icons.fact_check_outlined,
+              //                 size: 0.034 * _screenSize.width, //12,
+              //               )
+              //             : Container(),
+              //         SizedBox(
+              //           width: 0.0083 * _screenSize.width, //3,
+              //         ),
+              //         widget.levelCard.subTitleOne != ''
+              //             ? Expanded(
+              //                 child: Text(
+              //                   widget.levelCard.subTitleOne,
+              //                   style: TextStyle(
+              //                     fontSize: 0.027 * _screenSize.width, //10,
+              //                   ),
+              //                 ),
+              //               )
+              //             : Container(),
+              //       ],
+              //     ),
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         widget.levelCard.subTitleTwo != ''
+              //             ? Icon(
+              //                 Icons.date_range_outlined,
+              //                 size: 0.033 * _screenSize.width, //12,
+              //               )
+              //             : Container(),
+              //         SizedBox(width: 0.0138 * _screenSize.width //5,
+              //             ),
+              //         widget.levelCard.subTitleTwo != ''
+              //             ? Expanded(
+              //                 child: Text(
+              //                   widget.levelCard.subTitleTwo,
+              //                   style: TextStyle(
+              //                     fontSize: 0.027 * _screenSize.width, //10,
+              //                   ),
+              //                 ),
+              //               )
+              //             : Container(),
+              //       ],
+              //     ),
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         widget.levelCard.subTitleThree != ''
+              //             ? Icon(
+              //                 Icons.card_giftcard_outlined,
+              //                 size: 0.033 * _screenSize.width, //12,
+              //               )
+              //             : Container(),
+              //         SizedBox(
+              //           width: 0.013 * _screenSize.width, //5
+              //         ),
+              //         widget.levelCard.subTitleThree != ''
+              //             ? Expanded(
+              //                 child: Text(
+              //                   widget.levelCard.subTitleThree,
+              //                   style: TextStyle(
+              //                     fontSize: 0.027 * _screenSize.width, //10,
+              //                   ),
+              //                 ),
+              //               )
+              //             : Container(),
+              //       ],
+              //     ),
+              //     Row(
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         widget.levelCard.subTitleFour != ''
+              //             ? Icon(
+              //                 Icons.rss_feed,
+              //                 size: 0.033 * _screenSize.width, //12,
+              //               )
+              //             : Container(),
+              //         SizedBox(
+              //           width: 0.013 * _screenSize.width, //5
+              //         ),
+              //         widget.levelCard.subTitleFour != ''
+              //             ? Expanded(
+              //                 child: Text(
+              //                   widget.levelCard.subTitleFour,
+              //                   style: TextStyle(
+              //                     fontSize: 0.027 * _screenSize.width, //10,
+              //                   ),
+              //                 ),
+              //               )
+              //             : Container(),
+              //       ],
+              //     ),
+              //   ],
+              // ),
             ),
           ),
           SizedBox(

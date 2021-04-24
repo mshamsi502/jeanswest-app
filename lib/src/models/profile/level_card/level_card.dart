@@ -26,32 +26,38 @@ class LevelCard extends Equatable {
   @JsonKey(name: 'MaxPay')
   String maxPay;
 
+  @JsonKey(name: 'Percent')
+  int percent;
+
   @JsonKey(name: 'ReceiptConditions')
   String receiptConditions;
 
-  @JsonKey(name: 'SubTitleOne')
-  String subTitleOne;
+  @JsonKey(name: 'Subtitles')
+  List<String> subtitles;
 
-  @JsonKey(name: 'DescriptionOne')
-  String descriptionOne;
+  @JsonKey(name: 'descriptions')
+  List<String> descriptions;
 
-  @JsonKey(name: 'SubTitleTwo')
-  String subTitleTwo;
+  // @JsonKey(name: 'DescriptionOne')
+  // String descriptionOne;
 
-  @JsonKey(name: 'DescriptionTwo')
-  String descriptionTwo;
+  // @JsonKey(name: 'SubTitleTwo')
+  // String subTitleTwo;
 
-  @JsonKey(name: 'SubTitleThree')
-  String subTitleThree;
+  // @JsonKey(name: 'DescriptionTwo')
+  // String descriptionTwo;
 
-  @JsonKey(name: 'DescriptionThree')
-  String descriptionThree;
+  // @JsonKey(name: 'SubTitleThree')
+  // String subTitleThree;
 
-  @JsonKey(name: 'SubTitleFour')
-  String subTitleFour;
+  // @JsonKey(name: 'DescriptionThree')
+  // String descriptionThree;
 
-  @JsonKey(name: 'DescriptionFour')
-  String descriptionFour;
+  // @JsonKey(name: 'SubTitleFour')
+  // String subTitleFour;
+
+  // @JsonKey(name: 'DescriptionFour')
+  // String descriptionFour;
 
   LevelCard({
     this.membership,
@@ -59,15 +65,18 @@ class LevelCard extends Equatable {
     this.perTitle,
     this.minPay,
     this.maxPay,
+    this.percent,
     this.receiptConditions,
-    this.subTitleOne,
-    this.descriptionOne,
-    this.subTitleTwo,
-    this.descriptionTwo,
-    this.subTitleThree,
-    this.descriptionThree,
-    this.subTitleFour,
-    this.descriptionFour,
+    this.subtitles,
+    this.descriptions,
+    // this.subTitleOne,
+    // this.descriptionOne,
+    // this.subTitleTwo,
+    // this.descriptionTwo,
+    // this.subTitleThree,
+    // this.descriptionThree,
+    // this.subTitleFour,
+    // this.descriptionFour,
   });
 
   factory LevelCard.fromJson(Map<String, dynamic> json) =>
@@ -82,15 +91,18 @@ class LevelCard extends Equatable {
       'PerTitle': perTitle,
       'MinPay': minPay,
       'MaxPay': maxPay,
+      'Percent': percent,
       'ReceiptConditions': receiptConditions,
-      'SubTitleOne': subTitleOne,
-      'DescriptionOne': descriptionOne,
-      'SubTitleTwo': subTitleTwo,
-      'DescriptionTwo': descriptionTwo,
-      'SubTitleThree': subTitleThree,
-      'DescriptionThree': descriptionThree,
-      'SubTitleFour': subTitleFour,
-      'DescriptionFour': descriptionFour,
+      'subtitles': subtitles,
+      'descriptions': descriptions,
+      // 'SubTitleOne': subTitleOne,
+      // 'DescriptionOne': descriptionOne,
+      // 'SubTitleTwo': subTitleTwo,
+      // 'DescriptionTwo': descriptionTwo,
+      // 'SubTitleThree': subTitleThree,
+      // 'DescriptionThree': descriptionThree,
+      // 'SubTitleFour': subTitleFour,
+      // 'DescriptionFour': descriptionFour,
     };
   }
 
@@ -101,14 +113,17 @@ class LevelCard extends Equatable {
         perTitle,
         minPay,
         maxPay,
+        percent,
         receiptConditions,
-        subTitleOne,
-        descriptionOne,
-        subTitleTwo,
-        descriptionTwo,
-        subTitleThree,
-        descriptionThree,
-        subTitleFour,
-        descriptionFour,
+        subtitles,
+        descriptions,
+        // subTitleOne,
+        // descriptionOne,
+        // subTitleTwo,
+        // descriptionTwo,
+        // subTitleThree,
+        // descriptionThree,
+        // subTitleFour,
+        // descriptionFour,
       ];
 }
