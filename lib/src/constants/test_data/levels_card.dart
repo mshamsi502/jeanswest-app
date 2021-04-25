@@ -207,7 +207,7 @@ List<LevelCard> levels = [
 ];
 //
 List<String> assetsLevelCard = [
-  'assets/images/png_images/profile/blue_card.png',
-  'assets/images/png_images/profile/silver_card.png',
-  'assets/images/png_images/profile/gold_card.png',
+  'assets/images/png_images/profile/levelCards/blue-card-more.png',
+  'assets/images/png_images/profile/levelCards/silver-card-more.png',
+  'assets/images/png_images/profile/levelCards/gold-card-more.png',
 ];

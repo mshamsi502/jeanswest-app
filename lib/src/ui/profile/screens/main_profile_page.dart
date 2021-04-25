@@ -437,6 +437,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
                 GestureDetector(
                   child: MembershipCardWidget(
                     userLevel: userLevel,

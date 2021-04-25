@@ -23,10 +23,12 @@ class _QrCodeWidgetState extends State<QrCodeWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
-      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.all(0.0138 * _screenSize.width //5,
+
+          ),
       child: Container(
-        height: 0.33 * _screenSize.width, // 120
-        width: 0.33 * _screenSize.width, // 120,
+        height: 0.375 * _screenSize.width, //  135,
+        width: 0.375 * _screenSize.width, //  135,
         // color: Colors.grey,
         child: QrImage(
           data: 'jeanswest.ir/user/${user.phoneNumber}',
@@ -38,7 +40,10 @@ class _QrCodeWidgetState extends State<QrCodeWidget> {
           embeddedImageEmitsError: true,
           embeddedImageStyle: QrEmbeddedImageStyle(
             size: Size(
-                0.083 * _screenSize.width, 0.083 * _screenSize.width), // 30 ,30
+              0.083 * _screenSize.width, //30
+
+              0.083 * _screenSize.width, //30
+            ), // 30 ,30
           ),
         ),
       ),
