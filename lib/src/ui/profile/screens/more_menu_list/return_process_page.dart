@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/test_data/info_cards.dart';
+import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/return_process_widget.dart';
 
@@ -24,9 +25,19 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
   int selectedTab = 0;
   TabController tabController;
   ScrollController scrollController;
+
+  List<String> texts;
   @override
   void initState() {
     scrollController = new ScrollController();
+    texts = [
+      longLoremIpsum,
+      shortLoremIpsum1,
+      veryShortLoremIpsum,
+      shortLoremIpsum2,
+      medLoremIpsum,
+      longLoremIpsum
+    ];
     tabController = new TabController(
         initialIndex: widget.initialTab, length: 2, vsync: this);
     tabController.addListener(() {
@@ -86,15 +97,17 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
                               children: <Widget>[
                                 ReturnProcessWidget(
                                   assetHeader:
-                                      'assets/images/png_images/profile/more/delivery_header.png',
+                                      'assets/images/png_images/profile/more/return-proccess.png',
                                   children: buildOnlineReturnProcessChildren(
                                       _screenSize),
+                                  texts: texts,
                                 ),
                                 ReturnProcessWidget(
                                   assetHeader:
-                                      'assets/images/png_images/profile/more/delivery_header.png',
+                                      'assets/images/png_images/profile/more/return-proccess.png',
                                   children: buildOnlineReturnProcessChildren(
                                       _screenSize),
+                                  texts: texts,
                                 ),
                               ],
                             ),
