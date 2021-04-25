@@ -32,7 +32,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
       width: _screenSize.width,
       height: _screenSize.height,
       child: SlidingUpPanel(
-        maxHeight: 300,
+        maxHeight: 0.5067 * _screenSize.height, //300,
         minHeight: 0,
         backdropEnabled: true,
         controller: panelController,
@@ -49,14 +49,26 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                 color: F7_BACKGROUND_COLOR,
               ),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: EdgeInsets.symmetric(
+                  vertical: 0.023 * _screenSize.height, //15
+                ),
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 0.011824 * _screenSize.height, //7
+                    horizontal: 0.041 * _screenSize.width, //15,
+                  ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(
+                      0.0138 * _screenSize.width, //5,
+                    ),
                     color: MAIN_ORANGE_COLOR,
                   ),
-                  child: Text('مجموع بن های شما: ${userJeanpointBons.length}'),
+                  child: Text(
+                    'مجموع بن های شما: ${userJeanpointBons.length}',
+                    style: TextStyle(
+                      fontSize: 0.0444 * _screenSize.width, //16,
+                    ),
+                  ),
                 ),
               ),
               Stack(
@@ -73,7 +85,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                     ),
                   ),
                   Container(
-                    height: 180,
+                    height: 0.28 * _screenSize.height, //180,
                     decoration: BoxDecoration(
                       // color: Colors.red,
                       gradient: LinearGradient(
@@ -91,11 +103,15 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                         ],
                       ),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.083 * _screenSize.width, //30
+                    ),
                     child: Text(
                       'جهت استفاده بن ها پس از افزودن کالا به سبد خرید در قسمت انتخاب پوینت ها و بن ها اقدام کنید.',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(
+                        fontSize: 0.038 * _screenSize.width, //14,
+                      ),
                     ),
                   ),
                 ],
@@ -126,7 +142,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
               // ),
               SizedBox(
                 // height: 0.023 * _screenSize.height, //15
-                height: 110,
+                height: 0.172 * _screenSize.height, //110,
               ),
             ],
           ),

@@ -34,7 +34,9 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
     return Container(
       height: 0.093 * _screenSize.height, //60,
       width: _screenSize.width,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(0.0138 * _screenSize.width //5,
+
+          ),
       margin: EdgeInsets.symmetric(
         horizontal: 0.041 * _screenSize.width, //15,
       ),
@@ -92,7 +94,7 @@ class _MainDetailWidgetState extends State<MainDetailWidget> {
                                 child: VerticalDivider(
                                   color: Colors.grey,
                                   // color: MAIN_BLUE_COLOR,
-                                  thickness: 0.5,
+                                  thickness: 0.00138 * _screenSize.width, //0.5,
                                   indent: 0.023 * _screenSize.height, //15
                                   width: 0.0138 * _screenSize.width, //5
                                 ),

@@ -47,26 +47,31 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(height: 5),
+              SizedBox(height: 0.0078 * _screenSize.height //5,
+                  ),
               Container(
-                height: 50,
+                height: 0.078125 * _screenSize.height, //50,
                 // color: Colors.red,
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.054 * _screenSize.width, //20
+                ),
                 width: _screenSize.width,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Divider(
-                      height: 1,
-                      thickness: 1,
+                      height: 0.001689 * _screenSize.height, //1,
+                      thickness: 0.001689 * _screenSize.height, //1,
                       color: levelColors[levelIndex],
                     ),
                     Container(
-                      height: 35,
-                      width: 110,
+                      height: 0.05468 * _screenSize.height, //35,
+                      width: 0.3055 * _screenSize.width, //110,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(
+                          0.00555 * _screenSize.width, //2,
+                        ),
                         border: Border.all(color: levelColors[levelIndex]),
                         color: Colors.white,
                       ),
@@ -75,12 +80,16 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                         children: [
                           Text(
                             'سطح ',
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                            ),
                           ),
                           Text(
                             levels[levelIndex].title,
                             textDirection: ltrTextDirection,
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                            ),
                           ),
                         ],
                       ),
@@ -89,28 +98,38 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                       right: 0,
                       child: Container(
                         alignment: Alignment.center,
-                        height: 28,
-                        width: 28,
-                        padding: EdgeInsets.all(2),
+                        height: 0.07777 * _screenSize.width, //28
+                        width: 0.07777 * _screenSize.width, //28
+                        padding: EdgeInsets.all(
+                          0.00555 * _screenSize.width, //2,
+                        ),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(
+                            0.138 * _screenSize.width, //50,
+                          ),
                           border: Border.all(color: levelColors[levelIndex]),
                           color: Colors.white,
                         ),
                         child: Text(
                           '${levels[levelIndex].percent}%',
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(
+                            fontSize: 0.0333 * _screenSize.width, //12,
+                          ),
                         ),
                       ),
                     ),
                     Positioned(
                       left: 0,
                       child: Container(
-                          height: 28,
-                          width: 28,
-                          padding: EdgeInsets.all(2),
+                          height: 0.07777 * _screenSize.width, //28
+                          width: 0.07777 * _screenSize.width, //28
+                          padding: EdgeInsets.all(
+                            0.00555 * _screenSize.width, //2,
+                          ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            ),
                             border: Border.all(color: levelColors[levelIndex]),
                             color: Colors.white,
                           ),
@@ -119,17 +138,20 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                                     int.parse(levels[levelIndex].maxPay))
                                 ? Icons.lock_open
                                 : Icons.lock,
-                            size: 18,
+                            size: 0.05 * _screenSize.width, //18,
                           )),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 0.0078 * _screenSize.height //5,
+                  ),
               Column(
                 children: [
                   ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.083 * _screenSize.width, //30
+                      ),
                       itemCount: levels[levelIndex].subtitles.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -150,12 +172,18 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          height: 7,
-                                          width: 7,
-                                          margin: EdgeInsets.all(8),
+                                          height:
+                                              0.0194 * _screenSize.width, //7,
+                                          width:
+                                              0.0194 * _screenSize.width, //7,
+                                          margin: EdgeInsets.all(
+                                              0.022 * _screenSize.width //8,
+
+                                              ),
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
+                                            borderRadius: BorderRadius.circular(
+                                              0.138 * _screenSize.width, //50,
+                                            ),
                                             color: levelColors[levelIndex],
                                           ),
                                         ),
@@ -164,13 +192,18 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                                           child: Text(
                                             levels[levelIndex]
                                                 .descriptions[condIndex],
-                                            style: TextStyle(fontSize: 14),
+                                            style: TextStyle(
+                                              fontSize: 0.038 *
+                                                  _screenSize.width, //14,
+                                            ),
                                           ),
                                         )
                                       ],
                                     ),
                                   ),
-                            SizedBox(height: 2),
+                            SizedBox(
+                              height: 0.003125 * _screenSize.height, //2,
+                            ),
                           ],
                         );
                       })

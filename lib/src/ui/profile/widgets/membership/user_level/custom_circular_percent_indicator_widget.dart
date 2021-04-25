@@ -49,11 +49,12 @@ class _CustomCircularPercentIndicatorWidgetState
     var _screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
-        SizedBox(height: 5),
+        SizedBox(height: 0.0078 * _screenSize.height //5,
+            ),
         CircularPercentIndicator(
           startAngle: 180,
-          radius: 80,
-          lineWidth: 1.5,
+          radius: 0.22 * _screenSize.width, //80,
+          lineWidth: 0.00416 * _screenSize.width, //1.5,
           animation: widget.currentLevelWidgetAnimation,
           restartAnimation: widget.currentLevelWidgetAnimation,
           animationDuration: 2000,
@@ -66,7 +67,8 @@ class _CustomCircularPercentIndicatorWidgetState
           center: AnimatedSwitcher(
             duration: const Duration(milliseconds: 50),
             child: Padding(
-              padding: const EdgeInsets.only(top: 5),
+              padding: EdgeInsets.only(top: 0.0078 * _screenSize.height //5,
+                  ),
               child: Text(
                 '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : ((widget.moneyBuying - double.parse(widget.userLevel.minPay)) / (double.parse(widget.userLevel.maxPay) - double.parse(widget.userLevel.minPay)) * 100).toStringAsFixed(0) : loadPercent} %',
                 style: TextStyle(
@@ -89,7 +91,7 @@ class _CustomCircularPercentIndicatorWidgetState
                 "profile_screen.to_next_level".tr(),
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 12,
+                  fontSize: 0.0333 * _screenSize.width, //12,
                 ),
               ),
               Directionality(
@@ -100,7 +102,7 @@ class _CustomCircularPercentIndicatorWidgetState
                       : '${widget.nextLevel.title}',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    fontSize: 12,
+                    fontSize: 0.0333 * _screenSize.width, //12,
                   ),
                 ),
               ),
