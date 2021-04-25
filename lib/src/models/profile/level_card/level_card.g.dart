@@ -13,15 +13,11 @@ LevelCard _$LevelCardFromJson(Map<String, dynamic> json) {
     perTitle: json['PerTitle'] as String,
     minPay: json['MinPay'] as String,
     maxPay: json['MaxPay'] as String,
+    percent: json['Percent'] as int,
     receiptConditions: json['ReceiptConditions'] as String,
-    subTitleOne: json['SubTitleOne'] as String,
-    descriptionOne: json['DescriptionOne'] as String,
-    subTitleTwo: json['SubTitleTwo'] as String,
-    descriptionTwo: json['DescriptionTwo'] as String,
-    subTitleThree: json['SubTitleThree'] as String,
-    descriptionThree: json['DescriptionThree'] as String,
-    subTitleFour: json['SubTitleFour'] as String,
-    descriptionFour: json['DescriptionFour'] as String,
+    subtitles: (json['Subtitles'] as List)?.map((e) => e as String)?.toList(),
+    descriptions:
+        (json['descriptions'] as List)?.map((e) => e as String)?.toList(),
   );
 }
 
@@ -31,13 +27,8 @@ Map<String, dynamic> _$LevelCardToJson(LevelCard instance) => <String, dynamic>{
       'PerTitle': instance.perTitle,
       'MinPay': instance.minPay,
       'MaxPay': instance.maxPay,
+      'Percent': instance.percent,
       'ReceiptConditions': instance.receiptConditions,
-      'SubTitleOne': instance.subTitleOne,
-      'DescriptionOne': instance.descriptionOne,
-      'SubTitleTwo': instance.subTitleTwo,
-      'DescriptionTwo': instance.descriptionTwo,
-      'SubTitleThree': instance.subTitleThree,
-      'DescriptionThree': instance.descriptionThree,
-      'SubTitleFour': instance.subTitleFour,
-      'DescriptionFour': instance.descriptionFour,
+      'Subtitles': instance.subtitles,
+      'descriptions': instance.descriptions,
     };

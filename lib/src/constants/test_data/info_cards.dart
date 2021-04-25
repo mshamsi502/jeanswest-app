@@ -85,7 +85,7 @@ List<Widget> buildOnlineReturnProcessChildren(Size _screenSize) {
       width: 0.138 * _screenSize.width, //50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
-          0.22 * _screenSize.width, //80,
+         0.0078 * _screenSize.height //5,
         ),
         image: DecorationImage(
           fit: BoxFit.cover,

@@ -13,10 +13,13 @@ LevelCard zeroLevel = LevelCard(
   perTitle: '',
   minPay: '0',
   maxPay: '200000',
+  percent: 0,
   receiptConditions: '',
-  subTitleOne: '',
-  subTitleTwo: '',
-  subTitleThree: '',
+  subtitles: [''],
+  descriptions: [''],
+  // subTitleOne: '',
+  // subTitleTwo: '',
+  // subTitleThree: '',
 );
 // //
 LevelCard blueLevel = LevelCard(
@@ -25,17 +28,30 @@ LevelCard blueLevel = LevelCard(
   perTitle: 'کارت عضویت آبی',
   minPay: '200000',
   maxPay: '1500000',
+  percent: 8,
   receiptConditions: 'اعطای Blue Card در اولین فاکتور بالای ۲۰۰ هزار تومان',
-  subTitleOne: 'دریافت ۸% خرید به‌عنوان اعتبار',
-  descriptionOne:
-      'دریافت ۸ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
-  subTitleTwo: 'معتبر تا پایان فصل آینده',
-  descriptionTwo: '',
-  subTitleThree: 'دریافت هدیه در مناسبت‌ها',
-  descriptionThree:
-      'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
-  subTitleFour: '',
-  descriptionFour: '',
+  subtitles: [
+    'دریافت ۸% خرید به‌عنوان اعتبار',
+    'معتبر تا پایان فصل آینده',
+    'دریافت هدیه در مناسبت‌ها',
+    '',
+  ],
+  descriptions: [
+    'دریافت ۸ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+    '',
+    'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+    '',
+  ],
+  // subTitleOne: 'دریافت ۸% خرید به‌عنوان اعتبار',
+  // descriptionOne:
+  //     'دریافت ۸ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+  // subTitleTwo: 'معتبر تا پایان فصل آینده',
+  // descriptionTwo: '',
+  // subTitleThree: 'دریافت هدیه در مناسبت‌ها',
+  // descriptionThree:
+  //     'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+  // subTitleFour: '',
+  // descriptionFour: '',
 );
 LevelCard bluePlusLevel = LevelCard(
   membership: 'Membership',
@@ -43,17 +59,30 @@ LevelCard bluePlusLevel = LevelCard(
   perTitle: 'کارت عضویت آبی +',
   minPay: '1500000',
   maxPay: '3000000',
+  percent: 10,
   receiptConditions: 'دستیابی به سطح Blue+ با مجموعه خرید ۱,۵۰۰,۰۰۰ تومان',
-  subTitleOne: 'دریافت 10% خرید به‌عنوان اعتبار',
-  descriptionOne:
-      'دریافت ۱۰ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
-  subTitleTwo: 'معتبر تا پایان فصل آینده',
-  descriptionTwo: '',
-  subTitleThree: 'دریافت هدیه در مناسبت‌ها',
-  descriptionThree:
-      'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
-  subTitleFour: '',
-  descriptionFour: '',
+  subtitles: [
+    'دریافت 10% خرید به‌عنوان اعتبار',
+    'معتبر تا پایان فصل آینده',
+    'دریافت هدیه در مناسبت‌ها',
+    '',
+  ],
+  descriptions: [
+    'دریافت ۱۰ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+    '',
+    'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+    '',
+  ],
+  // subTitleOne: 'دریافت 10% خرید به‌عنوان اعتبار',
+  // descriptionOne:
+  //     'دریافت ۱۰ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+  // subTitleTwo: 'معتبر تا پایان فصل آینده',
+  // descriptionTwo: '',
+  // subTitleThree: 'دریافت هدیه در مناسبت‌ها',
+  // descriptionThree:
+  //     'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+  // subTitleFour: '',
+  // descriptionFour: '',
 );
 LevelCard blueTwoPlusLevel = LevelCard(
   membership: 'Membership',
@@ -61,17 +90,30 @@ LevelCard blueTwoPlusLevel = LevelCard(
   perTitle: 'کارت عضویت آبی 2+',
   minPay: '3000000',
   maxPay: '5000000',
+  percent: 12,
   receiptConditions: 'دستیابی به سطح Blue2+ با مجموعه خرید ۳,۰۰۰,۰۰۰ تومان',
-  subTitleOne: 'دریافت 12% خرید به‌عنوان اعتبار',
-  descriptionOne:
-      'دریافت ۱۲ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
-  subTitleTwo: 'معتبر تا پایان فصل آینده',
-  descriptionTwo: '',
-  subTitleThree: 'دریافت هدیه در مناسبت‌ها',
-  descriptionThree:
-      'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
-  subTitleFour: '',
-  descriptionFour: '',
+  subtitles: [
+    'دریافت 12% خرید به‌عنوان اعتبار',
+    'معتبر تا پایان فصل آینده',
+    'دریافت هدیه در مناسبت‌ها',
+    '',
+  ],
+  descriptions: [
+    'دریافت ۱۲ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+    '',
+    'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+    '',
+  ],
+  // subTitleOne: 'دریافت 12% خرید به‌عنوان اعتبار',
+  // descriptionOne:
+  //     'دریافت ۱۲ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+  // subTitleTwo: 'معتبر تا پایان فصل آینده',
+  // descriptionTwo: '',
+  // subTitleThree: 'دریافت هدیه در مناسبت‌ها',
+  // descriptionThree:
+  //     'دریافت هدیه در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+  // subTitleFour: '',
+  // descriptionFour: '',
 );
 
 LevelCard silverLevel = LevelCard(
@@ -80,17 +122,30 @@ LevelCard silverLevel = LevelCard(
   perTitle: 'کارت عضویت نقره ای',
   minPay: '5000000',
   maxPay: '15000000',
+  percent: 15,
   receiptConditions: 'دریافت Silver Card با مجموعه خرید ۵,۰۰۰,۰۰۰ تومان',
-  subTitleOne: 'دریافت 15% خرید به‌عنوان اعتبار',
-  descriptionOne:
-      'دریافت ۱۵ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
-  subTitleTwo: 'معتبر تا پایان فصل آینده',
-  descriptionTwo: '',
-  subTitleThree: 'دریافت هدیه VIP در مناسبت‌ها',
-  descriptionThree:
-      'دریافت هدیه مشتریان VIP در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
-  subTitleFour: 'بالاترین اولویت در اطلاع رسانی',
-  descriptionFour: 'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
+  subtitles: [
+    'دریافت 15% خرید به‌عنوان اعتبار',
+    'معتبر تا پایان فصل آینده',
+    'دریافت هدیه VIP در مناسبت‌ها',
+    'بالاترین اولویت در اطلاع رسانی',
+  ],
+  descriptions: [
+    'دریافت ۱۵ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+    '',
+    'دریافت هدیه مشتریان VIP در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+    'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
+  ],
+  // subTitleOne: 'دریافت 15% خرید به‌عنوان اعتبار',
+  // descriptionOne:
+  //     'دریافت ۱۵ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+  // subTitleTwo: 'معتبر تا پایان فصل آینده',
+  // descriptionTwo: '',
+  // subTitleThree: 'دریافت هدیه VIP در مناسبت‌ها',
+  // descriptionThree:
+  //     'دریافت هدیه مشتریان VIP در مناسبت‌های خاص به صورت اعتبار خرید (Credit)',
+  // subTitleFour: 'بالاترین اولویت در اطلاع رسانی',
+  // descriptionFour: 'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
 );
 LevelCard goldLevel = LevelCard(
   membership: 'VIP',
@@ -98,17 +153,30 @@ LevelCard goldLevel = LevelCard(
   perTitle: 'کارت عضویت طلایی',
   minPay: '15000000',
   maxPay: '100000000000000',
+  percent: 20,
   receiptConditions: 'دریافت GOLD CARD با مجموع خرید ۱۵,۰۰۰,۰۰۰ تومان',
-  subTitleOne: 'دریافت 20% خرید به‌عنوان اعتبار',
-  descriptionOne:
-      'دریافت ۲۰ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
-  subTitleTwo: 'معتبر تا پایان فصل آینده',
-  descriptionTwo: '',
-  subTitleThree: 'دریافت هدیه VIP در مناسبت‌ها',
-  descriptionThree:
-      'دریافت هدیه مشتریان VIP در مناسبت‌های خاص به صورت اعتبار خرید (Credit )',
-  subTitleFour: 'بالاترین اولویت در اطلاع رسانی',
-  descriptionFour: 'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
+  subtitles: [
+    'دریافت 20% خرید به‌عنوان اعتبار',
+    'معتبر تا پایان فصل آینده',
+    'دریافت هدیه VIP در مناسبت‌ها',
+    'بالاترین اولویت در اطلاع رسانی',
+  ],
+  descriptions: [
+    'دریافت ۲۰ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+    '',
+    'دریافت هدیه مشتریان VIP در مناسبت‌های خاص به صورت اعتبار خرید (Credit )',
+    'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
+  ],
+  // subTitleOne: 'دریافت 20% خرید به‌عنوان اعتبار',
+  // descriptionOne:
+  //     'دریافت ۲۰ درصد مبلغ خرید بصورت اعتبار (Credit) و قابل استفاده در خرید از ابتدای ماه بعدی',
+  // subTitleTwo: 'معتبر تا پایان فصل آینده',
+  // descriptionTwo: '',
+  // subTitleThree: 'دریافت هدیه VIP در مناسبت‌ها',
+  // descriptionThree:
+  //     'دریافت هدیه مشتریان VIP در مناسبت‌های خاص به صورت اعتبار خرید (Credit )',
+  // subTitleFour: 'بالاترین اولویت در اطلاع رسانی',
+  // descriptionFour: 'بالاترین اولویت در اطلاع رسانی و خرید در شرایط ویژه فروش',
 );
 // LevelCard infinityLevel = LevelCard(
 //   membership: '',

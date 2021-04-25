@@ -6,11 +6,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
-import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/vertical_linear_level_routing_widget.dart';
-
-import 'level_card_widget.dart';
 
 class LevelCardsInfoWidget extends StatefulWidget {
   final LevelCard userLevel;
@@ -26,88 +25,193 @@ class LevelCardsInfoWidget extends StatefulWidget {
 }
 
 class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
+  List<Color> levelColors = [
+    COLOMBIA_BLUE,
+    MAYA_BLUE,
+    LOCHMARA_BLUE,
+    DARK_GREY,
+    MAIN_GOLD_COLOR,
+  ];
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+
     return Container(
-      color: Colors.white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+      // color: Colors.white,
+      child: ListView.builder(
+        itemCount: levels.length,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int levelIndex) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              VerticalLinearLevelRoutingWidget(
-                userLevel: widget.userLevel,
-                moneyBuying: widget.moneyBuying,
-                screenSize: _screenSize,
-              ),
-              SizedBox(
-                width: 0.027 * _screenSize.width, //10,
-              ),
-              Expanded(
-                child: Container(
-                    child: Column(
+              SizedBox(height: 0.0078 * _screenSize.height //5,
+                  ),
+              Container(
+                height: 0.078125 * _screenSize.height, //50,
+                // color: Colors.red,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.054 * _screenSize.width, //20
+                ),
+                width: _screenSize.width,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    SizedBox(height: 0.016 * _screenSize.height //10
+                    Divider(
+                      height: 0.001689 * _screenSize.height, //1,
+                      thickness: 0.001689 * _screenSize.height, //1,
+                      color: levelColors[levelIndex],
+                    ),
+                    Container(
+                      height: 0.05468 * _screenSize.height, //35,
+                      width: 0.3055 * _screenSize.width, //110,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          0.00555 * _screenSize.width, //2,
                         ),
-                    LevelCardWidget(
-                      levelCard: blueLevel,
-                      isUserLevel: widget.userLevel.title == blueLevel.title,
-                      state: widget.moneyBuying > int.parse(blueLevel.minPay)
-                          ? 'active'
-                          : 'deactive',
+                        border: Border.all(color: levelColors[levelIndex]),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'سطح ',
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                            ),
+                          ),
+                          Text(
+                            levels[levelIndex].title,
+                            textDirection: ltrTextDirection,
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    LevelCardWidget(
-                      levelCard: bluePlusLevel,
-                      isUserLevel:
-                          widget.userLevel.title == bluePlusLevel.title,
-                      state:
-                          widget.moneyBuying > int.parse(bluePlusLevel.minPay)
-                              ? 'active'
-                              : 'deactive',
-                    ),
-                    SizedBox(height: 0.016 * _screenSize.height //10
+                    Positioned(
+                      right: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 0.07777 * _screenSize.width, //28
+                        width: 0.07777 * _screenSize.width, //28
+                        padding: EdgeInsets.all(
+                          0.00555 * _screenSize.width, //2,
                         ),
-                    LevelCardWidget(
-                      levelCard: blueTwoPlusLevel,
-                      isUserLevel:
-                          widget.userLevel.title == blueTwoPlusLevel.title,
-                      state: widget.moneyBuying >
-                              int.parse(blueTwoPlusLevel.minPay)
-                          ? 'active'
-                          : 'deactive',
-                    ),
-                    SizedBox(height: 0.016 * _screenSize.height //10,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            0.138 * _screenSize.width, //50,
+                          ),
+                          border: Border.all(color: levelColors[levelIndex]),
+                          color: Colors.white,
                         ),
-                    LevelCardWidget(
-                      levelCard: silverLevel,
-                      isUserLevel: widget.userLevel.title == silverLevel.title,
-                      state: widget.moneyBuying > int.parse(silverLevel.minPay)
-                          ? 'active'
-                          : 'deactive',
-                    ),
-                    SizedBox(height: 0.016 * _screenSize.height //10
+                        child: Text(
+                          '${levels[levelIndex].percent}%',
+                          style: TextStyle(
+                            fontSize: 0.0333 * _screenSize.width, //12,
+                          ),
                         ),
-                    LevelCardWidget(
-                      levelCard: goldLevel,
-                      isUserLevel: widget.userLevel.title == goldLevel.title,
-                      state: widget.moneyBuying > int.parse(goldLevel.minPay)
-                          ? 'active'
-                          : 'deactive',
+                      ),
                     ),
-                    SizedBox(height: 0.016 * _screenSize.height //10
-                        ),
+                    Positioned(
+                      left: 0,
+                      child: Container(
+                          height: 0.07777 * _screenSize.width, //28
+                          width: 0.07777 * _screenSize.width, //28
+                          padding: EdgeInsets.all(
+                            0.00555 * _screenSize.width, //2,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            ),
+                            border: Border.all(color: levelColors[levelIndex]),
+                            color: Colors.white,
+                          ),
+                          child: Icon(
+                            (widget.moneyBuying >=
+                                    int.parse(levels[levelIndex].maxPay))
+                                ? Icons.lock_open
+                                : Icons.lock,
+                            size: 0.05 * _screenSize.width, //18,
+                          )),
+                    ),
                   ],
-                )),
+                ),
+              ),
+              SizedBox(height: 0.0078 * _screenSize.height //5,
+                  ),
+              Column(
+                children: [
+                  ListView.builder(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.083 * _screenSize.width, //30
+                      ),
+                      itemCount: levels[levelIndex].subtitles.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (BuildContext context, int condIndex) {
+                        return Column(
+                          children: [
+                            levels[levelIndex].descriptions[condIndex] ==
+                                        null ||
+                                    levels[levelIndex]
+                                            .descriptions[condIndex] ==
+                                        ''
+                                ? SizedBox()
+                                : Container(
+                                    // color: Colors.green,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height:
+                                              0.0194 * _screenSize.width, //7,
+                                          width:
+                                              0.0194 * _screenSize.width, //7,
+                                          margin: EdgeInsets.all(
+                                              0.022 * _screenSize.width //8,
+
+                                              ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              0.138 * _screenSize.width, //50,
+                                            ),
+                                            color: levelColors[levelIndex],
+                                          ),
+                                        ),
+                                        // SizedBox(width: 5),
+                                        Expanded(
+                                          child: Text(
+                                            levels[levelIndex]
+                                                .descriptions[condIndex],
+                                            style: TextStyle(
+                                              fontSize: 0.038 *
+                                                  _screenSize.width, //14,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                            SizedBox(
+                              height: 0.003125 * _screenSize.height, //2,
+                            ),
+                          ],
+                        );
+                      })
+                ],
               ),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }

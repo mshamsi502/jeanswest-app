@@ -32,32 +32,108 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      color: F7_BACKGROUND_COLOR,
+      color: Colors.white,
       width: _screenSize.width,
       height: _screenSize.height,
       child: SingleChildScrollView(
         controller: _scrollController,
-        child: Column(
+        child: Stack(
           children: [
-            SizedBox(
-              height: 0.0078 * _screenSize.height, //5,
+            Positioned(
+              bottom: 0,
+              child: Container(
+                width: _screenSize.width,
+                height: 0.38006 * _screenSize.height, //225,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  // color: Colors.red,
+                  color: Colors.white,
+                  image: DecorationImage(
+                    fit: BoxFit.fitWidth,
+                    image: new AssetImage(
+                      'assets/images/png_images/profile/celebrity_level_card.png',
+                    ),
+                  ),
+                ),
+              ),
             ),
-            CurrentLevelWidget(
-              userLevel: widget.userLevel,
-              moneyBuying: widget.moneyBuying,
-              nextLevel: widget.nextLevel,
-              currentLevelWidgetAnimation: currentLevelWidgetAnimation,
+            Positioned(
+              bottom: 0,
+              child: Container(
+                width: _screenSize.width,
+                height: 0.38006 * _screenSize.height, //225,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xccffffff),
+                      Color(0x88ffffff),
+                      Color(0x33ffffff),
+                      Color(0x11ffffff),
+                      Color(0x00ffffff),
+                      Color(0x00ffffff),
+                      Color(0x00ffffff),
+                      Color(0x00ffffff),
+                      Color(0x00ffffff),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            SizedBox(
-              height: 0.0156 * _screenSize.height, //10,
-            ),
-            LevelCardsInfoWidget(
-              userLevel: widget.userLevel,
-              moneyBuying: widget.moneyBuying,
+            Column(
+              children: [
+                SizedBox(
+                  height: 0.0078 * _screenSize.height, //5,
+                ),
+                CurrentLevelWidget(
+                  userLevel: widget.userLevel,
+                  moneyBuying: widget.moneyBuying,
+                  nextLevel: widget.nextLevel,
+                  currentLevelWidgetAnimation: currentLevelWidgetAnimation,
+                ),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 0.054 * _screenSize.width, //20
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 0.011 * _screenSize.height, //7
+                    horizontal: 0.041 * _screenSize.width, //15,
+                  ),
+                  decoration: BoxDecoration(
+                    color: BLUE_SKY_FADE_COLOR,
+                    borderRadius: BorderRadius.circular(
+                      0.00555 * _screenSize.width, //2,
+                    ),
+                  ),
+                  child: Text(
+                    'در ادامه میتونی اطلاعات مربوط به هر سطح رو مطالعه کنی',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 0.038 * _screenSize.width, //14,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 0.0156 * _screenSize.height, //10,
+                ),
+                LevelCardsInfoWidget(
+                  userLevel: widget.userLevel,
+                  moneyBuying: widget.moneyBuying,
+                ),
+                SizedBox(
+                  height: 0.34628 * _screenSize.height, //205,
+                ),
+              ],
             ),
           ],
         ),
       ),
+      // ),
     );
   }
 }

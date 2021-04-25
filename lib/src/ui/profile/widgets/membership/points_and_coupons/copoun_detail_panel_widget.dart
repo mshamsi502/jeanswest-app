@@ -78,7 +78,7 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
             height: 0.023 * _screenSize.height, //15
           ),
           Container(
-            height: 170,
+            height: 0.287162 * _screenSize.height, //170
             child: SingleChildScrollView(
               controller: scrollController,
               child: Column(
@@ -91,59 +91,77 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(width: 10),
+                          SizedBox(
+                            width: 0.027 * _screenSize.width, //10,
+                          ),
                           Container(
-                            height: 7,
-                            width: 7,
+                            height: 0.0194 * _screenSize.width, //7,
+                            width: 0.0194 * _screenSize.width, //7,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
+                              borderRadius: BorderRadius.circular(
+                                0.138 * _screenSize.width, //50,
+                              ),
                               color: MAIN_BLUE_COLOR,
                             ),
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(
+                            width: 0.027 * _screenSize.width, //10,
+                          ),
                           Expanded(
                               child: Text(
                             widget.coupon.description[index],
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: 0.0333 * _screenSize.width, //12,
+                            ),
                           )),
                         ],
                       );
                     },
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.083 * _screenSize.width, //30
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.attach_money,
                           color: Colors.red,
-                          size: 18,
+                          size: 0.05 * _screenSize.width, //18,
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: 0.0138 * _screenSize.width //5,
+                            ),
                         Expanded(
                             child: Text(
                           '${toPriceStyle(widget.coupon.price)} تومان بن خرید برای سبد خرید های بالای ${toPriceStyle(widget.coupon.minShopping)} تومان',
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                            fontSize: 0.038 * _screenSize.width, //14,
+                          ),
                         )),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.083 * _screenSize.width, //30
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.timer_rounded,
                           color: Colors.green,
-                          size: 15,
+                          size: 0.041 * _screenSize.width, //15,
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: 0.0138 * _screenSize.width //5,
+                            ),
                         Expanded(
                             child: Text(
                           'مهلت استفاده تا: ${widget.coupon.dayOfEndDate}-${widget.coupon.monthOfEndDate}-${widget.coupon.yearOfEndDate}',
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                            fontSize: 0.038 * _screenSize.width, //14,
+                          ),
                         )),
                       ],
                     ),
@@ -152,7 +170,9 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.027 * _screenSize.width, //10,
+          ),
           AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
@@ -168,7 +188,9 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
             radius: 0.008 * _screenSize.height, //5
             fontSize: 0.038 * _screenSize.width, //14,
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.027 * _screenSize.width, //10,
+          ),
         ],
       ),
     );

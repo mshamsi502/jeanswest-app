@@ -47,36 +47,28 @@ class _CustomCircularPercentIndicatorWidgetState
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    return Stack(
+    return Column(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          padding: EdgeInsets.only(
-            bottom: 0.0234 * _screenSize.height, //15
-          ),
-          height: 0.203 * _screenSize.height, //130,
-          width: 0.277 * _screenSize.width, //100,
-          // color: Colors.transparent,
-          child: CircularPercentIndicator(
-            startAngle: 225,
-            radius: 0.277 * _screenSize.width, //100,
-            // reverse: true,
-            lineWidth: 0.0083 * _screenSize.width, //3,
-            animation: widget.currentLevelWidgetAnimation,
-            restartAnimation: widget.currentLevelWidgetAnimation,
-            animationDuration: 2000,
-            percent: widget.userLevel.title == 'Gold'
-                ? 0.75
-                : ((widget.moneyBuying -
-                            double.parse(widget.userLevel.minPay)) /
-                        (double.parse(widget.userLevel.maxPay) -
-                            double.parse(widget.userLevel.minPay))) *
-                    0.75,
-            center: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 50),
+        SizedBox(height: 0.0078 * _screenSize.height //5,
+            ),
+        CircularPercentIndicator(
+          startAngle: 180,
+          radius: 0.22 * _screenSize.width, //80,
+          lineWidth: 0.00416 * _screenSize.width, //1.5,
+          animation: widget.currentLevelWidgetAnimation,
+          restartAnimation: widget.currentLevelWidgetAnimation,
+          animationDuration: 2000,
+          percent: widget.userLevel.title == 'Gold'
+              // ? 0.75
+              ? 1
+              : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
+                  (double.parse(widget.userLevel.maxPay) -
+                      double.parse(widget.userLevel.minPay)),
+          center: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 50),
+            child: Padding(
+              padding: EdgeInsets.only(top: 0.0078 * _screenSize.height //5,
+                  ),
               child: Text(
                 '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : ((widget.moneyBuying - double.parse(widget.userLevel.minPay)) / (double.parse(widget.userLevel.maxPay) - double.parse(widget.userLevel.minPay)) * 100).toStringAsFixed(0) : loadPercent} %',
                 style: TextStyle(
@@ -86,48 +78,38 @@ class _CustomCircularPercentIndicatorWidgetState
                 ),
               ),
             ),
-            backgroundColor: Colors.grey,
-            progressColor: Colors.blue,
           ),
+          backgroundColor: Colors.grey,
+          progressColor: Colors.blue,
         ),
-        Positioned(
-          bottom: 0,
-          child: Container(
-            width: 0.277 * _screenSize.width, //100,
-            color: Colors.white,
-            child: Column(
-              children: [
-                Text(
-                  "profile_screen.to_next_level".tr(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 0.03 * _screenSize.width, //11
-                      color: MAIN_BLUE_COLOR),
+        Container(
+          width: 0.277 * _screenSize.width, //100,
+          color: Colors.white,
+          child: Column(
+            children: [
+              Text(
+                "profile_screen.to_next_level".tr(),
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 0.0333 * _screenSize.width, //12,
                 ),
-                Directionality(
-                  textDirection: ltrTextDirection,
-                  child: Text(
-                    widget.userLevel.title == 'Gold'
-                        ? '_____'
-                        : '${widget.nextLevel.title}',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 0.036 * _screenSize.width, //13,
-                        color: widget.userLevel.title == 'Gold'
-                            ? MAIN_BLUE_COLOR
-                            : widget.nextLevel.title == 'Blue'
-                                ? MAIN_BLUE_COLOR
-                                : widget.nextLevel.title == 'Silver'
-                                    ? Colors.grey
-                                    : widget.nextLevel.title == 'Gold'
-                                        ? Color(0xeeD6BC32)
-                                        : Colors.lightBlue),
+              ),
+              Directionality(
+                textDirection: ltrTextDirection,
+                child: Text(
+                  widget.userLevel.title == 'Gold'
+                      ? '_____'
+                      : '${widget.nextLevel.title}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 0.0333 * _screenSize.width, //12,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+        // ),
       ],
     );
   }
