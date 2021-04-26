@@ -65,7 +65,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'ارسال پیام',
+                'ایجاد گفتگو',
                 style: TextStyle(
                   fontSize: 0.042 * _screenSize.width, //15
                 ),
@@ -138,7 +138,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
             height: 0.015 * _screenSize.height, //10
           ),
           AvakatanButtonWidget(
-            title: 'ثبت پیام',
+            title: 'ایجاد',
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
             borderColor: MAIN_BLUE_COLOR,

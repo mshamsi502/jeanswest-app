@@ -7,6 +7,8 @@
 import 'dart:ui';
 
 import 'package:get_it/get_it.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-data.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart';
 
 const String TOKEN = 'token';
 const String BASE_URL_FOR_BRANCH_ADDRESS = 'https://jeanswest.club';
@@ -36,3 +38,15 @@ bool showCompeletProfileMessage = false;
 GetIt globalLocator = GetIt.instance;
 // GetIt jeanswestAuthLocator = GetIt.instance;
 // GetIt jeanswestUnAuthLocator = GetIt.instance;
+
+ContactUsData contactUsInfo = ContactUsData(
+  addresses: '',
+  phone: '',
+  fax: '',
+);
+List<FAQData> faqData = [
+  FAQData(
+    question: '',
+    answer: '',
+  ),
+];

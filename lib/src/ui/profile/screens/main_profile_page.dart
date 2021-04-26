@@ -426,8 +426,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                                           userInvite.someOfInstallFromInvited,
                                       someOfShoppingFromInvited:
                                           userInvite.someOfShoppingFromInvited,
-                                      queFaq: friendsQueFaq,
-                                      ansFaq: friendsAnsFaq,
+                                      faq: faqData,
                                       // screenSize: _screenSize,
                                     ),
                                   ),

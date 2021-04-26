@@ -6,42 +6,42 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'general_response.g.dart';
+part 'contact-us-data.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class GeneralRespons extends Equatable {
-  @JsonKey(name: 'statusCode')
-  int statusCode;
-  @JsonKey(name: 'message')
-  String message;
-  @JsonKey(name: 'data')
-  dynamic data;
+class ContactUsData extends Equatable {
+  @JsonKey(name: 'addresses')
+  String addresses;
+  @JsonKey(name: 'phone')
+  String phone;
+  @JsonKey(name: 'fax')
+  String fax;
 
-  GeneralRespons({
-    this.statusCode,
-    this.message,
-    this.data,
+  ContactUsData({
+    this.addresses,
+    this.phone,
+    this.fax,
   });
 
-  factory GeneralRespons.fromJson(Map<String, dynamic> json) =>
-      _$GeneralResponsFromJson(json);
+  factory ContactUsData.fromJson(Map<String, dynamic> json) =>
+      _$ContactUsDataFromJson(json);
 
   // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
-  Map<String, dynamic> toJson() => _$GeneralResponsToJson(this);
+  Map<String, dynamic> toJson() => _$ContactUsDataToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'statusCode': statusCode,
-      'message': message,
-      'data': data,
+      'addresses': addresses,
+      'phone': phone,
+      'fax': fax,
     };
   }
 
   @override
   List<Object> get props => [
-        statusCode,
-        message,
-        data,
+        addresses,
+        phone,
+        fax,
       ];
 }

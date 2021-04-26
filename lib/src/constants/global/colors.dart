@@ -20,6 +20,8 @@ const Color COLOMBIA_BLUE = Color(0xff9EF9FC); // Columbia Blue
 const Color MAYA_BLUE = Color(0xff44BFFF); // Maya Blue
 const Color LOCHMARA_BLUE = Color(0xff3C6AAE); // Lochmara
 //
+const Color TURQUOISE_BLUE_COLOR = Color(0xff5DDDD3); // Turquoise Blue
+//
 // ! BLACK, GREY, WHITE
 const Color F7_BACKGROUND_COLOR = Color(0xfff7f7f7);
 const Color F2_BACKGROUND_COLOR = Color(0xfff2f2f2);

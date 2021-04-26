@@ -3,27 +3,24 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
-import 'package:jeanswest/src/models/profile/message/user_ticket/ticket_message.dart';
-import 'package:jeanswest/src/models/profile/message/user_ticket/user_ticket.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/single-ticket/single-ticket.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
 void addTicketToUserTicket(String title, String text) {
-  userTickets.add(UserTicket(
+  userTickets.add(
+    DataTicket(
       title: title,
-      message: [
-        TicketMessage(
-          title: user.firstName,
+      context: [
+        SingleTicket(
           text: text,
-          yearOfSend: DateTime.now().year.toString(),
-          monthOfSend: DateTime.now().month.toString(),
-          dayOfSend: DateTime.now().day.toString(),
-          hourOfSend: DateTime.now().hour.toString(),
-          minOfSend: DateTime.now().minute.toString(),
-          isUser: true,
+          owner: 'customer',
+          createdAt: DateTime.now().toString(),
         ),
       ],
-      isClosed: false));
+      status: 1,
+    ),
+  );
   print('******* message sended !');
   print('title : $title');
   print('text : $text');
@@ -31,18 +28,13 @@ void addTicketToUserTicket(String title, String text) {
 }
 
 void addNewMessageInTicket(int numberOfTicket, String text) {
-  TicketMessage newMessage = new TicketMessage(
-    title: user.firstName,
+  SingleTicket newMessage = new SingleTicket(
     text: text,
-    yearOfSend: DateTime.now().year.toString(),
-    monthOfSend: DateTime.now().month.toString(),
-    dayOfSend: DateTime.now().day.toString(),
-    hourOfSend: DateTime.now().hour.toString(),
-    minOfSend: DateTime.now().minute.toString(),
-    isUser: true,
+    owner: 'customer',
+    createdAt: DateTime.now().toString(),
   );
 
-  userTickets[numberOfTicket].message.add(newMessage);
+  userTickets[numberOfTicket].context.add(newMessage);
   // print(
   //     'send message at ${DateTime.now().year}.${DateTime.now().month}.${DateTime.now().day} - ${DateTime.now().hour}:${DateTime.now().minute} :   $text');
   //

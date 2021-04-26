@@ -3,13 +3,10 @@
 // *   Created Date & Time:  2021-01-03  ,  17:25 AM
 // ****************************************************************************
 
-import 'package:extended_text/extended_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:drop_cap_text/drop_cap_text.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class InfoCardWidget extends StatefulWidget {
   final List<String> text;

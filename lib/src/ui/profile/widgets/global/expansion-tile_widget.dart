@@ -9,16 +9,15 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 import 'package:jeanswest/src/constants/global/colors.dart'; // im
+import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart'; // im
 
 class ExpansionTileWidget extends StatefulWidget {
   final String title;
-  final List<String> que;
-  final List<String> ans;
+  final List<FAQData> faq;
 
   const ExpansionTileWidget({
     Key key,
-    this.que,
-    this.ans,
+    this.faq,
     this.title,
   }) : super(key: key);
   State<StatefulWidget> createState() => _ExpansionTileWidgetState();
@@ -50,7 +49,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
               : SizedBox(),
           ListView.builder(
             physics: NeverScrollableScrollPhysics(),
-            itemCount: widget.que.length,
+            itemCount: widget.faq.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               return Column(
@@ -73,7 +72,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                           ),
                           Expanded(
                             child: Text(
-                              widget.que[index],
+                              widget.faq[index].question,
                               style: TextStyle(
                                   fontSize: 0.036 * _screenSize.width // 13
                                   ),
@@ -116,7 +115,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                           ),
                           Expanded(
                             child: Text(
-                              widget.que[index],
+                              widget.faq[index].question,
                               style: TextStyle(
                                   fontSize: 0.036 * _screenSize.width // 13
                                   ),
@@ -142,7 +141,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                             ),
                         alignment: Alignment.centerRight,
                         child: Text(
-                          widget.ans[index],
+                          widget.faq[index].answer,
                           style: TextStyle(
                             fontSize: 0.0333 * _screenSize.width, //12,
                             color: Colors.grey,

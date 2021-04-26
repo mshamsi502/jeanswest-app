@@ -175,14 +175,14 @@ class ProfileSvgImages {
 // -----------------------------------------------------
 //
 
-  static Widget blueSendToRightIcon = SvgPicture.asset(
+  static Widget blueSendToLeftIcon = SvgPicture.asset(
     'assets/images/svg_images/profile/more/send.svg',
     color: MAIN_BLUE_COLOR,
     // height: 20,
     // width: 20,
   );
-  static Widget blueSendToLeftIcon = RotatedBox(
-    quarterTurns: -3,
+  static Widget blueSendToRightIcon = RotatedBox(
+    quarterTurns: -2,
     child: SvgPicture.asset(
       'assets/images/svg_images/profile/more/send.svg',
       color: MAIN_BLUE_COLOR,
@@ -191,13 +191,13 @@ class ProfileSvgImages {
     ),
   );
 
-  static Widget greySendToRightIcon = SvgPicture.asset(
+  static Widget greySendToLeftIcon = SvgPicture.asset(
     'assets/images/svg_images/profile/more/send.svg',
-    color: Colors.grey[300],
+    color: Colors.grey[700],
     // height: 20,
     // width: 20,
   );
-  static Widget greySendToLeftIcon = RotatedBox(
+  static Widget greySendToRightIcon = RotatedBox(
     quarterTurns: -3,
     child: SvgPicture.asset(
       'assets/images/svg_images/profile/more/send.svg',
@@ -213,5 +213,10 @@ class ProfileSvgImages {
   );
   static Widget delivery = SvgPicture.asset(
     'assets/images/svg_images/profile/more/delivery.svg',
+  );
+  static Widget profileOperator = SvgPicture.asset(
+    'assets/images/svg_images/profile/more/profile-operator.svg',
+    height: 20,
+    width: 20,
   );
 }

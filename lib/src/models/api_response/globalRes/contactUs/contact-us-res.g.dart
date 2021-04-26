@@ -1,20 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'general_response.dart';
+part of 'contact-us-res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GeneralRespons _$GeneralResponsFromJson(Map<String, dynamic> json) {
-  return GeneralRespons(
+ContactUsRes _$ContactUsResFromJson(Map<String, dynamic> json) {
+  return ContactUsRes(
     statusCode: json['statusCode'] as int,
     message: json['message'] as String,
-    data: json['data'],
+    data: json['data'] == null
+        ? null
+        : ContactUsData.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 
-Map<String, dynamic> _$GeneralResponsToJson(GeneralRespons instance) =>
+Map<String, dynamic> _$ContactUsResToJson(ContactUsRes instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'message': instance.message,

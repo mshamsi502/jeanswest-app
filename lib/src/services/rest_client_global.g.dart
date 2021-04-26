@@ -244,6 +244,60 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<UserTicketsRes> getUserTicketsInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3005/api/v1/ticket/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTicketsRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ContactUsRes> getContactUsInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3005/api/v1/contact-us/contact-info',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ContactUsRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<FAQRes> getFAQInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3005/api/v1/faq/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = FAQRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<ListOfProductsRes> getAddToCardProductDetailInfo(barcode) async {
     ArgumentError.checkNotNull(barcode, 'barcode');
     const _extra = <String, dynamic>{};

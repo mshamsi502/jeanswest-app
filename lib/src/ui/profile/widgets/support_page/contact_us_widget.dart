@@ -3,17 +3,25 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-data.dart';
 
 class ContactUsWidget extends StatefulWidget {
   final String headerAsset;
+  final ContactUsData contactUs;
 
-  const ContactUsWidget({Key key, this.headerAsset}) : super(key: key);
+  const ContactUsWidget({
+    Key key,
+    this.headerAsset,
+    this.contactUs,
+  }) : super(key: key);
   State<StatefulWidget> createState() => _ContactUsWidgetState();
 }
 
@@ -30,9 +38,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: 0.054 * _screenSize.width, //20
-      ),
+      // margin: EdgeInsets.symmetric(
+      //   horizontal: 0.054 * _screenSize.width, //20
+      // ),
       color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
@@ -56,6 +64,128 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
             SizedBox(
               height: 0.031 * _screenSize.height, //20,
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: DottedBorder(
+                dashPattern: [10, 5],
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                  width: _screenSize.width,
+                  alignment: Alignment.center,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        bottom: 20,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          height: 200,
+                          width: _screenSize.width,
+                          decoration: BoxDecoration(
+                            // color: Colors.red,
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: new AssetImage(
+                                  'assets/images/png_images/profile/more/contact_us.png'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            width: 210,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: BLUE_SKY_FADE_COLOR,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(widget.contactUs.addresses),
+                                SizedBox(width: 5),
+                                Icon(Icons.sms_outlined),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            width: 140,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: BLUE_SKY_FADE_COLOR,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(widget.contactUs.phone),
+                                SizedBox(width: 5),
+                                Icon(Icons.phone_outlined),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            width: 140,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              color: BLUE_SKY_FADE_COLOR,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(widget.contactUs.fax),
+                                SizedBox(width: 5),
+                                Icon(Icons.apartment),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 150),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 0.033 * _screenSize.width, //12
+                                width: 0.033 * _screenSize.width, //12
+                                child: GlobalSvgImages.greyTimeIcon,
+                              ),
+                              SizedBox(
+                                width: 0.014 * _screenSize.width, //5
+                              ),
+                              Text(
+                                'میزبان صدای گرمتان هستیم... 7 روز هفته 24 ساعته',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 0.027 * _screenSize.width, //10
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        bottom: 10,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          width: _screenSize.width,
+                          color: Colors.red,
+                          // child:
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            //
             Container(
               padding: EdgeInsets.symmetric(
                 vertical: 0.03125 * _screenSize.height, //20
@@ -147,18 +277,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
             SizedBox(
               height: 0.031 * _screenSize.height, //20,
             ),
-            Container(
-              height: 0.28 * _screenSize.height, //180,
-              width: _screenSize.width,
-              decoration: BoxDecoration(
-                // color: Colors.red,
-                image: DecorationImage(
-                  fit: BoxFit.contain,
-                  image: new AssetImage(
-                      'assets/images/png_images/profile/more/contact_us.png'),
-                ),
-              ),
-            ),
+
             Divider(
               height: 0.00138 * _screenSize.height, //0.5,
               thickness: 0.00138 * _screenSize.height, //0.5,

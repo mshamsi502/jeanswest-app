@@ -8,6 +8,10 @@ import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-frien
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
+//
+import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
 //
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
@@ -15,6 +19,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/coupon/coupon.dart';
 //
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -68,6 +73,7 @@ Future<void> getAllUserInfo({String token}) async {
   // ! ==> get and create successfully UserFavoriteInfo
 
   userOrders = await globalLocator<GlobalRestClient>().getUserOrdersInfo();
+  print('***************************************************************');
   print(
       '_=_ get successfully, offlineOrders length: ${userOrders.data.offlineOrders.length}');
   print(
@@ -78,6 +84,15 @@ Future<void> getAllUserInfo({String token}) async {
       '_=_ get successfully, returnedOrders length: ${userOrders.data.returnedOrders.length}');
   print(
       '_=_ first offlineOrders code: ${userOrders.data.offlineOrders[0].code}');
+  // ! ==> get and create successfully UserFavoriteInfo
+  //
+  UserTicketsRes userTicketsRes =
+      await globalLocator<GlobalRestClient>().getUserTicketsInfo();
+  userTickets = userTicketsRes.data;
+  print('***************************************************************');
+  print('_=_ get successfully, userTickets length: ${userTickets.length}');
+  print('_=_ get successfully, first userTickets code: ${userTickets[0].code}');
+
   // ! ==> get and create successfully UserFavoriteInfo
   //
 
@@ -102,6 +117,21 @@ Future<void> getAllUserInfo({String token}) async {
   print(
       '_=_ get successfully userJeanpointBons length: ${userJeanpointBons.length}');
   print('_=_  first userJeanpointBons code: ${userJeanpointBons[0].code}');
+  // ! ==> get and create successfully UserFavoriteInfo
+  //
+  // List<String>
+
+  ContactUsRes contactUsRes =
+      await globalLocator<GlobalRestClient>().getContactUsInfo();
+  contactUsInfo = contactUsRes.data;
+
+  print('_=_ get successfully contactUsInfo phone: ${contactUsInfo.phone}');
+  // ! ==> get and create successfully UserFavoriteInfo
+
+  FAQRes faqRes = await globalLocator<GlobalRestClient>().getFAQInfo();
+  faqData = faqRes.data;
+
+  print('_=_ get successfully contactUsInfo phone: ${contactUsInfo.phone}');
   // ! ==> get and create successfully UserFavoriteInfo
 }
 

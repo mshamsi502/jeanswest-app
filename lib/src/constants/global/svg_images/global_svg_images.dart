@@ -17,7 +17,7 @@ class GlobalSvgImages {
 
   static Widget rightIcon = SvgPicture.asset(
     'assets/images/svg_images/global/back_icon.svg',
-    color: MAIN_BLUE_COLOR,
+    // color: MAIN_BLUE_COLOR,
     width: 20,
     height: 20,
   );
@@ -26,7 +26,7 @@ class GlobalSvgImages {
     quarterTurns: -2,
     child: SvgPicture.asset(
       'assets/images/svg_images/global/back_icon.svg',
-      color: MAIN_BLUE_COLOR,
+      // color: MAIN_BLUE_COLOR,
       width: 20,
       height: 20,
     ),

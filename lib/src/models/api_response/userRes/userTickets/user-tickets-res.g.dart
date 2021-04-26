@@ -1,20 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'general_response.dart';
+part of 'user-tickets-res.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GeneralRespons _$GeneralResponsFromJson(Map<String, dynamic> json) {
-  return GeneralRespons(
+UserTicketsRes _$UserTicketsResFromJson(Map<String, dynamic> json) {
+  return UserTicketsRes(
     statusCode: json['statusCode'] as int,
     message: json['message'] as String,
-    data: json['data'],
+    data: (json['data'] as List)
+        ?.map((e) =>
+            e == null ? null : DataTicket.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
-Map<String, dynamic> _$GeneralResponsToJson(GeneralRespons instance) =>
+Map<String, dynamic> _$UserTicketsResToJson(UserTicketsRes instance) =>
     <String, dynamic>{
       'statusCode': instance.statusCode,
       'message': instance.message,

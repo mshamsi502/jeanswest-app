@@ -5,12 +5,9 @@
 
 import 'dart:ui';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class AppBarWithBackWidget extends StatefulWidget {
   final String title;
@@ -51,11 +48,13 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                     Container(
                       height: 0.111 * _screenSize.width, //40,
                       width: 0.111 * _screenSize.width, //40,
-                      padding: EdgeInsets.all(0.016 * _screenSize.height //10
-                          ),
-                      child: context.locale.toString() == 'en_US'
-                          ? GlobalSvgImages.leftIcon
-                          : GlobalSvgImages.rightIcon,
+                      // padding: EdgeInsets.all(0.016 * _screenSize.height //10
+                      //     ),
+                      child: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: Colors.black87,
+                        size: 28,
+                      ),
                     ),
                   ],
                 ),
@@ -67,9 +66,9 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
             child: Text(
               widget.title,
               style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 0.042 * _screenSize.width, //15,
-                  color: MAIN_BLUE_COLOR),
+                // fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -79,9 +78,9 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                 child: Container(
                   height: 0.138 * _screenSize.width, //50,
                   width: 0.138 * _screenSize.width, //50,
-                  padding: EdgeInsets.all(
-                    0.027 * _screenSize.width, //10,
-                  ),
+                  // padding: EdgeInsets.all(
+                  //   0.027 * _screenSize.width, //10,
+                  // ),
                   child: widget.option,
                 ),
                 onTap: () {},

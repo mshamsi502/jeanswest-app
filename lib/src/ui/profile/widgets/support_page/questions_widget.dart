@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/ui/profile/widgets/global/expansion-tile_widget.dart';
 
@@ -47,8 +48,7 @@ class _QuestionsWidgetState extends State<QuestionsWidget> {
               height: 0.031 * _screenSize.height, //20,
             ),
             ExpansionTileWidget(
-              que: questionStrings,
-              ans: answerStrings,
+              faq: faqData,
             ),
           ],
         ),
