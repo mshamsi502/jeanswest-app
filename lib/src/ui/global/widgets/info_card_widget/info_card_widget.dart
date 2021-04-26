@@ -3,9 +3,13 @@
 // *   Created Date & Time:  2021-01-03  ,  17:25 AM
 // ****************************************************************************
 
+import 'package:extended_text/extended_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:drop_cap_text/drop_cap_text.dart';
+import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class InfoCardWidget extends StatefulWidget {
   final List<String> text;
@@ -13,6 +17,7 @@ class InfoCardWidget extends StatefulWidget {
   final String imagePAth;
   final TextDirection customDirection;
   final Size screenSize;
+  final bool isEven;
 
   InfoCardWidget({
     Key key,
@@ -21,6 +26,7 @@ class InfoCardWidget extends StatefulWidget {
     this.customDirection,
     this.icon,
     this.screenSize,
+    this.isEven,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _InfoCardWidgetState();
@@ -32,9 +38,15 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
   Widget body;
   Size size;
   var keyContext;
+  String totalText;
 
   @override
   void initState() {
+    totalText = '';
+    for (int i = 0; i < widget.text.length; i++) {
+      totalText = '$totalText${i == 0 ? '' : '\n'}${widget.text[i]}';
+    }
+    print(totalText);
     WidgetsBinding.instance.addPostFrameCallback((_) => getSize());
     imageSize = 0.27 * widget.screenSize.width; //100,
     super.initState();
@@ -71,85 +83,45 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            spreadRadius: -8,
-            blurRadius: 13,
-            offset: Offset(0, 3), // changes position of shadow
+            spreadRadius: 0.0138 * _screenSize.width, //5,
+            blurRadius: 0.022 * _screenSize.width, //8,
+            color: Colors.grey[200],
+            offset: Offset(
+              0,
+              0.0083 * _screenSize.width, //3,
+            ), // changes position of shadow
           ),
         ],
       ),
       child: Directionality(
         textDirection: widget.customDirection,
-        // textDirection: ltrTextDirection,
-        // textDirection: rtlTextDirection,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  ListView.builder(
-                    itemCount: widget.text.length,
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                            bottom: 0.0078 * _screenSize.height //5,
-                            ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            widget.icon == null ||
-                                    index >= widget.icon.length ||
-                                    widget.icon[index] == null
-                                ? Container()
-                                : Row(
-                                    children: [
-                                      widget.icon[index],
-                                      SizedBox(
-                                          width: 0.0138 * _screenSize.width //5,
-                                          ),
-                                    ],
-                                  ),
-                            Expanded(
-                              child: Text(
-                                widget.text[index],
-                                style: TextStyle(
-                                  fontSize: 0.027 * _screenSize.width, //10
-                                ),
-                                textDirection: rtlTextDirection,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 0.027 * _screenSize.width, //10,
-            ),
-            Container(
-              height: imageSize,
-              width: imageSize,
-              // child: SvgPicture.asset(
-              //   'assets/images/svg_images/profile/more/family_trust.svg',
-              // ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  0.22 * _screenSize.width, //80,
+        child: DropCapText(
+          totalText,
+          // textAlign: TextAlign.justify,
+          mode: DropCapMode.baseline,
+          style: TextStyle(
+            fontFamily: 'IRANSans',
+            fontSize: 0.038 * _screenSize.width, //14,
+            height: 1.5, //0.0023 * _screenSize.height, //1.5,
+          ),
+          textDirection: rtlTextDirection,
+          dropCapPosition:
+              widget.isEven ? DropCapPosition.start : DropCapPosition.end,
+          dropCapPadding: EdgeInsets.all(
+            0.0138 * _screenSize.width, //5,
+          ),
+
+          dropCap: DropCap(
+            width: 0.33333 * _screenSize.width, //120,
+            height: 0.33333 * _screenSize.width, //120,
+            child: Container(
+                padding: EdgeInsets.all(
+                  0.027 * _screenSize.width, //10,
                 ),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: new AssetImage(
-                    widget.imagePAth,
-                  ),
-                ),
-              ),
-            ),
-          ],
+                child: Image.asset(widget.imagePAth)),
+          ),
+          //   );
+          // },
         ),
       ),
     );

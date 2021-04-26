@@ -150,13 +150,15 @@ class _MainProfilePageState extends State<MainProfilePage>
         body: SingleChildScrollView(
           controller: scrollController,
           child: Container(
+            // color: Colors.red,
             child: Column(
               children: [
                 widget.isAuth
                     ? Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 0.027 * _screenSize.width,
-                          horizontal: 0.041 * _screenSize.width, //15,
+                        padding: EdgeInsets.only(
+                          top: 0.027 * _screenSize.width,
+                          left: 0.041 * _screenSize.width, //15,
+                          right: 0.041 * _screenSize.width, //15,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,12 +166,12 @@ class _MainProfilePageState extends State<MainProfilePage>
                           children: [
                             AvakatanButtonWidget(
                               icon: SizedBox(
-                                  height: 0.055 * _screenSize.width,
-                                  width: 0.055 * _screenSize.width,
+                                  height: 0.069 * _screenSize.width, //25,
+                                  width: 0.069 * _screenSize.width, //25,
                                   child: ProfileSvgImages.horMoreIcon),
                               backgroundColor: Colors.white,
-                              height: 0.09 * _screenSize.width,
-                              width: 0.09 * _screenSize.width,
+                              height: 0.111 * _screenSize.width, //40,
+                              width: 0.111 * _screenSize.width, //40,
                               textColor: MAIN_BLUE_COLOR,
                               radius: 0.138 * _screenSize.width, //50,
                               borderColor: Colors.grey[200],
@@ -186,12 +188,12 @@ class _MainProfilePageState extends State<MainProfilePage>
                               children: [
                                 AvakatanButtonWidget(
                                   icon: SizedBox(
-                                      height: 0.055 * _screenSize.width,
-                                      width: 0.055 * _screenSize.width,
+                                      height: 0.069 * _screenSize.width, //25,
+                                      width: 0.069 * _screenSize.width, //25,
                                       child: ProfileSvgImages.notificationIcon),
                                   backgroundColor: Colors.white,
-                                  height: 0.09 * _screenSize.width,
-                                  width: 0.09 * _screenSize.width,
+                                  height: 0.111 * _screenSize.width, //40,
+                                  width: 0.111 * _screenSize.width, //40,
                                   textColor: MAIN_BLUE_COLOR,
                                   radius: 0.138 * _screenSize.width, //50,
                                   borderColor: Colors.grey[200],
@@ -233,7 +235,6 @@ class _MainProfilePageState extends State<MainProfilePage>
                         margin: EdgeInsets.symmetric(
                           horizontal: 0.041 * _screenSize.width, //15,
                         ),
-                        height: 0.19425 * _screenSize.height, //115,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(
@@ -379,7 +380,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                       )
                     : SizedBox(),
                 SizedBox(
-                  height: 0.03125 * _screenSize.height, //20
+                  height: 0.016 * _screenSize.height, //10
                 ),
                 Container(
                   margin: EdgeInsets.symmetric(
@@ -436,6 +437,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                           : Container()
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
                 ),
                 GestureDetector(
                   child: MembershipCardWidget(

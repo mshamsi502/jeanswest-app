@@ -83,7 +83,7 @@ List<Widget> createMoreListMenuPages() {
   List<Widget> profileListMenu = new List<Widget>();
   profileListMenu.add(SupportPage());
   profileListMenu.add(AboutUsPage());
-  profileListMenu.add(ReturnProcessPage());
+  profileListMenu.add(ReturnProcessPage(initialTab: 0));
   return profileListMenu;
 }
 

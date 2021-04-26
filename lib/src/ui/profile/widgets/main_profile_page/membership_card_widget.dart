@@ -30,8 +30,10 @@ class MembershipCardWidget extends StatefulWidget {
 
 class _MembershipCardWidgetState extends State<MembershipCardWidget> {
   List<int> index = [];
+  int showingCard;
   @override
   void initState() {
+    showingCard = 0;
     for (var i = 0; i < assetsLevelCard.length; i++) index.add(i);
     super.initState();
   }
@@ -40,38 +42,97 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
       color: Colors.white,
-      child: CarouselSlider(
-        options: CarouselOptions(
-          height: 0.33 * _screenSize.width, // 120
-          viewportFraction: 0.5,
-          initialPage: 0,
-          enableInfiniteScroll: true,
-          autoPlay: true,
-          autoPlayInterval: Duration(seconds: 4),
-          autoPlayAnimationDuration: Duration(milliseconds: 1000),
-          autoPlayCurve: Curves.fastOutSlowIn,
-          enlargeCenterPage: true,
-          scrollDirection: Axis.horizontal,
-        ),
-        items: index.map((i) {
-          return Builder(
-            builder: (BuildContext context) {
-              return Container(
-                alignment: Alignment.topCenter,
-                height: 0.33 * _screenSize.width, // 120
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    fit: BoxFit.contain,
-                    image: new AssetImage(assetsLevelCard.elementAt(i)),
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              padding: EdgeInsets.only(
+                right: 0.041 * _screenSize.width, //15,
+                top: 0.023 * _screenSize.height, //15
+              ),
+              child: Text(
+                'معرفی کارت های عضویت جین وست',
+                style: TextStyle(
+                  fontSize: 0.038 * _screenSize.width, //14,
+                  fontWeight: FontWeight.w500,
                 ),
-              );
-            },
-          );
-        }).toList(),
+              )),
+          Container(
+            margin: EdgeInsets.symmetric(
+              vertical: 0.016 * _screenSize.height, //10
+            ),
+            color: Colors.white,
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: 0.33 * _screenSize.width, // 120
+                viewportFraction: 0.45,
+                initialPage: showingCard,
+                enableInfiniteScroll: true,
+                onPageChanged: (int index, CarouselPageChangedReason reason) {
+                  setState(() {
+                    showingCard = index;
+                  });
+                },
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 4),
+                autoPlayAnimationDuration: Duration(milliseconds: 1000),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enlargeCenterPage: true,
+                scrollDirection: Axis.horizontal,
+              ),
+              items: index.map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Stack(
+                      children: [
+                        Container(
+                          alignment: Alignment.bottomLeft,
+                          height: 0.33 * _screenSize.width, // 120
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              0.027 * _screenSize.width, //10,
+                            ),
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image:
+                                  new AssetImage(assetsLevelCard.elementAt(i)),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: showingCard == i
+                              ? 0.016 * _screenSize.height //10
+                              : 0.008 * _screenSize.height, //5
+                          left: showingCard == i
+                              ? 0.027 * _screenSize.width //10
+                              : 0.054 * _screenSize.width, //20
+                          child: Row(
+                            children: [
+                              Text(
+                                'اطلاعات بیشتر',
+                                style: TextStyle(
+                                  color: i == 0 ? Colors.white : Colors.black,
+                                  fontSize: 0.027 * _screenSize.width, //10,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Icon(
+                                Icons.chevron_right,
+                                size: 0.05 * _screenSize.width, //18,
+                                color: i == 0 ? Colors.white : Colors.black,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
