@@ -49,7 +49,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                 margin: EdgeInsets.symmetric(
                     horizontal: 0.022 * _screenSize.width //8,
                     ),
-                height: 0.328 * _screenSize.height,
+                height: 0.37162 * _screenSize.height, //220,
                 decoration: BoxDecoration(
                   // color: Colors.red,
                   borderRadius: BorderRadius.circular(
@@ -71,115 +71,134 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                 child: Stack(
                   children: [
                     Positioned(
-                      bottom: 0.121621 * _screenSize.height, //72,
+                      bottom: 0.119932 * _screenSize.height, //71,
                       left: 0,
                       right: 0,
                       child: Divider(
-                        height: 0.001689 * _screenSize.height, //1,
-                        thickness: 0.001689 * _screenSize.height, //1,
+                        height: 0.00416 * _screenSize.width, //1.5,
+                        thickness: 0.00416 * _screenSize.width, //1.5,
                         color: MAIN_BLUE_COLOR,
                       ),
                     ),
                     Column(
                       children: [
-                        Expanded(flex: 1, child: SizedBox()),
-                        Row(
-                          children: [
-                            Expanded(flex: 1, child: SizedBox()),
-                            Expanded(
-                              flex: 50,
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 0.0625 * _screenSize.height, //40
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 20,
-                                        child: SizedBox(),
-                                      ),
-                                      // Expanded(
-                                      //   flex: 50,
-                                      //   child:
-                                      Container(
-                                        height:
-                                            0.075 * _screenSize.height, //45,
-                                        width:
-                                            0.33333 * _screenSize.width, //120,
-                                        decoration: BoxDecoration(
-                                          // color: Colors.redAccent,
-                                          image: DecorationImage(
-                                            fit: BoxFit.contain,
-                                            image: AssetImage(
-                                                'assets/images/png_images/global/jeanswest_logo.png'),
-                                          ),
-                                        ),
-                                      ),
-                                      // ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: SizedBox(),
-                                      ),
-                                    ],
-                                  ),
-                                  // SizedBox(
-                                  //   height: 5,
-                                  // ),
-                                  Container(
-                                    color: Colors.white,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          0.0138 * _screenSize.width, //5,
-                                    ),
-                                    child: AvakatanButtonWidget(
-                                      title: 'نمایش سطح عضویت',
-                                      fontSize: 0.038 * _screenSize.width, //14,
-                                      backgroundColor: MAIN_BLUE_COLOR,
-                                      textColor: Colors.white,
-                                      borderColor: MAIN_BLUE_COLOR,
-                                      height: 0.059 * _screenSize.height,
-                                      width:
-                                          0.402777 * _screenSize.width, //145,
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => TabBarViewPage(
-                                            title: 'سطح عضویت',
-                                            selectedTab: 0,
-                                            tabTitles: [
-                                              'سطح عضویت من',
-                                              ' جین پوینت ها و بن ها',
-                                            ],
-                                            tabWidgets: [
-                                              MembershipLevelPage(
-                                                userLevel: widget.userLevel,
-                                                nextLevel: widget.nextLevel,
-                                                moneyBuying: widget.moneyBuying,
-                                              ),
-                                              JeanpointAndCouponsPage(),
-                                            ],
-                                            bottomButtonFunction: () {},
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(flex: 1, child: SizedBox()),
-                            QrCodeWidget(),
-                            Expanded(flex: 1, child: SizedBox()),
-                          ],
+                        SizedBox(
+                          height: 0.023 * _screenSize.height, //15
                         ),
+                        Container(
+                          height: 0.261824 * _screenSize.height, //155
+                          // color: Colors.red,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 0.027 * _screenSize.width, //10,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 0.093 * _screenSize.height, //60,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 20,
+                                          child: SizedBox(),
+                                        ),
+                                        Container(
+                                          height:
+                                              0.075 * _screenSize.height, //45,
+                                          width: 0.33333 *
+                                              _screenSize.width, //120,
+                                          decoration: BoxDecoration(
+                                            // color: Colors.redAccent,
+                                            image: DecorationImage(
+                                              fit: BoxFit.contain,
+                                              image: AssetImage(
+                                                  'assets/images/png_images/global/jeanswest_logo.png'),
+                                            ),
+                                          ),
+                                        ),
+                                        // ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: SizedBox(),
+                                        ),
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: SizedBox(),
+                                    ),
+                                    Container(
+                                      color: Colors.white,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            0.0138 * _screenSize.width, //5,
+                                      ),
+                                      child: AvakatanButtonWidget(
+                                        title: 'نمایش سطح عضویت',
+                                        fontSize:
+                                            0.038 * _screenSize.width, //14,
+                                        backgroundColor: MAIN_BLUE_COLOR,
+                                        textColor: Colors.white,
+                                        borderColor: MAIN_BLUE_COLOR,
+                                        height: 0.059 * _screenSize.height,
+                                        width:
+                                            0.402777 * _screenSize.width, //145,
+                                        onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                TabBarViewPage(
+                                              title: 'سطح عضویت',
+                                              selectedTab: 0,
+                                              tabTitles: [
+                                                'سطح عضویت من',
+                                                ' جین پوینت ها و بن ها',
+                                              ],
+                                              tabWidgets: [
+                                                MembershipLevelPage(
+                                                  userLevel: widget.userLevel,
+                                                  nextLevel: widget.nextLevel,
+                                                  moneyBuying:
+                                                      widget.moneyBuying,
+                                                ),
+                                                JeanpointAndCouponsPage(),
+                                              ],
+                                              bottomButtonFunction: () {},
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height: 0.0078 * _screenSize.height //5,
+                                        ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: 0.027 * _screenSize.width, //10,
+                              ),
+                              QrCodeWidget(),
+                              SizedBox(
+                                width: 0.027 * _screenSize.width, //10,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 0.0078 * _screenSize.height //5,
+                            ),
                         Text(
                           'اگر کارت خود را فراموش کردید میتوانید از اینجا اسکن کنید',
                           style: TextStyle(
                             fontSize: 0.0333 * _screenSize.width, //12,
                           ),
                         ),
-                        Expanded(flex: 5, child: SizedBox()),
+                        SizedBox(height: 0.0078 * _screenSize.height //5,
+                            ),
                       ],
                     ),
                   ],

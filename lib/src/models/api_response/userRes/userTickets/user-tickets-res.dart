@@ -4,31 +4,31 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'general_response.g.dart';
+part 'user-tickets-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class GeneralRespons extends Equatable {
+class UserTicketsRes extends Equatable {
   @JsonKey(name: 'statusCode')
   int statusCode;
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  dynamic data;
+  List<DataTicket> data;
 
-  GeneralRespons({
+  UserTicketsRes({
     this.statusCode,
     this.message,
     this.data,
   });
 
-  factory GeneralRespons.fromJson(Map<String, dynamic> json) =>
-      _$GeneralResponsFromJson(json);
+  factory UserTicketsRes.fromJson(Map<String, dynamic> json) =>
+      _$UserTicketsResFromJson(json);
 
-  // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
-  Map<String, dynamic> toJson() => _$GeneralResponsToJson(this);
+  Map<String, dynamic> toJson() => _$UserTicketsResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

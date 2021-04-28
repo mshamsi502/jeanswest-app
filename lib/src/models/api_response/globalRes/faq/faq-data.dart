@@ -6,42 +6,37 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'general_response.g.dart';
+part 'faq-data.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class GeneralRespons extends Equatable {
-  @JsonKey(name: 'statusCode')
-  int statusCode;
-  @JsonKey(name: 'message')
-  String message;
-  @JsonKey(name: 'data')
-  dynamic data;
+class FAQData extends Equatable {
+  @JsonKey(name: 'question')
+  String question;
+  @JsonKey(name: 'answer')
+  String answer;
 
-  GeneralRespons({
-    this.statusCode,
-    this.message,
-    this.data,
+  FAQData({
+    this.question,
+    this.answer,
   });
 
-  factory GeneralRespons.fromJson(Map<String, dynamic> json) =>
-      _$GeneralResponsFromJson(json);
+  factory FAQData.fromJson(Map<String, dynamic> json) =>
+      _$FAQDataFromJson(json);
 
   // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
-  Map<String, dynamic> toJson() => _$GeneralResponsToJson(this);
+  Map<String, dynamic> toJson() => _$FAQDataToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'statusCode': statusCode,
-      'message': message,
-      'data': data,
+      'question': question,
+      'answer': answer,
     };
   }
 
   @override
   List<Object> get props => [
-        statusCode,
-        message,
-        data,
+        question,
+        answer,
       ];
 }

@@ -6,29 +6,30 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'general_response.g.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart';
+
+part 'faq-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class GeneralRespons extends Equatable {
+class FAQRes extends Equatable {
   @JsonKey(name: 'statusCode')
   int statusCode;
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  dynamic data;
+  List<FAQData> data;
 
-  GeneralRespons({
+  FAQRes({
     this.statusCode,
     this.message,
     this.data,
   });
 
-  factory GeneralRespons.fromJson(Map<String, dynamic> json) =>
-      _$GeneralResponsFromJson(json);
+  factory FAQRes.fromJson(Map<String, dynamic> json) => _$FAQResFromJson(json);
 
   // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
-  Map<String, dynamic> toJson() => _$GeneralResponsToJson(this);
+  Map<String, dynamic> toJson() => _$FAQResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

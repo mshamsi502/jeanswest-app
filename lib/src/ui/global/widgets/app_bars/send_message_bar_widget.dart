@@ -3,7 +3,6 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -44,9 +43,7 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
         margin: EdgeInsets.all(
           0.013 * _screenSize.width, //5
         ),
-        padding: EdgeInsets.symmetric(
-          horizontal: 0.013 * _screenSize.width, //5
-        ),
+        padding: EdgeInsets.only(right: 15, left: 5),
         height: 0.0625 * _screenSize.height, //40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
@@ -56,45 +53,45 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
         ),
         child: Row(
           children: [
-            GestureDetector(
-              child: Container(
-                height: 0.0625 * _screenSize.height, //40,
-                width: 0.0625 * _screenSize.height, //40,
-                padding: EdgeInsets.all(
-                  0.019 * _screenSize.width, //7
-                ),
-                child: widget.isEnable
-                    ? context.locale.toString() == 'en_US'
-                        ? ProfileSvgImages.blueSendToLeftIcon
-                        : ProfileSvgImages.blueSendToRightIcon
-                    : context.locale.toString() == 'en_US'
-                        ? ProfileSvgImages.greySendToLeftIcon
-                        : ProfileSvgImages.greySendToRightIcon,
-              ),
-              onTap: () {
-                if (widget.isEnable) {
-                  widget.sendText(textEditingController.text);
-                  textEditingController.clear();
-                }
-              },
-            ),
-            SizedBox(
-              width: 0.027 * _screenSize.width, //10,
-            ),
             Expanded(
               child: TextField(
                 controller: textEditingController,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   enabled: widget.isEnable,
+                  // contentPadding:
+                  // EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                   hintText:
                       widget.isEnable ? widget.hintText : widget.disableText,
                   hintStyle: TextStyle(
-                    fontFamily: 'IRANSansLight',
-                    fontSize: 0.038 * _screenSize.width, //14,
-                  ),
+                      fontFamily: 'IRANSansLight',
+                      fontSize: 0.038 * _screenSize.width, //14,
+                      color: Colors.grey[700]),
                 ),
               ),
+            ),
+            SizedBox(
+              width: 0.027 * _screenSize.width, //10,
+            ),
+            GestureDetector(
+              child: Container(
+                  height: 0.0625 * _screenSize.height, //40,
+                  width: 0.0625 * _screenSize.height, //40,
+                  padding: EdgeInsets.all(
+                    0.019 * _screenSize.width, //7
+                  ),
+                  child: widget.isEnable
+                      ? ProfileSvgImages.blueSendToLeftIcon
+                      //  ProfileSvgImages.blueSendToRightIcon
+                      : ProfileSvgImages.greySendToLeftIcon
+                  // : ProfileSvgImages.greySendToRightIcon,
+                  ),
+              onTap: () {
+                if (widget.isEnable) {
+                  widget.sendText(textEditingController.text);
+                  textEditingController.clear();
+                }
+              },
             ),
           ],
         ),

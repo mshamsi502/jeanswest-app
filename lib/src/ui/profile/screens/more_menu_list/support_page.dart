@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-import 'package:jeanswest/src/constants/test_data/user_tickets.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/login/screens/login_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/contact_us_widget.dart';
@@ -123,6 +123,7 @@ class _SupportPageState extends State<SupportPage>
                 ),
                 onPanelClosed: () {
                   setState(() {
+                    floatingisShowing = true;
                     resCheckIsValid = [
                       {
                         'isValid': true,
@@ -198,17 +199,19 @@ class _SupportPageState extends State<SupportPage>
                           children: <Widget>[
                             QuestionsWidget(
                                 headerAsset:
-                                    'assets/images/png_images/profile/more/support_header.png'),
+                                    'assets/images/png_images/profile/more/support-header.png'),
                             MainTicketWidget(
                               headerAsset:
-                                  'assets/images/png_images/profile/more/support_header.png',
+                                  'assets/images/png_images/profile/more/support-header.png',
                               emptyTicketAsset:
                                   'assets/images/png_images/profile/more/create-ticket-help.png',
                               ticket: userTickets,
                             ),
                             ContactUsWidget(
-                                headerAsset:
-                                    'assets/images/png_images/profile/more/support_header.png'),
+                              headerAsset:
+                                  'assets/images/png_images/profile/more/support-header.png',
+                              contactUs: contactUsInfo,
+                            ),
                           ],
                         ),
                       ),

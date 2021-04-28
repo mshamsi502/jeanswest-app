@@ -5,6 +5,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
 
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
@@ -15,6 +17,7 @@ import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-d
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
@@ -91,6 +94,16 @@ abstract class GlobalRestClient extends RestClient {
 
   @GET('http://10.1.2.94:3003/v1/getUserOrders')
   Future<UserOrderDataRes> getUserOrdersInfo();
+
+  @GET('http://10.1.2.94:3005/api/v1/ticket/list')
+  Future<UserTicketsRes> getUserTicketsInfo();
+
+  // * GLOBAL *****************************************************************
+
+  @GET('http://10.1.2.94:3005/api/v1/contact-us/contact-info')
+  Future<ContactUsRes> getContactUsInfo();
+  @GET('http://10.1.2.94:3005/api/v1/faq/list')
+  Future<FAQRes> getFAQInfo();
 
   // * PRODUCT *****************************************************************
 

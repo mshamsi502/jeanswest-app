@@ -8,14 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-import 'package:jeanswest/src/models/profile/message/user_ticket/user_ticket.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/single_ticket_page.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
 class MainTicketWidget extends StatefulWidget {
   final String headerAsset;
   final String emptyTicketAsset;
-  final List<UserTicket> ticket;
+  final List<DataTicket> ticket;
 
   const MainTicketWidget({
     Key key,
@@ -95,7 +96,8 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                               ),
                               boxShadow: <BoxShadow>[
                                 widget.ticket[widget.ticket.length - 1 - index]
-                                        .isClosed
+                                            .status ==
+                                        0
                                     ? BoxShadow(
                                         spreadRadius:
                                             0.00055 * _screenSize.width, //0.2,
@@ -132,20 +134,22 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                             height:
                                                 0.055 * _screenSize.width, //20
                                             padding: EdgeInsets.all(widget
-                                                    .ticket[
-                                                        widget.ticket.length -
+                                                        .ticket[widget
+                                                                .ticket.length -
                                                             1 -
                                                             index]
-                                                    .isClosed
+                                                        .status ==
+                                                    0
                                                 ? 0.0069 *
                                                     _screenSize.width //2.5
                                                 : 0),
                                             child: widget
-                                                    .ticket[
-                                                        widget.ticket.length -
+                                                        .ticket[widget
+                                                                .ticket.length -
                                                             1 -
                                                             index]
-                                                    .isClosed
+                                                        .status ==
+                                                    0
                                                 ? GlobalSvgImages.greenTickIcon
                                                 : GlobalSvgImages.loadingIcon,
                                           ),
@@ -188,12 +192,12 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                                   .ticket[widget.ticket.length -
                                                       1 -
                                                       index]
-                                                  .message[widget
+                                                  .context[widget
                                                           .ticket[widget.ticket
                                                                   .length -
                                                               1 -
                                                               index]
-                                                          .message
+                                                          .context
                                                           .length -
                                                       1]
                                                   .text,
@@ -227,6 +231,7 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SingleTicketPage(
+                                        user: user,
                                         ticket: widget.ticket[
                                             widget.ticket.length - 1 - index],
                                         screenSize: _screenSize,
@@ -234,21 +239,32 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                             widget.ticket.length - 1 - index,
                                         closeTicket: () {
                                           // ! send close ticket api
-                                          widget.ticket[
-                                              widget.ticket.length -
-                                                  1 -
-                                                  index] = UserTicket(
-                                              title: widget
-                                                  .ticket[widget.ticket.length -
-                                                      1 -
-                                                      index]
-                                                  .title,
-                                              message: widget
-                                                  .ticket[widget.ticket.length -
-                                                      1 -
-                                                      index]
-                                                  .message,
-                                              isClosed: true);
+                                          setState(() {
+                                            widget.ticket[widget.ticket.length -
+                                                    1 -
+                                                    index] =
+                                                //
+                                                DataTicket(
+                                                    code: widget
+                                                        .ticket[widget
+                                                                .ticket.length -
+                                                            1 -
+                                                            index]
+                                                        .code,
+                                                    title: widget
+                                                        .ticket[widget
+                                                                .ticket.length -
+                                                            1 -
+                                                            index]
+                                                        .title,
+                                                    context: widget
+                                                        .ticket[widget
+                                                                .ticket.length -
+                                                            1 -
+                                                            index]
+                                                        .context,
+                                                    status: 0);
+                                          });
                                         },
                                       ))),
                         );

@@ -20,6 +20,8 @@ const Color COLOMBIA_BLUE = Color(0xff9EF9FC); // Columbia Blue
 const Color MAYA_BLUE = Color(0xff44BFFF); // Maya Blue
 const Color LOCHMARA_BLUE = Color(0xff3C6AAE); // Lochmara
 //
+const Color TURQUOISE_BLUE_COLOR = Color(0xff5DDDD3); // Turquoise Blue
+//
 // ! BLACK, GREY, WHITE
 const Color F7_BACKGROUND_COLOR = Color(0xfff7f7f7);
 const Color F2_BACKGROUND_COLOR = Color(0xfff2f2f2);
@@ -31,6 +33,7 @@ const Color GREY_EB_BACKGROUND_COLOR = Color(0xffEBEBEB);
 const Color GREY_FADE_BACKGROUND_COLOR = Color(0x90bdbdbd);
 const Color GREY_FADE_SELECTED_COLOR = Color(0x50bdbdbd);
 const Color DARK_GREY = Color(0xffACACAC); // Dark Grey
+const Color WHITE_SMOKE_COLOR = Color(0xFFEBEBEB); // White Smoke
 //
 // ! GOLD, AMBER, YELLOW
 const Color MAIN_GOLD_COLOR = Color(0xFFFFC107);

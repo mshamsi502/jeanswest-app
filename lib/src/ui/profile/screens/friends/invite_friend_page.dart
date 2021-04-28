@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/fix-bottom-button_bar_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/freinds/dotted-invite-help-widget.dart';
@@ -22,8 +23,7 @@ class InviteFrindePage extends StatefulWidget {
   final int someOfInvited;
   final int someOfInstallFromInvited;
   final int someOfShoppingFromInvited;
-  final List<String> queFaq;
-  final List<String> ansFaq;
+  final List<FAQData> faq;
   // final Size screenSize;
 
   const InviteFrindePage({
@@ -34,8 +34,7 @@ class InviteFrindePage extends StatefulWidget {
     this.someOfInstallFromInvited,
     this.someOfShoppingFromInvited,
     this.title,
-    this.queFaq,
-    this.ansFaq,
+    this.faq,
     // this.screenSize,
   }) : super(key: key);
   @override
@@ -202,8 +201,7 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                                 ),
                                 ExpansionTileWidget(
                                   title: 'سوالات متداول',
-                                  que: widget.queFaq,
-                                  ans: widget.ansFaq,
+                                  faq: widget.faq,
                                 ),
                               ],
                             ),
