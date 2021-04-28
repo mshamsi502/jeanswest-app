@@ -53,7 +53,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                       child: Icon(
                         Icons.arrow_back_ios_rounded,
                         color: Colors.black87,
-                        size: 28,
+                        size: 0.069 * _screenSize.width, //25,
                       ),
                     ),
                   ],
@@ -67,7 +67,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
               widget.title,
               style: TextStyle(
                 // fontWeight: FontWeight.w600,
-                fontSize: 18,
+                fontSize: 0.05 * _screenSize.width, //18,
               ),
               overflow: TextOverflow.ellipsis,
             ),

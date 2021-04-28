@@ -35,7 +35,7 @@ class SingleTicketPage extends StatefulWidget {
 
 class _SingleTicketPageState extends State<SingleTicketPage> {
   ScrollController scrollController;
-  // bool userHasClosed = false;
+
   @override
   void initState() {
     scrollController = new ScrollController();
@@ -57,16 +57,11 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                   title: widget.ticket.title,
                   option: widget.ticket.status == 1
                       ? PopupMenuButton(
+                          iconSize: 0.069 * _screenSize.width, //25,
+                          padding: EdgeInsets.all(0),
                           onSelected: (value) {
-                            // setState(() {
-                            //   userHasClosed = true;
-                            // });
                             widget.closeTicket();
                             Navigator.pop(context);
-                            // setState(() {
-                            //   userHasClosed = true;
-                            //   print('closing ticket..');
-                            // });
                           },
                           itemBuilder: (context) => [
                             PopupMenuItem(
@@ -74,13 +69,20 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                 child: Row(
                                   children: <Widget>[
                                     Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      child: Icon(Icons.exit_to_app_outlined),
+                                      padding: EdgeInsets.only(
+                                        left: 0.0138 * _screenSize.width, //5,
+                                      ),
+                                      child: Icon(
+                                        Icons.exit_to_app_outlined,
+                                        size: 0.06111 * _screenSize.width, //22,
+                                      ),
                                     ),
                                     Text(
                                       'پایان گفتگو',
-                                      style: TextStyle(fontSize: 14),
+                                      style: TextStyle(
+                                        fontSize:
+                                            0.038 * _screenSize.width, //14,
+                                      ),
                                     )
                                   ],
                                 )),
@@ -103,7 +105,7 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                             children: [
                               Container(
                                 margin: EdgeInsets.only(
-                                  top: 50,
+                                  top: 0.078125 * _screenSize.height, //50,
                                 ),
                                 height: _screenSize.height -
                                     0.195 * _screenSize.height, //125,
@@ -131,16 +133,20 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                     widget.ticket.context
                                                             .length -
                                                         1
-                                                ? 20
+                                                ? 0.031 *
+                                                    _screenSize.height //20
                                                 : 0),
                                         Container(
                                           margin: EdgeInsets.only(
-                                              top: 5,
-                                              left: 0.0416 *
-                                                  _screenSize.width, //15,
-                                              right: 0.0416 *
-                                                  _screenSize.width, //15,
-                                              bottom: 10),
+                                            top: 0.0078 *
+                                                _screenSize.height, //5,
+                                            left: 0.0416 *
+                                                _screenSize.width, //15,
+                                            right: 0.0416 *
+                                                _screenSize.width, //15,
+                                            bottom:
+                                                0.016 * _screenSize.height, //10
+                                          ),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.circular(
@@ -151,8 +157,10 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                             ),
                                             boxShadow: <BoxShadow>[
                                               BoxShadow(
-                                                spreadRadius: 0.8,
-                                                blurRadius: 4,
+                                                spreadRadius: 0.00222 *
+                                                    _screenSize.width, //0.8,
+                                                blurRadius: 0.011 *
+                                                    _screenSize.width, //4,
                                                 color: Colors.grey[200],
                                                 offset: Offset(
                                                   0.0078 *
@@ -169,20 +177,35 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                               Container(
                                                 color: BLUE_SKY_FADE_COLOR,
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 3, vertical: 5),
+                                                    horizontal: 0.0083 *
+                                                        _screenSize.width, //3,
+                                                    vertical: 0.0078 *
+                                                        _screenSize.height //5,
+                                                    ),
                                                 child: Row(
                                                   children: [
-                                                    SizedBox(width: 5),
+                                                    SizedBox(
+                                                      width: 0.0138 *
+                                                          _screenSize
+                                                              .width, //5,
+                                                    ),
                                                     isCustomer
                                                         ? Container(
-                                                            width: 25,
-                                                            height: 25,
+                                                            width: 0.069 *
+                                                                _screenSize
+                                                                    .width, //25,
+                                                            height: 0.069 *
+                                                                _screenSize
+                                                                    .width, //25,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          50),
+                                                                0.138 *
+                                                                    _screenSize
+                                                                        .width, //50,
+                                                              ),
                                                               color:
                                                                   TURQUOISE_BLUE_COLOR,
                                                               image:
@@ -208,7 +231,11 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                             ),
                                                           )
                                                         : SizedBox(),
-                                                    SizedBox(width: 10),
+                                                    SizedBox(
+                                                      width: 0.027 *
+                                                          _screenSize
+                                                              .width, //10,
+                                                    ),
                                                     Expanded(
                                                       child: Text(
                                                         isCustomer
@@ -218,21 +245,34 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                             ? TextAlign.right
                                                             : TextAlign.left,
                                                         style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 0.038 *
+                                                              _screenSize
+                                                                  .width, //14,
                                                         ),
                                                       ),
                                                     ),
-                                                    SizedBox(width: 10),
+                                                    SizedBox(
+                                                      width: 0.027 *
+                                                          _screenSize
+                                                              .width, //10,
+                                                    ),
                                                     !isCustomer
                                                         ? Container(
-                                                            width: 25,
-                                                            height: 25,
+                                                            width: 0.069 *
+                                                                _screenSize
+                                                                    .width, //25,
+                                                            height: 0.069 *
+                                                                _screenSize
+                                                                    .width, //25,
                                                             decoration:
                                                                 BoxDecoration(
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          50),
+                                                                0.138 *
+                                                                    _screenSize
+                                                                        .width, //50,
+                                                              ),
                                                               color:
                                                                   TURQUOISE_BLUE_COLOR,
                                                             ),
@@ -240,14 +280,21 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                                 .profileOperator,
                                                           )
                                                         : SizedBox(),
-                                                    SizedBox(width: 5),
+                                                    SizedBox(
+                                                      width: 0.0138 *
+                                                          _screenSize
+                                                              .width, //5,
+                                                    ),
                                                   ],
                                                 ),
                                               ),
                                               Container(
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10),
+                                                  horizontal: 0.054 *
+                                                      _screenSize.width, //20
+                                                  vertical: 0.016 *
+                                                      _screenSize.height, //10
+                                                ),
                                                 child: Row(
                                                   children: [
                                                     Expanded(
@@ -263,7 +310,9 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                           // widget.ticket.message[index]
                                                           .text,
                                                       style: TextStyle(
-                                                        fontSize: 14,
+                                                        fontSize: 0.038 *
+                                                            _screenSize
+                                                                .width, //14,
                                                       ),
                                                     ))
                                                   ],
@@ -275,13 +324,18 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                         (index == 0) &&
                                                 (widget.ticket.status == 0)
                                             ? Container(
-                                                height: 300,
+                                                height: 0.5067 *
+                                                    _screenSize.height, //300,
                                                 padding: EdgeInsets.symmetric(
-                                                    horizontal: 20),
+                                                  horizontal: 0.054 *
+                                                      _screenSize.width, //20
+                                                ),
                                                 child: Column(
                                                   children: [
                                                     Container(
-                                                      height: 200,
+                                                      height: 0.3125 *
+                                                          _screenSize
+                                                              .height, //200
                                                       decoration: BoxDecoration(
                                                         // color: Colors.red,
                                                         image: DecorationImage(
@@ -294,10 +348,12 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                     ),
                                                     Expanded(
                                                       child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 30),
+                                                        padding: EdgeInsets
+                                                            .symmetric(
+                                                          horizontal: 0.083 *
+                                                              _screenSize
+                                                                  .width, //30
+                                                        ),
                                                         child: Text(
                                                           'این گفتگو پایان یافته است برای ایجاد گفتگو جدید به صحفه قبل مراجعه کنید',
                                                           textAlign:
@@ -305,7 +361,9 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                           style: TextStyle(
                                                             color:
                                                                 MAIN_BLUE_COLOR,
-                                                            fontSize: 16,
+                                                            fontSize: 0.0444 *
+                                                                _screenSize
+                                                                    .width, //16,
                                                           ),
                                                         ),
                                                       ),

@@ -13,8 +13,7 @@ import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.da
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
-import 'package:jeanswest/src/constants/test_data/texts.dart';
-//
+
 import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -116,6 +115,8 @@ class _MainProfilePageState extends State<MainProfilePage>
       // print(' 20 : dateOfBirth is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }
+    if (percentCompleteProfile == 100)
+      widget.changeCompeletProfileMessage(false);
     // print('percentCompleteProfile : $percentCompleteProfile %');
     mainProfileListMenu = createProfileListMenuPages(
       userLevel: userLevel,
@@ -234,6 +235,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                     ? Container(
                         margin: EdgeInsets.symmetric(
                           horizontal: 0.041 * _screenSize.width, //15,
+                          vertical: 0.016 * _screenSize.height, //10
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,

@@ -59,8 +59,8 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
 
               (widget.lines == null || widget.lines == 1)
                   ? (0.03125 * widget.mediaQuery.size.height) //20
-                  : (0.034 *
-                      widget.mediaQuery.size.height // 20
+                  : (0.0355 *
+                      widget.mediaQuery.size.height // 21
                       *
                       widget.lines.toInt())) +
           ( // ! heightTitle

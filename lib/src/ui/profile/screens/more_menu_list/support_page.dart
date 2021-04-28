@@ -123,6 +123,7 @@ class _SupportPageState extends State<SupportPage>
                 ),
                 onPanelClosed: () {
                   setState(() {
+                    floatingisShowing = true;
                     resCheckIsValid = [
                       {
                         'isValid': true,
