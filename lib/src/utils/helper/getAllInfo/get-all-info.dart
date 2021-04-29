@@ -9,6 +9,8 @@ import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payme
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMessages/user-messages-info-res.dart';
+
 //
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
@@ -20,6 +22,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/models/coupon/coupon.dart';
 //
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -92,6 +95,16 @@ Future<void> getAllUserInfo({String token}) async {
   print('***************************************************************');
   print('_=_ get successfully, userTickets length: ${userTickets.length}');
   print('_=_ get successfully, first userTickets code: ${userTickets[0].code}');
+
+  // ! ==> get and create successfully UserFavoriteInfo
+  UserMessagesInfoRes res =
+      await globalLocator<GlobalRestClient>().getUserMessagesInfo();
+ userMessages = res.data;
+  userTickets = userTicketsRes.data;
+  print('***************************************************************');
+  print('_=_ get successfully, userMessages length: ${userMessages.length}');
+  print(
+      '_=_ get successfully, first userMessages code: ${userMessages[0].code}');
 
   // ! ==> get and create successfully UserFavoriteInfo
   //

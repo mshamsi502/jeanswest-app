@@ -14,12 +14,14 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 
-import 'package:jeanswest/src/constants/test_data/user_messages.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
+
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/messages/inbox_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
@@ -31,8 +33,6 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:jeanswest/src/ui/profile/widgets/global/log-out-panel-widget.dart';
-
-import 'main_menu_list/inbox_page.dart';
 
 class MainProfilePage extends StatefulWidget {
   final bool isAuth;
@@ -73,12 +73,12 @@ class _MainProfilePageState extends State<MainProfilePage>
     nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
     for (var i = 0; i < userMessages.length; i++) {
-      if (!userMessages[i].readed) {
-        haveUnreadMessage = true;
-        break;
-      } else {
-        haveUnreadMessage = false;
-      }
+      // if (!userMessages[i].readed) {
+      //   haveUnreadMessage = true;
+      //   break;
+      // } else {
+      //   haveUnreadMessage = false;
+      // }
       scrollController = new ScrollController();
       logOutPanel = new PanelController();
       buildProfile();

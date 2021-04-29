@@ -262,6 +262,24 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<UserMessagesInfoRes> getUserMessagesInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3003/v1/getUserMessages',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserMessagesInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<ContactUsRes> getContactUsInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

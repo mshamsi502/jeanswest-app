@@ -21,6 +21,7 @@ import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-ticke
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMessages/user-messages-info-res.dart';
 import 'package:jeanswest/src/services/rest-client.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -97,6 +98,9 @@ abstract class GlobalRestClient extends RestClient {
 
   @GET('http://10.1.2.94:3005/api/v1/ticket/list')
   Future<UserTicketsRes> getUserTicketsInfo();
+
+  @GET('http://10.1.2.94:3003/v1/getUserMessages')
+  Future<UserMessagesInfoRes> getUserMessagesInfo();
 
   // * GLOBAL *****************************************************************
 

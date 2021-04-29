@@ -6,7 +6,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/test_data/user_messages.dart';
+
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/main_message_details.dart';
 
@@ -51,7 +52,9 @@ class _InboxPageState extends State<InboxPage> {
                             children: [
                               MainMessageDetails(
                                 height: 0.234 * _screenSize.height, //150,
-                                messageIndex: messageIndex,
+                                messageIndex:
+                                    userMessages.length - messageIndex - 1,
+                                message: userMessages[messageIndex],
                                 changeHaveUnreadMessage:
                                     widget.changeHaveUnreadMessage,
                               ),

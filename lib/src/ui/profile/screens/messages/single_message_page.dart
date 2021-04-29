@@ -8,11 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/profile/message/user_noti/noti_message.dart';
+
+import 'package:jeanswest/src/models/api_response/userRes/userMessages/dataFavorite/message-data.dart';
+
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 
 class SingleMessagePage extends StatefulWidget {
-  final NotificationMessage notificationMessage;
+  final MessageData notificationMessage;
 
   const SingleMessagePage({Key key, this.notificationMessage})
       : super(key: key);
@@ -40,7 +42,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
             child: Column(
               children: [
                 AppBarWithBackWidget(
-                  title: widget.notificationMessage.sender,
+                  title: widget.notificationMessage.perSender,
                   onTap: () => Navigator.pop(context),
                 ),
                 Expanded(
@@ -113,7 +115,8 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              widget.notificationMessage.title,
+                                              widget
+                                                  .notificationMessage.perTitle,
                                               style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w500),
@@ -145,7 +148,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                             ListView.builder(
                                                 itemCount: widget
                                                     .notificationMessage
-                                                    .conditions
+                                                    .description
                                                     .length,
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
@@ -160,7 +163,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                                           Expanded(
                                                               child: Text(
                                                             widget.notificationMessage
-                                                                    .conditions[
+                                                                    .description[
                                                                 conditionsIndex],
                                                             style: TextStyle(
                                                               fontSize: 0.028 *
@@ -201,7 +204,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                                                     MainAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    '${widget.notificationMessage.hourOfSend}:${widget.notificationMessage.minOfSend}',
+                                                    '${widget.notificationMessage.sendHour}:${widget.notificationMessage.sendMinute}',
                                                     style: TextStyle(
                                                       fontSize: 0.028 *
                                                           _screenSize
