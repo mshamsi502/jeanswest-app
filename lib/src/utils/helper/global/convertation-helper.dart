@@ -78,14 +78,40 @@ String toPhoneStyle(String phone) {
 }
 
 Map<String, String> stringSplitDate(String date) {
-  String year = date.substring(0, 4);
-  String month = date.substring(5, 7);
-  String day = date.substring(8, 10);
   Map<String, String> map = {
-    'year': year,
-    'month': month,
-    'day': day,
+    'year': '0000',
+    'month': '00',
+    'day': '00',
+    'hour': '00',
+    'min': '00',
+    'sec': '00',
   };
+  if (date.length == 10) {
+    // ! date : "2022-06-12"
+    String year = date.substring(0, 4);
+    String month = date.substring(5, 7);
+    String day = date.substring(8, 10);
+    map = {
+      'year': year,
+      'month': month,
+      'day': day,
+    };
+  } else if (date.length == 19) {
+    String year = date.substring(0, 4);
+    String month = date.substring(5, 7);
+    String day = date.substring(8, 10);
+    String hour = date.substring(11, 13);
+    String min = date.substring(14, 16);
+    String sec = date.substring(17, 19);
+    map = {
+      'year': year,
+      'month': month,
+      'day': day,
+      'hour': hour,
+      'min': min,
+      'sec': sec,
+    };
+  }
   return map;
 }
 

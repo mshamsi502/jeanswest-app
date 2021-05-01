@@ -7,18 +7,20 @@ import 'package:intl/intl.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 class TimeAgo {
-  static String timeAgoSinceDate(String dateString,
+  static String timeAgoSinceDate(String dateString, int sinceFromSomeDay,
       {bool numericDates = true}) {
     DateTime notificationDate =
         DateFormat("yyyy-MM-dd HH:mm").parse(dateString);
     final date2 = DateTime.now();
     final difference = date2.difference(notificationDate);
-    if (difference.inDays > 8) {
+    if (difference.inDays > sinceFromSomeDay) {
       Gregorian gregorianDate = Gregorian(
           int.parse(dateString.substring(0, 4)),
           int.parse(dateString.substring(5, 7)),
           int.parse(dateString.substring(8, 10)));
       return '${gregorianDate.toJalali().year.toString()}/${gregorianDate.toJalali().month.toString()}/${gregorianDate.toJalali().day.toString()}';
+    } else if ((difference.inDays / 30).floor() >= 1) {
+      return (numericDates) ? '1 ماه قبل' : 'ماه گذشته';
     } else if ((difference.inDays / 7).floor() >= 1) {
       return (numericDates) ? '1 هفته قبل' : 'هفته گذشته';
     } else if (difference.inDays >= 2) {

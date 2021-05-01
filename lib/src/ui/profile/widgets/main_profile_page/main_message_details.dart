@@ -8,13 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/test_data/user_messages.dart';
-import 'package:jeanswest/src/ui/profile/screens/main_menu_list/single_message_page.dart';
+
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
+
+import 'package:jeanswest/src/models/profile/message/single-message.dart';
+
+import 'package:jeanswest/src/ui/profile/screens/messages/single_message_page.dart';
+import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/time_ago.dart';
 
 class MainMessageDetails extends StatefulWidget {
   final double height;
   final int messageIndex;
+  final SingleMessage message;
   final Function changeHaveUnreadMessage;
 
   const MainMessageDetails({
@@ -22,31 +28,14 @@ class MainMessageDetails extends StatefulWidget {
     this.height,
     this.messageIndex,
     this.changeHaveUnreadMessage,
+    this.message,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _MainMessageDetailsState();
 }
 
 class _MainMessageDetailsState extends State<MainMessageDetails> {
-  List<bool> readMessages;
   bool haveUnreadMessage;
-  @override
-  void initState() {
-    // ignore: deprecated_member_use
-    readMessages = new List<bool>();
-    for (var i = 0; i < userMessages.length; i++) {
-      readMessages.add(false);
-    }
-    for (var i = 0; i < userMessages.length; i++) {
-      if (!userMessages[i].readed) {
-        readMessages[i] = true;
-        break;
-      } else {
-        readMessages[i] = false;
-      }
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,34 +44,11 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
         child: Container(
           height: widget.height,
           width: _screenSize.width,
+          color: Colors.transparent,
           padding: EdgeInsets.all(0.028 * _screenSize.width //10
               ),
           child: Row(
             children: [
-              Container(
-                width: 0.022 * _screenSize.width, //8,
-                height: widget.height,
-                child: Column(
-                  children: [
-                    SizedBox(height: 0.023 * _screenSize.height //15
-                        ),
-                    userMessages[userMessages.length - widget.messageIndex - 1]
-                            .readed
-                        ? Container()
-                        : Container(
-                            height: 0.022 * _screenSize.width, //8,
-                            width: 0.022 * _screenSize.width, //8,
-                            decoration: BoxDecoration(
-                              color: MAIN_GOLD_COLOR,
-                              borderRadius: BorderRadius.circular(
-                                  0.138 * _screenSize.width //50
-                                  ),
-                            ),
-                          ),
-                    Expanded(child: SizedBox()),
-                  ],
-                ),
-              ),
               SizedBox(
                 width: 0.0138 * _screenSize.width, //5
               ),
@@ -92,26 +58,21 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
                 child: Column(
                   children: [
                     Container(
-                      height: 0.111 * _screenSize.width, //40,
-                      width: 0.111 * _screenSize.width, //40,
-                      padding: EdgeInsets.all(0.0166 * _screenSize.width //6,
-                          ),
+                      width: 0.09722 * _screenSize.width, //35,
+                      height: 0.09722 * _screenSize.width, //35,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.0083 * _screenSize.width, //3,
-                          color: MAIN_BLUE_COLOR,
-                        ),
-                        borderRadius:
-                            BorderRadius.circular(0.138 * _screenSize.width //50
-                                ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                                'assets/images/png_images/global/logo/${userMessages[userMessages.length - widget.messageIndex - 1].engSender}.png'),
-                            fit: BoxFit.cover,
+                          color: Colors.transparent,
+                          border: Border.all(
+                            color: BLUE_SKY_COLOR,
                           ),
+                          borderRadius: BorderRadius.circular(
+                            0.138 * _screenSize.width, //50,
+                          )),
+                      child: CircleAvatar(
+                        radius: 0.138 * _screenSize.width, //50,
+                        backgroundColor: DARK_GREY,
+                        backgroundImage: AssetImage(
+                          'assets/images/png_images/global/logo/${widget.message.engSender}.png',
                         ),
                       ),
                     ),
@@ -127,62 +88,62 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
                   children: [
                     Container(
                       alignment: Alignment.centerRight,
-                      height: 0.111 * _screenSize.width, //40,
+                      // height: 0.111 * _screenSize.width, //40,
                       child: Text(
-                        '${userMessages[userMessages.length - widget.messageIndex - 1].title} (${userMessages[userMessages.length - widget.messageIndex - 1].sender})',
+                        '${widget.message.perTitle} (${widget.message.perSender})',
                         style: TextStyle(
-                          fontSize: 0.0361 * _screenSize.width, //13
+                          fontSize: 0.038 * _screenSize.width, //14,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
-                    ListView.builder(
-                        itemCount: userMessages[
-                                userMessages.length - widget.messageIndex - 1]
-                            .conditions
-                            .length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder:
-                            (BuildContext context, int conditionsIndex) {
-                          return Row(
-                            children: [
-                              Expanded(
-                                  child: Text(
-                                userMessages[userMessages.length -
-                                        widget.messageIndex -
-                                        1]
-                                    .conditions[conditionsIndex],
-                                style: TextStyle(
-                                  fontSize: 0.027 * _screenSize.width, //10
-                                  color: MAIN_BLUE_COLOR,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              )),
-                            ],
-                          );
-                        }),
-                    Text(
-                      'مبلغ ${userMessages[userMessages.length - widget.messageIndex - 1].price} تومان',
-                      style: TextStyle(
-                        fontSize: 0.03 * _screenSize.width, //11
-                        color: MAIN_BLUE_COLOR,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    SizedBox(height: 0.0078 * _screenSize.height //5,
+                        ),
+                    widget.message.price == null || widget.message.price == 0
+                        ? SizedBox()
+                        : Text(
+                            'مدت اعتبار از تاریخ ${widget.message.startShamsiYear}/${widget.message.startShamsiMonth}/${widget.message.startShamsiDay} الی ${widget.message.endShamsiYear}/${widget.message.endShamsiMonth}/${widget.message.endShamsiDay}',
+                            style: TextStyle(
+                              fontSize: 0.0333 * _screenSize.width, //12,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                    widget.message.price == null || widget.message.price == 0
+                        ? SizedBox()
+                        : Text(
+                            'مبلغ ${toPriceStyle(widget.message.price)} تومان',
+                            style: TextStyle(
+                              fontSize: 0.0333 * _screenSize.width, //12,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                    SizedBox(height: 0.0078 * _screenSize.height //5,
+                        ),
+                    widget.message.price == null || widget.message.price == 0
+                        ? Container(
+                            child: Text(
+                              widget.message.text,
+                              maxLines: 3,
+                              style: TextStyle(
+                                fontSize: 0.0333 * _screenSize.width, //12,
+                                color: Colors.grey[800],
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
                     Expanded(child: SizedBox()),
-                    Container(
-                      height: 0.03125 * _screenSize.height, //20
-                      child: Text(
-                        userMessages[
-                                userMessages.length - widget.messageIndex - 1]
-                            .text,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 0.027 * _screenSize.width, //10
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    Text(
+                      TimeAgo.timeAgoSinceDate(
+                        widget.message.sendDate,
+                        30,
+                      ),
+                      style: TextStyle(
+                        fontSize: 0.0333 * _screenSize.width, //12,
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
@@ -196,24 +157,34 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
                   children: [
                     SizedBox(height: 0.023 * _screenSize.height //15
                         ),
-                    Text(
-                      TimeAgo.timeAgoSinceDate(
-                          '${userMessages[userMessages.length - widget.messageIndex - 1].yearOfSend}-${userMessages[userMessages.length - widget.messageIndex - 1].monthOfSend}-${userMessages[userMessages.length - widget.messageIndex - 1].dayOfSend} ${userMessages[userMessages.length - widget.messageIndex - 1].hourOfSend}:${userMessages[userMessages.length - widget.messageIndex - 1].minOfSend}'),
-                      style: TextStyle(
-                        fontSize: 0.023 * _screenSize.width, //9,
-                        color: MAIN_BLUE_COLOR,
-                      ),
-                    ),
+                    widget.message.isReaded != null && widget.message.isReaded
+                        ? Container()
+                        : Container(
+                            height: 0.022 * _screenSize.width, //8,
+                            width: 0.022 * _screenSize.width, //8,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 0.027 * _screenSize.width, //10,
+                                vertical: 0.0078 * _screenSize.height //5,
+                                ),
+                            decoration: BoxDecoration(
+                              color: MAIN_GOLD_COLOR,
+                              borderRadius: BorderRadius.circular(
+                                  0.138 * _screenSize.width //50
+                                  ),
+                            ),
+                          ),
                     Expanded(child: SizedBox()),
                     Container(
                       width: 0.054 * _screenSize.width, //20
                       height: 0.054 * _screenSize.width, //20
                       child: Icon(
-                        Icons.arrow_back_ios_outlined,
-                        color: MAIN_BLUE_COLOR,
-                        size: 0.0416 * _screenSize.width, //15
+                        Icons.chevron_right_rounded,
+                        color: DARK_GREY,
+                        size: 0.07777 * _screenSize.width, //28
                       ),
                     ),
+                    SizedBox(height: 0.0078 * _screenSize.height //5,
+                        ),
                   ],
                 ),
               ),
@@ -222,26 +193,26 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
         ),
         onTap: () {
           setState(() {
-            userMessages[userMessages.length - widget.messageIndex - 1].readed =
-                true;
-            readMessages[userMessages.length - widget.messageIndex - 1] = false;
-            setState(() {
-              haveUnreadMessage = false;
-            });
-            readMessages.forEach((element) {
-              if (element)
-                setState(() {
-                  haveUnreadMessage = true;
-                });
-            });
+            widget.message.isReaded = true;
+
+            haveUnreadMessage = false;
+            for (int index = 0; index < userMessages.length; index++) {
+              if (!userMessages[index].isReaded) {
+                haveUnreadMessage = true;
+                break;
+              }
+            }
+
             if (!haveUnreadMessage) widget.changeHaveUnreadMessage();
           });
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => SingleMessagePage(
-                      notificationMessage: userMessages[
-                          userMessages.length - widget.messageIndex - 1])));
+                        message: widget.message,
+                        title:
+                            '${widget.message.perTitle} (${widget.message.perSender})',
+                      )));
         });
   }
 }

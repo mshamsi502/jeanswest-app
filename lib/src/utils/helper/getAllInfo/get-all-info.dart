@@ -9,6 +9,8 @@ import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payme
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMessages/user-messages-info-res.dart';
+
 //
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
@@ -20,12 +22,15 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/models/coupon/coupon.dart';
 //
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-invite-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-payment-info.dart';
+import 'package:jeanswest/src/models/profile/message/single-message.dart';
+
 import 'package:jeanswest/src/models/address/address.dart';
 import 'package:jeanswest/src/models/dateTimeOnData/date-time-on-data.dart';
 //
@@ -92,6 +97,36 @@ Future<void> getAllUserInfo({String token}) async {
   print('***************************************************************');
   print('_=_ get successfully, userTickets length: ${userTickets.length}');
   print('_=_ get successfully, first userTickets code: ${userTickets[0].code}');
+
+  // ! ==> get and create successfully UserFavoriteInfo
+  UserMessagesInfoRes res =
+      await globalLocator<GlobalRestClient>().getUserMessagesInfo();
+  // ignore: deprecated_member_use
+  userMessages = new List<SingleMessage>();
+  res.data.forEach((message) {
+    userMessages.add(SingleMessage(
+      code: message.code,
+      engTitle: message.engTitle,
+      perTitle: message.perTitle,
+      engSender: message.engSender,
+      perSender: message.perSender,
+      pictureAssets: message.pictureAssets,
+      text: message.text,
+      description: message.description,
+      price: message.price,
+      minShopping: message.minShopping,
+      perCategory: message.perCategory,
+      engCategory: message.engCategory,
+      startDate: message.startDate,
+      endDate: message.endDate,
+      sendDate: message.sendDate,
+    ));
+  });
+
+  print('***************************************************************');
+  print('_=_ get successfully, userMessages length: ${userMessages.length}');
+  print(
+      '_=_ get successfully, first userMessages code: ${userMessages[0].code}');
 
   // ! ==> get and create successfully UserFavoriteInfo
   //
