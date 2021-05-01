@@ -29,6 +29,8 @@ import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-invite-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-payment-info.dart';
+import 'package:jeanswest/src/models/profile/message/single-message.dart';
+
 import 'package:jeanswest/src/models/address/address.dart';
 import 'package:jeanswest/src/models/dateTimeOnData/date-time-on-data.dart';
 //
@@ -99,8 +101,28 @@ Future<void> getAllUserInfo({String token}) async {
   // ! ==> get and create successfully UserFavoriteInfo
   UserMessagesInfoRes res =
       await globalLocator<GlobalRestClient>().getUserMessagesInfo();
- userMessages = res.data;
-  userTickets = userTicketsRes.data;
+  // ignore: deprecated_member_use
+  userMessages = new List<SingleMessage>();
+  res.data.forEach((message) {
+    userMessages.add(SingleMessage(
+      code: message.code,
+      engTitle: message.engTitle,
+      perTitle: message.perTitle,
+      engSender: message.engSender,
+      perSender: message.perSender,
+      pictureAssets: message.pictureAssets,
+      text: message.text,
+      description: message.description,
+      price: message.price,
+      minShopping: message.minShopping,
+      perCategory: message.perCategory,
+      engCategory: message.engCategory,
+      startDate: message.startDate,
+      endDate: message.endDate,
+      sendDate: message.sendDate,
+    ));
+  });
+
   print('***************************************************************');
   print('_=_ get successfully, userMessages length: ${userMessages.length}');
   print(

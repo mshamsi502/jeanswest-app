@@ -51,7 +51,7 @@ class _InboxPageState extends State<InboxPage> {
                           return Column(
                             children: [
                               MainMessageDetails(
-                                height: 0.234 * _screenSize.height, //150,
+                                height: 0.29 * _screenSize.height, //171,
                                 messageIndex:
                                     userMessages.length - messageIndex - 1,
                                 message: userMessages[messageIndex],

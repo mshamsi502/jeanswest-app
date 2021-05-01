@@ -1,7 +1,7 @@
-import 'package:jeanswest/src/models/api_response/userRes/userMessages/dataFavorite/message-data.dart';
+import 'package:jeanswest/src/models/profile/message/single-message.dart';
 
-List<MessageData> userMessages = [
-  MessageData(
+List<SingleMessage> userMessages = [
+  SingleMessage(
     code: 0,
     engTitle: "",
     perTitle: "",

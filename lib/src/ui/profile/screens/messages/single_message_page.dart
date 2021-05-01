@@ -3,20 +3,20 @@
 // *   Created Date & Time:  2021-01-06  ,  16:00 AM
 // ****************************************************************************
 
-import 'package:bubble/bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
 
-import 'package:jeanswest/src/models/api_response/userRes/userMessages/dataFavorite/message-data.dart';
+import 'package:jeanswest/src/models/profile/message/single-message.dart';
 
-import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 
 class SingleMessagePage extends StatefulWidget {
-  final MessageData notificationMessage;
+  final String title;
+  final SingleMessage message;
 
-  const SingleMessagePage({Key key, this.notificationMessage})
+  const SingleMessagePage({Key key, this.message, this.title})
       : super(key: key);
   @override
   _SingleMessagePageState createState() => _SingleMessagePageState();
@@ -24,8 +24,19 @@ class SingleMessagePage extends StatefulWidget {
 
 class _SingleMessagePageState extends State<SingleMessagePage> {
   ScrollController scrollController = new ScrollController();
+
+  String categoryText;
   @override
   void initState() {
+    categoryText = widget.message.perCategory.length == 1
+        ? 'خرید در دسته بندی '
+        : 'خرید در دسته بندی های ';
+    for (int index = 0; index < widget.message.perCategory.length; index++) {
+      categoryText = categoryText + widget.message.perCategory[index];
+      if (index != widget.message.perCategory.length - 1)
+        categoryText = categoryText + ' - ';
+    }
+    widget.message.perCategory.forEach((element) {});
     super.initState();
   }
 
@@ -41,222 +52,178 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
             height: _screenSize.height,
             child: Column(
               children: [
-                AppBarWithBackWidget(
-                  title: widget.notificationMessage.perSender,
-                  onTap: () => Navigator.pop(context),
+                AppBarWithCloseWidget(
+                  title: widget.title,
+                  closeOnTap: () => Navigator.pop(context),
                 ),
                 Expanded(
                   child: SingleChildScrollView(
                     controller: scrollController,
-                    child: Container(
-                      padding: EdgeInsets.only(
-                        right: 0.0156 * _screenSize.height, //10
-                        left: 0.0156 * _screenSize.height, //10
-                        bottom: 0.0156 * _screenSize.height, //10
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SizedBox(width: 0.028 * _screenSize.width //10
-                              ),
-                          Container(
-                            height: 0.111 * _screenSize.width, //40,
-                            width: 0.111 * _screenSize.width, //40,
-                            padding:
-                                EdgeInsets.all(0.0166 * _screenSize.width //6,
-                                    ),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 0.0083 * _screenSize.width, //3,
-                                color: MAIN_BLUE_COLOR,
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                  0.138 * _screenSize.width //50
-                                  ),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/png_images/global/logo/${widget.notificationMessage.engSender}.png'),
-                                  fit: BoxFit.cover,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          widget.message.pictureAssets,
+                          width: _screenSize.width,
+                          fit: BoxFit.fitWidth,
+                        ),
+                        SizedBox(
+                          height: 0.016 * _screenSize.height, //10
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 0.054 * _screenSize.width, //20
+                            vertical: 0.023 * _screenSize.height, //15
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'مشتری عزیز ${widget.message.perSender}',
+                                style: TextStyle(
+                                  fontSize: 0.038 * _screenSize.width, //14,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 0.0138 * _screenSize.width, //5
-                          ),
-                          Expanded(
-                            child: Stack(
-                              children: [
-                                Column(
-                                  children: [
-                                    Bubble(
-                                      margin: BubbleEdges.only(
-                                          top: 0.028 * _screenSize.width //10
-                                          ),
-                                      radius: Radius.circular(3),
-                                      shadowColor: Colors.transparent,
-                                      nipOffset:
-                                          0.0078 * _screenSize.height, //5,
-                                      alignment: Alignment.bottomLeft,
-                                      nipWidth:
-                                          0.03125 * _screenSize.height, //20,
-                                      nipHeight:
-                                          0.0156 * _screenSize.height, //10,
-                                      nip: BubbleNip.rightBottom,
-                                      color: BLUE_SKY_COLOR,
-                                      child: Container(
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                              SizedBox(
+                                height: 0.0156 * _screenSize.height, //10
+                              ),
+                              Text(
+                                widget.message.text,
+                                style: TextStyle(
+                                  fontSize: 0.038 * _screenSize.width, //14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 0.0156 * _screenSize.height, //10
+                              ),
+                              widget.message.description.length == 0
+                                  ? SizedBox()
+                                  : ListView.builder(
+                                      itemCount:
+                                          widget.message.description.length,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemBuilder: (BuildContext context,
+                                          int conditionsIndex) {
+                                        return Row(
                                           children: [
-                                            Text(
-                                              widget
-                                                  .notificationMessage.perTitle,
-                                              style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                            SizedBox(
-                                              height: 190,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    widget.notificationMessage
-                                                        .text,
-                                                    style: TextStyle(
-                                                        fontSize: 0.033 *
-                                                            _screenSize
-                                                                .width, //12,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.grey),
+                                            Padding(
+                                              padding: EdgeInsets.all(
+                                                0.027 * _screenSize.width, //10,
+                                              ),
+                                              child: Container(
+                                                width: 0.0194 *
+                                                    _screenSize.width, //7,
+                                                height: 0.0194 *
+                                                    _screenSize.width, //7,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    0.138 *
+                                                        _screenSize.width, //50,
                                                   ),
+                                                  color: Colors.black,
                                                 ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 0.0156 *
-                                                  _screenSize.height, //10
-                                            ),
-                                            ListView.builder(
-                                                itemCount: widget
-                                                    .notificationMessage
-                                                    .description
-                                                    .length,
-                                                physics:
-                                                    NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemBuilder:
-                                                    (BuildContext context,
-                                                        int conditionsIndex) {
-                                                  return Column(
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                              child: Text(
-                                                            widget.notificationMessage
-                                                                    .description[
-                                                                conditionsIndex],
-                                                            style: TextStyle(
-                                                              fontSize: 0.028 *
-                                                                  _screenSize
-                                                                      .width, //10
-                                                              color:
-                                                                  MAIN_BLUE_COLOR,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                            ),
-                                                          )),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 0.0078 *
-                                                            _screenSize
-                                                                .height, //5
-                                                      ),
-                                                    ],
-                                                  );
-                                                }),
-                                            SizedBox(
-                                              height: 0.0078 *
-                                                  _screenSize.height, //5
-                                            ),
-                                            Text(
-                                              'مبلغ ${widget.notificationMessage.price} تومان',
-                                              style: TextStyle(
-                                                fontSize: 0.03 *
-                                                    _screenSize.width, //11
-                                                color: MAIN_BLUE_COLOR,
-                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
-                                            Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    '${widget.notificationMessage.sendHour}:${widget.notificationMessage.sendMinute}',
-                                                    style: TextStyle(
-                                                      fontSize: 0.028 *
-                                                          _screenSize
-                                                              .width, //10
-                                                      color: MAIN_BLUE_COLOR,
-                                                      fontWeight:
-                                                          FontWeight.w300,
-                                                    ),
-                                                  )
-                                                ]),
+                                            Expanded(
+                                              child: Text(
+                                                widget.message.description[
+                                                    conditionsIndex],
+                                                style: TextStyle(
+                                                  fontSize: 0.038 *
+                                                      _screenSize.width, //14,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
                                           ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 10),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    SizedBox(height: 30),
-                                    Row(
+                                        );
+                                      }),
+                              SizedBox(
+                                height: 0.023 * _screenSize.height, //15
+                              ),
+                              widget.message.price == null ||
+                                      widget.message.price == 0
+                                  ? SizedBox()
+                                  : Column(
                                       children: [
-                                        Container(
-                                          width: 15,
-                                          height: 200,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                            height: 180,
-                                            width: 260,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                fit: BoxFit.fitWidth,
-                                                image: new AssetImage(
-                                                    'assets/images/png_images/profile/big_jeanswest_shop.png'),
-                                              ),
-                                            ),
+                                        Text(
+                                          'مبلغ ${toPriceStyle(widget.message.price)} تومان',
+                                          style: TextStyle(
+                                            fontSize:
+                                                0.038 * _screenSize.width, //14,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                        Container(
-                                          width: 15,
-                                          height: 200,
+                                        SizedBox(
+                                          height:
+                                              0.0078 * _screenSize.height, //5
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              widget.message.minShopping == null ||
+                                      widget.message.minShopping == 0
+                                  ? SizedBox()
+                                  : Column(
+                                      children: [
+                                        Text(
+                                          'قابل استفاده برای خرید های بیش از ${toPriceStyle(widget.message.minShopping)} تومان',
+                                          style: TextStyle(
+                                            fontSize:
+                                                0.038 * _screenSize.width, //14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              0.0078 * _screenSize.height, //5
+                                        ),
+                                      ],
+                                    ),
+                              widget.message.perCategory == null ||
+                                      widget.message.perCategory.length == 0
+                                  ? SizedBox()
+                                  : Column(
+                                      children: [
+                                        Text(
+                                          categoryText,
+                                          style: TextStyle(
+                                            fontSize:
+                                                0.038 * _screenSize.width, //14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              0.0078 * _screenSize.height, //5
+                                        ),
+                                      ],
+                                    ),
+                              widget.message.price == 0
+                                  ? SizedBox()
+                                  : Column(
+                                      children: [
+                                        Text(
+                                          'مدت اعتبار از تاریخ ${widget.message.startShamsiYear}/${widget.message.startShamsiMonth}/${widget.message.startShamsiDay} تا تاریخ ${widget.message.endShamsiYear}/${widget.message.endShamsiMonth}/${widget.message.endShamsiDay}',
+                                          style: TextStyle(
+                                            fontSize:
+                                                0.038 * _screenSize.width, //14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              0.0078 * _screenSize.height, //5
+                                        ),
+                                      ],
+                                    ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
