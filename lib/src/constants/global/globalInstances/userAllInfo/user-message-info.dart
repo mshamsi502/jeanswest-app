@@ -15,8 +15,6 @@ List<SingleMessage> userMessages = [
     engCategory: [""],
     perCategory: [""],
     startDate: "",
-    //
-    //
     endDate: "",
     sendDate: "",
   ),
