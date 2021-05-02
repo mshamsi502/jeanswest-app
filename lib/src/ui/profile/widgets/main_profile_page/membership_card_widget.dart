@@ -9,22 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 
 class MembershipCardWidget extends StatefulWidget {
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
-  final LevelCard preLevel;
-  final int moneyBuying;
-
-  const MembershipCardWidget({
-    Key key,
-    this.userLevel,
-    this.moneyBuying,
-    this.nextLevel,
-    this.preLevel,
-  }) : super(key: key);
-
   State<StatefulWidget> createState() => _MembershipCardWidgetState();
 }
 
