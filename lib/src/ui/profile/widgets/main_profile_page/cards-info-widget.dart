@@ -39,7 +39,8 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
 
   List<int> index = [];
 
-  List<double> largeHeights;
+  // ignore: deprecated_member_use
+  List<double> largeHeights = List<double>();
   // ignore: deprecated_member_use
   List<double> largeWidths = List<double>();
 
