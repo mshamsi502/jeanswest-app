@@ -14,7 +14,6 @@ class CardsInfoWidget extends StatefulWidget {
   final List<String> assetsLevelCard;
   final List<MainLevelCard> levels;
   final Size screenSize;
-
   final Function closeCardsInfoPanel;
   final int showingCard;
 
@@ -39,14 +38,8 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   CarouselController carouselController;
 
   List<int> index = [];
-  // int showingCard;
-  //
-  double smallHeight;
-  double smallWidth;
-  double largeHeight;
-  double largeWidth;
 
-  List<double> largeHeights = [120, 100, 100];
+  List<double> largeHeights;
   // ignore: deprecated_member_use
   List<double> largeWidths = List<double>();
 
@@ -55,21 +48,21 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
     _scrollController = new ScrollController();
     cardScrollController = new ScrollController();
     carouselController = CarouselController();
-    smallHeight = 120;
-    smallWidth = 100;
-    largeHeight = 150;
-    largeWidth = 120;
+
     for (int i = 0; i < widget.assetsLevelCard.length; i++) {
-      largeWidths.add(i == widget.showingCard
-          ? (widget.screenSize.width / 2) - 20
-          : (widget.screenSize.width / 4) - 10);
+      if (i == widget.showingCard) {
+        largeWidths.add((widget.screenSize.width / 2.25) -
+            (0.054 * widget.screenSize.width //20
+            ));
+        largeHeights.add(0.2027 * widget.screenSize.height //120,
+            );
+      } else {
+        largeWidths.add((widget.screenSize.width / 3.5));
+        largeHeights.add(0.15625 * widget.screenSize.height //100,
+            );
+      }
     }
-    // largeWidths = [
-    //   (widget.screenSize.width / 4) - 20,
-    //   (widget.screenSize.width / 6) - 10,
-    //   (widget.screenSize.width / 6) - 10,
-    // ];
-    // showingCard = 0;
+
     for (var i = 0; i < widget.assetsLevelCard.length; i++) index.add(i);
 
     super.initState();
@@ -93,28 +86,31 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.054 * _screenSize.width, //20
+              vertical: 0.023 * _screenSize.height, //15
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   'معرفی کارت های جین وست',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 GestureDetector(
                   child: Icon(
                     Icons.close,
-                    size: 25,
+                    size: 0.069 * _screenSize.width, //25,
                   ),
                   onTap: () => widget.closeCardsInfoPanel(),
                 )
               ],
             ),
           ),
-          // ??
+          // ! use CarouselSlider package
           // CarouselSlider(
           //   options: CarouselOptions(
           //     height: 0.33 * _screenSize.width, // 120
@@ -201,16 +197,11 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
           // ),
           // //
 
-          //  ??
+          // !
 
           Container(
             width: _screenSize.width,
-            height: 110,
-            // alignment: widget.showingCard == 0
-            //     ? Alignment.centerRight
-            //     : widget.showingCard == 1
-            //         ? Alignment.center
-            //         : Alignment.centerLeft,
+            height: 0.172 * _screenSize.height, //110,
             child: ListView.builder(
               itemCount: widget.assetsLevelCard.length,
               shrinkWrap: true,
@@ -218,9 +209,10 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  // height: 50,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 0.00555 * _screenSize.width, //2,
+                  ),
                   child: AnimatedContainer(
                     width: largeWidths[index],
                     // widget.showingCard == index ? largeWidth : smallWidth,
@@ -234,7 +226,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                         children: [
                           Container(
                             alignment: Alignment.bottomLeft,
-                            height: 90,
+                            height: 0.14 * _screenSize.height, //90,
                             decoration: BoxDecoration(
                               // color: Colors.red,
                               borderRadius: BorderRadius.circular(
@@ -247,10 +239,13 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                               ),
                             ),
                           ),
+                          SizedBox(
+                            height: 0.00138 * _screenSize.height, //0.5,
+                          ),
                           widget.showingCard == index
                               ? Divider(
-                                  thickness: 3,
-                                  height: 3,
+                                  thickness: 0.0046 * _screenSize.height, //3,
+                                  height: 0.0046 * _screenSize.height, //3,
                                   color: MAIN_BLUE_COLOR,
                                 )
                               : SizedBox(),
@@ -266,18 +261,25 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                           index == 0
                               ? 0
                               : index == 1
-                                  ? (widget.screenSize.width / 2) + 15
-                                  : widget.screenSize.width + 20,
+                                  ? (widget.screenSize.width / 2) +
+                                      (0.041 * _screenSize.width //15,
+                                      )
+                                  : widget.screenSize.width +
+                                      (0.054 * _screenSize.width //20
+
+                                      ),
                           duration: Duration(milliseconds: 200),
                           curve: Curves.linear,
                         );
-                        largeHeights[widget.showingCard] = 120;
-                        largeHeights[index] = 150;
+                        largeHeights[widget.showingCard] =
+                            0.2027 * _screenSize.height; //120,
+                        largeHeights[index] = 0.234 * _screenSize.height; //150,
                         //
                         largeWidths[widget.showingCard] =
                             (widget.screenSize.width / 3.5);
-                        largeWidths[index] =
-                            (widget.screenSize.width / 2.25) - 20;
+                        largeWidths[index] = (widget.screenSize.width / 2.25) -
+                            (0.054 * _screenSize.width //20
+                            );
                         widget.changeShowingCard(index);
                       }),
                     ),
@@ -292,11 +294,14 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
 
           // ??
           //
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Container(
-            height: 7,
-            width: 35,
-            padding: EdgeInsets.symmetric(horizontal: 3),
+            height: 0.0118 * _screenSize.height, //7,
+            width: 0.09722 * _screenSize.width, //35,
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.0083 * _screenSize.width, //3,
+            ),
             alignment: Alignment.center,
             child: ListView.builder(
               itemCount: widget.assetsLevelCard.length,
@@ -305,53 +310,76 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               itemBuilder: (BuildContext context, int index) {
                 return Row(
                   children: [
-                    SizedBox(width: 2),
+                    SizedBox(
+                      width: 0.00555 * _screenSize.width, //2,
+                    ),
                     Container(
-                      width: widget.showingCard == index ? 7 : 5,
-                      height: widget.showingCard == index ? 7 : 5,
+                      width: widget.showingCard == index
+                          ? 0.0194 * _screenSize.width //7,
+                          : 0.0078 * _screenSize.height //5,
+                      ,
+                      height: widget.showingCard == index
+                          ? 0.0194 * _screenSize.width //7,
+                          : 0.0078 * _screenSize.height //5,
+                      ,
                       // margin: EdgeInsets.symmetric(horizontal: 3),
                       decoration: BoxDecoration(
                         color: widget.showingCard == index
                             ? MAIN_BLUE_COLOR
                             : DARK_GREY,
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(
+                          0.138 * _screenSize.width, //50,
+                        ),
                       ),
                     ),
-                    SizedBox(width: 2),
+                    SizedBox(
+                      width: 0.00555 * _screenSize.width, //2,
+                    ),
                   ],
                 );
               },
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10,
+          ),
           Container(
             alignment: Alignment.centerRight,
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.054 * _screenSize.width, //20
+            ),
             child: Text(
               widget.levels[widget.showingCard].perMainName,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 0.038 * _screenSize.width, //14,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Expanded(
             child: SingleChildScrollView(
               controller: _scrollController,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.054 * _screenSize.width, //20
+                ),
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
+                    SizedBox(
+                      height: 0.015 * _screenSize.height, //10,
+                    ),
                     Text(
                       widget.levels[widget.showingCard].text,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(
+                      height: 0.015 * _screenSize.height, //10,
+                    ),
                     ListView.builder(
                       itemCount:
                           widget.levels[widget.showingCard].levels.length,
@@ -367,7 +395,8 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                     widget.levels[widget.showingCard]
                                         .levels[indexSubLvl].perTitle,
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize:
+                                            0.038 * _screenSize.width, //14,
                                         fontWeight: FontWeight.w500,
                                         color: widget.showingCard == 0
                                             ? MAIN_BLUE_COLOR
@@ -378,7 +407,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                               widget.levels[widget.showingCard]
                                   .levels[indexSubLvl].receiptConditions,
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 0.038 * _screenSize.width, //14,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -407,18 +436,23 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                             .levels[indexSubLvl]
                                             .descriptions[indexDesc],
                                         style: TextStyle(
-                                          fontSize: 14,
+                                          fontSize:
+                                              0.038 * _screenSize.width, //14,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       );
                               },
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(
+                              height: 0.031 * _screenSize.height, //20,
+                            ),
                           ],
                         );
                       },
                     ),
-                    SizedBox(height: 70),
+                    SizedBox(
+                      height: 0.1093 * _screenSize.height, //70,
+                    ),
                   ],
                 ),
               ),

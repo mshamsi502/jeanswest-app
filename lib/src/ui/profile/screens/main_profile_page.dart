@@ -156,7 +156,7 @@ class _MainProfilePageState extends State<MainProfilePage>
         body: SlidingUpPanel(
           controller: cardsInfoPanel,
           minHeight: 0,
-          maxHeight: 500,
+          maxHeight: 0.8445 * _screenSize.height, //500,
           backdropEnabled: true,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(
