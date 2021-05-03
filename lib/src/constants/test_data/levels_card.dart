@@ -6,6 +6,7 @@
 //
 
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/models/profile/level_card/main-level-card.dart';
 
 LevelCard zeroLevel = LevelCard(
   membership: '',
@@ -204,6 +205,32 @@ List<LevelCard> levels = [
   goldLevel,
   //
   // infinityLevel,
+];
+List<MainLevelCard> mainLevels = [
+  MainLevelCard(
+    perMainName: "کارت عضویت آبی",
+    engMainName: "Blue Card",
+    text: "کارت عضویت آبی جین وست شامل سه سطح است که بصورت زیر ارائه می گردد:",
+    levels: [
+      blueLevel,
+      bluePlusLevel,
+      blueTwoPlusLevel,
+    ],
+  ),
+  MainLevelCard(
+    perMainName: "کارت عضویت نقره ای",
+    engMainName: "ُSilver Card",
+    text:
+        "کارت عضویت نقره ای جین وست پس از دریافت کارت آبی به مشتری جین وست اعطا می گردد و دارای شرایط زیر است.",
+    levels: [silverLevel],
+  ),
+  MainLevelCard(
+    perMainName: "کارت عضویت طلایی",
+    engMainName: "Gold Card",
+    text:
+        "کارت عضویت طلایی جین وست پس از دریافت کارت نقره ای به مشتری جین وست اعطا می گردد و دارای شرایط زیر است",
+    levels: [goldLevel],
+  ),
 ];
 //
 List<String> assetsLevelCard = [
