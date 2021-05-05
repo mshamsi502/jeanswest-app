@@ -12,11 +12,17 @@ part 'user-addresses-info-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class UserAddressesInfoRes extends Equatable {
-  @JsonKey(name: 'addresses')
-  List<AddressInfoRes> addresses;
+  @JsonKey(name: 'statusCode')
+  int statusCode;
+  @JsonKey(name: 'message')
+  String message;
+  @JsonKey(name: 'data')
+  List<AddressInfoRes> data;
 
   UserAddressesInfoRes({
-    this.addresses,
+    this.statusCode,
+    this.message,
+    this.data,
   });
 
   factory UserAddressesInfoRes.fromJson(Map<String, dynamic> json) =>
@@ -26,12 +32,16 @@ class UserAddressesInfoRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'addresses': addresses,
+      'statusCode': statusCode,
+      'message': message,
+      'addresses': data,
     };
   }
 
   @override
   List<Object> get props => [
-        addresses,
+        statusCode,
+        message,
+        data,
       ];
 }

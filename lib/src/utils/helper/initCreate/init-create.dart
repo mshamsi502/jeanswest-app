@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
-import 'package:jeanswest/src/utils/helper/getAllInfo/get-all-info.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,8 +42,10 @@ Future<Map<String, dynamic>> authService() async {
 
   // //
   // // ! put token in device
-  globalLocator<SharedPreferences>().setString(
-      TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
+  // globalLocator<SharedPreferences>().setString(TOKEN,
+  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIyZmMxYjEzOC00YzgxLTQ3ZGEtOGFiMi1mNzE5NjBkNTAzZjIiLCJpYXQiOjE2MjAyMTUzODcsImV4cCI6MTYyMDIyMTM4N30.okyuekmpdqD5nGs_1TRioOpZU-PrURmsZtkcE4wPG2o');
+  // globalLocator<SharedPreferences>().setString(
+  //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
   // //
 
   String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
@@ -59,10 +61,8 @@ Future<Map<String, dynamic>> authService() async {
       if (!isAuth) {
         while (tryToGetAllUserInfo >= 0) {
           try {
-            await getAllUserInfo(token: getToken);
-
+            await getAllUserInfo();
             isAuth = true;
-
             print('^*^*^ getAllUserInfo : Successfully');
             Map<String, dynamic> initCreateRes =
                 createBottomNavigationBarPages(isAuth: isAuth);
@@ -117,7 +117,7 @@ Future<Map<String, dynamic>> authService() async {
 checkCompleteProfileMsgDateTime() {
   // !
   //
-  
+
   if (globalLocator<SharedPreferences>()
           .getString('completeProfileMsgDataTime') !=
       null) {

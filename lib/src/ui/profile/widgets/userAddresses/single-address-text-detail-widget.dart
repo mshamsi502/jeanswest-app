@@ -3,20 +3,31 @@ import 'package:flutter/widgets.dart';
 import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+// import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
+// import 'package:jeanswest/src/models/api_response/globalRes/address/all-province.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
+// import 'package:jeanswest/src/services/rest_client_global.dart';
+// import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
-import 'package:jeanswest/src/models/address/address.dart';
 
 import 'package:jeanswest/src/ui/global/widgets/dropDown/custom_dropdown_button_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 
 class SingleAddressTextDetailWidget extends StatefulWidget {
   final String title;
-  final Address address;
+  final AddressInfoRes address;
   final int indexAddress;
+  //
+  final String selectedProvince;
+  final String selectedDistrict;
+  final String selectedCity;
+  //
   final PanelState mapPanelState;
+  final Function(String, bool) editPanel;
   final bool isInitial;
   final Size screenSize;
 
@@ -32,6 +43,10 @@ class SingleAddressTextDetailWidget extends StatefulWidget {
     this.disableIsInitial,
     this.screenSize,
     this.isOpenEditPanel,
+    this.editPanel,
+    this.selectedProvince,
+    this.selectedDistrict,
+    this.selectedCity,
   }) : super(key: key);
 
   @override
@@ -52,18 +67,20 @@ class _SingleAddressTextDetailWidgetState
   String selectedCity;
   bool recieverIsUser;
   //
-  int tempAddressId;
+  String tempAddressId;
   List<String> availableCities;
   Set<Marker> addressMarker = new Set<Marker>();
   Widget map;
   //
   int selectedDropDown = 0;
 
+  List<DropdownMenuItem> allProvinceDropDownItems;
+
   @override
   void initState() {
-    selectedProvince = widget.address.province;
+    selectedProvince = widget.address.province.name;
     availableCities = provinceCities[selectedProvince];
-    selectedCity = widget.address.city;
+    selectedCity = widget.address.city.name;
 
     updateSelectedAddress(isNewAddress: false);
     recieverIsUser = widget.address.isUser;
@@ -72,18 +89,18 @@ class _SingleAddressTextDetailWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (widget.address.id == null || widget.address.id != tempAddressId)
+    if (widget.address.code == null || widget.address.code != tempAddressId)
       updateSelectedAddress(isNewAddress: false);
     if (widget.isInitial && widget.mapPanelState == PanelState.OPEN)
       updateSelectedAddress(isNewAddress: true);
     Size _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 760,
+      height: 880,
       // color: Colors.red,
       child: Stack(
         children: [
           Positioned(
-            top: 680,
+            top: 800,
             left: 0,
             right: 0,
             child: CustomTextFieldWidget(
@@ -97,7 +114,7 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
-            top: 580,
+            top: 700,
             left: 0,
             right: 0,
             child: CustomTextFieldWidget(
@@ -112,7 +129,7 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
-            top: 540,
+            top: 650,
             left: 0,
             right: 0,
             child: GestureDetector(
@@ -151,7 +168,7 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
-            top: 520,
+            top: 640,
             left: 0,
             right: 0,
             child: Divider(
@@ -163,7 +180,7 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
-            top: 420,
+            top: 540,
             left: 0,
             right: 0,
             child: CustomTextFieldWidget(
@@ -175,7 +192,7 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
-            top: 325,
+            top: 440,
             left: 0,
             right: 0,
             child: CustomTextFieldWidget(
@@ -187,7 +204,7 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
-            top: 190,
+            top: 300,
             left: 0,
             right: 0,
             child: CustomTextFieldWidget(
@@ -199,37 +216,159 @@ class _SingleAddressTextDetailWidgetState
             ),
           ),
           Positioned(
+            top: 190,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'منطقه *',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  GestureDetector(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(widget.selectedDistrict ??
+                              'یک منطقه را اتخاب کنید  ...'),
+                          Icon(Icons.arrow_drop_down_outlined)
+                        ],
+                      ),
+                    ),
+                    onTap: () => widget.editPanel('district', true),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
             top: 95,
             left: 0,
             right: 0,
-            child: CustomDropdownButtonWidget(
-              title: 'شهر *',
-              hintTitle: selectedCity,
-              titleColor: Colors.black,
-              options: availableCities,
-              mediaQuery: MediaQuery.of(context),
-              selected: (String _selectedCity) => setState(() {
-                selectedCity = _selectedCity;
-              }),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'شهر *',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  GestureDetector(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(widget.selectedCity ??
+                              'یک شهر را انتخاب کنید  ...'),
+                          Icon(Icons.arrow_drop_down_outlined)
+                        ],
+                      ),
+                    ),
+                    onTap: () => widget.editPanel('city', true),
+                  ),
+                ],
+              ),
             ),
+            // CustomDropdownButtonWidget(
+            //   title: 'شهر *',
+            //   hintTitle: selectedCity,
+            //   titleColor: Colors.black,
+            //   options: availableCities,
+            //   mediaQuery: MediaQuery.of(context),
+            //   selected: (String _selectedCity) => setState(() {
+            //     selectedCity = _selectedCity;
+            //   }),
+            // ),
           ),
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            child: CustomDropdownButtonWidget(
-              title: 'استان *',
-              hintTitle: selectedProvince,
-              titleColor: Colors.black,
-              options: provinces,
-              mediaQuery: MediaQuery.of(context),
-              selected: (String _selectedProvince) => setState(() {
-                selectedProvince = _selectedProvince;
-                print('++++ selectedProvince : $selectedProvince');
-                availableCities = provinceCities[selectedProvince];
-                print('++++ availableCities.first : ${availableCities[0]}');
-              }),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'استان *',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  GestureDetector(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: Colors.grey),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(widget.selectedProvince ??
+                              'یک استان را اتخاب کنید  ...'),
+                          Icon(Icons.arrow_drop_down_outlined)
+                        ],
+                      ),
+                    ),
+                    onTap: () => widget.editPanel('province', true),
+                  ),
+                ],
+              ),
             ),
+
+            // DropdownButton(
+            //   items: allProvinceDropDownItems,
+            //   // value: 0,
+            //   hint: Text(widget.address.province.name),
+            //   onTap: () {},
+            //   onChanged: (newValue) {},
+            // ),
+
+            // CustomDropdownButtonWidget(
+            //   title: 'استان *',
+            //   hintTitle: selectedProvince,
+            //   titleColor: Colors.black,
+            //   options: allProvinceString,
+            //   mediaQuery: MediaQuery.of(context),
+            //   selected: (String _selectedProvince) => setState(() {
+            //     selectedProvince = _selectedProvince;
+            //     print('++++ selectedProvince : $selectedProvince');
+            //     availableCities = provinceCities[selectedProvince];
+            //     print('++++ availableCities.first : ${availableCities[0]}');
+            //   }),
+            // ),
           ),
         ],
       ),
@@ -264,15 +403,15 @@ class _SingleAddressTextDetailWidgetState
         postalCodeTextEditingController.text = widget.address.postalCode ?? "";
         recieverNameTextEditingController = new TextEditingController();
         recieverNameTextEditingController.text =
-            "${widget.address.recieverFirstName} ${widget.address.recieverLastName}" ??
+            "${widget.address.receiverFirstName} ${widget.address.receiverLastName}" ??
                 "";
         recieverPhoneNumberTextEditingController = new TextEditingController();
         recieverPhoneNumberTextEditingController.text =
-            widget.address.recieverMobile ?? "";
-        tempAddressId = widget.address.id;
+            widget.address.receiverMobile ?? "";
+        tempAddressId = widget.address.code;
         recieverIsUser = widget.address.isUser;
-        selectedCity = widget.address.city;
-        selectedProvince = widget.address.province;
+        selectedCity = widget.address.city.name;
+        selectedProvince = widget.address.province.name;
       }
     });
   }

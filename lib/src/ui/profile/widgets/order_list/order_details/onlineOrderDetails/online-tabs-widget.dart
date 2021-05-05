@@ -259,13 +259,13 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                           controller: tabController,
                           children: <Widget>[
                             OnlineOrderListWidget(
-                              onlineOrders: userOrders.data.inProgressOrders,
+                              onlineOrders: userOrdersa.inProgressOrders,
                             ),
                             OnlineOrderListWidget(
-                              onlineOrders: userOrders.data.compeletedOrders,
+                              onlineOrders: userOrdersa.compeletedOrders,
                             ),
                             OnlineOrderListWidget(
-                              onlineOrders: userOrders.data.returnedOrders,
+                              onlineOrders: userOrdersa.returnedOrders,
                             ),
                           ],
                         ),

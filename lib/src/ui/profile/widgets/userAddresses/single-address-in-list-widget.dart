@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/address/address.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 
 class SingleAddressInListWidget extends StatefulWidget {
-  final Address address;
+  final AddressInfoRes address;
   final int indexAddress;
   final int selected;
   final Function(int) changeSelected;
@@ -29,30 +29,14 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(
-        0.027 * _screenSize.width, //10,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
       ),
       width: _screenSize.width,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-              width: 0.083 * _screenSize.width, //30,
-              alignment: Alignment.topCenter,
-              child: Container(
-                height: 0.0506 * _screenSize.height, //30,
-                child: Transform.scale(
-                  scale: _screenSize.width / 360,
-                  child: Radio(
-                    value: widget.indexAddress,
-                    groupValue: widget.selected,
-                    activeColor: MAIN_BLUE_COLOR,
-                    onChanged: (int value) {
-                      widget.changeSelected(value);
-                    },
-                  ),
-                ),
-              )),
           Expanded(
             child: Column(
               children: [
@@ -80,7 +64,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                     // Expanded(
                     //   child:
                     Text(
-                      "${widget.address.province}، ${widget.address.city}، ${widget.address.district}",
+                      "${widget.address.province.name}، ${widget.address.city.name}، ${widget.address.district.name}",
                       style: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                       ),
@@ -125,7 +109,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                     ),
                     Expanded(
                         child: Text(
-                      "${widget.address.recieverMobile}",
+                      "${widget.address.receiverMobile}",
                       style: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                       ),
@@ -147,7 +131,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                     ),
                     Expanded(
                         child: Text(
-                      "${widget.address.recieverFirstName} ${widget.address.recieverLastName}",
+                      "${widget.address.receiverFirstName} ${widget.address.receiverLastName}",
                       style: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                       ),
@@ -173,7 +157,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                               width: 0.0138 * _screenSize.width, //5,
                             ),
                             Icon(
-                              Icons.arrow_back_ios_rounded,
+                              Icons.arrow_forward_ios_outlined,
                               color: MAIN_BLUE_COLOR,
                               size: 0.041 * _screenSize.width, //15,
                             ),

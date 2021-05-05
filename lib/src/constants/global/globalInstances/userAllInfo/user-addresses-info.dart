@@ -1,31 +1,28 @@
-import 'package:jeanswest/src/models/dateTimeOnData/date-time-on-data.dart';
-import 'package:jeanswest/src/models/address/address.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/district/district.dart';
 
-List<Address> userAddresses = [
-  Address(
-    id: 0,
+// List<Address> userAddresses = [
+List<AddressInfoRes> userAddresses = [
+  AddressInfoRes(
+    code: "",
     title: "",
-    recieverFirstName: "",
-    recieverLastName: "",
-    recieverMobile: "",
+    receiverFirstName: "",
+    receiverLastName: "",
+    receiverMobile: "",
     country: "",
-    province: "",
-    city: "",
-    district: "",
+    province: Province(name: ''),
+    city: City(name: ''),
+    district: District(name: ''),
     address: "",
     houseNumber: "",
     unitNumber: "",
     postalCode: "",
     latitude: 35.7447,
-    longtitude: 51.3340,
+    longitude: 51.3340,
     active: true,
     isUser: true,
-    personId: 2517,
-    datetime: DateTimeOnData(
-      createdAt: "2021-02-02T11:16:43.531Z",
-      updatedAt: "2021-02-02T11:16:43.531Z",
-      deletedAt: "2021-02-02T11:16:43.531Z",
-    ),
   ),
 ];
 

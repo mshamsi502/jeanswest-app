@@ -12,10 +12,16 @@ part 'user-order-data-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class UserOrderDataRes extends Equatable {
+  @JsonKey(name: 'statusCode')
+  int statusCode;
+  @JsonKey(name: 'message')
+  String message;
   @JsonKey(name: 'data')
   UserOrderResultRes data;
 
   UserOrderDataRes({
+    this.statusCode,
+    this.message,
     this.data,
   });
 
@@ -26,12 +32,16 @@ class UserOrderDataRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'statusCode': statusCode,
+      'message': message,
       'data': data,
     };
   }
 
   @override
   List<Object> get props => [
+        statusCode,
+        message,
         data,
       ];
 }

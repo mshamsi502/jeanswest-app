@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+// import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/single-ticket/single-ticket.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
@@ -43,15 +44,15 @@ void addNewMessageInTicket(int numberOfTicket, String text) {
 }
 
 // List<DropdownMenuItem<String>> buildDropdownMenuItems(
-//     List<String> options, double myWidth, Size _screenSize) {
+//     {List<String> options, double myWidth, Size screenSize}) {
 //   // ignore: deprecated_member_use
 //   List<DropdownMenuItem<String>> items = new List<DropdownMenuItem<String>>();
 //   for (String string in options) {
 //     items.add(DropdownMenuItem(
 //       value: string,
 //       child: Container(
-//         width: myWidth - (0.36 * _screenSize.width), //130,
-//         height: 0.054 * _screenSize.height, // 30,
+//         width: myWidth - (0.36 * screenSize.width), //130,
+//         height: 0.054 * screenSize.height, // 30,
 //         // color: Colors.red,
 //         child: Column(
 //           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +64,7 @@ void addNewMessageInTicket(int numberOfTicket, String text) {
 //                   string,
 //                   style: TextStyle(
 //                     fontFamily: 'IRANSans',
-//                     fontSize: 0.033 * _screenSize.width, // 12,
+//                     fontSize: 0.033 * screenSize.width, // 12,
 //                   ),
 //                 )),
 //               ],

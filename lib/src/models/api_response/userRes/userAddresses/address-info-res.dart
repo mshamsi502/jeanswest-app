@@ -5,31 +5,33 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/time/c-u-d-at-time-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/district/district.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
 
 part 'address-info-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class AddressInfoRes extends Equatable {
-  @JsonKey(name: 'id')
-  int id;
   @JsonKey(name: 'title')
   String title;
-  @JsonKey(name: 'recieverFirstName')
-  String recieverFirstName;
-  @JsonKey(name: 'recieverLastName')
-  String recieverLastName;
-  @JsonKey(name: 'recieverMobile')
-  String recieverMobile;
+  @JsonKey(name: 'code')
+  String code;
+  @JsonKey(name: 'receiverFirstName')
+  String receiverFirstName;
+  @JsonKey(name: 'receiverLastName')
+  String receiverLastName;
+  @JsonKey(name: 'receiverMobile')
+  String receiverMobile;
   @JsonKey(name: 'country')
   String country;
   @JsonKey(name: 'province')
-  String province;
+  Province province;
   @JsonKey(name: 'city')
-  String city;
+  City city;
   @JsonKey(name: 'district')
-  String district;
+  District district;
   @JsonKey(name: 'address')
   String address;
   @JsonKey(name: 'houseNumber')
@@ -40,23 +42,19 @@ class AddressInfoRes extends Equatable {
   String postalCode;
   @JsonKey(name: 'latitude')
   double latitude;
-  @JsonKey(name: 'longtitude')
-  double longtitude;
+  @JsonKey(name: 'longitude')
+  double longitude;
   @JsonKey(name: 'active')
   bool active;
   @JsonKey(name: 'isUser')
   bool isUser;
-  @JsonKey(name: 'personId')
-  int personId;
-  @JsonKey(name: 'dateTime')
-  CUDAtTimeRes dateTime;
 
   AddressInfoRes({
-    this.id,
+    this.code,
     this.title,
-    this.recieverFirstName,
-    this.recieverLastName,
-    this.recieverMobile,
+    this.receiverFirstName,
+    this.receiverLastName,
+    this.receiverMobile,
     this.country,
     this.province,
     this.city,
@@ -66,11 +64,9 @@ class AddressInfoRes extends Equatable {
     this.unitNumber,
     this.postalCode,
     this.latitude,
-    this.longtitude,
+    this.longitude,
     this.active,
     this.isUser,
-    this.personId,
-    this.dateTime,
   });
 
   factory AddressInfoRes.fromJson(Map<String, dynamic> json) =>
@@ -80,11 +76,11 @@ class AddressInfoRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'code': code,
       'title': title,
-      'recieverFirstName': recieverFirstName,
-      'recieverLastName': recieverLastName,
-      'recieverMobile': recieverMobile,
+      'receiverFirstName': receiverFirstName,
+      'receiverLastName': receiverLastName,
+      'receiverMobile': receiverMobile,
       'country': country,
       'province': province,
       'city': city,
@@ -94,21 +90,19 @@ class AddressInfoRes extends Equatable {
       'unitNumber': unitNumber,
       'postalCode': postalCode,
       'latitude': latitude,
-      'longtitude': longtitude,
+      'longitude': longitude,
       'active': active,
       'isUser': isUser,
-      'personId': personId,
-      'dateTime': dateTime,
     };
   }
 
   @override
   List<Object> get props => [
-        id,
+        code,
         title,
-        recieverFirstName,
-        recieverLastName,
-        recieverMobile,
+        receiverFirstName,
+        receiverLastName,
+        receiverMobile,
         country,
         province,
         city,
@@ -118,10 +112,8 @@ class AddressInfoRes extends Equatable {
         unitNumber,
         postalCode,
         latitude,
-        longtitude,
+        longitude,
         active,
         isUser,
-        personId,
-        dateTime,
       ];
 }
