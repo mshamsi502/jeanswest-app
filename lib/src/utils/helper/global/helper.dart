@@ -3,12 +3,14 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-
 // *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
 // *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'dart:typed_data';
+import 'package:flutter/rendering.dart';
+import 'dart:ui' as ui;
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -265,4 +267,13 @@ scrollJumpAfterKeyborad({ScrollController scrollController, Size screenSize}) {
       scrollController.jumpTo(pos);
     },
   );
+}
+
+Future<Uint8List> capturePng(GlobalKey globalKey) async {
+  if (globalKey == null) return null;
+  RenderRepaintBoundary boundary = globalKey.currentContext.findRenderObject();
+  ui.Image image = await boundary.toImage(pixelRatio: 3);
+  ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+  Uint8List pngBytes = byteData.buffer.asUint8List();
+  return pngBytes;
 }

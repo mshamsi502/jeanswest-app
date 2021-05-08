@@ -78,6 +78,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 indexAddress: selectForEdit,
                 mapPanelController: mapPanelController,
                 mapPanelState: mapPanelState,
+                screenSize: _screenSize,
                 changeSelected: (int selected) {},
                 closeEditPanel: () {
                   print('closing');
@@ -90,7 +91,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 //   });
                 //   print('asdsadsadasd asdasdasd');
                 // },
-                isInitial: isInitial,
+                // isInitial: isInitial,
                 disableIsInitial: () => setState(() {
                   isInitial = false;
                   print('24165461656 asdasdasd isInitial : $isInitial');

@@ -139,7 +139,7 @@ class GoogleMapWidgetState extends State<GoogleMapWidget>
                   myLocationEnabled: true,
                   mapToolbarEnabled: false,
                   myLocationButtonEnabled: false,
-                  zoomControlsEnabled: false,
+                  zoomGesturesEnabled: false,
                   mapType: MapType.normal,
                   initialCameraPosition: initCameraPosition,
                   markers: markers,

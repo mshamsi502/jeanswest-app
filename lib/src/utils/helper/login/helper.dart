@@ -112,7 +112,8 @@ checkCodeInput({
           // getAllUserInfo(token: authReqData.accessToken); // ! Get All Info
 
           // !
-          Phoenix.rebirth(context); // ! restart the app
+          await Future.delayed(Duration(microseconds: 1000));
+          await Phoenix.rebirth(context); // ! restart the app
         } else {
           changeInputPhoneStep(false);
           print('req is NOOOOT successfuly');

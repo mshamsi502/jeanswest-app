@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
-
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   // ignore: deprecated_member_use
@@ -42,8 +40,10 @@ Future<Map<String, dynamic>> authService() async {
 
   // //
   // // ! put token in device
-  // globalLocator<SharedPreferences>().setString(TOKEN,
-  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIyZmMxYjEzOC00YzgxLTQ3ZGEtOGFiMi1mNzE5NjBkNTAzZjIiLCJpYXQiOjE2MjAyMTUzODcsImV4cCI6MTYyMDIyMTM4N30.okyuekmpdqD5nGs_1TRioOpZU-PrURmsZtkcE4wPG2o');
+  globalLocator<SharedPreferences>().setString(
+    TOKEN,
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIyZmMxYjEzOC00YzgxLTQ3ZGEtOGFiMi1mNzE5NjBkNTAzZjIiLCJpYXQiOjE2MjAzMTIxMDAsImV4cCI6MTYyMDMxODEwMH0.KBZfWGKKOkjDsJh8d220CiAP8zcEPUPjyy12n3nRo9U',
+  );
   // globalLocator<SharedPreferences>().setString(
   //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
   // //

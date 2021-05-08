@@ -3,7 +3,7 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:extended_text/extended_text.dart';
+// import 'package:extended_text/extended_text.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
@@ -73,59 +73,59 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
             margin: EdgeInsets.symmetric(
               horizontal: 0.054 * _screenSize.width, //20
             ),
-            child: ExtendedText.rich(
-              TextSpan(
-                text:
-                    // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(${widget.selectedCountry.dialCode}) ارسال گردید.',
-                    // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(98+) ارسال گردید.',
-                    'کد تایید برای شماره موبایل ${widget.inputPhone} (98+) ارسال گردید.',
-                style: TextStyle(
-                  fontSize: 0.038 * _screenSize.width, //14,
-                  color: Colors.grey[700],
-                ),
-                children: [
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: GestureDetector(
-                      onTap: () => widget.backToInputPhoneStep(true),
-                      child: Container(
-                        width: 0.3 * _screenSize.width, //108,
-                        // color: Colors.red,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 0.022 * _screenSize.width, //8,
-                            vertical: 0.003125 * _screenSize.height //2,
-                            ),
-                        child: Row(
-                          children: [
-                            Container(
-                                height: 0.034 * _screenSize.width, //12,
-                                width: 0.034 * _screenSize.width, //12,
-                                child: GlobalSvgImages.editIconForRight),
-                            SizedBox(
-                              width: 0.0138 * _screenSize.width, //5,
-                            ),
-                            Text(
-                              "login_screen.edit".tr(),
-                              style: TextStyle(
-                                color: MAIN_BLUE_00_COLOR,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 0.0333 * _screenSize.width, //12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: SizedBox(
-                      width: 0.027 * _screenSize.width, //10,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // child: ExtendedText.rich(
+            //   TextSpan(
+            //     text:
+            //         // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(${widget.selectedCountry.dialCode}) ارسال گردید.',
+            //         // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(98+) ارسال گردید.',
+            //         'کد تایید برای شماره موبایل ${widget.inputPhone} (98+) ارسال گردید.',
+            //     style: TextStyle(
+            //       fontSize: 0.038 * _screenSize.width, //14,
+            //       color: Colors.grey[700],
+            //     ),
+            //     children: [
+            //       WidgetSpan(
+            //         alignment: PlaceholderAlignment.middle,
+            //         child: GestureDetector(
+            //           onTap: () => widget.backToInputPhoneStep(true),
+            //           child: Container(
+            //             width: 0.3 * _screenSize.width, //108,
+            //             // color: Colors.red,
+            //             padding: EdgeInsets.symmetric(
+            //                 horizontal: 0.022 * _screenSize.width, //8,
+            //                 vertical: 0.003125 * _screenSize.height //2,
+            //                 ),
+            //             child: Row(
+            //               children: [
+            //                 Container(
+            //                     height: 0.034 * _screenSize.width, //12,
+            //                     width: 0.034 * _screenSize.width, //12,
+            //                     child: GlobalSvgImages.editIconForRight),
+            //                 SizedBox(
+            //                   width: 0.0138 * _screenSize.width, //5,
+            //                 ),
+            //                 Text(
+            //                   "login_screen.edit".tr(),
+            //                   style: TextStyle(
+            //                     color: MAIN_BLUE_00_COLOR,
+            //                     fontWeight: FontWeight.w500,
+            //                     fontSize: 0.0333 * _screenSize.width, //12,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       WidgetSpan(
+            //         alignment: PlaceholderAlignment.middle,
+            //         child: SizedBox(
+            //           width: 0.027 * _screenSize.width, //10,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ),
           SizedBox(
             height: 0.039 * _screenSize.height, //25,
