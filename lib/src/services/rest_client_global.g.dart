@@ -316,6 +316,24 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<UserAddressesInfoRes> getMockUserAddressesInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3003/v1/getUserAddressesInfo',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserAddressesInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<AllProvince> getAllProvinceInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

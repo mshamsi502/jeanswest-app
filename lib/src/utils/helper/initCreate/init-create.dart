@@ -42,7 +42,7 @@ Future<Map<String, dynamic>> authService() async {
   // // ! put token in device
   globalLocator<SharedPreferences>().setString(
     TOKEN,
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIyZmMxYjEzOC00YzgxLTQ3ZGEtOGFiMi1mNzE5NjBkNTAzZjIiLCJpYXQiOjE2MjAzMTIxMDAsImV4cCI6MTYyMDMxODEwMH0.KBZfWGKKOkjDsJh8d220CiAP8zcEPUPjyy12n3nRo9U',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJkYmM2ZDg0Ni05OWZhLTQ0ZGQtOTNkNy04MjY1M2YxYzI2N2IiLCJpYXQiOjE2MjA1Mzk1NjYsImV4cCI6MTYyMDU0NTU2Nn0.GmBsk-_RNNj-1QmjkBrfbV74m_xOYPP8jvHWjJ2v-Zc',
   );
   // globalLocator<SharedPreferences>().setString(
   //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');

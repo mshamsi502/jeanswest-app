@@ -15,6 +15,7 @@ import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
@@ -276,4 +277,8 @@ Future<Uint8List> capturePng(GlobalKey globalKey) async {
   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
   Uint8List pngBytes = byteData.buffer.asUint8List();
   return pngBytes;
+}
+
+Future<Uint8List> takeSnapshotMethod(GoogleMapController controller) {
+  return controller.takeSnapshot();
 }

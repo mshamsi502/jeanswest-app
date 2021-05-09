@@ -102,6 +102,9 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.0.1.111:8000/api/v1/address/list')
   Future<UserAddressesInfoRes> getUserAddressesInfo();
 
+  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo')
+  Future<UserAddressesInfoRes> getMockUserAddressesInfo();
+
   @GET('http://10.0.1.111:8000/api/v1/logistic/states')
   Future<AllProvince> getAllProvinceInfo();
 

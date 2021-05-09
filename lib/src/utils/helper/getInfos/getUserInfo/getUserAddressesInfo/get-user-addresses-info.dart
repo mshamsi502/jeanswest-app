@@ -9,7 +9,11 @@ Future<void> userAddressesInfo() async {
   // userAddresses
 
   UserAddressesInfoRes addRes =
-      await globalLocator<GlobalRestClient>().getUserAddressesInfo();
+      // await globalLocator<GlobalRestClient>().getUserAddressesInfo(); // ! from real API
+      // !
+      await globalLocator<GlobalRestClient>()
+          .getMockUserAddressesInfo(); // ! from Mockoon
+  // !
   if (addRes.statusCode == 200) {
     userAddresses = addRes.data;
   } else {

@@ -15,6 +15,8 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/province/pro
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+// import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:screenshot/screenshot.dart';
 // import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';
 
 import 'package:search_map_place/search_map_place.dart';
@@ -81,10 +83,12 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   String selectedCity;
   String selectedDistrict;
   //
-  // bool recieverIsUser;
-  // List<String> availableCities;
+
   Widget map;
-  Uint8List mapCaptured;
+  Uint8List mapCaptured
+      //  = Uint8List(500)
+      ;
+  ScreenshotController screenshotController = ScreenshotController();
   //
 
   String selectedOption = "province";
@@ -95,28 +99,16 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   List<District> allDistrict;
   ScrollController editScrollController;
 
-  GlobalKey mapScreenKey = GlobalKey();
-  Widget screenCpatured;
+  LatLng newEditingLatLng;
 
   @override
   void initState() {
-    // screenCpatured = RepaintBoundary(
-    //   key: mapScreenKey,
-    //   child: Container(
-    //     width: widget.screenSize.width - 32,
-    //     height: 110,
-    //     color: Colors.red[200],
-    //     alignment: Alignment.center,
-    //     child: Icon(
-    //       Icons.location_on,
-    //       color: MAIN_BLUE_COLOR,
-    //       size: 0.111 * widget.screenSize.width, //40,
-    //     ),
-    //   ),
-    // );
     scrollController = new ScrollController();
     editScrollController = new ScrollController();
-    // panelController = new PanelController();
+    newEditingLatLng = LatLng(
+      widget.address.latitude,
+      widget.address.longitude,
+    );
 
     // ignore: deprecated_member_use
     allProvince = new List<Province>();
@@ -142,14 +134,10 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         widget.address.receiverMobile ?? "";
     //
     // initCapture();
-    createGoogleMap(
-      LatLng(
-        widget.address.latitude ?? 35.7447,
-        widget.address.longitude ?? 51.3340,
-      ),
+    initCreateMap(
+      widget.address.latitude ?? 35.7447,
+      widget.address.longitude ?? 51.3340,
     );
-    // recieverIsUser = widget.address.isUser;
-
     // !
     getAllAddress();
 
@@ -157,9 +145,13 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     super.initState();
   }
 
-  // initCapture() async {
-  //   mapCaptured = await capturePng(mapScreenKey);
-  // }
+  initCreateMap(double lat, double lng) async {
+    map = await createGoogleMap(
+      LatLng(lat, lng),
+    );
+    final GoogleMapController controller = await mapController.future;
+    mapCaptured = await controller.takeSnapshot();
+  }
 
   getAllAddress() async {
     allProvince = await getAllProvince();
@@ -224,49 +216,49 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         minHeight: 0,
         maxHeight: _screenSize.height,
         backdropEnabled: true,
-        panel: RepaintBoundary(
-          key: mapScreenKey,
-          child: Stack(
-            children: [
-              map,
-              Positioned(
-                top: 0.125 * _screenSize.height, //80,
-                right: 0.041 * _screenSize.width, //15,
-                child: Container(
-                  padding: EdgeInsets.all(
-                    0.0194 * _screenSize.width, //7,
-                  ),
-                  height: 0.1194 * _screenSize.width, //43,
-                  width: 0.1194 * _screenSize.width, //43,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      0.138 * _screenSize.width, //50,
-                    ),
-                  ),
-                  child: GestureDetector(
-                    child: BranchSvgImages.myLocationIcon,
-                    onTap: () async {
-                      final GoogleMapController controller =
-                          await mapController.future;
-                      controller.animateCamera(
-                        CameraUpdate.newCameraPosition(
-                          await updateUserLocation(),
-                        ),
-                      );
-                    },
+        panel:
+            // RepaintBoundary(
+            //   key: mapScreenKey,
+            //   child:
+            Stack(
+          children: [
+            map ?? Container(),
+            Positioned(
+              top: 0.125 * _screenSize.height, //80,
+              right: 0.041 * _screenSize.width, //15,
+              child: Container(
+                padding: EdgeInsets.all(
+                  0.0194 * _screenSize.width, //7,
+                ),
+                height: 0.1194 * _screenSize.width, //43,
+                width: 0.1194 * _screenSize.width, //43,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(
+                    0.138 * _screenSize.width, //50,
                   ),
                 ),
+                child: GestureDetector(
+                  child: BranchSvgImages.myLocationIcon,
+                  onTap: () async {
+                    final GoogleMapController controller =
+                        await mapController.future;
+                    controller.animateCamera(
+                      CameraUpdate.newCameraPosition(
+                        await updateUserLocation(),
+                      ),
+                    );
+                  },
+                ),
               ),
-              // Positioned(
-              //   top: (_screenSize.height / 2) - 0.031 * _screenSize.height, //20,
-              //   left: (_screenSize.width / 2) - 0.0555 * _screenSize.width, //20,
-              //   child:
-              Center(
+            ),
+            Screenshot(
+              controller: screenshotController,
+              child: Center(
                 child: Container(
                   width: widget.screenSize.width - 32,
                   height: 110,
-                  color: Colors.red[200],
+                  // color: Color(0x44ff0000),
                   alignment: Alignment.center,
                   child: Icon(
                     Icons.location_on,
@@ -275,105 +267,107 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                   ),
                 ),
               ),
-              // ),
-              Positioned(
-                bottom: 0.031 * _screenSize.height, //20,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.only(
-                    left: 0.069 * _screenSize.width, //25,
-                    right: 0.069 * _screenSize.width, //25,
-                    bottom: 0.0506 * _screenSize.height, //30,
-                    top: 0.015 * _screenSize.height, //10,
-                  ),
-                  child: AvakatanButtonWidget(
-                    backgroundColor: MAIN_BLUE_COLOR,
-                    textColor: Colors.white,
-                    borderColor: MAIN_BLUE_COLOR,
-                    hasShadow: false,
-                    title: 'تایید',
-                    height: 0.07 * _screenSize.height, //45,
-                    width: _screenSize.width,
-                    fontSize: 0.05 * _screenSize.width, //18,
-                    radius: 0.011 * _screenSize.width, //4,
-                    onTap: () async {
-                      Uint8List mapScreen = await capturePng(mapScreenKey);
-                      setState(() {
-                        mapCaptured = mapScreen;
-                      });
-                      // ! get center screen location
-                      // ! return location and update Lat & Lng in Address
-                      print('/*/*/ confirm location');
-                      widget.mapPanelController.close();
-                    },
-                  ),
+            ),
+            Positioned(
+              bottom: 0.031 * _screenSize.height, //20,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: 0.069 * _screenSize.width, //25,
+                  right: 0.069 * _screenSize.width, //25,
+                  bottom: 0.0506 * _screenSize.height, //30,
+                  top: 0.015 * _screenSize.height, //10,
                 ),
-              ),
-              Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  // padding: EdgeInsets.symmetric(
-                  //   vertical: 0.0078 * _screenSize.height, //5,
-                  //   horizontal: 0.027 * _screenSize.width, //10,
-                  // ),
+                child: AvakatanButtonWidget(
+                  backgroundColor: MAIN_BLUE_COLOR,
+                  textColor: Colors.white,
+                  borderColor: MAIN_BLUE_COLOR,
+                  hasShadow: false,
+                  title: 'تایید',
+                  height: 0.07 * _screenSize.height, //45,
                   width: _screenSize.width,
-                  color: Colors.white,
-                  // color: Colors.transparent,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        child: Container(
-                          color: Colors.white,
-                          height: 0.0929 * _screenSize.height, //55,
-                          width: 0.0625 * _screenSize.height, //40
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 0.027 * _screenSize.width, //10,
-                            vertical: 0.0287 * _screenSize.height, //17
-                          ),
-                          child: GlobalSvgImages.rightIcon,
-                        ),
-                        onTap: () => widget.mapPanelController.close(),
-                      ),
-                      Expanded(
-                        child: SearchMapPlaceWidget(
-                            hasClearButton: true,
-                            placeType: PlaceType.address,
-                            language: 'fa',
-                            placeholder: 'محل مورد نظرتان کجاست ؟',
-                            apiKey:
-                                'AIzaSyDseIH-ZnfQaeAXvR0vaRXKGbrnUqr5s2I', // YOUR GOOGLE MAPS API KEY
-                            iconColor: MAIN_BLUE_COLOR,
-                            onSelected: (Place place) {
-                              place.geolocation.then((newGeolocation) async {
-                                LatLng newLatLng;
-                                print(
-                                    'newGeolocation.coordinates : ${newGeolocation.coordinates}');
-                                setState(() {
-                                  newLatLng = newGeolocation.coordinates;
-                                  print(
-                                      'newLatLng : ${newLatLng.latitude} , ${newLatLng.longitude}');
-                                });
-                                final GoogleMapController controller =
-                                    await mapController.future;
-                                controller.animateCamera(
-                                  CameraUpdate.newCameraPosition(
-                                    CameraPosition(target: newLatLng, zoom: 16),
-                                  ),
-                                );
-                              });
-                            }),
-                      ),
-                    ],
-                  ),
+                  fontSize: 0.05 * _screenSize.width, //18,
+                  radius: 0.011 * _screenSize.width, //4,
+                  onTap: () async {
+                    final GoogleMapController controller =
+                        await mapController.future;
+                    Uint8List tempCapMap = await controller.takeSnapshot();
+                    setState(() {
+                      mapCaptured = tempCapMap;
+                    });
+
+                    // ! get center screen location
+                    // ! return location and update Lat & Lng in Address
+                    print('/*/*/ confirm location');
+                    widget.mapPanelController.close();
+                  },
                 ),
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                // padding: EdgeInsets.symmetric(
+                //   vertical: 0.0078 * _screenSize.height, //5,
+                //   horizontal: 0.027 * _screenSize.width, //10,
+                // ),
+                width: _screenSize.width,
+                color: Colors.white,
+                // color: Colors.transparent,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        color: Colors.white,
+                        height: 0.0929 * _screenSize.height, //55,
+                        width: 0.0625 * _screenSize.height, //40
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 0.027 * _screenSize.width, //10,
+                          vertical: 0.0287 * _screenSize.height, //17
+                        ),
+                        child: GlobalSvgImages.rightIcon,
+                      ),
+                      onTap: () => widget.mapPanelController.close(),
+                    ),
+                    Expanded(
+                      child: SearchMapPlaceWidget(
+                          hasClearButton: true,
+                          placeType: PlaceType.address,
+                          language: 'fa',
+                          placeholder: 'محل مورد نظرتان کجاست ؟',
+                          apiKey:
+                              'AIzaSyDseIH-ZnfQaeAXvR0vaRXKGbrnUqr5s2I', // YOUR GOOGLE MAPS API KEY
+                          iconColor: MAIN_BLUE_COLOR,
+                          onSelected: (Place place) {
+                            place.geolocation.then((newGeolocation) async {
+                              LatLng newLatLng;
+                              setState(() {
+                                newLatLng = newGeolocation.coordinates;
+                                print(
+                                    'newLatLng : ${newLatLng.latitude} , ${newLatLng.longitude}');
+                              });
+                              final GoogleMapController controller =
+                                  await mapController.future;
+                              controller.animateCamera(
+                                CameraUpdate.newCameraPosition(
+                                  CameraPosition(target: newLatLng, zoom: 16),
+                                ),
+                              );
+                            });
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
+        // ),
+        // ),
         body: SlidingUpPanel(
           controller: editPanel,
           minHeight: 0,
@@ -455,7 +449,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                           ),
                           child: Stack(
                             children: [
-                              // map,
                               mapCaptured != null
                                   ? Container(
                                       width: _screenSize.width - 42,
@@ -487,18 +480,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                   },
                                 ),
                               ),
-                              // Positioned(
-                              //   top: 0.05468 * _screenSize.height, //35,
-                              //   left: (_screenSize.width / 2) -
-                              //       0.0555 * _screenSize.width //20,
-                              //       -
-                              //       0.041 * _screenSize.width, //15,
-                              //   child: Icon(
-                              //     Icons.location_on,
-                              //     color: MAIN_BLUE_COLOR,
-                              //     size: 0.111 * _screenSize.width, //40,
-                              //   ),
-                              // ),
                             ],
                           ),
                         ),
@@ -598,20 +579,33 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     editPanel.close();
   }
 
-  onMapCreated(GoogleMapController controller) {
+  onMapCreated(GoogleMapController controller) async {
     controller.setMapStyle('[]');
+
     setState(() {
-      mapController.complete(controller);
+      if (!mapController.isCompleted) {
+        mapController.complete(controller);
+      }
+      this.mapController = mapController;
     });
   }
 
-  void createGoogleMap(LatLng latLng) async {
-    map = GoogleMap(
+  Future<Widget> createGoogleMap(LatLng latLng) async {
+    return GoogleMap(
       onMapCreated: onMapCreated,
-      // scrollGesturesEnabled: false,
-      mapToolbarEnabled: false,
+      scrollGesturesEnabled: true,
+      mapToolbarEnabled: true,
+      // mapToolbarEnabled: false,
       myLocationButtonEnabled: false,
-      zoomGesturesEnabled: false,
+      // zoomGesturesEnabled: false,
+      zoomGesturesEnabled: true,
+      rotateGesturesEnabled: true,
+      onCameraMove: (CameraPosition newCameraPosition) {
+        setState(() {
+          newEditingLatLng = newCameraPosition.target;
+        });
+        print(newEditingLatLng);
+      },
       mapType: MapType.normal,
       initialCameraPosition: CameraPosition(
         target: latLng,
