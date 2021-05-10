@@ -8,6 +8,7 @@ import 'package:jeanswest/src/constants/global/size_constants.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
@@ -92,18 +93,35 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserMessages')
   Future<UserMessagesInfoRes> getUserMessagesInfo();
 
+  // * ADDRESS *****************************************************************
+
+  // ! Mockoon
+  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo')
+  Future<UserAddressesInfoRes>
+      getMockUserAddressesInfo(); // ! getAllUserAddress
+
+  // ! Jeanswest API
+  @GET('http://10.0.1.111:8000/api/v1/address/list')
+  Future<UserAddressesInfoRes> getUserAddressesInfo(); // ! getAllUserAddress
+
+  @POST('http://10.0.1.111:8000/api/v1/address/create')
+  Future<GeneralRespons> addToUserAddressesInfo(
+      @Body() Map<String, dynamic> address); // ! create a address
+
+  @PATCH('http://10.0.1.111:8000/api/v1/address/create')
+  Future<UserAddressesInfoRes> editUserAddressesInfo(
+      @Body() Map<String, dynamic> address); // ! edit a address
+
+  @PATCH('http://10.0.1.111:8000/api/v1/address/create')
+  Future<UserAddressesInfoRes> deleteUserAddressesInfo(
+      @Body() Map<String, dynamic> address); // ! delete a address
+
   // * GLOBAL *****************************************************************
 
   @GET('http://10.1.2.94:3005/api/v1/contact-us/contact-info')
   Future<ContactUsRes> getContactUsInfo();
   @GET('http://10.1.2.94:3005/api/v1/faq/list')
   Future<FAQRes> getFAQInfo();
-
-  @GET('http://10.0.1.111:8000/api/v1/address/list')
-  Future<UserAddressesInfoRes> getUserAddressesInfo();
-
-  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo')
-  Future<UserAddressesInfoRes> getMockUserAddressesInfo();
 
   @GET('http://10.0.1.111:8000/api/v1/logistic/states')
   Future<AllProvince> getAllProvinceInfo();

@@ -59,7 +59,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   auth() async {
-    Map<String, dynamic> authServiceRes = await authService();
+    Map<String, dynamic> authServiceRes =
+        await authService();
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];

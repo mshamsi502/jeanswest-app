@@ -10,7 +10,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 
 class SingleAddressTextDetailWidget extends StatefulWidget {
-  final String title;
+  // final String title;
   final AddressInfoRes address;
   // final int indexAddress;
   //
@@ -32,7 +32,7 @@ class SingleAddressTextDetailWidget extends StatefulWidget {
     Key key,
     this.address,
     this.mapPanelState,
-    this.title,
+    // this.title,
 
     this.editPanel,
     this.selectedProvince,
@@ -53,14 +53,11 @@ class SingleAddressTextDetailWidget extends StatefulWidget {
 
 class _SingleAddressTextDetailWidgetState
     extends State<SingleAddressTextDetailWidget> {
-
   Set<Marker> addressMarker = new Set<Marker>();
   Widget map;
 
-
   @override
   Widget build(BuildContext context) {
-
     Size _screenSize = MediaQuery.of(context).size;
     return Container(
       child: Column(
@@ -72,6 +69,7 @@ class _SingleAddressTextDetailWidgetState
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(width: 10),
                     Text(
                       'استان *',
                       style: TextStyle(
@@ -108,9 +106,11 @@ class _SingleAddressTextDetailWidgetState
             margin: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
+                SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(width: 10),
                     Text(
                       'شهر *',
                       style: TextStyle(
@@ -142,7 +142,7 @@ class _SingleAddressTextDetailWidgetState
               ],
             ),
           ),
-          widget.selectedCity == "تهران"
+          widget.selectedProvince == "تهران" && widget.selectedCity == "تهران"
               ? Column(
                   children: [
                     SizedBox(height: 10),

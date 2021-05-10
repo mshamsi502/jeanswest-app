@@ -11,6 +11,7 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   bool pagesCreatedFinished = false;
   _children.add(MainProfilePage(
     isAuth: !isAuth,
+    // screenSize: screenSize,
     showCompeletProfileMessage: showCompeletProfileMessage,
     changeCompeletProfileMessage: (bool value) =>
         showCompeletProfileMessage = value,
@@ -21,6 +22,7 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   _children.add(Container(color: Colors.green));
   _children.add(MainProfilePage(
     isAuth: isAuth,
+    // screenSize: screenSize,
     showCompeletProfileMessage: showCompeletProfileMessage,
     changeCompeletProfileMessage: (bool value) =>
         showCompeletProfileMessage = value,
@@ -42,7 +44,7 @@ Future<Map<String, dynamic>> authService() async {
   // // ! put token in device
   globalLocator<SharedPreferences>().setString(
     TOKEN,
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJkYmM2ZDg0Ni05OWZhLTQ0ZGQtOTNkNy04MjY1M2YxYzI2N2IiLCJpYXQiOjE2MjA1Mzk1NjYsImV4cCI6MTYyMDU0NTU2Nn0.GmBsk-_RNNj-1QmjkBrfbV74m_xOYPP8jvHWjJ2v-Zc',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJkYmM2ZDg0Ni05OWZhLTQ0ZGQtOTNkNy04MjY1M2YxYzI2N2IiLCJpYXQiOjE2MjA2NDcxNzMsImV4cCI6MTYyMDY2NTE3M30.bDNV2VNrvEl3nqJxGdDqjDkdiptg3j_SLsePRbzFYvA',
   );
   // globalLocator<SharedPreferences>().setString(
   //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
@@ -64,8 +66,10 @@ Future<Map<String, dynamic>> authService() async {
             await getAllUserInfo();
             isAuth = true;
             print('^*^*^ getAllUserInfo : Successfully');
-            Map<String, dynamic> initCreateRes =
-                createBottomNavigationBarPages(isAuth: isAuth);
+            Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
+              isAuth: isAuth,
+              // screenSize: screenSize,
+            );
             print('created BottomNavigationBarPages');
             _children = initCreateRes['children'];
             pagesCreatedFinished = initCreateRes['success'];
@@ -99,8 +103,10 @@ Future<Map<String, dynamic>> authService() async {
 
   //
 
-  Map<String, dynamic> initCreateRes =
-      createBottomNavigationBarPages(isAuth: isAuth);
+  Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
+    isAuth: isAuth,
+    // screenSize: screenSize,
+  );
   print('created BottomNavigationBarPages');
   _children = initCreateRes['children'];
   pagesCreatedFinished = initCreateRes['success'];
