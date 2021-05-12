@@ -10,8 +10,7 @@ AddressInfoRes _$AddressInfoResFromJson(Map<String, dynamic> json) {
   return AddressInfoRes(
     code: json['code'] as String,
     title: json['title'] as String,
-    receiverFirstName: json['receiverFirstName'] as String,
-    receiverLastName: json['receiverLastName'] as String,
+    recieverFullName: json['recieverFullName'] as String,
     receiverMobile: json['receiverMobile'] as String,
     country: json['country'] as String,
     province: json['province'] == null
@@ -38,8 +37,7 @@ Map<String, dynamic> _$AddressInfoResToJson(AddressInfoRes instance) =>
     <String, dynamic>{
       'title': instance.title,
       'code': instance.code,
-      'receiverFirstName': instance.receiverFirstName,
-      'receiverLastName': instance.receiverLastName,
+      'recieverFullName': instance.recieverFullName,
       'receiverMobile': instance.receiverMobile,
       'country': instance.country,
       'province': instance.province,

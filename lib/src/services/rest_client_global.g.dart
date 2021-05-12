@@ -318,14 +318,14 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<UserAddressesInfoRes> editUserAddressesInfo(address) async {
+  Future<GeneralRespons> editUserAddressesInfo(address) async {
     ArgumentError.checkNotNull(address, 'address');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(address ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/v1/address/create',
+        'http://10.0.1.111:8000/api/v1/address/edit',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'PATCH',
@@ -333,27 +333,27 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UserAddressesInfoRes.fromJson(_result.data);
+    final value = GeneralRespons.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<UserAddressesInfoRes> deleteUserAddressesInfo(address) async {
-    ArgumentError.checkNotNull(address, 'address');
+  Future<GeneralRespons> deleteUserAddressesInfo(code) async {
+    ArgumentError.checkNotNull(code, 'code');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(address ?? <String, dynamic>{});
+    _data.addAll(code ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/v1/address/create',
+        'http://10.0.1.111:8000/api/v1/address/remove',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'PATCH',
+            method: 'DELETE',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UserAddressesInfoRes.fromJson(_result.data);
+    final value = GeneralRespons.fromJson(_result.data);
     return value;
   }
 

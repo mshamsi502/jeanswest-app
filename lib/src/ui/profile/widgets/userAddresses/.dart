@@ -124,8 +124,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
     postalCodeTextEditingController.text = widget.address.postalCode ?? "";
     recieverNameTextEditingController.text =
-        '${widget.address.receiverFirstName} ${widget.address.receiverLastName}' ??
-            "";
+        widget.address.recieverFullName ?? "";
     recieverPhoneNumberTextEditingController.text =
         widget.address.receiverMobile ?? "";
 

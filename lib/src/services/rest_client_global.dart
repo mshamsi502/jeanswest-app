@@ -108,13 +108,13 @@ abstract class GlobalRestClient extends RestClient {
   Future<GeneralRespons> addToUserAddressesInfo(
       @Body() Map<String, dynamic> address); // ! create a address
 
-  @PATCH('http://10.0.1.111:8000/api/v1/address/create')
-  Future<UserAddressesInfoRes> editUserAddressesInfo(
+  @PATCH('http://10.0.1.111:8000/api/v1/address/edit')
+  Future<GeneralRespons> editUserAddressesInfo(
       @Body() Map<String, dynamic> address); // ! edit a address
 
-  @PATCH('http://10.0.1.111:8000/api/v1/address/create')
-  Future<UserAddressesInfoRes> deleteUserAddressesInfo(
-      @Body() Map<String, dynamic> address); // ! delete a address
+  @DELETE('http://10.0.1.111:8000/api/v1/address/remove')
+  Future<GeneralRespons> deleteUserAddressesInfo(
+      @Body() Map<String, dynamic> code); // ! delete a address
 
   // * GLOBAL *****************************************************************
 

@@ -142,7 +142,10 @@ class _SingleAddressTextDetailWidgetState
               ],
             ),
           ),
-          widget.selectedProvince == "تهران" && widget.selectedCity == "تهران"
+          (widget.selectedProvince == "تهران" &&
+                      widget.selectedCity == "تهران") ||
+                  (widget.selectedProvince == "البرز" &&
+                      widget.selectedCity == "کرج")
               ? Column(
                   children: [
                     SizedBox(height: 10),

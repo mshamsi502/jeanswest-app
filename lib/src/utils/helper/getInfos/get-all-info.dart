@@ -2,6 +2,7 @@
 // import 'package:flutter/cupertino.dart';
 
 //
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFriends/get-user-friends-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserInviteInfo/get-user-invite-info.dart';
@@ -35,7 +36,7 @@ Future<void> getAllUserInfo() async {
   //
   await userCouponsInfo();
   //
-  await userAddressesInfo();
+  userAddresses = await userAddressesInfo();
   //
   // !
   await getContactUsInfo();

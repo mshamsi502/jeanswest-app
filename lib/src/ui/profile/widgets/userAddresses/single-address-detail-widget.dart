@@ -6,6 +6,8 @@ import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-district.dart';
@@ -40,27 +42,35 @@ class SingleAddressDetailWidget extends StatefulWidget {
   final int indexAddress;
   final PanelState mapPanelState;
   final PanelController mapPanelController;
+  final PanelController editPanelController;
+  final bool wasClose;
+  final Function(bool) changeWasClose;
   // final Function(bool) changeMapPanelController;
   // final bool isInitial;
+  final Function(List<AddressInfoRes>) updateAdresses;
   final Size screenSize;
 
-  final Function() closeMapPanelState;
-  final Function(int) changeSelected;
+  // final Function() closeMapPanelState;
+  // final Function(int) changeSelected;
   final Function() closeEditPanel;
-  final Function() disableIsInitial;
+  // final Function() disableIsInitial;
   SingleAddressDetailWidget({
     Key key,
     this.address,
     this.indexAddress,
-    this.changeSelected,
+    // this.changeSelected,
     this.mapPanelState,
     this.title,
     this.closeEditPanel,
-    this.closeMapPanelState,
+    // this.closeMapPanelState,
     // this.isInitial,
-    this.disableIsInitial,
+    // this.disableIsInitial,
     this.mapPanelController,
     this.screenSize,
+    this.updateAdresses,
+    this.editPanelController,
+    this.wasClose,
+    this.changeWasClose,
     // this.changeMapPanelController,
   }) : super(key: key);
 
@@ -86,8 +96,11 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
 
   //
   bool mapIsOpen;
+  // bool wasClose = false;
   Widget map;
   Uint8List mapCaptured;
+  PanelState tempMapPanelState;
+  int tempIndexAddress;
   ScreenshotController screenshotController = ScreenshotController();
   ScrollController singleChildScrollController = ScrollController();
   //
@@ -107,6 +120,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   String selectedDistrict;
   //
   LatLng newEditingLatLng;
+  String newAddressFromMap;
 
   @override
   void initState() {
@@ -121,36 +135,42 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     allProvince = new List<Province>();
     // ignore: deprecated_member_use
     searchedProvince = new List<Province>();
+    selectedProvince = widget.address.province.name;
     // ignore: deprecated_member_use
     allCity = new List<City>();
     // ignore: deprecated_member_use
     searchedCity = new List<City>();
+    selectedCity = widget.address.city.name;
     // ignore: deprecated_member_use
     allDistrict = new List<District>();
     // ignore: deprecated_member_use
     searchedDistrict = new List<District>();
+    selectedDistrict = widget.address.district.name;
 
     //
-    selectedProvince = widget.address.province.name;
-    selectedDistrict = widget.address.district.name;
-    selectedCity = widget.address.city.name;
+    // selectedProvince = widget.address.province.name;
+    // selectedDistrict = widget.address.district.name;
+    // selectedCity = widget.address.city.name;
     //
-    addressTextEditingController = TextEditingController();
-    houseNumberTextEditingController = TextEditingController();
-    unitNumberTextEditingController = TextEditingController();
-    postalCodeTextEditingController = TextEditingController();
-    recieverNameTextEditingController = TextEditingController();
-    recieverPhoneNumberTextEditingController = TextEditingController();
-    addressTextEditingController.text = widget.address.address ?? "";
-    houseNumberTextEditingController.text = widget.address.houseNumber ?? "";
-    unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
-    postalCodeTextEditingController.text = widget.address.postalCode ?? "";
-    recieverNameTextEditingController.text =
-        '${widget.address.receiverFirstName} ${widget.address.receiverLastName}' ??
-            "";
-    recieverPhoneNumberTextEditingController.text =
-        widget.address.receiverMobile ?? "";
-    mapIsOpen = widget.mapPanelState == PanelState.OPEN;
+    // addressTextEditingController = TextEditingController();
+    // houseNumberTextEditingController = TextEditingController();
+    // unitNumberTextEditingController = TextEditingController();
+    // postalCodeTextEditingController = TextEditingController();
+    // recieverNameTextEditingController = TextEditingController();
+    // recieverPhoneNumberTextEditingController = TextEditingController();
+    // addressTextEditingController.text = widget.address.address ?? "";
+    // houseNumberTextEditingController.text = widget.address.houseNumber ?? "";
+    // unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
+    // postalCodeTextEditingController.text = widget.address.postalCode ?? "";
+    // recieverNameTextEditingController.text =
+    //     '${widget.address.receiverFirstName} ${widget.address.receiverLastName}' ??
+    //         "";
+    // recieverPhoneNumberTextEditingController.text =
+    //     widget.address.receiverMobile ?? "";
+    // mapIsOpen = widget.mapPanelState == PanelState.OPEN;
+    tempMapPanelState = widget.mapPanelState;
+    tempIndexAddress = widget.indexAddress;
+    updateFields();
     createGoogleMap(
       LatLng(
         widget.address.latitude ?? 35.7447,
@@ -178,14 +198,26 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   getAllAddress() async {
     allProvince = await getAllProvince();
     searchedProvince = allProvince;
+    Province selProvince;
     if (allProvince != null && allProvince.length != 0) {
-      allCity = await getAllCity(allProvince[0]);
+      searchedProvince.forEach((element) {
+        if (element.name == selectedProvince) selProvince = element;
+        // if (element.idCity == 31) karajCiry = element;
+      });
+      allCity = await getAllCity(selProvince);
       searchedCity = allCity;
       if (allCity != null && allCity.length != 0) {
-        allDistrict = await getAllDistrict(allCity[0]);
-        allDistrict = searchedDistrict;
+        City selCity;
+        // City karajCiry;
+        allCity.forEach((element) {
+          if (element.name == selectedCity) selCity = element;
+          // if (element.idCity == 31) karajCiry = element;
+        });
+        allDistrict = await getAllDistrict(selCity);
+        searchedDistrict = allDistrict;
       }
     }
+    print('000000000000000000 : ${searchedDistrict.length}');
   }
 
   Future<List<Province>> getAllProvince() async {
@@ -228,10 +260,20 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.mapPanelState != tempMapPanelState ||
+        widget.indexAddress != tempIndexAddress ||
+        (widget.wasClose && widget.editPanelController.isPanelOpen)) {
+      // print('---- address : ${widget.address.address}');
+      // print('---- indexAddress : ${widget.indexAddress}');
+
+      updateFields();
+    }
+    print('#?????? indexAddress : ${widget.indexAddress}');
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       height: _screenSize.height,
       width: _screenSize.width,
+      // color: Colors.red,
       child: SingleChildScrollView(
         controller: singleChildScrollController,
         physics: ClampingScrollPhysics(),
@@ -317,6 +359,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                         setState(() {
                           mapCaptured = tempCapMap;
                           mapIsOpen = false;
+                          addressTextEditingController.text = newAddressFromMap;
                         });
                         // ! get center screen location
                         // ! return location and update Lat & Lng in Address
@@ -366,8 +409,35 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                   LatLng newLatLng;
                                   setState(() {
                                     newLatLng = newGeolocation.coordinates;
-                                    print(
-                                        'newLatLng : ${newLatLng.latitude} , ${newLatLng.longitude}');
+                                  });
+                                  // !
+                                  // List<Placemark> dbAddress =
+                                  //     await locationManager
+                                  //         .placemarkFromCoordinates(
+                                  //             newLatLng.latitude,
+                                  //             newLatLng.longitude,
+                                  //             localeIdentifier: 'fa');
+                                  setState(() {
+                                    // ignore: deprecated_member_use
+                                    List<String> addressUnit =
+                                        place.description.split("، ");
+
+                                    newAddressFromMap = '';
+                                    for (int i = addressUnit.length - 2;
+                                        i >= 0;
+                                        i--) {
+                                      if (i == addressUnit.length - 2) {
+                                        newAddressFromMap =
+                                            newAddressFromMap + addressUnit[i];
+                                        selectedProvince = addressUnit[i]
+                                            .replaceAll("استان ", "");
+                                      } else if (i == addressUnit.length - 3) {
+                                        selectedCity = addressUnit[i];
+                                      } else
+                                        newAddressFromMap = newAddressFromMap +
+                                            '، ' +
+                                            addressUnit[i];
+                                    }
                                   });
                                   final GoogleMapController controller =
                                       await mapController.future;
@@ -413,9 +483,12 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                         vertical: 0.0078 * _screenSize.height //5,
                         ),
                     child: AppBarWithBackWidget(
-                      title: widget.title,
-                      onTap: () => widget.closeEditPanel(),
-                    ),
+                        title: widget.title,
+                        onTap: () {
+                          updateFields();
+                          widget.changeWasClose(true);
+                          widget.closeEditPanel();
+                        }),
                   ),
                   Container(
                     height: 0.0046 * _screenSize.height, //3,
@@ -543,55 +616,74 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                 radius: 0.011 * _screenSize.width, //4,
                                 onTap: () async {
                                   widget.closeEditPanel();
+
                                   // ! add new Address
-                                  print('/*/*// add new address');
+
                                   if (widget.mapPanelState == PanelState.OPEN) {
-                                    print(
-                                        'receiverFirstName : ${recieverNameTextEditingController.text}');
-                                    print(
-                                        'receiverMobile : ${recieverPhoneNumberTextEditingController.text}');
-                                    print('district : $selectedProvince');
-                                    print('district : $selectedProvince');
-                                    print('district : $selectedProvince');
-                                    print('district : $selectedProvince');
-                                    print(
-                                        ' address : ${addressTextEditingController.text}');
-                                    AddressInfoRes address = new AddressInfoRes(
-                                        title: '',
-                                        isUser: true,
-                                        latitude: newEditingLatLng.latitude,
-                                        longitude: newEditingLatLng.longitude,
-                                        country: "ایران",
-                                        province: Province(
-                                            name: selectedProvince, idState: 0),
-                                        city:
-                                            City(name: selectedCity, idCity: 0),
-                                        district: District(
-                                            name: selectedDistrict,
-                                            idDistrict: 0),
-                                        address:
-                                            addressTextEditingController.text,
-                                        houseNumber:
-                                            houseNumberTextEditingController
-                                                .text,
-                                        unitNumber:
-                                            unitNumberTextEditingController
-                                                .text,
-                                        postalCode:
-                                            postalCodeTextEditingController
-                                                .text,
-                                        receiverFirstName:
-                                            recieverNameTextEditingController
-                                                .text,
-                                        receiverLastName:
-                                            recieverNameTextEditingController
-                                                .text,
-                                        receiverMobile:
-                                            recieverPhoneNumberTextEditingController
-                                                .text);
-                                    bool res =
-                                        await addToUserAddressesInfo(address);
+                                    print('/*/*// add new address');
+                                    bool res = await addToUserAddresses(
+                                      recieverFullName:
+                                          recieverNameTextEditingController
+                                              .text,
+                                      // receiverLastName:
+                                      //     recieverNameTextEditingController
+                                      //         .text,
+                                      receiverMobile:
+                                          recieverPhoneNumberTextEditingController
+                                              .text,
+                                      country: 'ایران',
+                                      province: selectedProvince,
+                                      city: selectedCity,
+                                      district: selectedDistrict,
+                                      address:
+                                          addressTextEditingController.text,
+                                      houseNumber:
+                                          houseNumberTextEditingController.text,
+                                      unitNumber:
+                                          unitNumberTextEditingController.text,
+                                      postalCode:
+                                          postalCodeTextEditingController.text,
+                                      latitude: newEditingLatLng.latitude,
+                                      longitude: newEditingLatLng.longitude,
+                                      isUser: true,
+                                      title: '',
+                                    );
+                                    List<AddressInfoRes> addRes =
+                                        await userAddressesInfo();
+                                    if (res) widget.updateAdresses(addRes);
                                     print('resssssssss :$res');
+                                  } else {
+                                    print('/*/*// edit address');
+                                    bool res = await editUserAddresses(
+                                      oldAddress: widget.address,
+                                      recieverFullName:
+                                          recieverNameTextEditingController
+                                              .text,
+                                      receiverMobile:
+                                          recieverPhoneNumberTextEditingController
+                                              .text,
+                                      // country: 'ایران',
+                                      province: selectedProvince,
+                                      city: selectedCity,
+                                      district: selectedDistrict,
+                                      address:
+                                          addressTextEditingController.text,
+                                      houseNumber:
+                                          houseNumberTextEditingController.text,
+                                      unitNumber:
+                                          unitNumberTextEditingController.text,
+                                      postalCode:
+                                          postalCodeTextEditingController.text,
+                                      latitude: newEditingLatLng.latitude,
+                                      longitude: newEditingLatLng.longitude,
+                                      // isUser: true,
+                                      // title: '',
+                                    );
+                                    if (res) {
+                                      List<AddressInfoRes> addRes =
+                                          await userAddressesInfo();
+                                      if (res) widget.updateAdresses(addRes);
+                                    }
                                   }
                                 },
                               ),
@@ -713,5 +805,60 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
             'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
       }
     });
+  }
+
+  updateFields() {
+    print('...updating feilds.......');
+    addressTextEditingController = TextEditingController();
+    houseNumberTextEditingController = TextEditingController();
+    unitNumberTextEditingController = TextEditingController();
+    postalCodeTextEditingController = TextEditingController();
+    recieverNameTextEditingController = TextEditingController();
+    recieverPhoneNumberTextEditingController = TextEditingController();
+    setState(() {
+      if (widget.mapPanelState == PanelState.OPEN) {
+        print('...updating feilds in new address.......');
+        addressTextEditingController.text = "";
+        houseNumberTextEditingController.text = "";
+        unitNumberTextEditingController.text = "";
+        postalCodeTextEditingController.text = "";
+        recieverNameTextEditingController.text =
+            '${user.firstName} ${user.lastName}';
+        recieverPhoneNumberTextEditingController.text = user.phoneNumber;
+        selectedProvince = "";
+        selectedDistrict = "";
+        selectedCity = "";
+        newEditingLatLng = LatLng(35.699749, 51.338053);
+      } else {
+        print('...updating feilds in edit address.......');
+        // print('address : ${userAddresses[widget.indexAddress].address}');
+        print('########### indexAddress : ${widget.indexAddress}');
+        addressTextEditingController.text =
+            userAddresses[widget.indexAddress].address ?? "";
+
+        // print(
+        //     'addressTextEditingController :${addressTextEditingController.text}');
+        houseNumberTextEditingController.text =
+            widget.address.houseNumber ?? "";
+
+        unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
+        postalCodeTextEditingController.text = widget.address.postalCode ?? "";
+        recieverNameTextEditingController.text =
+            widget.address.recieverFullName ?? "";
+        recieverPhoneNumberTextEditingController.text =
+            widget.address.receiverMobile ?? "";
+        selectedProvince = widget.address.province.name;
+        selectedDistrict = widget.address.district.name;
+        selectedCity = widget.address.city.name;
+        newEditingLatLng = LatLng(
+          widget.address.latitude,
+          widget.address.longitude,
+        );
+      }
+      mapIsOpen = widget.mapPanelState == PanelState.OPEN;
+      tempMapPanelState = widget.mapPanelState;
+      tempIndexAddress = widget.indexAddress;
+    });
+    if (!mounted) widget.changeWasClose(false);
   }
 }

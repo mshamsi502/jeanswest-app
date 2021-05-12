@@ -10,6 +10,7 @@ class SingleAddressInListWidget extends StatefulWidget {
   final int selected;
   final Function(int) changeSelected;
   final Function(int) editAddress;
+  final Function(int) deleteAddress;
   SingleAddressInListWidget({
     Key key,
     this.address,
@@ -17,6 +18,7 @@ class SingleAddressInListWidget extends StatefulWidget {
     this.selected,
     this.changeSelected,
     this.editAddress,
+    this.deleteAddress,
   }) : super(key: key);
 
   @override
@@ -131,7 +133,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                     ),
                     Expanded(
                         child: Text(
-                      "${widget.address.receiverFirstName} ${widget.address.receiverLastName}",
+                      widget.address.recieverFullName ?? "",
                       style: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                       ),
@@ -164,7 +166,11 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                           ],
                         ),
                         onTap: () {
-                          widget.editAddress(widget.indexAddress);
+                          setState(() {
+                            widget.editAddress(widget.indexAddress);
+                          });
+                          // widget.changeSelected(widget.indexAddress);
+
                           // ! edit Address
                           print("editting address");
                         },
@@ -188,6 +194,7 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                       onTap: () {
                         // ! delete Address
                         print('deleting address');
+                        widget.deleteAddress(widget.indexAddress);
                       },
                     ),
                   ],

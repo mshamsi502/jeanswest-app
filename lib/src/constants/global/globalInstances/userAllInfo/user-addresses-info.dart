@@ -8,8 +8,7 @@ List<AddressInfoRes> userAddresses = [
   AddressInfoRes(
     code: "",
     title: "",
-    receiverFirstName: "",
-    receiverLastName: "",
+    recieverFullName: "",
     receiverMobile: "",
     country: "",
     province: Province(name: ''),
@@ -26,7 +25,7 @@ List<AddressInfoRes> userAddresses = [
   ),
 ];
 
-int selectedAddress = 0;
+// int selectedAddress = 0;
 //
 
 List<String> provinces = [

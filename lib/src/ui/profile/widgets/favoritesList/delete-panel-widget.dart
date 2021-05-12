@@ -14,12 +14,14 @@ class DeletePanelWidget extends StatefulWidget {
   final double height;
   final int selectedProduct;
   final Function() closeDeletePanel;
+  final Function(int) deleteFunction;
 
   const DeletePanelWidget({
     Key key,
     this.closeDeletePanel,
     this.selectedProduct,
     this.height,
+    this.deleteFunction,
   }) : super(key: key);
   @override
   _DeletePanelWidgetState createState() => _DeletePanelWidgetState();
@@ -92,16 +94,8 @@ class _DeletePanelWidgetState extends State<DeletePanelWidget> {
                       ),
                   onTap: () {
                     // ! remove selected product from API
-                    // *********
-                    setState(() {
-                      userFavorites.data.result
-                          .removeAt(widget.selectedProduct);
-                      userFavorites.data.total--;
-                    });
+                    widget.deleteFunction(widget.selectedProduct);
 
-                    print(
-                        'product deleted : length : ${userFavorites.data.result.length}');
-                    // *********
                     widget.closeDeletePanel();
                   },
                   radius: 0.008 * _screenSize.height, //5

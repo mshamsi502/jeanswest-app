@@ -6,7 +6,6 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/district/dis
 import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
-import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 
 class ListUnitAddressPanelWidget extends StatefulWidget {
   final String selectedOption;

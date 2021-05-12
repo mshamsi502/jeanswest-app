@@ -18,10 +18,10 @@ class AddressInfoRes extends Equatable {
   String title;
   @JsonKey(name: 'code')
   String code;
-  @JsonKey(name: 'receiverFirstName')
-  String receiverFirstName;
-  @JsonKey(name: 'receiverLastName')
-  String receiverLastName;
+  @JsonKey(name: 'recieverFullName')
+  String recieverFullName;
+  // @JsonKey(name: 'receiverLastName')
+  // String receiverLastName;
   @JsonKey(name: 'receiverMobile')
   String receiverMobile;
   @JsonKey(name: 'country')
@@ -52,8 +52,8 @@ class AddressInfoRes extends Equatable {
   AddressInfoRes({
     this.code,
     this.title,
-    this.receiverFirstName,
-    this.receiverLastName,
+    this.recieverFullName,
+    // this.receiverLastName,
     this.receiverMobile,
     this.country,
     this.province,
@@ -78,8 +78,8 @@ class AddressInfoRes extends Equatable {
     return <String, dynamic>{
       'code': code,
       'title': title,
-      'receiverFirstName': receiverFirstName,
-      'receiverLastName': receiverLastName,
+      'recieverFullName': recieverFullName,
+      // 'receiverLastName': receiverLastName,
       'receiverMobile': receiverMobile,
       'country': country,
       'province': province,
@@ -100,8 +100,8 @@ class AddressInfoRes extends Equatable {
   List<Object> get props => [
         code,
         title,
-        receiverFirstName,
-        receiverLastName,
+        recieverFullName,
+        // receiverLastName,
         receiverMobile,
         country,
         province,
