@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:flutter/rendering.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
@@ -205,6 +206,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         // if (element.idCity == 31) karajCiry = element;
       });
       allCity = await getAllCity(selProvince);
+      print('first city of $selectedProvince is : ${allCity[0].name}');
       searchedCity = allCity;
       if (allCity != null && allCity.length != 0) {
         City selCity;
@@ -231,7 +233,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   Future<List<City>> getAllCity(Province provice) async {
-    // Map<String, int> idCity = {'idCity': provice.idState};
     Map<String, dynamic> idState = {"idState": provice.idState};
 
     AllCity allCityRes =
@@ -246,7 +247,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   Future<List<District>> getAllDistrict(City city) async {
-    // Map<String, int> idCity = {'idCity': provice.idState};
     Map<String, dynamic> idCity = {"idCity": city.idCity};
     AllDistrict allDistrictRes =
         await globalLocator<GlobalRestClient>().getAllDistrictInfo(idCity);
@@ -265,8 +265,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         (widget.wasClose && widget.editPanelController.isPanelOpen)) {
       // print('---- address : ${widget.address.address}');
       // print('---- indexAddress : ${widget.indexAddress}');
-
+      // getAllAddress().then(() {
       updateFields();
+      // });
     }
     print('#?????? indexAddress : ${widget.indexAddress}');
     var _screenSize = MediaQuery.of(context).size;
@@ -411,33 +412,25 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                     newLatLng = newGeolocation.coordinates;
                                   });
                                   // !
-                                  // List<Placemark> dbAddress =
-                                  //     await locationManager
-                                  //         .placemarkFromCoordinates(
-                                  //             newLatLng.latitude,
-                                  //             newLatLng.longitude,
-                                  //             localeIdentifier: 'fa');
+                                  List<Placemark> dbAddress =
+                                      await placemarkFromCoordinates(
+                                          newLatLng.latitude,
+                                          newLatLng.longitude,
+                                          localeIdentifier: 'fa');
                                   setState(() {
-                                    // ignore: deprecated_member_use
-                                    List<String> addressUnit =
-                                        place.description.split("، ");
-
-                                    newAddressFromMap = '';
-                                    for (int i = addressUnit.length - 2;
-                                        i >= 0;
-                                        i--) {
-                                      if (i == addressUnit.length - 2) {
-                                        newAddressFromMap =
-                                            newAddressFromMap + addressUnit[i];
-                                        selectedProvince = addressUnit[i]
-                                            .replaceAll("استان ", "");
-                                      } else if (i == addressUnit.length - 3) {
-                                        selectedCity = addressUnit[i];
-                                      } else
-                                        newAddressFromMap = newAddressFromMap +
+                                    selectedProvince = dbAddress[0]
+                                        .administrativeArea
+                                        .replaceAll("استان ", "");
+                                    selectedCity = dbAddress[0].locality;
+                                    // selectedDistrict = dbAddress[0];
+                                    newAddressFromMap =
+                                        dbAddress[0].administrativeArea +
                                             '، ' +
-                                            addressUnit[i];
-                                    }
+                                            dbAddress[0].locality +
+                                            '، ' +
+                                            dbAddress[0].subLocality +
+                                            '، ' +
+                                            dbAddress[0].name;
                                   });
                                   final GoogleMapController controller =
                                       await mapController.future;
@@ -706,10 +699,12 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   updateProvince(int index) async {
+    print('111111111111 : $index');
     List<City> cities = await getAllCity(searchedProvince[index]);
     if (selectedProvince != searchedProvince[index].name)
       setState(() {
         selectedProvince = searchedProvince[index].name;
+        print('selectedProvince : $selectedProvince');
         selectedCity = null;
         selectedDistrict = null;
         searchedCity = cities;
@@ -773,38 +768,70 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     );
   }
 
-  onChangeSearchFeild(String value) {
+  onChangeSearchFeild(String value) async {
     print('value is $value');
     print('selectedOption is $selectedOption');
-    setState(() {
-      if (selectedOption == 'province') {
-        print('.................. allProvince lenght : ${allProvince.length}');
 
+    if (selectedOption == 'province') {
+      print('..................  lenght : ${allProvince.length}');
+      setState(() {
         searchedProvince = getListOfObjectsStatic(
           query: value,
           objects: allProvince,
           modelName: 'Province',
         )?.cast<Province>();
-        print(
-            'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
-      } else if (selectedOption == 'city') {
+      });
+    } else if (selectedOption == 'city') {
+      Province selProvince;
+      allProvince.forEach((element) {
+        if (element.name == selectedProvince) selProvince = element;
+      });
+      print('selProvince : $selProvince');
+      List<City> tempAllCity = await getAllCity(selProvince);
+      setState(() {
+        allCity = tempAllCity;
+      });
+      print('first city of $selectedProvince is : ${allCity[0].name}');
+
+      print(
+          'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
+      setState(() {
         searchedCity = getListOfObjectsStatic(
           query: value,
           objects: allCity,
           modelName: 'City',
         )?.cast<City>();
+        print('first City of $selectedProvince : ${allCity[0].name}');
         print(
-            'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
-      } else {
+            'selectedOption is $selectedOption , result lenght : ${allCity.length}');
+      });
+      //
+
+    } else {
+      City selCity;
+      allCity.forEach((element) {
+        if (element.name == selectedProvince) selCity = element;
+      });
+      print('selProvince : $selCity');
+      List<District> tempAllDistrict = await getAllDistrict(selCity);
+      setState(() {
+        allDistrict = tempAllDistrict;
+      });
+      print('first District of $selectedCity is : ${allDistrict[0].name}');
+
+      print(
+          'selectedOption is $selectedOption , result lenght : ${selectedCity.length}');
+      setState(() {
         searchedDistrict = getListOfObjectsStatic(
           query: value,
           objects: allDistrict,
           modelName: 'District',
         )?.cast<District>();
-        print(
-            'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
-      }
-    });
+      });
+      print('first District of $selectedCity : ${searchedDistrict[0].name}');
+      print(
+          'selectedOption is $selectedOption , result lenght : ${searchedDistrict.length}');
+    }
   }
 
   updateFields() {

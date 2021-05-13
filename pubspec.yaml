@@ -101,11 +101,11 @@ dependencies:
   geolocator: ^6.1.14
   # geolocator: ^6.0.0+4
 #
-#  geocoding: ^1.0.5
-#
+  geocoding: ^1.0.5
+  geocoding_platform_interface: ^1.0.1
 #  geolocator: ^7.0.1
-#  geocoding: ^2.0.0
-#  plugin_platform_interface: 2.0.0
+  # geocoding: ^2.0.0
+  plugin_platform_interface: ^1.0.2
   search_map_place: ^0.3.0
   # google_map_location_picker: ^4.1.7
   # mapbox_search_flutter: ^1.0.6+1

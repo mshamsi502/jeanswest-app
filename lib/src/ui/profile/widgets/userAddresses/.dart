@@ -168,11 +168,10 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   Future<List<City>> getAllCity(Province provice) async {
-    // Map<String, int> idCity = {'idCity': provice.idState};
-    Map<String, dynamic> idState = {"idState": provice.idState};
+    Map<String, dynamic> mapIdState = {"idState": provice.idState};
 
     AllCity allCityRes =
-        await globalLocator<GlobalRestClient>().getAllCityInfo(idState);
+        await globalLocator<GlobalRestClient>().getAllCityInfo(mapIdState);
 
     if (allCityRes.statusCode == 200) {
       print(
@@ -183,10 +182,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   Future<List<District>> getAllDistrict(City city) async {
-    // Map<String, int> idCity = {'idCity': provice.idState};
-    Map<String, dynamic> idCity = {"idCity": city.idCity};
+    Map<String, dynamic> mapIdCity = {"idCity": city.idCity};
     AllDistrict allDistrictRes =
-        await globalLocator<GlobalRestClient>().getAllDistrictInfo(idCity);
+        await globalLocator<GlobalRestClient>().getAllDistrictInfo(mapIdCity);
     if (allDistrictRes.statusCode == 200) {
       print(
           'get allDistrict of ${city.name}, length : ${allDistrictRes.data.length}');

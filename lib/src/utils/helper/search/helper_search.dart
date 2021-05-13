@@ -30,17 +30,17 @@ List<dynamic> getListOfObjectsStatic(
   List<String> splitQuery = query.split(' ');
   // ignore: deprecated_member_use
   List<List<dynamic>> objectsForEachWord = new List<List<dynamic>>();
-  print('some of words : ${splitQuery.length} , $splitQuery');
+  // print('some of words : ${splitQuery.length} , $splitQuery');
 
   //
   splitQuery.forEach((word) {
     objectsForEachWord.add(
         getListOfObjects(query: word, objects: objects, modelName: modelName));
   });
-  print(
-      '<><><><><> some of branchesForEachWord : ${objectsForEachWord.length}');
+  // print(
+  //     '<><><><><> some of branchesForEachWord : ${objectsForEachWord.length}');
   for (var x = 0; x < objectsForEachWord.length; x++) {
-    print('results found for word $x : ${objectsForEachWord[x].length}');
+    // print('results found for word $x : ${objectsForEachWord[x].length}');
     for (var y = 0; y < objectsForEachWord[x].length; y++) {
       bool existInQuery = false;
       for (var a = 0; a < objectsForEachWord.length; a++) {
@@ -140,9 +140,9 @@ List<dynamic> getListOfObjectsStatic(
             xyId = objectsForEachWord[x][y].idDistrict.toString();
           }
 
-          print('is Branch, XYCode is done : $xyId');
-          print(
-              'is Branch, model.idState is done : ${model.idState.toString()}');
+          // print('is Branch, XYCode is done : $xyId');
+          // print(
+          //     'is Branch, model.idState is done : ${model.idState.toString()}');
           // !
           // if (model is Country && xyId == model.code) {
           if (modelName == 'Country' && xyId == model.code) {
@@ -169,7 +169,7 @@ List<dynamic> getListOfObjectsStatic(
           }
 
           // !
-          print(' ***  *** ** *++*++*+*+*+* same : $same');
+          // print(' ***  *** ** *++*++*+*+*+* same : $same');
         });
 
         if (!same) filterObjects.add(objectsForEachWord[x][y]);
@@ -241,8 +241,8 @@ List<dynamic> getListOfObjects(
         _name = arabicToPersianCharacter(element.name);
         _fullName = arabicToPersianCharacter(element.fullName);
         query = arabicToPersianCharacter(query);
-        checkNull = (_depName == null || _fullName == null || checkNull);
-        checkQuery = (_depName.toLowerCase().contains(query.toLowerCase()) ||
+        checkNull = (_name == null || _fullName == null || checkNull);
+        checkQuery = (_name.toLowerCase().contains(query.toLowerCase()) ||
             _fullName.toLowerCase().contains(query.toLowerCase()));
       }
       // //
