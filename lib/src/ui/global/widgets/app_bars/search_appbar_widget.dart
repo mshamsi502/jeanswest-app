@@ -10,22 +10,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
 
 class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
+  @required
   final String preTitle;
+  @required
   final String title;
   final TextStyle titleStyle;
   final bool titleIsCenter;
+  @required
   final bool textFielIsActive;
+  @required
   final Function(String) onChangeSearchField;
+  @required
   final TextEditingController textEditingController;
+  @required
   final FocusNode focusNode;
+  @required
   final Widget icon;
+  @required
   final Function() onTapIcon;
+  @required
+  final Size screenSize;
+  @required
   final Function(bool, BuildContext) openRealSearchPanel;
   @override
-  Size get preferredSize => const Size.fromHeight(60);
+  Size get preferredSize => Size.fromHeight(0.093 * screenSize.height //60
+      );
 
   const SearchAppBarWidget({
     Key key,
@@ -43,14 +54,20 @@ class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
     this.textEditingController,
     this.focusNode,
     this.onChangeSearchField,
-    // this.titleColor = MAIN_BLUE_COLOR,
+    this.screenSize,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SearchAppBarWidgetState();
 }
 
 class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
-  double heightBar = 40;
+  double heightBar; //40
+
+  @override
+  void initState() {
+    heightBar = 0.0625 * widget.screenSize.height; //40
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +75,21 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
     return Container(
       height: heightBar,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(3),
+        borderRadius: BorderRadius.circular(
+          0.0083 * _screenSize.width, //3,
+        ),
         color: F2_BACKGROUND_COLOR,
       ),
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.all(0.022 * _screenSize.width //8,
+          ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(
+                horizontal: 0.05 * _screenSize.width, //18,
+              ),
               child: widget.icon,
             ),
             onTap: () => widget.onTapIcon(),

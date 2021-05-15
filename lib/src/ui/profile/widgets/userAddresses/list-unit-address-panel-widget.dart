@@ -69,15 +69,24 @@ class _ListUnitAddressPanelWidgetState
     );
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            topLeft: Radius.circular(
+              0.027 * _screenSize.width, //10,
+            ),
+            topRight: Radius.circular(
+              0.027 * _screenSize.width, //10,
+            )),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: EdgeInsets.symmetric(
+          horizontal: 0.041 * _screenSize.width, //15,
+          vertical: 0.016 * _screenSize.height //10
+          ),
       child: Column(
         children: [
           Row(
@@ -86,14 +95,14 @@ class _ListUnitAddressPanelWidgetState
               Text(
                 '${widget.selectedOption == "province" ? "استان" : widget.selectedOption == "city" ? "شهر" : "محله"} را انتخاب کنید:',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 0.038 * _screenSize.width, //14,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               GestureDetector(
                   child: Icon(
                     Icons.close,
-                    size: 22,
+                    size: 0.06111 * _screenSize.width, //22,
                   ),
                   onTap: () {
                     FocusScope.of(context).unfocus();
@@ -110,7 +119,7 @@ class _ListUnitAddressPanelWidgetState
             focusNode: widget.focusNode,
             titleStyle: TextStyle(
               color: DARK_GREY,
-              fontSize: 16,
+              fontSize: 0.0444 * _screenSize.width, //16,
               fontWeight: FontWeight.w400,
             ),
             titleIsCenter: false,
@@ -120,8 +129,10 @@ class _ListUnitAddressPanelWidgetState
             ),
             onTapIcon: () {},
             openRealSearchPanel: (bool isOpen, BuildContext buildContext) {},
+            screenSize: _screenSize,
           ),
-          SizedBox(height: 5),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Expanded(
             child: ListView.builder(
                 itemCount: widget.selectedOption == "province"
@@ -134,11 +145,15 @@ class _ListUnitAddressPanelWidgetState
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 0.0078 * _screenSize.height //5,
+                          ),
                       child: Row(
                         children: [
                           Icon(Icons.location_on_outlined),
-                          SizedBox(width: 7),
+                          SizedBox(
+                            width: 0.0194 * _screenSize.width, //7,
+                          ),
                           Text(
                             widget.selectedOption == "province"
                                 ? widget.allProvince[index].name

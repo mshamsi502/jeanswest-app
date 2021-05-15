@@ -139,6 +139,7 @@ class _BranchPageState extends State<BranchPage>
                 icon: GlobalSvgImages.searchIcon,
                 onTapIcon: () {},
                 openRealSearchPanel: changeBranchListPanelState,
+                screenSize: screenSize,
               ),
               Expanded(
                 child: BranchesMapWidget(

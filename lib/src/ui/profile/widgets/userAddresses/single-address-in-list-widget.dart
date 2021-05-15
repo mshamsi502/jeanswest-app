@@ -32,8 +32,8 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 10,
+        horizontal: 0.054 * _screenSize.width, //20
+        vertical: 0.015 * _screenSize.height, //10,
       ),
       width: _screenSize.width,
       child: Row(
@@ -63,15 +63,16 @@ class _SingleAddressInListWidgetState extends State<SingleAddressInListWidget> {
                     SizedBox(
                       width: 0.041 * _screenSize.width, //15,
                     ),
-                    // Expanded(
-                    //   child:
                     Text(
-                      "${widget.address.province.name}، ${widget.address.city.name}، ${widget.address.district.name}",
+                      widget.address.district != null &&
+                              widget.address.district.name != null &&
+                              widget.address.district.name != ""
+                          ? "${widget.address.province.name}، ${widget.address.city.name}، ${widget.address.district.name}"
+                          : "${widget.address.province.name}، ${widget.address.city.name}",
                       style: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                       ),
                     ),
-                    // ),
                   ],
                 ),
                 SizedBox(

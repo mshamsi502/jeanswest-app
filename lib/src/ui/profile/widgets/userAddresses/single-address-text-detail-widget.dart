@@ -10,10 +10,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 
 class SingleAddressTextDetailWidget extends StatefulWidget {
-  // final String title;
   final AddressInfoRes address;
-  // final int indexAddress;
-  //
   final String selectedProvince;
   final String selectedDistrict;
   final String selectedCity;
@@ -32,8 +29,6 @@ class SingleAddressTextDetailWidget extends StatefulWidget {
     Key key,
     this.address,
     this.mapPanelState,
-    // this.title,
-
     this.editPanel,
     this.selectedProvince,
     this.selectedDistrict,
@@ -63,13 +58,17 @@ class _SingleAddressTextDetailWidgetState
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: 10),
+                    SizedBox(
+                      width: 0.027 * _screenSize.width, //10,
+                    ),
                     Text(
                       'استان *',
                       style: TextStyle(
@@ -79,20 +78,34 @@ class _SingleAddressTextDetailWidgetState
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 GestureDetector(
                   child: Container(
                     decoration: BoxDecoration(
                       color: F2_BACKGROUND_COLOR,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(
+                        0.011 * _screenSize.width, //4,
+                      ),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.041 * _screenSize.width, //15,
+                      vertical: 0.015 * _screenSize.height, //10,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.selectedProvince ??
-                            'یک استان را اتخاب کنید  ...'),
-                        Icon(Icons.arrow_drop_down_outlined)
+                        Text(
+                          widget.selectedProvince ??
+                              'یک استان را اتخاب کنید  ...',
+                          style: TextStyle(
+                            fontSize: 0.0444 * _screenSize.width, //16,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_drop_down_outlined,
+                          size: 0.069 * _screenSize.width, //25,
+                        )
                       ],
                     ),
                   ),
@@ -101,16 +114,24 @@ class _SingleAddressTextDetailWidgetState
               ],
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10,
+          ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Column(
               children: [
-                SizedBox(height: 10),
+                SizedBox(
+                  height: 0.015 * _screenSize.height, //10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: 10),
+                    SizedBox(
+                      width: 0.027 * _screenSize.width, //10,
+                    ),
                     Text(
                       'شهر *',
                       style: TextStyle(
@@ -120,20 +141,33 @@ class _SingleAddressTextDetailWidgetState
                     ),
                   ],
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 0.0078 * _screenSize.height //5,
+                    ),
                 GestureDetector(
                   child: Container(
                     decoration: BoxDecoration(
                       color: F2_BACKGROUND_COLOR,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(
+                        0.011 * _screenSize.width, //4,
+                      ),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.041 * _screenSize.width, //15,
+                      vertical: 0.015 * _screenSize.height, //10,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.selectedCity ??
-                            'یک شهر را انتخاب کنید  ...'),
-                        Icon(Icons.arrow_drop_down_outlined)
+                        Text(
+                          widget.selectedCity ?? 'یک شهر را انتخاب کنید  ...',
+                          style: TextStyle(
+                            fontSize: 0.0444 * _screenSize.width, //16,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_drop_down_outlined,
+                          size: 0.069 * _screenSize.width, //25,
+                        )
                       ],
                     ),
                   ),
@@ -148,15 +182,21 @@ class _SingleAddressTextDetailWidgetState
                       widget.selectedCity == "کرج")
               ? Column(
                   children: [
-                    SizedBox(height: 10),
+                    SizedBox(
+                      height: 0.015 * _screenSize.height, //10,
+                    ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 0.027 * _screenSize.width, //10,
+                      ),
                       child: Column(
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              SizedBox(width: 10),
+                              SizedBox(
+                                width: 0.027 * _screenSize.width, //10,
+                              ),
                               Text(
                                 'محله *',
                                 style: TextStyle(
@@ -166,22 +206,36 @@ class _SingleAddressTextDetailWidgetState
                               ),
                             ],
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: 0.0078 * _screenSize.height //5,
+                              ),
                           GestureDetector(
                             child: Container(
                               decoration: BoxDecoration(
                                 color: F2_BACKGROUND_COLOR,
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(
+                                  0.011 * _screenSize.width, //4,
+                                ),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10),
+                                horizontal: 0.041 * _screenSize.width, //15,
+                                vertical: 0.015 * _screenSize.height, //10,
+                              ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(widget.selectedDistrict ??
-                                      'یک منطقه را انتخاب کنید  ...'),
-                                  Icon(Icons.arrow_drop_down_outlined)
+                                  Text(
+                                    widget.selectedDistrict ??
+                                        'یک منطقه را انتخاب کنید  ...',
+                                    style: TextStyle(
+                                      fontSize:
+                                          0.0444 * _screenSize.width, //16,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_drop_down_outlined,
+                                    size: 0.069 * _screenSize.width, //25,
+                                  )
                                 ],
                               ),
                             ),
@@ -193,7 +247,9 @@ class _SingleAddressTextDetailWidgetState
                   ],
                 )
               : SizedBox(),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10,
+          ),
           CustomTextFieldWidget(
             title: 'آدرس پستی *',
             titleColor: CHARCOAL_GREY_COLOR,
@@ -222,7 +278,9 @@ class _SingleAddressTextDetailWidgetState
             mediaQuery: MediaQuery.of(context),
             lines: 1,
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10,
+          ),
           Divider(
             height: 0.000138 * _screenSize.width, //0.05,
             thickness: 0.00555 * _screenSize.width, //2,
@@ -230,51 +288,14 @@ class _SingleAddressTextDetailWidgetState
             endIndent: 0.027 * _screenSize.width, //10,
             color: Colors.grey[300],
           ),
-          SizedBox(height: 10),
-          // GestureDetector(
-          //   child: Padding(
-          //     padding: EdgeInsets.symmetric(
-          //       horizontal: 0.027 * _screenSize.width, //10,
-          //     ),
-          //     child: Row(
-          //       children: [
-          //         Container(
-          //           width: 0.069 * _screenSize.width, //25,
-          //           height: 0.069 * _screenSize.width, //25,
-          //           color: recieverIsUser ? Colors.green : Colors.grey,
-          //         ),
-          //         SizedBox(
-          //           width: 0.041 * _screenSize.width, //15,
-          //         ),
-          //         Text(
-          //           'گیرنده سفارش خودم هستم',
-          //           style: TextStyle(
-          //             fontSize: 0.041 * _screenSize.width, //15,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          //   onTap: () => setState(() {
-          //     recieverIsUser = !recieverIsUser;
-          //     if (recieverIsUser) {
-          //       recieverNameTextEditingController.text =
-          //           "${user.firstName} ${user.lastName}";
-          //       recieverPhoneNumberTextEditingController.text =
-          //           user.phoneNumber;
-          //     }
-          //   }),
-          // ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.023 * _screenSize.height, //15
+          ),
           CustomTextFieldWidget(
             title: 'نام و نام خانوادگی گیرنده *',
             textEditingController: widget.recieverNameTextEditingController,
-            // initText: hintRecieverName,
             titleColor: CHARCOAL_GREY_COLOR,
-            textColor:
-                // recieverIsUser ? Colors.grey :
-                Colors.black,
-            // isEnable: !recieverIsUser,
+            textColor: Colors.black,
             mediaQuery: MediaQuery.of(context),
             lines: 1,
           ),
@@ -283,10 +304,7 @@ class _SingleAddressTextDetailWidgetState
             textEditingController:
                 widget.recieverPhoneNumberTextEditingController,
             titleColor: CHARCOAL_GREY_COLOR,
-            textColor:
-                //  recieverIsUser ? Colors.grey :
-                Colors.black,
-            // isEnable: !recieverIsUser,
+            textColor: Colors.black,
             mediaQuery: MediaQuery.of(context),
             lines: 1,
           ),
@@ -294,46 +312,4 @@ class _SingleAddressTextDetailWidgetState
       ),
     );
   }
-
-  // void updateSelectedAddress({bool isNewAddress}) {
-  //   setState(() {
-  //     if (isNewAddress) {
-  //       addressTextEditingController.clear();
-  //       houseNumberTextEditingController.clear();
-  //       unitNumberTextEditingController.clear();
-  //       postalCodeTextEditingController.clear();
-  //       recieverNameTextEditingController.clear();
-  //       recieverPhoneNumberTextEditingController.clear();
-  //       recieverIsUser = true;
-  //       selectedCity = "";
-  //       selectedProvince = "";
-  //       if (widget.isInitial) widget.isOpenEditPanel(true);
-  //       Future.delayed(Duration.zero, () async {
-  //         widget.disableIsInitial();
-  //       });
-  //     } else {
-  //       addressTextEditingController = new TextEditingController();
-  //       addressTextEditingController.text = widget.address.address ?? "";
-  //       houseNumberTextEditingController = new TextEditingController();
-  //       houseNumberTextEditingController.text =
-  //           widget.address.houseNumber ?? "";
-  //       unitNumberTextEditingController = new TextEditingController();
-  //       unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
-  //       postalCodeTextEditingController = new TextEditingController();
-  //       postalCodeTextEditingController.text = widget.address.postalCode ?? "";
-  //       recieverNameTextEditingController = new TextEditingController();
-  //       recieverNameTextEditingController.text =
-  //           "${widget.address.receiverFirstName} ${widget.address.receiverLastName}" ??
-  //               "";
-  //       recieverPhoneNumberTextEditingController = new TextEditingController();
-  //       recieverPhoneNumberTextEditingController.text =
-  //           widget.address.receiverMobile ?? "";
-  //       tempAddressId = widget.address.code;
-  //       recieverIsUser = widget.address.isUser;
-  //       selectedCity = widget.address.city.name;
-  //       selectedProvince = widget.address.province.name;
-  //     }
-  //   });
-  // }
-
 }

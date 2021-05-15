@@ -13,12 +13,11 @@ import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-in
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-detail-widget.dart';
 
 class AddressesListPage extends StatefulWidget {
-  // final Size screenSize;
+
   final String title;
   AddressesListPage({
     Key key,
     this.title,
-    //  this.screenSize,
   }) : super(key: key);
 
   @override
@@ -36,7 +35,6 @@ class _AddressesListPageState extends State<AddressesListPage> {
   PanelController mapPanelController;
   Size _screenSize;
   bool wasClose = false;
-  // bool isInitial;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -49,11 +47,6 @@ class _AddressesListPageState extends State<AddressesListPage> {
     mapPanelState = PanelState.CLOSED;
     selectForEdit = 0;
     selectForDelete = 0;
-    // isInitial = true;
-    // scrollJumpAfterKeyborad(
-    //   scrollController: singleChildScrollController,
-    //   screenSize: _screenSize,
-    // );
     super.initState();
   }
 
@@ -130,13 +123,9 @@ class _AddressesListPageState extends State<AddressesListPage> {
                     }),
                     mapPanelState: mapPanelState,
                     screenSize: _screenSize,
-                    // changeSelected: (int selected) {},
                     closeEditPanel: () {
                       editPanelController.close();
                     },
-                    // disableIsInitial: () => setState(() {
-                    //   isInitial = false;
-                    // }),
                   ),
                   body: Container(
                     width: _screenSize.width,
@@ -172,23 +161,10 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                           address: userAddresses[index],
                                           indexAddress: index,
                                           selected: selectForEdit,
-                                          // changeSelected: (int seleted) {
-                                          //   setState(() {
-                                          //     selectForEdit = seleted;
-                                          //     print(
-                                          //         '............... change selectedAddress to : $selectForEdit');
-                                          //     print(
-                                          //         '............... address selectedAddress : ${userAddresses[selectForEdit].address}');
-                                          //   });
-                                          // },
                                           editAddress: (int seleted) {
                                             setState(() {
                                               mapPanelState = PanelState.CLOSED;
                                               selectForEdit = seleted;
-                                              print(
-                                                  '............... change selectedAddress to : $selectForEdit');
-                                              print(
-                                                  '............... address selectedAddress : ${userAddresses[selectForEdit].address}');
                                             });
                                             editPanelController.open();
                                           },
@@ -242,12 +218,9 @@ class _AddressesListPageState extends State<AddressesListPage> {
                             onTap: () {
                               setState(() {
                                 selectForEdit = 0;
-                                // isInitial = true;
                                 mapPanelState = PanelState.OPEN;
                               });
                               editPanelController.open();
-                              // ! add new Address
-                              print('/*/*// add new address');
                             },
                           ),
                         ),

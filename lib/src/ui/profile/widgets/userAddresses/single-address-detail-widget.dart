@@ -46,33 +46,22 @@ class SingleAddressDetailWidget extends StatefulWidget {
   final PanelController editPanelController;
   final bool wasClose;
   final Function(bool) changeWasClose;
-  // final Function(bool) changeMapPanelController;
-  // final bool isInitial;
   final Function(List<AddressInfoRes>) updateAdresses;
   final Size screenSize;
-
-  // final Function() closeMapPanelState;
-  // final Function(int) changeSelected;
   final Function() closeEditPanel;
-  // final Function() disableIsInitial;
   SingleAddressDetailWidget({
     Key key,
     this.address,
     this.indexAddress,
-    // this.changeSelected,
     this.mapPanelState,
     this.title,
     this.closeEditPanel,
-    // this.closeMapPanelState,
-    // this.isInitial,
-    // this.disableIsInitial,
     this.mapPanelController,
     this.screenSize,
     this.updateAdresses,
     this.editPanelController,
     this.wasClose,
     this.changeWasClose,
-    // this.changeMapPanelController,
   }) : super(key: key);
 
   @override
@@ -82,7 +71,6 @@ class SingleAddressDetailWidget extends StatefulWidget {
 
 class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   ScrollController scrollController;
-  // PanelController panelController;
   Completer<GoogleMapController> mapController = Completer();
   PanelController editPanel = PanelController();
   FocusNode focusNodeSearch;
@@ -97,7 +85,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
 
   //
   bool mapIsOpen;
-  // bool wasClose = false;
   Widget map;
   Uint8List mapCaptured;
   PanelState tempMapPanelState;
@@ -147,28 +134,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     // ignore: deprecated_member_use
     searchedDistrict = new List<District>();
     selectedDistrict = widget.address.district.name;
-
     //
-    // selectedProvince = widget.address.province.name;
-    // selectedDistrict = widget.address.district.name;
-    // selectedCity = widget.address.city.name;
-    //
-    // addressTextEditingController = TextEditingController();
-    // houseNumberTextEditingController = TextEditingController();
-    // unitNumberTextEditingController = TextEditingController();
-    // postalCodeTextEditingController = TextEditingController();
-    // recieverNameTextEditingController = TextEditingController();
-    // recieverPhoneNumberTextEditingController = TextEditingController();
-    // addressTextEditingController.text = widget.address.address ?? "";
-    // houseNumberTextEditingController.text = widget.address.houseNumber ?? "";
-    // unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
-    // postalCodeTextEditingController.text = widget.address.postalCode ?? "";
-    // recieverNameTextEditingController.text =
-    //     '${widget.address.receiverFirstName} ${widget.address.receiverLastName}' ??
-    //         "";
-    // recieverPhoneNumberTextEditingController.text =
-    //     widget.address.receiverMobile ?? "";
-    // mapIsOpen = widget.mapPanelState == PanelState.OPEN;
     tempMapPanelState = widget.mapPanelState;
     tempIndexAddress = widget.indexAddress;
     updateFields();
@@ -203,30 +169,25 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (allProvince != null && allProvince.length != 0) {
       searchedProvince.forEach((element) {
         if (element.name == selectedProvince) selProvince = element;
-        // if (element.idCity == 31) karajCiry = element;
       });
       allCity = await getAllCity(selProvince);
       print('first city of $selectedProvince is : ${allCity[0].name}');
       searchedCity = allCity;
       if (allCity != null && allCity.length != 0) {
         City selCity;
-        // City karajCiry;
         allCity.forEach((element) {
           if (element.name == selectedCity) selCity = element;
-          // if (element.idCity == 31) karajCiry = element;
         });
         allDistrict = await getAllDistrict(selCity);
         searchedDistrict = allDistrict;
       }
     }
-    print('000000000000000000 : ${searchedDistrict.length}');
   }
 
   Future<List<Province>> getAllProvince() async {
     AllProvince allProvinceRes =
         await globalLocator<GlobalRestClient>().getAllProvinceInfo();
     if (allProvinceRes.statusCode == 200) {
-      print('get allProvince, length : ${allProvinceRes.data.length}');
       return allProvinceRes.data;
     } else
       return [];
@@ -234,13 +195,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
 
   Future<List<City>> getAllCity(Province provice) async {
     Map<String, dynamic> idState = {"idState": provice.idState};
-
     AllCity allCityRes =
         await globalLocator<GlobalRestClient>().getAllCityInfo(idState);
-
     if (allCityRes.statusCode == 200) {
-      print(
-          'get allDistrict of ${provice.name}, length : ${allCityRes.data.length}');
       return allCityRes.data;
     } else
       return [];
@@ -251,8 +208,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     AllDistrict allDistrictRes =
         await globalLocator<GlobalRestClient>().getAllDistrictInfo(idCity);
     if (allDistrictRes.statusCode == 200) {
-      print(
-          'get allDistrict of ${city.name}, length : ${allDistrictRes.data.length}');
       return allDistrictRes.data;
     } else
       return [];
@@ -263,13 +218,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (widget.mapPanelState != tempMapPanelState ||
         widget.indexAddress != tempIndexAddress ||
         (widget.wasClose && widget.editPanelController.isPanelOpen)) {
-      // print('---- address : ${widget.address.address}');
-      // print('---- indexAddress : ${widget.indexAddress}');
-      // getAllAddress().then(() {
       updateFields();
-      // });
     }
-    print('#?????? indexAddress : ${widget.indexAddress}');
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       height: _screenSize.height,
@@ -321,8 +271,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                 ),
                 Center(
                   child: Container(
-                    width: widget.screenSize.width - 32,
-                    height: 110,
+                    width: 0.911111 * _screenSize.width, //328,
+                    //widget.screenSize.width - 32,
+                    height: 0.172 * _screenSize.height, //110,
                     // color: Color(0x44ff0000),
                     alignment: Alignment.center,
                     child: Icon(
@@ -376,7 +327,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                   right: 0,
                   child: Container(
                     width: _screenSize.width,
-                    color: Colors.white,
+                    // height: 200,
+                    // color: Colors.red,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -400,6 +352,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                           child: SearchMapPlaceWidget(
                               hasClearButton: true,
                               placeType: PlaceType.address,
+                              
                               language: 'fa',
                               placeholder: 'محل مورد نظرتان کجاست ؟',
                               apiKey:
@@ -455,7 +408,12 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
               maxHeight: 0.55 * _screenSize.height,
               backdropEnabled: true,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                  topLeft: Radius.circular(
+                    0.027 * _screenSize.width, //10,
+                  ),
+                  topRight: Radius.circular(
+                    0.027 * _screenSize.width, //10,
+                  )),
               panel: ListUnitAddressPanelWidget(
                 screenSize: _screenSize,
                 focusNode: focusNodeSearch,
@@ -518,7 +476,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                   mapCaptured != null
                                       ? Container(
                                           width: _screenSize.width,
-                                          height: 110,
+                                          height:
+                                              0.172 * _screenSize.height, //110,
                                           child: Image.memory(
                                             mapCaptured,
                                             fit: BoxFit.fitWidth,
@@ -527,7 +486,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                         )
                                       : Container(
                                           color: Colors.yellow,
-                                          width: _screenSize.width - 42,
+                                          width: 0.88333 *
+                                              _screenSize.width, // 318
+                                          // _screenSize.width - 42,
                                         ),
                                   Positioned(
                                     bottom: 0.0078 * _screenSize.height, //5,
@@ -609,18 +570,13 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                 radius: 0.011 * _screenSize.width, //4,
                                 onTap: () async {
                                   widget.closeEditPanel();
-
                                   // ! add new Address
-
                                   if (widget.mapPanelState == PanelState.OPEN) {
-                                    print('/*/*// add new address');
+                                    // print('/*/*// add new address');
                                     bool res = await addToUserAddresses(
                                       recieverFullName:
                                           recieverNameTextEditingController
                                               .text,
-                                      // receiverLastName:
-                                      //     recieverNameTextEditingController
-                                      //         .text,
                                       receiverMobile:
                                           recieverPhoneNumberTextEditingController
                                               .text,
@@ -644,9 +600,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                     List<AddressInfoRes> addRes =
                                         await userAddressesInfo();
                                     if (res) widget.updateAdresses(addRes);
-                                    print('resssssssss :$res');
                                   } else {
-                                    print('/*/*// edit address');
+                                    // print('/*/*// edit address');
                                     bool res = await editUserAddresses(
                                       oldAddress: widget.address,
                                       recieverFullName:
@@ -699,12 +654,12 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   updateProvince(int index) async {
-    print('111111111111 : $index');
+    // print('111111111111 : $index');
     List<City> cities = await getAllCity(searchedProvince[index]);
     if (selectedProvince != searchedProvince[index].name)
       setState(() {
         selectedProvince = searchedProvince[index].name;
-        print('selectedProvince : $selectedProvince');
+        // print('selectedProvince : $selectedProvince');
         selectedCity = null;
         selectedDistrict = null;
         searchedCity = cities;
@@ -748,17 +703,17 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     map = GoogleMap(
       onMapCreated: onMapCreated,
       scrollGesturesEnabled: true,
-      mapToolbarEnabled: true,
-      // mapToolbarEnabled: false,
-      myLocationButtonEnabled: false,
-      // zoomGesturesEnabled: false,
-      zoomGesturesEnabled: true,
+      // mapToolbarEnabled: true,
+      mapToolbarEnabled: false,
+      // myLocationButtonEnabled: false,
+      zoomGesturesEnabled: false,
+      // zoomGesturesEnabled: true,
       rotateGesturesEnabled: true,
       onCameraMove: (CameraPosition newCameraPosition) {
         setState(() {
           newEditingLatLng = newCameraPosition.target;
         });
-        print(newEditingLatLng);
+        // print(newEditingLatLng);
       },
       mapType: MapType.normal,
       initialCameraPosition: CameraPosition(
@@ -769,11 +724,10 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   }
 
   onChangeSearchFeild(String value) async {
-    print('value is $value');
-    print('selectedOption is $selectedOption');
-
+    // print('value is $value');
+    // print('selectedOption is $selectedOption');
     if (selectedOption == 'province') {
-      print('..................  lenght : ${allProvince.length}');
+      // print('..................  lenght : ${allProvince.length}');
       setState(() {
         searchedProvince = getListOfObjectsStatic(
           query: value,
@@ -786,24 +740,23 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
       allProvince.forEach((element) {
         if (element.name == selectedProvince) selProvince = element;
       });
-      print('selProvince : $selProvince');
+      // print('selProvince : $selProvince');
       List<City> tempAllCity = await getAllCity(selProvince);
       setState(() {
         allCity = tempAllCity;
       });
-      print('first city of $selectedProvince is : ${allCity[0].name}');
-
-      print(
-          'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
+      // print('first city of $selectedProvince is : ${allCity[0].name}');
+      // print(
+      // 'selectedOption is $selectedOption , result lenght : ${searchedProvince.length}');
       setState(() {
         searchedCity = getListOfObjectsStatic(
           query: value,
           objects: allCity,
           modelName: 'City',
         )?.cast<City>();
-        print('first City of $selectedProvince : ${allCity[0].name}');
-        print(
-            'selectedOption is $selectedOption , result lenght : ${allCity.length}');
+        // print('first City of $selectedProvince : ${allCity[0].name}');
+        // print(
+        //     'selectedOption is $selectedOption , result lenght : ${allCity.length}');
       });
       //
 
@@ -812,15 +765,14 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
       allCity.forEach((element) {
         if (element.name == selectedProvince) selCity = element;
       });
-      print('selProvince : $selCity');
+      // print('selProvince : $selCity');
       List<District> tempAllDistrict = await getAllDistrict(selCity);
       setState(() {
         allDistrict = tempAllDistrict;
       });
-      print('first District of $selectedCity is : ${allDistrict[0].name}');
-
-      print(
-          'selectedOption is $selectedOption , result lenght : ${selectedCity.length}');
+      // print('first District of $selectedCity is : ${allDistrict[0].name}');
+      // print(
+      //     'selectedOption is $selectedOption , result lenght : ${selectedCity.length}');
       setState(() {
         searchedDistrict = getListOfObjectsStatic(
           query: value,
@@ -828,14 +780,14 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
           modelName: 'District',
         )?.cast<District>();
       });
-      print('first District of $selectedCity : ${searchedDistrict[0].name}');
-      print(
-          'selectedOption is $selectedOption , result lenght : ${searchedDistrict.length}');
+      // print('first District of $selectedCity : ${searchedDistrict[0].name}');
+      // print(
+      //     'selectedOption is $selectedOption , result lenght : ${searchedDistrict.length}');
     }
   }
 
   updateFields() {
-    print('...updating feilds.......');
+    // print('...updating feilds.......');
     addressTextEditingController = TextEditingController();
     houseNumberTextEditingController = TextEditingController();
     unitNumberTextEditingController = TextEditingController();
@@ -844,7 +796,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     recieverPhoneNumberTextEditingController = TextEditingController();
     setState(() {
       if (widget.mapPanelState == PanelState.OPEN) {
-        print('...updating feilds in new address.......');
         addressTextEditingController.text = "";
         houseNumberTextEditingController.text = "";
         unitNumberTextEditingController.text = "";
@@ -857,17 +808,15 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         selectedCity = "";
         newEditingLatLng = LatLng(35.699749, 51.338053);
       } else {
-        print('...updating feilds in edit address.......');
+        //   print('...updating feilds in edit address.......');
         // print('address : ${userAddresses[widget.indexAddress].address}');
-        print('########### indexAddress : ${widget.indexAddress}');
+        // print('########### indexAddress : ${widget.indexAddress}');
         addressTextEditingController.text =
             userAddresses[widget.indexAddress].address ?? "";
-
         // print(
         //     'addressTextEditingController :${addressTextEditingController.text}');
         houseNumberTextEditingController.text =
             widget.address.houseNumber ?? "";
-
         unitNumberTextEditingController.text = widget.address.unitNumber ?? "";
         postalCodeTextEditingController.text = widget.address.postalCode ?? "";
         recieverNameTextEditingController.text =

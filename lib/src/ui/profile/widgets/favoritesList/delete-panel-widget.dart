@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
 
 class DeletePanelWidget extends StatefulWidget {
   final double height;
