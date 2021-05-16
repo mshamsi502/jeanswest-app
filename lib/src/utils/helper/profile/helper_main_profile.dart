@@ -30,6 +30,7 @@ import 'package:intent/intent.dart' as android_intent;
 import 'package:intent/extra.dart' as android_extra;
 
 List<Widget> createProfileListMenuPages({
+  // Size screenSize,
   LevelCard userLevel,
   LevelCard nextLevel,
   int moneyBuying,
@@ -63,6 +64,7 @@ List<Widget> createProfileListMenuPages({
   ));
   profileListMenu.add(AddressesListPage(
     title: 'لیست آدرس ها',
+    // screenSize: screenSize,
   ));
 
   profileListMenu.add(

@@ -36,7 +36,7 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
       if (index != widget.message.perCategory.length - 1)
         categoryText = categoryText + ' - ';
     }
-    widget.message.perCategory.forEach((element) {});
+    // widget.message.perCategory.forEach((element) {});
     super.initState();
   }
 

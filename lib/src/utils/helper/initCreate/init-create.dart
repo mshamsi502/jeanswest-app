@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
-import 'package:jeanswest/src/utils/helper/getAllInfo/get-all-info.dart';
-
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   // ignore: deprecated_member_use
@@ -13,6 +11,7 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   bool pagesCreatedFinished = false;
   _children.add(MainProfilePage(
     isAuth: !isAuth,
+    // screenSize: screenSize,
     showCompeletProfileMessage: showCompeletProfileMessage,
     changeCompeletProfileMessage: (bool value) =>
         showCompeletProfileMessage = value,
@@ -23,6 +22,7 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   _children.add(Container(color: Colors.green));
   _children.add(MainProfilePage(
     isAuth: isAuth,
+    // screenSize: screenSize,
     showCompeletProfileMessage: showCompeletProfileMessage,
     changeCompeletProfileMessage: (bool value) =>
         showCompeletProfileMessage = value,
@@ -43,7 +43,11 @@ Future<Map<String, dynamic>> authService() async {
   // //
   // // ! put token in device
   globalLocator<SharedPreferences>().setString(
-      TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
+    TOKEN,
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjA4MTM5NDUsImV4cCI6MTYyMDgzMTk0NX0.F7SexctJMUf5rih3K83nqznJ6L_auUMzpa20po1EPTk',
+  );
+  // globalLocator<SharedPreferences>().setString(
+  //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
   // //
 
   String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
@@ -59,13 +63,13 @@ Future<Map<String, dynamic>> authService() async {
       if (!isAuth) {
         while (tryToGetAllUserInfo >= 0) {
           try {
-            await getAllUserInfo(token: getToken);
-
+            await getAllUserInfo();
             isAuth = true;
-
             print('^*^*^ getAllUserInfo : Successfully');
-            Map<String, dynamic> initCreateRes =
-                createBottomNavigationBarPages(isAuth: isAuth);
+            Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
+              isAuth: isAuth,
+              // screenSize: screenSize,
+            );
             print('created BottomNavigationBarPages');
             _children = initCreateRes['children'];
             pagesCreatedFinished = initCreateRes['success'];
@@ -99,8 +103,10 @@ Future<Map<String, dynamic>> authService() async {
 
   //
 
-  Map<String, dynamic> initCreateRes =
-      createBottomNavigationBarPages(isAuth: isAuth);
+  Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
+    isAuth: isAuth,
+    // screenSize: screenSize,
+  );
   print('created BottomNavigationBarPages');
   _children = initCreateRes['children'];
   pagesCreatedFinished = initCreateRes['success'];
@@ -117,7 +123,7 @@ Future<Map<String, dynamic>> authService() async {
 checkCompleteProfileMsgDateTime() {
   // !
   //
-  
+
   if (globalLocator<SharedPreferences>()
           .getString('completeProfileMsgDataTime') !=
       null) {

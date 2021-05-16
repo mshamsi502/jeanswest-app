@@ -15,13 +15,13 @@ class GeneralRespons extends Equatable {
   int statusCode;
   @JsonKey(name: 'message')
   String message;
-  @JsonKey(name: 'data')
-  dynamic data;
+  // @JsonKey(name: 'data')
+  // dynamic data;
 
   GeneralRespons({
     this.statusCode,
     this.message,
-    this.data,
+    // this.data,
   });
 
   factory GeneralRespons.fromJson(Map<String, dynamic> json) =>
@@ -34,7 +34,7 @@ class GeneralRespons extends Equatable {
     return <String, dynamic>{
       'statusCode': statusCode,
       'message': message,
-      'data': data,
+      // 'data': data,
     };
   }
 
@@ -42,6 +42,6 @@ class GeneralRespons extends Equatable {
   List<Object> get props => [
         statusCode,
         message,
-        data,
+        // data,
       ];
 }

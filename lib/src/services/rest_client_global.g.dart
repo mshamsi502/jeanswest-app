@@ -172,24 +172,6 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<UserAddressesInfoRes> getUserAddressesInfo() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3003/v1/getUserAddressesInfo',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = UserAddressesInfoRes.fromJson(_result.data);
-    return value;
-  }
-
-  @override
   Future<UserFavoriteInfoRes> getUserFavoriteInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -280,6 +262,102 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<UserAddressesInfoRes> getMockUserAddressesInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3003/v1/getUserAddressesInfo',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserAddressesInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserAddressesInfoRes> getUserAddressesInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/address/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserAddressesInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<GeneralRespons> addToUserAddressesInfo(address) async {
+    ArgumentError.checkNotNull(address, 'address');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(address ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/address/create',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GeneralRespons.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<GeneralRespons> editUserAddressesInfo(address) async {
+    ArgumentError.checkNotNull(address, 'address');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(address ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/address/edit',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'PATCH',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GeneralRespons.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<GeneralRespons> deleteUserAddressesInfo(code) async {
+    ArgumentError.checkNotNull(code, 'code');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(code ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/address/remove',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'DELETE',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GeneralRespons.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<ContactUsRes> getContactUsInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -312,6 +390,64 @@ class _GlobalRestClient implements GlobalRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = FAQRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<AllProvince> getAllProvinceInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/logistic/states',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AllProvince.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<AllCity> getAllCityInfo(idState) async {
+    ArgumentError.checkNotNull(idState, 'idState');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(idState ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/logistic/cities',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AllCity.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<AllDistrict> getAllDistrictInfo(idCity) async {
+    ArgumentError.checkNotNull(idCity, 'idCity');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(idCity ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/logistic/districts',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AllDistrict.fromJson(_result.data);
     return value;
   }
 

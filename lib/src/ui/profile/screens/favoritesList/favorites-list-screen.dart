@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/ui/profile/widgets/favoritesList/add-to-card-panel-widget.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
@@ -98,18 +99,30 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 ),
               ),
               panel: DeletePanelWidget(
-                  height: 0.234 * _screenSize.height, //150,
-                  selectedProduct: selectedProduct,
-                  closeDeletePanel: () {
-                    setState(() {});
-                    deleteProductPanel.close();
-                    // ignore: deprecated_member_use
-                    List<bool> activtionProducts = new List<bool>();
-                    activtionProducts = createActiveProducts();
-                    setState(() {
-                      activeProducts = activtionProducts;
-                    });
-                  }),
+                height: 0.234 * _screenSize.height, //150,
+                selectedProduct: selectedProduct,
+                closeDeletePanel: () {
+                  setState(() {});
+                  deleteProductPanel.close();
+                  // ignore: deprecated_member_use
+                  List<bool> activtionProducts = new List<bool>();
+                  activtionProducts = createActiveProducts();
+                  setState(() {
+                    activeProducts = activtionProducts;
+                  });
+                },
+                deleteFunction: (int selectedProduct) {
+                  // *********
+                  setState(() {
+                    userFavorites.data.result.removeAt(selectedProduct);
+                    userFavorites.data.total--;
+                  });
+
+                  print(
+                      'product deleted : length : ${userFavorites.data.result.length}');
+                  // *********
+                },
+              ),
               body: SlidingUpPanel(
                 controller: addToCardPanel,
                 minHeight: 0,

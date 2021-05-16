@@ -5,8 +5,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
@@ -22,6 +24,8 @@ import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-frien
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMessages/user-messages-info-res.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/all-province.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/address/all-district.dart';
 import 'package:jeanswest/src/services/rest-client.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -52,16 +56,6 @@ abstract class GlobalRestClient extends RestClient {
       @Query("lat") String lat, @Query("long") String long);
 
   // * LOGIN *****************************************************************
-  // ! from Mockoon API
-  // @POST('http://10.0.1.111:5000/v1/reqVerifyCode')
-  // Future<SuccessRespons> reqForVerifyCode(
-  //     @Field("phoneNumber") String phoneNumber);
-
-  // @GET('http://10.0.1.111:5000/v1/verifyCode')
-  // Future<LoginAndGetTokenRes> getVerifyCode(
-  //   @Query("phoneNumber") String phoneNumber,
-  //   @Query("verifyCode") String verifyCode,
-  // );
   // ! from Local JeansWest API
   @POST('http://10.0.1.111:8000/api/v1/otp/request')
   Future<OTPReqResponse> reqOtp(@Body() Map<String, dynamic> map);
@@ -84,9 +78,6 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserPaymentInfo')
   Future<UserPaymentInfoRes> getUserPaymentInfo();
 
-  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo')
-  Future<UserAddressesInfoRes> getUserAddressesInfo();
-
   @GET('http://10.1.2.94:3003/v1/getUserFavorite')
   Future<UserFavoriteInfoRes> getUserFavoriteInfo();
 
@@ -102,12 +93,44 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserMessages')
   Future<UserMessagesInfoRes> getUserMessagesInfo();
 
+  // * ADDRESS *****************************************************************
+
+  // ! Mockoon
+  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo')
+  Future<UserAddressesInfoRes>
+      getMockUserAddressesInfo(); // ! getAllUserAddress
+
+  // ! Jeanswest API
+  @GET('http://10.0.1.111:8000/api/v1/address/list')
+  Future<UserAddressesInfoRes> getUserAddressesInfo(); // ! getAllUserAddress
+
+  @POST('http://10.0.1.111:8000/api/v1/address/create')
+  Future<GeneralRespons> addToUserAddressesInfo(
+      @Body() Map<String, dynamic> address); // ! create a address
+
+  @PATCH('http://10.0.1.111:8000/api/v1/address/edit')
+  Future<GeneralRespons> editUserAddressesInfo(
+      @Body() Map<String, dynamic> address); // ! edit a address
+
+  @DELETE('http://10.0.1.111:8000/api/v1/address/remove')
+  Future<GeneralRespons> deleteUserAddressesInfo(
+      @Body() Map<String, dynamic> code); // ! delete a address
+
   // * GLOBAL *****************************************************************
 
   @GET('http://10.1.2.94:3005/api/v1/contact-us/contact-info')
   Future<ContactUsRes> getContactUsInfo();
   @GET('http://10.1.2.94:3005/api/v1/faq/list')
   Future<FAQRes> getFAQInfo();
+
+  @GET('http://10.0.1.111:8000/api/v1/logistic/states')
+  Future<AllProvince> getAllProvinceInfo();
+
+  @POST('http://10.0.1.111:8000/api/v1/logistic/cities')
+  Future<AllCity> getAllCityInfo(@Body() Map<String, dynamic> idState);
+
+  @POST('http://10.0.1.111:8000/api/v1/logistic/districts')
+  Future<AllDistrict> getAllDistrictInfo(@Body() Map<String, dynamic> idCity);
 
   // * PRODUCT *****************************************************************
 

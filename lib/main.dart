@@ -12,6 +12,8 @@ import 'package:jeanswest/src/utils/service_locator/global_service_locator.dart'
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+
   setupGlobalLocator();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {

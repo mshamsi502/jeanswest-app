@@ -38,6 +38,7 @@ import 'package:jeanswest/src/ui/profile/widgets/global/log-out-panel-widget.dar
 
 class MainProfilePage extends StatefulWidget {
   final bool isAuth;
+  // final Size screenSize;
   final bool showCompeletProfileMessage;
   final Function(bool) changeCompeletProfileMessage;
 
@@ -46,6 +47,7 @@ class MainProfilePage extends StatefulWidget {
     this.isAuth,
     this.showCompeletProfileMessage,
     this.changeCompeletProfileMessage,
+    // this.screenSize,
   }) : super(key: key);
   @override
   _MainProfilePageState createState() => _MainProfilePageState();
@@ -124,6 +126,7 @@ class _MainProfilePageState extends State<MainProfilePage>
       widget.changeCompeletProfileMessage(false);
     // print('percentCompleteProfile : $percentCompleteProfile %');
     mainProfileListMenu = createProfileListMenuPages(
+      // screenSize: widget.screenSize,
       userLevel: userLevel,
       nextLevel: nextLevel,
       moneyBuying: userPayment.moneyBuying,

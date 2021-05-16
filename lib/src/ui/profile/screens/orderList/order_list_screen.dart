@@ -100,14 +100,12 @@ class _OrderListScreenState extends State<OrderListScreen>
                             children: <Widget>[
                               OnlineTabsWidget(
                                 // ignore: deprecated_member_use
-                                inProgressOrders:
-                                    userOrders.data.inProgressOrders,
-                                compeletedOrders:
-                                    userOrders.data.compeletedOrders,
-                                returnedOrders: userOrders.data.returnedOrders,
+                                inProgressOrders: userOrdersa.inProgressOrders,
+                                compeletedOrders: userOrdersa.compeletedOrders,
+                                returnedOrders: userOrdersa.returnedOrders,
                               ),
                               OfflineOrderListWidget(
-                                offlineOrders: userOrders.data.offlineOrders,
+                                offlineOrders: userOrdersa.offlineOrders,
                               ),
                             ],
                           ),

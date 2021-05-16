@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
@@ -58,7 +59,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   auth() async {
-    Map<String, dynamic> authServiceRes = await authService();
+    Map<String, dynamic> authServiceRes =
+        await authService();
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];

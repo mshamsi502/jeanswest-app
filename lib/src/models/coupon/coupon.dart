@@ -47,7 +47,7 @@ class Coupon {
     yearOfStartDate = stringSplitDate(startDate)['year'];
     monthOfStartDate = stringSplitDate(startDate)['month'];
     dayOfStartDate = stringSplitDate(startDate)['day'];
-    print('$yearOfStartDate-$monthOfStartDate-$dayOfStartDate');
+    // print('$yearOfStartDate-$monthOfStartDate-$dayOfStartDate');
     if (int.parse(stringSplitDate(startDate)['year'].substring(0, 1)) < 15) {
       Gregorian gregorian = new Gregorian(
         int.parse(stringSplitDate(startDate)['year']),
@@ -59,7 +59,7 @@ class Coupon {
       monthOfStartDate = jalali.month.toString();
       dayOfStartDate = jalali.day.toString();
     }
-    print('$yearOfStartDate-$monthOfStartDate-$dayOfStartDate');
+    // print('$yearOfStartDate-$monthOfStartDate-$dayOfStartDate');
 
     yearOfEndDate = stringSplitDate(endDate)['year'];
     monthOfEndDate = stringSplitDate(endDate)['month'];

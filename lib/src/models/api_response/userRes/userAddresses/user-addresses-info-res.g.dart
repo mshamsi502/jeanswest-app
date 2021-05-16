@@ -8,7 +8,9 @@ part of 'user-addresses-info-res.dart';
 
 UserAddressesInfoRes _$UserAddressesInfoResFromJson(Map<String, dynamic> json) {
   return UserAddressesInfoRes(
-    addresses: (json['addresses'] as List)
+    statusCode: json['statusCode'] as int,
+    message: json['message'] as String,
+    data: (json['data'] as List)
         ?.map((e) => e == null
             ? null
             : AddressInfoRes.fromJson(e as Map<String, dynamic>))
@@ -19,5 +21,7 @@ UserAddressesInfoRes _$UserAddressesInfoResFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$UserAddressesInfoResToJson(
         UserAddressesInfoRes instance) =>
     <String, dynamic>{
-      'addresses': instance.addresses,
+      'statusCode': instance.statusCode,
+      'message': instance.message,
+      'data': instance.data,
     };
