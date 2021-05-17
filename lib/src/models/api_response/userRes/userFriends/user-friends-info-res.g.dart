@@ -8,7 +8,9 @@ part of 'user-friends-info-res.dart';
 
 UserFriendsInfoRes _$UserFriendsInfoResFromJson(Map<String, dynamic> json) {
   return UserFriendsInfoRes(
-    friends: (json['friends'] as List)
+    statusCode: json['statusCode'] as int,
+    message: json['message'] as String,
+    data: (json['data'] as List)
         ?.map((e) => e == null
             ? null
             : UserMainInfoRes.fromJson(e as Map<String, dynamic>))
@@ -18,5 +20,7 @@ UserFriendsInfoRes _$UserFriendsInfoResFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$UserFriendsInfoResToJson(UserFriendsInfoRes instance) =>
     <String, dynamic>{
-      'friends': instance.friends,
+      'statusCode': instance.statusCode,
+      'message': instance.message,
+      'data': instance.data,
     };

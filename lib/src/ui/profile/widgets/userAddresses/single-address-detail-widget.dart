@@ -104,8 +104,11 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   List<District> searchedDistrict;
   //
   String selectedProvince;
+  Province seleProvince;
   String selectedCity;
+  City seleCity;
   String selectedDistrict;
+  District seleDistrict;
   //
   LatLng newEditingLatLng;
   String newAddressFromMap;
@@ -352,7 +355,6 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                           child: SearchMapPlaceWidget(
                               hasClearButton: true,
                               placeType: PlaceType.address,
-                              
                               language: 'fa',
                               placeholder: 'محل مورد نظرتان کجاست ؟',
                               apiKey:
@@ -580,10 +582,13 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                       receiverMobile:
                                           recieverPhoneNumberTextEditingController
                                               .text,
-                                      country: 'ایران',
-                                      province: selectedProvince,
-                                      city: selectedCity,
-                                      district: selectedDistrict,
+                                      // country: 'ایران',
+                                      province: seleProvince,
+                                      city: seleCity,
+                                      district: seleDistrict,
+                                      // province: selectedProvince,
+                                      // city: selectedCity,
+                                      // district: selectedDistrict,
                                       address:
                                           addressTextEditingController.text,
                                       houseNumber:
@@ -659,6 +664,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (selectedProvince != searchedProvince[index].name)
       setState(() {
         selectedProvince = searchedProvince[index].name;
+        seleProvince = searchedProvince[index];
         // print('selectedProvince : $selectedProvince');
         selectedCity = null;
         selectedDistrict = null;
@@ -673,6 +679,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (selectedCity != searchedCity[index].name)
       setState(() {
         selectedCity = searchedCity[index].name;
+        seleCity = searchedCity[index];
         selectedDistrict = null;
         allDistrict = districts;
         searchedCity = allCity;
@@ -684,6 +691,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (selectedDistrict != searchedDistrict[index].name)
       setState(() {
         selectedDistrict = searchedDistrict[index].name;
+        seleDistrict = searchedDistrict[index];
         searchedDistrict = allDistrict;
       });
     editPanel.close();

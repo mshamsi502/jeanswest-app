@@ -66,6 +66,9 @@ dependencies:
 #!  social_share: ^2.0.5 (backup pack)
   sqflite: ^2.0.0+2
   synchronized: ^3.0.0
+  # firebase_dynamic_links: ^2.0.3
+  # firebase_core: ^1.1.1
+  # firebase_core_platform_interface: ^4.0.1
 #----------------UI Widgets-----------------
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

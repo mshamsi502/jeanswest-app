@@ -4,13 +4,16 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/time/c-u-d-at-time-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'user-main-info-res.g.dart';
+part 'user-main-info-data.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class UserMainInfoRes extends Equatable {
+class UserMainInfoData extends Equatable {
+  @JsonKey(name: 'code')
+  String code;
   @JsonKey(name: 'firstName')
   String firstName;
   @JsonKey(name: 'lastName')
@@ -20,11 +23,32 @@ class UserMainInfoRes extends Equatable {
   @JsonKey(name: 'phoneNumber')
   String phoneNumber;
   @JsonKey(name: 'gender')
-  String gender;
+  int gender;
   @JsonKey(name: 'birthDate')
   String birthDate;
+  //
+  // @JsonKey(name: 'id')
+  // String id;
+  // @JsonKey(name: 'active')
+  // bool active;
+  // @JsonKey(name: 'loggedInAt')
+  // String loggedInAt;
+  // @JsonKey(name: 'erpId')
+  // String erpId;
+  // @JsonKey(name: 'erpPartnerShipCode')
+  // String erpPartnerShipCode;
+  // @JsonKey(name: 'erpCustomerType')
+  // String erpCustomerType;
+  // @JsonKey(name: 'erpTsCodeId')
+  // String erpTsCodeId;
+  // @JsonKey(name: 'erpUpdatedAt')
+  // String erpUpdatedAt;
+  // @JsonKey(name: 'datetime')
+  // CUDAtTimeRes datetime;
+  //
 
-  UserMainInfoRes({
+  UserMainInfoData({
+    this.code,
     this.firstName,
     this.lastName,
     this.email,
@@ -33,13 +57,14 @@ class UserMainInfoRes extends Equatable {
     this.birthDate,
   });
 
-  factory UserMainInfoRes.fromJson(Map<String, dynamic> json) =>
-      _$UserMainInfoResFromJson(json);
+  factory UserMainInfoData.fromJson(Map<String, dynamic> json) =>
+      _$UserMainInfoDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserMainInfoResToJson(this);
+  Map<String, dynamic> toJson() => _$UserMainInfoDataToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'code': code,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
@@ -51,6 +76,7 @@ class UserMainInfoRes extends Equatable {
 
   @override
   List<Object> get props => [
+        code,
         firstName,
         lastName,
         email,

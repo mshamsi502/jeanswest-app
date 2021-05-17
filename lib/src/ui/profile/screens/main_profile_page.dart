@@ -107,18 +107,16 @@ class _MainProfilePageState extends State<MainProfilePage>
       // print(' 20 : email is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }
-    if (user.gender == null ||
-        user.gender.perName == null ||
-        user.gender.perName == '') {
+    if (user.gender == null) {
       // print(' 20 : gender is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }
-    if (user.dayOfBirth == null ||
-        user.dayOfBirth == '' ||
-        user.monthOfBirth == null ||
-        user.monthOfBirth == '' ||
-        user.yearOfBirth == null ||
-        user.yearOfBirth == '') {
+    if (user.dayOfBirthShamsi == null ||
+        user.dayOfBirthShamsi == '' ||
+        user.monthOfBirthShamsi == null ||
+        user.monthOfBirthShamsi == '' ||
+        user.yearOfBirthShamsi == null ||
+        user.yearOfBirthShamsi == '') {
       // print(' 20 : dateOfBirth is empty');
       percentCompleteProfile = percentCompleteProfile - 20;
     }

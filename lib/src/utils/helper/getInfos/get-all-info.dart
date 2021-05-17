@@ -16,15 +16,19 @@ import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddresses
 //
 import 'package:jeanswest/src/utils/helper/getInfos/getContactUsInfo/get-contact-us-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getFaqInfo/get-faq-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 
 Future<void> getAllUserInfo() async {
-  await userMainInfo();
+  user = await userMainInfo();
   //
-  await userMainFriends();
+  // await userMainFriends();
   //
-  await userInviteInfo();
+  // await userInviteInfo();
   //
-  await userPaymentInfo();
+  userPayment = await userPaymentInfo(user.tblPosCustomersID);
+  //
+  userAddresses = await userAddressesInfo();
   //
   await userFavoritesInfo();
   //
@@ -36,7 +40,7 @@ Future<void> getAllUserInfo() async {
   //
   await userCouponsInfo();
   //
-  userAddresses = await userAddressesInfo();
+
   //
   // !
   await getContactUsInfo();

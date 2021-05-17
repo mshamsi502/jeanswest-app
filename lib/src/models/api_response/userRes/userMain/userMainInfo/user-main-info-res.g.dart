@@ -8,21 +8,17 @@ part of 'user-main-info-res.dart';
 
 UserMainInfoRes _$UserMainInfoResFromJson(Map<String, dynamic> json) {
   return UserMainInfoRes(
-    firstName: json['firstName'] as String,
-    lastName: json['lastName'] as String,
-    email: json['email'] as String,
-    phoneNumber: json['phoneNumber'] as String,
-    gender: json['gender'] as String,
-    birthDate: json['birthDate'] as String,
+    statusCode: json['statusCode'] as int,
+    message: json['message'] as String,
+    data: json['data'] == null
+        ? null
+        : UserMainInfoData.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$UserMainInfoResToJson(UserMainInfoRes instance) =>
     <String, dynamic>{
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'email': instance.email,
-      'phoneNumber': instance.phoneNumber,
-      'gender': instance.gender,
-      'birthDate': instance.birthDate,
+      'statusCode': instance.statusCode,
+      'message': instance.message,
+      'data': instance.data,
     };

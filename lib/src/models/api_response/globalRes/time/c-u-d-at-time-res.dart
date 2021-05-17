@@ -11,11 +11,11 @@ part 'c-u-d-at-time-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class CUDAtTimeRes extends Equatable {
-  @JsonKey(name: 'createdAt')
+  @JsonKey(name: 'created_at')
   String createdAt;
-  @JsonKey(name: 'updatedAt')
+  @JsonKey(name: 'updated_at')
   String updatedAt;
-  @JsonKey(name: 'deletedAt')
+  @JsonKey(name: 'deleted_at')
   String deletedAt;
 
   CUDAtTimeRes({
@@ -32,9 +32,9 @@ class CUDAtTimeRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
-      'deletedAt': deletedAt,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+      'deleted_at': deletedAt,
     };
   }
 

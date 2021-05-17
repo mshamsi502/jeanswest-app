@@ -9,15 +9,18 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dar
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/level-cards-res.dart';
 
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-response.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/userTblPosCust/user-tbl-pos-cust-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-res.dart';
+// import 'package:jeanswest/src/models/api_response/userRes/userMain/UserTblPosCust/user-tbl-pos-cust-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
@@ -63,20 +66,42 @@ abstract class GlobalRestClient extends RestClient {
   @POST('http://10.0.1.111:8000/api/v1/customerAuth')
   Future<AuthReqRespons> reqAuth(@Body() Map<String, dynamic> map);
 
-  // * USER ALL INFO *****************************************************************
+  // * USER MAIN INFO *****************************************************************
 
-  // ! from Mockoon API
   @GET('http://10.1.2.94:3003/v1/getUserMainInfo')
-  Future<UserMainInfoRes> getUserMainInfo();
+  Future<UserMainInfoRes> getMockUserMainInfo(); // ! from Mockoon API
+  //
+  @GET('http://10.0.1.111:8000/api/v1/customer/myCustomer')
+  Future<UserMainInfoRes> getUserMainInfo(); // ! from Real API
+  //
+  @POST('http://10.1.2.94:3003/v1/getUserTblPosCustRes')
+  Future<UserTblPosCustRes> getMockUserErp(); // ! from Mockoon API
+  //
+  @POST('http://10.0.1.111:8000/api/v1/erp/user/user')
+  Future<UserTblPosCustRes> getUserErp(
+      @Body() Map<String, dynamic> mobile); // ! from Real API
 
-  @GET('http://10.1.2.94:3003/v1/getUserInviteInfo')
-  Future<UserInviteInfoRes> getUserInviteInfo();
+  // * USER PAYMENT INFO *****************************************************************
+
+  @POST('http://10.1.2.94:3003/v1/getUserPaymentInfo')
+  Future<UserPaymentInfoRes> getMockUserPaymentInfo(); // ! from Mockoon API
+
+  @POST('http://10.0.1.111:8000/api/v1/erp/promotion/customerMembershipLevel')
+  Future<UserPaymentInfoRes> getUserPaymentInfo(
+      @Body() Map<String, dynamic> id); // ! from Real API
+
+  // * USER PAYMENT INFO *****************************************************************
 
   @GET('http://10.1.2.94:3003/v1/getUserFriendsInfo')
   Future<UserFriendsInfoRes> getUserFriendsInfo();
 
-  @GET('http://10.1.2.94:3003/v1/getUserPaymentInfo')
-  Future<UserPaymentInfoRes> getUserPaymentInfo();
+  @GET('http://10.1.2.94:3003/v1/getUserFriendsInfo')
+  Future<UserFriendsInfoRes> getMockUserFriendsInfo();
+
+  // * USER PAYMENT INFO *****************************************************************
+
+  @GET('http://10.1.2.94:3003/v1/getUserInviteInfo')
+  Future<UserInviteInfoRes> getUserInviteInfo();
 
   @GET('http://10.1.2.94:3003/v1/getUserFavorite')
   Future<UserFavoriteInfoRes> getUserFavoriteInfo();
@@ -122,6 +147,9 @@ abstract class GlobalRestClient extends RestClient {
   Future<ContactUsRes> getContactUsInfo();
   @GET('http://10.1.2.94:3005/api/v1/faq/list')
   Future<FAQRes> getFAQInfo();
+
+  @GET('http://10.0.1.111:8000/api/v1/address/giftCardsInfo')
+  Future<LevelCardsRes> getLevelCardsInfo();
 
   @GET('http://10.0.1.111:8000/api/v1/logistic/states')
   Future<AllProvince> getAllProvinceInfo();

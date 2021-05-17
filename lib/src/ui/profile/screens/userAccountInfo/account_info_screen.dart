@@ -9,7 +9,6 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-account-panel-widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/account-info-widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
@@ -76,15 +75,15 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       ],
       [
         'جنسیت',
-        userInfo.gender ?? Gender(perName: '', engName: ''),
+        userInfo.gender ?? true,
         false,
       ],
       [
         'تاریخ تولد',
         {
-          'yearOfBirth': userInfo.yearOfBirth,
-          'monthOfBirth': userInfo.monthOfBirth,
-          'dayOfBirth': userInfo.dayOfBirth,
+          'yearOfBirth': userInfo.yearOfBirthShamsi,
+          'monthOfBirth': userInfo.monthOfBirthShamsi,
+          'dayOfBirth': userInfo.dayOfBirthShamsi,
         },
         false,
       ],
@@ -117,7 +116,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                   String firstName,
                   String lastName,
                   String email,
-                  Gender gender,
+                  int gender,
                   String dayOfBirth,
                   String monthOfBirth,
                   String yearOfBirth,
@@ -128,9 +127,9 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                     phoneNumber: widget.userAccountInfo.phoneNumber,
                     email: email,
                     gender: gender,
-                    dayOfBirth: dayOfBirth,
-                    monthOfBirth: monthOfBirth,
-                    yearOfBirth: yearOfBirth,
+                    dayOfBirthShamsi: dayOfBirth,
+                    monthOfBirthShamsi: monthOfBirth,
+                    yearOfBirthShamsi: yearOfBirth,
                   );
                   widget.updateUser(_userInfo);
                   setState(() {

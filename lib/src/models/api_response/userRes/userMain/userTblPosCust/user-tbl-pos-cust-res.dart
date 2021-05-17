@@ -5,30 +5,30 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-res.dart';
-
-part 'user-friends-info-res.g.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/UserTblPosCust/user-tbl-pos-cust-data.dart';
+part 'user-tbl-pos-cust-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class UserFriendsInfoRes extends Equatable {
+class UserTblPosCustRes extends Equatable {
   @JsonKey(name: 'statusCode')
   int statusCode;
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  List<UserMainInfoRes> data;
+  List<UserTblPosCustData> data;
+  // List<String> data;
 
-  UserFriendsInfoRes({
+  UserTblPosCustRes({
     this.statusCode,
     this.message,
     this.data,
   });
 
-  factory UserFriendsInfoRes.fromJson(Map<String, dynamic> json) =>
-      _$UserFriendsInfoResFromJson(json);
+  factory UserTblPosCustRes.fromJson(Map<String, dynamic> json) =>
+      _$UserTblPosCustResFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserFriendsInfoResToJson(this);
+  Map<String, dynamic> toJson() => _$UserTblPosCustResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

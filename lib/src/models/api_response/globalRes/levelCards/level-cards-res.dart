@@ -5,30 +5,32 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-res.dart';
 
-part 'user-friends-info-res.g.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/level-cards-data.dart';
+
+part 'level-cards-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class UserFriendsInfoRes extends Equatable {
+class LevelCardsRes extends Equatable {
   @JsonKey(name: 'statusCode')
   int statusCode;
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  List<UserMainInfoRes> data;
+  LevelCardsData data;
 
-  UserFriendsInfoRes({
+  LevelCardsRes({
     this.statusCode,
     this.message,
     this.data,
   });
 
-  factory UserFriendsInfoRes.fromJson(Map<String, dynamic> json) =>
-      _$UserFriendsInfoResFromJson(json);
+  factory LevelCardsRes.fromJson(Map<String, dynamic> json) =>
+      _$LevelCardsResFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserFriendsInfoResToJson(this);
+  // Map<String, dynamic> toJson() => _$SuccessResponsToJson(this);
+  Map<String, dynamic> toJson() => _$LevelCardsResToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
