@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "326164805677",
+    "project_id": "jeanswest-app",
+    "storage_bucket": "jeanswest-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:326164805677:android:43d06c16786e86fa83e0a4",
+        "android_client_info": {
+          "package_name": "club.jeanswest.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "326164805677-a39d8n323imf9uu9rcd9com76f2f4pp5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "club.jeanswest.app",
+            "certificate_hash": "ce72018b98d51857fe3cd6e10f6df98c60472158"
+          }
+        },
+        {
+          "client_id": "326164805677-epv266ff24h9t4qnmbj9jbfnvvpldjmb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHrqkIRrie34dDJp5pbYBGw4ec8dYdz-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "326164805677-epv266ff24h9t4qnmbj9jbfnvvpldjmb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

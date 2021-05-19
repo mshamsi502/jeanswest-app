@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
-import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'list-of-products-res.g.dart';
@@ -12,10 +12,16 @@ part 'list-of-products-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class ListOfProductsRes extends Equatable {
+  @JsonKey(name: 'statusCode')
+  int statusCode;
+  @JsonKey(name: 'message')
+  String message;
   @JsonKey(name: 'data')
-  List<SingleProductInfoRes> data;
+  ListOfProductsData data;
 
   ListOfProductsRes({
+    this.statusCode,
+    this.message,
     this.data,
   });
 
@@ -26,12 +32,16 @@ class ListOfProductsRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'addresses': data,
+      'statusCode': statusCode,
+      'message': message,
+      'data': data,
     };
   }
 
   @override
   List<Object> get props => [
+        statusCode,
+        message,
         data,
       ];
 }

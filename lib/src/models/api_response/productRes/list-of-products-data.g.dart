@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'data-favorites-info-res.dart';
+part of 'list-of-products-data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DataFavoriteInfoRes _$DataFavoriteInfoResFromJson(Map<String, dynamic> json) {
-  return DataFavoriteInfoRes(
+ListOfProductsData _$ListOfProductsDataFromJson(Map<String, dynamic> json) {
+  return ListOfProductsData(
     result: (json['result'] as List)
         ?.map((e) => e == null
             ? null
@@ -19,8 +19,7 @@ DataFavoriteInfoRes _$DataFavoriteInfoResFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$DataFavoriteInfoResToJson(
-        DataFavoriteInfoRes instance) =>
+Map<String, dynamic> _$ListOfProductsDataToJson(ListOfProductsData instance) =>
     <String, dynamic>{
       'result': instance.result,
       'page': instance.page,

@@ -84,8 +84,8 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                       (0.111 * _screenSize.width //40,
                       ),
                   child: ListView.builder(
-                    itemCount: widget.productDetail.data[0].banimodeDetails
-                        .productSizeGuide[0].length,
+                    itemCount: widget.productDetail.data.result[0]
+                        .banimodeDetails.productSizeGuide[0].length,
                     // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -99,7 +99,7 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                         width: (_screenSize.width -
                                 (0.111 * _screenSize.width //40,
                                 )) /
-                            (widget.productDetail.data[0].banimodeDetails
+                            (widget.productDetail.data.result[0].banimodeDetails
                                 .productSizeGuide[0].length),
                         decoration: BoxDecoration(
                           color: BLUE_SKY_FADE_COLOR,
@@ -111,21 +111,31 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                                 ? 0.083 * _screenSize.width //30
                                 : 0),
                             topLeft: Radius.circular(index ==
-                                    widget.productDetail.data[0].banimodeDetails
-                                            .productSizeGuide[0].length -
+                                    widget
+                                            .productDetail
+                                            .data
+                                            .result[0]
+                                            .banimodeDetails
+                                            .productSizeGuide[0]
+                                            .length -
                                         1
                                 ? 0.083 * _screenSize.width //30
                                 : 0),
                             bottomLeft: Radius.circular(index ==
-                                    widget.productDetail.data[0].banimodeDetails
-                                            .productSizeGuide[0].length -
+                                    widget
+                                            .productDetail
+                                            .data
+                                            .result[0]
+                                            .banimodeDetails
+                                            .productSizeGuide[0]
+                                            .length -
                                         1
                                 ? 0.083 * _screenSize.width //30
                                 : 0),
                           ),
                         ),
                         child: Text(
-                          widget.productDetail.data[0].banimodeDetails
+                          widget.productDetail.data.result[0].banimodeDetails
                               .productSizeGuide[0][index],
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -144,8 +154,8 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                         (0.111 * _screenSize.width //40,
                         ),
                     child: ListView.builder(
-                      itemCount: widget.productDetail.data[0].banimodeDetails
-                          .productSizeGuide.length,
+                      itemCount: widget.productDetail.data.result[0]
+                          .banimodeDetails.productSizeGuide.length,
                       // physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -161,7 +171,8 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                                 child: ListView.builder(
                                   itemCount: widget
                                       .productDetail
-                                      .data[0]
+                                      .data
+                                      .result[0]
                                       .banimodeDetails
                                       .productSizeGuide[indexInColumn]
                                       .length,
@@ -182,7 +193,8 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                                               )) /
                                           (widget
                                               .productDetail
-                                              .data[0]
+                                              .data
+                                              .result[0]
                                               .banimodeDetails
                                               .productSizeGuide[indexInColumn]
                                               .length),
@@ -201,7 +213,8 @@ class _SizeGuideProductWidgetState extends State<SizeGuideProductWidget> {
                                       child: Text(
                                         widget
                                                 .productDetail
-                                                .data[0]
+                                                .data
+                                                .result[0]
                                                 .banimodeDetails
                                                 .productSizeGuide[indexInColumn]
                                             [indexInRow],

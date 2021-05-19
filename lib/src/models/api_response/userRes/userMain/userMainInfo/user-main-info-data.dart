@@ -4,7 +4,6 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/time/c-u-d-at-time-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user-main-info-data.g.dart';

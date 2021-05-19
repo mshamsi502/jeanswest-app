@@ -3,20 +3,20 @@
 // *   Created Date & Time:  2021-01-10  ,  15:30 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-data.dart';
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimodeSubDetails/banimode-size-product-res.dart';
 
 List<bool> createColorIsActive(
-  ListOfProductsRes productDetail,
+  ListOfProductsData productDetail,
 ) {
   // ignore: deprecated_member_use
   List<bool> productIsActive = List<bool>();
-  for (int i = 0; i < productDetail.data.length; i++) {
+  for (int i = 0; i < productDetail.result.length; i++) {
     bool isBreak = false;
     for (int s = 0;
-        s < productDetail.data[i].banimodeDetails.size.length;
+        s < productDetail.result[i].banimodeDetails.size.length;
         s++) {
-      if (productDetail.data[i].banimodeDetails.size[s].quantity != 0)
+      if (productDetail.result[i].banimodeDetails.size[s].quantity != 0)
         isBreak = true;
       if (isBreak) break;
     }

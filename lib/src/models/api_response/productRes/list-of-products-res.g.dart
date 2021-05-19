@@ -8,15 +8,17 @@ part of 'list-of-products-res.dart';
 
 ListOfProductsRes _$ListOfProductsResFromJson(Map<String, dynamic> json) {
   return ListOfProductsRes(
-    data: (json['data'] as List)
-        ?.map((e) => e == null
-            ? null
-            : SingleProductInfoRes.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    statusCode: json['statusCode'] as int,
+    message: json['message'] as String,
+    data: json['data'] == null
+        ? null
+        : ListOfProductsData.fromJson(json['data'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$ListOfProductsResToJson(ListOfProductsRes instance) =>
     <String, dynamic>{
+      'statusCode': instance.statusCode,
+      'message': instance.message,
       'data': instance.data,
     };

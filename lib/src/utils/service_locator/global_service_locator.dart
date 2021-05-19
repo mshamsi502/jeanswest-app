@@ -5,6 +5,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/services/dynamic_link_services.dart';
 import 'package:jeanswest/src/services/rest_client_global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +14,7 @@ void setupGlobalLocator() async {
     final localStorageService = SharedPreferences.getInstance();
     return localStorageService;
   });
+  globalLocator.registerLazySingleton(() => DynamicLinkService());
 
   globalLocator.registerFactoryParam<GlobalRestClient, String, void>(
       // globalLocator.registerFactoryParam<UnAuthRestClient, String, void>(

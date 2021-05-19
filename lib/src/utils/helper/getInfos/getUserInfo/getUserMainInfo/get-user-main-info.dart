@@ -49,6 +49,7 @@ Future<UserMainInfo> userMainInfo() async {
     printErrorMessage(errorRealAPI);
     print('*********************************');
     if (MOCK_IS_ENABLE) {
+      print('564156465');
       try {
         userTblPosCustRes = await globalLocator<GlobalRestClient>()
             .getMockUserErp(); // ! from mockoon
@@ -61,27 +62,24 @@ Future<UserMainInfo> userMainInfo() async {
     }
   }
 
-//
-  // user = createUser(
-  //   userAccount: userAccountRes.data,
-  //   userTblPosCustRes: userTblPosCustRes.data[0].tblPosCustomersID,
-  //   dateFormat: "yyyy-MM-dd",
-  // );
-  // }
   user = createUser(
       userAccount: userAccountRes.data,
-      userTblPosCustRes: userTblPosCustRes.data[0].tblPosCustomersID,
+      userTblPosCustRes: (userTblPosCustRes == null ||
+              userTblPosCustRes.data == null ||
+              userTblPosCustRes.data.length == 0 ||
+              userTblPosCustRes.data[0] == null ||
+              userTblPosCustRes.data[0].tblPosCustomersID == null)
+          ? "11998315"
+          : userTblPosCustRes.data[0].tblPosCustomersID,
       dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-  // print(
-  //     '_=_ get successfully UserMainInfo : ${user.firstName} ${user.lastName}');
   return user;
 }
 
 createUser({
   @required UserMainInfoData userAccount,
   String userTblPosCustRes,
-  String dateFormat = "yyyy-MM-dd",
+  String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
 }) {
   DateTime parseDate = new DateFormat(dateFormat).parse(userAccount.birthDate);
   return UserMainInfo(

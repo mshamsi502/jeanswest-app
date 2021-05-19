@@ -47,50 +47,53 @@ abstract class GlobalRestClient extends RestClient {
     return _GlobalRestClient(dio, baseUrl: baseUrl);
   }
 
-  // * BARNCH *****************************************************************
-  // ! from Mockoon API
-  @POST('http://10.1.2.94:3001/v1/getBranches')
+  // ***************************************************************************
+  // # BRANCH ******************************************************************
+
+  // !
+  @POST('http://10.1.2.94:3001/v1/getBranches') // ! Mockoon
   Future<List<Branch>> getBranchesAddress(
       @Query("lat") String lat, @Query("long") String long);
 
-  // ! from Old Jeanswest Club
-  @GET('https://jeanswest.club/v1/api/near_branch')
+  @GET('https://jeanswest.club/v1/api/near_branch') // ! Old Jeanswest Club
   Future<List<Branch>> getBranchesAddressOldClub(
       @Query("lat") String lat, @Query("long") String long);
 
-  // * LOGIN *****************************************************************
-  // ! from Local JeansWest API
+  // ***************************************************************************
+  // # LOGIN *******************************************************************
+
   @POST('http://10.0.1.111:8000/api/v1/otp/request')
   Future<OTPReqResponse> reqOtp(@Body() Map<String, dynamic> map);
 
   @POST('http://10.0.1.111:8000/api/v1/customerAuth')
   Future<AuthReqRespons> reqAuth(@Body() Map<String, dynamic> map);
 
-  // * USER MAIN INFO *****************************************************************
+  // ***************************************************************************
+  // # PROFILE *****************************************************************
+  // *          USER MAIN INFO *************************************************
 
-  @GET('http://10.1.2.94:3003/v1/getUserMainInfo')
-  Future<UserMainInfoRes> getMockUserMainInfo(); // ! from Mockoon API
-  //
   @GET('http://10.0.1.111:8000/api/v1/customer/myCustomer')
-  Future<UserMainInfoRes> getUserMainInfo(); // ! from Real API
-  //
-  @POST('http://10.1.2.94:3003/v1/getUserTblPosCustRes')
-  Future<UserTblPosCustRes> getMockUserErp(); // ! from Mockoon API
-  //
+  Future<UserMainInfoRes> getUserMainInfo();
+
   @POST('http://10.0.1.111:8000/api/v1/erp/user/user')
-  Future<UserTblPosCustRes> getUserErp(
-      @Body() Map<String, dynamic> mobile); // ! from Real API
+  Future<UserTblPosCustRes> getUserErp(@Body() Map<String, dynamic> mobile);
+  // !
+  @GET('http://10.1.2.94:3003/v1/getUserMainInfo')
+  Future<UserMainInfoRes> getMockUserMainInfo(); // ! Mockoon
 
-  // * USER PAYMENT INFO *****************************************************************
+  @POST('http://10.1.2.94:3003/v1/getUserTblPosCustRes')
+  Future<UserTblPosCustRes> getMockUserErp(); // ! Mockoon
 
-  @POST('http://10.1.2.94:3003/v1/getUserPaymentInfo')
-  Future<UserPaymentInfoRes> getMockUserPaymentInfo(); // ! from Mockoon API
+  // *          USER PAYMENT INFO **********************************************
 
   @POST('http://10.0.1.111:8000/api/v1/erp/promotion/customerMembershipLevel')
   Future<UserPaymentInfoRes> getUserPaymentInfo(
-      @Body() Map<String, dynamic> id); // ! from Real API
+      @Body() Map<String, dynamic> id);
+  // !
+  @POST('http://10.1.2.94:3003/v1/getUserPaymentInfo')
+  Future<UserPaymentInfoRes> getMockUserPaymentInfo(); // ! Mockoon
 
-  // * USER PAYMENT INFO *****************************************************************
+  // *          USER FRIENDS INFO **********************************************
 
   @GET('http://10.1.2.94:3003/v1/getUserFriendsInfo')
   Future<UserFriendsInfoRes> getUserFriendsInfo();
@@ -98,13 +101,28 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserFriendsInfo')
   Future<UserFriendsInfoRes> getMockUserFriendsInfo();
 
-  // * USER PAYMENT INFO *****************************************************************
+  // *          USER FAVORITES INFO ********************************************
+
+  @GET('http://10.0.1.111:8000/api/v1/favorite/list')
+  Future<UserFavoriteInfoRes> getUserFavoriteInfo(
+      @Body() Map<String, dynamic> tblPosCustomersID);
+
+  @DELETE('http://10.0.1.111:8000/api/v1/favorite/remove')
+  Future<GeneralRespons> removeFromUserFavorite(
+      @Body() Map<String, dynamic> barcode);
+
+  @POST('http://10.0.1.111:8000/api/v1/favorite/remove')
+  Future<GeneralRespons> addToUserFavorite(
+      @Body() Map<String, dynamic> barcode);
+
+  // !
+  @GET('http://10.1.2.94:3003/v1/getUserFavorite') // ! Mockoon
+  Future<UserFavoriteInfoRes> getMockUserFavoriteInfo();
+
+  // *          USER PAYMENT INFO **********************************************
 
   @GET('http://10.1.2.94:3003/v1/getUserInviteInfo')
   Future<UserInviteInfoRes> getUserInviteInfo();
-
-  @GET('http://10.1.2.94:3003/v1/getUserFavorite')
-  Future<UserFavoriteInfoRes> getUserFavoriteInfo();
 
   @GET('http://10.1.2.94:3003/v1/getUserJeanpointBons')
   Future<UserJeanpointsResponse> getUserJeanpointBonsInfo();
@@ -118,12 +136,10 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserMessages')
   Future<UserMessagesInfoRes> getUserMessagesInfo();
 
-  // * ADDRESS *****************************************************************
+  // *          USER ADDRESS INFO **********************************************
 
-  // ! Mockoon
-  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo')
-  Future<UserAddressesInfoRes>
-      getMockUserAddressesInfo(); // ! getAllUserAddress
+  @GET('http://10.1.2.94:3003/v1/getUserAddressesInfo') // ! Mockoon
+  Future<UserAddressesInfoRes> getMockUserAddressesInfo();
 
   // ! Jeanswest API
   @GET('http://10.0.1.111:8000/api/v1/address/list')
@@ -141,7 +157,8 @@ abstract class GlobalRestClient extends RestClient {
   Future<GeneralRespons> deleteUserAddressesInfo(
       @Body() Map<String, dynamic> code); // ! delete a address
 
-  // * GLOBAL *****************************************************************
+  // ***************************************************************************
+  // # GLOBAL ******************************************************************
 
   @GET('http://10.1.2.94:3005/api/v1/contact-us/contact-info')
   Future<ContactUsRes> getContactUsInfo();
@@ -160,10 +177,18 @@ abstract class GlobalRestClient extends RestClient {
   @POST('http://10.0.1.111:8000/api/v1/logistic/districts')
   Future<AllDistrict> getAllDistrictInfo(@Body() Map<String, dynamic> idCity);
 
-  // * PRODUCT *****************************************************************
+  // ***************************************************************************
+  // # PRODUCT *****************************************************************
 
-  // ! from Mockoon API
-  @GET('http://10.1.2.94:3002/v1/getAddToCardProductDetail')
+  @POST('http://10.0.1.111:8000/api/v1/product/list')
+  Future<ListOfProductsRes> getProductList(@Body() Map<String, dynamic> filter);
+
+  // !
+
+  @POST('http://10.0.1.111:8000/api/v1/product/list') // ! Mockoon
+  Future<ListOfProductsRes> getMockProductList(@Body() Map<String, dynamic> filter);
+
+  @GET('http://10.1.2.94:3002/v1/getAddToCardProductDetail') // ! Mockoon
   Future<ListOfProductsRes> getAddToCardProductDetailInfo(
     @Query("barcode") String barcode,
   );

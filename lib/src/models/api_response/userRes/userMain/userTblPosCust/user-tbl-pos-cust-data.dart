@@ -48,7 +48,6 @@ class UserTblPosCustData extends Equatable {
     // this.birthDate,
     // this.tSCodeID,
     // this.updateDate,
-    //
   });
 
   factory UserTblPosCustData.fromJson(Map<String, dynamic> json) =>

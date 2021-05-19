@@ -7,9 +7,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/ui/profile/widgets/favoritesList/add-to-card-panel-widget.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -35,6 +38,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
   PanelController deleteProductPanel;
   PanelController addToCardPanel;
   int selectedProduct;
+  UserFavoriteInfoRes favProducts;
   List<bool> activeProducts;
   //
   int selectedColor;
@@ -45,7 +49,8 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
     scrollController = new ScrollController();
     deleteProductPanel = new PanelController();
     addToCardPanel = new PanelController();
-    activeProducts = createActiveProducts();
+    favProducts = widget.products;
+    activeProducts = createActiveProducts(favProducts);
     selectedProduct = 0;
     selectedColor = 0;
     selectedSize = -1;
@@ -54,16 +59,13 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
     super.initState();
   }
 
-  List<bool> createActiveProducts() {
+  List<bool> createActiveProducts(UserFavoriteInfoRes products) {
     // ignore: deprecated_member_use
     List<bool> activtionProducts = new List<bool>();
-    for (int j = 0; j < widget.products.data.result.length; j++) {
+    for (int j = 0; j < products.data.length; j++) {
       bool isBreak = false;
-      for (int i = 0;
-          i < widget.products.data.result[j].banimodeDetails.size.length;
-          i++) {
-        if (widget.products.data.result[j].banimodeDetails.size[i].quantity !=
-            0) {
+      for (int i = 0; i < products.data[j].banimodeDetails.size.length; i++) {
+        if (products.data[j].banimodeDetails.size[i].quantity != 0) {
           isBreak = true;
         }
       }
@@ -75,7 +77,6 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    print('${(widget.products.data.result.length / 2).ceil()}');
     return Container(
       color: Colors.grey,
       child: SafeArea(
@@ -102,25 +103,33 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 height: 0.234 * _screenSize.height, //150,
                 selectedProduct: selectedProduct,
                 closeDeletePanel: () {
-                  setState(() {});
                   deleteProductPanel.close();
                   // ignore: deprecated_member_use
                   List<bool> activtionProducts = new List<bool>();
-                  activtionProducts = createActiveProducts();
+                  activtionProducts = createActiveProducts(favProducts);
                   setState(() {
                     activeProducts = activtionProducts;
                   });
                 },
-                deleteFunction: (int selectedProduct) {
-                  // *********
-                  setState(() {
-                    userFavorites.data.result.removeAt(selectedProduct);
-                    userFavorites.data.total--;
-                  });
-
-                  print(
-                      'product deleted : length : ${userFavorites.data.result.length}');
-                  // *********
+                deleteFunction: (int selectedProduct) async {
+                  try {
+                    GeneralRespons res = await removeFromUserFavoriteInfo(
+                        favProducts.data[selectedProduct].barcode
+                        // userFavorites.data[selectedProduct].barcode
+                        );
+                    if (res.statusCode == 200) {
+                      UserFavoriteInfoRes userFavoritesRes =
+                          await userFavoritesInfo(user.tblPosCustomersID);
+                      setState(() {
+                        userFavorites = userFavoritesRes;
+                        favProducts = userFavorites;
+                      });
+                    }
+                  } catch (e) {
+                    print(
+                        'Catch Error from ** removeFromUserFavoriteInfo ** !');
+                    printErrorMessage(e);
+                  }
                 },
               ),
               body: SlidingUpPanel(
@@ -130,10 +139,10 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 backdropEnabled: true,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(
-                    0.083 * _screenSize.width, //30
+                    0.03 * _screenSize.width, //11
                   ),
                   topRight: Radius.circular(
-                    0.083 * _screenSize.width, //30
+                    0.03 * _screenSize.width, //11
                   ),
                 ),
                 onPanelClosed: () => setState(() {
@@ -175,12 +184,14 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                       color: Colors.white,
                       child: SingleChildScrollView(
                         child: ListView.builder(
-                          itemCount:
-                              (widget.products.data.result.length / 2).ceil(),
+                          itemCount: (favProducts.data.length / 2).ceil(),
                           controller: scrollController,
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
+                            print("favProducts : ${favProducts.data.length}");
+                            print(
+                                "styleCode of $index : ${favProducts.data[index * 2].styleCode}");
                             return Column(
                               children: [
                                 Row(
@@ -189,8 +200,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                       width: ((_screenSize.width / 2) -
                                           (0.041 * _screenSize.width //15,
                                           )),
-                                      product: widget
-                                          .products.data.result[index * 2],
+                                      product: favProducts.data[index * 2],
                                       productIndex: index * 2,
                                       hasDelete: true,
                                       hasAddToFav: false,
@@ -212,15 +222,14 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                     SizedBox(
                                       width: 0.027 * _screenSize.width, //10,
                                     ),
-                                    (widget.products.data.result.length / 2)
-                                                .floor() >
+                                    (favProducts.data.length / 2).floor() >
                                             index
                                         ? ProductInfoGridViewWidget(
                                             width: ((_screenSize.width / 2) -
                                                 (0.041 * _screenSize.width //15,
                                                 )),
-                                            product: widget.products.data
-                                                .result[(index * 2) + 1],
+                                            product: favProducts
+                                                .data[(index * 2) + 1],
                                             productIndex: (index * 2) + 1,
                                             hasDelete: true,
                                             hasAddToFav: false,
