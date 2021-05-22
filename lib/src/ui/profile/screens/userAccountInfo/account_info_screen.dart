@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-account-panel-widget.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -75,7 +76,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       ],
       [
         'جنسیت',
-        userInfo.gender ?? true,
+        userInfo.gender ?? 1,
         false,
       ],
       [
@@ -120,7 +121,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                   String dayOfBirth,
                   String monthOfBirth,
                   String yearOfBirth,
-                ) {
+                ) async {
                   UserMainInfo _userInfo = new UserMainInfo(
                     firstName: firstName,
                     lastName: lastName,
@@ -131,6 +132,8 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                     monthOfBirthShamsi: monthOfBirth,
                     yearOfBirthShamsi: yearOfBirth,
                   );
+
+                  user = await editUserMainInfo(_userInfo);
                   widget.updateUser(_userInfo);
                   setState(() {
                     buildUserData(userInfo: _userInfo);

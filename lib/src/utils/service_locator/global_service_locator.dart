@@ -5,17 +5,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/services/dynamic_link_services.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void setupGlobalLocator() async {
-  globalLocator.registerSingletonAsync<SharedPreferences>(() async {
-    final localStorageService = SharedPreferences.getInstance();
-    return localStorageService;
-  });
-  globalLocator.registerLazySingleton(() => DynamicLinkService());
-
+createDio() {
   globalLocator.registerFactoryParam<GlobalRestClient, String, void>(
       // globalLocator.registerFactoryParam<UnAuthRestClient, String, void>(
       (String baseUrl, _) {
@@ -38,11 +31,3 @@ void setupGlobalLocator() async {
     return client;
   });
 }
-
-// globalLocator.registerLazySingleton(() => MockoonUnauth());
-// globalLocator.registerLazySingleton(() => MockoonAuth());
-// globalLocator.registerLazySingleton(() => JeanswestUnauth());
-// globalLocator.registerFactoryParam<JeanswestUnauth, String, void>(
-//     (String baseUrl, _) => JeanswestUnauth().jeanswestUnauth(baseUrl));
-// globalLocator.registerLazySingleton(() => JeanswestAuth());
-// }

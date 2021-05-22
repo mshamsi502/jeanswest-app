@@ -28,6 +28,7 @@ class UserMainInfo {
   String monthOfBirthGeo;
   @required
   String yearOfBirthGeo;
+  // 
   String dayOfBirthShamsi;
   String monthOfBirthShamsi;
   String yearOfBirthShamsi;
@@ -48,13 +49,29 @@ class UserMainInfo {
     this.monthOfBirthShamsi,
     this.yearOfBirthShamsi,
   }) {
-    Map<String, String> shamsiDate = gregorianToShamsi({
-      "year": yearOfBirthGeo,
-      "month": monthOfBirthGeo,
-      "day": dayOfBirthGeo,
-    });
-    yearOfBirthShamsi = shamsiDate["year"];
-    monthOfBirthShamsi = shamsiDate["month"];
-    dayOfBirthShamsi = shamsiDate["day"];
+    if (yearOfBirthShamsi == null ||
+        monthOfBirthShamsi == null ||
+        dayOfBirthShamsi == null) {
+      Map<String, String> shamsiDate = gregorianToShamsi({
+        "year": yearOfBirthGeo,
+        "month": monthOfBirthGeo,
+        "day": dayOfBirthGeo,
+      });
+      yearOfBirthShamsi = shamsiDate["year"];
+      monthOfBirthShamsi = shamsiDate["month"];
+      dayOfBirthShamsi = shamsiDate["day"];
+    }
+    if (dayOfBirthGeo == null ||
+        monthOfBirthGeo == null ||
+        yearOfBirthGeo == null) {
+      Map<String, String> geoDate = shamsiToGregorian({
+        "year": yearOfBirthShamsi,
+        "month": monthOfBirthShamsi,
+        "day": dayOfBirthShamsi,
+      });
+      yearOfBirthGeo = geoDate["year"];
+      monthOfBirthGeo = geoDate["month"];
+      dayOfBirthGeo = geoDate["day"];
+    }
   }
 }

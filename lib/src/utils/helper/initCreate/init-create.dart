@@ -35,23 +35,17 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
 }
 
 Future<Map<String, dynamic>> authService() async {
-  // String getToken =
-  //     mockoonGlobalLocator<SharedPreferences>().getString(TOKEN);
   //
   // globalLocator<SharedPreferences>().clear();
-
-  // //
-  // // ! put token in device
-  // globalLocator<SharedPreferences>().setString(
-  //   TOKEN,
-  //   '0eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjE0MTk3NDIsImV4cCI6MTYyMTQzNzc0Mn0.2xtcW5_W5vJ66LHqvr6ojgrasI2Zct4ibRF0vyyvvs0',
-  // );
-  // globalLocator<SharedPreferences>().setString(
-  //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
-  // //
+  //
+  // ! put token in device
+  globalLocator<SharedPreferences>().setString(
+    TOKEN,
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjE2ODY2MzksImV4cCI6MTYyMTcwNDYzOX0.l4U63mW-IzZWcpVHT7mcdphdhliZ_WaYw9Q4CBYYAaU',
+  );
+  //
 
   String getToken = globalLocator<SharedPreferences>().getString(TOKEN) ?? "";
-
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;

@@ -4,7 +4,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMessages/user-messages-info-res.dart';
 import 'package:jeanswest/src/models/profile/message/single-message.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 
 Future<void> userMessagesInfo() async {
   UserMessagesInfoRes res =

@@ -46,7 +46,7 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
   TextEditingController lastNameEditingController = new TextEditingController();
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController genderEditingController = new TextEditingController();
-  bool selectedGender;
+  int selectedGender;
 
   TextEditingController yearOfBirthEditingController =
       new TextEditingController();
@@ -79,12 +79,10 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
     firstNameEditingController.text = widget.userData[0][1] as String;
     lastNameEditingController.text = widget.userData[1][1] as String;
     emailEditingController.text = widget.userData[3][1] as String;
-    selectedGender = widget.userData[4][1] as bool;
-    genderEditingController.text = selectedGender == null
-        ? 'انتخاب کنید ...'
-        : selectedGender
-            ? "مرد"
-            : "زن";
+    selectedGender = widget.userData[4][1]
+        // as int
+        ;
+    genderEditingController.text = selectedGender == 1 ? "زن" : "مرد";
 
     yearOfBirthEditingController.text =
         widget.userData[5][1]['yearOfBirth'] as String;
@@ -237,7 +235,11 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
                   firstNameEditingController.text,
                   lastNameEditingController.text,
                   emailEditingController.text,
-                  int.parse(genderEditingController.text),
+                  (genderEditingController.text == "مرد")
+                      ? 1
+                      : (genderEditingController.text == "زن")
+                          ? 0
+                          : 1,
                   dayOfBirthEditingController.text,
                   monthOfBirthEditingController.text,
                   yearOfBirthEditingController.text,

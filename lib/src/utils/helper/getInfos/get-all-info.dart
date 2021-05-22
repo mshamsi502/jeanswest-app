@@ -20,13 +20,13 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 
 Future<void> getAllUserInfo() async {
-  user = await userMainInfo();
+  user = await getUserMainInfo();
   //
   // await userMainFriends();
   //
   // await userInviteInfo();
   //
- 
+
   userPayment = await userPaymentInfo(user.tblPosCustomersID);
 
   //

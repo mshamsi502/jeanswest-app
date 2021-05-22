@@ -65,7 +65,7 @@ class _InfoWidgetState extends State<InfoWidget> {
                             index == 0
                                 ? '${widget.userData[0][1]} ${widget.userData[1][1]}'
                                 : index == 3
-                                    ? widget.userData[4][1] as bool
+                                    ? (widget.userData[4][1] as int) == 1
                                         ? "مرد"
                                         : "زن"
                                     : index == 4

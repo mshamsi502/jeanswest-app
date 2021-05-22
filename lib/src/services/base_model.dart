@@ -3,19 +3,22 @@
 // // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // // ****************************************************************************
 
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/models/user.dart';
+import 'package:jeanswest/src/services/authentication_service.dart';
 
-// class BaseModel extends ChangeNotifier {
-//   final AuthenticationService _authenticationService =
-//       locator<AuthenticationService>();
+class BaseModel extends ChangeNotifier {
+  final AuthenticationService _authenticationService =
+      globalLocator<AuthenticationService>();
 
-//   User get currentUser => _authenticationService.currentUser;
+  User get currentUser => _authenticationService.currentUser;
 
-//   bool _busy = false;
-//   bool get busy => _busy;
+  bool _busy = false;
+  bool get busy => _busy;
 
-//   void setBusy(bool value) {
-//     _busy = value;
-//     notifyListeners();
-//   }
-// }
+  void setBusy(bool value) {
+    _busy = value;
+    notifyListeners();
+  }
+}

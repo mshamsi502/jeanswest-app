@@ -13,7 +13,7 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.da
 import 'package:jeanswest/src/models/api_response/globalRes/address/district/district.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 // import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:screenshot/screenshot.dart';
 // import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';

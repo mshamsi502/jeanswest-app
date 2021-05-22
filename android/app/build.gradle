@@ -33,7 +33,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 //    buildToolsVersion "29.0.1"
     
     sourceSets {
@@ -43,6 +43,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         checkReleaseBuilds true
+        abortOnError false
     }
 
     defaultConfig {
@@ -50,11 +51,15 @@ android {
         applicationId "club.jeanswest.app"
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
+    configurations.all {
+        resolutionStrategy {
+            force 'com.android.support:support-v4:27.1.0'
+        }
+    }
 
     signingConfigs {
         release {
@@ -91,7 +96,9 @@ configurations {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+     implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
     // implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }

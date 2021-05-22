@@ -78,7 +78,7 @@ String toPhoneStyle(String phone) {
 }
 
 Map<String, String> stringSplitDate(String date) {
-  // ! date type is : yyyy-mm-dd 
+  // ! date type is : yyyy-mm-dd
   Map<String, String> map = {
     'year': '0000',
     'month': '00',
@@ -140,8 +140,8 @@ Map<String, String> gregorianToShamsi(Map<String, String> gregorianStr) {
     Jalali jalali = gregorian.toJalali();
     map = {
       'year': jalali.year.toString(),
-      'month': jalali.month.toString(),
-      'day': jalali.day.toString(),
+      'month': convertToDoubleDigit(jalali.month.toString()),
+      'day': convertToDoubleDigit(jalali.day.toString()),
     };
   }
   return map;
@@ -162,9 +162,18 @@ Map<String, String> shamsiToGregorian(Map<String, String> shamsiStr) {
     Gregorian gregorian = jalali.toGregorian();
     map = {
       'year': gregorian.year.toString(),
-      'month': gregorian.month.toString(),
-      'day': gregorian.day.toString(),
+      'month': convertToDoubleDigit(gregorian.month.toString()),
+      'day': convertToDoubleDigit(gregorian.day.toString()),
     };
   }
   return map;
+}
+
+String convertToDoubleDigit(String oldString) {
+  if (oldString.length == 1)
+    return "0$oldString";
+  else if (oldString.length == 2)
+    return oldString;
+  else
+    return "00";
 }
