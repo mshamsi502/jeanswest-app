@@ -46,7 +46,7 @@ class LoginBodyWidget extends StatefulWidget {
 }
 
 class _LoginBodyWidgetState extends State<LoginBodyWidget> {
-  String hintPhone = '9 - - - - - - - - -';
+  String hintPhone = '0 9 - - - - - - - - -';
   bool keyboardIsOpen;
   var keyboardVisibilityController = KeyboardVisibilityController();
 
@@ -175,7 +175,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                             // height: 0.03125 * _screenSize.height, //20
                             child: TextField(
                               inputFormatters: [
-                                new LengthLimitingTextInputFormatter(10),
+                                new LengthLimitingTextInputFormatter(11),
                               ],
                               textDirection: ltrTextDirection,
                               keyboardType: TextInputType.number,
@@ -184,7 +184,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                               autofocus: false,
                               onSubmitted: (value) {
                                 List<dynamic> checkPhone = checkCorrectPhone(
-                                    inputPhone: value, startWithZero: false);
+                                    inputPhone: value, startWithZero: true);
                                 widget.changeHasError(checkPhone);
                                 widget.focusNode.unfocus();
                               },
@@ -218,31 +218,32 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                         },
                       ),
                     ),
-                    Container(
-                      child: VerticalDivider(
-                        thickness: 0.00138 * _screenSize.width, //0.5,
-                        width: 0.00277 * _screenSize.width, //1,
-                        color: Colors.grey,
-                        indent: 0.0194 * _screenSize.width, //7,
-                        endIndent: 0.0194 * _screenSize.width, //7,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 0.041 * _screenSize.width, //15,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 0.00625 * _screenSize.height, //4,
-                      ),
-                      child: Text(
-                        '+98',
-                        textDirection: ltrTextDirection,
-                        style: TextStyle(
-                          fontSize: 0.041 * _screenSize.width, //15,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   child: VerticalDivider(
+                    //     thickness: 0.00138 * _screenSize.width, //0.5,
+                    //     width: 0.00277 * _screenSize.width, //1,
+                    //     color: Colors.grey,
+                    //     indent: 0.0194 * _screenSize.width, //7,
+                    //     endIndent: 0.0194 * _screenSize.width, //7,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   width: 0.041 * _screenSize.width, //15,
+                    // ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //     top: 0.00625 * _screenSize.height, //4,
+                    //   ),
+                    //   child: Text(
+                    //     '+98',
+                    //     textDirection: ltrTextDirection,
+                    //     style: TextStyle(
+                    //       fontSize: 0.041 * _screenSize.width, //15,
+                    //       color: Colors.grey,
+                    //     ),
+                    //   ),
+                    // ),
+
                     SizedBox(
                       width: 0.027 * _screenSize.width, //10,
                     ),

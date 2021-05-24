@@ -216,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                                           setState(() {
                                             inputPhone = newValue;
                                             print('inputPhone : $inputPhone');
-                                            check = inputPhone.length == 10;
+                                            check = inputPhone.length == 11;
                                             errorMsg = '';
                                           });
                                         },
@@ -227,8 +227,10 @@ class _LoginPageState extends State<LoginPage> {
                                             phoneTextEditingController,
                                         inputPhone: inputPhone,
                                         hasError: hasError,
-                                        backToInputPhoneStep:
-                                            changeInputPhoneStep,
+                                        backToInputPhoneStep: () {
+                                          print("true true true ...");
+                                          changeInputPhoneStep(true);
+                                        },
                                         updateInputCode: updateInputCode,
                                         minuteTimer: minuteTimer,
                                         secondTimer: secondTimer,
@@ -247,7 +249,9 @@ class _LoginPageState extends State<LoginPage> {
                                             errorMsg = msg;
                                           }),
                                           changeInputPhoneStep:
-                                              changeInputPhoneStep,
+                                              (bool newIInputPhoneStep) =>
+                                                  changeInputPhoneStep(
+                                                      newIInputPhoneStep),
                                           startDownTimer: () =>
                                               startDownTimer(_screenSize),
                                           apiResponse:
@@ -314,7 +318,8 @@ class _LoginPageState extends State<LoginPage> {
                               verifyCode: inputCode,
                               // selectedCountry: selectedCountry,
                               isInputPhoneStep: isInputPhoneStep,
-                              changeInputPhoneStep: changeInputPhoneStep,
+                              changeInputPhoneStep: (bool newIInputPhoneStep) =>
+                                  changeInputPhoneStep(newIInputPhoneStep),
                               hasError: hasError,
                               changeErrorMessage: (String newErrorMsg) =>
                                   setState(() {
@@ -329,7 +334,7 @@ class _LoginPageState extends State<LoginPage> {
                               checkCorrectCode: () =>
                                   checkCorrectCode(inputVerifyCode: inputCode),
                               checkCorrectPhone: () => checkCorrectPhone(
-                                  inputPhone: inputPhone, startWithZero: false),
+                                  inputPhone: inputPhone, startWithZero: true),
 
                               startDownTimer: () => startDownTimer(_screenSize),
                             ),
@@ -352,6 +357,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isInputPhoneStep = _isInputPhoneStep;
       print('aaaaaaa isInputPhoneStep : $isInputPhoneStep');
+      print('0000000 _isInputPhoneStep : $_isInputPhoneStep');
       hasError = false;
       errorMsg = '';
     });
