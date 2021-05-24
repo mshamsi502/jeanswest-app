@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
@@ -91,6 +92,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   int tempIndexAddress;
   ScreenshotController screenshotController = ScreenshotController();
   ScrollController singleChildScrollController = ScrollController();
+
+  var keyboardVisibilityController = KeyboardVisibilityController();
   //
 
   String selectedOption = "province";
@@ -156,6 +159,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
       });
     });
     scrollJumpAfterKeyborad(
+      keyboardVisibilityController: keyboardVisibilityController,
       scrollController: singleChildScrollController,
       screenSize: widget.screenSize,
     );

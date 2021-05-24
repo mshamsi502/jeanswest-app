@@ -13,7 +13,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+// import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 // import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class LoginBodyWidget extends StatefulWidget {
@@ -47,24 +48,37 @@ class LoginBodyWidget extends StatefulWidget {
 class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   String hintPhone = '9 - - - - - - - - -';
   bool keyboardIsOpen;
+  var keyboardVisibilityController = KeyboardVisibilityController();
 
   @override
   void initState() {
     keyboardIsOpen = false;
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        if (visible)
-          setState(() {
-            keyboardIsOpen = true;
-          });
-        else {
-          widget.focusNode.unfocus();
-          setState(() {
-            keyboardIsOpen = false;
-          });
-        }
-      },
-    );
+    keyboardVisibilityController.onChange.listen((bool visible) {
+      if (visible)
+        setState(() {
+          keyboardIsOpen = true;
+        });
+      else {
+        widget.focusNode.unfocus();
+        setState(() {
+          keyboardIsOpen = false;
+        });
+      }
+    });
+    // KeyboardVisibilityNotification().addNewListener(
+    //   onChange: (bool visible) {
+    //     if (visible)
+    //       setState(() {
+    //         keyboardIsOpen = true;
+    //       });
+    //     else {
+    //       widget.focusNode.unfocus();
+    //       setState(() {
+    //         keyboardIsOpen = false;
+    //       });
+    //     }
+    //   },
+    // );
     super.initState();
   }
 

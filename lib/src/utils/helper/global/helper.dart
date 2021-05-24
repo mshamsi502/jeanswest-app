@@ -15,11 +15,12 @@ import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+// import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -252,12 +253,14 @@ printErrorMessage(DioError e) {
   }
 }
 
-scrollJumpAfterKeyborad({ScrollController scrollController, Size screenSize}) {
-  KeyboardVisibilityNotification().addNewListener(
-    onHide: () {
-      scrollController.jumpTo(0);
-    },
-    onShow: () {
+scrollJumpAfterKeyborad({
+  @required KeyboardVisibilityController keyboardVisibilityController,
+  @required ScrollController scrollController,
+  @required Size screenSize,
+}) {
+
+  keyboardVisibilityController.onChange.listen((bool visible) {
+    if (visible) {
       // scrollController.jumpTo(screenSize.height);
       double pos = screenSize.height;
       while (pos <= scrollController.position.maxScrollExtent) {
@@ -265,8 +268,24 @@ scrollJumpAfterKeyborad({ScrollController scrollController, Size screenSize}) {
       }
       // scrollController.jumpTo(scrollController.position.maxScrollExtent);
       scrollController.jumpTo(pos);
-    },
-  );
+    } else {
+      scrollController.jumpTo(0);
+    }
+  });
+  // KeyboardVisibilityNotification().addNewListener(
+  //   onHide: () {
+  //
+  //   },
+  //   onShow: () {
+  //     // scrollController.jumpTo(screenSize.height);
+  //     double pos = screenSize.height;
+  //     while (pos <= scrollController.position.maxScrollExtent) {
+  //       pos = pos + 10;
+  //     }
+  //     // scrollController.jumpTo(scrollController.position.maxScrollExtent);
+  //     scrollController.jumpTo(pos);
+  //   },
+  // );
 }
 
 Future<Uint8List> capturePng(GlobalKey globalKey) async {

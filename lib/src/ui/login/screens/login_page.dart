@@ -5,6 +5,7 @@
 
 import 'dart:ui';
 
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/api_respones.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/size_constants.dart';
@@ -50,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isInputPhoneStep = true;
   // int selectedCodeChar = 0;
   ScrollController scrollController = new ScrollController();
+  var keyboardVisibilityController = KeyboardVisibilityController();
   //
   String minuteTimer;
   String secondTimer;
@@ -84,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     //
 
     scrollJumpAfterKeyborad(
+      keyboardVisibilityController: keyboardVisibilityController,
       scrollController: scrollController,
       screenSize: widget.screenSize,
     );

@@ -454,7 +454,8 @@ class _MainProfilePageState extends State<MainProfilePage>
                                     MaterialPageRoute(
                                       builder: (context) => InviteFrindePage(
                                         title: 'دعوت دوستان',
-                                        userId: 'user-${user.phoneNumber}',
+                                        // userId: 'user-${user.phoneNumber}',
+                                        invitationCode: user.code,
                                         receivedGift: userInvite.receivedGift,
                                         someOfInvited: userInvite.someOfInvited,
                                         someOfInstallFromInvited:

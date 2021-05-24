@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
@@ -41,6 +42,8 @@ class InviteFriendPanelWidget extends StatefulWidget {
 class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
   TextEditingController textEditingController = new TextEditingController();
   ScrollController scrollController = new ScrollController();
+
+  var keyboardVisibilityController = KeyboardVisibilityController();
   String textLink;
   // ignore: deprecated_member_use
   List<dynamic> validationResult = new List<dynamic>();
@@ -53,6 +56,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
         ${widget.inviteLink}
         ''';
     scrollJumpAfterKeyborad(
+      keyboardVisibilityController: keyboardVisibilityController,
       scrollController: scrollController,
       screenSize: widget.screenSize,
     );
