@@ -4,6 +4,8 @@
 //****************************************************************************
 
 // import 'package:extended_text/extended_text.dart';
+import 'package:extended_text/extended_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
@@ -24,7 +26,7 @@ class ConfirmCodeWidget extends StatefulWidget {
   final bool hasError;
   final String minuteTimer;
   final String secondTimer;
-  final Function(bool) backToInputPhoneStep;
+  final Function() backToInputPhoneStep;
   final Function() resendCodeToAlreadyPhone;
   final Function(bool) updateHasError;
   final Function(String) updateErrorMsg;
@@ -70,63 +72,116 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
           Container(
             alignment: Alignment.topCenter,
             width: _screenSize.width,
+            // color: Colors.red,
             margin: EdgeInsets.symmetric(
               horizontal: 0.054 * _screenSize.width, //20
             ),
-            // child: ExtendedText.rich(
-            //   TextSpan(
-            //     text:
-            //         // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(${widget.selectedCountry.dialCode}) ارسال گردید.',
-            //         // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(98+) ارسال گردید.',
-            //         'کد تایید برای شماره موبایل ${widget.inputPhone} (98+) ارسال گردید.',
-            //     style: TextStyle(
-            //       fontSize: 0.038 * _screenSize.width, //14,
-            //       color: Colors.grey[700],
-            //     ),
-            //     children: [
-            //       WidgetSpan(
-            //         alignment: PlaceholderAlignment.middle,
-            //         child: GestureDetector(
-            //           onTap: () => widget.backToInputPhoneStep(true),
-            //           child: Container(
-            //             width: 0.3 * _screenSize.width, //108,
-            //             // color: Colors.red,
-            //             padding: EdgeInsets.symmetric(
-            //                 horizontal: 0.022 * _screenSize.width, //8,
-            //                 vertical: 0.003125 * _screenSize.height //2,
-            //                 ),
-            //             child: Row(
-            //               children: [
-            //                 Container(
-            //                     height: 0.034 * _screenSize.width, //12,
-            //                     width: 0.034 * _screenSize.width, //12,
-            //                     child: GlobalSvgImages.editIconForRight),
-            //                 SizedBox(
-            //                   width: 0.0138 * _screenSize.width, //5,
-            //                 ),
-            //                 Text(
-            //                   "login_screen.edit".tr(),
-            //                   style: TextStyle(
-            //                     color: MAIN_BLUE_00_COLOR,
-            //                     fontWeight: FontWeight.w500,
-            //                     fontSize: 0.0333 * _screenSize.width, //12,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       WidgetSpan(
-            //         alignment: PlaceholderAlignment.middle,
-            //         child: SizedBox(
-            //           width: 0.027 * _screenSize.width, //10,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+            child:
+                // GestureDetector(
+                //   onTap: () {
+                //     print("tappped teappepd ....");
+                //     widget.backToInputPhoneStep();
+                //   },
+                //   child:
+
+                //     ExtendedText(
+                //   "aaaa",
+                //   overflowWidget: TextOverflowWidget(
+                //     position: TextOverflowPosition.end,
+                //     align: TextOverflowAlign.center,
+                //     // just for debug
+                //     debugOverflowRectColor: Colors.red.withOpacity(0.1),
+                //     child: Container(
+                //       child: Row(
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: <Widget>[
+                //           Text(
+                //             // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(${widget.selectedCountry.dialCode}) ارسال گردید.',
+                //             // 'کد تایید برای شماره موبایل ${toPhoneStyle(widget.inputPhone)}(98+) ارسال گردید.',
+                //             'کد تایید برای شماره موبایل ${widget.inputPhone} (98+) ارسال گردید.',
+                //             style: TextStyle(
+                //               fontSize: 0.038 * _screenSize.width, //14,
+                //               color: Colors.grey[700],
+                //             ),
+                //           ),
+                //           InkWell(
+                //             child: Row(
+                //               children: [
+                //                 Container(
+                //                     height: 0.034 * _screenSize.width, //12,
+                //                     width: 0.034 * _screenSize.width, //12,
+                //                     child: GlobalSvgImages.editIconForRight),
+                //                 SizedBox(
+                //                   width: 0.0138 * _screenSize.width, //5,
+                //                 ),
+                //                 Text(
+                //                   "login_screen.edit".tr(),
+                //                   style: TextStyle(
+                //                     color: MAIN_BLUE_00_COLOR,
+                //                     fontWeight: FontWeight.w500,
+                //                     fontSize: 0.0333 * _screenSize.width, //12,
+                //                   ),
+                //                 ),
+                //               ],
+                //             ),
+                //             onTap: () {
+                //               print("tappped teappepd ....");
+                //             },
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // //
+                ExtendedText.rich(
+              TextSpan(
+                text:
+                    'کد تایید برای شماره موبایل ${widget.inputPhone} (98+) ارسال گردید.',
+                style: TextStyle(
+                  fontSize: 0.038 * _screenSize.width, //14,
+                  color: Colors.grey[700],
+                ),
+                children: [
+                  WidgetSpan(
+                    child: SizedBox(width: 5),
+                  ),
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Container(
+                      // color: Colors.red,
+                      child: GestureDetector(
+                        onTap: () {
+                          print("dosent work onTap :( ");
+                        },
+                        child: Container(
+                            height: 0.034 * _screenSize.width, //12,
+                            width: 0.034 * _screenSize.width, //12,
+                            child: GlobalSvgImages.editIconForRight),
+                      ),
+                    ),
+                  ),
+                  WidgetSpan(
+                    child: SizedBox(width: 10),
+                  ),
+                  SpecialTextSpan(
+                    text: "login_screen.edit".tr(),
+                    style: TextStyle(
+                      color: MAIN_BLUE_00_COLOR,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 0.0333 * _screenSize.width, //12,
+                    ),
+                    recognizer: (TapGestureRecognizer()
+                      ..onTap = () {
+                        print(" 222 tappped teapped ....");
+                        widget.backToInputPhoneStep();
+                      }),
+                  ),
+                ],
+              ),
+            ),
           ),
+          // ),
           SizedBox(
             height: 0.039 * _screenSize.height, //25,
           ),

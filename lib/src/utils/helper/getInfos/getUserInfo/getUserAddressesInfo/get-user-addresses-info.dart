@@ -9,7 +9,7 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/province/pro
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-addresses-info-res.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 Future<List<AddressInfoRes>> userAddressesInfo() async {
@@ -45,12 +45,10 @@ Future<List<AddressInfoRes>> userAddressesInfo() async {
 
 Future<bool> addToUserAddresses({
   @required String recieverFullName,
-  // @required String receiverLastName,
   @required String receiverMobile,
-  @required String country,
-  @required String province,
-  @required String city,
-  @required String district,
+  @required Province province,
+  @required City city,
+  @required District district,
   @required String address,
   @required String houseNumber,
   @required String unitNumber,
@@ -64,16 +62,10 @@ Future<bool> addToUserAddresses({
 
   Map<String, dynamic> newAddress = {
     "recieverFullName": recieverFullName,
-    // "receiverLastName": receiverLastName,
     "receiverMobile": receiverMobile,
-    "country": country ?? "",
-    // "province": {"name": userAdress.province.name},
-    // "city": {"name": userAdress.city.name},
-    // "district": {"name": userAdress.district.name},
-    "province": {"name": province},
-    "city": {"name": city},
-    "district": {"name": district ?? ""},
-    //
+    "province": province,
+    "city": city,
+    "district": district ?? District(),
     "address": address,
     "houseNumber": houseNumber,
     "unitNumber": unitNumber,

@@ -65,7 +65,9 @@ class _InfoWidgetState extends State<InfoWidget> {
                             index == 0
                                 ? '${widget.userData[0][1]} ${widget.userData[1][1]}'
                                 : index == 3
-                                    ? widget.userData[4][1].perName as String
+                                    ? (widget.userData[4][1] as int) == 1
+                                        ? "مرد"
+                                        : "زن"
                                     : index == 4
                                         ? '${widget.userData[5][1]['yearOfBirth']}-${widget.userData[5][1]['monthOfBirth']}-${widget.userData[5][1]['dayOfBirth']}'
                                         : widget.userData[index + 1][1],

@@ -8,9 +8,9 @@ part of 'single-product-info-res.dart';
 
 SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
   return SingleProductInfoRes(
-    active: json['active'] as bool,
     quantity: json['quantity'] as int,
     barcode: json['barcode'] as String,
+    styleCode: json['styleCode'] as String,
     basePrice: json['basePrice'] as int,
     salePrice: json['salePrice'] as int,
     banimodeDetails: json['banimodeDetails'] == null
@@ -23,9 +23,9 @@ SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SingleProductInfoResToJson(
         SingleProductInfoRes instance) =>
     <String, dynamic>{
-      'active': instance.active,
       'quantity': instance.quantity,
       'barcode': instance.barcode,
+      'styleCode': instance.styleCode,
       'basePrice': instance.basePrice,
       'salePrice': instance.salePrice,
       'banimodeDetails': instance.banimodeDetails,

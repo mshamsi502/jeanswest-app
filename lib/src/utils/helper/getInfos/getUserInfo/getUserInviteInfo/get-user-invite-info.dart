@@ -3,7 +3,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
 import 'package:jeanswest/src/models/profile/user/user-invite-info.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 
 Future<void> userInviteInfo() async {
   UserInviteInfoRes userInviteInfoRes =

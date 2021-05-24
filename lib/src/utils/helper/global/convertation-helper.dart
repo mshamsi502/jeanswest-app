@@ -78,6 +78,7 @@ String toPhoneStyle(String phone) {
 }
 
 Map<String, String> stringSplitDate(String date) {
+  // ! date type is : yyyy-mm-dd
   Map<String, String> map = {
     'year': '0000',
     'month': '00',
@@ -124,32 +125,55 @@ String stringMergeDate(Map<String, String> date) {
 }
 
 Map<String, String> gregorianToShamsi(Map<String, String> gregorianStr) {
-  Gregorian gregorian = new Gregorian(
-    int.parse(gregorianStr['year']),
-    int.parse(gregorianStr['month']),
-    int.parse(gregorianStr['day']),
-  );
-
-  Jalali jalali = gregorian.toJalali();
   Map<String, String> map = {
-    'year': jalali.year.toString(),
-    'month': jalali.month.toString(),
-    'day': jalali.day.toString(),
+    'year': '0000',
+    'month': '00',
+    'day': '00',
   };
+  if (gregorianStr != null) {
+    Gregorian gregorian = new Gregorian(
+      int.parse(gregorianStr['year']),
+      int.parse(gregorianStr['month']),
+      int.parse(gregorianStr['day']),
+    );
+
+    Jalali jalali = gregorian.toJalali();
+    map = {
+      'year': jalali.year.toString(),
+      'month': convertToDoubleDigit(jalali.month.toString()),
+      'day': convertToDoubleDigit(jalali.day.toString()),
+    };
+  }
   return map;
 }
 
 Map<String, String> shamsiToGregorian(Map<String, String> shamsiStr) {
-  Jalali jalali = Jalali(
-    int.parse(shamsiStr['year']),
-    int.parse(shamsiStr['month']),
-    int.parse(shamsiStr['day']),
-  );
-  Gregorian gregorian = jalali.toGregorian();
   Map<String, String> map = {
-    'year': gregorian.year.toString(),
-    'month': gregorian.month.toString(),
-    'day': gregorian.day.toString(),
+    'year': '0000',
+    'month': '00',
+    'day': '00',
   };
+  if (shamsiStr != null) {
+    Jalali jalali = Jalali(
+      int.parse(shamsiStr['year']),
+      int.parse(shamsiStr['month']),
+      int.parse(shamsiStr['day']),
+    );
+    Gregorian gregorian = jalali.toGregorian();
+    map = {
+      'year': gregorian.year.toString(),
+      'month': convertToDoubleDigit(gregorian.month.toString()),
+      'day': convertToDoubleDigit(gregorian.day.toString()),
+    };
+  }
   return map;
+}
+
+String convertToDoubleDigit(String oldString) {
+  if (oldString.length == 1)
+    return "0$oldString";
+  else if (oldString.length == 2)
+    return oldString;
+  else
+    return "00";
 }

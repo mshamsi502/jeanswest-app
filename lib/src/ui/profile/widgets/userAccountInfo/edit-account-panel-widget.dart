@@ -3,7 +3,6 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/select_date_panel_widget.dart';
@@ -22,7 +21,7 @@ class EditAccountPanelWidget extends StatefulWidget {
     String,
     String,
     String,
-    Gender,
+    int,
     String,
     String,
     String,
@@ -47,7 +46,7 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
   TextEditingController lastNameEditingController = new TextEditingController();
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController genderEditingController = new TextEditingController();
-  Gender selectedGender;
+  int selectedGender;
 
   TextEditingController yearOfBirthEditingController =
       new TextEditingController();
@@ -80,8 +79,10 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
     firstNameEditingController.text = widget.userData[0][1] as String;
     lastNameEditingController.text = widget.userData[1][1] as String;
     emailEditingController.text = widget.userData[3][1] as String;
-    selectedGender = widget.userData[4][1] as Gender;
-    genderEditingController.text = selectedGender.perName ?? 'انتخاب کنید ...';
+    selectedGender = widget.userData[4][1]
+        // as int
+        ;
+    genderEditingController.text = selectedGender == 1 ? "زن" : "مرد";
 
     yearOfBirthEditingController.text =
         widget.userData[5][1]['yearOfBirth'] as String;
@@ -234,7 +235,11 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
                   firstNameEditingController.text,
                   lastNameEditingController.text,
                   emailEditingController.text,
-                  genderEditingController.text == 'مرد' ? male : female,
+                  (genderEditingController.text == "مرد")
+                      ? 1
+                      : (genderEditingController.text == "زن")
+                          ? 0
+                          : 1,
                   dayOfBirthEditingController.text,
                   monthOfBirthEditingController.text,
                   yearOfBirthEditingController.text,

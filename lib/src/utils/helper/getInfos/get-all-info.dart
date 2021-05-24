@@ -3,9 +3,9 @@
 
 //
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
+// import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
-import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFriends/get-user-friends-info.dart';
-import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserInviteInfo/get-user-invite-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserPaymentInfo/get-user-payment-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserOrdersInfo/get-user-orders-info.dart';
@@ -16,17 +16,23 @@ import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddresses
 //
 import 'package:jeanswest/src/utils/helper/getInfos/getContactUsInfo/get-contact-us-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getFaqInfo/get-faq-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 
 Future<void> getAllUserInfo() async {
-  await userMainInfo();
+  user = await getUserMainInfo();
   //
-  await userMainFriends();
+  // await userMainFriends();
   //
-  await userInviteInfo();
+  // await userInviteInfo();
   //
-  await userPaymentInfo();
+
+  userPayment = await userPaymentInfo(user.tblPosCustomersID);
+
   //
-  await userFavoritesInfo();
+  userAddresses = await userAddressesInfo();
+  //
+  userFavorites = await userFavoritesInfo(user.tblPosCustomersID);
   //
   await userOrdersInfo();
   //
@@ -36,12 +42,14 @@ Future<void> getAllUserInfo() async {
   //
   await userCouponsInfo();
   //
-  userAddresses = await userAddressesInfo();
+
   //
   // !
   await getContactUsInfo();
   //
   await getFaqInfo();
+  //
+  // await getLevelCardsInfo();
   //
 }
 

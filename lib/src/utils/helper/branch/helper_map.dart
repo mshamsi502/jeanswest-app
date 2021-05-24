@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/database/branch/sqflite_helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 

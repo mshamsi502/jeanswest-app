@@ -30,6 +30,7 @@ int tryToGetAllUserInfo = 4;
 String completeProfileMsgDateTime = '';
 
 bool showCompeletProfileMessage = false;
+const bool MOCK_IS_ENABLE = true;
 // GoogleMapWidget myGoogleMapWidget;
 //
 // GetIt mockoonGlobalLocator = GetIt.instance;

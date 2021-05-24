@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/district/district.dart';
@@ -43,6 +44,8 @@ class ListUnitAddressPanelWidget extends StatefulWidget {
 class _ListUnitAddressPanelWidgetState
     extends State<ListUnitAddressPanelWidget> {
   ScrollController editScrollController = new ScrollController();
+
+  var keyboardVisibilityController = KeyboardVisibilityController();
   TextEditingController searchTextEditingController =
       new TextEditingController();
   Map<String, String> selectedOptionName;
@@ -64,6 +67,7 @@ class _ListUnitAddressPanelWidgetState
                 "perPlural": "محله ها",
               };
     scrollJumpAfterKeyborad(
+      keyboardVisibilityController: keyboardVisibilityController,
       scrollController: editScrollController,
       screenSize: widget.screenSize,
     );

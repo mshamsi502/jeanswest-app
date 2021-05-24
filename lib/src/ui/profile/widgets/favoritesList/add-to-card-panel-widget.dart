@@ -67,7 +67,7 @@ class _AddToCardPanelWidgetState extends State<AddToCardPanelWidget> {
               }),
             )
           : DetailProductWidget(
-              productDetail: widget.productDetail,
+              productDetail: widget.productDetail.data,
               closeAddToCardPanel: widget.closeAddToCardPanel,
               selectedColor: widget.selectedColor,
               selectedSize: widget.selectedSize,

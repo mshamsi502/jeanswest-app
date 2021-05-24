@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
-import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/send_message_bar_widget.dart';
@@ -214,16 +213,13 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                                     .contain,
                                                                 image:
                                                                     new AssetImage(
-                                                                  (widget.user.gender == null ||
-                                                                          widget.user.gender.engName ==
-                                                                              null ||
-                                                                          widget.user.gender.engName ==
-                                                                              '')
+                                                                  (widget.user.gender ==
+                                                                          null)
                                                                       ? 'assets/images/png_images/global/userProfile/user-unknown.png'
-                                                                      : widget.user.gender == male ||
-                                                                              widget.user.gender.engName == 'male'
+                                                                      : widget.user.gender ==
+                                                                              1
                                                                           ? 'assets/images/png_images/global/userProfile/user-male.png'
-                                                                          : widget.user.gender == female || widget.user.gender.engName == 'female'
+                                                                          : widget.user.gender == 2
                                                                               ? 'assets/images/png_images/global/userProfile/user-female.png'
                                                                               : 'assets/images/png_images/global/userProfile/user-unknown.png',
                                                                 ),

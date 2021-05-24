@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userFavorite/dataFavorite/data-favorites-info-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user-favorite-info-res.g.dart';
@@ -12,8 +12,12 @@ part 'user-favorite-info-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class UserFavoriteInfoRes extends Equatable {
+  @JsonKey(name: 'statusCode')
+  int statusCode;
+  @JsonKey(name: 'message')
+  String message;
   @JsonKey(name: 'data')
-  DataFavoriteInfoRes data;
+  List<SingleProductInfoRes> data;
 
   UserFavoriteInfoRes({
     this.data,
@@ -26,12 +30,16 @@ class UserFavoriteInfoRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'addresses': data,
+      'statusCode': statusCode,
+      'message': message,
+      'data': data,
     };
   }
 
   @override
   List<Object> get props => [
+        statusCode,
+        message,
         data,
       ];
 }

@@ -12,12 +12,14 @@ part 'single-product-info-res.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class SingleProductInfoRes extends Equatable {
-  @JsonKey(name: 'active')
-  bool active;
+  // @JsonKey(name: 'active')
+  // bool active;
   @JsonKey(name: 'quantity')
   int quantity;
   @JsonKey(name: 'barcode')
   String barcode;
+  @JsonKey(name: 'styleCode')
+  String styleCode;
   @JsonKey(name: 'basePrice')
   int basePrice;
   @JsonKey(name: 'salePrice')
@@ -26,9 +28,10 @@ class SingleProductInfoRes extends Equatable {
   BanimodeDetailsProductRes banimodeDetails;
 
   SingleProductInfoRes({
-    this.active,
+    // this.active,
     this.quantity,
     this.barcode,
+    this.styleCode,
     this.basePrice,
     this.salePrice,
     this.banimodeDetails,
@@ -41,9 +44,10 @@ class SingleProductInfoRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'active': active,
+      // 'active': active,
       'quantity': quantity,
       'barcode': barcode,
+      'styleCode': styleCode,
       'basePrice': basePrice,
       'salePrice': salePrice,
       'banimodeDetails': banimodeDetails,
@@ -52,9 +56,10 @@ class SingleProductInfoRes extends Equatable {
 
   @override
   List<Object> get props => [
-        active,
+        // active,
         quantity,
         barcode,
+        styleCode,
         basePrice,
         salePrice,
         banimodeDetails,

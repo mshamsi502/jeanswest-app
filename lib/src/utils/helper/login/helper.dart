@@ -10,7 +10,7 @@ import 'package:jeanswest/src/constants/global/api_respones.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,15 +27,16 @@ checkPhoneInput({
   @required Function(Map<String, dynamic>) apiResponse,
 }) async {
   List<dynamic> phoneStringIsValid =
-      checkCorrectPhone(inputPhone: phoneNumber, startWithZero: false);
+      checkCorrectPhone(inputPhone: phoneNumber, startWithZero: true);
+  print('phoneStringIsValid : $phoneStringIsValid');
   if (!phoneStringIsValid[0]) {
     changeHasError(true);
     changeErrorMsg(phoneStringIsValid[1]);
   } else {
     Map<String, String> otpReqBody = {
-      "phoneNumber": "0$phoneNumber",
+      "phoneNumber": phoneNumber,
     };
-    print('widget.phoneNumber : 0$phoneNumber');
+    print('widget.phoneNumber : $phoneNumber');
     try {
       OTPReqResponse otpReq =
           await globalLocator<GlobalRestClient>().reqOtp(otpReqBody);

@@ -5,18 +5,24 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userMain/user-main-info-res.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-res.dart';
 
 part 'user-friends-info-res.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class UserFriendsInfoRes extends Equatable {
-  @JsonKey(name: 'friends')
-  List<UserMainInfoRes> friends;
+  @JsonKey(name: 'statusCode')
+  int statusCode;
+  @JsonKey(name: 'message')
+  String message;
+  @JsonKey(name: 'data')
+  List<UserMainInfoRes> data;
 
   UserFriendsInfoRes({
-    this.friends,
+    this.statusCode,
+    this.message,
+    this.data,
   });
 
   factory UserFriendsInfoRes.fromJson(Map<String, dynamic> json) =>
@@ -26,12 +32,16 @@ class UserFriendsInfoRes extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'friends': friends,
+      'statusCode': statusCode,
+      'message': message,
+      'data': data,
     };
   }
 
   @override
   List<Object> get props => [
-        friends,
+        statusCode,
+        message,
+        data,
       ];
 }

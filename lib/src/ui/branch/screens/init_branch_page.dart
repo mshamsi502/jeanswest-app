@@ -10,7 +10,7 @@ import 'package:jeanswest/src/bloc/branch/main/selected_branch_bloc.dart';
 import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.dart';
 import 'package:jeanswest/src/bloc/branch/states/selected_branch_state.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'branch_page.dart';

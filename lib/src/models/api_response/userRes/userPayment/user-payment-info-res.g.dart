@@ -8,11 +8,19 @@ part of 'user-payment-info-res.dart';
 
 UserPaymentInfoRes _$UserPaymentInfoResFromJson(Map<String, dynamic> json) {
   return UserPaymentInfoRes(
-    moneyBuying: json['moneyBuying'] as int,
+    statusCode: json['statusCode'] as int,
+    message: json['message'] as String,
+    data: (json['data'] as List)
+        ?.map((e) => e == null
+            ? null
+            : UserPaymentInfoData.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
 Map<String, dynamic> _$UserPaymentInfoResToJson(UserPaymentInfoRes instance) =>
     <String, dynamic>{
-      'moneyBuying': instance.moneyBuying,
+      'statusCode': instance.statusCode,
+      'message': instance.message,
+      'data': instance.data,
     };

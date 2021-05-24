@@ -10,7 +10,7 @@ import 'package:jeanswest/src/models/api_response/productRes/list-of-products-re
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/services/rest_client_global.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
@@ -276,29 +276,36 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                 width: 0.125 * _screenSize.width, //45,
                 child: GestureDetector(
                   onTap: () async {
-                    if (widget.productIsActive) {
-                      print('barcode : ${widget.product.barcode}');
-                      // ! if is sfor test, delete it
-                      try {
-                        print('barcode : ${widget.product.barcode}');
-                        // Map<String, String> reqBody = {
-                        //   "barcode": widget.product.barcode,
-                        // };
-                        ListOfProductsRes _addToCardProductDetailRes =
-                            await globalLocator<GlobalRestClient>()
-                                .getAddToCardProductDetailInfo(
-                                    widget.product.barcode);
-                        setState(() {
-                          addToCardProductDetailRes =
-                              _addToCardProductDetailRes;
-                        });
-                        widget.addToCardFromFav(widget.productIndex);
-                      } catch (e) {
-                        printErrorMessage(e);
-                        print('error :(');
-                      }
-                    } else // ! for test, delete it
-                      print('no exist :)');
+                    try {
+                      print('styleCode : ${widget.product.styleCode}');
+
+                      Map<String, dynamic> mapFilter = {
+                        "filter": {
+                          "styleCode": {"eq": widget.product.styleCode},
+                          "quantity": {"gt": 0}
+                        },
+                        "option": {
+                          "page": {"eq": 1},
+                          "limit": {"eq": 20}
+                        },
+                        "unique": {
+                          "color": {"eq": 1}
+                        }
+                      };
+                      ListOfProductsRes _addToCardProductDetailRes =
+                          await globalLocator<GlobalRestClient>()
+                              .getProductList(mapFilter);
+
+                      setState(() {
+                        addToCardProductDetailRes = _addToCardProductDetailRes;
+                      });
+                      widget.addToCardFromFav(widget.productIndex);
+                    } catch (e) {
+                      printErrorMessage(e);
+                      print('error :(');
+                    }
+                    // } else // ! for test, delete it
+                    //   print('no exist :)');
                   },
                   child: Container(
                     decoration: BoxDecoration(

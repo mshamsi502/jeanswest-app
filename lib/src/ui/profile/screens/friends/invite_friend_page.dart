@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/fix-bottom-button_bar_widget.dart';
@@ -18,24 +19,28 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class InviteFrindePage extends StatefulWidget {
   final String title;
-  final String userId;
+  // final String userId;
+  final String invitationCode;
+
   final int receivedGift;
   final int someOfInvited;
   final int someOfInstallFromInvited;
   final int someOfShoppingFromInvited;
+
   final List<FAQData> faq;
-  // final Size screenSize;
+  final Size screenSize;
 
   const InviteFrindePage({
     Key key,
-    this.userId,
+    // this.userId,
     this.receivedGift,
     this.someOfInvited,
     this.someOfInstallFromInvited,
     this.someOfShoppingFromInvited,
     this.title,
     this.faq,
-    // this.screenSize,
+    this.invitationCode,
+    this.screenSize,
   }) : super(key: key);
   @override
   _InviteFrindePageState createState() => _InviteFrindePageState();
@@ -44,14 +49,17 @@ class InviteFrindePage extends StatefulWidget {
 class _InviteFrindePageState extends State<InviteFrindePage> {
   bool currentLevelWidgetAnimation = true;
   ScrollController _scrollController = new ScrollController();
+  KeyboardVisibilityController keyboardVisibilityController =
+      new KeyboardVisibilityController();
   PanelController sendingPanel = PanelController();
 
   @override
   void initState() {
-    // scrollJumpAfterKeyborad(
-    //   scrollController: _scrollController,
-    //   screenSize: widget.screenSize,
-    // );
+    scrollJumpAfterKeyborad(
+      keyboardVisibilityController: keyboardVisibilityController,
+      scrollController: _scrollController,
+      screenSize: widget.screenSize,
+    );
     super.initState();
   }
 
@@ -86,7 +94,7 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                 panel: InviteFriendPanelWidget(
                   closePanel: () => sendingPanel.close(),
                   inviteLink:
-                      "https://jeanswest.club/v1/jwclub/register?code=udilxv",
+                      "https://jeanswest.club/v1/Auth?invitation_code=${widget.invitationCode}",
                   screenSize: _screenSize,
                   scrollController: _scrollController,
                 ),

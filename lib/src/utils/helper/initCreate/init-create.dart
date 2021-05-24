@@ -35,22 +35,17 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
 }
 
 Future<Map<String, dynamic>> authService() async {
-  // String getToken =
-  //     mockoonGlobalLocator<SharedPreferences>().getString(TOKEN);
   //
   // globalLocator<SharedPreferences>().clear();
-
-  // //
-  // // ! put token in device
+  //
+  // ! put token in device
   globalLocator<SharedPreferences>().setString(
     TOKEN,
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjA4MTM5NDUsImV4cCI6MTYyMDgzMTk0NX0.F7SexctJMUf5rih3K83nqznJ6L_auUMzpa20po1EPTk',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjE4MzU3ODYsImV4cCI6MTYyMTg1Mzc4Nn0.Kg_cKRL1Up15rmn6dUJvva_OoJrUy9SZPVIMotglx08',
   );
-  // globalLocator<SharedPreferences>().setString(
-  //     TOKEN, 'testToken.001.64sdcs6510d1f5s1d5s6dfsd654dc56fd1s65f4ds');
-  // //
+  //
 
-  String getToken = globalLocator<SharedPreferences>().getString(TOKEN);
+  String getToken = globalLocator<SharedPreferences>().getString(TOKEN) ?? "";
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;

@@ -8,11 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jeanswest/src/app.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:jeanswest/src/utils/service_locator/global_service_locator.dart';
+import 'package:jeanswest/src/utils/service_locator/locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
 
   setupGlobalLocator();
   SystemChrome.setPreferredOrientations(
@@ -20,7 +19,7 @@ void main() async {
     runApp(
       Phoenix(
         child: EasyLocalization(
-          // ! => select default application language
+          // !  select default application language
           startLocale: Locale('fa', 'IR'),
           // startLocale: Locale('en', 'US'),
           //

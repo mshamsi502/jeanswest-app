@@ -7,7 +7,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
@@ -38,6 +42,8 @@ class InviteFriendPanelWidget extends StatefulWidget {
 class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
   TextEditingController textEditingController = new TextEditingController();
   ScrollController scrollController = new ScrollController();
+
+  var keyboardVisibilityController = KeyboardVisibilityController();
   String textLink;
   // ignore: deprecated_member_use
   List<dynamic> validationResult = new List<dynamic>();
@@ -50,6 +56,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
         ${widget.inviteLink}
         ''';
     scrollJumpAfterKeyborad(
+      keyboardVisibilityController: keyboardVisibilityController,
       scrollController: scrollController,
       screenSize: widget.screenSize,
     );
@@ -106,13 +113,14 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
             height: 0.023 * _screenSize.height, //15
           ),
           Container(
+            // height: 2,
             height: 0.4898 * _screenSize.height, //290
             child: SingleChildScrollView(
               controller: scrollController,
-              physics: NeverScrollableScrollPhysics(),
+              // physics: NeverScrollableScrollPhysics(),
               // physics: AlwaysScrollableScrollPhysics(),
               child: Container(
-                height: 0.5 * _screenSize.height, //320,
+                // height: 0.5 * _screenSize.height, //320,
                 child: Column(
                   children: [
                     CustomTextFieldWidget(
@@ -211,7 +219,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                             ),
                         fontSize: 0.05 * _screenSize.width, //18,
                         radius: 0.011 * _screenSize.width, //4,
-                        onTap: () {
+                        onTap: () async {
                           validationResult.clear();
                           setState(() {
                             validationResult = checkCorrectPhone(
@@ -219,8 +227,24 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                                 startWithZero: true);
                           });
                           if (validationResult[0]) {
-                            print('is valid ');
+                            print('phone is valid ');
+                            Map<String, dynamic> friendMobile = {
+                              "mobile": textEditingController.text
+                            };
                             // ! send message kavengegar api
+                            try {
+                              GeneralRespons res =
+                                  await globalLocator<GlobalRestClient>()
+                                      .sendInviteFriendLink(friendMobile);
+                              if (res.statusCode == 200) {
+                                print('send invite success');
+                                textEditingController.clear();
+                                widget.closePanel();
+                              }
+                            } catch (e) {
+                              print('catch error on send invite link');
+                              printErrorMessage(e);
+                            }
                           } else
                             print('not valid : ${validationResult[1]}');
                         }),

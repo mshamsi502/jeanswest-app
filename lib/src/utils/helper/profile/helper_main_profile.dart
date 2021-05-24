@@ -9,7 +9,6 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
-
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
@@ -71,8 +70,9 @@ List<Widget> createProfileListMenuPages({
     AccountInfoScreen(
         title: 'جزئیات حساب کاربری',
         userAccountInfo: user,
-        updateUser: (UserMainInfo userMainInfo) {
-          user = userMainInfo;
+        updateUser: (UserMainInfo userMainInfo) async {
+          // user = userMainInfo;
+
           rebuild();
         }),
   );

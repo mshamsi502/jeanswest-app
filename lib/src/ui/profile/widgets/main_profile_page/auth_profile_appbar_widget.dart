@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/models/profile/gender/gender.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
@@ -238,15 +237,11 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                       image: DecorationImage(
                         fit: BoxFit.contain,
                         image: new AssetImage(
-                          (user.gender == null ||
-                                  user.gender.engName == null ||
-                                  user.gender.engName == '')
+                          (user.gender == null || user.gender == null)
                               ? 'assets/images/png_images/global/userProfile/user-unknown.png'
-                              : user.gender == male ||
-                                      user.gender.engName == 'male'
+                              : user.gender == 1
                                   ? 'assets/images/png_images/global/userProfile/user-male.png'
-                                  : user.gender == female ||
-                                          user.gender.engName == 'female'
+                                  : user.gender == 2
                                       ? 'assets/images/png_images/global/userProfile/user-female.png'
                                       : 'assets/images/png_images/global/userProfile/user-unknown.png',
                         ),

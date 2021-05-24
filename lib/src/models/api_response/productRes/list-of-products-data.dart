@@ -7,11 +7,11 @@ import 'package:equatable/equatable.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'data-favorites-info-res.g.dart';
+part 'list-of-products-data.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class DataFavoriteInfoRes extends Equatable {
+class ListOfProductsData extends Equatable {
   @JsonKey(name: 'result')
   List<SingleProductInfoRes> result;
   @JsonKey(name: 'page')
@@ -21,17 +21,17 @@ class DataFavoriteInfoRes extends Equatable {
   @JsonKey(name: 'total')
   int total;
 
-  DataFavoriteInfoRes({
+  ListOfProductsData({
     this.result,
     this.page,
     this.perPage,
     this.total,
   });
 
-  factory DataFavoriteInfoRes.fromJson(Map<String, dynamic> json) =>
-      _$DataFavoriteInfoResFromJson(json);
+  factory ListOfProductsData.fromJson(Map<String, dynamic> json) =>
+      _$ListOfProductsDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DataFavoriteInfoResToJson(this);
+  Map<String, dynamic> toJson() => _$ListOfProductsDataToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
