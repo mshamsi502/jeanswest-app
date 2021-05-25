@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+
+import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
@@ -462,7 +464,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                                             userInvite.someOfInstallFromInvited,
                                         someOfShoppingFromInvited: userInvite
                                             .someOfShoppingFromInvited,
-                                        faq: faqData,
+                                        faq: inviteFriendsFAQ,
                                         // screenSize: _screenSize,
                                       ),
                                     ),

@@ -8,5 +8,6 @@ Future<void> getFaqInfo() async {
   FAQRes faqRes = await globalLocator<GlobalRestClient>().getFAQInfo();
   faqData = faqRes.data;
 
-  print('_=_ get successfully contactUsInfo phone: ${contactUsInfo.phone}');
+  print('_=_ get successfully faqData: ${faqData.length}');
+  print('_=_ get successfully faqData: ${faqData[0].question}');
 }

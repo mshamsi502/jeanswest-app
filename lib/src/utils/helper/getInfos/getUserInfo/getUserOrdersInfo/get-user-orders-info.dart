@@ -21,7 +21,7 @@ Future<void> userOrdersInfo() async {
   } catch (e) {
     printErrorMessage(e);
   }
-  print('***************************************************************');
+ 
   print(
       '_=_ get successfully, offlineOrders length: ${userOrdersa.offlineOrders.length}');
   print(

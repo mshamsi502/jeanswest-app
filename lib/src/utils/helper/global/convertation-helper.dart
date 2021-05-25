@@ -129,6 +129,8 @@ Map<String, String> gregorianToShamsi(Map<String, String> gregorianStr) {
     'year': '0000',
     'month': '00',
     'day': '00',
+    'hour': '00',
+    'min': '00',
   };
   if (gregorianStr != null) {
     Gregorian gregorian = new Gregorian(
@@ -142,6 +144,8 @@ Map<String, String> gregorianToShamsi(Map<String, String> gregorianStr) {
       'year': jalali.year.toString(),
       'month': convertToDoubleDigit(jalali.month.toString()),
       'day': convertToDoubleDigit(jalali.day.toString()),
+      'hour': gregorianStr['hour'] ?? "00",
+      'min': gregorianStr['hour'] ?? "00",
     };
   }
   return map;
@@ -152,6 +156,8 @@ Map<String, String> shamsiToGregorian(Map<String, String> shamsiStr) {
     'year': '0000',
     'month': '00',
     'day': '00',
+    'hour': '00',
+    'min': '00',
   };
   if (shamsiStr != null) {
     Jalali jalali = Jalali(
@@ -164,6 +170,8 @@ Map<String, String> shamsiToGregorian(Map<String, String> shamsiStr) {
       'year': gregorian.year.toString(),
       'month': convertToDoubleDigit(gregorian.month.toString()),
       'day': convertToDoubleDigit(gregorian.day.toString()),
+      'hour': shamsiStr['hour'] ?? "00",
+      'min': shamsiStr['hour'] ?? "00",
     };
   }
   return map;

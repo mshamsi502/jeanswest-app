@@ -232,6 +232,24 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<UserInviteInfoRes> getUserInviteInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3003/v1/getUserInviteInfo',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserInviteInfoRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<GeneralRespons> sendInviteFriendLink(friendMobile) async {
     ArgumentError.checkNotNull(friendMobile, 'friendMobile');
     const _extra = <String, dynamic>{};
@@ -248,6 +266,24 @@ class _GlobalRestClient implements GlobalRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = GeneralRespons.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<FAQRes> getInviteFriendFAQ() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/inviteFriendsFAQ/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = FAQRes.fromJson(_result.data);
     return value;
   }
 
@@ -330,12 +366,12 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<UserInviteInfoRes> getUserInviteInfo() async {
+  Future<UserJeanpointsRes> getUserJeanpointBonsInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3003/v1/getUserInviteInfo',
+        'http://10.0.1.111:8000/api/v1/promotion/point/customer/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -343,12 +379,12 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UserInviteInfoRes.fromJson(_result.data);
+    final value = UserJeanpointsRes.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<UserJeanpointsResponse> getUserJeanpointBonsInfo() async {
+  Future<UserJeanpointsRes> getMockUserJeanpointBonsInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -361,7 +397,7 @@ class _GlobalRestClient implements GlobalRestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UserJeanpointsResponse.fromJson(_result.data);
+    final value = UserJeanpointsRes.fromJson(_result.data);
     return value;
   }
 

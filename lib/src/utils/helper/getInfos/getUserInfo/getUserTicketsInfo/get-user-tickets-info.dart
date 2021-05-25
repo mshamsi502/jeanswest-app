@@ -9,7 +9,6 @@ Future<void> userTicketsInfo() async {
   UserTicketsRes userTicketsRes =
       await globalLocator<GlobalRestClient>().getUserTicketsInfo();
   userTickets = userTicketsRes.data;
-  print('***************************************************************');
   print('_=_ get successfully, userTickets length: ${userTickets.length}');
   print('_=_ get successfully, first userTickets code: ${userTickets[0].code}');
 }

@@ -4,42 +4,37 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-result.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-part 'user-jeanpoints-response.g.dart';
+part 'promotion-description-data.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
-class UserJeanpointsResponse extends Equatable {
-  @JsonKey(name: 'statusCode')
-  int statusCode;
+class PromotionDescriptionData extends Equatable {
+  @JsonKey(name: 'context')
+  String context;
   @JsonKey(name: 'message')
   String message;
-  @JsonKey(name: 'data')
-  List<UserJeanpointsResult> data;
 
-  UserJeanpointsResponse({
-    this.statusCode,
+  PromotionDescriptionData({
+    this.context,
+    this.message,
   });
 
-  factory UserJeanpointsResponse.fromJson(Map<String, dynamic> json) =>
-      _$UserJeanpointsResponseFromJson(json);
+  factory PromotionDescriptionData.fromJson(Map<String, dynamic> json) =>
+      _$PromotionDescriptionDataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$UserJeanpointsResponseToJson(this);
+  Map<String, dynamic> toJson() => _$PromotionDescriptionDataToJson(this);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'statusCode': statusCode,
+      'context': context,
       'message': message,
-      'data': data,
     };
   }
 
   @override
   List<Object> get props => [
-        statusCode,
+        context,
         message,
-        data,
       ];
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
@@ -38,11 +39,13 @@ Future<Map<String, dynamic>> authService() async {
   //
   // globalLocator<SharedPreferences>().clear();
   //
-  // ! put token in device
-  globalLocator<SharedPreferences>().setString(
-    TOKEN,
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjE4MzU3ODYsImV4cCI6MTYyMTg1Mzc4Nn0.Kg_cKRL1Up15rmn6dUJvva_OoJrUy9SZPVIMotglx08',
-  );
+  if (MANUAL_TOKEN_IS_ENABLE) {
+    // ! put token in device
+    globalLocator<SharedPreferences>().setString(
+      TOKEN,
+      MANUAL_TOKEN,
+    );
+  }
   //
 
   String getToken = globalLocator<SharedPreferences>().getString(TOKEN) ?? "";

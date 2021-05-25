@@ -1,5 +1,6 @@
 //
 
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userPayment/user-payment-info-data.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';

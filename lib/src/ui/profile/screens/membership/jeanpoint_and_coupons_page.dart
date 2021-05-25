@@ -8,11 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
+import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/copoun_detail_panel_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/coupons_info_widget.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class JeanpointAndCouponsPage extends StatefulWidget {
+  final List<UserCouponsInfo> userJeanpointBons;
+
+  const JeanpointAndCouponsPage({Key key, this.userJeanpointBons})
+      : super(key: key);
   @override
   _JeanpointAndCouponsPageState createState() =>
       _JeanpointAndCouponsPageState();
@@ -32,7 +37,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
       width: _screenSize.width,
       height: _screenSize.height,
       child: SlidingUpPanel(
-        maxHeight: 0.5067 * _screenSize.height, //300,
+        maxHeight: 310,
         minHeight: 0,
         backdropEnabled: true,
         controller: panelController,

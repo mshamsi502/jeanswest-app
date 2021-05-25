@@ -15,7 +15,7 @@ import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
-import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-response.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userTblPosCust/user-tbl-pos-cust-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
@@ -104,9 +104,15 @@ abstract class GlobalRestClient extends RestClient {
   // @GET('http://10.1.2.94:3003/v1/getUserFriendsInfo')
   // Future<UserFriendsInfoRes> getMockUserFriendsInfo(); // ! Mockoon
 
+  @GET('http://10.1.2.94:3003/v1/getUserInviteInfo')
+  Future<UserInviteInfoRes> getUserInviteInfo();
+
   @POST('http://10.0.1.111:8000/api/v1/customer/sendInviteLink')
   Future<GeneralRespons> sendInviteFriendLink(
       @Body() Map<String, dynamic> friendMobile);
+
+  @GET('http://10.0.1.111:8000/api/v1/inviteFriendsFAQ/list')
+  Future<FAQRes> getInviteFriendFAQ();
 
   // *          USER FAVORITES INFO ********************************************
 
@@ -126,19 +132,25 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserFavorite') // ! Mockoon
   Future<UserFavoriteInfoRes> getMockUserFavoriteInfo();
 
-  // *          USER PAYMENT INFO **********************************************
+  // *          USER JEANSPOINT INFO *******************************************
 
-  @GET('http://10.1.2.94:3003/v1/getUserInviteInfo')
-  Future<UserInviteInfoRes> getUserInviteInfo();
-
+  @GET('http://10.0.1.111:8000/api/v1/promotion/point/customer/list')
+  Future<UserJeanpointsRes> getUserJeanpointBonsInfo();
+  // !
   @GET('http://10.1.2.94:3003/v1/getUserJeanpointBons')
-  Future<UserJeanpointsResponse> getUserJeanpointBonsInfo();
+  Future<UserJeanpointsRes> getMockUserJeanpointBonsInfo(); // ! Mockoon
+
+  // *          USER PAYMENT INFO **********************************************
 
   @GET('http://10.1.2.94:3003/v1/getUserOrders')
   Future<UserOrderDataRes> getUserOrdersInfo();
 
+  // *          USER TICKET INFO ***********************************************
+
   @GET('http://10.1.2.94:3005/api/v1/ticket/list')
   Future<UserTicketsRes> getUserTicketsInfo();
+
+  // *          USER NOTIFICATION INFO *****************************************
 
   @GET('http://10.1.2.94:3003/v1/getUserMessages')
   Future<UserMessagesInfoRes> getUserMessagesInfo();

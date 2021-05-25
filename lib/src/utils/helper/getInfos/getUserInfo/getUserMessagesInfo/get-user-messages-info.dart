@@ -31,7 +31,6 @@ Future<void> userMessagesInfo() async {
     ));
   });
 
-  print('***************************************************************');
   print('_=_ get successfully, userMessages length: ${userMessages.length}');
   print(
       '_=_ get successfully, first userMessages code: ${userMessages[0].code}');

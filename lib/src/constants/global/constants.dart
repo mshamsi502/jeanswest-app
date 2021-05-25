@@ -11,13 +11,11 @@ import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart';
 
 const String TOKEN = 'token';
-const String BASE_URL_FOR_BRANCH_ADDRESS = 'https://jeanswest.club';
-// const String BASE_URL_FOR_MOCKOON = 'http://10.1.2.94:3001';
-// const String BASE_URL_FOR_MOCKOON = 'http://10.1.2.94:';
-// const String BASE_URL_FOR_JEANSWEST = 'http://10.0.1.111:5000';
 //
+const String BASE_URL_FOR_BRANCH_ADDRESS = 'https://jeanswest.club';
 const String EMPTY_IMAGE =
     'https://www.jeanswest.ir/b2b/assets/img/brand/avakatan.png';
+//
 const TextDirection rtlTextDirection = TextDirection.rtl;
 const TextDirection ltrTextDirection = TextDirection.ltr;
 
@@ -26,19 +24,10 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 //
 bool isInit = true;
 bool userIsAuth = false;
-int tryToGetAllUserInfo = 4;
+
 String completeProfileMsgDateTime = '';
 
-bool showCompeletProfileMessage = false;
-const bool MOCK_IS_ENABLE = true;
-// GoogleMapWidget myGoogleMapWidget;
-//
-// GetIt mockoonGlobalLocator = GetIt.instance;
-// GetIt jeanswestGlobalLocator = GetIt.instance;
-// GetIt globalLocator = GetIt.instance;
 GetIt globalLocator = GetIt.instance;
-// GetIt jeanswestAuthLocator = GetIt.instance;
-// GetIt jeanswestUnAuthLocator = GetIt.instance;
 
 ContactUsData contactUsInfo = ContactUsData(
   addresses: '',

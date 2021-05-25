@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
@@ -51,7 +52,7 @@ List<Widget> createProfileListMenuPages({
           nextLevel: nextLevel,
           moneyBuying: moneyBuying,
         ),
-        JeanpointAndCouponsPage(),
+        JeanpointAndCouponsPage(userJeanpointBons: userJeanpointBons),
       ],
       bottomButtonFunction: () {},
     ),

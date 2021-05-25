@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
@@ -164,7 +165,10 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                                   moneyBuying:
                                                       widget.moneyBuying,
                                                 ),
-                                                JeanpointAndCouponsPage(),
+                                                JeanpointAndCouponsPage(
+                                                  userJeanpointBons:
+                                                      userJeanpointBons,
+                                                ),
                                               ],
                                               bottomButtonFunction: () {},
                                             ),

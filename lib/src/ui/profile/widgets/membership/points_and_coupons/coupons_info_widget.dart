@@ -4,13 +4,14 @@
 //****************************************************************************
 
 import 'package:flutter/cupertino.dart';
-import 'package:jeanswest/src/models/coupon/coupon.dart';
+
 import 'package:jeanswest/src/constants/global/colors.dart';
 
 import 'package:flutter/material.dart';
+import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 
 class CouponsInfoWidget extends StatefulWidget {
-  final List<Coupon> coupons;
+  final List<UserCouponsInfo> coupons;
   final ScrollController scrollController;
   final Function(int) openPanel;
 
@@ -87,7 +88,7 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    widget.coupons[index].perName,
+                                    widget.coupons[index].promotionPoint.name,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontSize: 0.038 * _screenSize.width, //14,
@@ -105,15 +106,15 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
                                 SizedBox(
                                   width: 0.083 * _screenSize.width, //30
                                 ),
-                                Text(
-                                  // '',
-                                  'مدت اعتبار از تاریخ ${widget.coupons[index].yearOfStartDate}/${widget.coupons[index].monthOfStartDate}/${widget.coupons[index].dayOfStartDate} تا ${widget.coupons[index].yearOfEndDate}/${widget.coupons[index].monthOfEndDate}/${widget.coupons[index].dayOfEndDate}',
-                                  style: TextStyle(
-                                    fontSize: 0.0333 * _screenSize.width, //12,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
+                                // Text(
+                                //   // '',
+                                //   'مدت اعتبار از تاریخ ${widget.coupons[index].yearOfStartDate}/${widget.coupons[index].monthOfStartDate}/${widget.coupons[index].dayOfStartDate} تا ${widget.coupons[index].yearOfEndDate}/${widget.coupons[index].monthOfEndDate}/${widget.coupons[index].dayOfEndDate}',
+                                //   style: TextStyle(
+                                //     fontSize: 0.0333 * _screenSize.width, //12,
+                                //     color: Colors.grey,
+                                //     fontWeight: FontWeight.w300,
+                                //   ),
+                                // ),
                               ],
                             )
                           ],
