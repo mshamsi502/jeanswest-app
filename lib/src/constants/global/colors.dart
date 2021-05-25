@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 // ! BLUE
 const Color MAIN_BLUE_COLOR = Color(0xff2c3d73); // Resolution Blue
+const Color RESOLUTION_BLUE_COLOR = Color(0xff003974); // Resolution Blue
 const Color MAIN_BLUE_00_COLOR = Color(0xff003974); // Prussian Blue
 
 const Color BLUE_SKY_COLOR = Color(0xffE4E9F8); // Lavender
@@ -17,6 +18,7 @@ const Color BLUE_SKY_FADE_COLOR =
     Color.fromRGBO(0xb4, 0xd9, 0xff, 0.35); // Columbia Blue
 //
 const Color COLOMBIA_BLUE = Color(0xff9EF9FC); // Columbia Blue
+
 const Color MAYA_BLUE = Color(0xff44BFFF); // Maya Blue
 const Color LOCHMARA_BLUE = Color(0xff3C6AAE); // Lochmara
 //

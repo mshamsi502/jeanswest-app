@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constants.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
+import 'package:jeanswest/src/ui/store/screens/main_store_page.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +18,8 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
         showCompeletProfileMessage = value,
   ));
   _children.add(Container(color: Colors.white));
-  _children.add(Container(color: Colors.blue));
+  // _children.add(Container(color: Colors.blue));
+  _children.add(MainStorePage());
   // _children.add(shoppingBasketPage);
   _children.add(Container(color: Colors.green));
   _children.add(MainProfilePage(

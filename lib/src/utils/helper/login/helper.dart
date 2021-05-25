@@ -94,10 +94,10 @@ checkCodeInput({
       currentFocus.focusedChild.unfocus();
     }
     Map<String, String> authReqBody = {
-      "phoneNumber": "0$phoneNumber",
+      "phoneNumber": phoneNumber,
       "pin": verifyCode
     };
-    print('phoneNumber: 0$phoneNumber');
+    print('phoneNumber: $phoneNumber');
     print('pin: $verifyCode');
     try {
       AuthReqRespons authReq =
