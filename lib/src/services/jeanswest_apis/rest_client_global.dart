@@ -89,9 +89,8 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          USER PAYMENT INFO **********************************************
 
-  @POST('http://10.0.1.111:8000/api/v1/erp/promotion/customerMembershipLevel')
-  Future<UserPaymentInfoRes> getUserPaymentInfo(
-      @Body() Map<String, dynamic> id);
+  @POST('http://10.0.1.111:8000/api/v1/customer/myCustomerMembershipLevel')
+  Future<UserPaymentInfoRes> getUserPaymentInfo();
   // !
   @POST('http://10.1.2.94:3003/v1/getUserPaymentInfo')
   Future<UserPaymentInfoRes> getMockUserPaymentInfo(); // ! Mockoon

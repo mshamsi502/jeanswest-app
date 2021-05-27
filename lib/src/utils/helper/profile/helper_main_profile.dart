@@ -3,11 +3,13 @@
 // *   Created Date & Time:  2021-01-10  ,  15:30 AM
 // ****************************************************************************
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -32,6 +34,7 @@ import 'package:intent/extra.dart' as android_extra;
 List<Widget> createProfileListMenuPages({
   // Size screenSize,
   LevelCard userLevel,
+  String userLevelName,
   LevelCard nextLevel,
   int moneyBuying,
   Function() rebuild,
@@ -48,6 +51,7 @@ List<Widget> createProfileListMenuPages({
       ],
       tabWidgets: [
         MembershipLevelPage(
+          userLevelName : userLevelName,
           userLevel: userLevel,
           nextLevel: nextLevel,
           moneyBuying: moneyBuying,
@@ -101,6 +105,9 @@ bottomButtonFunction(String textLink) {
       ..putExtra(android_extra.Extra.EXTRA_TEXT, textLink)
       ..startActivity().catchError((e) => print(e));
   }
+
+  // ignore: unused_element
+
   //  else if (Platform.isIOS) {
   //   // IOS Intent to Map Apps
   //   //   "comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"
@@ -109,4 +116,25 @@ bottomButtonFunction(String textLink) {
   // } else {
   //   // Other OS Intent to Map Apps
   // }
+}
+
+UserMainInfo createUser({
+  @required UserMainInfoData userAccount,
+  String userTblPosCustRes,
+  String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+}) {
+  DateTime parseDate = new DateFormat(dateFormat).parse(userAccount.birthDate);
+  print('_=_ create user success');
+  return UserMainInfo(
+    code: userAccount.code,
+    tblPosCustomersID: userTblPosCustRes,
+    firstName: userAccount.firstName,
+    lastName: userAccount.lastName,
+    email: userAccount.email,
+    gender: userAccount.gender,
+    phoneNumber: userAccount.phoneNumber,
+    yearOfBirthGeo: parseDate.year.toString(),
+    monthOfBirthGeo: parseDate.month.toString(),
+    dayOfBirthGeo: parseDate.day.toString(),
+  );
 }

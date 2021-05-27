@@ -194,14 +194,12 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
-  Future<UserPaymentInfoRes> getUserPaymentInfo(id) async {
-    ArgumentError.checkNotNull(id, 'id');
+  Future<UserPaymentInfoRes> getUserPaymentInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(id ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/v1/erp/promotion/customerMembershipLevel',
+        'http://10.0.1.111:8000/api/v1/customer/myCustomerMembershipLevel',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

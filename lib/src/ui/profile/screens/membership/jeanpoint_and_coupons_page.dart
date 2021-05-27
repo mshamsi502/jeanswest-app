@@ -37,7 +37,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
       width: _screenSize.width,
       height: _screenSize.height,
       child: SlidingUpPanel(
-        maxHeight: 310,
+        maxHeight: 0.5166 * _screenSize.height, //310,
         minHeight: 0,
         backdropEnabled: true,
         controller: panelController,
@@ -59,6 +59,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                   vertical: 0.023 * _screenSize.height, //15
                 ),
                 child: Container(
+                  height: 0.0625 * _screenSize.height, //40
                   padding: EdgeInsets.symmetric(
                     vertical: 0.011824 * _screenSize.height, //7
                     horizontal: 0.041 * _screenSize.width, //15,
@@ -70,7 +71,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                     color: MAIN_ORANGE_COLOR,
                   ),
                   child: Text(
-                    'مجموع بن های شما: ${userJeanpointBons.length}',
+                    'مجموع بن ها: ${userJeanpointBons.length}',
                     style: TextStyle(
                       fontSize: 0.0444 * _screenSize.width, //16,
                     ),
@@ -80,11 +81,13 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
               Stack(
                 children: [
                   Container(
-                    height: 0.3125 * _screenSize.height, //200
+                    height: 0.3547 * _screenSize.height, //210,
+                    //0.3125 * _screenSize.height, //200
                     decoration: BoxDecoration(
                       color: Colors.white,
                       image: DecorationImage(
                         fit: BoxFit.contain,
+                        alignment: Alignment.bottomCenter,
                         image: new AssetImage(
                             'assets/images/png_images/profile/coupons.png'),
                       ),

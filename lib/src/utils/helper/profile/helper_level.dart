@@ -7,11 +7,12 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 
 LevelCard userLevelProvider(int moneyBuying) {
-  return moneyBuying < int.parse(goldLevel.minPay)
-      ? moneyBuying < int.parse(silverLevel.minPay)
-          ? moneyBuying < int.parse(blueTwoPlusLevel.minPay)
-              ? moneyBuying < int.parse(bluePlusLevel.minPay)
-                  ? moneyBuying < int.parse(blueLevel.minPay)
+  print(moneyBuying);
+  return (moneyBuying < int.parse(goldLevel.minPay))
+      ? (moneyBuying < int.parse(silverLevel.minPay))
+          ? (moneyBuying < int.parse(blueTwoPlusLevel.minPay))
+              ? (moneyBuying < int.parse(bluePlusLevel.minPay))
+                  ? (moneyBuying < int.parse(blueLevel.minPay))
                       ? zeroLevel
                       : blueLevel
                   : bluePlusLevel
@@ -21,7 +22,7 @@ LevelCard userLevelProvider(int moneyBuying) {
 }
 
 LevelCard nextLevelProvider(LevelCard userLevel) {
-  return userPayment.moneyBuying < int.parse(blueLevel.minPay)
+  return userPayment.payToman < int.parse(blueLevel.minPay)
       ? blueLevel
       : userLevel.title == blueLevel.title
           ? bluePlusLevel

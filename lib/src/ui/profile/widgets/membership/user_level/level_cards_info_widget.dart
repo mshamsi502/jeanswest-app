@@ -36,7 +36,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
+    print('widget.moneyBuying ${widget.moneyBuying}');
     return Container(
       // color: Colors.white,
       child: ListView.builder(
@@ -135,7 +135,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           ),
                           child: Icon(
                             (widget.moneyBuying >=
-                                    int.parse(levels[levelIndex].maxPay))
+                                    int.parse(levels[levelIndex].minPay))
                                 ? Icons.lock_open
                                 : Icons.lock,
                             size: 0.05 * _screenSize.width, //18,

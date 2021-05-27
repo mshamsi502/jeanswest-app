@@ -15,6 +15,7 @@ import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'custom_circular_percent_indicator_widget.dart';
 
 class CurrentLevelWidget extends StatefulWidget {
+  final String userLevelName;
   final LevelCard userLevel;
   final LevelCard nextLevel;
   final int moneyBuying;
@@ -25,7 +26,8 @@ class CurrentLevelWidget extends StatefulWidget {
       this.userLevel,
       this.moneyBuying,
       this.nextLevel,
-      this.currentLevelWidgetAnimation})
+      this.currentLevelWidgetAnimation,
+      this.userLevelName})
       : super(key: key);
 
   State<StatefulWidget> createState() => _CurrentLevelWidgetState();
@@ -55,49 +57,51 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
           Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(
-              vertical: 0.015 * _screenSize.height, //10
               horizontal: 0.054 * _screenSize.width, //20
             ),
             child: Column(
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 0.023 * _screenSize.height, //15
-                  ),
-                  child: Container(
-                    height: 0.0625 * _screenSize.height, //40
-                    width: 0.555555 * _screenSize.width, //200,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 0.011824 * _screenSize.height, //7,
-                      horizontal: 0.041 * _screenSize.width, //15,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        0.0138 * _screenSize.width, //5,
+                Row(
+                  children: [
+                    Expanded(child: SizedBox()),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 0.023 * _screenSize.height, //15
                       ),
-                      color: MAIN_ORANGE_COLOR,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'سطح فعلی شما: ',
-                          style: TextStyle(
-                            fontSize: 0.0444 * _screenSize.width, //16,
-                          ),
+                      child: Container(
+                        height: 0.0625 * _screenSize.height, //40
+                        // width: 0.555555 * _screenSize.width, //200,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 0.041 * _screenSize.width, //15,
                         ),
-                        Text(
-                          widget.userLevel == zeroLevel
-                              ? ' __ '
-                              : widget.userLevel.title,
-                          textDirection: ltrTextDirection,
-                          style: TextStyle(
-                            fontSize: 0.0444 * _screenSize.width, //16,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            0.0138 * _screenSize.width, //5,
                           ),
+                          color: MAIN_ORANGE_COLOR,
                         ),
-                      ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'سطح عضویت: ',
+                              style: TextStyle(
+                                fontSize: 0.0444 * _screenSize.width, //16,
+                              ),
+                            ),
+                            Text(
+                              widget.userLevelName,
+                              textDirection: ltrTextDirection,
+                              style: TextStyle(
+                                fontSize: 0.0444 * _screenSize.width, //16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                    Expanded(child: SizedBox()),
+                  ],
                 ),
                 Container(
                   // color: Colors.red,

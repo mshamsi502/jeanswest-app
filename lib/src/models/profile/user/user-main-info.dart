@@ -28,7 +28,7 @@ class UserMainInfo {
   String monthOfBirthGeo;
   @required
   String yearOfBirthGeo;
-  // 
+  //
   String dayOfBirthShamsi;
   String monthOfBirthShamsi;
   String yearOfBirthShamsi;

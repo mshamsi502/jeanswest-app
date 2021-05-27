@@ -56,7 +56,9 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
           SizedBox(height: 0.016 * _screenSize.height //10
               ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Column(
               children: [
                 Row(
@@ -94,16 +96,21 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                           child: Html(
                               data: widget
                                   .coupon.promotionPoint.description.context,
-                              padding: EdgeInsets.all(8.0),
                               onLinkTap: (url) {
                                 print("Opening $url ...");
                               },
                               customTextStyle: (node, style) {
+                                TextStyle defaultStyle = style.apply(
+                                    fontSizeFactor: (style.fontSize /
+                                            360 *
+                                            _screenSize.width) /
+                                        style.fontSize);
                                 if (node is dom.Element) {
                                   switch (node.localName) {
                                     case "custom_tag": // using this, you can handle custom tags in your HTML
                                       return TextStyle(
-                                        fontSize: 12,
+                                        fontSize:
+                                            0.038 * _screenSize.width, //14,
                                         fontWeight: FontWeight.w400,
                                       );
                                     // case "h1": // using this, you can handle custom tags in your HTML
@@ -112,10 +119,13 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                                     //     fontWeight: FontWeight.w500,
                                     //   );
                                     //! add styles
+                                    default:
+                                      {
+                                        return defaultStyle;
+                                      }
                                   }
                                 }
-
-                                return null;
+                                return defaultStyle;
                               },
                               customRender: (node, children) {
                                 if (node is dom.Element) {
@@ -131,10 +141,16 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                               }),
                         )
                       : Container(
-                          height: 150,
+                          height: 0.234 * _screenSize.height, //150,
                           alignment: Alignment.center,
                           color: Colors.amber[200],
-                          child: Text("اطلاعاتی برای نمایش وجود ندارد"),
+                          child: Text(
+                            "اطلاعاتی برای نمایش وجود ندارد",
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
                 ),
                 SizedBox(
@@ -144,13 +160,10 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                     ? SizedBox()
                     : Row(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              "${toPriceStyle(widget.coupon.price)} تومان",
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
+                          Text(
+                            "${toPriceStyle(widget.coupon.price)} تومان",
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
                             ),
                           ),
                           Expanded(
@@ -180,7 +193,9 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
             radius: 0.008 * _screenSize.height, //5
             fontSize: 0.038 * _screenSize.width, //14,
           ),
-          SizedBox(height: 20),
+          SizedBox(
+            height: 0.031 * _screenSize.height, //20,
+          ),
         ],
       ),
     );

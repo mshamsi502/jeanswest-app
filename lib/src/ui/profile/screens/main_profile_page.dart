@@ -64,6 +64,7 @@ class _MainProfilePageState extends State<MainProfilePage>
   Color fadeBlackColor;
   ScrollController listViewScrollController;
   LevelCard userLevel;
+  String userLevelName;
   LevelCard nextLevel;
   LevelCard preLevel;
   bool haveUnreadMessage;
@@ -77,7 +78,8 @@ class _MainProfilePageState extends State<MainProfilePage>
   void initState() {
     super.initState();
     percentCompleteProfile = 100;
-    userLevel = userLevelProvider(userPayment.moneyBuying);
+    userLevelName = userPayment.cTypeName;
+    userLevel = userLevelProvider(userPayment.payToman);
     nextLevel = nextLevelProvider(userLevel);
     haveUnreadMessage = false;
     for (var i = 0; i < userMessages.length; i++) {
@@ -128,8 +130,9 @@ class _MainProfilePageState extends State<MainProfilePage>
     mainProfileListMenu = createProfileListMenuPages(
       // screenSize: widget.screenSize,
       userLevel: userLevel,
+      userLevelName: userLevelName,
       nextLevel: nextLevel,
-      moneyBuying: userPayment.moneyBuying,
+      moneyBuying: userPayment.payToman,
       rebuild: () => buildProfile(),
     );
   }
@@ -428,8 +431,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                         widget.isAuth
                             ? AuthProfileAppBarWidget(
                                 userLevel: userLevel,
+                                userLevelName: userLevelName,
                                 nextLevel: nextLevel,
-                                moneyBuying: userPayment.moneyBuying)
+                                moneyBuying: userPayment.payToman)
                             : UnauthProfileAppBarWidget(),
                         widget.isAuth
                             ? GestureDetector(

@@ -16,6 +16,7 @@ import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_pag
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
 class AuthProfileAppBarWidget extends StatefulWidget {
+  final String userLevelName;
   final LevelCard userLevel;
   final LevelCard nextLevel;
   final int moneyBuying;
@@ -25,6 +26,7 @@ class AuthProfileAppBarWidget extends StatefulWidget {
     this.userLevel,
     this.nextLevel,
     this.moneyBuying,
+    this.userLevelName,
   }) : super(key: key);
   State<StatefulWidget> createState() => _AuthProfileAppBarWidgetState();
 }
@@ -160,6 +162,8 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                               ],
                                               tabWidgets: [
                                                 MembershipLevelPage(
+                                                  userLevelName:
+                                                      widget.userLevelName,
                                                   userLevel: widget.userLevel,
                                                   nextLevel: widget.nextLevel,
                                                   moneyBuying:

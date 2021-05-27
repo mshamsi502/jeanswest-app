@@ -73,6 +73,13 @@ class _TabBarViewPageState extends State<TabBarViewPage>
                     controller: tabController,
                     labelColor: MAIN_BLUE_COLOR,
                     indicatorColor: MAIN_BLUE_COLOR,
+                    unselectedLabelColor: Colors.grey[800],
+                    unselectedLabelStyle: TextStyle(
+                        fontSize: 0.034 * _screenSize.width, //12,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'IRANSans'),
+
+                    // MAIN_BLUE_COLOR,,
                     labelStyle: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                         fontWeight: FontWeight.w600,

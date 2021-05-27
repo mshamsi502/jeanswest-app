@@ -35,11 +35,17 @@ class _CustomCircularPercentIndicatorWidgetState
     extends State<CustomCircularPercentIndicatorWidget> {
   bool isEndAnimation;
   int loadPercent;
+  String orgPercent;
 
   @override
   void initState() {
     loadPercent = 0;
     isEndAnimation = false;
+    orgPercent = ((double.parse(widget.userLevel.maxPay) - widget.moneyBuying) /
+            (double.parse(widget.userLevel.maxPay) -
+                double.parse(widget.userLevel.minPay)) *
+            100)
+        .toStringAsFixed(0);
     percentAnimation();
     super.initState();
   }
@@ -61,16 +67,17 @@ class _CustomCircularPercentIndicatorWidgetState
           percent: widget.userLevel.title == 'Gold'
               // ? 0.75
               ? 1
-              : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
-                  (double.parse(widget.userLevel.maxPay) -
-                      double.parse(widget.userLevel.minPay)),
+              : int.parse(orgPercent) / 100,
+          // : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
+          //     (double.parse(widget.userLevel.maxPay) -
+          //         double.parse(widget.userLevel.minPay)),
           center: AnimatedSwitcher(
             duration: const Duration(milliseconds: 50),
             child: Padding(
               padding: EdgeInsets.only(top: 0.0078 * _screenSize.height //5,
                   ),
               child: Text(
-                '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : ((widget.moneyBuying - double.parse(widget.userLevel.minPay)) / (double.parse(widget.userLevel.maxPay) - double.parse(widget.userLevel.minPay)) * 100).toStringAsFixed(0) : loadPercent} %',
+                '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : orgPercent : loadPercent} %',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 0.05 * _screenSize.width, //18,
