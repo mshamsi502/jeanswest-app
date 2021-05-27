@@ -87,40 +87,46 @@ Map<String, String> stringSplitDate(String date) {
     'min': '00',
     'sec': '00',
   };
-  if (date.length == 10) {
-    // ! date : "2022-06-12"
-    String year = date.substring(0, 4);
-    String month = date.substring(5, 7);
-    String day = date.substring(8, 10);
-    map = {
-      'year': year,
-      'month': month,
-      'day': day,
-    };
-  } else if (date.length == 19) {
-    String year = date.substring(0, 4);
-    String month = date.substring(5, 7);
-    String day = date.substring(8, 10);
-    String hour = date.substring(11, 13);
-    String min = date.substring(14, 16);
-    String sec = date.substring(17, 19);
-    map = {
-      'year': year,
-      'month': month,
-      'day': day,
-      'hour': hour,
-      'min': min,
-      'sec': sec,
-    };
+  if (date != null) {
+    if (date.length == 10) {
+      // ! date : "2022-06-12"
+      String year = date.substring(0, 4);
+      String month = date.substring(5, 7);
+      String day = date.substring(8, 10);
+      map = {
+        'year': year,
+        'month': month,
+        'day': day,
+      };
+    } else if (date.length == 19) {
+      String year = date.substring(0, 4);
+      String month = date.substring(5, 7);
+      String day = date.substring(8, 10);
+      String hour = date.substring(11, 13);
+      String min = date.substring(14, 16);
+      String sec = date.substring(17, 19);
+      map = {
+        'year': year,
+        'month': month,
+        'day': day,
+        'hour': hour,
+        'min': min,
+        'sec': sec,
+      };
+    }
   }
   return map;
 }
 
 String stringMergeDate(Map<String, String> date) {
-  String year = date['year'];
-  String mouth = date['month'];
-  String day = date['day'];
-
+  String year = "00";
+  String mouth = "00";
+  String day = "00";
+  if (date != null) {
+    year = date['year'];
+    mouth = date['month'];
+    day = date['day'];
+  }
   return '$year-$mouth-$day';
 }
 

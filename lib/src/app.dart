@@ -13,7 +13,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/utils/helper/initCreate/init-create.dart';
 
 class MyApp extends StatefulWidget {
@@ -59,8 +59,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 
   auth() async {
-    Map<String, dynamic> authServiceRes =
-        await authService();
+    Map<String, dynamic> authServiceRes = await authService();
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];

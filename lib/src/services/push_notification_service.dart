@@ -1,14 +1,14 @@
 import 'dart:io';
 
-
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/global/route_names.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/route_names.dart';
 import 'package:jeanswest/src/services/navigation_service.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
-  final NavigationService _navigationService = globalLocator<NavigationService>();
+  final NavigationService _navigationService =
+      globalLocator<NavigationService>();
 
   Future initialise() async {
     if (Platform.isIOS) {

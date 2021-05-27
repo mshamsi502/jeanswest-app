@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/district/district.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
@@ -31,7 +31,6 @@ Future<List<AddressInfoRes>> userAddressesInfo() async {
     }
   }
   if (addRes.statusCode == 200) {
-    print('***************************************************************');
     print(
         '_=_ get successfully, userAddresses length: ${userAddresses.length}');
     print(

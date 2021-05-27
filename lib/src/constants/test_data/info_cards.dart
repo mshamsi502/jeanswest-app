@@ -5,7 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/ui/global/widgets/info_card_widget/info_card_with_title_widget.dart';
 
@@ -84,9 +84,8 @@ List<Widget> buildOnlineReturnProcessChildren(Size _screenSize) {
       height: 0.138 * _screenSize.width, //50,
       width: 0.138 * _screenSize.width, //50,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-         0.0078 * _screenSize.height //5,
-        ),
+        borderRadius: BorderRadius.circular(0.0078 * _screenSize.height //5,
+            ),
         image: DecorationImage(
           fit: BoxFit.cover,
           image: new AssetImage(

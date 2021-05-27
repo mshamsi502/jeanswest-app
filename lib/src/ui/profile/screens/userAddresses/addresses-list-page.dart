@@ -6,14 +6,13 @@ import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddresses
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-in-list-widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-detail-widget.dart';
 
 class AddressesListPage extends StatefulWidget {
-
   final String title;
   AddressesListPage({
     Key key,

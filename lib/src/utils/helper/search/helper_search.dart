@@ -3,7 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/constants/global/arabic_to_persian.dart';
+import 'package:jeanswest/src/constants/global/constValues/arabic_to_persian.dart';
 
 /// => ،this method of search get a [String] from user and Split [String] to [List] of [String] as word by word (plus a space " ")
 /// ex. : "Hello. I am Ali" ==> [List] {" ", "Hello.", "I", "am", "Ali"}

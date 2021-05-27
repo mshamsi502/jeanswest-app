@@ -4,7 +4,7 @@
 // //****************************************************************************
 
 // import 'package:jeanswest/src/constants/global/colors.dart';
-// import 'package:jeanswest/src/constants/global/constants.dart';
+// 'package:jeanswest/src/constants/global/constValues/constants.dart';
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';

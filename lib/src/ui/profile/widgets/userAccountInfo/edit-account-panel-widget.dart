@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-info-widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 class EditAccountPanelWidget extends StatefulWidget {
   final List<dynamic> userData;

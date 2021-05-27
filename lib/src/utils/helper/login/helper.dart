@@ -5,9 +5,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:jeanswest/src/constants/global/api_respones.dart';
+import 'package:jeanswest/src/constants/global/constValues/api_respones.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';

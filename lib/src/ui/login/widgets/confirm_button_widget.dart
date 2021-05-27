@@ -3,8 +3,8 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/api_respones.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/api_respones.dart';
 // import 'package:jeanswest/src/models/country/country.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

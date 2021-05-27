@@ -6,9 +6,9 @@
 import 'dart:ui';
 
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:jeanswest/src/constants/global/api_respones.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/api_respones.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/size_constants.dart';
 import 'package:jeanswest/src/constants/login/country_code_list.dart';
 import 'package:jeanswest/src/models/country/country.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_code_widget.dart';

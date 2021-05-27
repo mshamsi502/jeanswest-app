@@ -73,22 +73,17 @@ dependencies:
   #  cloud_firestore: ^0.5.0
   cloud_firestore: any
   # cloud_firestore: ^2.2.0
-#
-  # firebase_core: ^1.0.0
-  # firebase_core_platform_interface: ^3.0.0
-  # plugin_platform_interface: ^1.0.2
-  # plugin_platform_interface: ^2.0.0
-  # plugin_platform_interface: ">=1.0.2 <2.0.0"
-  # plugin_platform_interface: any
 #----------------UI Widgets-----------------
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.3
+  # cupertino_icons: ^0.1.3
+  cupertino_icons: ^1.0.3
   percent_indicator: ^2.1.9+1
   sliding_up_panel: ^1.0.2
-  flutter_svg: ^0.19.3
+  # flutter_svg: ^0.19.3
+  flutter_svg: ^0.22.0
   #! flare_flutter: ^2.0.6
-  dotted_border: ^1.0.7
+  dotted_border: ^2.0.0
   fdottedline: ^1.0.1
   carousel_slider: ^3.0.0
   configurable_expansion_tile: ^1.0.0
@@ -103,6 +98,7 @@ dependencies:
 #----------------Converts-----------------
   qr_flutter: ^4.0.0
   shamsi_date: ^0.9.1
+  flutter_html: any
 
 #----------------Map-----------------
   # google_maps_flutter: ^2.0.3
@@ -123,7 +119,11 @@ dependencies:
   search_map_place: ^0.3.0
   # google_map_location_picker: ^4.1.7
   # mapbox_search_flutter: ^1.0.6+1
+
+  
 #-------------------------------------------------------------------
+
+
 
 dev_dependencies:
   flutter_test:

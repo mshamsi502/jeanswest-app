@@ -3,9 +3,9 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 //
-const bool MANUAL_TOKEN_IS_ENABLE = false;
+const bool MANUAL_TOKEN_IS_ENABLE = true;
 const String MANUAL_TOKEN =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4YjQzNzhlMS1hNjI2LTQwZWYtYWE0Yy05YWE3MmEyOGUyZmEiLCJpYXQiOjE2MjE5NDQxNDQsImV4cCI6MTYyMTk2MjE0NH0.ua_691b8IqZBdwJ35Y41HTOLavquQjlkyHx0QMI-KkM';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4YjQzNzhlMS1hNjI2LTQwZWYtYWE0Yy05YWE3MmEyOGUyZmEiLCJpYXQiOjE2MjIxMDA2NzgsImV4cCI6MTYyMjExODY3OH0.i01fYrMuqLEWCTTbfwCVAstf3BO2WoevkOzTfqt5cpw';
 
 //
 const bool MOCK_IS_ENABLE = true;

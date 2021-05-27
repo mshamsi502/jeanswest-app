@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:dio/dio.dart';
-import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/size_constants.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';

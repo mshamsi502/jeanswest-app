@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';

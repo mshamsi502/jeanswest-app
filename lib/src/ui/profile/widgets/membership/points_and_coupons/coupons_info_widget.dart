@@ -5,7 +5,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
@@ -39,6 +39,16 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
       itemCount: widget.coupons.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) {
+        String usingDate = "مدت اعتبار ";
+        usingDate = (widget.coupons[index].startDate == null)
+            ? usingDate
+            : (usingDate +
+                "از ${widget.coupons[index].startYearShamsi}/${widget.coupons[index].startMonthShamsi}/${widget.coupons[index].startDayShamsi} ");
+        usingDate = (widget.coupons[index].expirationDate == null)
+            ? usingDate
+            : (usingDate +
+                "تا ${widget.coupons[index].endYearShamsi}/${widget.coupons[index].endMonthShamsi}/${widget.coupons[index].endDayShamsi}");
+
         return Container(
           width: _screenSize.width,
           // height: 75,
@@ -106,15 +116,14 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
                                 SizedBox(
                                   width: 0.083 * _screenSize.width, //30
                                 ),
-                                // Text(
-                                //   // '',
-                                //   'مدت اعتبار از تاریخ ${widget.coupons[index].yearOfStartDate}/${widget.coupons[index].monthOfStartDate}/${widget.coupons[index].dayOfStartDate} تا ${widget.coupons[index].yearOfEndDate}/${widget.coupons[index].monthOfEndDate}/${widget.coupons[index].dayOfEndDate}',
-                                //   style: TextStyle(
-                                //     fontSize: 0.0333 * _screenSize.width, //12,
-                                //     color: Colors.grey,
-                                //     fontWeight: FontWeight.w300,
-                                //   ),
-                                // ),
+                                Text(
+                                  usingDate,
+                                  style: TextStyle(
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
                               ],
                             )
                           ],

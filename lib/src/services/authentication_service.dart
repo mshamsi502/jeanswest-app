@@ -2,7 +2,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter/foundation.dart';
 // // import 'package:compound/services/firestore_service.dart';
-// import 'package:jeanswest/src/constants/global/constants.dart';
+// 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/user.dart';
 
 class AuthenticationService {

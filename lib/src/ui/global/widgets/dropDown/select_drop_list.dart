@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/dropDown/drop-list-model.dart';
 
 class SelectDropList extends StatefulWidget {

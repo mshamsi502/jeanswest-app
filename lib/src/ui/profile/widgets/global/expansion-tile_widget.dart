@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'dart:math' as math;
 
-import 'package:jeanswest/src/constants/global/colors.dart'; // im
+import 'package:jeanswest/src/constants/global/constValues/colors.dart'; // im
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart'; // im
 
 class ExpansionTileWidget extends StatefulWidget {

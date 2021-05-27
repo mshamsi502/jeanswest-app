@@ -12,7 +12,7 @@ import 'package:flutter/painting.dart';
 import 'package:intent/action.dart' as android_action;
 import 'package:intent/intent.dart' as android_intent;
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 
 class DirectionButtonWidget extends StatefulWidget {

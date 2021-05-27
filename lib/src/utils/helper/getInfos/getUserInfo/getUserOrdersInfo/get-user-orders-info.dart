@@ -1,7 +1,7 @@
 //
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 // import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/data-order-result-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
@@ -21,7 +21,7 @@ Future<void> userOrdersInfo() async {
   } catch (e) {
     printErrorMessage(e);
   }
- 
+
   print(
       '_=_ get successfully, offlineOrders length: ${userOrdersa.offlineOrders.length}');
   print(

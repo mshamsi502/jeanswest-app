@@ -3,10 +3,11 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 
@@ -25,6 +26,11 @@ class CopounDetailPanelWidget extends StatefulWidget {
 
 class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
   ScrollController scrollController = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,115 +84,87 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 0.023 * _screenSize.height, //15
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "${toPriceStyle(widget.coupon.price)} تومان",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
+                SizedBox(height: 0.016 * _screenSize.height //10
                     ),
-                    Expanded(
-                      child: SizedBox(),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 0.287162 * _screenSize.height, //170
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Column(
-                      children: [
-                        // ListView.builder(
-                        //   controller: scrollController,
-                        //   itemCount: widget.coupon.description.length,
-                        //   shrinkWrap: true,
-                        //   itemBuilder: (BuildContext context, int index) {
-                        //     return Row(
-                        //       crossAxisAlignment: CrossAxisAlignment.center,
-                        //       children: [
-                        //         SizedBox(
-                        //           width: 0.027 * _screenSize.width, //10,
-                        //         ),
-                        //         Container(
-                        //           height: 0.0194 * _screenSize.width, //7,
-                        //           width: 0.0194 * _screenSize.width, //7,
-                        //           decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(
-                        //               0.138 * _screenSize.width, //50,
-                        //             ),
-                        //             color: MAIN_BLUE_COLOR,
-                        //           ),
-                        //         ),
-                        //         SizedBox(
-                        //           width: 0.027 * _screenSize.width, //10,
-                        //         ),
-                        //         Expanded(
-                        //             child: Text(
-                        //           widget.coupon.description[index],
-                        //           style: TextStyle(
-                        //             fontSize: 0.0333 * _screenSize.width, //12,
-                        //           ),
-                        //         )),
-                        //       ],
-                        //     );
-                        //   },
-                        // ),
+                SingleChildScrollView(
+                  controller: scrollController,
+                  child: widget.coupon.promotionPoint.description != null
+                      ? Align(
+                          alignment: Alignment.centerRight,
+                          child: Html(
+                              data: widget
+                                  .coupon.promotionPoint.description.context,
+                              padding: EdgeInsets.all(8.0),
+                              onLinkTap: (url) {
+                                print("Opening $url ...");
+                              },
+                              customTextStyle: (node, style) {
+                                if (node is dom.Element) {
+                                  switch (node.localName) {
+                                    case "custom_tag": // using this, you can handle custom tags in your HTML
+                                      return TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                      );
+                                    // case "h1": // using this, you can handle custom tags in your HTML
+                                    //   return TextStyle(
+                                    //     fontSize: 14,
+                                    //     fontWeight: FontWeight.w500,
+                                    //   );
+                                    //! add styles
+                                  }
+                                }
 
-                        widget.coupon.startDate != null ||
-                                widget.coupon.expirationDate != null
-                            ? Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'مهلت استفاده : ',
-                                        style: TextStyle(
-                                          fontSize:
-                                              0.038 * _screenSize.width, //14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'از ${widget.coupon.startDayShamsi}-${widget.coupon.startMonthShamsi}-${widget.coupon.startYearShamsi}',
-                                        style: TextStyle(
-                                          fontSize:
-                                              0.038 * _screenSize.width, //14,
-                                        ),
-                                      ),
-                                      Text(
-                                        'تا ${widget.coupon.endDayShamsi}-${widget.coupon.endMonthShamsi}-${widget.coupon.endYearShamsi}',
-                                        style: TextStyle(
-                                          fontSize:
-                                              0.038 * _screenSize.width, //14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            : SizedBox(),
-                      ],
-                    ),
-                  ),
+                                return null;
+                              },
+                              customRender: (node, children) {
+                                if (node is dom.Element) {
+                                  switch (node.localName) {
+                                    case "custom_tag": // using this, you can handle custom tags in your HTML
+                                      return Column(children: children);
+                                  }
+                                }
+                                return null;
+                              },
+                              customTextAlign: (node) {
+                                return TextAlign.right;
+                              }),
+                        )
+                      : Container(
+                          height: 150,
+                          alignment: Alignment.center,
+                          color: Colors.amber[200],
+                          child: Text("اطلاعاتی برای نمایش وجود ندارد"),
+                        ),
                 ),
+                SizedBox(
+                  height: 0.027 * _screenSize.width, //10,
+                ),
+                widget.coupon.price == null || widget.coupon.price == 0
+                    ? SizedBox()
+                    : Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              "${toPriceStyle(widget.coupon.price)} تومان",
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: SizedBox(),
+                          ),
+                        ],
+                      ),
               ],
             ),
           ),
           SizedBox(
             height: 0.027 * _screenSize.width, //10,
           ),
+          Expanded(child: SizedBox()),
           AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
@@ -202,9 +180,7 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
             radius: 0.008 * _screenSize.height, //5
             fontSize: 0.038 * _screenSize.width, //14,
           ),
-          SizedBox(
-            height: 0.027 * _screenSize.width, //10,
-          ),
+          SizedBox(height: 20),
         ],
       ),
     );

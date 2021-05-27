@@ -3,7 +3,7 @@
 // *   Created Date & Time :  2020-10-11  ,  12:33 PM
 // ****************************************************************************
 
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/offlineOrder/user-offline-order-res.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline-order_info_widget.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';

@@ -1,7 +1,7 @@
 //
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMessages/user-messages-info-res.dart';
 import 'package:jeanswest/src/models/profile/message/single-message.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
