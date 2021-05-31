@@ -721,7 +721,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/membershipLevelCards/list',
+        'http://10.0.1.111:8000/api/v1/membershipLevelCards/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

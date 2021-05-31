@@ -55,6 +55,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     showButtonNavigationBar = true;
     isFirstLaunchBranch = true;
     loading = 'Loading';
+
     // ! check user auth and Create Pages
     auth();
     createEasyLoading();

@@ -47,67 +47,76 @@ Future<Map<String, dynamic>> authService() async {
   //
   if (MANUAL_TOKEN_IS_ENABLE) {
     // ! put token in device
-    globalLocator<SharedPreferences>().setString(
-      TOKEN,
-      MANUAL_TOKEN,
-    );
+    if (sharedPrefs == null) {
+      sharedPrefs = await SharedPreferences.getInstance();
+    } else
+      sharedPrefs.setString(
+        TOKEN,
+        MANUAL_TOKEN,
+      );
   }
   //
-
-  String getToken = globalLocator<SharedPreferences>().getString(TOKEN) ?? "";
+  String getToken = "";
+  if (sharedPrefs == null) {
+    sharedPrefs = await SharedPreferences.getInstance();
+  } else
+    getToken = sharedPrefs.getString(TOKEN) ?? "";
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
-  bool isAuth = false;
+
 //
   bool hasNet = await checkConnectionInternet();
   bool tokenIsExpired = false;
+  bool isAuth = false;
+  int tryToGetAllUser = tryToGetAllUserInfo;
   if (hasNet) {
     if (getToken != null) {
+      print('user is Auth : $isAuth');
       print('user Have TOKEN : $getToken');
-      if (!isAuth) {
-        while (tryToGetAllUserInfo >= 0) {
-          try {
-            await getAllUserInfo(noAuth: () {
-              // =>
+      print('tryToGetAllUser : $tryToGetAllUserInfo');
+      // if (!isAuth) {
+      while (tryToGetAllUser >= 0) {
+        try {
+          await getAllUserInfo(noAuth: () {
+            // =>
 
-              tryToGetAllUserInfo = 0;
-              isAuth = false;
-              tokenIsExpired = true;
-            });
-            if (!tokenIsExpired) {
-              isAuth = true;
-              print('^*^*^ getAllUserInfo : Successfully');
-              Map<String, dynamic> initCreateRes =
-                  createBottomNavigationBarPages(
-                isAuth: isAuth,
-                // screenSize: screenSize,
-              );
-              print('created BottomNavigationBarPages');
-              _children = initCreateRes['children'];
-              pagesCreatedFinished = initCreateRes['success'];
-              //
-              checkCompleteProfileMsgDateTime();
-              //
-              return {
-                'userIsAuth': isAuth,
-                'pagesCreatedFinished': pagesCreatedFinished,
-                'children': _children,
-              };
-            }
-          } catch (e) {
-            print('^*^*^ getAllUserInfo : NOOOT Successfully');
-
-            // printErrorMessage(e);
+            tryToGetAllUserInfo = 0;
             isAuth = false;
-            tryToGetAllUserInfo--;
-            print('try to getAllUser : remaind $tryToGetAllUserInfo time');
+            tokenIsExpired = true;
+          });
+          if (!tokenIsExpired) {
+            isAuth = true;
+            print('^*^*^ getAllUserInfo : Successfully');
+            Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
+              isAuth: isAuth,
+              // screenSize: screenSize,
+            );
+            print('created BottomNavigationBarPages');
+            _children = initCreateRes['children'];
+            pagesCreatedFinished = initCreateRes['success'];
             //
+            checkCompleteProfileMsgDateTime();
+            //
+            return {
+              'userIsAuth': isAuth,
+              'pagesCreatedFinished': pagesCreatedFinished,
+              'children': _children,
+            };
           }
+        } catch (e) {
+          print('^*^*^ getAllUserInfo : NOOOT Successfully');
+
+          // printErrorMessage(e);
+          isAuth = false;
+          tryToGetAllUser--;
+          print('try to getAllUser : remaind $tryToGetAllUserInfo time');
+          //
         }
-        // ! server is down, try agian
-        isAuth = false;
       }
+      // ! server is down, try agian
+      isAuth = false;
+      // }
     } else {
       print('user NOOOT Have TOKEN!!');
       isAuth = false;

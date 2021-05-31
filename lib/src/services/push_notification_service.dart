@@ -40,6 +40,7 @@ class PushNotificationService {
     // );
   }
 
+  // ignore: unused_element
   void _serialiseAndNavigate(Map<String, dynamic> message) {
     var notificationData = message['data'];
     var view = notificationData['view'];

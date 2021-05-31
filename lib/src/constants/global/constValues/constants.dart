@@ -7,6 +7,7 @@
 import 'dart:ui';
 
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const String TOKEN = 'token';
 //
@@ -23,7 +24,9 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 bool isInit = true;
 bool userIsAuth = false;
 
+
 String completeProfileMsgDateTime = '';
 
 GetIt globalLocator = GetIt.instance;
 
+SharedPreferences sharedPrefs;

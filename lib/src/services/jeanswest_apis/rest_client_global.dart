@@ -211,7 +211,7 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          LEVEL CARDS ****************************************************
 
-  @GET('http://10.0.1.111:8000/api/membershipLevelCards/list')
+  @GET('http://10.0.1.111:8000/api/v1/membershipLevelCards/list')
   Future<LevelCardsRes> getLevelCardsInfo();
 
   // *          ADRRESS ********************************************************

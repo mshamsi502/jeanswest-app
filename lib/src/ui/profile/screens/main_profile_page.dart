@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
@@ -16,7 +17,6 @@ import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.da
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
@@ -102,7 +102,6 @@ class _MainProfilePageState extends State<MainProfilePage>
   }
 
   updateUserTickets(List<DataTicket> tickets) {
-    
     setState(() {
       userTickets = tickets;
     });
@@ -184,8 +183,9 @@ class _MainProfilePageState extends State<MainProfilePage>
             ),
           ),
           panel: CardsInfoWidget(
-            assetsLevelCard: assetsLevelCard,
-            levels: mainLevels,
+            levelCards: levelCardsData,
+            // assetsLevelCard: assetsLevelCard,
+            // levels: mainLevels,
             screenSize: _screenSize,
             closeCardsInfoPanel: () => cardsInfoPanel.close(),
             showingCard: showingCard,

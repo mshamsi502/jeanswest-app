@@ -105,8 +105,8 @@ Future<void> getAllUserInfo({@required Function noAuth}) async {
         'GLOBAL_ABOUT_US ****************************************************');
     await getAboutUsInfo();
     //
-    // print('***************************************************************');
-    // await getLevelCardsInfo();
+    print('***************************************************************');
+    await getLevelCardsInfo();
     //
     print(
         'GLOBAL_INVITE_FRIENDS_FAQ *********************************************');
