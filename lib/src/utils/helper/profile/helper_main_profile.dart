@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -22,6 +24,8 @@ import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.da
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/favoritesList/favorites-list-screen.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/about-us-data.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
 
@@ -51,7 +55,7 @@ List<Widget> createProfileListMenuPages({
       ],
       tabWidgets: [
         MembershipLevelPage(
-          userLevelName : userLevelName,
+          userLevelName: userLevelName,
           userLevel: userLevel,
           nextLevel: nextLevel,
           moneyBuying: moneyBuying,
@@ -88,9 +92,17 @@ List<Widget> createProfileListMenuPages({
 List<Widget> createMoreListMenuPages() {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
-  profileListMenu.add(SupportPage());
-  profileListMenu.add(AboutUsPage());
-  profileListMenu.add(ReturnProcessPage(initialTab: 0));
+  profileListMenu.add(SupportPage(
+    userTickets: userTickets,
+    updateUserTickets: (List<DataTicket> tickets) => userTickets = tickets,
+  ));
+  profileListMenu.add(AboutUsPage(
+    aboutUsData: aboutUsData,
+  ));
+  profileListMenu.add(ReturnProcessPage(
+    initialTab: 0,
+    returnProciyData: returnPolicyData,
+  ));
   return profileListMenu;
 }
 

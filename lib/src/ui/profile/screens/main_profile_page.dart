@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
@@ -16,6 +17,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -70,6 +72,7 @@ class _MainProfilePageState extends State<MainProfilePage>
   bool haveUnreadMessage;
   List<Widget> mainProfileListMenu;
   List<Widget> moreListMenu;
+  List<Widget> moreListWidgets;
   //
   int percentCompleteProfile;
   int showingCard = 0;
@@ -77,24 +80,32 @@ class _MainProfilePageState extends State<MainProfilePage>
   @override
   void initState() {
     super.initState();
-    percentCompleteProfile = 100;
-    userLevelName = userPayment.cTypeName;
-    userLevel = userLevelProvider(userPayment.payToman);
-    nextLevel = nextLevelProvider(userLevel);
-    haveUnreadMessage = false;
-    for (var i = 0; i < userMessages.length; i++) {
-      // if (!userMessages[i].readed) {
-      //   haveUnreadMessage = true;
-      //   break;
-      // } else {
-      //   haveUnreadMessage = false;
-      // }
-      scrollController = new ScrollController();
-      logOutPanel = new PanelController();
-      cardsInfoPanel = new PanelController();
-      buildProfile();
-      moreListMenu = createMoreListMenuPages();
+    if (widget.isAuth) {
+      percentCompleteProfile = 100;
+      userLevelName = userPayment.cTypeName;
+      userLevel = userLevelProvider(userPayment.payToman);
+      nextLevel = nextLevelProvider(userLevel);
+      haveUnreadMessage = false;
+
+      for (var i = 0; i < userMessages.length; i++) {
+        scrollController = new ScrollController();
+        logOutPanel = new PanelController();
+        cardsInfoPanel = new PanelController();
+        buildProfile();
+        moreListMenu = createMoreListMenuPages();
+        moreListWidgets = createMorePages(
+          context: context,
+          updateUserTickets: updateUserTickets,
+        );
+      }
     }
+  }
+
+  updateUserTickets(List<DataTicket> tickets) {
+    
+    setState(() {
+      userTickets = tickets;
+    });
   }
 
   buildProfile() {

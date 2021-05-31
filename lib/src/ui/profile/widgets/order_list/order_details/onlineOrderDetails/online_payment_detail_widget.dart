@@ -157,7 +157,7 @@ class _PaymentDetailWidgetState extends State<PaymentDetailWidget> {
                 Row(
                   children: [
                     Text(
-                      (totalOrgPrice - discountedPrice) > 0.0
+                      (totalOrgPrice - discountedPrice) > 0
                           ? toPriceStyle(totalOrgPrice - discountedPrice)
                           : '0',
                       style: TextStyle(

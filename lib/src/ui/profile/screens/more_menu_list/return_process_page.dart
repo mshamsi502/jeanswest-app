@@ -7,15 +7,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/test_data/info_cards.dart';
-import 'package:jeanswest/src/constants/test_data/texts.dart';
+
+import 'package:jeanswest/src/models/api_response/globalRes/ReturnPolicy/return-policy-data.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/return_process_widget.dart';
 
 class ReturnProcessPage extends StatefulWidget {
   final int initialTab;
+  final ReturnPolicyData returnProciyData;
 
-  const ReturnProcessPage({Key key, this.initialTab}) : super(key: key);
+  const ReturnProcessPage(
+      {Key key, this.initialTab, @required this.returnProciyData})
+      : super(key: key);
   @override
   _ReturnProcessPageState createState() => _ReturnProcessPageState();
 }
@@ -26,18 +29,10 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
   TabController tabController;
   ScrollController scrollController;
 
-  List<String> texts;
   @override
   void initState() {
     scrollController = new ScrollController();
-    texts = [
-      longLoremIpsum,
-      shortLoremIpsum1,
-      veryShortLoremIpsum,
-      shortLoremIpsum2,
-      medLoremIpsum,
-      longLoremIpsum
-    ];
+
     tabController = new TabController(
         initialIndex: widget.initialTab, length: 2, vsync: this);
     tabController.addListener(() {
@@ -96,18 +91,18 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
                               controller: tabController,
                               children: <Widget>[
                                 ReturnProcessWidget(
-                                  assetHeader:
-                                      'assets/images/png_images/profile/more/return-proccess.png',
-                                  children: buildOnlineReturnProcessChildren(
-                                      _screenSize),
-                                  texts: texts,
+                                  assetHeader: widget.returnProciyData.picture,
+                                  text: widget.returnProciyData.header,
+                                  describtion: widget.returnProciyData.terms,
+                                  phoneNumber:
+                                      widget.returnProciyData.phoneNumber,
                                 ),
                                 ReturnProcessWidget(
-                                  assetHeader:
-                                      'assets/images/png_images/profile/more/return-proccess.png',
-                                  children: buildOnlineReturnProcessChildren(
-                                      _screenSize),
-                                  texts: texts,
+                                  assetHeader: widget.returnProciyData.picture,
+                                  text: widget.returnProciyData.header,
+                                  describtion: widget.returnProciyData.terms,
+                                  phoneNumber:
+                                      widget.returnProciyData.phoneNumber,
                                 ),
                               ],
                             ),

@@ -9,7 +9,7 @@ import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 
 class InfoCardWidget extends StatefulWidget {
-  final List<String> text;
+  final String text;
   final List<Widget> icon;
   final String imagePAth;
   final TextDirection customDirection;
@@ -35,15 +35,9 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
   Widget body;
   Size size;
   var keyContext;
-  String totalText;
 
   @override
   void initState() {
-    totalText = '';
-    for (int i = 0; i < widget.text.length; i++) {
-      totalText = '$totalText${i == 0 ? '' : '\n'}${widget.text[i]}';
-    }
-    print(totalText);
     WidgetsBinding.instance.addPostFrameCallback((_) => getSize());
     imageSize = 0.27 * widget.screenSize.width; //100,
     super.initState();
@@ -93,7 +87,8 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
       child: Directionality(
         textDirection: widget.customDirection,
         child: DropCapText(
-          totalText,
+          // totalText,
+          widget.text,
           // textAlign: TextAlign.justify,
           mode: DropCapMode.baseline,
           style: TextStyle(
@@ -103,19 +98,31 @@ class _InfoCardWidgetState extends State<InfoCardWidget> {
           ),
           textDirection: rtlTextDirection,
           dropCapPosition:
-              widget.isEven ? DropCapPosition.start : DropCapPosition.end,
+              widget.isEven ? DropCapPosition.end : DropCapPosition.start,
           dropCapPadding: EdgeInsets.all(
             0.0138 * _screenSize.width, //5,
           ),
-
           dropCap: DropCap(
-            width: 0.33333 * _screenSize.width, //120,
-            height: 0.33333 * _screenSize.width, //120,
+            width: 0.27 * _screenSize.width, //100,
+            //0.33333 * _screenSize.width, //120,
+            height: 0.27 * _screenSize.width, //100,
+            //0.33333 * _screenSize.width, //120,
             child: Container(
-                padding: EdgeInsets.all(
-                  0.027 * _screenSize.width, //10,
+              padding: EdgeInsets.all(
+                0.027 * _screenSize.width, //10,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  0.27 * _screenSize.width, //100,
                 ),
-                child: Image.asset(widget.imagePAth)),
+                image: DecorationImage(
+                  fit: BoxFit.fitHeight,
+                  image: NetworkImage(
+                    widget.imagePAth,
+                  ),
+                ),
+              ),
+            ),
           ),
           //   );
           // },

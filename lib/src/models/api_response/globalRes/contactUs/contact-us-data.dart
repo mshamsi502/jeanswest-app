@@ -11,15 +11,15 @@ part 'contact-us-data.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class ContactUsData extends Equatable {
-  @JsonKey(name: 'addresses')
-  String addresses;
+  @JsonKey(name: 'email')
+  String email;
   @JsonKey(name: 'phone')
   String phone;
   @JsonKey(name: 'fax')
   String fax;
 
   ContactUsData({
-    this.addresses,
+    this.email,
     this.phone,
     this.fax,
   });
@@ -32,7 +32,7 @@ class ContactUsData extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'addresses': addresses,
+      'email': email,
       'phone': phone,
       'fax': fax,
     };
@@ -40,7 +40,7 @@ class ContactUsData extends Equatable {
 
   @override
   List<Object> get props => [
-        addresses,
+        email,
         phone,
         fax,
       ];

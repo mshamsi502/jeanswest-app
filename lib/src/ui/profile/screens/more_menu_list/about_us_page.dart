@@ -8,32 +8,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
-import 'package:jeanswest/src/constants/test_data/texts.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/info_card_widget/info_card_widget.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/aboutUs/about-us-data.dart';
 
 class AboutUsPage extends StatefulWidget {
+  final AboutUsData aboutUsData;
+
+  const AboutUsPage({Key key, @required this.aboutUsData}) : super(key: key);
+
   @override
   _AboutUsPageState createState() => _AboutUsPageState();
 }
 
 class _AboutUsPageState extends State<AboutUsPage> {
-  List<List<String>> texts;
-  List<String> assets;
-  @override
-  void initState() {
-    texts = [
-      [medLoremIpsum],
-      [medLoremIpsum, shortLoremIpsum2],
-      [shortLoremIpsum1, shortLoremIpsum2],
-    ];
-    assets = [
-      'assets/images/png_images/profile/more/shopping-three.png',
-      'assets/images/png_images/profile/more/shopping-two.png',
-      'assets/images/png_images/profile/more/shopping-three.png',
-    ];
-    super.initState();
-  }
+  // List<List<String>> texts;
+  // List<String> assets;
+  // @override
+  // void initState() {
+  //   // texts = [
+  //   //   [medLoremIpsum],
+  //   //   [medLoremIpsum, shortLoremIpsum2],
+  //   //   [shortLoremIpsum1, shortLoremIpsum2],
+  //   // ];
+  //   // assets = [
+  //   //   'assets/images/png_images/profile/more/shopping-three.png',
+  //   //   'assets/images/png_images/profile/more/shopping-two.png',
+  //   //   'assets/images/png_images/profile/more/shopping-three.png',
+  //   // ];
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +75,14 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                 ),
                                 image: DecorationImage(
                                   fit: BoxFit.fitHeight,
-                                  image: new AssetImage(
-                                    'assets/images/png_images/profile/more/in-store.png',
-                                    // 'assets/images/png_images/profile/more/family_trust.png',
+                                  image: NetworkImage(
+                                    widget.aboutUsData.banner.picture,
                                   ),
+                                  //  new AssetImage(
+
+                                  // 'assets/images/png_images/profile/more/in-store.png',
+                                  // 'assets/images/png_images/profile/more/family_trust.png',
+                                  // ),
                                 ),
                               ),
                             ),
@@ -94,7 +102,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                   color: FADE_BLUE_00_COLOR,
                                 ),
                                 child: Text(
-                                  'کوچک ترین تغییرات در سبک لباس و استایل، تغییرات بزرگی را در سبک زندگی ایجاد خواهد کرد',
+                                  widget.aboutUsData.banner.text,
+                                  // 'کوچک ترین تغییرات در سبک لباس و استایل، تغییرات بزرگی را در سبک زندگی ایجاد خواهد کرد',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -110,15 +119,16 @@ class _AboutUsPageState extends State<AboutUsPage> {
                           height: 0.015 * _screenSize.height, //10,
                         ),
                         ListView.builder(
-                          itemCount: 3,
+                          itemCount: widget.aboutUsData.cards.length,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [
                                 InfoCardWidget(
-                                  text: texts[index],
-                                  imagePAth: assets[index],
+                                  text: widget.aboutUsData.cards[index].text,
+                                  imagePAth: widget
+                                      .aboutUsData.cards[index].picture,
                                   customDirection: rtlTextDirection,
                                   icon: [],
                                   screenSize: _screenSize,

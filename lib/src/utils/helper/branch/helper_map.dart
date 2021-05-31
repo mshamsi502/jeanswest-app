@@ -3,35 +3,42 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+// import 'dart:html' as html;
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-// ?? import 'package:geocoding/geocoding.dart';
+//  import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
-// import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' as geoPos;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/database/branch/sqflite_helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:location/location.dart';
 
 /// => [updateUserLocation] get User [Position] and Create a [CameraPosition] for show
 Future<CameraPosition> updateUserLocation() async {
-  Position pos =
+  bool isInArea = true;
+  var pos =
       // ignore: deprecated_member_use
-      await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-
+      await geoPos.Geolocator.getCurrentPosition(
+          desiredAccuracy: geoPos.LocationAccuracy.high);
   // Position(latitude: 35.7553, longitude: 51.3339);
   print('******** user position : ${pos.toString()}');
   if ((pos.latitude - 32.930013).abs() > 30 ||
       (pos.longitude - 52.361063).abs() > 30) {
-    pos = Position(latitude: 40, longitude: 30);
-    print('******** FAKE user position : ${pos.toString()}');
+    // pos = Geoposition(latitude: 40, longitude: 30);
+    isInArea = false;
+    // pos = Geolocator.print('******** FAKE user position : ${pos.toString()}');
   }
-  CameraPosition currentCameraPosition =
-      new CameraPosition(target: LatLng(pos.latitude, pos.longitude), zoom: 16);
+  CameraPosition currentCameraPosition = new CameraPosition(
+      target: LatLng(
+        isInArea ? pos.latitude : 40,
+        isInArea ? pos.longitude : 30,
+      ),
+      zoom: 16);
   return currentCameraPosition;
 }
 

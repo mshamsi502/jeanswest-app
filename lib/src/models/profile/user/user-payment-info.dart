@@ -22,6 +22,6 @@ class UserPaymentInfo {
     this.priceLevel,
     this.priceLevelTo,
   }) {
-    payToman = payRial == 0 ? 0 : payRial ~/ 10;
+    payToman = payRial == null || payRial == 0 ? 0 : payRial ~/ 10;
   }
 }

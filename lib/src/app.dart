@@ -39,6 +39,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   /// => [_children] is Pages of Bottom Navigation Bar
   List<Widget> _children = [];
+  //
+  GlobalKey _materialKey = new GlobalKey();
 
   @override
   void initState() {
@@ -95,6 +97,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: _materialKey,
       localizationsDelegates: context.localizationDelegates,
       debugShowCheckedModeBanner: false,
       supportedLocales: context.supportedLocales,

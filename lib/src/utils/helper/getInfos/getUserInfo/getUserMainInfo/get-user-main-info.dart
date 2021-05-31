@@ -1,5 +1,6 @@
 //
 
+import 'package:flutter/cupertino.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-res.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
@@ -11,7 +12,7 @@ import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 
-Future<UserMainInfoRes> getUserMainInfo() async {
+Future<UserMainInfoRes> getUserMainInfo({@required Function notAuth}) async {
   UserMainInfoRes userAccountRes = UserMainInfoRes();
   // UserTblPosCustRes userTblPosCustRes;
   // UserMainInfo user;
@@ -33,6 +34,10 @@ Future<UserMainInfoRes> getUserMainInfo() async {
         printErrorMessage(errorMockoon);
         print('*********************************');
       }
+    } else if (errorRealAPI.response.statusCode == 401) {
+      print('Token is Expired');
+      notAuth();
+      tryToGetAllUserInfo = -1;
     }
   }
 

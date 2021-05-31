@@ -80,14 +80,14 @@ String toPhoneStyle(String phone) {
 Map<String, String> stringSplitDate(String date) {
   // ! date type is : yyyy-mm-dd
   Map<String, String> map = {
-    'year': '0000',
-    'month': '00',
-    'day': '00',
+    'year': '2000',
+    'month': '01',
+    'day': '01',
     'hour': '00',
     'min': '00',
     'sec': '00',
   };
-  if (date != null) {
+  if (date != null || date != "") {
     if (date.length == 10) {
       // ! date : "2022-06-12"
       String year = date.substring(0, 4);

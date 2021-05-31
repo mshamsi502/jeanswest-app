@@ -8,11 +8,11 @@ import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 Future<void> userOrdersInfo() async {
+  UserOrderDataRes uo;
   // userOrders = await globalLocator<GlobalRestClient>().getUserOrdersInfo();
   //
   try {
-    UserOrderDataRes uo =
-        await globalLocator<GlobalRestClient>().getUserOrdersInfo();
+    uo = await globalLocator<GlobalRestClient>().getUserOrdersInfo();
     if (uo.statusCode == 200) {
       userOrdersa = uo.data;
     } else {
@@ -21,14 +21,15 @@ Future<void> userOrdersInfo() async {
   } catch (e) {
     printErrorMessage(e);
   }
-
-  print(
-      '_=_ get successfully, offlineOrders length: ${userOrdersa.offlineOrders.length}');
-  print(
-      '_=_ get successfully, inProgressOrders length: ${userOrdersa.inProgressOrders.length}');
-  print(
-      '_=_ get successfully, compeletedOrders length: ${userOrdersa.compeletedOrders.length}');
-  print(
-      '_=_ get successfully, returnedOrders length: ${userOrdersa.returnedOrders.length}');
-  print('_=_ first offlineOrders code: ${userOrdersa.offlineOrders[0].code}');
+  if (uo != null && uo.data != null && uo.data.offlineOrders != null) {
+    print(
+        '_=_ get successfully, offlineOrders length: ${userOrdersa.offlineOrders.length}');
+    print(
+        '_=_ get successfully, inProgressOrders length: ${userOrdersa.inProgressOrders.length}');
+    print(
+        '_=_ get successfully, compeletedOrders length: ${userOrdersa.compeletedOrders.length}');
+    print(
+        '_=_ get successfully, returnedOrders length: ${userOrdersa.returnedOrders.length}');
+    print('_=_ first offlineOrders code: ${userOrdersa.offlineOrders[0].code}');
+  }
 }

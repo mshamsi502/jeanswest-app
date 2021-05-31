@@ -7,16 +7,21 @@ import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
+  // print('3 noAuth noAuthnoAuthnoAuth noAuth noAuth noAuth : $isAuth');
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
-  _children.add(MainProfilePage(
-    isAuth: !isAuth,
-    // screenSize: screenSize,
-    showCompeletProfileMessage: showCompeletProfileMessage,
-    changeCompeletProfileMessage: (bool value) =>
-        showCompeletProfileMessage = value,
-  ));
+  if (isAuth)
+    _children.add(MainProfilePage(
+      isAuth: !isAuth,
+      // screenSize: screenSize,
+      showCompeletProfileMessage: showCompeletProfileMessage,
+      changeCompeletProfileMessage: (bool value) =>
+          showCompeletProfileMessage = value,
+    ));
+  else {
+    _children.add(Container(color: Colors.white));
+  }
   _children.add(Container(color: Colors.white));
   _children.add(Container(color: Colors.blue));
   // _children.add(shoppingBasketPage);
@@ -36,8 +41,9 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
 }
 
 Future<Map<String, dynamic>> authService() async {
-  //
+  // // ! clear manual token
   // globalLocator<SharedPreferences>().clear();
+  // globalLocator<SharedPreferences>().setString(TOKEN, "");
   //
   if (MANUAL_TOKEN_IS_ENABLE) {
     // ! put token in device
@@ -55,33 +61,44 @@ Future<Map<String, dynamic>> authService() async {
   bool isAuth = false;
 //
   bool hasNet = await checkConnectionInternet();
+  bool tokenIsExpired = false;
   if (hasNet) {
     if (getToken != null) {
       print('user Have TOKEN : $getToken');
       if (!isAuth) {
         while (tryToGetAllUserInfo >= 0) {
           try {
-            await getAllUserInfo();
-            isAuth = true;
-            print('^*^*^ getAllUserInfo : Successfully');
-            Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
-              isAuth: isAuth,
-              // screenSize: screenSize,
-            );
-            print('created BottomNavigationBarPages');
-            _children = initCreateRes['children'];
-            pagesCreatedFinished = initCreateRes['success'];
-            //
-            checkCompleteProfileMsgDateTime();
-            //
-            return {
-              'userIsAuth': isAuth,
-              'pagesCreatedFinished': pagesCreatedFinished,
-              'children': _children,
-            };
+            await getAllUserInfo(noAuth: () {
+              // =>
+
+              tryToGetAllUserInfo = 0;
+              isAuth = false;
+              tokenIsExpired = true;
+            });
+            if (!tokenIsExpired) {
+              isAuth = true;
+              print('^*^*^ getAllUserInfo : Successfully');
+              Map<String, dynamic> initCreateRes =
+                  createBottomNavigationBarPages(
+                isAuth: isAuth,
+                // screenSize: screenSize,
+              );
+              print('created BottomNavigationBarPages');
+              _children = initCreateRes['children'];
+              pagesCreatedFinished = initCreateRes['success'];
+              //
+              checkCompleteProfileMsgDateTime();
+              //
+              return {
+                'userIsAuth': isAuth,
+                'pagesCreatedFinished': pagesCreatedFinished,
+                'children': _children,
+              };
+            }
           } catch (e) {
             print('^*^*^ getAllUserInfo : NOOOT Successfully');
-            printErrorMessage(e);
+
+            // printErrorMessage(e);
             isAuth = false;
             tryToGetAllUserInfo--;
             print('try to getAllUser : remaind $tryToGetAllUserInfo time');
@@ -98,8 +115,6 @@ Future<Map<String, dynamic>> authService() async {
   } else {
     // ! no internet, turn on and try again
   }
-
-  //
 
   Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
     isAuth: isAuth,

@@ -8,7 +8,7 @@ part of 'contact-us-data.dart';
 
 ContactUsData _$ContactUsDataFromJson(Map<String, dynamic> json) {
   return ContactUsData(
-    addresses: json['addresses'] as String,
+    email: json['email'] as String,
     phone: json['phone'] as String,
     fax: json['fax'] as String,
   );
@@ -16,7 +16,7 @@ ContactUsData _$ContactUsDataFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$ContactUsDataToJson(ContactUsData instance) =>
     <String, dynamic>{
-      'addresses': instance.addresses,
+      'email': instance.email,
       'phone': instance.phone,
       'fax': instance.fax,
     };

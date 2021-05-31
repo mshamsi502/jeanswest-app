@@ -202,7 +202,7 @@ class _GlobalRestClient implements GlobalRestClient {
         'http://10.0.1.111:8000/api/v1/customer/myCustomerMembershipLevel',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
@@ -405,7 +405,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3003/v1/getUserOrders',
+        'http://10.1.2.94:3006/v1/getUserOrders',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -423,7 +423,65 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3005/api/v1/ticket/list',
+        'http://10.0.1.111:8000/api/v1/ticket/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserTicketsRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<CreateTicketRes> createUserTicketsInfo(newTicket) async {
+    ArgumentError.checkNotNull(newTicket, 'newTicket');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(newTicket ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/ticket/create',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CreateTicketRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<CreateTicketRes> replyTicketsInfo(newMessage) async {
+    ArgumentError.checkNotNull(newMessage, 'newMessage');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(newMessage ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/ticket/reply',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CreateTicketRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserTicketsRes> getMockUserTicketsInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3006/api/v1/ticket/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -441,7 +499,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3003/v1/getUserMessages',
+        'http://10.1.2.94:3006/v1/getUserMessages',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -555,7 +613,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3005/api/v1/contact-us/contact-info',
+        'http://10.0.1.111:8000/api/v1/contactUs/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -573,7 +631,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.1.2.94:3005/api/v1/faq/list',
+        'http://10.0.1.111:8000/api/v1/faq/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -586,12 +644,84 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<AboutUsRes> getAboutUsInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/aboutUs/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AboutUsRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ReturnPolicyRes> getReturnPolicyInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/returnPolicy/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ReturnPolicyRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<FAQRes> getMockFAQInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3006/api/v1/faq/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = FAQRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ContactUsRes> getMockContactUsInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3005/api/v1/contact-us/contact-info',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ContactUsRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<LevelCardsRes> getLevelCardsInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/v1/address/giftCardsInfo',
+        'http://10.0.1.111:8000/api/membershipLevelCards/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

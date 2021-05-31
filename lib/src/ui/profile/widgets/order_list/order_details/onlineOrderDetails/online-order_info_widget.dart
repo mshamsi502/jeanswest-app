@@ -128,12 +128,12 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                               width: 0.0138 * _screenSize.width, //5,
                             ),
                             Container(
-                              width:
-                                  widget.onlineOrder.statusStepReturn.length >
-                                          // 0.054 * _screenSize.width //20
-                                          0.03611 * _screenSize.width //13
-                                      ? 0.27 * _screenSize.width //100,
-                                      : null,
+                              width: widget
+                                          .onlineOrder.statusStepReturn.length >
+                                      // 0.054 * _screenSize.width //20
+                                      (0.03611 * _screenSize.width).toInt() //13
+                                  ? 0.27 * _screenSize.width //100,
+                                  : null,
                               child: Text(
                                 widget.onlineOrder.statusStepReturn,
                                 overflow: TextOverflow.ellipsis,

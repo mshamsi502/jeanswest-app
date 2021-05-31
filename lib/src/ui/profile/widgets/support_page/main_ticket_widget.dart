@@ -239,6 +239,7 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                             widget.ticket.length - 1 - index,
                                         closeTicket: () {
                                           // ! send close ticket api
+                                          // TODO : config close ticket api
                                           setState(() {
                                             widget.ticket[widget.ticket.length -
                                                     1 -

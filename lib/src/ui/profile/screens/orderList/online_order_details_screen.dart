@@ -15,7 +15,7 @@ import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/online
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
-
+import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/qr_code_order_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
@@ -160,6 +160,7 @@ class _OnlineOrderDetailsScreenState extends State<OnlineOrderDetailsScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => ReturnProcessPage(
                                           initialTab: 0,
+                                          returnProciyData: returnPolicyData,
                                         ))),
                           ),
                         ],

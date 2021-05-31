@@ -7,8 +7,6 @@
 import 'dart:ui';
 
 import 'package:get_it/get_it.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-data.dart';
-import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-data.dart';
 
 const String TOKEN = 'token';
 //
@@ -29,14 +27,3 @@ String completeProfileMsgDateTime = '';
 
 GetIt globalLocator = GetIt.instance;
 
-ContactUsData contactUsInfo = ContactUsData(
-  addresses: '',
-  phone: '',
-  fax: '',
-);
-List<FAQData> faqData = [
-  FAQData(
-    question: '',
-    answer: '',
-  ),
-];
