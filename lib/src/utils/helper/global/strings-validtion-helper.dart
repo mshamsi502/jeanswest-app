@@ -54,3 +54,12 @@ bool isNaturalNumeric(String s) {
       // ignore: deprecated_member_use
       int.parse(s, onError: (e) => null) != null && int.parse(s) >= 0;
 }
+
+String getTypeFileLink(String link) {
+  String reversedLink = link.split('').reversed.join();
+  List<String> listreversedLink = reversedLink.split(".");
+  // print(listreversedLink);
+  String type = listreversedLink[0].split('').reversed.join().toLowerCase();
+  // print(type);
+  return type;
+}

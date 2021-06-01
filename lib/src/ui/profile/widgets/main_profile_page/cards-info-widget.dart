@@ -10,6 +10,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 
 class CardsInfoWidget extends StatefulWidget {
   // final List<String> assetsLevelCard;
@@ -53,6 +54,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   List<String> mainTitleLevelCard;
   List<String> mainTextLevelCard;
   List<int> someSubCards;
+  List<String> imageType;
   //
   bool isCountBlue;
   bool isCountSilver;
@@ -67,22 +69,6 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
 
     prepareMainCards();
 
-    // for (int i = 0; i < widget.assetsLevelCard.length; i++) {
-    //   if (i == widget.showingCard) {
-    //     largeWidths.add((widget.screenSize.width / 2.25) -
-    //         (0.054 * widget.screenSize.width //20
-    //         ));
-    //     largeHeights.add(0.2027 * widget.screenSize.height //120,
-    //         );
-    //   } else {
-    //     largeWidths.add((widget.screenSize.width / 3.5));
-    //     largeHeights.add(0.15625 * widget.screenSize.height //100,
-    //         );
-    //   }
-    // }
-
-    // for (var i = 0; i < widget.assetsLevelCard.length; i++) index.add(i);
-
     super.initState();
   }
 
@@ -96,6 +82,8 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
     mainTextLevelCard = new List<String>();
     // ignore: deprecated_member_use
     someSubCards = new List<int>();
+    // ignore: deprecated_member_use
+    imageType = new List<String>();
     someSubCards.add(0);
     someSubCards.add(0);
     someSubCards.add(0);
@@ -103,59 +91,60 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
     isCountSilver = false;
     isCountGold = false;
 
-    print("length : ${widget.levelCards.length}");
     for (int i = 0; i < widget.levelCards.length; i++) {
-      print("title $i : ${widget.levelCards[i].title}");
-      print("engTitle $i : ${widget.levelCards[i].engTitle}");
-      print(
-          "contains 'blue' in ${widget.levelCards[i].engTitle} : ${((widget.levelCards[i].engTitle).contains(RegExp(r'blue', caseSensitive: false)))}");
-      print(
-          "contains 'silver' in ${widget.levelCards[i].engTitle} : ${((widget.levelCards[i].engTitle).contains(RegExp(r'silver', caseSensitive: false)))}");
-      print(
-          "contains 'gold' in ${widget.levelCards[i].engTitle} : ${((widget.levelCards[i].engTitle).contains(RegExp(r'gold', caseSensitive: false)))}");
-
       if (((widget.levelCards[i].engTitle)
           .contains(RegExp(r'blue', caseSensitive: false)))) {
-        if (!isCountSilver) {
-          someCards = someCards++;
+        if (!isCountBlue) {
+          someCards++;
           mainAssetsLevelCard.add(widget.levelCards[i].image);
+          imageType.add(getTypeFileLink(widget.levelCards[i].image));
           mainTitleLevelCard.add("کارت عضویت آبی");
           mainTextLevelCard.add(widget.levelCards[i].text);
           isCountBlue = true;
-          print("create Blue.");
         }
         someSubCards[0] = someSubCards[0] + 1;
       }
       if (((widget.levelCards[i].engTitle)
           .contains(RegExp(r'silver', caseSensitive: false)))) {
         if (!isCountSilver) {
-          someCards = someCards++;
+          someCards++;
           mainAssetsLevelCard.add(widget.levelCards[i].image);
+          imageType.add(getTypeFileLink(widget.levelCards[i].image));
           mainTitleLevelCard.add(widget.levelCards[i].perTitle);
           mainTextLevelCard.add(widget.levelCards[i].text);
           isCountSilver = true;
-          print("create Silver.");
         }
         someSubCards[1] = someSubCards[1] + 1;
       }
       if (((widget.levelCards[i].engTitle)
           .contains(RegExp(r'gold', caseSensitive: false)))) {
-        if (!isCountSilver) {
-          someCards = someCards++;
+        if (!isCountGold) {
+          someCards++;
           mainAssetsLevelCard.add(widget.levelCards[i].image);
+          imageType.add(getTypeFileLink(widget.levelCards[i].image));
           mainTitleLevelCard.add(widget.levelCards[i].perTitle);
           mainTextLevelCard.add(widget.levelCards[i].text);
           isCountGold = true;
-          print("create Gold.");
         }
         someSubCards[2] = someSubCards[2] + 1;
       }
     }
-    print("someCards : $someCards");
-    print("mainAssetsLevelCard length : $mainAssetsLevelCard");
-    print("mainTitleLevelCard length : $mainTitleLevelCard");
-    print("mainTextLevelCard length : $mainTextLevelCard");
-    print("someSubCards length : $someSubCards");
+
+    for (int i = 0; i < someCards; i++) {
+      if (i == widget.showingCard) {
+        largeWidths.add((widget.screenSize.width / 2.25) -
+            (0.054 * widget.screenSize.width //20
+            ));
+        largeHeights.add(0.2027 * widget.screenSize.height //120,
+            );
+      } else {
+        largeWidths.add((widget.screenSize.width / 3.5));
+        largeHeights.add(0.15625 * widget.screenSize.height //100,
+            );
+      }
+    }
+
+    for (var i = 0; i < someCards; i++) index.add(i);
   }
 
   @override
@@ -306,53 +295,21 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                   ),
                   child: AnimatedContainer(
                     width: largeWidths[index],
-                    // widget.showingCard == index ? largeWidth : smallWidth,
                     height: largeHeights[index],
-                    // widget.showingCard == index ? largeHeight : smallHeight,
-                    decoration: BoxDecoration(
-                        // color: Colors.red,
-                        ),
+                    decoration: BoxDecoration(),
                     child: GestureDetector(
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.bottomLeft,
-                            height: 0.14 * _screenSize.height, //90,
-                            decoration: BoxDecoration(
-                              // color: Colors.red,
-                              borderRadius: BorderRadius.circular(
-                                0.027 * _screenSize.width, //10,
+                      child: imageType[index] == "svg"
+                          ? SvgPicture.network(
+                              mainAssetsLevelCard[index],
+                              placeholderBuilder: (BuildContext context) =>
+                                  new Container(
+                                padding: const EdgeInsets.all(30.0),
+                                child: const CircularProgressIndicator(
+                                  backgroundColor: Colors.amber,
+                                ),
                               ),
-                              // image:
-
-                              // DecorationImage(
-                              //   fit: BoxFit.contain,
-                              //   // image: NetworkImage(mainAssetsLevelCard[index]),
-                              //   image:
-                              //   // new AssetImage(
-                              //   //     widget.assetsLevelCard.elementAt(index)),
-                              // ),
-                            ),
-                            child: SvgPicture.network(
-                              "https://minter.stakeholder.space/local/templates/minter_pool/images/logo.svg",
-
-                              height: 0.14 * _screenSize.height, //90,
-                              width: 100,
-                              // fit: BoxFit.contain,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 0.00138 * _screenSize.height, //0.5,
-                          ),
-                          widget.showingCard == index
-                              ? Divider(
-                                  thickness: 0.0046 * _screenSize.height, //3,
-                                  height: 0.0046 * _screenSize.height, //3,
-                                  color: MAIN_BLUE_COLOR,
-                                )
-                              : SizedBox(),
-                        ],
-                      ),
+                            )
+                          : NetworkImage(mainAssetsLevelCard[index]),
                       onTap: () => setState(() {
                         // cardScrollController.jumpTo(index == 0
                         //     ? 0
@@ -490,6 +447,16 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                       scrollDirection: Axis.vertical,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int indexSubLvl) {
+                        int indexOfSubCard = 0;
+                        for (int mainIndex = 0;
+                            mainIndex < widget.showingCard;
+                            mainIndex++) {
+                          for (int subIndex = 0;
+                              subIndex < someSubCards[mainIndex];
+                              subIndex++) {
+                            indexOfSubCard++;
+                          }
+                        }
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -497,8 +464,10 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                 ? SizedBox()
                                 : Text(
                                     widget
+                                        // .levelCards[
+                                        //     widget.showingCard + indexSubLvl]
                                         .levelCards[
-                                            widget.showingCard + indexSubLvl]
+                                            indexOfSubCard + indexSubLvl]
                                         .perTitle,
                                     style: TextStyle(
                                         fontSize:
@@ -509,8 +478,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                             : Colors.black),
                                   ),
                             Text(
-                              widget
-                                  .levelCards[widget.showingCard + indexSubLvl]
+                              widget.levelCards[indexOfSubCard + indexSubLvl]
                                   .receiptConditions,
                               style: TextStyle(
                                 fontSize: 0.038 * _screenSize.width, //14,
@@ -519,7 +487,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                             ),
                             ListView.builder(
                               itemCount: widget
-                                  .levelCards[widget.showingCard + indexSubLvl]
+                                  .levelCards[indexOfSubCard + indexSubLvl]
                                   .descriptions
                                   .length,
                               physics: NeverScrollableScrollPhysics(),
@@ -528,20 +496,20 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                               itemBuilder:
                                   (BuildContext contex, int indexDesc) {
                                 return widget
-                                                .levelCards[widget.showingCard +
+                                                .levelCards[indexOfSubCard +
                                                     indexSubLvl]
                                                 .descriptions[indexDesc] ==
                                             null ||
                                         widget
-                                                .levelCards[widget.showingCard +
+                                                .levelCards[indexOfSubCard +
                                                     indexSubLvl]
                                                 .descriptions[indexDesc] ==
                                             ''
                                     ? SizedBox()
                                     : Text(
                                         widget
-                                            .levelCards[widget.showingCard +
-                                                indexSubLvl]
+                                            .levelCards[
+                                                indexOfSubCard + indexSubLvl]
                                             .descriptions[indexDesc],
                                         style: TextStyle(
                                           fontSize:
