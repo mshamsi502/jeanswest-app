@@ -10,8 +10,10 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
+import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -45,6 +47,7 @@ List<Widget> createProfileListMenuPages({
 }) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
+  
   profileListMenu.add(
     TabBarViewPage(
       title: 'سطح عضویت',
@@ -60,7 +63,9 @@ List<Widget> createProfileListMenuPages({
           nextLevel: nextLevel,
           moneyBuying: moneyBuying,
         ),
-        JeanpointAndCouponsPage(userJeanpointBons: userJeanpointBons),
+        JeanpointAndCouponsPage(
+            // ignore: deprecated_member_use
+            userJeanpointBons: userJeanpointBons ?? List<UserCouponsInfo>()),
       ],
       bottomButtonFunction: () {},
     ),
@@ -89,12 +94,14 @@ List<Widget> createProfileListMenuPages({
   return profileListMenu;
 }
 
-List<Widget> createMoreListMenuPages() {
+List<Widget> createMoreListMenuPages(
+    {@required Function(List<DataTicket>) updateUserTickets}) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
   profileListMenu.add(SupportPage(
     userTickets: userTickets,
-    updateUserTickets: (List<DataTicket> tickets) => userTickets = tickets,
+    // updateUserTickets: (List<DataTicket> tickets) => userTickets = tickets,
+    updateUserTickets: updateUserTickets,
   ));
   profileListMenu.add(AboutUsPage(
     aboutUsData: aboutUsData,
@@ -133,7 +140,7 @@ bottomButtonFunction(String textLink) {
 UserMainInfo createUser({
   @required UserMainInfoData userAccount,
   String userTblPosCustRes,
-  String dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+  String dateFormat = STANDARD_DATE_FORMAT,
 }) {
   DateTime parseDate = new DateFormat(dateFormat).parse(userAccount.birthDate);
   print('_=_ create user success');

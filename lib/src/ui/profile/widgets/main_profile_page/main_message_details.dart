@@ -7,20 +7,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
-
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/profile/message/single-message.dart';
-
 import 'package:jeanswest/src/ui/profile/screens/messages/single_message_page.dart';
-import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/time_ago.dart';
 
 class MainMessageDetails extends StatefulWidget {
   final double height;
   final int messageIndex;
   final SingleMessage message;
+  // final UserMessageResult message;
   final Function changeHaveUnreadMessage;
 
   const MainMessageDetails({
@@ -52,34 +53,6 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
               SizedBox(
                 width: 0.0138 * _screenSize.width, //5
               ),
-              Container(
-                width: 0.111 * _screenSize.width, //40,
-                height: widget.height,
-                child: Column(
-                  children: [
-                    Container(
-                      width: 0.09722 * _screenSize.width, //35,
-                      height: 0.09722 * _screenSize.width, //35,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(
-                            color: BLUE_SKY_COLOR,
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            0.138 * _screenSize.width, //50,
-                          )),
-                      child: CircleAvatar(
-                        radius: 0.138 * _screenSize.width, //50,
-                        backgroundColor: DARK_GREY,
-                        backgroundImage: AssetImage(
-                          'assets/images/png_images/global/logo/${widget.message.engSender}.png',
-                        ),
-                      ),
-                    ),
-                    Expanded(child: SizedBox()),
-                  ],
-                ),
-              ),
               SizedBox(width: 0.0138 * _screenSize.width //5
                   ),
               Expanded(
@@ -90,7 +63,8 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
                       alignment: Alignment.centerRight,
                       // height: 0.111 * _screenSize.width, //40,
                       child: Text(
-                        '${widget.message.perTitle} (${widget.message.perSender})',
+                        // '${widget.message.perTitle} (${widget.message.perSender})',
+                        widget.message.title,
                         style: TextStyle(
                           fontSize: 0.038 * _screenSize.width, //14,
                           fontWeight: FontWeight.w600,
@@ -99,46 +73,58 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
                     ),
                     SizedBox(height: 0.0078 * _screenSize.height //5,
                         ),
-                    widget.message.price == null || widget.message.price == 0
-                        ? SizedBox()
-                        : Text(
-                            'مدت اعتبار از تاریخ ${widget.message.startShamsiYear}/${widget.message.startShamsiMonth}/${widget.message.startShamsiDay} الی ${widget.message.endShamsiYear}/${widget.message.endShamsiMonth}/${widget.message.endShamsiDay}',
-                            style: TextStyle(
-                              fontSize: 0.0333 * _screenSize.width, //12,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                    widget.message.price == null || widget.message.price == 0
-                        ? SizedBox()
-                        : Text(
-                            'مبلغ ${toPriceStyle(widget.message.price)} تومان',
-                            style: TextStyle(
-                              fontSize: 0.0333 * _screenSize.width, //12,
-                              color: Colors.grey[700],
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                    SizedBox(height: 0.0078 * _screenSize.height //5,
-                        ),
-                    widget.message.price == null || widget.message.price == 0
-                        ? Container(
-                            child: Text(
-                              widget.message.text,
-                              maxLines: 3,
-                              style: TextStyle(
-                                fontSize: 0.0333 * _screenSize.width, //12,
-                                color: Colors.grey[800],
-                                fontWeight: FontWeight.w500,
+                    Container(
+                      // color: Colors.red,
+                      height: widget.height - 70,
+                      child: SingleChildScrollView(
+                        physics: NeverScrollableScrollPhysics(),
+                        child: Html(
+                          data: widget.message.body,
+                          style: {
+                            "p": Style.fromTextStyle(
+                              TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black54,
                               ),
                             ),
-                          )
-                        : SizedBox(),
+                            "table": Style.fromTextStyle(
+                              TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          },
+                          // customTextStyle: (node, style) {
+                          //   return TextStyle(
+                          //     fontSize: 12,
+                          //     fontWeight: FontWeight.w400,
+                          //     fontFamily: "IRANSans",
+                          //     color: Colors.black87,
+                          //   );
+                          // },
+                          // customRender: (node, children) {
+                          //   if (node is dom.Element) {
+                          //     switch (node.localName) {
+                          //       case "custom_tag": // using this, you can handle custom tags in your HTML
+                          //         return Column(children: children);
+                          //     }
+                          //   }
+                          //   return null;
+                          // },
+                          // customTextAlign: (node) {
+                          //   return TextAlign.right;
+                          // }
+                        ),
+                      ),
+                    ),
                     Expanded(child: SizedBox()),
                     Text(
                       TimeAgo.timeAgoSinceDate(
-                        widget.message.sendDate,
+                        widget.message.datetime.createdAt,
                         30,
+                        dateFormat: STANDARD_DATE_FORMAT,
                       ),
                       style: TextStyle(
                         fontSize: 0.0333 * _screenSize.width, //12,
@@ -205,13 +191,15 @@ class _MainMessageDetailsState extends State<MainMessageDetails> {
 
             if (!haveUnreadMessage) widget.changeHaveUnreadMessage();
           });
+
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => SingleMessagePage(
                         message: widget.message,
                         title:
-                            '${widget.message.perTitle} (${widget.message.perSender})',
+                            // '${widget.message.perTitle} (${widget.message.perSender})',
+                            widget.message.title,
                       )));
         });
   }

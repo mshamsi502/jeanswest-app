@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 String shamsiDayOfWeek(int year, int mouth, int day) {
@@ -77,8 +79,8 @@ String toPhoneStyle(String phone) {
   return phone;
 }
 
-Map<String, String> stringSplitDate(String date) {
-  // ! date type is : yyyy-mm-dd
+Map<String, String> stringSplitDate(String date,
+    {String dateFormat = SMALL_JUST_DATE_FORMAT}) {
   Map<String, String> map = {
     'year': '2000',
     'month': '01',
@@ -88,23 +90,36 @@ Map<String, String> stringSplitDate(String date) {
     'sec': '00',
   };
   if (date != null || date != "") {
-    if (date.length == 10) {
-      // ! date : "2022-06-12"
-      String year = date.substring(0, 4);
-      String month = date.substring(5, 7);
-      String day = date.substring(8, 10);
+    DateTime dateTime = DateFormat(dateFormat).parse(date);
+    if (dateFormat == SMALL_JUST_DATE_FORMAT) {
+      String year = dateTime.year.toString();
+      String month = dateTime.month.toString();
+      String day = dateTime.day.toString();
       map = {
         'year': year,
         'month': month,
         'day': day,
       };
-    } else if (date.length == 19) {
-      String year = date.substring(0, 4);
-      String month = date.substring(5, 7);
-      String day = date.substring(8, 10);
-      String hour = date.substring(11, 13);
-      String min = date.substring(14, 16);
-      String sec = date.substring(17, 19);
+    } else if (dateFormat == SMALL_DATE_AND_TIME_FORMAT) {
+      String year = dateTime.year.toString();
+      String month = dateTime.month.toString();
+      String day = dateTime.day.toString();
+      String hour = dateTime.hour.toString();
+      String min = dateTime.minute.toString();
+      map = {
+        'year': year,
+        'month': month,
+        'day': day,
+        'hour': hour,
+        'min': min,
+      };
+    } else if (dateFormat == STANDARD_DATE_FORMAT) {
+      String year = dateTime.year.toString();
+      String month = dateTime.month.toString();
+      String day = dateTime.day.toString();
+      String hour = dateTime.hour.toString();
+      String min = dateTime.minute.toString();
+      String sec = dateTime.second.toString();
       map = {
         'year': year,
         'month': month,
@@ -115,6 +130,36 @@ Map<String, String> stringSplitDate(String date) {
       };
     }
   }
+  // ! date type is : yyyy-mm-dd
+
+  // if (date != null || date != "") {
+  //   if (date.length == 10) {
+  //     // ! date : "2022-06-12"
+  //     String year = date.substring(0, 4);
+  //     String month = date.substring(5, 7);
+  //     String day = date.substring(8, 10);
+  //     map = {
+  //       'year': year,
+  //       'month': month,
+  //       'day': day,
+  //     };
+  //   } else if (date.length == 19) {
+  //     String year = date.substring(0, 4);
+  //     String month = date.substring(5, 7);
+  //     String day = date.substring(8, 10);
+  //     String hour = date.substring(11, 13);
+  //     String min = date.substring(14, 16);
+  //     String sec = date.substring(17, 19);
+  //     map = {
+  //       'year': year,
+  //       'month': month,
+  //       'day': day,
+  //       'hour': hour,
+  //       'min': min,
+  //       'sec': sec,
+  //     };
+  //   }
+  // }
   return map;
 }
 

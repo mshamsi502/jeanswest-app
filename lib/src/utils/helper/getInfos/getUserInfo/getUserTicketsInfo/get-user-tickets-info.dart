@@ -2,6 +2,7 @@
 
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/create-ticket-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
@@ -9,7 +10,8 @@ import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 Future<List<DataTicket>> getUserTicketsInfo() async {
-  UserTicketsRes userTicketsRes;
+  UserTicketsRes userTicketsRes =
+      UserTicketsRes(statusCode: 200, message: "OK", data: []);
   try {
     userTicketsRes =
         await globalLocator<GlobalRestClient>().getUserTicketsInfo();
@@ -32,11 +34,13 @@ Future<List<DataTicket>> getUserTicketsInfo() async {
     }
   }
   // userTickets = userTicketsRes.data;
-  // if (userTickets != null) {
-  print(
-      '_=_ get successfully, userTickets length: ${userTicketsRes.data.length}');
-  print(
-      '_=_ get successfully, first userTickets code: ${userTicketsRes.data[0].code}');
+  if (userTicketsRes != null && userTicketsRes.data != null) {
+    print(
+        '_=_ get successfully, userTickets length: ${userTicketsRes.data.length}');
+    if (userTicketsRes.data.length > 0)
+      print(
+          '_=_ get successfully, first userTickets code: ${userTicketsRes.data[0].ticketCode}');
+  }
   return userTicketsRes.data;
   // }
 }
@@ -46,8 +50,9 @@ Future<DataTicket> createNewTicket(Map<String, dynamic> newTicket) async {
   try {
     userTicketsRes = await globalLocator<GlobalRestClient>()
         .createUserTicketsInfo(newTicket);
-    print(
-        '_=_ get successfully, new userTickets title: ${userTicketsRes.data.title}');
+    if (userTicketsRes != null && userTicketsRes.data != null)
+      print(
+          '_=_ get successfully, new userTickets title: ${userTicketsRes.data.title}');
   } catch (errorRealAPI) {
     print('Catch Error from ** Real API ** createUserTicketsInfo !');
     printErrorMessage(errorRealAPI);
@@ -62,11 +67,24 @@ Future<DataTicket> replyTicket(Map<String, dynamic> newMessage) async {
     userTicketsRes =
         await globalLocator<GlobalRestClient>().replyTicketsInfo(newMessage);
     print(
-        '_=_ get successfully,  replyTicketsInfo title: ${userTicketsRes.data.code}');
+        '_=_ get successfully,  replyTicketsInfo title: ${userTicketsRes.data.ticketCode}');
   } catch (errorRealAPI) {
     print('Catch Error from ** Real API ** replyTicketsInfo !');
     printErrorMessage(errorRealAPI);
     print('*********************************');
   }
   return userTicketsRes.data;
+}
+
+Future<GeneralRespons> closeATicket(Map<String, dynamic> ticketCode) async {
+  GeneralRespons res;
+  try {
+    res = await globalLocator<GlobalRestClient>().closeTicketsInfo(ticketCode);
+    print('_=_ get successfully, closeTicketsInfo message: ${res.message}');
+  } catch (errorRealAPI) {
+    print('Catch Error from ** Real API ** replyTicketsInfo !');
+    printErrorMessage(errorRealAPI);
+    print('*********************************');
+  }
+  return res;
 }

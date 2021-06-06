@@ -4,13 +4,13 @@
 // ****************************************************************************
 
 import 'package:intl/intl.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 class TimeAgo {
   static String timeAgoSinceDate(String dateString, int sinceFromSomeDay,
-      {bool numericDates = true}) {
-    DateTime notificationDate =
-        DateFormat("yyyy-MM-dd HH:mm").parse(dateString);
+      {bool numericDates = true, String dateFormat = SMALL_JUST_DATE_FORMAT}) {
+    DateTime notificationDate = DateFormat(dateFormat).parse(dateString);
     final date2 = DateTime.now();
     final difference = date2.difference(notificationDate);
     if (difference.inDays > sinceFromSomeDay) {

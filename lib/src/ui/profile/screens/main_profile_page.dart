@@ -25,8 +25,8 @@ import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/messages/inbox-message-page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/messages/inbox_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
@@ -70,7 +70,7 @@ class _MainProfilePageState extends State<MainProfilePage>
   LevelCard nextLevel;
   LevelCard preLevel;
   bool haveUnreadMessage;
-  List<Widget> mainProfileListMenu;
+  List<Widget> mainProfileListMenu = [];
   List<Widget> moreListMenu;
   List<Widget> moreListWidgets;
   //
@@ -87,12 +87,16 @@ class _MainProfilePageState extends State<MainProfilePage>
       nextLevel = nextLevelProvider(userLevel);
       haveUnreadMessage = false;
 
-      for (var i = 0; i < userMessages.length; i++) {
+      // for (var i = 0; i < userMessages.length; i++) {
+      for (var i = 0; i < userNotifs.length; i++) {
         scrollController = new ScrollController();
         logOutPanel = new PanelController();
         cardsInfoPanel = new PanelController();
         buildProfile();
-        moreListMenu = createMoreListMenuPages();
+        moreListMenu = createMoreListMenuPages(
+            updateUserTickets: (List<DataTicket> newTickets) => setState(() {
+                  userTickets = newTickets;
+                }));
         moreListWidgets = createMorePages(
           context: context,
           updateUserTickets: updateUserTickets,
@@ -248,10 +252,15 @@ class _MainProfilePageState extends State<MainProfilePage>
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => InboxPage(
+                                            builder: (context) =>
+                                                InboxMessagePage(
                                                   changeHaveUnreadMessage:
                                                       changeHaveUnreadMessage,
                                                 ))),
+                                    // builder: (context) => InboxPage(
+                                    //       changeHaveUnreadMessage:
+                                    //           changeHaveUnreadMessage,
+                                    //     ))),
                                   ),
                                   Positioned(
                                     bottom: 0.06 * _screenSize.width / 2,

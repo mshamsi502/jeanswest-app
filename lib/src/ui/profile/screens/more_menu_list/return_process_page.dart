@@ -14,7 +14,7 @@ import 'package:jeanswest/src/ui/profile/widgets/support_page/return_process_wid
 
 class ReturnProcessPage extends StatefulWidget {
   final int initialTab;
-  final ReturnPolicyData returnProciyData;
+  final List<ReturnPolicyData> returnProciyData;
 
   const ReturnProcessPage(
       {Key key, this.initialTab, @required this.returnProciyData})
@@ -28,11 +28,22 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
   int selectedTab = 0;
   TabController tabController;
   ScrollController scrollController;
+  ReturnPolicyData offlineReturnPolicyData;
+  ReturnPolicyData onlineReturnPolicyData;
 
   @override
   void initState() {
     scrollController = new ScrollController();
-
+    //
+    widget.returnProciyData.forEach((element) {
+      if (element.condition == "آفلاین") {
+        offlineReturnPolicyData = element;
+      }
+      if (element.condition == "آنلاین") {
+        onlineReturnPolicyData = element;
+      }
+    });
+    //
     tabController = new TabController(
         initialIndex: widget.initialTab, length: 2, vsync: this);
     tabController.addListener(() {
@@ -91,18 +102,34 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
                               controller: tabController,
                               children: <Widget>[
                                 ReturnProcessWidget(
-                                  assetHeader: widget.returnProciyData.picture,
-                                  text: widget.returnProciyData.header,
-                                  describtion: widget.returnProciyData.terms,
-                                  phoneNumber:
-                                      widget.returnProciyData.phoneNumber,
+                                  assetHeader: offlineReturnPolicyData
+                                      .description.picture,
+                                  text: offlineReturnPolicyData
+                                      .description.header,
+                                  describtion:
+                                      offlineReturnPolicyData.description.terms,
+                                  phoneNumber: offlineReturnPolicyData
+                                      .description.phoneNumber,
+                                  // assetHeader: widget.returnProciyData.picture,
+                                  // text: widget.returnProciyData.header,
+                                  // describtion: widget.returnProciyData.terms,
+                                  // phoneNumber:
+                                  //     widget.returnProciyData.phoneNumber,
                                 ),
                                 ReturnProcessWidget(
-                                  assetHeader: widget.returnProciyData.picture,
-                                  text: widget.returnProciyData.header,
-                                  describtion: widget.returnProciyData.terms,
-                                  phoneNumber:
-                                      widget.returnProciyData.phoneNumber,
+                                  assetHeader: onlineReturnPolicyData
+                                      .description.picture,
+                                  text:
+                                      onlineReturnPolicyData.description.header,
+                                  describtion:
+                                      onlineReturnPolicyData.description.terms,
+                                  phoneNumber: onlineReturnPolicyData
+                                      .description.phoneNumber,
+                                  // assetHeader: widget.returnProciyData.picture,
+                                  // text: widget.returnProciyData.header,
+                                  // describtion: widget.returnProciyData.terms,
+                                  // phoneNumber:
+                                  //     widget.returnProciyData.phoneNumber,
                                 ),
                               ],
                             ),

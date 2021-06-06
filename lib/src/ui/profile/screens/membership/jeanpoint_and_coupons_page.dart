@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/copoun_detail_panel_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/coupons_info_widget.dart';
@@ -16,7 +16,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 class JeanpointAndCouponsPage extends StatefulWidget {
   final List<UserCouponsInfo> userJeanpointBons;
 
-  const JeanpointAndCouponsPage({Key key, this.userJeanpointBons})
+  const JeanpointAndCouponsPage({Key key, this.userJeanpointBons = const []})
       : super(key: key);
   @override
   _JeanpointAndCouponsPageState createState() =>
@@ -42,10 +42,13 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
         backdropEnabled: true,
         controller: panelController,
         color: Colors.transparent,
-        panel: CopounDetailPanelWidget(
-          coupon: userJeanpointBons[selectedCopoun],
-          closePanel: () => panelController.close(),
-        ),
+        panel: widget.userJeanpointBons != null &&
+                widget.userJeanpointBons.length > 0
+            ? CopounDetailPanelWidget(
+                coupon: widget.userJeanpointBons[selectedCopoun],
+                closePanel: () => panelController.close(),
+              )
+            : SizedBox(),
         body: SingleChildScrollView(
           controller: _scrollController,
           child: Column(
@@ -71,7 +74,10 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                     color: MAIN_ORANGE_COLOR,
                   ),
                   child: Text(
-                    'مجموع بن ها: ${userJeanpointBons.length}',
+                    widget.userJeanpointBons != null &&
+                            widget.userJeanpointBons.length < 0
+                        ? 'مجموع بن ها: ${widget.userJeanpointBons.length}'
+                        : 'مجموع بن ها: 0',
                     style: TextStyle(
                       fontSize: 0.0444 * _screenSize.width, //16,
                     ),
@@ -138,7 +144,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
               // Expanded(
               //   child:
               CouponsInfoWidget(
-                coupons: userJeanpointBons,
+                coupons: widget.userJeanpointBons,
                 scrollController: _scrollController,
                 openPanel: (int index) {
                   setState(() {

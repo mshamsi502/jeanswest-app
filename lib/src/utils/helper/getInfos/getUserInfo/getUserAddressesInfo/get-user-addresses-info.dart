@@ -1,7 +1,6 @@
 //
 
 import 'package:flutter/cupertino.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/district/district.dart';
@@ -12,8 +11,8 @@ import 'package:jeanswest/src/models/api_response/userRes/userAddresses/user-add
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
+// ignore: missing_return
 Future<List<AddressInfoRes>> userAddressesInfo() async {
-  // userAddresses
   UserAddressesInfoRes addRes;
   try {
     addRes = await globalLocator<GlobalRestClient>()
@@ -30,15 +29,13 @@ Future<List<AddressInfoRes>> userAddressesInfo() async {
       printErrorMessage(errorMockoon);
     }
   }
-  if (addRes.statusCode == 200) {
-    print(
-        '_=_ get successfully, userAddresses length: ${userAddresses.length}');
-    print(
-        '_=_ get successfully, userAddresses first: ${userAddresses[0].address}');
+  if (addRes != null && addRes.statusCode == 200) {
+    print('_=_ get successfully, userAddresses length: ${addRes.data.length}');
+    if (addRes.data.length > 0) {
+      print(
+          '_=_ get successfully, userAddresses first: ${addRes.data[0].address}');
+    }
     return addRes.data;
-  } else {
-    print(addRes.message);
-    return null;
   }
 }
 

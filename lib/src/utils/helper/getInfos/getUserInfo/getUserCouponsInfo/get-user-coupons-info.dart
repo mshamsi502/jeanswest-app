@@ -35,9 +35,9 @@ Future<void> userCouponsInfo() async {
       }
     }
   }
-  print(
-      '_=_ get successfully userJeanpointBons length: ${userJeanpointBons.length}');
-  print('_=_  first userJeanpointBons code: ${userJeanpointBons[0].code}');
+  // print(
+  //     '_=_ get successfully userJeanpointBons length: ${userJeanpointBons.length}');
+  // print('_=_  first userJeanpointBons code: ${userJeanpointBons[0].code}');
 }
 
 addCopouns(List<UserJeanpointsData> copouns) {

@@ -168,7 +168,7 @@ class _SupportPageState extends State<SupportPage>
                     // ! call send new ticket api
                     Map<String, dynamic> newTicket = {
                       "title": title,
-                      "context": {"text": text},
+                      "text": text,
                     };
 
                     DataTicket ticket = await createNewTicket(newTicket);
@@ -232,6 +232,12 @@ class _SupportPageState extends State<SupportPage>
                               emptyTicketAsset:
                                   'assets/images/png_images/profile/more/create-ticket-help.png',
                               ticket: widget.userTickets,
+                              updateTickets: widget.updateUserTickets,
+                              // updateTickets: (List<DataTicket> tickets) {
+                              //   setState(() {
+                              //     userTickets = tickets;
+                              //   });
+                              // },
                             ),
                             ContactUsWidget(
                               headerAsset:

@@ -82,7 +82,7 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
     selectedGender = widget.userData[4][1]
         // as int
         ;
-    genderEditingController.text = selectedGender == 1 ? "زن" : "مرد";
+    genderEditingController.text = (selectedGender == 1) ? ("مرد") : ("زن");
 
     yearOfBirthEditingController.text =
         widget.userData[5][1]['yearOfBirth'] as String;

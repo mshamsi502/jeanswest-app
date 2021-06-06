@@ -54,15 +54,16 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   void initState() {
     keyboardIsOpen = false;
     keyboardVisibilityController.onChange.listen((bool visible) {
-      if (visible)
+      if (visible) if (mounted)
         setState(() {
           keyboardIsOpen = true;
         });
       else {
         widget.focusNode.unfocus();
-        setState(() {
-          keyboardIsOpen = false;
-        });
+        if (mounted)
+          setState(() {
+            keyboardIsOpen = false;
+          });
       }
     });
     // KeyboardVisibilityNotification().addNewListener(
@@ -81,6 +82,8 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
     // );
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -5,26 +5,21 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/ReturnPolicy/return-policy-description.dart';
 
 part 'return-policy-data.g.dart';
 
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class ReturnPolicyData extends Equatable {
-  @JsonKey(name: 'header')
-  String header;
-  @JsonKey(name: 'picture')
-  String picture;
-  @JsonKey(name: 'phoneNumber')
-  String phoneNumber;
-  @JsonKey(name: 'terms')
-  List<String> terms;
+  @JsonKey(name: 'condition')
+  String condition;
+  @JsonKey(name: 'description')
+  ReturnPolicyDescription description;
 
   ReturnPolicyData({
-    this.header,
-    this.picture,
-    this.phoneNumber,
-    this.terms,
+    this.condition,
+    this.description,
   });
 
   factory ReturnPolicyData.fromJson(Map<String, dynamic> json) =>
@@ -35,18 +30,14 @@ class ReturnPolicyData extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'header': header,
-      'picture': picture,
-      'phoneNumber': phoneNumber,
-      'terms': terms,
+      'condition': condition,
+      'description': description,
     };
   }
 
   @override
   List<Object> get props => [
-        header,
-        picture,
-        phoneNumber,
-        terms,
+        condition,
+        description,
       ];
 }

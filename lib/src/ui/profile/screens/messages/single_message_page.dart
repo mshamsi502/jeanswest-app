@@ -6,12 +6,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 
 import 'package:jeanswest/src/models/profile/message/single-message.dart';
 
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
-import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
-
 class SingleMessagePage extends StatefulWidget {
   final String title;
   final SingleMessage message;
@@ -28,14 +28,14 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
   String categoryText;
   @override
   void initState() {
-    categoryText = widget.message.perCategory.length == 1
-        ? 'خرید در دسته بندی '
-        : 'خرید در دسته بندی های ';
-    for (int index = 0; index < widget.message.perCategory.length; index++) {
-      categoryText = categoryText + widget.message.perCategory[index];
-      if (index != widget.message.perCategory.length - 1)
-        categoryText = categoryText + ' - ';
-    }
+    // categoryText = widget.message.perCategory.length == 1
+    //     ? 'خرید در دسته بندی '
+    //     : 'خرید در دسته بندی های ';
+    // for (int index = 0; index < widget.message.perCategory.length; index++) {
+    //   categoryText = categoryText + widget.message.perCategory[index];
+    //   if (index != widget.message.perCategory.length - 1)
+    //     categoryText = categoryText + ' - ';
+    // }
     // widget.message.perCategory.forEach((element) {});
     super.initState();
   }
@@ -63,165 +63,41 @@ class _SingleMessagePageState extends State<SingleMessagePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.network(
-                          widget.message.pictureAssets,
+                          widget.message.image,
                           width: _screenSize.width,
                           fit: BoxFit.fitWidth,
                         ),
                         SizedBox(
                           height: 0.016 * _screenSize.height, //10
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 0.054 * _screenSize.width, //20
-                            vertical: 0.023 * _screenSize.height, //15
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'مشتری عزیز ${widget.message.perSender}',
-                                style: TextStyle(
-                                  fontSize: 0.038 * _screenSize.width, //14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 0.0156 * _screenSize.height, //10
-                              ),
-                              Text(
-                                widget.message.text,
-                                style: TextStyle(
-                                  fontSize: 0.038 * _screenSize.width, //14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 0.0156 * _screenSize.height, //10
-                              ),
-                              widget.message.description.length == 0
-                                  ? SizedBox()
-                                  : ListView.builder(
-                                      itemCount:
-                                          widget.message.description.length,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (BuildContext context,
-                                          int conditionsIndex) {
-                                        return Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.all(
-                                                0.027 * _screenSize.width, //10,
-                                              ),
-                                              child: Container(
-                                                width: 0.0194 *
-                                                    _screenSize.width, //7,
-                                                height: 0.0194 *
-                                                    _screenSize.width, //7,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                    0.138 *
-                                                        _screenSize.width, //50,
-                                                  ),
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                widget.message.description[
-                                                    conditionsIndex],
-                                                style: TextStyle(
-                                                  fontSize: 0.038 *
-                                                      _screenSize.width, //14,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }),
-                              SizedBox(
-                                height: 0.023 * _screenSize.height, //15
-                              ),
-                              widget.message.price == null ||
-                                      widget.message.price == 0
-                                  ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        Text(
-                                          'مبلغ ${toPriceStyle(widget.message.price)} تومان',
-                                          style: TextStyle(
-                                            fontSize:
-                                                0.038 * _screenSize.width, //14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              0.0078 * _screenSize.height, //5
-                                        ),
-                                      ],
-                                    ),
-                              widget.message.minShopping == null ||
-                                      widget.message.minShopping == 0
-                                  ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        Text(
-                                          'قابل استفاده برای خرید های بیش از ${toPriceStyle(widget.message.minShopping)} تومان',
-                                          style: TextStyle(
-                                            fontSize:
-                                                0.038 * _screenSize.width, //14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              0.0078 * _screenSize.height, //5
-                                        ),
-                                      ],
-                                    ),
-                              widget.message.perCategory == null ||
-                                      widget.message.perCategory.length == 0
-                                  ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        Text(
-                                          categoryText,
-                                          style: TextStyle(
-                                            fontSize:
-                                                0.038 * _screenSize.width, //14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              0.0078 * _screenSize.height, //5
-                                        ),
-                                      ],
-                                    ),
-                              widget.message.price == 0
-                                  ? SizedBox()
-                                  : Column(
-                                      children: [
-                                        Text(
-                                          'مدت اعتبار از تاریخ ${widget.message.startShamsiYear}/${widget.message.startShamsiMonth}/${widget.message.startShamsiDay} تا تاریخ ${widget.message.endShamsiYear}/${widget.message.endShamsiMonth}/${widget.message.endShamsiDay}',
-                                          style: TextStyle(
-                                            fontSize:
-                                                0.038 * _screenSize.width, //14,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height:
-                                              0.0078 * _screenSize.height, //5
-                                        ),
-                                      ],
-                                    ),
-                            ],
-                          ),
+                        Html(
+                          data: widget.message.body,
+                          style: {
+                            "p": Style(
+                              fontSize: FontSize(14),
+                            ),
+                            "table": Style(
+                              backgroundColor:
+                                  Color.fromARGB(0x50, 0xee, 0xee, 0xee),
+                              border:
+                                  Border.all(color: Colors.black87, width: 0.5),
+                            ),
+                            // some other granular customizations are also possible
+                            "tr": Style(
+                              border:
+                                  Border.all(color: Colors.black87, width: 0.5),
+                            ),
+
+                            "th": Style(
+                              padding: EdgeInsets.all(6),
+                              backgroundColor: Colors.grey,
+                            ),
+                            "td": Style(
+                              padding: EdgeInsets.all(6),
+                              alignment: Alignment.topLeft,
+                            ),
+                          },
+                        
                         ),
                       ],
                     ),

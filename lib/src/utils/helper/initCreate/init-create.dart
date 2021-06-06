@@ -110,7 +110,7 @@ Future<Map<String, dynamic>> authService() async {
           // printErrorMessage(e);
           isAuth = false;
           tryToGetAllUser--;
-          print('try to getAllUser : remaind $tryToGetAllUserInfo time');
+          print('try to getAllUser : remaind $tryToGetAllUser time');
           //
         }
       }

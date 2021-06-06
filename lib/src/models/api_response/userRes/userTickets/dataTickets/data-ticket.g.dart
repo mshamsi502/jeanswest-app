@@ -8,7 +8,7 @@ part of 'data-ticket.dart';
 
 DataTicket _$DataTicketFromJson(Map<String, dynamic> json) {
   return DataTicket(
-    code: json['code'] as String,
+    ticketCode: json['ticketCode'] as String,
     title: json['title'] as String,
     context: (json['context'] as List)
         ?.map((e) =>
@@ -20,7 +20,7 @@ DataTicket _$DataTicketFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$DataTicketToJson(DataTicket instance) =>
     <String, dynamic>{
-      'code': instance.code,
+      'ticketCode': instance.ticketCode,
       'title': instance.title,
       'context': instance.context,
       'status': instance.status,

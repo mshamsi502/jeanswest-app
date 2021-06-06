@@ -5,6 +5,7 @@
 
 // ignore: must_be_immutable
 import 'package:easy_localization/easy_localization.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/promotion-point-data.dart';
 import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 
@@ -69,8 +70,7 @@ class UserCouponsInfo {
   }) {
     if (this.startDate != null) {
       print("this.startDate : ${this.startDate}");
-      DateTime start =
-          DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(this.startDate);
+      DateTime start = DateFormat(STANDARD_DATE_FORMAT).parse(this.startDate);
       print("satart : $start");
       startYearGeo = start.year.toString();
       startMonthGeo = start.month.toString();
@@ -99,7 +99,7 @@ class UserCouponsInfo {
     //
     if (this.expirationDate != null) {
       DateTime expiration =
-          DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(this.expirationDate);
+          DateFormat(STANDARD_DATE_FORMAT).parse(this.expirationDate);
       endYearGeo = expiration.year.toString();
       endMonthGeo = expiration.month.toString();
       endDayGeo = expiration.day.toString();

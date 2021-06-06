@@ -17,7 +17,7 @@ class CouponsInfoWidget extends StatefulWidget {
 
   CouponsInfoWidget({
     Key key,
-    this.coupons,
+    this.coupons = const [],
     this.scrollController,
     this.openPanel,
   }) : super(key: key);
@@ -33,6 +33,7 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
         // Container(
         //   height: 300,
         //   child:
+
         ListView.builder(
       controller: widget.scrollController,
       physics: NeverScrollableScrollPhysics(),
@@ -43,11 +44,11 @@ class _CouponsInfoWidgetState extends State<CouponsInfoWidget> {
         usingDate = (widget.coupons[index].startDate == null)
             ? usingDate
             : (usingDate +
-                "از ${widget.coupons[index].startYearShamsi}/${widget.coupons[index].startMonthShamsi}/${widget.coupons[index].startDayShamsi} ");
+                "از ${widget.coupons[index].startYearShamsi}/${widget.coupons[index].startMonthShamsi ?? ""}/${widget.coupons[index].startDayShamsi ?? ""} ");
         usingDate = (widget.coupons[index].expirationDate == null)
             ? usingDate
             : (usingDate +
-                "تا ${widget.coupons[index].endYearShamsi}/${widget.coupons[index].endMonthShamsi}/${widget.coupons[index].endDayShamsi}");
+                "تا ${widget.coupons[index].endYearShamsi}/${widget.coupons[index].endMonthShamsi ?? ""}/${widget.coupons[index].endDayShamsi ?? ""}");
 
         return Container(
           width: _screenSize.width,

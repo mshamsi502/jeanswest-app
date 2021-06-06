@@ -11,12 +11,13 @@ Future<void> getReturnPolicyInfo() async {
       await globalLocator<GlobalRestClient>().getReturnPolicyInfo();
   if (returnPolicyRes.data != null &&
       returnPolicyRes.data[0] != null &&
-      returnPolicyRes.data[0].header != null) {
-    returnPolicyData = returnPolicyRes.data[0];
+      returnPolicyRes.data[0].condition != null) {
+    returnPolicyData = returnPolicyRes.data;
   } else if (HARDCORE_DATA_IS_ENABLE) {
     print("   / use HardCOre DATA ReturnPolicyInfo");
     returnPolicyData = returnPolicyTempData;
   }
 
-  print('_=_ get successfully ReturnPolicyInfo: ${returnPolicyData.header}');
+  print(
+      '_=_ get successfully ReturnPolicyInfo: ${returnPolicyData[0].condition}');
 }

@@ -14,5 +14,10 @@ const bool MOCK_IS_ENABLE = true;
 //
 const bool HARDCORE_DATA_IS_ENABLE = false;
 // const bool HARDCORE_DATA_IS_ENABLE = true;
-int tryToGetAllUserInfo = 4;
+int tryToGetAllUserInfo = 2;
 bool showCompeletProfileMessage = false;
+
+const int SOME_OF_IN_PAGENATION_LIST = 10;
+const String STANDARD_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+const String SMALL_DATE_AND_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+const String SMALL_JUST_DATE_FORMAT = "yyyy-MM-dd";

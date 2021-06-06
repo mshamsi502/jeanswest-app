@@ -4,10 +4,10 @@
 //****************************************************************************
 
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:html/dom.dart' as dom;
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 
@@ -94,51 +94,28 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                       ? Align(
                           alignment: Alignment.centerRight,
                           child: Html(
-                              data: widget
-                                  .coupon.promotionPoint.description.context,
-                              onLinkTap: (url) {
-                                print("Opening $url ...");
-                              },
-                              customTextStyle: (node, style) {
-                                TextStyle defaultStyle = style.apply(
-                                    fontSizeFactor: (style.fontSize /
-                                            360 *
-                                            _screenSize.width) /
-                                        style.fontSize);
-                                if (node is dom.Element) {
-                                  switch (node.localName) {
-                                    case "custom_tag": // using this, you can handle custom tags in your HTML
-                                      return TextStyle(
-                                        fontSize:
-                                            0.038 * _screenSize.width, //14,
-                                        fontWeight: FontWeight.w400,
-                                      );
-                                    // case "h1": // using this, you can handle custom tags in your HTML
-                                    //   return TextStyle(
-                                    //     fontSize: 14,
-                                    //     fontWeight: FontWeight.w500,
-                                    //   );
-                                    //! add styles
-                                    default:
-                                      {
-                                        return defaultStyle;
-                                      }
-                                  }
-                                }
-                                return defaultStyle;
-                              },
-                              customRender: (node, children) {
-                                if (node is dom.Element) {
-                                  switch (node.localName) {
-                                    case "custom_tag": // using this, you can handle custom tags in your HTML
-                                      return Column(children: children);
-                                  }
-                                }
-                                return null;
-                              },
-                              customTextAlign: (node) {
-                                return TextAlign.right;
-                              }),
+                            data: widget
+                                .coupon.promotionPoint.description.context,
+                            onLinkTap: (url) {
+                              print("Opening $url ...");
+                            },
+                            style: {
+                              "p": Style.fromTextStyle(
+                                TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              "table": Style.fromTextStyle(
+                                TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            },
+                          ),
                         )
                       : Container(
                           height: 0.234 * _screenSize.height, //150,

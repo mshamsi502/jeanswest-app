@@ -129,7 +129,7 @@ Future<UserMainInfo> editUserMainInfo(
     user = createUser(
         userAccount: userAccountRes.data,
         userTblPosCustRes: userPayment.tblPosCustomersID,
-        dateFormat: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        dateFormat: STANDARD_DATE_FORMAT);
   }
 
   return user;
