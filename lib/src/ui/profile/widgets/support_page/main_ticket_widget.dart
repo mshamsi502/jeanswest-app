@@ -7,22 +7,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/single_ticket_page.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
 
 class MainTicketWidget extends StatefulWidget {
   final String headerAsset;
   final String emptyTicketAsset;
   final List<DataTicket> ticket;
+  final Function(List<DataTicket>) updateTickets;
 
   const MainTicketWidget({
     Key key,
     this.headerAsset,
     this.ticket,
     this.emptyTicketAsset,
+    this.updateTickets,
   }) : super(key: key);
   State<StatefulWidget> createState() => _MainTicketWidgetState();
 }
@@ -228,45 +232,95 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                             ),
                           ),
                           onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SingleTicketPage(
-                                        user: user,
-                                        ticket: widget.ticket[
-                                            widget.ticket.length - 1 - index],
-                                        screenSize: _screenSize,
-                                        numberOfTicket:
-                                            widget.ticket.length - 1 - index,
-                                        closeTicket: () {
-                                          // ! send close ticket api
-                                          setState(() {
-                                            widget.ticket[widget.ticket.length -
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SingleTicketPage(
+                                user: user,
+                                ticket: widget
+                                    .ticket[widget.ticket.length - 1 - index],
+                                screenSize: _screenSize,
+                                numberOfTicket:
+                                    widget.ticket.length - 1 - index,
+                                closeTicket: (int indexCloseTicket) async {
+                                  // ! send close ticket api
+                                  Map<String, String> ticketCode = {
+                                    "ticketCode": widget
+                                        .ticket[indexCloseTicket].ticketCode
+                                  };
+                                  await closeATicket(ticketCode);
+                                  List<DataTicket> userTempTickets =
+                                      await getUserTicketsInfo();
+                                  widget.updateTickets(userTempTickets);
+                                  setState(() {
+                                    userTickets = userTempTickets;
+                                  });
+                                  setState(() {
+                                    widget.ticket[
+                                            widget.ticket.length - 1 - index] =
+                                        //
+                                        DataTicket(
+                                            ticketCode: widget
+                                                .ticket[widget.ticket.length -
                                                     1 -
-                                                    index] =
-                                                //
-                                                DataTicket(
-                                                    code: widget
-                                                        .ticket[widget
-                                                                .ticket.length -
-                                                            1 -
-                                                            index]
-                                                        .code,
-                                                    title: widget
-                                                        .ticket[widget
-                                                                .ticket.length -
-                                                            1 -
-                                                            index]
-                                                        .title,
-                                                    context: widget
-                                                        .ticket[widget
-                                                                .ticket.length -
-                                                            1 -
-                                                            index]
-                                                        .context,
-                                                    status: 0);
-                                          });
-                                        },
-                                      ))),
+                                                    index]
+                                                .ticketCode,
+                                            title: widget
+                                                .ticket[widget.ticket.length -
+                                                    1 -
+                                                    index]
+                                                .title,
+                                            context: widget
+                                                .ticket[widget.ticket.length -
+                                                    1 -
+                                                    index]
+                                                .context,
+                                            status: 0);
+                                  });
+                                },
+                                updateTicket:
+                                    (int indexEditTicket, DataTicket ticket) {
+                                  setState(() {
+                                    // userTickets[indexEditTicket] = ticket;
+                                    List<DataTicket> userTempTickets =
+                                        // ignore: deprecated_member_use
+                                        List<DataTicket>();
+                                    for (int i = 0; i < indexEditTicket; i++)
+                                      userTempTickets.add(userTickets[i]);
+                                    userTempTickets.add(DataTicket(
+                                      ticketCode: ticket.ticketCode,
+                                      title: ticket.title ??
+                                          userTickets[indexEditTicket].title,
+                                      context: ticket.context,
+                                      status: ticket.status,
+                                    ));
+                                    for (int i = indexEditTicket + 1;
+                                        i < userTickets.length;
+                                        i++)
+                                      userTempTickets.add(userTickets[i]);
+                                    // userTickets[indexEditTicket] = DataTicket(
+                                    //   ticketCode: ticket.ticketCode,
+                                    //   title: ticket.title ??
+                                    //       userTickets[indexEditTicket].title,
+                                    //   context: ticket.context,
+                                    //   status: ticket.status,
+                                    // );
+                                    // List<DataTicket> dt = [
+                                    //   DataTicket(
+                                    //     ticketCode: ticket.ticketCode,
+                                    //     title: ticket.title ??
+                                    //         userTickets[indexEditTicket].title,
+                                    //     context: ticket.context,
+                                    //     status: ticket.status,
+                                    //   )
+                                    // ];
+                                    // userTickets.replaceRange(indexEditTicket,
+                                    //     indexEditTicket + 1, dt);
+                                    widget.updateTickets(userTempTickets);
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
                         );
                       },
                     ),

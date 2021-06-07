@@ -6,18 +6,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/current_level_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/level_cards_info_widget.dart';
 
 class MembershipLevelPage extends StatefulWidget {
+  final String userLevelName;
   final LevelCard userLevel;
   final LevelCard nextLevel;
   final int moneyBuying;
 
   const MembershipLevelPage(
-      {Key key, this.userLevel, this.moneyBuying, this.nextLevel})
+      {Key key,
+      this.userLevel,
+      this.moneyBuying,
+      this.nextLevel,
+      this.userLevelName})
       : super(key: key);
 
   @override
@@ -88,6 +93,7 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
                   height: 0.0078 * _screenSize.height, //5,
                 ),
                 CurrentLevelWidget(
+                  userLevelName: widget.userLevelName,
                   userLevel: widget.userLevel,
                   moneyBuying: widget.moneyBuying,
                   nextLevel: widget.nextLevel,

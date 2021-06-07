@@ -13,7 +13,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'ui/branch/screens/init_branch_page.dart';
 import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/utils/helper/initCreate/init-create.dart';
 
 class MyApp extends StatefulWidget {
@@ -39,6 +39,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   /// => [_children] is Pages of Bottom Navigation Bar
   List<Widget> _children = [];
+  //
+  GlobalKey _materialKey = new GlobalKey();
 
   @override
   void initState() {
@@ -53,14 +55,14 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     showButtonNavigationBar = true;
     isFirstLaunchBranch = true;
     loading = 'Loading';
+
     // ! check user auth and Create Pages
     auth();
     createEasyLoading();
   }
 
   auth() async {
-    Map<String, dynamic> authServiceRes =
-        await authService();
+    Map<String, dynamic> authServiceRes = await authService();
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];
@@ -96,6 +98,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      key: _materialKey,
       localizationsDelegates: context.localizationDelegates,
       debugShowCheckedModeBanner: false,
       supportedLocales: context.supportedLocales,

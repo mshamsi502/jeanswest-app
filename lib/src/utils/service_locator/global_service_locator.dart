@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:dio/dio.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -3,8 +3,8 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/global/route_names.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/route_names.dart';
 // import 'package:jeanswest/src/services/authentication_service.dart';
 import 'package:jeanswest/src/services/base_model.dart';
 import 'package:jeanswest/src/services/dynamic_link_services.dart';

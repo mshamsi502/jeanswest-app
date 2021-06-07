@@ -1,6 +1,6 @@
 // import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
-// import 'package:jeanswest/src/constants/global/constants.dart';
+// 'package:jeanswest/src/constants/global/constValues/constants.dart';
 // import 'package:jeanswest/src/constants/global/colors.dart';
 // import 'package:jeanswest/src/models/country/country.dart';
 // import 'package:flutter/cupertino.dart';

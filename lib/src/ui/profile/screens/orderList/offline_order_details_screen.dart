@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:flutter_dialogs/flutter_dialogs.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/offlineOrder/user-offline-order-res.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
@@ -12,7 +12,7 @@ import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_p
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/shopping_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline_payment_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline_payment_detail_widget.dart';
-
+import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -169,6 +169,7 @@ class _OfflineOrderDetailsScreenState extends State<OfflineOrderDetailsScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => ReturnProcessPage(
                                             initialTab: 1,
+                                            returnProciyData: returnPolicyData,
                                           ))),
                             ),
                           ],

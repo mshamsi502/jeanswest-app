@@ -8,8 +8,8 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -35,11 +35,17 @@ class _CustomCircularPercentIndicatorWidgetState
     extends State<CustomCircularPercentIndicatorWidget> {
   bool isEndAnimation;
   int loadPercent;
+  String orgPercent;
 
   @override
   void initState() {
     loadPercent = 0;
     isEndAnimation = false;
+    orgPercent = ((double.parse(widget.userLevel.maxPay) - widget.moneyBuying) /
+            (double.parse(widget.userLevel.maxPay) -
+                double.parse(widget.userLevel.minPay)) *
+            100)
+        .toStringAsFixed(0);
     percentAnimation();
     super.initState();
   }
@@ -61,16 +67,17 @@ class _CustomCircularPercentIndicatorWidgetState
           percent: widget.userLevel.title == 'Gold'
               // ? 0.75
               ? 1
-              : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
-                  (double.parse(widget.userLevel.maxPay) -
-                      double.parse(widget.userLevel.minPay)),
+              : int.parse(orgPercent) / 100,
+          // : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
+          //     (double.parse(widget.userLevel.maxPay) -
+          //         double.parse(widget.userLevel.minPay)),
           center: AnimatedSwitcher(
             duration: const Duration(milliseconds: 50),
             child: Padding(
               padding: EdgeInsets.only(top: 0.0078 * _screenSize.height //5,
                   ),
               child: Text(
-                '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : ((widget.moneyBuying - double.parse(widget.userLevel.minPay)) / (double.parse(widget.userLevel.maxPay) - double.parse(widget.userLevel.minPay)) * 100).toStringAsFixed(0) : loadPercent} %',
+                '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : orgPercent : loadPercent} %',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 0.05 * _screenSize.width, //18,

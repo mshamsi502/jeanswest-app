@@ -18,7 +18,7 @@ class ContactUsRes extends Equatable {
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  ContactUsData data;
+  List<ContactUsData> data;
 
   ContactUsRes({
     this.statusCode,

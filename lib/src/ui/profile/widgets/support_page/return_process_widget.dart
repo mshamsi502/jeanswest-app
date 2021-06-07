@@ -6,19 +6,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 
 class ReturnProcessWidget extends StatefulWidget {
   final String assetHeader;
   final List<Widget> children;
-  final List<String> texts;
+  final String text;
+  final String phoneNumber;
+  final List<String> describtion;
 
   const ReturnProcessWidget({
     Key key,
     this.assetHeader,
     this.children,
-    this.texts,
+    this.text,
+    this.describtion,
+    this.phoneNumber,
   }) : super(key: key);
 
   @override
@@ -52,7 +56,8 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
                       right: 0.027 * _screenSize.width, //10,
                     ),
                     child: Text(
-                      'مشتری گرامی ضمن سپاس از حسن انتخاب شما، شرایط و ضوابط تعویض و مرجوع اجناس خریداری شده در شعب جین وست به شرح زیر می باشد:',
+                      widget.text,
+                      // 'مشتری گرامی ضمن سپاس از حسن انتخاب شما، شرایط و ضوابط تعویض و مرجوع اجناس خریداری شده در شعب جین وست به شرح زیر می باشد:',
                       style: TextStyle(
                         fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w600,
@@ -69,7 +74,9 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       fit: BoxFit.fitHeight,
-                      image: new AssetImage(widget.assetHeader),
+                      image: NetworkImage(widget.assetHeader),
+
+                      // new AssetImage(widget.assetHeader),
                     ),
                   ),
                 ),
@@ -79,7 +86,7 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
               height: 0.015 * _screenSize.height, //10,
             ),
             ListView.builder(
-              itemCount: widget.texts.length,
+              itemCount: widget.describtion.length,
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
@@ -107,7 +114,7 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
                         ),
                         Expanded(
                           child: Text(
-                            widget.texts[index],
+                            widget.describtion[index],
                             style: TextStyle(
                               fontSize: 0.038 * _screenSize.width, //14,
                             ),
@@ -148,7 +155,7 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
                   Row(
                     children: [
                       Text(
-                        '02191070544',
+                        widget.phoneNumber,
                         style: TextStyle(
                           fontSize: 0.0444 * _screenSize.width, //16,
                           color: MAIN_BLUE_COLOR,

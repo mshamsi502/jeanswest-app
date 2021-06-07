@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
+  // print('3 noAuth noAuthnoAuthnoAuth noAuth noAuth noAuth : $isAuth');
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
-  _children.add(MainProfilePage(
-    isAuth: !isAuth,
-    // screenSize: screenSize,
-    showCompeletProfileMessage: showCompeletProfileMessage,
-    changeCompeletProfileMessage: (bool value) =>
-        showCompeletProfileMessage = value,
-  ));
+  if (isAuth)
+    _children.add(MainProfilePage(
+      isAuth: !isAuth,
+      // screenSize: screenSize,
+      showCompeletProfileMessage: showCompeletProfileMessage,
+      changeCompeletProfileMessage: (bool value) =>
+          showCompeletProfileMessage = value,
+    ));
+  else {
+    _children.add(Container(color: Colors.white));
+  }
   _children.add(Container(color: Colors.white));
   _children.add(Container(color: Colors.blue));
   // _children.add(shoppingBasketPage);
@@ -35,30 +41,51 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
 }
 
 Future<Map<String, dynamic>> authService() async {
-  //
+  // // ! clear manual token
   // globalLocator<SharedPreferences>().clear();
+  // globalLocator<SharedPreferences>().setString(TOKEN, "");
   //
-  // ! put token in device
-  globalLocator<SharedPreferences>().setString(
-    TOKEN,
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4NDU2ZTU1ZS1lNGEzLTRmYzMtOTQ0OC03ZGQyODNkNTQzOTIiLCJpYXQiOjE2MjE4MzU3ODYsImV4cCI6MTYyMTg1Mzc4Nn0.Kg_cKRL1Up15rmn6dUJvva_OoJrUy9SZPVIMotglx08',
-  );
+  if (MANUAL_TOKEN_IS_ENABLE) {
+    // ! put token in device
+    if (sharedPrefs == null) {
+      sharedPrefs = await SharedPreferences.getInstance();
+    } else
+      sharedPrefs.setString(
+        TOKEN,
+        MANUAL_TOKEN,
+      );
+  }
   //
-
-  String getToken = globalLocator<SharedPreferences>().getString(TOKEN) ?? "";
+  String getToken = "";
+  if (sharedPrefs == null) {
+    sharedPrefs = await SharedPreferences.getInstance();
+  } else
+    getToken = sharedPrefs.getString(TOKEN) ?? "";
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
-  bool isAuth = false;
+
 //
   bool hasNet = await checkConnectionInternet();
+  bool tokenIsExpired = false;
+  bool isAuth = false;
+  int tryToGetAllUser = tryToGetAllUserInfo;
   if (hasNet) {
     if (getToken != null) {
+      print('user is Auth : $isAuth');
       print('user Have TOKEN : $getToken');
-      if (!isAuth) {
-        while (tryToGetAllUserInfo >= 0) {
-          try {
-            await getAllUserInfo();
+      print('tryToGetAllUser : $tryToGetAllUserInfo');
+      // if (!isAuth) {
+      while (tryToGetAllUser >= 0) {
+        try {
+          await getAllUserInfo(noAuth: () {
+            // =>
+
+            tryToGetAllUserInfo = 0;
+            isAuth = false;
+            tokenIsExpired = true;
+          });
+          if (!tokenIsExpired) {
             isAuth = true;
             print('^*^*^ getAllUserInfo : Successfully');
             Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
@@ -76,18 +103,20 @@ Future<Map<String, dynamic>> authService() async {
               'pagesCreatedFinished': pagesCreatedFinished,
               'children': _children,
             };
-          } catch (e) {
-            print('^*^*^ getAllUserInfo : NOOOT Successfully');
-            printErrorMessage(e);
-            isAuth = false;
-            tryToGetAllUserInfo--;
-            print('try to getAllUser : remaind $tryToGetAllUserInfo time');
-            //
           }
+        } catch (e) {
+          print('^*^*^ getAllUserInfo : NOOOT Successfully');
+
+          // printErrorMessage(e);
+          isAuth = false;
+          tryToGetAllUser--;
+          print('try to getAllUser : remaind $tryToGetAllUser time');
+          //
         }
-        // ! server is down, try agian
-        isAuth = false;
       }
+      // ! server is down, try agian
+      isAuth = false;
+      // }
     } else {
       print('user NOOOT Have TOKEN!!');
       isAuth = false;
@@ -95,8 +124,6 @@ Future<Map<String, dynamic>> authService() async {
   } else {
     // ! no internet, turn on and try again
   }
-
-  //
 
   Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
     isAuth: isAuth,

@@ -15,6 +15,7 @@ UserMainInfoData _$UserMainInfoDataFromJson(Map<String, dynamic> json) {
     phoneNumber: json['phoneNumber'] as String,
     gender: json['gender'] as int,
     birthDate: json['birthDate'] as String,
+    erpPartnerShipCode: json['erpPartnerShipCode'] as String,
   );
 }
 
@@ -27,4 +28,5 @@ Map<String, dynamic> _$UserMainInfoDataToJson(UserMainInfoData instance) =>
       'phoneNumber': instance.phoneNumber,
       'gender': instance.gender,
       'birthDate': instance.birthDate,
+      'erpPartnerShipCode': instance.erpPartnerShipCode,
     };

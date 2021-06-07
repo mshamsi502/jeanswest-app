@@ -10,9 +10,11 @@ LevelCardsRes _$LevelCardsResFromJson(Map<String, dynamic> json) {
   return LevelCardsRes(
     statusCode: json['statusCode'] as int,
     message: json['message'] as String,
-    data: json['data'] == null
-        ? null
-        : LevelCardsData.fromJson(json['data'] as Map<String, dynamic>),
+    data: (json['data'] as List)
+        ?.map((e) => e == null
+            ? null
+            : SingleLevelCard.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 

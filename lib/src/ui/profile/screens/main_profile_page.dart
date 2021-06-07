@@ -5,15 +5,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+
+import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
@@ -21,8 +25,8 @@ import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
+import 'package:jeanswest/src/ui/profile/screens/messages/inbox-message-page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_page.dart';
-import 'package:jeanswest/src/ui/profile/screens/messages/inbox_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/membership_card_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
@@ -62,11 +66,13 @@ class _MainProfilePageState extends State<MainProfilePage>
   Color fadeBlackColor;
   ScrollController listViewScrollController;
   LevelCard userLevel;
+  String userLevelName;
   LevelCard nextLevel;
   LevelCard preLevel;
   bool haveUnreadMessage;
-  List<Widget> mainProfileListMenu;
+  List<Widget> mainProfileListMenu = [];
   List<Widget> moreListMenu;
+  List<Widget> moreListWidgets;
   //
   int percentCompleteProfile;
   int showingCard = 0;
@@ -74,23 +80,35 @@ class _MainProfilePageState extends State<MainProfilePage>
   @override
   void initState() {
     super.initState();
-    percentCompleteProfile = 100;
-    userLevel = userLevelProvider(userPayment.moneyBuying);
-    nextLevel = nextLevelProvider(userLevel);
-    haveUnreadMessage = false;
-    for (var i = 0; i < userMessages.length; i++) {
-      // if (!userMessages[i].readed) {
-      //   haveUnreadMessage = true;
-      //   break;
-      // } else {
-      //   haveUnreadMessage = false;
-      // }
-      scrollController = new ScrollController();
-      logOutPanel = new PanelController();
-      cardsInfoPanel = new PanelController();
-      buildProfile();
-      moreListMenu = createMoreListMenuPages();
+    if (widget.isAuth) {
+      percentCompleteProfile = 100;
+      userLevelName = userPayment.cTypeName;
+      userLevel = userLevelProvider(userPayment.payToman);
+      nextLevel = nextLevelProvider(userLevel);
+      haveUnreadMessage = false;
+
+      // for (var i = 0; i < userMessages.length; i++) {
+      for (var i = 0; i < userNotifs.length; i++) {
+        scrollController = new ScrollController();
+        logOutPanel = new PanelController();
+        cardsInfoPanel = new PanelController();
+        buildProfile();
+        moreListMenu = createMoreListMenuPages(
+            updateUserTickets: (List<DataTicket> newTickets) => setState(() {
+                  userTickets = newTickets;
+                }));
+        moreListWidgets = createMorePages(
+          context: context,
+          updateUserTickets: updateUserTickets,
+        );
+      }
     }
+  }
+
+  updateUserTickets(List<DataTicket> tickets) {
+    setState(() {
+      userTickets = tickets;
+    });
   }
 
   buildProfile() {
@@ -126,8 +144,9 @@ class _MainProfilePageState extends State<MainProfilePage>
     mainProfileListMenu = createProfileListMenuPages(
       // screenSize: widget.screenSize,
       userLevel: userLevel,
+      userLevelName: userLevelName,
       nextLevel: nextLevel,
-      moneyBuying: userPayment.moneyBuying,
+      moneyBuying: userPayment.payToman,
       rebuild: () => buildProfile(),
     );
   }
@@ -168,8 +187,9 @@ class _MainProfilePageState extends State<MainProfilePage>
             ),
           ),
           panel: CardsInfoWidget(
-            assetsLevelCard: assetsLevelCard,
-            levels: mainLevels,
+            levelCards: levelCardsData,
+            // assetsLevelCard: assetsLevelCard,
+            // levels: mainLevels,
             screenSize: _screenSize,
             closeCardsInfoPanel: () => cardsInfoPanel.close(),
             showingCard: showingCard,
@@ -232,10 +252,15 @@ class _MainProfilePageState extends State<MainProfilePage>
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => InboxPage(
+                                            builder: (context) =>
+                                                InboxMessagePage(
                                                   changeHaveUnreadMessage:
                                                       changeHaveUnreadMessage,
                                                 ))),
+                                    // builder: (context) => InboxPage(
+                                    //       changeHaveUnreadMessage:
+                                    //           changeHaveUnreadMessage,
+                                    //     ))),
                                   ),
                                   Positioned(
                                     bottom: 0.06 * _screenSize.width / 2,
@@ -426,8 +451,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                         widget.isAuth
                             ? AuthProfileAppBarWidget(
                                 userLevel: userLevel,
+                                userLevelName: userLevelName,
                                 nextLevel: nextLevel,
-                                moneyBuying: userPayment.moneyBuying)
+                                moneyBuying: userPayment.payToman)
                             : UnauthProfileAppBarWidget(),
                         widget.isAuth
                             ? GestureDetector(
@@ -462,7 +488,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                                             userInvite.someOfInstallFromInvited,
                                         someOfShoppingFromInvited: userInvite
                                             .someOfShoppingFromInvited,
-                                        faq: faqData,
+                                        faq: inviteFriendsFAQ,
                                         // screenSize: _screenSize,
                                       ),
                                     ),

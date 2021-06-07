@@ -7,8 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -103,9 +103,16 @@ class _LogOutPanelWidgetState extends State<LogOutPanelWidget> {
     //
   }
 
-  logOutAccount() {
+  logOutAccount() async {
     print('exiting ...');
-    globalLocator<SharedPreferences>().clear();
+    // if (sharedPrefs == null) {
+    sharedPrefs = await SharedPreferences.getInstance();
+    // } else {
+    sharedPrefs.clear();
+    sharedPrefs.setString(TOKEN, "");
+    // }
+    print(
+        '........................................token : ${globalLocator<SharedPreferences>().getString(TOKEN)}');
     Phoenix.rebirth(context); // ! restart the app
   }
 }

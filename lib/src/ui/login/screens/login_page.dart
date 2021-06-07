@@ -6,9 +6,9 @@
 import 'dart:ui';
 
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:jeanswest/src/constants/global/api_respones.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/api_respones.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/size_constants.dart';
 import 'package:jeanswest/src/constants/login/country_code_list.dart';
 import 'package:jeanswest/src/models/country/country.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_code_widget.dart';
@@ -380,25 +380,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   startDownTimer(Size _screenSize) async {
-    setState(() {
-      minuteTimer = LOGIN_LIMIT_MIN_TIMEOUT;
-      secondTimer = LOGIN_LIMIT_SEC_TIMEOUT;
-    });
+    if (mounted)
+      setState(() {
+        minuteTimer = LOGIN_LIMIT_MIN_TIMEOUT;
+        secondTimer = LOGIN_LIMIT_SEC_TIMEOUT;
+      });
     print('1timer : $minuteTimer:$secondTimer');
     while (!(minuteTimer == '00' && secondTimer == '00')) {
       await Future.delayed(Duration(seconds: 1));
-      setState(() {
-        minuteTimer = secondTimer == '00'
-            ? minuteTimer[1] == '0'
-                ? '${int.parse(minuteTimer[0]) - 1}9'
-                : '${int.parse(minuteTimer[0])}${int.parse(minuteTimer[1]) - 1}'
-            : minuteTimer;
-        secondTimer = secondTimer == '00'
-            ? '59'
-            : secondTimer[1] == '0'
-                ? '${int.parse(secondTimer[0]) - 1}9'
-                : '${int.parse(secondTimer[0])}${int.parse(secondTimer[1]) - 1}';
-      });
+      if (mounted)
+        setState(() {
+          minuteTimer = (secondTimer == '00')
+              ? minuteTimer[1] == '0'
+                  ? '${int.parse(minuteTimer[0]) - 1}9'
+                  : '${int.parse(minuteTimer[0])}${int.parse(minuteTimer[1]) - 1}'
+              : minuteTimer;
+          secondTimer = (secondTimer == '00')
+              ? '59'
+              : secondTimer[1] == '0'
+                  ? '${int.parse(secondTimer[0]) - 1}9'
+                  : '${int.parse(secondTimer[0])}${int.parse(secondTimer[1]) - 1}';
+        });
       print('2timer : $minuteTimer:$secondTimer');
     }
   }

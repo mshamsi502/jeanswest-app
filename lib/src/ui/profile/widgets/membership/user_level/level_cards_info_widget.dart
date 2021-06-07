@@ -6,8 +6,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 
@@ -36,7 +36,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
+    print('widget.moneyBuying ${widget.moneyBuying}');
     return Container(
       // color: Colors.white,
       child: ListView.builder(
@@ -135,7 +135,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           ),
                           child: Icon(
                             (widget.moneyBuying >=
-                                    int.parse(levels[levelIndex].maxPay))
+                                    int.parse(levels[levelIndex].minPay))
                                 ? Icons.lock_open
                                 : Icons.lock,
                             size: 0.05 * _screenSize.width, //18,

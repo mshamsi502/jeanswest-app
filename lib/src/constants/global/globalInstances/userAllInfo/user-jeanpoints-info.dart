@@ -1,21 +1,19 @@
-import 'package:jeanswest/src/models/coupon/coupon.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/promotion-description-data.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/promotion-point-data.dart';
+import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 
-List<Coupon> userJeanpointBons = [
-  Coupon(
-    code: 0,
-    engName: '',
-    perName: '',
-    description: ['', ''],
+List<UserCouponsInfo> userJeanpointBons = [
+  UserCouponsInfo(
+    code: "",
+    startDate: "",
+    expirationDate: "",
     price: 0,
-    minShopping: 0,
-    startDate: '',
-    endDate: '',
-    //
-    yearOfStartDate: '',
-    monthOfStartDate: '',
-    dayOfStartDate: '',
-    yearOfEndDate: '',
-    monthOfEndDate: '',
-    dayOfEndDate: '',
+    promotionPoint: PromotionPointData(
+      name: "",
+      description: PromotionDescriptionData(
+        context: "",
+        message: "",
+      ),
+    ),
   ),
 ];

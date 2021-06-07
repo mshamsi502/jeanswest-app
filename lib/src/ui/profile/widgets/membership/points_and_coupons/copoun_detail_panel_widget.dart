@@ -3,15 +3,16 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/coupon/coupon.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 
 class CopounDetailPanelWidget extends StatefulWidget {
-  final Coupon coupon;
+  final UserCouponsInfo coupon;
   final Function() closePanel;
 
   const CopounDetailPanelWidget({
@@ -25,6 +26,11 @@ class CopounDetailPanelWidget extends StatefulWidget {
 
 class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
   ScrollController scrollController = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,130 +55,106 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
         children: [
           SizedBox(height: 0.016 * _screenSize.height //10
               ),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  widget.coupon.perName,
-                  style: TextStyle(
-                    fontSize: 0.0444 * _screenSize.width, //16,
-                  ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.coupon.promotionPoint.name,
+                        style: TextStyle(
+                          fontSize: 0.0444 * _screenSize.width, //16,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        padding: EdgeInsets.all(
+                          0.0138 * _screenSize.width, //5
+                        ),
+                        child: Icon(
+                          Icons.close,
+                          size: 0.069 * _screenSize.width, //25,
+                          color: Colors.black,
+                        ),
+                      ),
+                      onTap: () => widget.closePanel(),
+                    ),
+                  ],
                 ),
-              ),
-              GestureDetector(
-                child: Container(
-                  padding: EdgeInsets.all(
-                    0.0138 * _screenSize.width, //5
-                  ),
-                  child: Icon(
-                    Icons.close,
-                    size: 0.069 * _screenSize.width, //25,
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () => widget.closePanel(),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 0.023 * _screenSize.height, //15
-          ),
-          Container(
-            height: 0.287162 * _screenSize.height, //170
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                children: [
-                  ListView.builder(
-                    controller: scrollController,
-                    itemCount: widget.coupon.description.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 0.027 * _screenSize.width, //10,
-                          ),
-                          Container(
-                            height: 0.0194 * _screenSize.width, //7,
-                            width: 0.0194 * _screenSize.width, //7,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                0.138 * _screenSize.width, //50,
+                SizedBox(height: 0.016 * _screenSize.height //10
+                    ),
+                SingleChildScrollView(
+                  controller: scrollController,
+                  child: widget.coupon.promotionPoint.description != null
+                      ? Align(
+                          alignment: Alignment.centerRight,
+                          child: Html(
+                            data: widget
+                                .coupon.promotionPoint.description.context,
+                            onLinkTap: (url) {
+                              print("Opening $url ...");
+                            },
+                            style: {
+                              "p": Style.fromTextStyle(
+                                TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black54,
+                                ),
                               ),
-                              color: MAIN_BLUE_COLOR,
+                              "table": Style.fromTextStyle(
+                                TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            },
+                          ),
+                        )
+                      : Container(
+                          height: 0.234 * _screenSize.height, //150,
+                          alignment: Alignment.center,
+                          color: Colors.amber[200],
+                          child: Text(
+                            "اطلاعاتی برای نمایش وجود ندارد",
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                          SizedBox(
-                            width: 0.027 * _screenSize.width, //10,
+                        ),
+                ),
+                SizedBox(
+                  height: 0.027 * _screenSize.width, //10,
+                ),
+                widget.coupon.price == null || widget.coupon.price == 0
+                    ? SizedBox()
+                    : Row(
+                        children: [
+                          Text(
+                            "${toPriceStyle(widget.coupon.price)} تومان",
+                            style: TextStyle(
+                              fontSize: 0.038 * _screenSize.width, //14,
+                            ),
                           ),
                           Expanded(
-                              child: Text(
-                            widget.coupon.description[index],
-                            style: TextStyle(
-                              fontSize: 0.0333 * _screenSize.width, //12,
-                            ),
-                          )),
+                            child: SizedBox(),
+                          ),
                         ],
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 0.083 * _screenSize.width, //30
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.attach_money,
-                          color: Colors.red,
-                          size: 0.05 * _screenSize.width, //18,
-                        ),
-                        SizedBox(width: 0.0138 * _screenSize.width //5,
-                            ),
-                        Expanded(
-                            child: Text(
-                          '${toPriceStyle(widget.coupon.price)} تومان بن خرید برای سبد خرید های بالای ${toPriceStyle(widget.coupon.minShopping)} تومان',
-                          style: TextStyle(
-                            fontSize: 0.038 * _screenSize.width, //14,
-                          ),
-                        )),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 0.083 * _screenSize.width, //30
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.timer_rounded,
-                          color: Colors.green,
-                          size: 0.041 * _screenSize.width, //15,
-                        ),
-                        SizedBox(width: 0.0138 * _screenSize.width //5,
-                            ),
-                        Expanded(
-                            child: Text(
-                          'مهلت استفاده تا: ${widget.coupon.dayOfEndDate}-${widget.coupon.monthOfEndDate}-${widget.coupon.yearOfEndDate}',
-                          style: TextStyle(
-                            fontSize: 0.038 * _screenSize.width, //14,
-                          ),
-                        )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                      ),
+              ],
             ),
           ),
           SizedBox(
             height: 0.027 * _screenSize.width, //10,
           ),
+          Expanded(child: SizedBox()),
           AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
@@ -189,7 +171,7 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
             fontSize: 0.038 * _screenSize.width, //14,
           ),
           SizedBox(
-            height: 0.027 * _screenSize.width, //10,
+            height: 0.031 * _screenSize.height, //20,
           ),
         ],
       ),

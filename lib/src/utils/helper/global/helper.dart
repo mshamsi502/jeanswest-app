@@ -18,7 +18,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 // import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
@@ -258,7 +258,6 @@ scrollJumpAfterKeyborad({
   @required ScrollController scrollController,
   @required Size screenSize,
 }) {
-
   keyboardVisibilityController.onChange.listen((bool visible) {
     if (visible) {
       // scrollController.jumpTo(screenSize.height);

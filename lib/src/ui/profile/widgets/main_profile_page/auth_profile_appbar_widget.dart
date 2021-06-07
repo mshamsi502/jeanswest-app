@@ -5,7 +5,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
@@ -15,6 +16,7 @@ import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_pag
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
 class AuthProfileAppBarWidget extends StatefulWidget {
+  final String userLevelName;
   final LevelCard userLevel;
   final LevelCard nextLevel;
   final int moneyBuying;
@@ -24,6 +26,7 @@ class AuthProfileAppBarWidget extends StatefulWidget {
     this.userLevel,
     this.nextLevel,
     this.moneyBuying,
+    this.userLevelName,
   }) : super(key: key);
   State<StatefulWidget> createState() => _AuthProfileAppBarWidgetState();
 }
@@ -159,12 +162,17 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                               ],
                                               tabWidgets: [
                                                 MembershipLevelPage(
+                                                  userLevelName:
+                                                      widget.userLevelName,
                                                   userLevel: widget.userLevel,
                                                   nextLevel: widget.nextLevel,
                                                   moneyBuying:
                                                       widget.moneyBuying,
                                                 ),
-                                                JeanpointAndCouponsPage(),
+                                                JeanpointAndCouponsPage(
+                                                  userJeanpointBons:
+                                                      userJeanpointBons,
+                                                ),
                                               ],
                                               bottomButtonFunction: () {},
                                             ),
@@ -237,7 +245,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                       image: DecorationImage(
                         fit: BoxFit.contain,
                         image: new AssetImage(
-                          (user.gender == null || user.gender == null)
+                          user.gender == null
                               ? 'assets/images/png_images/global/userProfile/user-unknown.png'
                               : user.gender == 1
                                   ? 'assets/images/png_images/global/userProfile/user-male.png'

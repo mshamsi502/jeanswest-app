@@ -5,7 +5,7 @@
 
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:jeanswest/src/constants/global/colors.dart';
+// import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 // import 'package:jeanswest/src/constants/test_data/texts.dart';
 // import 'package:jeanswest/src/models/profile/message/user_noti/noti_message.dart';
 // import 'package:jeanswest/src/utils/helper/global/helper.dart';

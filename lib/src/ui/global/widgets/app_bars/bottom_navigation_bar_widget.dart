@@ -5,7 +5,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {

@@ -11,6 +11,7 @@ SingleTicket _$SingleTicketFromJson(Map<String, dynamic> json) {
     owner: json['owner'] as String,
     text: json['text'] as String,
     createdAt: json['created_at'] as String,
+    contextCode: json['contextCode'] as String,
   );
 }
 
@@ -19,4 +20,5 @@ Map<String, dynamic> _$SingleTicketToJson(SingleTicket instance) =>
       'owner': instance.owner,
       'text': instance.text,
       'created_at': instance.createdAt,
+      'contextCode': instance.contextCode,
     };

@@ -4,8 +4,8 @@
 //****************************************************************************
 
 import 'package:flutter/services.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/country/country.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -54,15 +54,16 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   void initState() {
     keyboardIsOpen = false;
     keyboardVisibilityController.onChange.listen((bool visible) {
-      if (visible)
+      if (visible) if (mounted)
         setState(() {
           keyboardIsOpen = true;
         });
       else {
         widget.focusNode.unfocus();
-        setState(() {
-          keyboardIsOpen = false;
-        });
+        if (mounted)
+          setState(() {
+            keyboardIsOpen = false;
+          });
       }
     });
     // KeyboardVisibilityNotification().addNewListener(
@@ -81,6 +82,8 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
     // );
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
