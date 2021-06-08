@@ -24,7 +24,6 @@ const TextDirection ltrTextDirection = TextDirection.ltr;
 bool isInit = true;
 bool userIsAuth = false;
 
-
 String completeProfileMsgDateTime = '';
 
 GetIt globalLocator = GetIt.instance;

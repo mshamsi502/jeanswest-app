@@ -8,16 +8,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MembershipCardWidget extends StatefulWidget {
   final int showingCard;
+  final List<String> assetsLevelCard;
+  final List<String> imageType;
   final Function(int) changeShowingCard;
 
   const MembershipCardWidget({
     Key key,
     this.showingCard,
     this.changeShowingCard,
+    this.assetsLevelCard,
+    this.imageType,
   }) : super(key: key);
   State<StatefulWidget> createState() => _MembershipCardWidgetState();
 }
@@ -29,7 +33,7 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
   @override
   void initState() {
     // showingCard = 0;
-    for (var i = 0; i < assetsLevelCard.length; i++) index.add(i);
+    for (var i = 0; i < widget.assetsLevelCard.length; i++) index.add(i);
     super.initState();
   }
 
@@ -66,8 +70,7 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
                 // initialPage: showingCard,
                 initialPage: widget.showingCard,
                 enableInfiniteScroll: true,
-                onPageChanged: (int index, CarouselPageChangedReason reason) {
-                },
+                onPageChanged: (int index, CarouselPageChangedReason reason) {},
                 autoPlay: true,
                 autoPlayInterval: Duration(seconds: 6),
                 autoPlayAnimationDuration: Duration(milliseconds: 1000),
@@ -92,12 +95,30 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
                               borderRadius: BorderRadius.circular(
                                 0.027 * _screenSize.width, //10,
                               ),
-                              image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: new AssetImage(
-                                    assetsLevelCard.elementAt(i)),
-                              ),
                             ),
+                            child: widget.imageType[i] == "svg"
+                                ? ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    child: SvgPicture.network(
+                                      widget.assetsLevelCard.elementAt(i),
+                                      placeholderBuilder:
+                                          (BuildContext context) =>
+                                              new Container(
+                                        padding: const EdgeInsets.all(30.0),
+                                        child: const CircularProgressIndicator(
+                                          backgroundColor: Colors.amber,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                    child: Image.network(
+                                      widget.assetsLevelCard.elementAt(i),
+                                    ),
+                                  ),
                           ),
                           Positioned(
                             bottom: widget.showingCard == i

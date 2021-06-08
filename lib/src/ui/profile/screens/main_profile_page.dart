@@ -17,9 +17,9 @@ import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.da
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
@@ -33,6 +33,7 @@ import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_vie
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/cards-info-widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/auth_profile_appbar_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/unauth_profile_appbar_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -65,10 +66,13 @@ class _MainProfilePageState extends State<MainProfilePage>
   PanelController cardsInfoPanel;
   Color fadeBlackColor;
   ScrollController listViewScrollController;
-  LevelCard userLevel;
+  SingleLevelCard userLevel;
+  String userLevelAssets;
+  // LevelCard userLevel;
   String userLevelName;
-  LevelCard nextLevel;
-  LevelCard preLevel;
+  // LevelCard nextLevel;
+  SingleLevelCard nextLevel;
+  // LevelCard preLevel;
   bool haveUnreadMessage;
   List<Widget> mainProfileListMenu = [];
   List<Widget> moreListMenu;
@@ -76,15 +80,36 @@ class _MainProfilePageState extends State<MainProfilePage>
   //
   int percentCompleteProfile;
   int showingCard = 0;
+  //
+  Map<String, dynamic> cardsInfoMap;
 
   @override
   void initState() {
     super.initState();
+
+    // print("aaaaaaaaaaaaaaaaaaaaaaaaaa levelCardsData : $levelCardsData");
+    cardsInfoMap = prepareMainCards(
+      levelCards: levelCardsData,
+      // screenSize: widget.screenSize,
+    );
+    // print("bbbbbbbbb");
     if (widget.isAuth) {
       percentCompleteProfile = 100;
       userLevelName = userPayment.cTypeName;
-      userLevel = userLevelProvider(userPayment.payToman);
-      nextLevel = nextLevelProvider(userLevel);
+      // userLevel = userLevelProvider(userPayment.payToman);
+      // nextLevel = nextLevelProvider(userLevel);
+      userLevel = userLevelProvider(
+        moneyBuying: userPayment.payToman,
+        cardsInfo: levelCardsData,
+      );
+      // print("userlevel : $userLevel");
+      nextLevel = nextLevelProvider(
+        userLevel: userLevel,
+        cardsInfo: levelCardsData,
+      );
+
+      userLevelAssets = userLevel.image;
+      // print("nextLevel : $nextLevel");
       haveUnreadMessage = false;
 
       // for (var i = 0; i < userMessages.length; i++) {
@@ -146,6 +171,8 @@ class _MainProfilePageState extends State<MainProfilePage>
       userLevel: userLevel,
       userLevelName: userLevelName,
       nextLevel: nextLevel,
+      imageType: getTypeFileLink(userLevelAssets),
+      assetsLevelCard: userLevelAssets,
       moneyBuying: userPayment.payToman,
       rebuild: () => buildProfile(),
     );
@@ -188,6 +215,7 @@ class _MainProfilePageState extends State<MainProfilePage>
           ),
           panel: CardsInfoWidget(
             levelCards: levelCardsData,
+            cardsInfo: cardsInfoMap,
             // assetsLevelCard: assetsLevelCard,
             // levels: mainLevels,
             screenSize: _screenSize,
@@ -453,6 +481,8 @@ class _MainProfilePageState extends State<MainProfilePage>
                                 userLevel: userLevel,
                                 userLevelName: userLevelName,
                                 nextLevel: nextLevel,
+                                imageType: getTypeFileLink(userLevelAssets),
+                                assetsLevelCard: userLevelAssets,
                                 moneyBuying: userPayment.payToman)
                             : UnauthProfileAppBarWidget(),
                         widget.isAuth
@@ -506,6 +536,8 @@ class _MainProfilePageState extends State<MainProfilePage>
                   //   child:
                   MembershipCardWidget(
                       showingCard: showingCard,
+                      assetsLevelCard: cardsInfoMap["mainAssetsLevelCard"],
+                      imageType: cardsInfoMap["imageType"],
                       changeShowingCard: (int index) => setState(() {
                             showingCard = index;
                             print("--------showingCard : $showingCard");

@@ -14,7 +14,6 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   if (isAuth)
     _children.add(MainProfilePage(
       isAuth: !isAuth,
-      // screenSize: screenSize,
       showCompeletProfileMessage: showCompeletProfileMessage,
       changeCompeletProfileMessage: (bool value) =>
           showCompeletProfileMessage = value,
@@ -90,7 +89,6 @@ Future<Map<String, dynamic>> authService() async {
             print('^*^*^ getAllUserInfo : Successfully');
             Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
               isAuth: isAuth,
-              // screenSize: screenSize,
             );
             print('created BottomNavigationBarPages');
             _children = initCreateRes['children'];
@@ -127,7 +125,6 @@ Future<Map<String, dynamic>> authService() async {
 
   Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
     isAuth: isAuth,
-    // screenSize: screenSize,
   );
   print('created BottomNavigationBarPages');
   _children = initCreateRes['children'];

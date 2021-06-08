@@ -120,7 +120,7 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                       : Container(
                           height: 0.234 * _screenSize.height, //150,
                           alignment: Alignment.center,
-                          color: Colors.amber[200],
+                          // color: Colors.amber[200],
                           child: Text(
                             "اطلاعاتی برای نمایش وجود ندارد",
                             style: TextStyle(

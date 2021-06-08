@@ -75,7 +75,7 @@ class _JeanpointAndCouponsPageState extends State<JeanpointAndCouponsPage> {
                   ),
                   child: Text(
                     widget.userJeanpointBons != null &&
-                            widget.userJeanpointBons.length < 0
+                            widget.userJeanpointBons.length > 0
                         ? 'مجموع بن ها: ${widget.userJeanpointBons.length}'
                         : 'مجموع بن ها: 0',
                     style: TextStyle(

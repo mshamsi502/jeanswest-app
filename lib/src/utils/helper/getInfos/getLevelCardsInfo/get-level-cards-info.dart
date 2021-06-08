@@ -25,6 +25,10 @@ Future<void> getLevelCardsInfo() async {
     }
   } catch (e) {
     printErrorMessage(e);
+    if (HARDCORE_DATA_IS_ENABLE) {
+      print("   / use HardCOre DATA contactUsInfo");
+      levelCardsData = levelCardsTempData;
+    }
   }
   print('_=_ get successfully levelCardsData: ${levelCardsData.length}');
   print('_=_ get successfully levelCardsData: ${levelCardsData[0].engTitle}');

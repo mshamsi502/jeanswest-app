@@ -11,11 +11,11 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
@@ -39,9 +39,13 @@ import 'package:intent/extra.dart' as android_extra;
 
 List<Widget> createProfileListMenuPages({
   // Size screenSize,
-  LevelCard userLevel,
+  SingleLevelCard userLevel,
+  // LevelCard userLevel,
   String userLevelName,
-  LevelCard nextLevel,
+  SingleLevelCard nextLevel,
+  // LevelCard nextLevel,
+  String imageType,
+  String assetsLevelCard,
   int moneyBuying,
   Function() rebuild,
 }) {
@@ -62,6 +66,8 @@ List<Widget> createProfileListMenuPages({
           userLevel: userLevel,
           nextLevel: nextLevel,
           moneyBuying: moneyBuying,
+          imageType: imageType,
+          assetsLevelCard: assetsLevelCard,
         ),
         JeanpointAndCouponsPage(
             // ignore: deprecated_member_use

@@ -236,3 +236,24 @@ String convertToDoubleDigit(String oldString) {
   else
     return "00";
 }
+
+String toStandardPhoneNumberforAPIs(String phone) {
+  String rawPhone;
+  if (phone.length == 10 && !phone.startsWith("0") && !phone.startsWith("+"))
+    rawPhone = phone;
+  else if (phone.length == 11 &&
+      phone.startsWith("0") &&
+      !phone.startsWith("+"))
+    rawPhone = phone.substring(1);
+  else if (phone.length == 13 &&
+      !phone.startsWith("0") &&
+      phone.startsWith("+")) rawPhone = phone.substring(3);
+  if (STANDARD_PHONE_NUMBER_STYLE_FOR_API == "xxx-xxx-xxxx") {
+    return rawPhone;
+  } else if (STANDARD_PHONE_NUMBER_STYLE_FOR_API == "0xxx-xxx-xxxx") {
+    return "0$rawPhone";
+  } else if (STANDARD_PHONE_NUMBER_STYLE_FOR_API == "+98xxx-xxx-xxxx") {
+    return "+98$rawPhone";
+  } else
+    return phone;
+}

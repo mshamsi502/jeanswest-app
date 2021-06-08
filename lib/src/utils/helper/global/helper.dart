@@ -261,7 +261,7 @@ scrollJumpAfterKeyborad({
   @required Size screenSize,
 }) {
   keyboardVisibilityController.onChange.listen((bool visible) {
-    if (visible) {
+    if (visible && scrollController.hasClients) {
       // scrollController.jumpTo(screenSize.height);
       double pos = screenSize.height;
       while (pos <= scrollController.position.maxScrollExtent) {

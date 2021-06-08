@@ -8,17 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 
 class LevelCardsInfoWidget extends StatefulWidget {
-  final LevelCard userLevel;
+  final SingleLevelCard userLevel;
+  // final LevelCard userLevel;
   final int moneyBuying;
+  final List<SingleLevelCard> cardsInfo;
 
   const LevelCardsInfoWidget({
     Key key,
     this.userLevel,
     this.moneyBuying,
+    this.cardsInfo,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _LevelCardsInfoWidgetState();
@@ -40,7 +42,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
     return Container(
       // color: Colors.white,
       child: ListView.builder(
-        itemCount: levels.length,
+        itemCount: widget.cardsInfo.length,
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext context, int levelIndex) {
@@ -75,6 +77,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                         border: Border.all(color: levelColors[levelIndex]),
                         color: Colors.white,
                       ),
+                      // TODO
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -85,7 +88,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                             ),
                           ),
                           Text(
-                            levels[levelIndex].title,
+                            widget.cardsInfo[levelIndex].engTitle,
                             textDirection: ltrTextDirection,
                             style: TextStyle(
                               fontSize: 0.038 * _screenSize.width, //14,
@@ -111,7 +114,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           color: Colors.white,
                         ),
                         child: Text(
-                          '${levels[levelIndex].percent}%',
+                          '${widget.cardsInfo[levelIndex].percent}%',
                           style: TextStyle(
                             fontSize: 0.0333 * _screenSize.width, //12,
                           ),
@@ -135,7 +138,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                           ),
                           child: Icon(
                             (widget.moneyBuying >=
-                                    int.parse(levels[levelIndex].minPay))
+                                    widget.cardsInfo[levelIndex].minPay)
                                 ? Icons.lock_open
                                 : Icons.lock,
                             size: 0.05 * _screenSize.width, //18,
@@ -152,16 +155,17 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                       padding: EdgeInsets.symmetric(
                         horizontal: 0.083 * _screenSize.width, //30
                       ),
-                      itemCount: levels[levelIndex].subtitles.length,
+                      itemCount: widget.cardsInfo[levelIndex].subTitles.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       itemBuilder: (BuildContext context, int condIndex) {
                         return Column(
                           children: [
-                            levels[levelIndex].descriptions[condIndex] ==
+                            widget.cardsInfo[levelIndex]
+                                            .descriptions[condIndex] ==
                                         null ||
-                                    levels[levelIndex]
+                                    widget.cardsInfo[levelIndex]
                                             .descriptions[condIndex] ==
                                         ''
                                 ? SizedBox()
@@ -190,7 +194,7 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                                         // SizedBox(width: 5),
                                         Expanded(
                                           child: Text(
-                                            levels[levelIndex]
+                                            widget.cardsInfo[levelIndex]
                                                 .descriptions[condIndex],
                                             style: TextStyle(
                                               fontSize: 0.038 *

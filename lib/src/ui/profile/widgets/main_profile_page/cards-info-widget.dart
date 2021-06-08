@@ -9,12 +9,15 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
-import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
+// import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
+// import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 
 class CardsInfoWidget extends StatefulWidget {
   // final List<String> assetsLevelCard;
   final List<SingleLevelCard> levelCards;
   // final List<MainLevelCard> levels;
+  final Map<String, dynamic> cardsInfo;
   final Size screenSize;
   final Function closeCardsInfoPanel;
   final int showingCard;
@@ -29,7 +32,9 @@ class CardsInfoWidget extends StatefulWidget {
     this.changeShowingCard,
     // this.levels,
     this.screenSize,
-    @required this.levelCards,
+    // @required this.levelCards,
+    @required this.cardsInfo,
+    this.levelCards,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _CardsInfoWidgetState();
@@ -38,8 +43,6 @@ class CardsInfoWidget extends StatefulWidget {
 class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   ScrollController _scrollController;
   ScrollController cardScrollController;
-
-  List<int> index = [];
 
   // ignore: deprecated_member_use
   List<double> largeHeights = List<double>();
@@ -66,90 +69,39 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
     tempShowingCard = widget.showingCard;
     //  !
 
-    prepareMainCards();
+    // Map<String, dynamic> map = prepareMainCards(levelCards: widget.levelCards);
+    // someCards = map["someCards"];
+    // mainTitleLevelCard = map["mainTitleLevelCard"];
+    // mainAssetsLevelCard = map["mainAssetsLevelCard"];
+    // mainTextLevelCard = map["mainTextLevelCard"];
+    // someSubCards = map["someSubCards"];
+    // imageType = map["imageType"];
+    someCards = widget.cardsInfo["someCards"];
+    mainTitleLevelCard = widget.cardsInfo["mainTitleLevelCard"];
+    mainAssetsLevelCard = widget.cardsInfo["mainAssetsLevelCard"];
+    mainTextLevelCard = widget.cardsInfo["mainTextLevelCard"];
+    someSubCards = widget.cardsInfo["someSubCards"];
+    imageType = widget.cardsInfo["imageType"];
+    // largeHeights = widget.cardsInfo["largeHeights"];
+    // largeWidths = widget.cardsInfo["largeWidths"];
+
+    //
+    // createSizedCards(
+    //   someCards: someCards,
+    //   showingCard: widget.showingCard,
+    //   screenSize: widget.screenSize,
+    // );
+
+    Map<String, dynamic> resize = createSizedCards(
+      someCards: someCards,
+      showingCard: widget.showingCard,
+      screenSize: widget.screenSize,
+    );
+
+    largeHeights = resize["largeHeights"];
+    largeWidths = resize["largeWidths"];
 
     super.initState();
-  }
-
-  void prepareMainCards() {
-    someCards = 0;
-    // ignore: deprecated_member_use
-    mainAssetsLevelCard = new List<String>();
-    // ignore: deprecated_member_use
-    mainTitleLevelCard = new List<String>();
-    // ignore: deprecated_member_use
-    mainTextLevelCard = new List<String>();
-    // ignore: deprecated_member_use
-    someSubCards = new List<int>();
-    // ignore: deprecated_member_use
-    imageType = new List<String>();
-    someSubCards.add(0);
-    someSubCards.add(0);
-    someSubCards.add(0);
-    isCountBlue = false;
-    isCountSilver = false;
-    isCountGold = false;
-
-    for (int i = 0; i < widget.levelCards.length; i++) {
-      if (((widget.levelCards[i].engTitle)
-          .contains(RegExp(r'blue', caseSensitive: false)))) {
-        if (!isCountBlue) {
-          someCards++;
-          mainAssetsLevelCard.add(widget.levelCards[i].image);
-          imageType.add(getTypeFileLink(widget.levelCards[i].image));
-          mainTitleLevelCard.add("کارت عضویت آبی");
-          mainTextLevelCard.add(widget.levelCards[i].text);
-          isCountBlue = true;
-        }
-        someSubCards[0] = someSubCards[0] + 1;
-      }
-      if (((widget.levelCards[i].engTitle)
-          .contains(RegExp(r'silver', caseSensitive: false)))) {
-        if (!isCountSilver) {
-          someCards++;
-          mainAssetsLevelCard.add(widget.levelCards[i].image);
-          imageType.add(getTypeFileLink(widget.levelCards[i].image));
-          mainTitleLevelCard.add(widget.levelCards[i].perTitle);
-          mainTextLevelCard.add(widget.levelCards[i].text);
-          isCountSilver = true;
-        }
-        someSubCards[1] = someSubCards[1] + 1;
-      }
-      if (((widget.levelCards[i].engTitle)
-          .contains(RegExp(r'gold', caseSensitive: false)))) {
-        if (!isCountGold) {
-          someCards++;
-          mainAssetsLevelCard.add(widget.levelCards[i].image);
-          imageType.add(getTypeFileLink(widget.levelCards[i].image));
-          mainTitleLevelCard.add(widget.levelCards[i].perTitle);
-          mainTextLevelCard.add(widget.levelCards[i].text);
-          isCountGold = true;
-        }
-        someSubCards[2] = someSubCards[2] + 1;
-      }
-    }
-    for (var i = 0; i < someCards; i++) index.add(i);
-    createSizedCards();
-  }
-
-  void createSizedCards() {
-    // ignore: deprecated_member_use
-    largeWidths = new List<double>();
-    // ignore: deprecated_member_use
-    largeHeights = new List<double>();
-    for (int i = 0; i < someCards; i++) {
-      if (i == widget.showingCard) {
-        largeWidths.add((widget.screenSize.width / 2.25) -
-            (0.054 * widget.screenSize.width //20
-            ));
-        largeHeights.add(0.2027 * widget.screenSize.height //120,
-            );
-      } else {
-        largeWidths.add((widget.screenSize.width / 3.5));
-        largeHeights.add(0.15625 * widget.screenSize.height //100,
-            );
-      }
-    }
   }
 
   void animatedCard(int index, Size _screenSize) {
@@ -183,7 +135,14 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
       setState(() {
         tempShowingCard = widget.showingCard;
       });
-      createSizedCards();
+      Map<String, dynamic> resize = createSizedCards(
+        someCards: someCards,
+        showingCard: widget.showingCard,
+        screenSize: widget.screenSize,
+      );
+
+      largeHeights = resize["largeHeights"];
+      largeWidths = resize["largeWidths"];
       animatedCard(tempShowingCard, _screenSize);
       // print("tempShowingCard in panel : $tempShowingCard");
     }
@@ -393,8 +352,6 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                 ? SizedBox()
                                 : Text(
                                     widget
-                                        // .levelCards[
-                                        //     widget.showingCard + indexSubLvl]
                                         .levelCards[
                                             indexOfSubCard + indexSubLvl]
                                         .perTitle,

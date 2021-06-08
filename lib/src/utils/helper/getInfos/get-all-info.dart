@@ -63,9 +63,6 @@ Future<void> getAllUserInfo({@required Function noAuth}) async {
           dateFormat: STANDARD_DATE_FORMAT);
     }
 
-    //
-    // await userMainFriends();
-    //
     // await userInviteInfo();
     //
 
