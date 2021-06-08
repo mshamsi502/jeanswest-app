@@ -50,6 +50,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
 
   // !
   int someCards;
+  int tempShowingCard;
   List<String> mainAssetsLevelCard;
   List<String> mainTitleLevelCard;
   List<String> mainTextLevelCard;
@@ -65,6 +66,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
     _scrollController = new ScrollController();
     cardScrollController = new ScrollController();
     carouselController = CarouselController();
+    tempShowingCard = widget.showingCard;
     //  !
 
     prepareMainCards();
@@ -145,10 +147,14 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
     }
 
     for (var i = 0; i < someCards; i++) index.add(i);
+    setState(() {
+      tempShowingCard = widget.showingCard;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("showingCard in panel : ${widget.showingCard}");
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(

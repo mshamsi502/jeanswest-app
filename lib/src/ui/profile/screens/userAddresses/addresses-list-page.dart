@@ -58,15 +58,19 @@ class _AddressesListPageState extends State<AddressesListPage> {
       child: SafeArea(
         child: WillPopScope(
           onWillPop: () async {
-            if (mapPanelController.isPanelOpen &&
-                mapPanelState == PanelState.CLOSED)
-              return await backPanelClose([mapPanelController], context);
-            if (editPanelController.isPanelOpen)
-              return await backPanelClose([editPanelController], context);
-            if (mapPanelController.isPanelOpen &&
-                mapPanelState == PanelState.OPEN)
-              return await backPanelClose([mapPanelController], context);
-            return false;
+            // if (mapPanelController.isPanelOpen &&
+            //     mapPanelState ==
+            //         PanelState.CLOSED) // ! is Editing and map is Open
+            //   return await backPanelClose([mapPanelController], context);
+            // if (editPanelController.isPanelOpen)
+            //   return await backPanelClose([editPanelController], context);
+            // if (mapPanelController.isPanelOpen &&
+            //     mapPanelState ==
+            //         PanelState.OPEN) //! is Creating and map is Open
+            //   return await backPanelClose([mapPanelController], context);
+            // return false;
+            return await backPanelClose(
+                [mapPanelController, editPanelController], context);
           },
           child: Scaffold(
             key: scaffoldKey,
@@ -163,6 +167,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                           editAddress: (int seleted) {
                                             setState(() {
                                               mapPanelState = PanelState.CLOSED;
+                                            
                                               selectForEdit = seleted;
                                             });
                                             editPanelController.open();
@@ -219,6 +224,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                 selectForEdit = 0;
                                 mapPanelState = PanelState.OPEN;
                               });
+                      
                               editPanelController.open();
                             },
                           ),

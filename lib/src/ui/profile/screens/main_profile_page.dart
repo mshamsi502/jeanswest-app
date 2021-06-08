@@ -502,10 +502,19 @@ class _MainProfilePageState extends State<MainProfilePage>
                   SizedBox(
                     height: 0.023 * _screenSize.height, //15
                   ),
-                  GestureDetector(
-                    child: MembershipCardWidget(),
-                    onTap: () => cardsInfoPanel.open(),
-                  ),
+                  // GestureDetector(
+                  //   child:
+                  MembershipCardWidget(
+                      showingCard: showingCard,
+                      changeShowingCard: (int index) => setState(() {
+                            showingCard = index;
+                            print("--------showingCard : $showingCard");
+                            if (cardsInfoPanel.isAttached &&
+                                cardsInfoPanel.isPanelClosed)
+                              cardsInfoPanel.open();
+                          })),
+                  // onTap: () => cardsInfoPanel.open(),
+                  // ),
                   MenuListViewWidget(
                     titles:
                         widget.isAuth ? mainProfileListTitles : moreListTitles,

@@ -47,7 +47,7 @@ List<Widget> createProfileListMenuPages({
 }) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
-  
+
   profileListMenu.add(
     TabBarViewPage(
       title: 'سطح عضویت',
@@ -149,6 +149,7 @@ UserMainInfo createUser({
     tblPosCustomersID: userTblPosCustRes,
     firstName: userAccount.firstName,
     lastName: userAccount.lastName,
+    erpPartnerShipCode: userAccount.erpPartnerShipCode,
     email: userAccount.email,
     gender: userAccount.gender,
     phoneNumber: userAccount.phoneNumber,
