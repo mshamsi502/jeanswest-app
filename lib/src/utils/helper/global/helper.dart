@@ -27,6 +27,8 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 backPanelClose(List<PanelController> panelControllers, BuildContext context) {
   bool isColse = false;
   for (int index = 0; index < panelControllers.length; index++) {
+    // print(
+    //     "panelControllers[$index] is open? ${panelControllers[index].isPanelOpen}");
     if (panelControllers[index].isPanelOpen) {
       panelControllers[index].close();
       isColse = true;
@@ -34,7 +36,7 @@ backPanelClose(List<PanelController> panelControllers, BuildContext context) {
     if (isColse) break;
   }
   if (!isColse) {
-    print('all panel is close, navigation.pop');
+    // print('all panel is close, navigation.pop');
     Navigator.pop(context);
   }
 }

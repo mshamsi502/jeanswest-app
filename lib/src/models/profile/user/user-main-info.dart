@@ -21,6 +21,8 @@ class UserMainInfo {
   @required
   String phoneNumber;
   @required
+  String erpPartnerShipCode;
+  @required
   int gender;
   @required
   String dayOfBirthGeo;
@@ -41,6 +43,7 @@ class UserMainInfo {
     this.lastName,
     this.email,
     this.phoneNumber,
+    this.erpPartnerShipCode,
     this.gender,
     this.dayOfBirthGeo,
     this.monthOfBirthGeo,

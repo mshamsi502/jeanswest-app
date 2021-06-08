@@ -12,6 +12,12 @@ import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QrCodeWidget extends StatefulWidget {
+  final double width;
+
+  const QrCodeWidget({
+    Key key,
+    @required this.width,
+  }) : super(key: key);
   State<StatefulWidget> createState() => _QrCodeWidgetState();
 }
 
@@ -27,11 +33,16 @@ class _QrCodeWidgetState extends State<QrCodeWidget> {
         0.0083 * _screenSize.width, //3,
       ),
       child: Container(
-        height: 0.23310 * _screenSize.height, //  138,
-        width: 0.23310 * _screenSize.height, //  138,
+        height: widget.width,
+        //120,
+        //0.23310 * _screenSize.height, //  138,
+        width: widget.width,
+        //120,
+        // 0.23310 * _screenSize.height, //  138,
         // color: Colors.grey,
         child: QrImage(
-          data: 'jeanswest.ir/user/${user.phoneNumber}',
+          // data: 'jeanswest.ir/user/${user.phoneNumber}',
+          data: user.erpPartnerShipCode,
           version: QrVersions.auto,
           padding: EdgeInsets.all(0),
           size: 0.416 * _screenSize.width, //  150,
@@ -41,9 +52,10 @@ class _QrCodeWidgetState extends State<QrCodeWidget> {
           embeddedImageEmitsError: true,
           embeddedImageStyle: QrEmbeddedImageStyle(
             size: Size(
-              0.083 * _screenSize.width, //30
-
-              0.083 * _screenSize.width, //30
+              0.069 * _screenSize.width, //25,
+              0.069 * _screenSize.width, //25,
+              // 0.083 * _screenSize.width, //30
+              // 0.083 * _screenSize.width, //30
             ), // 30 ,30
           ),
         ),

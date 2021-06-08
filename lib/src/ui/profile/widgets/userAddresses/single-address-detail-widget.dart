@@ -115,6 +115,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   //
   LatLng newEditingLatLng;
   String newAddressFromMap;
+  //
 
   @override
   void initState() {
@@ -225,6 +226,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (widget.mapPanelState != tempMapPanelState ||
         widget.indexAddress != tempIndexAddress ||
         (widget.wasClose && widget.editPanelController.isPanelOpen)) {
+      print("updatinnnnnnnnnnnnnnnnnnng");
       updateFields();
     }
     var _screenSize = MediaQuery.of(context).size;
@@ -236,9 +238,13 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         controller: singleChildScrollController,
         physics: ClampingScrollPhysics(),
         child: Container(
-          height: mapIsOpen ? _screenSize.height : _screenSize.height * 1.45,
+          height:
+              // mapIsOpen ?
+              _screenSize.height
+          //  : _screenSize.height * 1.45
+          ,
           child: SlidingUpPanel(
-            defaultPanelState: widget.mapPanelState,
+            defaultPanelState: tempMapPanelState,
             controller: widget.mapPanelController,
             isDraggable: false,
             minHeight: 0,
@@ -491,7 +497,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                           ),
                                         )
                                       : Container(
-                                          color: Colors.yellow,
+                                          // color: Colors.yellow,
                                           width: 0.88333 *
                                               _screenSize.width, // 318
                                           // _screenSize.width - 42,
@@ -532,7 +538,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                             SingleAddressTextDetailWidget(
                               // title: "",
                               address: widget.address,
-                              mapPanelState: widget.mapPanelState,
+                              // mapPanelState: widget.mapPanelState,
+                              mapPanelState: tempMapPanelState,
                               selectedProvince: selectedProvince,
                               selectedCity: selectedCity,
                               selectedDistrict: selectedDistrict,
@@ -577,7 +584,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                 onTap: () async {
                                   widget.closeEditPanel();
                                   // ! add new Address
-                                  if (widget.mapPanelState == PanelState.OPEN) {
+                                  if (tempMapPanelState == PanelState.OPEN) {
                                     // print('/*/*// add new address');
                                     bool res = await addToUserAddresses(
                                       recieverFullName:
@@ -807,7 +814,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     recieverNameTextEditingController = TextEditingController();
     recieverPhoneNumberTextEditingController = TextEditingController();
     setState(() {
-      if (widget.mapPanelState == PanelState.OPEN) {
+      if (tempMapPanelState == PanelState.OPEN) {
         addressTextEditingController.text = "";
         houseNumberTextEditingController.text = "";
         unitNumberTextEditingController.text = "";
@@ -843,9 +850,16 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
           widget.address.longitude,
         );
       }
-      mapIsOpen = widget.mapPanelState == PanelState.OPEN;
+      mapIsOpen = (widget.mapPanelState == PanelState.OPEN);
       tempMapPanelState = widget.mapPanelState;
       tempIndexAddress = widget.indexAddress;
+      print("tempMapPanelState : $tempMapPanelState , mapIsOpen : $mapIsOpen");
+      if (widget.mapPanelController.isAttached) {
+        if (tempMapPanelState == PanelState.OPEN)
+          widget.mapPanelController.open();
+        if (tempMapPanelState == PanelState.CLOSED)
+          widget.mapPanelController.close();
+      }
     });
     if (!mounted) widget.changeWasClose(false);
   }
