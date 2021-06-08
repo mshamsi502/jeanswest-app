@@ -67,11 +67,6 @@ class _MembershipCardWidgetState extends State<MembershipCardWidget> {
                 initialPage: widget.showingCard,
                 enableInfiniteScroll: true,
                 onPageChanged: (int index, CarouselPageChangedReason reason) {
-                  // widget.changeShowingCard(index);
-                  // setState(() {
-                  //   showingCard = index;
-                  // });
-                  print('----------------index : $index');
                 },
                 autoPlay: true,
                 autoPlayInterval: Duration(seconds: 6),

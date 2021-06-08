@@ -3,7 +3,6 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -39,7 +38,6 @@ class CardsInfoWidget extends StatefulWidget {
 class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   ScrollController _scrollController;
   ScrollController cardScrollController;
-  CarouselController carouselController;
 
   List<int> index = [];
 
@@ -65,7 +63,6 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   void initState() {
     _scrollController = new ScrollController();
     cardScrollController = new ScrollController();
-    carouselController = CarouselController();
     tempShowingCard = widget.showingCard;
     //  !
 
@@ -131,7 +128,15 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
         someSubCards[2] = someSubCards[2] + 1;
       }
     }
+    for (var i = 0; i < someCards; i++) index.add(i);
+    createSizedCards();
+  }
 
+  void createSizedCards() {
+    // ignore: deprecated_member_use
+    largeWidths = new List<double>();
+    // ignore: deprecated_member_use
+    largeHeights = new List<double>();
     for (int i = 0; i < someCards; i++) {
       if (i == widget.showingCard) {
         largeWidths.add((widget.screenSize.width / 2.25) -
@@ -145,17 +150,44 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
             );
       }
     }
+  }
 
-    for (var i = 0; i < someCards; i++) index.add(i);
-    setState(() {
-      tempShowingCard = widget.showingCard;
-    });
+  void animatedCard(int index, Size _screenSize) {
+    cardScrollController.animateTo(
+      index == 0
+          ? 0
+          : index == 1
+              ? (widget.screenSize.width / 2) +
+                  (0.041 * _screenSize.width //15,
+                  )
+              : widget.screenSize.width +
+                  (0.054 * _screenSize.width //20
+
+                  ),
+      duration: Duration(milliseconds: 15),
+      curve: Curves.linear,
+    );
+    largeHeights[widget.showingCard] = 0.2027 * _screenSize.height; //120,
+    largeHeights[index] = 0.234 * _screenSize.height; //150,
+    //
+    largeWidths[widget.showingCard] = (widget.screenSize.width / 3.5);
+    largeWidths[index] = (widget.screenSize.width / 2.25) -
+        (0.054 * _screenSize.width //20
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    print("showingCard in panel : ${widget.showingCard}");
     var _screenSize = MediaQuery.of(context).size;
+    if (widget.showingCard != tempShowingCard) {
+      setState(() {
+        tempShowingCard = widget.showingCard;
+      });
+      createSizedCards();
+      animatedCard(tempShowingCard, _screenSize);
+      // print("tempShowingCard in panel : $tempShowingCard");
+    }
+
     return Container(
       decoration: BoxDecoration(
         // color: Colors.red,
@@ -195,95 +227,6 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               ],
             ),
           ),
-          // ! use CarouselSlider package
-          // CarouselSlider(
-          //   options: CarouselOptions(
-          //     height: 0.33 * _screenSize.width, // 120
-          //     viewportFraction: 0.45,
-          //     // disableCenter: true,
-          //     initialPage: widget.showingCard,
-          //     enableInfiniteScroll: true,
-          //     onPageChanged: (int index, CarouselPageChangedReason reason) {
-          //       setState(() {
-          //         widget.changeShowingCard(index);
-          //       });
-          //     },
-          //     // autoPlay: true,
-          //     autoPlayInterval: Duration(seconds: 4),
-          //     autoPlayAnimationDuration: Duration(milliseconds: 1000),
-          //     autoPlayCurve: Curves.fastOutSlowIn,
-          //     enlargeStrategy: CenterPageEnlargeStrategy.scale,
-          //     enlargeCenterPage: true,
-          //   ),
-          //   carouselController: carouselController,
-          //   items: index.map((i) {
-          //     return Builder(
-          //       builder: (BuildContext context) {
-          //         return GestureDetector(
-          //           child: Stack(
-          //             children: [
-          //               Container(
-          //                 alignment: Alignment.bottomLeft,
-          //                 height: 0.33 * _screenSize.width, // 120
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(
-          //                     0.027 * _screenSize.width, //10,
-          //                   ),
-          //                   image: DecorationImage(
-          //                     fit: BoxFit.contain,
-          //                     image: new AssetImage(
-          //                         widget.assetsLevelCard.elementAt(i)),
-          //                   ),
-          //                 ),
-          //               ),
-          //               Positioned(
-          //                 bottom: widget.showingCard == i
-          //                     ? 0.016 * _screenSize.height //10
-          //                     : 0.008 * _screenSize.height, //5
-          //                 left: widget.showingCard == i
-          //                     ? 0.027 * _screenSize.width //10
-          //                     : 0.054 * _screenSize.width, //20
-          //                 child: Row(
-          //                   children: [
-          //                     Text(
-          //                       'اطلاعات بیشتر',
-          //                       style: TextStyle(
-          //                         color: i == 0 ? Colors.white : Colors.black,
-          //                         fontSize: 0.027 * _screenSize.width, //10,
-          //                         fontWeight: FontWeight.w500,
-          //                       ),
-          //                     ),
-          //                     Icon(
-          //                       Icons.chevron_right,
-          //                       size: 0.05 * _screenSize.width, //18,
-          //                       color: i == 0 ? Colors.white : Colors.black,
-          //                     ),
-          //                   ],
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //           onTap: () => setState(() {
-          //             if (widget.showingCard ==
-          //                     widget.assetsLevelCard.length - 1 &&
-          //                 i == 0)
-          //               carouselController.nextPage();
-          //             else if (i == widget.assetsLevelCard.length - 1 &&
-          //                 widget.showingCard == 0)
-          //               carouselController.previousPage();
-          //             else
-          //               carouselController.animateToPage(i);
-          //             widget.changeShowingCard(i);
-          //           }),
-          //         );
-          //       },
-          //     );
-          //   }).toList(),
-          // ),
-          // //
-
-          // !
-
           Container(
             width: _screenSize.width,
             height: 0.172 * _screenSize.height, //110,
@@ -305,46 +248,30 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                     decoration: BoxDecoration(),
                     child: GestureDetector(
                       child: imageType[index] == "svg"
-                          ? SvgPicture.network(
-                              mainAssetsLevelCard[index],
-                              placeholderBuilder: (BuildContext context) =>
-                                  new Container(
-                                padding: const EdgeInsets.all(30.0),
-                                child: const CircularProgressIndicator(
-                                  backgroundColor: Colors.amber,
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  index == tempShowingCard ? 10 : 20)),
+                              child: SvgPicture.network(
+                                mainAssetsLevelCard[index],
+                                placeholderBuilder: (BuildContext context) =>
+                                    new Container(
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: const CircularProgressIndicator(
+                                    backgroundColor: Colors.amber,
+                                  ),
                                 ),
                               ),
                             )
-                          : NetworkImage(mainAssetsLevelCard[index]),
+                          : ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  index == tempShowingCard ? 10 : 20)),
+                              child: Image.network(
+                                mainAssetsLevelCard[index],
+                              ),
+                            ),
                       onTap: () => setState(() {
-                        // cardScrollController.jumpTo(index == 0
-                        //     ? 0
-                        //     : index == 1
-                        //         ? (widget.screenSize.width / 2)
-                        //         : widget.screenSize.width);
-                        cardScrollController.animateTo(
-                          index == 0
-                              ? 0
-                              : index == 1
-                                  ? (widget.screenSize.width / 2) +
-                                      (0.041 * _screenSize.width //15,
-                                      )
-                                  : widget.screenSize.width +
-                                      (0.054 * _screenSize.width //20
+                        animatedCard(index, _screenSize);
 
-                                      ),
-                          duration: Duration(milliseconds: 200),
-                          curve: Curves.linear,
-                        );
-                        largeHeights[widget.showingCard] =
-                            0.2027 * _screenSize.height; //120,
-                        largeHeights[index] = 0.234 * _screenSize.height; //150,
-                        //
-                        largeWidths[widget.showingCard] =
-                            (widget.screenSize.width / 3.5);
-                        largeWidths[index] = (widget.screenSize.width / 2.25) -
-                            (0.054 * _screenSize.width //20
-                            );
                         widget.changeShowingCard(index);
                       }),
                     ),
@@ -355,10 +282,6 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               },
             ),
           ),
-          // ),
-
-          // ??
-          //
           SizedBox(height: 0.0078 * _screenSize.height //5,
               ),
           Container(
