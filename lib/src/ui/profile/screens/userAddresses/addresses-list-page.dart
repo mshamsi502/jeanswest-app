@@ -84,6 +84,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 maxHeight: 0.3 * _screenSize.height,
                 isDraggable: true,
                 backdropEnabled: true,
+                color: Colors.transparent,
                 panel: DeletePanelWidget(
                   height: 0.3 * _screenSize.height,
                   closeDeletePanel: () => deletePanelController.close(),
@@ -167,7 +168,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                           editAddress: (int seleted) {
                                             setState(() {
                                               mapPanelState = PanelState.CLOSED;
-                                            
+
                                               selectForEdit = seleted;
                                             });
                                             editPanelController.open();
@@ -224,7 +225,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                 selectForEdit = 0;
                                 mapPanelState = PanelState.OPEN;
                               });
-                      
+
                               editPanelController.open();
                             },
                           ),

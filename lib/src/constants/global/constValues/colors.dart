@@ -35,6 +35,7 @@ const Color GREY_FADE_SELECTED_COLOR = Color(0x50bdbdbd);
 const Color DARK_GREY = Color(0xffACACAC); // Dark Grey
 const Color WHITE_SMOKE_COLOR = Color(0xFFEBEBEB); // White Smoke
 const Color CHARCOAL_GREY_COLOR = Color(0xFF4A4A4A); // Charcoal Grey
+const Color NERO_GREY_COLOR = Color(0xFF272727); // Charcoal Grey
 //
 // ! GOLD, AMBER, YELLOW
 const Color MAIN_GOLD_COLOR = Color(0xFFFFC107);

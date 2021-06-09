@@ -77,7 +77,6 @@ class _LevelCardsInfoWidgetState extends State<LevelCardsInfoWidget> {
                         border: Border.all(color: levelColors[levelIndex]),
                         color: Colors.white,
                       ),
-                      // TODO
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -74,6 +74,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
       ),
       decoration: BoxDecoration(
         color: Colors.white,
+        // color: Colors.red,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
             0.03 * _screenSize.width, //11,
@@ -131,7 +132,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                       titleColor: Colors.black,
                       // lines: 1,
                       textColor: Colors.grey,
-                      hintTextColor: Colors.grey,
+                      hintTextColor: Colors.grey[600],
                       mediaQuery: MediaQuery.of(context),
                       internalIcon: GestureDetector(
                           child: Container(
@@ -150,14 +151,11 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                           onTap: () {
                             Clipboard.setData(new ClipboardData(text: textLink))
                                 .then((_) {
-                              // showToast(
-                              //   message: "متن دعوت نامه در کلیبورد کپی شد.",
-                              //   fToast: fToast,
-                              // );
-                              // ignore: deprecated_member_use
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text(
-                                      "متن دعوت نامه در کلیبورد کپی شد.")));
+                              showToast(
+                                message: "لینک با موفقیت کپی شد.",
+                                textColor: Colors.white,
+                                backgroundColor: NERO_GREY_COLOR,
+                              );
                             });
                           }),
                       externalIcon: GestureDetector(
@@ -194,11 +192,15 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                       title: 'شماره موبایل',
                       isEnable: true,
                       textEditingController: textEditingController,
+                      textInputType: TextInputType.number,
                       initText: 'مثال : 09365337279',
                       titleColor: Colors.black,
                       // lines: 1,
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(11),
+                      ],
                       textColor: Colors.black,
-                      hintTextColor: Colors.grey,
+                      hintTextColor: Colors.grey[400],
                       mediaQuery: MediaQuery.of(context),
                       hasValidation: true,
                       isValid: validationResult[0],

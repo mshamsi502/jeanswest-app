@@ -16,6 +16,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
@@ -153,70 +154,35 @@ String toPhoneStyle(String phone) {
 }
 
 showToast({
-  String message,
-// FToast fToast
-}) {
-  // Widget toast = Container(
-  //   padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-  //   decoration: BoxDecoration(
-  //     borderRadius: BorderRadius.circular(25.0),
-  //     color: Color(0xAA000000),
-  //   ),
-  //   child: Row(
-  //     mainAxisSize: MainAxisSize.min,
-  //     children: [
-  //       // Icon(Icons.alternate_email),
-  //       // SizedBox(
-  //       //   width: 12.0,
-  //       // ),
-  //       Text(
-  //         message,
-  //         style: TextStyle(
-  //           color: Colors.white,
-  //           fontSize: 12.0,
-  //           fontFamily: 'IRANSans',
-  //         ),
-  //       ),
-  //     ],
-  //   ),
-  // );
-  // print(message);
-
-  //!
-  // fToast.showToast(
-  //   child: toast,
-  //   gravity: ToastGravity.CENTER,
-  //   toastDuration: Duration(seconds: 1),
-  //   positionedToastBuilder: (context, child) {
-  //     return Positioned(
-  //       child: child,
-  //       bottom: MediaQuery.of(context).size.height / 6,
-  //       left: 10,
-  //       right: 10,
-  //     );
-  //   },
-  // );
-  //!
-  EasyLoading.instance
-        ..displayDuration = const Duration(milliseconds: 2000)
-        ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-        ..loadingStyle = EasyLoadingStyle.dark
-        ..indicatorSize = 45.0
-        ..radius = 10.0
-        ..progressColor = Colors.yellow
-        ..backgroundColor = Colors.green
-        ..indicatorColor = Colors.yellow
-        ..textColor = Colors.yellow
-        ..maskColor = Colors.blue.withOpacity(0.5)
-        ..userInteractions = true
-        ..dismissOnTap = false
-      // ..customAnimation = EasyLoadingAnimation()
-      ;
-  EasyLoading.show(
-    status: message,
+  @required String message,
+  Color textColor = Colors.black,
+  FontWeight fontWeight = FontWeight.w600,
+  double fontSize = 14,
+  Color backgroundColor = DARK_GREY,
+}) async {
+  TextStyle _textStyle = TextStyle(
+    fontWeight: fontWeight,
+    color: textColor,
+    fontSize: fontSize,
   );
-  //!
-  // print('bbbbbb ${fToast.context}');
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..toastPosition = EasyLoadingToastPosition.top
+    ..indicatorSize = 0
+    ..indicatorWidget = SizedBox()
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..radius = 10.0
+    ..backgroundColor = backgroundColor
+    ..textStyle = _textStyle
+    ..maskType = EasyLoadingMaskType.none
+    ..maskColor = Colors.transparent
+    ..userInteractions = true
+    ..dismissOnTap = true;
+  EasyLoading.showToast(
+    message,
+    maskType: EasyLoadingMaskType.custom,
+    duration: Duration(milliseconds: 1500),
+  );
 }
 
 bool checkFreeSend(String sendPrice) {

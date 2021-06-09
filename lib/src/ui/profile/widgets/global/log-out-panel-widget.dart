@@ -39,10 +39,10 @@ class _LogOutPanelWidgetState extends State<LogOutPanelWidget> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
-            0.03 * _screenSize.width, //11
+            0.0444 * _screenSize.width, //16
           ),
           topRight: Radius.circular(
-            0.03 * _screenSize.width, //11
+            0.0444 * _screenSize.width, //16
           ),
         ),
       ),

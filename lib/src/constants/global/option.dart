@@ -9,11 +9,11 @@ const String MANUAL_TOKEN =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4YjQzNzhlMS1hNjI2LTQwZWYtYWE0Yy05YWE3MmEyOGUyZmEiLCJpYXQiOjE2MjIzNTEyMTMsImV4cCI6MTY1Mzg4NzIxM30.VXhGD7JbIWiiraiN_J5mYOIadcm_VtiKq-19ftC3FDg';
 
 //
-// const bool MOCK_IS_ENABLE = false;
-const bool MOCK_IS_ENABLE = true;
+const bool MOCK_IS_ENABLE = false;
+// const bool MOCK_IS_ENABLE = true;
 //
-// const bool HARDCORE_DATA_IS_ENABLE = false;
-const bool HARDCORE_DATA_IS_ENABLE = true;
+const bool HARDCORE_DATA_IS_ENABLE = false;
+// const bool HARDCORE_DATA_IS_ENABLE = true;
 int tryToGetAllUserInfo = 2;
 bool showCompeletProfileMessage = false;
 
@@ -28,3 +28,5 @@ const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "xxx-xxx-xxxx";
 // const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "0xxx-xxx-xxxx";
 // const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "+98xxx-xxx-xxxx";
 const String HINT_PHONE_NUMBER_INPUT = '0912 - - - - - - -';
+// const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = true;
+const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = false;

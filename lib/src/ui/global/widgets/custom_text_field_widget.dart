@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 class CustomTextFieldWidget extends StatefulWidget {
@@ -23,6 +24,8 @@ class CustomTextFieldWidget extends StatefulWidget {
   final Widget internalIcon;
   final Widget externalIcon;
   //
+  final List<LengthLimitingTextInputFormatter> inputFormatters;
+  final TextInputType textInputType;
   final bool hasValidation;
   final bool isValid;
   final String validationError;
@@ -43,6 +46,8 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.hasValidation = false,
     this.isValid = false,
     this.validationError = '',
+    this.inputFormatters = const [],
+    this.textInputType = TextInputType.multiline,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomTextFieldWidgetState();
 }
@@ -126,7 +131,8 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                         Expanded(
                           child: TextField(
                             enabled: widget.isEnable,
-                            keyboardType: TextInputType.multiline,
+                            keyboardType: widget.textInputType,
+                            inputFormatters: widget.inputFormatters,
                             style: TextStyle(
                               color: widget.textColor,
                               fontSize:

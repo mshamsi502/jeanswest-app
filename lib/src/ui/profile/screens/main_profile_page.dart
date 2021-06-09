@@ -540,7 +540,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                       imageType: cardsInfoMap["imageType"],
                       changeShowingCard: (int index) => setState(() {
                             showingCard = index;
-                            print("--------showingCard : $showingCard");
+                            // print("--------showingCard : $showingCard");
                             if (cardsInfoPanel.isAttached &&
                                 cardsInfoPanel.isPanelClosed)
                               cardsInfoPanel.open();
