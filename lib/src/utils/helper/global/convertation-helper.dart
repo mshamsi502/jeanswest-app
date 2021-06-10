@@ -237,6 +237,17 @@ String convertToDoubleDigit(String oldString) {
     return "00";
 }
 
+String convertToTripleDigit(String oldString) {
+  if (oldString.length == 1)
+    return "00$oldString";
+  else if (oldString.length == 2)
+    return "0$oldString";
+  else if (oldString.length == 3)
+    return oldString;
+  else
+    return "000";
+}
+
 String toStandardPhoneNumberforAPIs(String phone) {
   String rawPhone;
   if (phone.length == 10 && !phone.startsWith("0") && !phone.startsWith("+"))

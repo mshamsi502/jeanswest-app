@@ -8,6 +8,7 @@ import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/profile/user/user-payment-info.dart';
 
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
+import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
@@ -77,13 +78,17 @@ Future<UserMainInfo> editUserMainInfo(
   UserMainInfoRes userAccountRes = UserMainInfoRes();
 
   UserMainInfo user;
+  String nowTimeHour = convertToDoubleDigit((DateTime.now().hour).toString());
+  String nowTimeMin = convertToDoubleDigit((DateTime.now().minute).toString());
+  String nowTimeSec = convertToDoubleDigit((DateTime.now().second).toString());
+  String nowTimeMilliSec =
+      convertToTripleDigit((DateTime.now().millisecond).toString());
   Map<String, dynamic> newUserMap = {
-    "firstName": newUser.firstName,
-    "lastName": newUser.lastName,
+    "firstName": newUser.firstName ?? "",
+    "lastName": newUser.lastName ?? "",
     "gender": newUser.gender,
     "birthDate":
-        "${newUser.yearOfBirthGeo}-${newUser.monthOfBirthGeo}-${newUser.dayOfBirthGeo}T${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}.${DateTime.now().millisecond}Z",
-    // "${newUser.yearOfBirthGeo}-${newUser.monthOfBirthGeo}-${newUser.dayOfBirthGeo}",
+        "${newUser.yearOfBirthGeo}-${newUser.monthOfBirthGeo}-${newUser.dayOfBirthGeo}T$nowTimeHour:$nowTimeMin:$nowTimeSec.${nowTimeMilliSec}Z",
     "email": newUser.email,
   };
   print(newUserMap);

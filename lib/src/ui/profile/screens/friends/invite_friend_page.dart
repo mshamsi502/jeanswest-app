@@ -76,7 +76,7 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
         child: Scaffold(
           body: SafeArea(
             child: Container(
-              // color: Colors.red,
+              color: Colors.white,
               child: SlidingUpPanel(
                 controller: sendingPanel,
                 minHeight: 0,

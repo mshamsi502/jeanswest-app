@@ -80,14 +80,20 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                   padding: EdgeInsets.all(
                     0.019 * _screenSize.width, //7
                   ),
-                  child: widget.isEnable
+                  child: widget.isEnable &&
+                          textEditingController != null &&
+                          textEditingController.text != null &&
+                          textEditingController.text != ""
                       ? ProfileSvgImages.blueSendToLeftIcon
                       //  ProfileSvgImages.blueSendToRightIcon
                       : ProfileSvgImages.greySendToLeftIcon
                   // : ProfileSvgImages.greySendToRightIcon,
                   ),
               onTap: () {
-                if (widget.isEnable) {
+                if (widget.isEnable &&
+                    textEditingController != null &&
+                    textEditingController.text != null &&
+                    textEditingController.text != "") {
                   widget.sendText(textEditingController.text);
                   textEditingController.clear();
                 }

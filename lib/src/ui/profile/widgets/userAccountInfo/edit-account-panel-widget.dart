@@ -239,7 +239,7 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
                       ? 1
                       : (genderEditingController.text == "زن")
                           ? 0
-                          : 1,
+                          : null,
                   dayOfBirthEditingController.text,
                   monthOfBirthEditingController.text,
                   yearOfBirthEditingController.text,

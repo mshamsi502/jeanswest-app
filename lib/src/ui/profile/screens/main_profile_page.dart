@@ -166,6 +166,7 @@ class _MainProfilePageState extends State<MainProfilePage>
     if (percentCompleteProfile == 100)
       widget.changeCompeletProfileMessage(false);
     // print('percentCompleteProfile : $percentCompleteProfile %');
+    print("rebuild in main profile page");
     mainProfileListMenu = createProfileListMenuPages(
       // screenSize: widget.screenSize,
       userLevel: userLevel,
@@ -174,7 +175,12 @@ class _MainProfilePageState extends State<MainProfilePage>
       imageType: getTypeFileLink(userLevelAssets),
       assetsLevelCard: userLevelAssets,
       moneyBuying: userPayment.payToman,
-      rebuild: () => buildProfile(),
+      rebuild: (UserMainInfo newUser) {
+        setState(() {
+          user = newUser;
+        });
+        buildProfile();
+      },
     );
   }
 
@@ -403,7 +409,10 @@ class _MainProfilePageState extends State<MainProfilePage>
                                                   userAccountInfo: user,
                                                   updateUser: (UserMainInfo
                                                       userMainInfo) {
-                                                    user = userMainInfo;
+                                                    setState(() {
+                                                      user = userMainInfo;
+                                                    });
+
                                                     buildProfile();
                                                   }),
                                         ),
@@ -453,7 +462,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                                           userAccountInfo: user,
                                           updateUser:
                                               (UserMainInfo userMainInfo) {
-                                            user = userMainInfo;
+                                            setState(() {
+                                              user = userMainInfo;
+                                            });
                                             buildProfile();
                                           }),
                                     ),

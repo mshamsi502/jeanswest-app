@@ -4,6 +4,7 @@
 //****************************************************************************
 
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,20 +34,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
   ScrollController yearScrollController;
   ScrollController monthScrollController;
   ScrollController dayScrollController;
-  List<String> month = [
-    'فروردین',
-    'اردیبهشت',
-    'خرداد',
-    'تیر',
-    'مرداد',
-    'شهریور',
-    'مهر',
-    'آبان',
-    'آذر',
-    'دی',
-    'بهمن',
-    'اسفند',
-  ];
+
   String _dayValue;
   String _monthValue;
   String _yearValue;
@@ -127,7 +115,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
             child: Stack(
               children: [
                 Positioned(
-                  top: 0.12162 * _screenSize.height, //72
+                  top: 0.125 * _screenSize.height, //75
                   left: 0.054 * _screenSize.width, //20
                   right: 0.054 * _screenSize.width, //20
                   child: Center(
@@ -158,7 +146,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           squeeze: 1,
                           itemExtent: 0.111 * _screenSize.width, //40,
                           scrollController: dayScrollController,
-
+                          selectionOverlay: SizedBox(),
                           children: [
                             for (var i = 0; i < someDayOfMonth; i++)
                               Column(
@@ -206,20 +194,16 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           squeeze: 1,
                           itemExtent: 0.111 * _screenSize.width, //40,
                           scrollController: monthScrollController,
-                          // selectionOverlay: Container(
-                          //   decoration: BoxDecoration(
-                          //     color: GREY_SELCTED_FADE_BACKGROUND_COLOR,
-                          //   ),
-                          // ),
+                          selectionOverlay: SizedBox(),
                           children: [
-                            for (var i = 0; i < month.length; i++)
+                            for (var i = 0; i < shamsiMonthName.length; i++)
                               Column(
                                 children: [
                                   Container(
                                     height: 0.0125 * _screenSize.height, //8,
                                   ),
                                   Text(
-                                    month[i],
+                                    shamsiMonthName[i],
                                     style: TextStyle(
                                       fontSize:
                                           0.0444 * _screenSize.width, //16,
@@ -261,7 +245,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
                           squeeze: 1,
                           itemExtent: 0.111 * _screenSize.width, //40,
                           scrollController: yearScrollController,
-
+                          selectionOverlay: SizedBox(),
                           children: [
                             for (var i = 1300; i < 1401; i++)
                               Column(

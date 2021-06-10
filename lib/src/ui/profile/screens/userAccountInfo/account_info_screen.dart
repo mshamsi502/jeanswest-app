@@ -52,9 +52,9 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
 
   buildUserData({UserMainInfo userInfo}) {
     userData = [
-      // name: [
-      //   key, value, isLock,
-      // ],
+      //! name: [
+      //!   key, value, isLock,
+      //! ],
       [
         'نام',
         userInfo.firstName ?? "",
@@ -67,7 +67,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       ],
       [
         'شماره تماس',
-        userInfo.phoneNumber ?? "",
+        "0${userInfo.phoneNumber}" ?? "",
         true,
       ],
       [

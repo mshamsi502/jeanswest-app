@@ -47,7 +47,7 @@ List<Widget> createProfileListMenuPages({
   String imageType,
   String assetsLevelCard,
   int moneyBuying,
-  Function() rebuild,
+  Function(UserMainInfo) rebuild,
 }) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
@@ -90,10 +90,10 @@ List<Widget> createProfileListMenuPages({
     AccountInfoScreen(
         title: 'جزئیات حساب کاربری',
         userAccountInfo: user,
-        updateUser: (UserMainInfo userMainInfo) async {
+        updateUser: (UserMainInfo userMainInfo) {
           // user = userMainInfo;
 
-          rebuild();
+          rebuild(userMainInfo);
         }),
   );
 

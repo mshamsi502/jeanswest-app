@@ -154,6 +154,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                   closeAddToCardPanel: () => addToCardPanel.close(),
                   selectedColor: selectedColor,
                   selectedSize: selectedSize,
+                  addToCardPanelIsClosed: addToCardPanel.isAttached
+                      ? addToCardPanel.isPanelClosed
+                      : true,
                   changeSelectedColor: (int value) => setState(() {
                     selectedColor = value;
                   }),
@@ -189,9 +192,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            print("favProducts : ${favProducts.data.length}");
-                            print(
-                                "styleCode of $index : ${favProducts.data[index * 2].styleCode}");
+                            // print("favProducts : ${favProducts.data.length}");
+                            // print(
+                            //     "styleCode of $index : ${favProducts.data[index * 2].styleCode}");
                             return Column(
                               children: [
                                 Row(

@@ -18,6 +18,21 @@ const String EMPTY_IMAGE =
 const TextDirection rtlTextDirection = TextDirection.rtl;
 const TextDirection ltrTextDirection = TextDirection.ltr;
 
+List<String> shamsiMonthName = [
+  'فروردین',
+  'اردیبهشت',
+  'خرداد',
+  'تیر',
+  'مرداد',
+  'شهریور',
+  'مهر',
+  'آبان',
+  'آذر',
+  'دی',
+  'بهمن',
+  'اسفند',
+];
+
 // //
 // List<Branch> localBranches = new List<Branch>();
 //

@@ -28,20 +28,29 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
   int selectedTab = 0;
   TabController tabController;
   ScrollController scrollController;
-  ReturnPolicyData offlineReturnPolicyData;
-  ReturnPolicyData onlineReturnPolicyData;
+  // ReturnPolicyData offlineReturnPolicyData;
+  // ReturnPolicyData onlineReturnPolicyData;
+  List<Widget> returnPolicyData = [];
+  List<Widget> tabsList = [];
 
   @override
   void initState() {
     scrollController = new ScrollController();
     //
     widget.returnProciyData.forEach((element) {
-      if (element.condition == "آفلاین") {
-        offlineReturnPolicyData = element;
-      }
-      if (element.condition == "آنلاین") {
-        onlineReturnPolicyData = element;
-      }
+      tabsList.add(Tab(text: 'خرید های ${element.condition}'));
+      returnPolicyData.add(ReturnProcessWidget(
+        assetHeader: element.description.picture,
+        text: element.description.header,
+        describtion: element.description.terms,
+        phoneNumber: element.description.phoneNumber,
+      ));
+      // if (element.condition == "آفلاین") {
+      //   offlineReturnPolicyData = element;
+      // }
+      // if (element.condition == "آنلاین") {
+      //   onlineReturnPolicyData = element;
+      // }
     });
     //
     tabController = new TabController(
@@ -90,49 +99,50 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'IRANSans'),
                             indicatorWeight: 0.0023 * _screenSize.height, //1.5,
-                            tabs: <Widget>[
-                              Tab(text: 'خرید های آنلاین'),
-                              Tab(text: 'خرید های آفلاین'),
-                            ],
+                            tabs: tabsList
+                            // Tab(text: 'خرید های آنلاین'),
+                            // Tab(text: 'خرید های آفلاین'),
+                            ,
                           ),
                         ),
                         Expanded(
                           child: Container(
                             child: TabBarView(
-                              controller: tabController,
-                              children: <Widget>[
-                                ReturnProcessWidget(
-                                  assetHeader: offlineReturnPolicyData
-                                      .description.picture,
-                                  text: offlineReturnPolicyData
-                                      .description.header,
-                                  describtion:
-                                      offlineReturnPolicyData.description.terms,
-                                  phoneNumber: offlineReturnPolicyData
-                                      .description.phoneNumber,
-                                  // assetHeader: widget.returnProciyData.picture,
-                                  // text: widget.returnProciyData.header,
-                                  // describtion: widget.returnProciyData.terms,
-                                  // phoneNumber:
-                                  //     widget.returnProciyData.phoneNumber,
+                                controller: tabController,
+                                children: returnPolicyData
+                                //  <Widget>[
+                                //   ReturnProcessWidget(
+                                //     assetHeader: offlineReturnPolicyData
+                                //         .description.picture,
+                                //     text: offlineReturnPolicyData
+                                //         .description.header,
+                                //     describtion:
+                                //         offlineReturnPolicyData.description.terms,
+                                //     phoneNumber: offlineReturnPolicyData
+                                //         .description.phoneNumber,
+                                //     // assetHeader: widget.returnProciyData.picture,
+                                //     // text: widget.returnProciyData.header,
+                                //     // describtion: widget.returnProciyData.terms,
+                                //     // phoneNumber:
+                                //     //     widget.returnProciyData.phoneNumber,
+                                //   ),
+                                //   ReturnProcessWidget(
+                                //     assetHeader: onlineReturnPolicyData
+                                //         .description.picture,
+                                //     text:
+                                //         onlineReturnPolicyData.description.header,
+                                //     describtion:
+                                //         onlineReturnPolicyData.description.terms,
+                                //     phoneNumber: onlineReturnPolicyData
+                                //         .description.phoneNumber,
+                                //     // assetHeader: widget.returnProciyData.picture,
+                                //     // text: widget.returnProciyData.header,
+                                //     // describtion: widget.returnProciyData.terms,
+                                //     // phoneNumber:
+                                //     //     widget.returnProciyData.phoneNumber,
+                                //   ),
+                                // ],
                                 ),
-                                ReturnProcessWidget(
-                                  assetHeader: onlineReturnPolicyData
-                                      .description.picture,
-                                  text:
-                                      onlineReturnPolicyData.description.header,
-                                  describtion:
-                                      onlineReturnPolicyData.description.terms,
-                                  phoneNumber: onlineReturnPolicyData
-                                      .description.phoneNumber,
-                                  // assetHeader: widget.returnProciyData.picture,
-                                  // text: widget.returnProciyData.header,
-                                  // describtion: widget.returnProciyData.terms,
-                                  // phoneNumber:
-                                  //     widget.returnProciyData.phoneNumber,
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                       ],

@@ -14,6 +14,7 @@ class AddToCardPanelWidget extends StatefulWidget {
   final ListOfProductsRes productDetail;
   final int selectedColor;
   final int selectedSize;
+  final bool addToCardPanelIsClosed;
   final Function(int) changeSelectedColor;
   final Function(int) changeSelectedSize;
   final Function() closeAddToCardPanel;
@@ -26,6 +27,7 @@ class AddToCardPanelWidget extends StatefulWidget {
     this.selectedSize,
     this.changeSelectedColor,
     this.changeSelectedSize,
+    this.addToCardPanelIsClosed,
   }) : super(key: key);
   @override
   _AddToCardPanelWidgetState createState() => _AddToCardPanelWidgetState();
@@ -41,7 +43,11 @@ class _AddToCardPanelWidgetState extends State<AddToCardPanelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
+    if (widget.addToCardPanelIsClosed) {
+      setState(() {
+        showSizeGuid = false;
+      });
+    }
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,

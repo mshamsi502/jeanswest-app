@@ -31,7 +31,8 @@ class AuthProfileAppBarWidget extends StatefulWidget {
     this.nextLevel,
     this.moneyBuying,
     this.userLevelName,
-    this.imageType, this.assetsLevelCard,
+    this.imageType,
+    this.assetsLevelCard,
   }) : super(key: key);
   State<StatefulWidget> createState() => _AuthProfileAppBarWidgetState();
 }
@@ -172,7 +173,8 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                                   userLevel: widget.userLevel,
                                                   nextLevel: widget.nextLevel,
                                                   imageType: widget.imageType,
-                                                  assetsLevelCard: widget.assetsLevelCard,
+                                                  assetsLevelCard:
+                                                      widget.assetsLevelCard,
                                                   moneyBuying:
                                                       widget.moneyBuying,
                                                 ),
@@ -260,7 +262,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                               ? 'assets/images/png_images/global/userProfile/user-unknown.png'
                               : user.gender == 1
                                   ? 'assets/images/png_images/global/userProfile/user-male.png'
-                                  : user.gender == 2
+                                  : user.gender == 0
                                       ? 'assets/images/png_images/global/userProfile/user-female.png'
                                       : 'assets/images/png_images/global/userProfile/user-unknown.png',
                         ),
