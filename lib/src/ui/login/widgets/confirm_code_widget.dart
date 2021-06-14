@@ -169,7 +169,7 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
                   SpecialTextSpan(
                     text: "login_screen.edit".tr(),
                     style: TextStyle(
-                      color: MAIN_BLUE_00_COLOR,
+                      color: RESOLUTION_BLUE_COLOR,
                       fontWeight: FontWeight.w500,
                       fontSize: 0.0333 * _screenSize.width, //12,
                     ),

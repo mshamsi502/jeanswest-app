@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+// import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/geoPlace/geo-google-place.dart';
-import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
+// import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 import 'package:search_map_place/search_map_place.dart';
 
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -61,7 +61,7 @@ class _SearchPlaceBarWidgetState extends State<SearchPlaceBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
+    // var _screenSize = MediaQuery.of(context).size;
     return
         // ! 111111111111111111111111111
 
