@@ -15,7 +15,6 @@ const bool MOCK_IS_ENABLE = false;
 const bool HARDCORE_DATA_IS_ENABLE = false;
 // const bool HARDCORE_DATA_IS_ENABLE = true;
 int tryToGetAllUserInfo = 2;
-bool showCompeletProfileMessage = false;
 
 const int SOME_OF_IN_PAGENATION_LIST = 10;
 
@@ -27,6 +26,5 @@ const String SMALL_JUST_DATE_FORMAT = "yyyy-MM-dd";
 const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "xxx-xxx-xxxx";
 // const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "0xxx-xxx-xxxx";
 // const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "+98xxx-xxx-xxxx";
-const String HINT_PHONE_NUMBER_INPUT = '0912 - - - - - - -';
 // const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = true;
 const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = false;

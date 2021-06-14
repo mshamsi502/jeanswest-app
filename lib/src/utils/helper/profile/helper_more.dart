@@ -124,3 +124,25 @@ List<Map<String, dynamic>> checkTicketIsValid({String title, String text}) {
 
   return [resTitle, resText];
 }
+
+List<DataTicket> sortTickets(List<DataTicket> tickets) {
+  // print("aaaaaaaa");
+  // tickets.forEach((element) {
+  //   print("111 status forEach : ${element.status}");
+  // });
+  tickets.sort((a, b) =>
+      ("${a.status}${a.context[a.context.length - 1].createdAt}".toLowerCase())
+          .compareTo(("${b.status}${b.context[b.context.length - 1].createdAt}"
+              .toLowerCase())));
+
+  // int some = 0;
+  // print("*** length : ${tickets.length}");
+  // tickets.forEach((element) {
+  // some++;
+  // print("-index : $some");
+  // print("-  status : ${element.status}");
+  // print(
+  //     "-      date : ${element.context[element.context.length - 1].createdAt}");
+  // });
+  return tickets;
+}

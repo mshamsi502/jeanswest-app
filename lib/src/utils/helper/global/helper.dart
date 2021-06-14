@@ -25,6 +25,30 @@ import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+Map<String, double> updateHeigths({
+  double screenHeight,
+  int lines,
+  String title,
+  bool hasValidation,
+  bool isValid,
+}) {
+  double heightTextField =
+      (lines == null || lines == 1) ? 25 : ((20 * lines.toDouble()) + 25);
+  double heightTitle = (title == null || title == "") ? 15 : 55;
+  double heightError = ((!hasValidation && isValid) ? 0 : 25);
+  // print("heightTitle ---- : $heightTitle");
+  // print("heightTextField ---- : $heightTextField");
+  // print("heightError ---- : $heightError");
+  // print("---------------------------------");
+  double totalHeigth = heightTextField + heightTitle + heightError + 10;
+  return {
+    'heightTitle': heightTitle,
+    'heightTextField': heightTextField,
+    'heightError': heightError,
+    'totalHeigth': totalHeigth,
+  };
+}
+
 backPanelClose(List<PanelController> panelControllers, BuildContext context) {
   bool isColse = false;
   for (int index = 0; index < panelControllers.length; index++) {

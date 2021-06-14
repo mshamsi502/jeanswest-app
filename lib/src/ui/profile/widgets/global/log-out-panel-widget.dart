@@ -111,8 +111,6 @@ class _LogOutPanelWidgetState extends State<LogOutPanelWidget> {
     sharedPrefs.clear();
     sharedPrefs.setString(TOKEN, "");
     // }
-    print(
-        '........................................token : ${globalLocator<SharedPreferences>().getString(TOKEN)}');
     Phoenix.rebirth(context); // ! restart the app
   }
 }

@@ -108,6 +108,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                           textEditingController: titleEditingController,
                           titleColor: MAIN_BLUE_COLOR,
                           mediaQuery: MediaQuery.of(context),
+                      width:MediaQuery.of(context).size.width,
                           hasValidation: true,
                           validationError: widget.resCheckIsValid[0]
                               ['errorMessage'],
@@ -121,6 +122,7 @@ class _SendNewTicketWidgetState extends State<SendNewTicketWidget> {
                           textEditingController: textEditingController,
                           titleColor: MAIN_BLUE_COLOR,
                           mediaQuery: MediaQuery.of(context),
+                      width:MediaQuery.of(context).size.width,
                           lines: 6,
                           hasValidation: true,
                           validationError: widget.resCheckIsValid[1]

@@ -37,9 +37,15 @@ import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 
-Future<void> getAllUserInfo({@required Function noAuth}) async {
+Future<void> getAllUserInfo({@required Function() noAuth}) async {
   bool getIsContinued = true;
   UserMainInfoRes userAccountRes;
+
+  // if (!MOCK_IS_ENABLE &&
+  //     (sharedPrefs.getString(TOKEN) == null ||
+  //         sharedPrefs.getString(TOKEN) == "")) {
+  //   noAuth();
+  // }
   print(
       'USER_MAIN_INFO ********************************************************');
   if (getIsContinued)
@@ -91,7 +97,7 @@ Future<void> getAllUserInfo({@required Function noAuth}) async {
         option: PageOptionReqBody(
             page: OperationInt(oEQ: 1),
             limit: OperationInt(oEQ: SOME_OF_IN_PAGENATION_LIST)));
-    print("00000000000000000000000000 : ${body.map}");
+
     // ignore: deprecated_member_use
     userNotifs = new List<UserMessageResult>();
     Map<String, dynamic> result = await userMessagesInfo(body: body.map);

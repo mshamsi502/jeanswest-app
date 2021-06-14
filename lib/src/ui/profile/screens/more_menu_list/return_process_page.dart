@@ -37,6 +37,7 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
   void initState() {
     scrollController = new ScrollController();
     //
+    // if (widget.returnProciyData != null && widget.returnProciyData.length > 0) {
     widget.returnProciyData.forEach((element) {
       tabsList.add(Tab(text: 'خرید های ${element.condition}'));
       returnPolicyData.add(ReturnProcessWidget(
@@ -45,16 +46,15 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
         describtion: element.description.terms,
         phoneNumber: element.description.phoneNumber,
       ));
-      // if (element.condition == "آفلاین") {
-      //   offlineReturnPolicyData = element;
-      // }
-      // if (element.condition == "آنلاین") {
-      //   onlineReturnPolicyData = element;
-      // }
     });
     //
     tabController = new TabController(
         initialIndex: widget.initialTab, length: 2, vsync: this);
+    // } else {
+    //   tabController =
+    //       new TabController(initialIndex: 0, length: 1, vsync: this);
+    // }
+
     tabController.addListener(() {
       setState(() {
         selectedTab = tabController.index;
@@ -110,38 +110,8 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
                             child: TabBarView(
                                 controller: tabController,
                                 children: returnPolicyData
-                                //  <Widget>[
-                                //   ReturnProcessWidget(
-                                //     assetHeader: offlineReturnPolicyData
-                                //         .description.picture,
-                                //     text: offlineReturnPolicyData
-                                //         .description.header,
-                                //     describtion:
-                                //         offlineReturnPolicyData.description.terms,
-                                //     phoneNumber: offlineReturnPolicyData
-                                //         .description.phoneNumber,
-                                //     // assetHeader: widget.returnProciyData.picture,
-                                //     // text: widget.returnProciyData.header,
-                                //     // describtion: widget.returnProciyData.terms,
-                                //     // phoneNumber:
-                                //     //     widget.returnProciyData.phoneNumber,
-                                //   ),
-                                //   ReturnProcessWidget(
-                                //     assetHeader: onlineReturnPolicyData
-                                //         .description.picture,
-                                //     text:
-                                //         onlineReturnPolicyData.description.header,
-                                //     describtion:
-                                //         onlineReturnPolicyData.description.terms,
-                                //     phoneNumber: onlineReturnPolicyData
-                                //         .description.phoneNumber,
-                                //     // assetHeader: widget.returnProciyData.picture,
-                                //     // text: widget.returnProciyData.header,
-                                //     // describtion: widget.returnProciyData.terms,
-                                //     // phoneNumber:
-                                //     //     widget.returnProciyData.phoneNumber,
-                                //   ),
-                                // ],
+                                // ?? [SizedBox()]
+
                                 ),
                           ),
                         ),

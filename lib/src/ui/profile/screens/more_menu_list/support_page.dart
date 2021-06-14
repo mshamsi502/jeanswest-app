@@ -26,12 +26,12 @@ import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class SupportPage extends StatefulWidget {
-  final List<DataTicket> userTickets;
+  // final List<DataTicket> userTickets;
   final Function(List<DataTicket>) updateUserTickets;
 
   const SupportPage({
     Key key,
-    @required this.userTickets,
+    // @required this.userTickets,
     @required this.updateUserTickets,
   }) : super(key: key);
   @override
@@ -47,9 +47,11 @@ class _SupportPageState extends State<SupportPage>
   bool floatingisShowing;
   // ignore: deprecated_member_use
   List<Map<String, dynamic>> resCheckIsValid = new List<Map<String, dynamic>>();
+  // List<DataTicket> tempUserTickets;
 
   @override
   void initState() {
+    // tempUserTickets = widget.userTickets;
     resCheckIsValid = [
       {
         'isValid': true,
@@ -74,6 +76,27 @@ class _SupportPageState extends State<SupportPage>
 
   @override
   Widget build(BuildContext context) {
+    // if (tempUserTickets[tempUserTickets.length - 1]
+    //         .context[
+    //             tempUserTickets[tempUserTickets.length - 1].context.length - 1]
+    //         .text !=
+    //     widget
+    //         .userTickets[widget.userTickets.length - 1]
+    //         .context[widget
+    //                 .userTickets[widget.userTickets.length - 1].context.length -
+    //             1]
+    //         .text) {
+    //   setState(() {
+    //     tempUserTickets = widget.userTickets;
+    //   });
+    // print(
+    //     "last ticket : ${tempUserTickets[tempUserTickets.length - 1].context[tempUserTickets[tempUserTickets.length - 1].context.length - 1].text }");
+    print(
+        "222 last ticket : ${userTickets[userTickets.length - 1].context[userTickets[userTickets.length - 1].context.length - 1].text}");
+    // print(
+    //     "222 last ticket : ${widget.userTickets[widget.userTickets.length - 1].context[widget.userTickets[widget.userTickets.length - 1].context.length - 1].text}");
+    // }
+
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
@@ -231,8 +254,12 @@ class _SupportPageState extends State<SupportPage>
                                   'assets/images/png_images/profile/more/support-header.png',
                               emptyTicketAsset:
                                   'assets/images/png_images/profile/more/create-ticket-help.png',
-                              ticket: widget.userTickets,
-                              updateTickets: widget.updateUserTickets,
+                              // ticket: tempUserTickets,
+                              ticket: userTickets,
+                              // ticket: widget.userTickets,
+                              updateTickets: (List<DataTicket> newTickets) {
+                                widget.updateUserTickets(newTickets);
+                              },
                               // updateTickets: (List<DataTicket> tickets) {
                               //   setState(() {
                               //     userTickets = tickets;

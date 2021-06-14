@@ -17,7 +17,10 @@ Future<void> getReturnPolicyInfo() async {
     print("   / use HardCOre DATA ReturnPolicyInfo");
     returnPolicyData = returnPolicyTempData;
   }
-
-  print(
-      '_=_ get successfully ReturnPolicyInfo: ${returnPolicyData[0].condition}');
+  if (returnPolicyData != null && returnPolicyData.length > 0) {
+    print(
+        '_=_ get successfully ReturnPolicyInfo length: ${returnPolicyData.length}');
+    print(
+        '_=_ get successfully ReturnPolicyInfo: ${returnPolicyData.first.condition}');
+  }
 }

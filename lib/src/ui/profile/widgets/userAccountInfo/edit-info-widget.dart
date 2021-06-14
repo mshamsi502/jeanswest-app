@@ -86,6 +86,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               textEditingController:
                                   widget.editingControllers[index],
                               mediaQuery: MediaQuery.of(context),
+                      width:MediaQuery.of(context).size.width,
                               titleColor: Colors.black,
                               textColor: Colors.black,
                               // lines: 1,

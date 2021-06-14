@@ -6,6 +6,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intent/action.dart' as android_action;
+import 'package:intent/intent.dart' as android_intent;
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 
@@ -152,24 +154,36 @@ class _ReturnProcessWidgetState extends State<ReturnProcessWidget> {
                   SizedBox(
                     width: 0.027 * _screenSize.width, //10,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        widget.phoneNumber,
-                        style: TextStyle(
-                          fontSize: 0.0444 * _screenSize.width, //16,
-                          color: MAIN_BLUE_COLOR,
-                        ),
-                      ),
-                      SizedBox(width: 0.0138 * _screenSize.width //5,
+                  GestureDetector(
+                      child: Row(
+                        children: [
+                          Text(
+                            widget.phoneNumber,
+                            style: TextStyle(
+                              fontSize: 0.0444 * _screenSize.width, //16,
+                              color: MAIN_BLUE_COLOR,
+                            ),
                           ),
-                      Icon(
-                        Icons.phone_outlined,
-                        color: MAIN_BLUE_COLOR,
-                        size: 0.069 * _screenSize.width, //25,
+                          SizedBox(width: 0.0138 * _screenSize.width //5,
+                              ),
+                          Icon(
+                            Icons.phone_outlined,
+                            color: MAIN_BLUE_COLOR,
+                            size: 0.069 * _screenSize.width, //25,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                      onTap: () {
+                        // ! call
+                        android_intent.Intent()
+                          ..setAction(android_action.Action.ACTION_VIEW)
+                          ..setData(Uri(
+                            scheme: "tel",
+                            path: widget.phoneNumber,
+                            // "+98${(widget.depTel).substring(1, widget.depTel.length)}",
+                          ))
+                          ..startActivity().catchError((e) => print(e));
+                      }),
                 ],
               ),
             ),

@@ -14,6 +14,7 @@ import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/single_ticket_page.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 
 class MainTicketWidget extends StatefulWidget {
   final String headerAsset;
@@ -243,14 +244,15 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                     widget.ticket.length - 1 - index,
                                 closeTicket: (int indexCloseTicket) async {
                                   // ! send close ticket api
-                                  Map<String, String> ticketCode = {
-                                    "ticketCode": widget
-                                        .ticket[indexCloseTicket].ticketCode
+                                  Map<String, String> code = {
+                                    "code": widget.ticket[indexCloseTicket].code
                                   };
-                                  await closeATicket(ticketCode);
+                                  await closeATicket(code);
                                   List<DataTicket> userTempTickets =
                                       await getUserTicketsInfo();
-                                  widget.updateTickets(userTempTickets);
+                                  List<DataTicket> sortedUserTempTickets =
+                                      sortTickets(userTempTickets);
+                                  widget.updateTickets(sortedUserTempTickets);
                                   setState(() {
                                     userTickets = userTempTickets;
                                   });
@@ -259,11 +261,11 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                             widget.ticket.length - 1 - index] =
                                         //
                                         DataTicket(
-                                            ticketCode: widget
+                                            code: widget
                                                 .ticket[widget.ticket.length -
                                                     1 -
                                                     index]
-                                                .ticketCode,
+                                                .code,
                                             title: widget
                                                 .ticket[widget.ticket.length -
                                                     1 -
@@ -287,7 +289,7 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                     for (int i = 0; i < indexEditTicket; i++)
                                       userTempTickets.add(userTickets[i]);
                                     userTempTickets.add(DataTicket(
-                                      ticketCode: ticket.ticketCode,
+                                      code: ticket.code,
                                       title: ticket.title ??
                                           userTickets[indexEditTicket].title,
                                       context: ticket.context,
@@ -297,25 +299,10 @@ class _MainTicketWidgetState extends State<MainTicketWidget> {
                                         i < userTickets.length;
                                         i++)
                                       userTempTickets.add(userTickets[i]);
-                                    // userTickets[indexEditTicket] = DataTicket(
-                                    //   ticketCode: ticket.ticketCode,
-                                    //   title: ticket.title ??
-                                    //       userTickets[indexEditTicket].title,
-                                    //   context: ticket.context,
-                                    //   status: ticket.status,
-                                    // );
-                                    // List<DataTicket> dt = [
-                                    //   DataTicket(
-                                    //     ticketCode: ticket.ticketCode,
-                                    //     title: ticket.title ??
-                                    //         userTickets[indexEditTicket].title,
-                                    //     context: ticket.context,
-                                    //     status: ticket.status,
-                                    //   )
-                                    // ];
-                                    // userTickets.replaceRange(indexEditTicket,
-                                    //     indexEditTicket + 1, dt);
-                                    widget.updateTickets(userTempTickets);
+                                    List<DataTicket> sortedUserTempTickets =
+                                        sortTickets(userTempTickets);
+                                   
+                                    widget.updateTickets(sortedUserTempTickets);
                                   });
                                 },
                               ),

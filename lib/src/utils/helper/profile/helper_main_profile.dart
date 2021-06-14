@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
@@ -100,14 +99,17 @@ List<Widget> createProfileListMenuPages({
   return profileListMenu;
 }
 
-List<Widget> createMoreListMenuPages(
-    {@required Function(List<DataTicket>) updateUserTickets}) {
+List<Widget> createMoreListMenuPages({
+  List<DataTicket> userTicketss,
+  @required Function(List<DataTicket>) updateUserTickets,
+}) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
   profileListMenu.add(SupportPage(
-    userTickets: userTickets,
+    // userTickets: userTicketss,
     // updateUserTickets: (List<DataTicket> tickets) => userTickets = tickets,
-    updateUserTickets: updateUserTickets,
+    updateUserTickets: (List<DataTicket> newTickets) =>
+        updateUserTickets(newTickets),
   ));
   profileListMenu.add(AboutUsPage(
     aboutUsData: aboutUsData,

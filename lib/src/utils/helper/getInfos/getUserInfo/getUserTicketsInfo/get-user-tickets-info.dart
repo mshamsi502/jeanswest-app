@@ -8,6 +8,7 @@ import 'package:jeanswest/src/models/api_response/userRes/userTickets/create-tic
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 
 Future<List<DataTicket>> getUserTicketsInfo() async {
   UserTicketsRes userTicketsRes =
@@ -39,9 +40,9 @@ Future<List<DataTicket>> getUserTicketsInfo() async {
         '_=_ get successfully, userTickets length: ${userTicketsRes.data.length}');
     if (userTicketsRes.data.length > 0)
       print(
-          '_=_ get successfully, first userTickets code: ${userTicketsRes.data[0].ticketCode}');
+          '_=_ get successfully, first userTickets code: ${userTicketsRes.data[0].code}');
   }
-  return userTicketsRes.data;
+  return sortTickets(userTicketsRes.data);
   // }
 }
 
@@ -61,25 +62,25 @@ Future<DataTicket> createNewTicket(Map<String, dynamic> newTicket) async {
   return userTicketsRes.data;
 }
 
-Future<DataTicket> replyTicket(Map<String, dynamic> newMessage) async {
+Future<CreateTicketRes> replyTicket(Map<String, dynamic> newMessage) async {
   CreateTicketRes userTicketsRes;
   try {
     userTicketsRes =
         await globalLocator<GlobalRestClient>().replyTicketsInfo(newMessage);
     print(
-        '_=_ get successfully,  replyTicketsInfo title: ${userTicketsRes.data.ticketCode}');
+        '_=_ get successfully,  replyTicketsInfo title: ${userTicketsRes.data.code}');
   } catch (errorRealAPI) {
     print('Catch Error from ** Real API ** replyTicketsInfo !');
     printErrorMessage(errorRealAPI);
     print('*********************************');
   }
-  return userTicketsRes.data;
+  return userTicketsRes;
 }
 
-Future<GeneralRespons> closeATicket(Map<String, dynamic> ticketCode) async {
+Future<GeneralRespons> closeATicket(Map<String, dynamic> code) async {
   GeneralRespons res;
   try {
-    res = await globalLocator<GlobalRestClient>().closeTicketsInfo(ticketCode);
+    res = await globalLocator<GlobalRestClient>().closeTicketsInfo(code);
     print('_=_ get successfully, closeTicketsInfo message: ${res.message}');
   } catch (errorRealAPI) {
     print('Catch Error from ** Real API ** replyTicketsInfo !');

@@ -14,7 +14,6 @@ import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 checkPhoneInput({
   @required BuildContext context,
@@ -109,13 +108,12 @@ checkCodeInput({
         if (authReq.data.accessToken != null &&
             authReq.data.accessToken != '') {
           print('req is successfuly , token ${authReq.data.accessToken}');
-          globalLocator<SharedPreferences>()
-              .setString(TOKEN, authReq.data.accessToken);
-          print(
-              'token has save, loaded token ${globalLocator<SharedPreferences>().getString(TOKEN)}');
+          sharedPrefs.setString(TOKEN, authReq.data.accessToken);
+          print('token has save, loaded token ${sharedPrefs.getString(TOKEN)}');
           // getAllUserInfo(token: authReqData.accessToken); // ! Get All Info
 
           // !
+          tryToGetAllUserInfo = 2;
           await Future.delayed(Duration(microseconds: 1000));
           await Phoenix.rebirth(context); // ! restart the app
         } else {

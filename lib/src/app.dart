@@ -15,6 +15,7 @@ import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/utils/helper/initCreate/init-create.dart';
+// import 'package:flutter_config/flutter_config.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -58,15 +59,12 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
     // ! check user auth and Create Pages
 
-        auth();
-
-    
+    auth();
     createEasyLoading();
   }
 
   auth() async {
-    Map<String, dynamic> authServiceRes =
-        await authService();
+    Map<String, dynamic> authServiceRes = await authService();
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];

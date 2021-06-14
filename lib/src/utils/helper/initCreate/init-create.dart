@@ -41,8 +41,8 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
 
 Future<Map<String, dynamic>> authService() async {
   // // ! clear manual token
-  // globalLocator<SharedPreferences>().clear();
-  // globalLocator<SharedPreferences>().setString(TOKEN, "");
+  // sharedPrefs.clear();
+  // sharedPrefs.setString(TOKEN, "");
   //
   if (MANUAL_TOKEN_IS_ENABLE) {
     // ! put token in device
@@ -78,9 +78,8 @@ Future<Map<String, dynamic>> authService() async {
       while (tryToGetAllUser >= 0) {
         try {
           await getAllUserInfo(noAuth: () {
-            // =>
-
             tryToGetAllUserInfo = 0;
+            tryToGetAllUser = 0;
             isAuth = false;
             tokenIsExpired = true;
           });
@@ -94,6 +93,7 @@ Future<Map<String, dynamic>> authService() async {
             _children = initCreateRes['children'];
             pagesCreatedFinished = initCreateRes['success'];
             //
+
             checkCompleteProfileMsgDateTime();
             //
             return {
@@ -102,6 +102,7 @@ Future<Map<String, dynamic>> authService() async {
               'children': _children,
             };
           }
+          print('----tryToGetAllUserInfo : $tryToGetAllUserInfo');
         } catch (e) {
           print('^*^*^ getAllUserInfo : NOOOT Successfully');
 
@@ -143,11 +144,9 @@ checkCompleteProfileMsgDateTime() {
   // !
   //
 
-  if (globalLocator<SharedPreferences>()
-          .getString('completeProfileMsgDataTime') !=
-      null) {
-    completeProfileMsgDateTime = globalLocator<SharedPreferences>()
-        .getString('completeProfileMsgDataTime');
+  if (sharedPrefs.getString('completeProfileMsgDataTime') != null) {
+    completeProfileMsgDateTime =
+        sharedPrefs.getString('completeProfileMsgDataTime');
     if (DateTime.now()
             .difference(DateTime.parse(completeProfileMsgDateTime))
             .inDays >
@@ -155,14 +154,14 @@ checkCompleteProfileMsgDateTime() {
       //     .inSeconds >
       // 15) {
       completeProfileMsgDateTime = DateTime.now().toString();
-      globalLocator<SharedPreferences>()
-          .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);
+      sharedPrefs.setString(
+          'completeProfileMsgDataTime', completeProfileMsgDateTime);
       showCompeletProfileMessage = true;
     }
   } else {
     completeProfileMsgDateTime = DateTime.now().toString();
-    globalLocator<SharedPreferences>()
-        .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);
+    sharedPrefs.setString(
+        'completeProfileMsgDataTime', completeProfileMsgDateTime);
     showCompeletProfileMessage = true;
   }
 }

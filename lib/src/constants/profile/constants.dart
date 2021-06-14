@@ -5,7 +5,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
@@ -70,13 +70,15 @@ List<Widget> moreListIcons = [
 
 List<Widget> createMorePages({
   BuildContext context,
+  List<DataTicket> userTicketss,
   Function(List<DataTicket>) updateUserTickets,
 }) {
   // ignore: deprecated_member_use
   List<Widget> morePages = new List<Widget>();
   morePages.add(SupportPage(
-    userTickets: userTickets,
-    updateUserTickets: updateUserTickets,
+    // userTickets: userTicketss,
+    updateUserTickets: (List<DataTicket> newTickets) =>
+        updateUserTickets(newTickets),
   ));
   morePages.add(
     AboutUsPage(

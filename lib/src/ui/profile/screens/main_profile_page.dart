@@ -6,11 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
-import 'package:jeanswest/src/constants/global/option.dart';
+
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
@@ -22,7 +23,6 @@ import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTicket
 
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/messages/inbox-message-page.dart';
@@ -111,28 +111,32 @@ class _MainProfilePageState extends State<MainProfilePage>
       userLevelAssets = userLevel.image;
       // print("nextLevel : $nextLevel");
       haveUnreadMessage = false;
-
+      scrollController = new ScrollController();
+      logOutPanel = new PanelController();
+      cardsInfoPanel = new PanelController();
       // for (var i = 0; i < userMessages.length; i++) {
-      for (var i = 0; i < userNotifs.length; i++) {
-        scrollController = new ScrollController();
-        logOutPanel = new PanelController();
-        cardsInfoPanel = new PanelController();
-        buildProfile();
-        moreListMenu = createMoreListMenuPages(
-            updateUserTickets: (List<DataTicket> newTickets) => setState(() {
-                  userTickets = newTickets;
-                }));
-        moreListWidgets = createMorePages(
+      buildProfile();
+      // for (var i = 0; i < userNotifs.length; i++) {
+      moreListMenu = createMoreListMenuPages(
+          userTicketss: userTickets,
+          updateUserTickets: (List<DataTicket> newTickets) {
+            updateUserTickets(newTickets);
+          });
+      moreListWidgets = createMorePages(
           context: context,
-          updateUserTickets: updateUserTickets,
-        );
-      }
+          userTicketss: userTickets,
+          updateUserTickets: (List<DataTicket> newTickets) {
+            updateUserTickets(newTickets);
+          });
+      // }
     }
   }
 
   updateUserTickets(List<DataTicket> tickets) {
     setState(() {
       userTickets = tickets;
+      print(
+          "last ticket : ${userTickets[userTickets.length - 1].context[userTickets[userTickets.length - 1].context.length - 1].text}");
     });
   }
 
@@ -530,7 +534,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                                         someOfShoppingFromInvited: userInvite
                                             .someOfShoppingFromInvited,
                                         faq: inviteFriendsFAQ,
-                                        // screenSize: _screenSize,
+                                        screenSize: _screenSize,
                                       ),
                                     ),
                                   );

@@ -120,7 +120,7 @@ class _CustomCircularPercentIndicatorWidgetState
                 child: Text(
                   widget.userLevel.title == 'Gold'
                       ? '_____'
-                      : '${widget.nextLevel.title}',
+                      : '${widget.nextLevel.engTitle}',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 0.0333 * _screenSize.width, //12,

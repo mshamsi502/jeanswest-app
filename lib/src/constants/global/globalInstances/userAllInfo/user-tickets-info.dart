@@ -3,7 +3,7 @@ import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTicket
 
 List<DataTicket> userTickets = [
   DataTicket(
-    ticketCode: '',
+    code: '',
     title: '',
     context: [
       SingleTicket(

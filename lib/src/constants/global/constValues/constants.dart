@@ -18,7 +18,9 @@ const String EMPTY_IMAGE =
 const TextDirection rtlTextDirection = TextDirection.rtl;
 const TextDirection ltrTextDirection = TextDirection.ltr;
 
-List<String> shamsiMonthName = [
+bool showCompeletProfileMessage = false;
+
+const List<String> shamsiMonthName = [
   'فروردین',
   'اردیبهشت',
   'خرداد',
@@ -32,14 +34,17 @@ List<String> shamsiMonthName = [
   'بهمن',
   'اسفند',
 ];
+const String HINT_PHONE_NUMBER_INPUT = '0912 - - - - - - -';
 
 // //
 // List<Branch> localBranches = new List<Branch>();
 //
-bool isInit = true;
+// bool isInit = true;
 bool userIsAuth = false;
 
 String completeProfileMsgDateTime = '';
+
+// ! -----------------------------------
 
 GetIt globalLocator = GetIt.instance;
 

@@ -76,7 +76,10 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
         child: Scaffold(
           body: SafeArea(
             child: Container(
+              width: _screenSize.width,
+              height: _screenSize.height,
               color: Colors.white,
+              // color: Colors.red,
               child: SlidingUpPanel(
                 controller: sendingPanel,
                 minHeight: 0,
@@ -91,12 +94,16 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                     0.03 * _screenSize.width, //11,
                   ),
                 ),
-                panel: InviteFriendPanelWidget(
-                  closePanel: () => sendingPanel.close(),
-                  inviteLink:
-                      "https://jeanswest.club/v1/Auth?invitation_code=${widget.invitationCode}",
-                  screenSize: _screenSize,
-                  scrollController: _scrollController,
+                panel: Container(
+                  color: Colors.red,
+                  height: 0.61655 * _screenSize.height, //365,
+                  child: InviteFriendPanelWidget(
+                    closePanel: () => sendingPanel.close(),
+                    inviteLink:
+                        "https://jeanswest.club/v1/Auth?invitation_code=${widget.invitationCode}",
+                    screenSize: _screenSize,
+                    scrollController: _scrollController,
+                  ),
                 ),
                 body: Column(
                   children: [

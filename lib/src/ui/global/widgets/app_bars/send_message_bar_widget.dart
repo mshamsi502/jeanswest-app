@@ -14,6 +14,7 @@ class SendMessageBarWidget extends StatefulWidget {
   final String hintText;
   final bool isEnable;
   final String disableText;
+  final Function(bool) enableSendButton;
 
   const SendMessageBarWidget({
     Key key,
@@ -21,6 +22,7 @@ class SendMessageBarWidget extends StatefulWidget {
     this.hintText,
     this.isEnable,
     this.disableText,
+    this.enableSendButton,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SendMessageBarWidgetState();
@@ -28,6 +30,7 @@ class SendMessageBarWidget extends StatefulWidget {
 
 class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
   TextEditingController textEditingController = TextEditingController();
+  bool textIsEmpty = true;
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -56,6 +59,16 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
             Expanded(
               child: TextField(
                 controller: textEditingController,
+                onChanged: (String newText) {
+                  if (newText == null || newText == "")
+                    setState(() {
+                      textIsEmpty = true;
+                    });
+                  else
+                    setState(() {
+                      textIsEmpty = false;
+                    });
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   enabled: widget.isEnable,
@@ -90,10 +103,12 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                   // : ProfileSvgImages.greySendToRightIcon,
                   ),
               onTap: () {
-                if (widget.isEnable &&
-                    textEditingController != null &&
-                    textEditingController.text != null &&
-                    textEditingController.text != "") {
+                if (!textIsEmpty)
+                // if (widget.isEnable &&
+                //     textEditingController != null &&
+                //     textEditingController.text != null &&
+                //     textEditingController.text != "")
+                {
                   widget.sendText(textEditingController.text);
                   textEditingController.clear();
                 }
