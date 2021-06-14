@@ -6,14 +6,13 @@ import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddresses
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-in-list-widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-detail-widget.dart';
 
 class AddressesListPage extends StatefulWidget {
-
   final String title;
   AddressesListPage({
     Key key,
@@ -59,15 +58,19 @@ class _AddressesListPageState extends State<AddressesListPage> {
       child: SafeArea(
         child: WillPopScope(
           onWillPop: () async {
-            if (mapPanelController.isPanelOpen &&
-                mapPanelState == PanelState.CLOSED)
-              return await backPanelClose([mapPanelController], context);
-            if (editPanelController.isPanelOpen)
-              return await backPanelClose([editPanelController], context);
-            if (mapPanelController.isPanelOpen &&
-                mapPanelState == PanelState.OPEN)
-              return await backPanelClose([mapPanelController], context);
-            return false;
+            // if (mapPanelController.isPanelOpen &&
+            //     mapPanelState ==
+            //         PanelState.CLOSED) // ! is Editing and map is Open
+            //   return await backPanelClose([mapPanelController], context);
+            // if (editPanelController.isPanelOpen)
+            //   return await backPanelClose([editPanelController], context);
+            // if (mapPanelController.isPanelOpen &&
+            //     mapPanelState ==
+            //         PanelState.OPEN) //! is Creating and map is Open
+            //   return await backPanelClose([mapPanelController], context);
+            // return false;
+            return await backPanelClose(
+                [mapPanelController, editPanelController], context);
           },
           child: Scaffold(
             key: scaffoldKey,
@@ -81,6 +84,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 maxHeight: 0.3 * _screenSize.height,
                 isDraggable: true,
                 backdropEnabled: true,
+                color: Colors.transparent,
                 panel: DeletePanelWidget(
                   height: 0.3 * _screenSize.height,
                   closeDeletePanel: () => deletePanelController.close(),
@@ -164,6 +168,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                           editAddress: (int seleted) {
                                             setState(() {
                                               mapPanelState = PanelState.CLOSED;
+
                                               selectForEdit = seleted;
                                             });
                                             editPanelController.open();
@@ -220,6 +225,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                 selectForEdit = 0;
                                 mapPanelState = PanelState.OPEN;
                               });
+
                               editPanelController.open();
                             },
                           ),

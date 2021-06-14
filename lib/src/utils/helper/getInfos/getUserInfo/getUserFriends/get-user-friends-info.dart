@@ -5,7 +5,7 @@
 // import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
 // import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 
-// import 'package:jeanswest/src/constants/global/constants.dart';
+// import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 // import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 // import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 // import 'package:jeanswest/src/utils/helper/global/helper.dart';

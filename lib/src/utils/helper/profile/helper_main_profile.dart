@@ -3,12 +3,18 @@
 // *   Created Date & Time:  2021-01-10  ,  15:30 AM
 // ****************************************************************************
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
+import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAddresses/addresses-list-page.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/screens/userAccountInfo/account_info_screen.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
@@ -19,6 +25,8 @@ import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.da
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/favoritesList/favorites-list-screen.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/about-us-data.dart';
 
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
 
@@ -30,13 +38,19 @@ import 'package:intent/extra.dart' as android_extra;
 
 List<Widget> createProfileListMenuPages({
   // Size screenSize,
-  LevelCard userLevel,
-  LevelCard nextLevel,
+  SingleLevelCard userLevel,
+  // LevelCard userLevel,
+  String userLevelName,
+  SingleLevelCard nextLevel,
+  // LevelCard nextLevel,
+  String imageType,
+  String assetsLevelCard,
   int moneyBuying,
-  Function() rebuild,
+  Function(UserMainInfo) rebuild,
 }) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
+
   profileListMenu.add(
     TabBarViewPage(
       title: 'سطح عضویت',
@@ -47,11 +61,16 @@ List<Widget> createProfileListMenuPages({
       ],
       tabWidgets: [
         MembershipLevelPage(
+          userLevelName: userLevelName,
           userLevel: userLevel,
           nextLevel: nextLevel,
           moneyBuying: moneyBuying,
+          imageType: imageType,
+          assetsLevelCard: assetsLevelCard,
         ),
-        JeanpointAndCouponsPage(),
+        JeanpointAndCouponsPage(
+            // ignore: deprecated_member_use
+            userJeanpointBons: userJeanpointBons ?? List<UserCouponsInfo>()),
       ],
       bottomButtonFunction: () {},
     ),
@@ -70,22 +89,35 @@ List<Widget> createProfileListMenuPages({
     AccountInfoScreen(
         title: 'جزئیات حساب کاربری',
         userAccountInfo: user,
-        updateUser: (UserMainInfo userMainInfo) async {
+        updateUser: (UserMainInfo userMainInfo) {
           // user = userMainInfo;
 
-          rebuild();
+          rebuild(userMainInfo);
         }),
   );
 
   return profileListMenu;
 }
 
-List<Widget> createMoreListMenuPages() {
+List<Widget> createMoreListMenuPages({
+  List<DataTicket> userTicketss,
+  @required Function(List<DataTicket>) updateUserTickets,
+}) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
-  profileListMenu.add(SupportPage());
-  profileListMenu.add(AboutUsPage());
-  profileListMenu.add(ReturnProcessPage(initialTab: 0));
+  profileListMenu.add(SupportPage(
+    // userTickets: userTicketss,
+    // updateUserTickets: (List<DataTicket> tickets) => userTickets = tickets,
+    updateUserTickets: (List<DataTicket> newTickets) =>
+        updateUserTickets(newTickets),
+  ));
+  profileListMenu.add(AboutUsPage(
+    aboutUsData: aboutUsData,
+  ));
+  profileListMenu.add(ReturnProcessPage(
+    initialTab: 0,
+    returnProciyData: returnPolicyData,
+  ));
   return profileListMenu;
 }
 
@@ -100,6 +132,9 @@ bottomButtonFunction(String textLink) {
       ..putExtra(android_extra.Extra.EXTRA_TEXT, textLink)
       ..startActivity().catchError((e) => print(e));
   }
+
+  // ignore: unused_element
+
   //  else if (Platform.isIOS) {
   //   // IOS Intent to Map Apps
   //   //   "comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"
@@ -108,4 +143,26 @@ bottomButtonFunction(String textLink) {
   // } else {
   //   // Other OS Intent to Map Apps
   // }
+}
+
+UserMainInfo createUser({
+  @required UserMainInfoData userAccount,
+  String userTblPosCustRes,
+  String dateFormat = STANDARD_DATE_FORMAT,
+}) {
+  DateTime parseDate = new DateFormat(dateFormat).parse(userAccount.birthDate);
+  print('_=_ create user success');
+  return UserMainInfo(
+    code: userAccount.code,
+    tblPosCustomersID: userTblPosCustRes,
+    firstName: userAccount.firstName,
+    lastName: userAccount.lastName,
+    erpPartnerShipCode: userAccount.erpPartnerShipCode,
+    email: userAccount.email,
+    gender: userAccount.gender,
+    phoneNumber: userAccount.phoneNumber,
+    yearOfBirthGeo: parseDate.year.toString(),
+    monthOfBirthGeo: parseDate.month.toString(),
+    dayOfBirthGeo: parseDate.day.toString(),
+  );
 }

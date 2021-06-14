@@ -5,9 +5,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
@@ -15,8 +16,13 @@ import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_pag
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
 
 class AuthProfileAppBarWidget extends StatefulWidget {
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
+  final String userLevelName;
+  final SingleLevelCard userLevel;
+  // final LevelCard userLevel;
+  final SingleLevelCard nextLevel;
+  // final LevelCard nextLevel;
+  final String imageType;
+  final String assetsLevelCard;
   final int moneyBuying;
 
   const AuthProfileAppBarWidget({
@@ -24,6 +30,9 @@ class AuthProfileAppBarWidget extends StatefulWidget {
     this.userLevel,
     this.nextLevel,
     this.moneyBuying,
+    this.userLevelName,
+    this.imageType,
+    this.assetsLevelCard,
   }) : super(key: key);
   State<StatefulWidget> createState() => _AuthProfileAppBarWidgetState();
 }
@@ -48,7 +57,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                 margin: EdgeInsets.symmetric(
                     horizontal: 0.022 * _screenSize.width //8,
                     ),
-                height: 0.37162 * _screenSize.height, //220,
+                height: 0.333333 * _screenSize.height, //200,
                 decoration: BoxDecoration(
                   // color: Colors.red,
                   borderRadius: BorderRadius.circular(
@@ -85,7 +94,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                           height: 0.023 * _screenSize.height, //15
                         ),
                         Container(
-                          height: 0.261824 * _screenSize.height, //155
+                          height: 0.24166 * _screenSize.height, //145
                           // color: Colors.red,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -98,7 +107,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 0.093 * _screenSize.height, //60,
+                                      height: 0.0625 * _screenSize.height, //40
                                     ),
                                     Row(
                                       children: [
@@ -159,12 +168,20 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                               ],
                                               tabWidgets: [
                                                 MembershipLevelPage(
+                                                  userLevelName:
+                                                      widget.userLevelName,
                                                   userLevel: widget.userLevel,
                                                   nextLevel: widget.nextLevel,
+                                                  imageType: widget.imageType,
+                                                  assetsLevelCard:
+                                                      widget.assetsLevelCard,
                                                   moneyBuying:
                                                       widget.moneyBuying,
                                                 ),
-                                                JeanpointAndCouponsPage(),
+                                                JeanpointAndCouponsPage(
+                                                  userJeanpointBons:
+                                                      userJeanpointBons,
+                                                ),
                                               ],
                                               bottomButtonFunction: () {},
                                             ),
@@ -173,31 +190,35 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                       ),
                                     ),
                                     SizedBox(
-                                        height: 0.0078 * _screenSize.height //5,
-                                        ),
+                                      height: 0.023 * _screenSize.height, //15,
+                                    ),
                                   ],
                                 ),
                               ),
                               SizedBox(
                                 width: 0.027 * _screenSize.width, //10,
                               ),
-                              QrCodeWidget(),
+                              Column(
+                                children: [
+                                  Expanded(flex: 2, child: SizedBox()),
+                                  QrCodeWidget(
+                                    width: 0.3472 * _screenSize.width, // 125,
+                                  ),
+                                  Expanded(flex: 1, child: SizedBox()),
+                                ],
+                              ),
                               SizedBox(
                                 width: 0.027 * _screenSize.width, //10,
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 0.0078 * _screenSize.height //5,
-                            ),
                         Text(
                           'اگر کارت خود را فراموش کردید میتوانید از اینجا اسکن کنید',
                           style: TextStyle(
                             fontSize: 0.0333 * _screenSize.width, //12,
                           ),
                         ),
-                        SizedBox(height: 0.0078 * _screenSize.height //5,
-                            ),
                       ],
                     ),
                   ],
@@ -237,11 +258,11 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                       image: DecorationImage(
                         fit: BoxFit.contain,
                         image: new AssetImage(
-                          (user.gender == null || user.gender == null)
+                          user.gender == null
                               ? 'assets/images/png_images/global/userProfile/user-unknown.png'
                               : user.gender == 1
                                   ? 'assets/images/png_images/global/userProfile/user-male.png'
-                                  : user.gender == 2
+                                  : user.gender == 0
                                       ? 'assets/images/png_images/global/userProfile/user-female.png'
                                       : 'assets/images/png_images/global/userProfile/user-unknown.png',
                         ),

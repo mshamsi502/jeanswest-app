@@ -6,26 +6,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/test_data/levels_card.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 import 'custom_circular_percent_indicator_widget.dart';
 
 class CurrentLevelWidget extends StatefulWidget {
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
+  final String userLevelName;
+  final SingleLevelCard userLevel;
+  // final LevelCard userLevel;
+  final SingleLevelCard nextLevel;
+  // final LevelCard nextLevel;
   final int moneyBuying;
   final bool currentLevelWidgetAnimation;
+  final String assetsLevelCard;
+  final String imageType;
 
   const CurrentLevelWidget(
       {Key key,
       this.userLevel,
       this.moneyBuying,
       this.nextLevel,
-      this.currentLevelWidgetAnimation})
+      this.currentLevelWidgetAnimation,
+      this.userLevelName,
+      this.assetsLevelCard,
+      this.imageType})
       : super(key: key);
 
   State<StatefulWidget> createState() => _CurrentLevelWidgetState();
@@ -55,49 +64,51 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
           Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(
-              vertical: 0.015 * _screenSize.height, //10
               horizontal: 0.054 * _screenSize.width, //20
             ),
             child: Column(
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 0.023 * _screenSize.height, //15
-                  ),
-                  child: Container(
-                    height: 0.0625 * _screenSize.height, //40
-                    width: 0.555555 * _screenSize.width, //200,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 0.011824 * _screenSize.height, //7,
-                      horizontal: 0.041 * _screenSize.width, //15,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        0.0138 * _screenSize.width, //5,
+                Row(
+                  children: [
+                    Expanded(child: SizedBox()),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 0.023 * _screenSize.height, //15
                       ),
-                      color: MAIN_ORANGE_COLOR,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'سطح فعلی شما: ',
-                          style: TextStyle(
-                            fontSize: 0.0444 * _screenSize.width, //16,
-                          ),
+                      child: Container(
+                        height: 0.0625 * _screenSize.height, //40
+                        // width: 0.555555 * _screenSize.width, //200,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 0.041 * _screenSize.width, //15,
                         ),
-                        Text(
-                          widget.userLevel == zeroLevel
-                              ? ' __ '
-                              : widget.userLevel.title,
-                          textDirection: ltrTextDirection,
-                          style: TextStyle(
-                            fontSize: 0.0444 * _screenSize.width, //16,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            0.0138 * _screenSize.width, //5,
                           ),
+                          color: MAIN_ORANGE_COLOR,
                         ),
-                      ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'سطح عضویت: ',
+                              style: TextStyle(
+                                fontSize: 0.0444 * _screenSize.width, //16,
+                              ),
+                            ),
+                            Text(
+                              widget.userLevelName,
+                              textDirection: ltrTextDirection,
+                              style: TextStyle(
+                                fontSize: 0.0444 * _screenSize.width, //16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                    Expanded(child: SizedBox()),
+                  ],
                 ),
                 Container(
                   // color: Colors.red,
@@ -123,17 +134,29 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                       ),
                       Container(
                         width: 0.430555 * _screenSize.width, //155,
-                        // height: 0.172 * _screenSize.height, //110,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          image: DecorationImage(
-                            fit: BoxFit.contain,
-                            image: new AssetImage(widget.userLevel == zeroLevel
-                                ? 'assets/images/png_images/profile/unlevel_card.png'
-                                : assetsLevelCard.elementAt(userLevelIndex)),
-                          ),
-                        ),
+                        child: widget.imageType == "svg"
+                            ? ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: SvgPicture.network(
+                                  widget.assetsLevelCard,
+                                  placeholderBuilder: (BuildContext context) =>
+                                      new Container(
+                                    padding: const EdgeInsets.all(30.0),
+                                    child: const CircularProgressIndicator(
+                                      backgroundColor: Colors.amber,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                child: Image.network(
+                                  widget.assetsLevelCard,
+                                ),
+                              ),
                       ),
                       // Expanded(
                       //   flex: 5,
@@ -142,7 +165,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                     ],
                   ),
                 ),
-                widget.userLevel == zeroLevel
+                widget.userLevel.id == zeroLevelCard.id
                     ? Column(
                         children: [
                           SizedBox(
@@ -225,8 +248,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                     color: BLUE_SKY_FADE_COLOR,
                   ),
                   child: Text(
-                    toPriceStyle((int.parse(widget.nextLevel.minPay) -
-                        widget.moneyBuying)),
+                    toPriceStyle(widget.nextLevel.minPay - widget.moneyBuying),
                     style: TextStyle(
                       fontSize: 0.0444 * _screenSize.width, //16,
                     ),
@@ -259,7 +281,7 @@ class _CurrentLevelWidgetState extends State<CurrentLevelWidget> {
                     color: MAIN_GOLD_COLOR,
                   ),
                   child: Text(
-                    toPriceStyle((int.parse(widget.nextLevel.minPay))),
+                    toPriceStyle(widget.nextLevel.minPay),
                     style: TextStyle(
                       fontSize: 0.0444 * _screenSize.width, //16,
                     ),

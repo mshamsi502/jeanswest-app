@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-info-widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 class EditAccountPanelWidget extends StatefulWidget {
   final List<dynamic> userData;
@@ -82,7 +82,7 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
     selectedGender = widget.userData[4][1]
         // as int
         ;
-    genderEditingController.text = selectedGender == 1 ? "زن" : "مرد";
+    genderEditingController.text = (selectedGender == 1) ? ("مرد") : ("زن");
 
     yearOfBirthEditingController.text =
         widget.userData[5][1]['yearOfBirth'] as String;
@@ -239,7 +239,7 @@ class _EditAccountPanelWidgetState extends State<EditAccountPanelWidget> {
                       ? 1
                       : (genderEditingController.text == "زن")
                           ? 0
-                          : 1,
+                          : null,
                   dayOfBirthEditingController.text,
                   monthOfBirthEditingController.text,
                   yearOfBirthEditingController.text,

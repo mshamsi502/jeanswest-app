@@ -3,8 +3,8 @@
 //*  Created on:    7th October - 07/10/2020     _     15:23:37
 //****************************************************************************
 
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
 
 import 'package:jeanswest/src/ui/profile/screens/orderList/online_order_details_screen.dart';
@@ -128,12 +128,12 @@ class _OnlineOrderInfoWidgetState extends State<OnlineOrderInfoWidget> {
                               width: 0.0138 * _screenSize.width, //5,
                             ),
                             Container(
-                              width:
-                                  widget.onlineOrder.statusStepReturn.length >
-                                          // 0.054 * _screenSize.width //20
-                                          0.03611 * _screenSize.width //13
-                                      ? 0.27 * _screenSize.width //100,
-                                      : null,
+                              width: widget
+                                          .onlineOrder.statusStepReturn.length >
+                                      // 0.054 * _screenSize.width //20
+                                      (0.03611 * _screenSize.width).toInt() //13
+                                  ? 0.27 * _screenSize.width //100,
+                                  : null,
                               child: Text(
                                 widget.onlineOrder.statusStepReturn,
                                 overflow: TextOverflow.ellipsis,

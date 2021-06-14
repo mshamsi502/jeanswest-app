@@ -4,9 +4,9 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:jeanswest/src/models/api_response/globalRes/levelCards/level-cards-data.dart';
 
 part 'level-cards-res.g.dart';
 
@@ -18,7 +18,7 @@ class LevelCardsRes extends Equatable {
   @JsonKey(name: 'message')
   String message;
   @JsonKey(name: 'data')
-  LevelCardsData data;
+  List<SingleLevelCard> data;
 
   LevelCardsRes({
     this.statusCode,

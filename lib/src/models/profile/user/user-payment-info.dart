@@ -4,11 +4,24 @@
 // ****************************************************************************
 
 class UserPaymentInfo {
-  int moneyBuying;
+  String tblPosCustomersID;
+  int payRial;
+  int payToman;
+  String cusType;
+  String cTypeName;
+  int priceLevel;
+  int priceLevelTo;
 
   //
 
   UserPaymentInfo({
-    this.moneyBuying,
-  });
+    this.tblPosCustomersID,
+    this.payRial,
+    this.cusType,
+    this.cTypeName,
+    this.priceLevel,
+    this.priceLevelTo,
+  }) {
+    payToman = payRial == null || payRial == 0 ? 0 : payRial ~/ 10;
+  }
 }

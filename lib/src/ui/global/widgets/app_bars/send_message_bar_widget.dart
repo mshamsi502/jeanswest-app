@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
 class SendMessageBarWidget extends StatefulWidget {
@@ -14,6 +14,7 @@ class SendMessageBarWidget extends StatefulWidget {
   final String hintText;
   final bool isEnable;
   final String disableText;
+  final Function(bool) enableSendButton;
 
   const SendMessageBarWidget({
     Key key,
@@ -21,6 +22,7 @@ class SendMessageBarWidget extends StatefulWidget {
     this.hintText,
     this.isEnable,
     this.disableText,
+    this.enableSendButton,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SendMessageBarWidgetState();
@@ -28,6 +30,7 @@ class SendMessageBarWidget extends StatefulWidget {
 
 class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
   TextEditingController textEditingController = TextEditingController();
+  bool textIsEmpty = true;
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -56,6 +59,16 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
             Expanded(
               child: TextField(
                 controller: textEditingController,
+                onChanged: (String newText) {
+                  if (newText == null || newText == "")
+                    setState(() {
+                      textIsEmpty = true;
+                    });
+                  else
+                    setState(() {
+                      textIsEmpty = false;
+                    });
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   enabled: widget.isEnable,
@@ -80,14 +93,22 @@ class _SendMessageBarWidgetState extends State<SendMessageBarWidget> {
                   padding: EdgeInsets.all(
                     0.019 * _screenSize.width, //7
                   ),
-                  child: widget.isEnable
+                  child: widget.isEnable &&
+                          textEditingController != null &&
+                          textEditingController.text != null &&
+                          textEditingController.text != ""
                       ? ProfileSvgImages.blueSendToLeftIcon
                       //  ProfileSvgImages.blueSendToRightIcon
                       : ProfileSvgImages.greySendToLeftIcon
                   // : ProfileSvgImages.greySendToRightIcon,
                   ),
               onTap: () {
-                if (widget.isEnable) {
+                if (!textIsEmpty)
+                // if (widget.isEnable &&
+                //     textEditingController != null &&
+                //     textEditingController.text != null &&
+                //     textEditingController.text != "")
+                {
                   widget.sendText(textEditingController.text);
                   textEditingController.clear();
                 }

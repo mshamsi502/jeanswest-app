@@ -4,9 +4,8 @@
 // ****************************************************************************
 
 import 'package:dio/dio.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 createDio() {
   globalLocator.registerFactoryParam<GlobalRestClient, String, void>(
@@ -15,9 +14,9 @@ createDio() {
     Dio dio = new Dio();
     dio.interceptors
         .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
-      if (globalLocator<SharedPreferences>().getString(TOKEN) != null) {
+      if (sharedPrefs.getString(TOKEN) != null) {
         options.headers["Authorization"] =
-            "Bearer " + globalLocator<SharedPreferences>().getString(TOKEN);
+            "Bearer " + sharedPrefs.getString(TOKEN);
       }
       return options; //continue
     }, onResponse: (Response response) async {

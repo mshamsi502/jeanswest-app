@@ -71,7 +71,7 @@
         "payment_ceiling_level" : "Payment Ceiling",
         "user_payment" : "Your Payment",
         "remainder_payment" : "Reminder Payment",
-        "to_next_level" : "to Next Level"
+        "to_next_level" : "Next Level"
     },
     "branch_screen": {
         "search_in" : "Search in",

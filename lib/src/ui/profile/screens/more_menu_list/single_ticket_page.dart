@@ -5,12 +5,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/create-ticket-res.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/send_message_bar_widget.dart';
-import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
 
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
@@ -19,7 +20,8 @@ class SingleTicketPage extends StatefulWidget {
   final DataTicket ticket;
   final int numberOfTicket;
   final Size screenSize;
-  final Function() closeTicket;
+  final Function(int) closeTicket;
+  final Function(int, DataTicket) updateTicket;
 
   const SingleTicketPage({
     Key key,
@@ -28,16 +30,19 @@ class SingleTicketPage extends StatefulWidget {
     this.numberOfTicket,
     this.closeTicket,
     this.user,
+    this.updateTicket,
   }) : super(key: key);
   State<StatefulWidget> createState() => _SingleTicketPageState();
 }
 
 class _SingleTicketPageState extends State<SingleTicketPage> {
   ScrollController scrollController;
+  DataTicket tempTicket;
 
   @override
   void initState() {
     scrollController = new ScrollController();
+    tempTicket = widget.ticket;
     super.initState();
   }
 
@@ -53,13 +58,13 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
               Container(
                 width: _screenSize.width,
                 child: AppBarWithBackWidget(
-                  title: widget.ticket.title,
-                  option: widget.ticket.status == 1
+                  title: tempTicket.title,
+                  option: tempTicket.status != 0
                       ? PopupMenuButton(
                           iconSize: 0.069 * _screenSize.width, //25,
                           padding: EdgeInsets.all(0),
                           onSelected: (value) {
-                            widget.closeTicket();
+                            widget.closeTicket(widget.numberOfTicket);
                             Navigator.pop(context);
                           },
                           itemBuilder: (context) => [
@@ -112,25 +117,23 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                 child: ListView.builder(
                                   reverse: true,
                                   controller: scrollController,
-                                  itemCount: widget.ticket.context.length,
+                                  itemCount: tempTicket.context.length,
                                   shrinkWrap: true,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     bool isCustomer = widget
                                             .ticket
-                                            .context[
-                                                widget.ticket.context.length -
-                                                    1 -
-                                                    index]
-                                            // widget.ticket.message[index]
+                                            .context[tempTicket.context.length -
+                                                1 -
+                                                index]
+                                            // tempTicket.message[index]
                                             .owner ==
                                         'customer';
                                     return Column(
                                       children: [
                                         Container(
                                             height: index ==
-                                                    widget.ticket.context
-                                                            .length -
+                                                    tempTicket.context.length -
                                                         1
                                                 ? 0.031 *
                                                     _screenSize.height //20
@@ -303,7 +306,7 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                                                   .length -
                                                               1 -
                                                               index]
-                                                          // widget.ticket.message[index]
+                                                          // tempTicket.message[index]
                                                           .text,
                                                       style: TextStyle(
                                                         fontSize: 0.038 *
@@ -317,8 +320,7 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                             ],
                                           ),
                                         ),
-                                        (index == 0) &&
-                                                (widget.ticket.status == 0)
+                                        (index == 0) && (tempTicket.status == 0)
                                             ? Container(
                                                 height: 0.5067 *
                                                     _screenSize.height, //300,
@@ -374,14 +376,33 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                                 ),
                               ),
                               SendMessageBarWidget(
-                                isEnable: !(widget.ticket.status == 0),
-                                hintText: 'پیام خود را وارد کنید ...',
-                                disableText: 'گفتگو پایان یافته است',
-                                sendText: (String text) => setState(() {
-                                  addNewMessageInTicket(
-                                      widget.numberOfTicket, text);
-                                }),
-                              ),
+                                  isEnable: tempTicket.status == 1,
+                                  hintText: 'پیام خود را وارد کنید ...',
+                                  disableText: tempTicket.status == 0
+                                      ? 'گفتگو پایان یافته است'
+                                      : "در انتظار پاسخ پشتیبانی",
+                                  enableSendButton: (bool isEnable) {},
+                                  sendText: (String text) async {
+                                    Map<String, dynamic> newMessaeg = {
+                                      "code": tempTicket.code,
+                                      "text": text,
+                                    };
+                                    CreateTicketRes ticketRes =
+                                        await replyTicket(newMessaeg);
+                                    if (ticketRes.statusCode == 200) {
+                                      // print(
+                                      //     "00000000000000000 :  ${ticketRes.data}");
+                                      setState(() {
+                                        tempTicket.context.add(ticketRes
+                                                .data.context[
+                                            ticketRes.data.context.length - 1]);
+                                      });
+
+                                      widget.updateTicket(widget.numberOfTicket,
+                                          ticketRes.data);
+                                    }
+                                    //
+                                  }),
                             ],
                           ),
                         ),

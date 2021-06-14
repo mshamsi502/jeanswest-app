@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 
@@ -73,6 +73,13 @@ class _TabBarViewPageState extends State<TabBarViewPage>
                     controller: tabController,
                     labelColor: MAIN_BLUE_COLOR,
                     indicatorColor: MAIN_BLUE_COLOR,
+                    unselectedLabelColor: Colors.grey[800],
+                    unselectedLabelStyle: TextStyle(
+                        fontSize: 0.034 * _screenSize.width, //12,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'IRANSans'),
+
+                    // MAIN_BLUE_COLOR,,
                     labelStyle: TextStyle(
                         fontSize: 0.034 * _screenSize.width, //12,
                         fontWeight: FontWeight.w600,

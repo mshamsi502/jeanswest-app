@@ -6,7 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 class GlobalSvgImages {
   GlobalSvgImages._();

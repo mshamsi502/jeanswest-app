@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
@@ -68,12 +68,15 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
+      width: _screenSize.width,
+      // // height: 150,
       padding: EdgeInsets.symmetric(
         horizontal: 0.027 * _screenSize.width, //10,
         vertical: 0.016 * _screenSize.height, //10
       ),
       decoration: BoxDecoration(
         color: Colors.white,
+        // color: Colors.red,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
             0.03 * _screenSize.width, //11,
@@ -117,22 +120,19 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
             height: 0.4898 * _screenSize.height, //290
             child: SingleChildScrollView(
               controller: scrollController,
-              // physics: NeverScrollableScrollPhysics(),
-              // physics: AlwaysScrollableScrollPhysics(),
               child: Container(
-                // height: 0.5 * _screenSize.height, //320,
+                height: 0.5 * _screenSize.height, //320,
                 child: Column(
                   children: [
                     CustomTextFieldWidget(
                       title: 'اشتراک گذاری لینک دانلود',
                       isEnable: false,
-                      // textEditingController: textEditingController,
                       initText: textLink,
                       titleColor: Colors.black,
-                      // lines: 1,
                       textColor: Colors.grey,
-                      hintTextColor: Colors.grey,
+                      hintTextColor: Colors.grey[600],
                       mediaQuery: MediaQuery.of(context),
+                      width: MediaQuery.of(context).size.width,
                       internalIcon: GestureDetector(
                           child: Container(
                             // color: Colors.green,
@@ -150,14 +150,11 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                           onTap: () {
                             Clipboard.setData(new ClipboardData(text: textLink))
                                 .then((_) {
-                              // showToast(
-                              //   message: "متن دعوت نامه در کلیبورد کپی شد.",
-                              //   fToast: fToast,
-                              // );
-                              // ignore: deprecated_member_use
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text(
-                                      "متن دعوت نامه در کلیبورد کپی شد.")));
+                              showToast(
+                                message: "لینک با موفقیت کپی شد.",
+                                textColor: Colors.white,
+                                backgroundColor: NERO_GREY_COLOR,
+                              );
                             });
                           }),
                       externalIcon: GestureDetector(
@@ -194,12 +191,17 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                       title: 'شماره موبایل',
                       isEnable: true,
                       textEditingController: textEditingController,
+                      textInputType: TextInputType.number,
                       initText: 'مثال : 09365337279',
                       titleColor: Colors.black,
                       // lines: 1,
+                      inputFormatters: [
+                        new LengthLimitingTextInputFormatter(11),
+                      ],
                       textColor: Colors.black,
-                      hintTextColor: Colors.grey,
+                      hintTextColor: Colors.grey[400],
                       mediaQuery: MediaQuery.of(context),
+                      width: _screenSize.width,
                       hasValidation: true,
                       isValid: validationResult[0],
                       validationError: validationResult[1],
@@ -237,9 +239,14 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                                   await globalLocator<GlobalRestClient>()
                                       .sendInviteFriendLink(friendMobile);
                               if (res.statusCode == 200) {
+                                widget.closePanel();
                                 print('send invite success');
                                 textEditingController.clear();
-                                widget.closePanel();
+                                showToast(
+                                  message: "دعوت نامه با موفقیت ارسال شد",
+                                  textColor: Colors.white,
+                                  backgroundColor: GREEN_TEXT_COLOR,
+                                );
                               }
                             } catch (e) {
                               print('catch error on send invite link');

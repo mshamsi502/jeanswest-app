@@ -14,7 +14,7 @@ import 'package:jeanswest/src/bloc/branch/events/selected_branch_event.dart';
 import 'package:jeanswest/src/bloc/branch/main/branch_addresses_screen_bloc.dart';
 import 'package:jeanswest/src/bloc/branch/main/selected_branch_bloc.dart';
 import 'package:jeanswest/src/bloc/branch/states/branch_addresses_screen_state.dart';
-import 'package:jeanswest/src/constants/global/size_constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/size_constants.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/branch/branch.dart';
 import 'package:jeanswest/src/ui/branch/widgets/branches_list_widget.dart';
@@ -108,8 +108,7 @@ class _BranchPageState extends State<BranchPage>
             widthText: 0.75,
           );
         } else if (branchAddressesScreenState is BranchAddressesScreenSuccess) {
-          return
-              SlidingUpPanel(
+          return SlidingUpPanel(
             controller: widget.searchPanelController,
             minHeight: 0,
             maxHeight: screenSize.height,

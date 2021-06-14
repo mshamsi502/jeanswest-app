@@ -6,19 +6,21 @@
 import 'dart:ui';
 
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:jeanswest/src/constants/global/api_respones.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/size_constants.dart';
-import 'package:jeanswest/src/constants/login/country_code_list.dart';
-import 'package:jeanswest/src/models/country/country.dart';
+import 'package:jeanswest/src/constants/global/constValues/api_respones.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/size_constants.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
+// import 'package:jeanswest/src/constants/login/country_code_list.dart';
+// import 'package:jeanswest/src/models/country/country.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_code_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/confirm_button_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_app_bar_widget.dart';
 import 'package:jeanswest/src/ui/login/widgets/login_body_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/login/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -53,8 +55,9 @@ class _LoginPageState extends State<LoginPage> {
   ScrollController scrollController = new ScrollController();
   var keyboardVisibilityController = KeyboardVisibilityController();
   //
-  String minuteTimer;
+
   String secondTimer;
+  bool timerIsDone;
   //
   bool check;
   String errorMsg;
@@ -68,21 +71,21 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController searchTextEditingController =
       new TextEditingController();
   // ignore: deprecated_member_use
-  List<Country> allCountries = new List<Country>();
+  // List<Country> allCountries = new List<Country>();
   // ignore: deprecated_member_use
-  List<Country> searchedCountries = new List<Country>();
-  Map<String, dynamic> map = CountriesCodeList.PERSIAN_GULF_COUNTRY_LIST;
-  Country selectedCountry;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  // List<Country> searchedCountries = new List<Country>();
+  // Map<String, dynamic> map = CountriesCodeList.PERSIAN_GULF_COUNTRY_LIST;
+  // Country selectedCountry;
+  // final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     check = false;
     resendCode = false;
     errorMsg = '';
-    getConteries(widget.screenSize);
-    minuteTimer = '00';
+    // getConteries(widget.screenSize);
     secondTimer = '00';
+    timerIsDone = false;
     //
 
     scrollJumpAfterKeyborad(
@@ -94,62 +97,61 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  getConteries(Size _screenSize) async {
-    selectedCountry = Country(
-      name: map['countries_code'][0]['name_per'],
-      dialCode: map['countries_code'][0]['dial_code'],
-      code: map['countries_code'][0]['code'],
-      flag: Container(
-        width: 0.05468 * _screenSize.height, //35,
-        height: 0.05468 * _screenSize.height, //35,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-              map['countries_code'][0]['flag'],
-            ),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(
-            0.138 * widget.screenSize.width, //50,
-          )),
-        ),
-      ),
-    );
-
-    await Future.delayed(Duration.zero, () {
-      for (var i = 0; i < map['countries_code'].length; i++) {
-        Country country = Country(
-          name: map['countries_code'][i][context.locale.toString() == 'fa_IR'
-              ? 'name_per'
-              : context.locale.toString() == 'ar_UA'
-                  ? 'name_arb'
-                  : 'name_eng'],
-          dialCode: map['countries_code'][i]['dial_code'],
-          code: map['countries_code'][i]['code'],
-          flag: new Container(
-            width: 0.05468 * _screenSize.height,
-            height: 0.05468 * _screenSize.height,
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                image: new NetworkImage(
-                  map['countries_code'][i]['flag'],
-                ),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: new BorderRadius.all(new Radius.circular(
-                0.138 * widget.screenSize.width, //50,
-              )),
-            ),
-          ),
-        );
-        setState(() {
-          allCountries.add(country);
-          if (country.code == 'IR') selectedCountry = country;
-        });
-      }
-    });
-    searchedCountries = allCountries;
-  }
+  // getConteries(Size _screenSize) async {
+  //   selectedCountry = Country(
+  //     name: map['countries_code'][0]['name_per'],
+  //     dialCode: map['countries_code'][0]['dial_code'],
+  //     code: map['countries_code'][0]['code'],
+  //     flag: Container(
+  //       width: 0.05468 * _screenSize.height, //35,
+  //       height: 0.05468 * _screenSize.height, //35,
+  //       decoration: BoxDecoration(
+  //         image: DecorationImage(
+  //           image: NetworkImage(
+  //             map['countries_code'][0]['flag'],
+  //           ),
+  //           fit: BoxFit.cover,
+  //         ),
+  //         borderRadius: BorderRadius.all(Radius.circular(
+  //           0.138 * widget.screenSize.width, //50,
+  //         )),
+  //       ),
+  //     ),
+  //   );
+  //   await Future.delayed(Duration.zero, () {
+  //     for (var i = 0; i < map['countries_code'].length; i++) {
+  //       Country country = Country(
+  //         name: map['countries_code'][i][context.locale.toString() == 'fa_IR'
+  //             ? 'name_per'
+  //             : context.locale.toString() == 'ar_UA'
+  //                 ? 'name_arb'
+  //                 : 'name_eng'],
+  //         dialCode: map['countries_code'][i]['dial_code'],
+  //         code: map['countries_code'][i]['code'],
+  //         flag: new Container(
+  //           width: 0.05468 * _screenSize.height,
+  //           height: 0.05468 * _screenSize.height,
+  //           decoration: new BoxDecoration(
+  //             image: new DecorationImage(
+  //               image: new NetworkImage(
+  //                 map['countries_code'][i]['flag'],
+  //               ),
+  //               fit: BoxFit.cover,
+  //             ),
+  //             borderRadius: new BorderRadius.all(new Radius.circular(
+  //               0.138 * widget.screenSize.width, //50,
+  //             )),
+  //           ),
+  //         ),
+  //       );
+  //       setState(() {
+  //         allCountries.add(country);
+  //         if (country.code == 'IR') selectedCountry = country;
+  //       });
+  //     }
+  //   });
+  //   searchedCountries = allCountries;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
             context,
           ),
           child: Scaffold(
-            key: scaffoldKey,
+            // key: scaffoldKey,
             resizeToAvoidBottomInset: true,
             body: SingleChildScrollView(
               controller: scrollController,
@@ -208,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                                         changeHasError:
                                             (List<dynamic> checkPhone) {},
                                         // hasError: true,
-                                        selectedCountry: selectedCountry,
+                                        // selectedCountry: selectedCountry,
                                         changeTextFieldSearch:
                                             (String newValue) {
                                           hasError = false;
@@ -225,19 +227,24 @@ class _LoginPageState extends State<LoginPage> {
                                         focusNode: codeConfirmInputNode,
                                         phoneTextEditingController:
                                             phoneTextEditingController,
-                                        inputPhone: inputPhone,
+                                        inputPhone:
+                                            toStandardPhoneNumberforAPIs(
+                                                inputPhone),
                                         hasError: hasError,
+                                        timerIsDone: timerIsDone,
                                         backToInputPhoneStep: () {
                                           print("true true true ...");
                                           changeInputPhoneStep(true);
                                         },
                                         updateInputCode: updateInputCode,
-                                        minuteTimer: minuteTimer,
+                                        // minuteTimer: minuteTimer,
                                         secondTimer: secondTimer,
                                         resendCodeToAlreadyPhone: () =>
                                             checkPhoneInput(
                                           context: context,
-                                          phoneNumber: inputPhone,
+                                          phoneNumber:
+                                              toStandardPhoneNumberforAPIs(
+                                                  inputPhone),
                                           statusCodes: statusCodes,
                                           changeHasError: (bool newHasError) {
                                             setState(() {
@@ -318,8 +325,9 @@ class _LoginPageState extends State<LoginPage> {
                               verifyCode: inputCode,
                               // selectedCountry: selectedCountry,
                               isInputPhoneStep: isInputPhoneStep,
-                              changeInputPhoneStep: (bool newIInputPhoneStep) =>
-                                  changeInputPhoneStep(newIInputPhoneStep),
+                              changeInputPhoneStep: (bool newIInputPhoneStep) {
+                                changeInputPhoneStep(newIInputPhoneStep);
+                              },
                               hasError: hasError,
                               changeErrorMessage: (String newErrorMsg) =>
                                   setState(() {
@@ -334,7 +342,10 @@ class _LoginPageState extends State<LoginPage> {
                               checkCorrectCode: () =>
                                   checkCorrectCode(inputVerifyCode: inputCode),
                               checkCorrectPhone: () => checkCorrectPhone(
-                                  inputPhone: inputPhone, startWithZero: true),
+                                  inputPhone: inputPhone,
+                                  startWithZero:
+                                      (STANDARD_PHONE_NUMBER_STYLE_FOR_API ==
+                                          "0xxx-xxx-xxxx")),
 
                               startDownTimer: () => startDownTimer(_screenSize),
                             ),
@@ -356,10 +367,14 @@ class _LoginPageState extends State<LoginPage> {
   changeInputPhoneStep(bool _isInputPhoneStep) {
     setState(() {
       isInputPhoneStep = _isInputPhoneStep;
-      print('aaaaaaa isInputPhoneStep : $isInputPhoneStep');
-      print('0000000 _isInputPhoneStep : $_isInputPhoneStep');
+      // print('aaaaaaa isInputPhoneStep : $isInputPhoneStep');
+      // print('0000000 _isInputPhoneStep : $_isInputPhoneStep');
       hasError = false;
       errorMsg = '';
+      if (_isInputPhoneStep)
+        setState(() {
+          timerIsDone = true;
+        });
     });
   }
   //
@@ -380,26 +395,26 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   startDownTimer(Size _screenSize) async {
-    setState(() {
-      minuteTimer = LOGIN_LIMIT_MIN_TIMEOUT;
-      secondTimer = LOGIN_LIMIT_SEC_TIMEOUT;
-    });
-    print('1timer : $minuteTimer:$secondTimer');
-    while (!(minuteTimer == '00' && secondTimer == '00')) {
-      await Future.delayed(Duration(seconds: 1));
+    if (mounted)
       setState(() {
-        minuteTimer = secondTimer == '00'
-            ? minuteTimer[1] == '0'
-                ? '${int.parse(minuteTimer[0]) - 1}9'
-                : '${int.parse(minuteTimer[0])}${int.parse(minuteTimer[1]) - 1}'
-            : minuteTimer;
-        secondTimer = secondTimer == '00'
-            ? '59'
-            : secondTimer[1] == '0'
-                ? '${int.parse(secondTimer[0]) - 1}9'
-                : '${int.parse(secondTimer[0])}${int.parse(secondTimer[1]) - 1}';
+        secondTimer = LOGIN_LIMIT_SEC_TIMEOUT;
       });
-      print('2timer : $minuteTimer:$secondTimer');
+    else
+      secondTimer = LOGIN_LIMIT_SEC_TIMEOUT;
+    print("timer started : $secondTimer");
+    timerIsDone = false;
+    while ((int.parse(secondTimer) > 0) && !timerIsDone) {
+      await Future.delayed(Duration(seconds: 1));
+      if (mounted)
+        setState(() {
+          secondTimer = (int.parse(secondTimer) - 1).toString();
+        });
+      else
+        secondTimer = (int.parse(secondTimer) - 1).toString();
+      print('timer : $secondTimer sec');
     }
+    setState(() {
+      timerIsDone = true;
+    });
   }
 }

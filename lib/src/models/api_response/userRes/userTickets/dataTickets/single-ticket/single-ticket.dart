@@ -17,11 +17,14 @@ class SingleTicket extends Equatable {
   String text;
   @JsonKey(name: 'created_at')
   String createdAt;
+  @JsonKey(name: 'contextCode')
+  String contextCode;
 
   SingleTicket({
     this.owner,
     this.text,
     this.createdAt,
+    this.contextCode,
   });
 
   factory SingleTicket.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +37,7 @@ class SingleTicket extends Equatable {
       'owner': owner,
       'text': text,
       'created_at': createdAt,
+      'contextCode': contextCode,
     };
   }
 
@@ -42,5 +46,6 @@ class SingleTicket extends Equatable {
         owner,
         text,
         createdAt,
+        contextCode,
       ];
 }

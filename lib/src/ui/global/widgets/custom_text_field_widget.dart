@@ -6,7 +6,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:flutter/services.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 class CustomTextFieldWidget extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -19,13 +21,17 @@ class CustomTextFieldWidget extends StatefulWidget {
   final Color hintTextColor;
   final bool isEnable;
   final MediaQueryData mediaQuery;
+  final double width;
   //
   final Widget internalIcon;
   final Widget externalIcon;
   //
+  final List<LengthLimitingTextInputFormatter> inputFormatters;
+  final TextInputType textInputType;
   final bool hasValidation;
   final bool isValid;
   final String validationError;
+  final EdgeInsetsGeometry customPadding;
 
   const CustomTextFieldWidget({
     Key key,
@@ -41,63 +47,129 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.internalIcon,
     this.externalIcon,
     this.hasValidation = false,
-    this.isValid = false,
+    this.isValid = true,
     this.validationError = '',
+    this.inputFormatters = const [],
+    this.textInputType = TextInputType.multiline,
+    @required this.width,
+    this.customPadding = const EdgeInsets.symmetric(horizontal: 10),
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomTextFieldWidgetState();
 }
 
 class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
+  double totalHeigth;
+  //
+  String tempTitle;
+  bool tempHasValidation;
+  bool tempIsValid;
+  double heightTextField;
+  double heightTitle;
+  double heightError;
+
+  @override
+  void initState() {
+    tempTitle = widget.title;
+    tempHasValidation = widget.hasValidation;
+    tempIsValid = widget.isValid;
+    Map<String, double> heights = updateHeigths(
+      screenHeight: widget.mediaQuery.size.height,
+      lines: widget.lines,
+      title: widget.title,
+      hasValidation: widget.hasValidation,
+      isValid: widget.isValid,
+    );
+    heightTitle = heights["heightTitle"];
+    heightTextField = heights["heightTextField"];
+    heightError = heights["heightError"];
+    totalHeigth = heights["totalHeigth"];
+    // print("totalHeigth ---- : $totalHeigth");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (tempTitle != widget.title ||
+        tempHasValidation != widget.hasValidation ||
+        tempIsValid != widget.isValid) {
+      setState(() {
+        Map<String, double> heights = updateHeigths(
+          screenHeight: widget.mediaQuery.size.height,
+          lines: widget.lines,
+          title: widget.title,
+          hasValidation: widget.hasValidation,
+          isValid: widget.isValid,
+        );
+        heightTitle = heights["heightTitle"];
+        heightTextField = heights["heightTextField"];
+        heightError = heights["heightError"];
+        totalHeigth = heights["totalHeigth"];
+        print("cahnge totalHeigth ---- : $totalHeigth");
+        tempTitle = widget.title;
+        tempHasValidation = widget.hasValidation;
+        tempIsValid = widget.isValid;
+      });
+    }
+
     return Container(
       // color: Colors.green,
-      padding: EdgeInsets.symmetric(
-        horizontal: 0.027 * widget.mediaQuery.size.width, //10,
-      ),
-      height: ( // ! heightTextField
-
-              (widget.lines == null || widget.lines == 1)
-                  ? (0.03125 * widget.mediaQuery.size.height) //20
-                  : (0.0355 *
-                      widget.mediaQuery.size.height // 21
-                      *
-                      widget.lines.toInt())) +
-          ( // ! heightTitle
-              (0.093 * widget.mediaQuery.size.height) //60
-          ) +
-          ( // ! heightError
-              ((!widget.hasValidation || widget.isValid) ? 0 : 20)) +
-          0.033 * widget.mediaQuery.size.height, //15,
-      width: widget.mediaQuery.size.width,
+      padding: widget.customPadding,
+      // EdgeInsets.symmetric(
+      //   horizontal: 0.027 * widget.mediaQuery.size.width, //10,
+      // ),
+      height: totalHeigth,
+      // height: heightTitle + heightTextField + heightError,
+      // ( // ! heightTextField
+      //         (widget.lines == null || widget.lines == 1)
+      //             ? (0.03125 * widget.mediaQuery.size.height) //20
+      //             : widget.title == null || widget.title == ""
+      //                 ? 0.0355 * widget.mediaQuery.size.height // 21
+      //                 : (0.0355 *
+      //                     widget.mediaQuery.size.height // 21
+      //                     *
+      //                     widget.lines.toInt())) +
+      //     ( // ! heightTitle
+      //         (0.093 * widget.mediaQuery.size.height) //60
+      //     ) +
+      //     ( // ! heightError
+      //         ((!widget.hasValidation || widget.isValid) ? 0 : 20)) +
+      //     0.033 * widget.mediaQuery.size.height, //15,
+      // width: widget.mediaQuery.size.width,
+      width: widget.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: (
-                    // ! heightTitle
-                    (0.093 * widget.mediaQuery.size.height) //60
-                ) -
-                0.054 * widget.mediaQuery.size.height, //30
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.027 * widget.mediaQuery.size.width, //10,
-            ),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 0.038 * widget.mediaQuery.size.width, //14,
-                color: widget.hasValidation
-                    ? widget.isValid
-                        ? widget.titleColor
-                        : Colors.red
-                    : widget.titleColor,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 0.0078 * widget.mediaQuery.size.height, // 5,
-          ),
+          widget.title == null || widget.title == ""
+              ? SizedBox()
+              : Column(
+                  children: [
+                    Container(
+                      height: (
+                              // ! heightTitle
+                              (0.093 * widget.mediaQuery.size.height) //60
+                          ) -
+                          0.054 * widget.mediaQuery.size.height, //30
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.027 * widget.mediaQuery.size.width, //10,
+                      ),
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 0.038 * widget.mediaQuery.size.width, //14,
+                          color: widget.hasValidation
+                              ? widget.isValid
+                                  ? widget.titleColor
+                                  : Colors.red
+                              : widget.titleColor,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 0.0078 * widget.mediaQuery.size.height, // 5,
+                    ),
+                  ],
+                ),
           Container(
             width: widget.mediaQuery.size.width,
             // color: Colors.amber,
@@ -126,7 +198,8 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                         Expanded(
                           child: TextField(
                             enabled: widget.isEnable,
-                            keyboardType: TextInputType.multiline,
+                            keyboardType: widget.textInputType,
+                            inputFormatters: widget.inputFormatters,
                             style: TextStyle(
                               color: widget.textColor,
                               fontSize:
@@ -140,8 +213,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                               hintText: widget.initText ?? '',
                               hintStyle: TextStyle(color: widget.hintTextColor),
                               contentPadding: EdgeInsets.symmetric(
-                                vertical: 0.015 *
-                                    widget.mediaQuery.size.height, // 10,
+                                vertical: 5,
                                 horizontal:
                                     0.055 * widget.mediaQuery.size.width, // 20,
                               ),
@@ -161,19 +233,26 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
               ],
             ),
           ),
-          SizedBox(
-            height: 0.01182 * widget.mediaQuery.size.height, // 7,
-          ),
           Container(
+            height: heightError,
+            // width: widget.width,
             child: widget.hasValidation
-                ? Expanded(
-                    child: Text(
-                      widget.validationError,
-                      style: TextStyle(
-                        fontSize: 0.034 * widget.mediaQuery.size.width, //12,
-                        color: Colors.red,
+                ? Column(
+                    children: [
+                      SizedBox(
+                        height: 0.01182 * widget.mediaQuery.size.height, // 7,
                       ),
-                    ),
+                      Expanded(
+                        child: Text(
+                          widget.validationError,
+                          style: TextStyle(
+                            fontSize:
+                                0.034 * widget.mediaQuery.size.width, //12,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 : SizedBox(),
           ),

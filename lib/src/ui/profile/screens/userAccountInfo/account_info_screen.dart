@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-account-panel-widget.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
@@ -51,9 +52,9 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
 
   buildUserData({UserMainInfo userInfo}) {
     userData = [
-      // name: [
-      //   key, value, isLock,
-      // ],
+      //! name: [
+      //!   key, value, isLock,
+      //! ],
       [
         'نام',
         userInfo.firstName ?? "",
@@ -66,7 +67,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
       ],
       [
         'شماره تماس',
-        userInfo.phoneNumber ?? "",
+        "0${userInfo.phoneNumber}" ?? "",
         true,
       ],
       [
@@ -133,7 +134,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                     yearOfBirthShamsi: yearOfBirth,
                   );
 
-                  user = await editUserMainInfo(_userInfo);
+                  user = await editUserMainInfo(_userInfo, userPayment);
                   widget.updateUser(_userInfo);
                   setState(() {
                     buildUserData(userInfo: _userInfo);

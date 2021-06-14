@@ -7,10 +7,14 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-data.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:intent/action.dart' as android_action;
+import 'package:intent/intent.dart' as android_intent;
 
 class ContactUsWidget extends StatefulWidget {
   final String headerAsset;
@@ -109,108 +113,158 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                       ),
                       Column(
                         children: [
-                          Container(
-                            width: 0.583333 * _screenSize.width, //210,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 0.027 * _screenSize.width, //10,
-                              vertical: 0.0078 * _screenSize.height, //5,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                0.011 * _screenSize.width, //4,
-                              ),
-                              color: BLUE_SKY_FADE_COLOR,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  widget.contactUs.addresses,
-                                  style: TextStyle(
-                                    fontSize: 0.0444 * _screenSize.width, //16,
-                                    color: MAIN_BLUE_COLOR,
+                          Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              GestureDetector(
+                                onTap: () async {
+                                  await Clipboard.setData(new ClipboardData(
+                                      text: widget.contactUs.email));
+                                  showToast(
+                                    message: "ایمیل با موفقیت کپی شد.",
+                                    textColor: Colors.white,
+                                    backgroundColor: NERO_GREY_COLOR,
+                                  );
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 0.027 * _screenSize.width, //10,
+                                    vertical: 0.0078 * _screenSize.height, //5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                      0.011 * _screenSize.width, //4,
+                                    ),
+                                    color: BLUE_SKY_FADE_COLOR,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        widget.contactUs.email,
+                                        style: TextStyle(
+                                          fontSize:
+                                              0.0444 * _screenSize.width, //16,
+                                          color: MAIN_BLUE_COLOR,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 0.0138 * _screenSize.width, //5,
+                                      ),
+                                      Icon(
+                                        Icons.sms_outlined,
+                                        size: 0.054 * _screenSize.width, //20
+                                        color: MAIN_BLUE_COLOR,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 0.0138 * _screenSize.width, //5,
-                                ),
-                                Icon(
-                                  Icons.sms_outlined,
-                                  size: 0.054 * _screenSize.width, //20
-                                  color: MAIN_BLUE_COLOR,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Expanded(child: SizedBox()),
+                            ],
                           ),
                           SizedBox(
                             height: 0.031 * _screenSize.height, //20,
                           ),
-                          Container(
-                            width: 0.38888 * _screenSize.width, //140,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 0.027 * _screenSize.width, //10,
-                              vertical: 0.0078 * _screenSize.height, //5,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                0.011 * _screenSize.width, //4,
-                              ),
-                              color: BLUE_SKY_FADE_COLOR,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  widget.contactUs.phone,
-                                  style: TextStyle(
-                                    fontSize: 0.0444 * _screenSize.width, //16,
-                                    color: MAIN_BLUE_COLOR,
+                          Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              GestureDetector(
+                                onTap: () {
+                                  android_intent.Intent()
+                                    ..setAction(
+                                        android_action.Action.ACTION_VIEW)
+                                    ..setData(Uri(
+                                        scheme: "tel",
+                                        path: widget.contactUs.phone))
+                                    ..startActivity()
+                                        .catchError((e) => print(e));
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 0.027 * _screenSize.width, //10,
+                                    vertical: 0.0078 * _screenSize.height, //5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(
+                                      0.011 * _screenSize.width, //4,
+                                    ),
+                                    color: BLUE_SKY_FADE_COLOR,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        widget.contactUs.phone,
+                                        style: TextStyle(
+                                          fontSize:
+                                              0.0444 * _screenSize.width, //16,
+                                          color: MAIN_BLUE_COLOR,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 0.0138 * _screenSize.width, //5,
+                                      ),
+                                      Icon(
+                                        Icons.phone_outlined,
+                                        size: 0.054 * _screenSize.width, //20
+                                        color: MAIN_BLUE_COLOR,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 0.0138 * _screenSize.width, //5,
-                                ),
-                                Icon(
-                                  Icons.phone_outlined,
-                                  size: 0.054 * _screenSize.width, //20
-                                  color: MAIN_BLUE_COLOR,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Expanded(child: SizedBox()),
+                            ],
                           ),
                           SizedBox(
                             height: 0.031 * _screenSize.height, //20,
                           ),
-                          Container(
-                            width: 0.38888 * _screenSize.width, //140,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 0.027 * _screenSize.width, //10,
-                              vertical: 0.0078 * _screenSize.height, //5,
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                0.011 * _screenSize.width, //4,
-                              ),
-                              color: WHITE_SMOKE_COLOR,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  widget.contactUs.fax,
-                                  style: TextStyle(
-                                    fontSize: 0.0444 * _screenSize.width, //16,
+                          Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              // GestureDetector(
+                              //   onTap: () {
+
+                              //   },
+                              //   child:
+                              Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 0.027 * _screenSize.width, //10,
+                                  vertical: 0.0078 * _screenSize.height, //5,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    0.011 * _screenSize.width, //4,
                                   ),
+                                  color: WHITE_SMOKE_COLOR,
                                 ),
-                                SizedBox(
-                                  width: 0.0138 * _screenSize.width, //5,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      widget.contactUs.fax,
+                                      style: TextStyle(
+                                        fontSize:
+                                            0.0444 * _screenSize.width, //16,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 0.0138 * _screenSize.width, //5,
+                                    ),
+                                    Icon(
+                                      Icons.apartment,
+                                      size: 0.054 * _screenSize.width, //20
+                                    ),
+                                  ],
                                 ),
-                                Icon(
-                                  Icons.apartment,
-                                  size: 0.054 * _screenSize.width, //20
-                                ),
-                              ],
-                            ),
+                              ),
+                              // ),
+                              Expanded(child: SizedBox()),
+                            ],
                           ),
                           SizedBox(
                             height: 0.261824 * _screenSize.height, //155

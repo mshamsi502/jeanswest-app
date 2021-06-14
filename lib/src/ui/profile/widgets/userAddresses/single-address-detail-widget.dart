@@ -5,12 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:geocoding/geocoding.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-district.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';
@@ -18,25 +17,23 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/district/dis
 import 'package:jeanswest/src/models/api_response/globalRes/address/province/province.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userAddresses/address-info-res.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
+import 'package:jeanswest/src/ui/profile/widgets/userAddresses/search-place-bar-widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddressesInfo/get-user-addresses-info.dart';
 import 'package:jeanswest/src/utils/helper/search/helper_search.dart';
-// import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:screenshot/screenshot.dart';
-// import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';
-
-import 'package:search_map_place/search_map_place.dart';
 
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-province.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/single-address-text-detail-widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAddresses/list-unit-address-panel-widget.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 //
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
+// import 'package:flutter_config/flutter_config.dart';
 
 class SingleAddressDetailWidget extends StatefulWidget {
   final String title;
@@ -86,6 +83,9 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
 
   //
   bool mapIsOpen;
+  //
+  bool isShowingSearchResult;
+  //
   Widget map;
   Uint8List mapCaptured;
   PanelState tempMapPanelState;
@@ -115,9 +115,11 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
   //
   LatLng newEditingLatLng;
   String newAddressFromMap;
+  //
 
   @override
   void initState() {
+    isShowingSearchResult = false;
     scrollController = new ScrollController();
     editScrollController = new ScrollController();
     newEditingLatLng = LatLng(
@@ -225,6 +227,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     if (widget.mapPanelState != tempMapPanelState ||
         widget.indexAddress != tempIndexAddress ||
         (widget.wasClose && widget.editPanelController.isPanelOpen)) {
+      print("updatinnnnnnnnnnnnnnnnnnng");
       updateFields();
     }
     var _screenSize = MediaQuery.of(context).size;
@@ -236,9 +239,13 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
         controller: singleChildScrollController,
         physics: ClampingScrollPhysics(),
         child: Container(
-          height: mapIsOpen ? _screenSize.height : _screenSize.height * 1.45,
+          height:
+              // mapIsOpen ?
+              _screenSize.height
+          //  : _screenSize.height * 1.45
+          ,
           child: SlidingUpPanel(
-            defaultPanelState: widget.mapPanelState,
+            defaultPanelState: tempMapPanelState,
             controller: widget.mapPanelController,
             isDraggable: false,
             minHeight: 0,
@@ -336,74 +343,70 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                     width: _screenSize.width,
                     // height: 200,
                     // color: Colors.red,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          child: Container(
-                            color: Colors.white,
-                            height: 0.0929 * _screenSize.height, //55,
-                            width: 0.0625 * _screenSize.height, //40
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 0.027 * _screenSize.width, //10,
-                              vertical: 0.0287 * _screenSize.height, //17
+                    child: SearchPlaceBarWidget(
+                      mapPanelController: widget.mapPanelController,
+                      isShowingSearchResult: isShowingSearchResult,
+                      closeMapPanel: () => widget.mapPanelController.close(),
+                      changeShowingSearchResult:
+                          (bool newIsShowingSearchResult) {
+                        setState(() {
+                          isShowingSearchResult = newIsShowingSearchResult;
+                        });
+                      },
+                      updateMapIsOpen: (bool newMapIsOpen) {
+                        setState(() {
+                          mapIsOpen = false;
+                        });
+                        widget.mapPanelController.close();
+                      },
+                      updateMap: (LatLng newLatLng) async {
+                        final GoogleMapController controller =
+                            await mapController.future;
+                        controller.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: newLatLng,
+                              zoom: 16,
                             ),
-                            child: GlobalSvgImages.rightIcon,
                           ),
-                          onTap: () => setState(() {
-                            mapIsOpen = false;
-                            widget.mapPanelController.close();
-                          }),
-                        ),
-                        Expanded(
-                          child: SearchMapPlaceWidget(
-                              hasClearButton: true,
-                              placeType: PlaceType.address,
-                              language: 'fa',
-                              placeholder: 'محل مورد نظرتان کجاست ؟',
-                              apiKey:
-                                  'AIzaSyDseIH-ZnfQaeAXvR0vaRXKGbrnUqr5s2I', // YOUR GOOGLE MAPS API KEY
-                              iconColor: MAIN_BLUE_COLOR,
-                              onSelected: (Place place) {
-                                place.geolocation.then((newGeolocation) async {
-                                  LatLng newLatLng;
-                                  setState(() {
-                                    newLatLng = newGeolocation.coordinates;
-                                  });
-                                  // !
-                                  List<Placemark> dbAddress =
-                                      await placemarkFromCoordinates(
-                                          newLatLng.latitude,
-                                          newLatLng.longitude,
-                                          localeIdentifier: 'fa');
-                                  setState(() {
-                                    selectedProvince = dbAddress[0]
-                                        .administrativeArea
-                                        .replaceAll("استان ", "");
-                                    selectedCity = dbAddress[0].locality;
-                                    // selectedDistrict = dbAddress[0];
-                                    newAddressFromMap =
-                                        dbAddress[0].administrativeArea +
-                                            '، ' +
-                                            dbAddress[0].locality +
-                                            '، ' +
-                                            dbAddress[0].subLocality +
-                                            '، ' +
-                                            dbAddress[0].name;
-                                  });
-                                  final GoogleMapController controller =
-                                      await mapController.future;
-                                  controller.animateCamera(
-                                    CameraUpdate.newCameraPosition(
-                                      CameraPosition(
-                                          target: newLatLng, zoom: 16),
-                                    ),
-                                  );
-                                });
-                              }),
-                        ),
-                      ],
+                        );
+                      },
                     ),
+                    // Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     GestureDetector(
+                    //       child: Container(
+                    //         color: Colors.white,
+                    //         height: 0.0929 * _screenSize.height, //55,
+                    //         width: 0.0625 * _screenSize.height, //40
+                    //         padding: EdgeInsets.symmetric(
+                    //           horizontal: 0.027 * _screenSize.width, //10,
+                    //           vertical: 0.0287 * _screenSize.height, //17
+                    //         ),
+                    //         child: GlobalSvgImages.rightIcon,
+                    //       ),
+                    //       onTap: () => setState(() {
+                    //         mapIsOpen = false;
+                    //         widget.mapPanelController.close();
+                    //       }),
+                    //     ),
+                    //     Expanded(child: SearchPlaceBarWidget(
+                    //       updateMap: (LatLng newLatLng) async {
+                    //         final GoogleMapController controller =
+                    //             await mapController.future;
+                    //         controller.animateCamera(
+                    //           CameraUpdate.newCameraPosition(
+                    //             CameraPosition(
+                    //               target: newLatLng,
+                    //               zoom: 16,
+                    //             ),
+                    //           ),
+                    //         );
+                    //       },
+                    //     )),
+                    //   ],
+                    // ),
                   ),
                 ),
               ],
@@ -491,7 +494,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                           ),
                                         )
                                       : Container(
-                                          color: Colors.yellow,
+                                          // color: Colors.yellow,
                                           width: 0.88333 *
                                               _screenSize.width, // 318
                                           // _screenSize.width - 42,
@@ -532,7 +535,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                             SingleAddressTextDetailWidget(
                               // title: "",
                               address: widget.address,
-                              mapPanelState: widget.mapPanelState,
+                              // mapPanelState: widget.mapPanelState,
+                              mapPanelState: tempMapPanelState,
                               selectedProvince: selectedProvince,
                               selectedCity: selectedCity,
                               selectedDistrict: selectedDistrict,
@@ -577,7 +581,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                 onTap: () async {
                                   widget.closeEditPanel();
                                   // ! add new Address
-                                  if (widget.mapPanelState == PanelState.OPEN) {
+                                  if (tempMapPanelState == PanelState.OPEN) {
                                     // print('/*/*// add new address');
                                     bool res = await addToUserAddresses(
                                       recieverFullName:
@@ -807,7 +811,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     recieverNameTextEditingController = TextEditingController();
     recieverPhoneNumberTextEditingController = TextEditingController();
     setState(() {
-      if (widget.mapPanelState == PanelState.OPEN) {
+      if (tempMapPanelState == PanelState.OPEN) {
         addressTextEditingController.text = "";
         houseNumberTextEditingController.text = "";
         unitNumberTextEditingController.text = "";
@@ -843,9 +847,16 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
           widget.address.longitude,
         );
       }
-      mapIsOpen = widget.mapPanelState == PanelState.OPEN;
+      mapIsOpen = (widget.mapPanelState == PanelState.OPEN);
       tempMapPanelState = widget.mapPanelState;
       tempIndexAddress = widget.indexAddress;
+      print("tempMapPanelState : $tempMapPanelState , mapIsOpen : $mapIsOpen");
+      if (widget.mapPanelController.isAttached) {
+        if (tempMapPanelState == PanelState.OPEN)
+          widget.mapPanelController.open();
+        if (tempMapPanelState == PanelState.CLOSED)
+          widget.mapPanelController.close();
+      }
     });
     if (!mounted) widget.changeWasClose(false);
   }

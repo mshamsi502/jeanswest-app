@@ -11,16 +11,28 @@ part 'single-level-card.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class SingleLevelCard extends Equatable {
-  @JsonKey(name: 'membership')
-  String membership;
+  @JsonKey(name: 'id')
+  String id;
+  @JsonKey(name: 'active')
+  bool active;
+  @JsonKey(name: 'title')
+  String title;
   @JsonKey(name: 'engtitle')
-  String engtitle;
+  String engTitle;
   @JsonKey(name: 'perTitle')
   String perTitle;
+  @JsonKey(name: 'image')
+  String image;
+  @JsonKey(name: 'membership')
+  String membership;
   @JsonKey(name: 'minPay')
   int minPay;
   @JsonKey(name: 'maxPay')
   int maxPay;
+  @JsonKey(name: 'text')
+  String text;
+  @JsonKey(name: 'percent')
+  int percent;
   @JsonKey(name: 'receiptConditions')
   String receiptConditions;
   @JsonKey(name: 'subTitles')
@@ -29,11 +41,17 @@ class SingleLevelCard extends Equatable {
   List<String> descriptions;
 
   SingleLevelCard({
-    this.membership,
-    this.engtitle,
+    this.id,
+    this.active,
+    this.title,
+    this.engTitle,
     this.perTitle,
+    this.image,
+    this.membership,
     this.minPay,
     this.maxPay,
+    this.text,
+    this.percent,
     this.receiptConditions,
     this.subTitles,
     this.descriptions,
@@ -47,11 +65,17 @@ class SingleLevelCard extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'membership': membership,
-      'engtitle': engtitle,
+      'id': id,
+      'active': active,
+      'title': title,
+      'engtitle': engTitle,
       'perTitle': perTitle,
+      'membership': membership,
+      'image': image,
       'minPay': minPay,
       'maxPay': maxPay,
+      'text': text,
+      'percent': percent,
       'receiptConditions': receiptConditions,
       'subTitles': subTitles,
       'descriptions': descriptions,
@@ -60,11 +84,17 @@ class SingleLevelCard extends Equatable {
 
   @override
   List<Object> get props => [
-        membership,
-        engtitle,
+        id,
+        active,
+        title,
+        engTitle,
         perTitle,
+        membership,
+        image,
         minPay,
         maxPay,
+        text,
+        percent,
         receiptConditions,
         subTitles,
         descriptions,

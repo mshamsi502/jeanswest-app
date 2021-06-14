@@ -8,14 +8,16 @@ import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class CustomCircularPercentIndicatorWidget extends StatefulWidget {
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
+  final SingleLevelCard userLevel;
+  // final LevelCard userLevel;
+  final SingleLevelCard nextLevel;
+  // final LevelCard nextLevel;
   final int moneyBuying;
   final bool currentLevelWidgetAnimation;
 
@@ -35,11 +37,29 @@ class _CustomCircularPercentIndicatorWidgetState
     extends State<CustomCircularPercentIndicatorWidget> {
   bool isEndAnimation;
   int loadPercent;
+  String orgPercent;
 
   @override
   void initState() {
+    print("userLevel =: ${widget.userLevel}");
     loadPercent = 0;
     isEndAnimation = false;
+    if (widget.userLevel.minPay == widget.moneyBuying)
+      orgPercent = "0";
+    else
+      orgPercent =
+          ((widget.moneyBuying - (widget.userLevel.minPay).toDouble()) /
+                  ((widget.userLevel.maxPay).toDouble() -
+                      (widget.userLevel.minPay).toDouble()) *
+                  100)
+              .toStringAsFixed(0);
+    // ((double.parse(widget.userLevel.maxPay) - widget.moneyBuying) /
+    //         (double.parse(widget.userLevel.maxPay) -
+    //             double.parse(widget.userLevel.minPay)) *
+    //         100)
+    //     .toStringAsFixed(0);
+
+    print("orgPercent =: $orgPercent");
     percentAnimation();
     super.initState();
   }
@@ -61,16 +81,17 @@ class _CustomCircularPercentIndicatorWidgetState
           percent: widget.userLevel.title == 'Gold'
               // ? 0.75
               ? 1
-              : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
-                  (double.parse(widget.userLevel.maxPay) -
-                      double.parse(widget.userLevel.minPay)),
+              : int.parse(orgPercent) / 100,
+          // : (widget.moneyBuying - double.parse(widget.userLevel.minPay)) /
+          //     (double.parse(widget.userLevel.maxPay) -
+          //         double.parse(widget.userLevel.minPay)),
           center: AnimatedSwitcher(
             duration: const Duration(milliseconds: 50),
             child: Padding(
               padding: EdgeInsets.only(top: 0.0078 * _screenSize.height //5,
                   ),
               child: Text(
-                '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : ((widget.moneyBuying - double.parse(widget.userLevel.minPay)) / (double.parse(widget.userLevel.maxPay) - double.parse(widget.userLevel.minPay)) * 100).toStringAsFixed(0) : loadPercent} %',
+                '${isEndAnimation ? widget.userLevel.title == 'Gold' ? '100' : orgPercent : loadPercent} %',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 0.05 * _screenSize.width, //18,
@@ -99,7 +120,7 @@ class _CustomCircularPercentIndicatorWidgetState
                 child: Text(
                   widget.userLevel.title == 'Gold'
                       ? '_____'
-                      : '${widget.nextLevel.title}',
+                      : '${widget.nextLevel.engTitle}',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 0.0333 * _screenSize.width, //12,
@@ -124,9 +145,9 @@ class _CustomCircularPercentIndicatorWidgetState
       await Future.delayed(Duration(
           milliseconds: (int.parse((2000 /
                   (((double.parse((widget.moneyBuying).toStringAsFixed(0)) -
-                          double.parse(widget.userLevel.minPay)) /
-                      (double.parse(widget.userLevel.maxPay) -
-                          double.parse(widget.userLevel.minPay)) *
+                          (widget.userLevel.minPay).toDouble()) /
+                      ((widget.userLevel.maxPay).toDouble() -
+                          (widget.userLevel.minPay).toDouble()) *
                       100)))
               .toStringAsFixed(0)))));
     } while (!isEndAnimation);

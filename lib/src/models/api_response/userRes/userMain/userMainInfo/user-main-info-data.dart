@@ -34,8 +34,8 @@ class UserMainInfoData extends Equatable {
   // String loggedInAt;
   // @JsonKey(name: 'erpId')
   // String erpId;
-  // @JsonKey(name: 'erpPartnerShipCode')
-  // String erpPartnerShipCode;
+  @JsonKey(name: 'erpPartnerShipCode')
+  String erpPartnerShipCode;
   // @JsonKey(name: 'erpCustomerType')
   // String erpCustomerType;
   // @JsonKey(name: 'erpTsCodeId')
@@ -54,6 +54,7 @@ class UserMainInfoData extends Equatable {
     this.phoneNumber,
     this.gender,
     this.birthDate,
+    this.erpPartnerShipCode,
   });
 
   factory UserMainInfoData.fromJson(Map<String, dynamic> json) =>
@@ -70,6 +71,7 @@ class UserMainInfoData extends Equatable {
       'phoneNumber': phoneNumber,
       'gender': gender,
       'birthDate': birthDate,
+      'erpPartnerShipCode': erpPartnerShipCode,
     };
   }
 
@@ -82,5 +84,6 @@ class UserMainInfoData extends Equatable {
         phoneNumber,
         gender,
         birthDate,
+        erpPartnerShipCode,
       ];
 }

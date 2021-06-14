@@ -6,10 +6,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
+// import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/login/screens/login_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/contact_us_widget.dart';
@@ -17,10 +21,19 @@ import 'package:jeanswest/src/ui/profile/widgets/support_page/main_ticket_widget
 import 'package:jeanswest/src/ui/profile/widgets/support_page/questions_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/send_new_ticket_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/contact-us-data.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class SupportPage extends StatefulWidget {
+  // final List<DataTicket> userTickets;
+  final Function(List<DataTicket>) updateUserTickets;
+
+  const SupportPage({
+    Key key,
+    // @required this.userTickets,
+    @required this.updateUserTickets,
+  }) : super(key: key);
   @override
   _SupportPageState createState() => _SupportPageState();
 }
@@ -34,9 +47,11 @@ class _SupportPageState extends State<SupportPage>
   bool floatingisShowing;
   // ignore: deprecated_member_use
   List<Map<String, dynamic>> resCheckIsValid = new List<Map<String, dynamic>>();
+  // List<DataTicket> tempUserTickets;
 
   @override
   void initState() {
+    // tempUserTickets = widget.userTickets;
     resCheckIsValid = [
       {
         'isValid': true,
@@ -61,6 +76,27 @@ class _SupportPageState extends State<SupportPage>
 
   @override
   Widget build(BuildContext context) {
+    // if (tempUserTickets[tempUserTickets.length - 1]
+    //         .context[
+    //             tempUserTickets[tempUserTickets.length - 1].context.length - 1]
+    //         .text !=
+    //     widget
+    //         .userTickets[widget.userTickets.length - 1]
+    //         .context[widget
+    //                 .userTickets[widget.userTickets.length - 1].context.length -
+    //             1]
+    //         .text) {
+    //   setState(() {
+    //     tempUserTickets = widget.userTickets;
+    //   });
+    // print(
+    //     "last ticket : ${tempUserTickets[tempUserTickets.length - 1].context[tempUserTickets[tempUserTickets.length - 1].context.length - 1].text }");
+    print(
+        "222 last ticket : ${userTickets[userTickets.length - 1].context[userTickets[userTickets.length - 1].context.length - 1].text}");
+    // print(
+    //     "222 last ticket : ${widget.userTickets[widget.userTickets.length - 1].context[widget.userTickets[widget.userTickets.length - 1].context.length - 1].text}");
+    // }
+
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
@@ -151,11 +187,24 @@ class _SupportPageState extends State<SupportPage>
                     print('00 text isValid : ${resCheckIsValid[1]['isValid']}');
                   },
                   canSendMessage: newTicketIsValid,
-                  sendMessage: (String title, String text) {
+                  sendMessage: (String title, String text) async {
                     // ! call send new ticket api
-                    setState(() {
-                      addTicketToUserTicket(title, text);
-                    });
+                    Map<String, dynamic> newTicket = {
+                      "title": title,
+                      "text": text,
+                    };
+
+                    DataTicket ticket = await createNewTicket(newTicket);
+                    userTickets.add(ticket);
+                    // List<DataTicket> userTicketsRes =
+                    //     await getUserTicketsInfo();
+
+                    // widget.updateUserTickets(userTicketsRes);
+
+                    //  !
+                    // setState(() {
+                    //   addTicketToUserTicket(title, text);
+                    // });
                   },
                   closePanel: () async {
                     await panelController.close().then((value) {
@@ -205,7 +254,17 @@ class _SupportPageState extends State<SupportPage>
                                   'assets/images/png_images/profile/more/support-header.png',
                               emptyTicketAsset:
                                   'assets/images/png_images/profile/more/create-ticket-help.png',
+                              // ticket: tempUserTickets,
                               ticket: userTickets,
+                              // ticket: widget.userTickets,
+                              updateTickets: (List<DataTicket> newTickets) {
+                                widget.updateUserTickets(newTickets);
+                              },
+                              // updateTickets: (List<DataTicket> tickets) {
+                              //   setState(() {
+                              //     userTickets = tickets;
+                              //   });
+                              // },
                             ),
                             ContactUsWidget(
                               headerAsset:

@@ -10,9 +10,11 @@ ContactUsRes _$ContactUsResFromJson(Map<String, dynamic> json) {
   return ContactUsRes(
     statusCode: json['statusCode'] as int,
     message: json['message'] as String,
-    data: json['data'] == null
-        ? null
-        : ContactUsData.fromJson(json['data'] as Map<String, dynamic>),
+    data: (json['data'] as List)
+        ?.map((e) => e == null
+            ? null
+            : ContactUsData.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 

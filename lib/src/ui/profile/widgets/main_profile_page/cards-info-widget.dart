@@ -3,16 +3,21 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
-import 'package:jeanswest/src/models/profile/level_card/main-level-card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
+// import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
+// import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
+import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 
 class CardsInfoWidget extends StatefulWidget {
-  final List<String> assetsLevelCard;
-  final List<MainLevelCard> levels;
+  // final List<String> assetsLevelCard;
+  final List<SingleLevelCard> levelCards;
+  // final List<MainLevelCard> levels;
+  final Map<String, dynamic> cardsInfo;
   final Size screenSize;
   final Function closeCardsInfoPanel;
   final int showingCard;
@@ -21,12 +26,15 @@ class CardsInfoWidget extends StatefulWidget {
 
   const CardsInfoWidget({
     Key key,
-    this.assetsLevelCard,
+    // this.assetsLevelCard,
     this.closeCardsInfoPanel,
     this.showingCard,
     this.changeShowingCard,
-    this.levels,
+    // this.levels,
     this.screenSize,
+    // @required this.levelCards,
+    @required this.cardsInfo,
+    this.levelCards,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _CardsInfoWidgetState();
@@ -35,43 +43,110 @@ class CardsInfoWidget extends StatefulWidget {
 class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   ScrollController _scrollController;
   ScrollController cardScrollController;
-  CarouselController carouselController;
-
-  List<int> index = [];
 
   // ignore: deprecated_member_use
   List<double> largeHeights = List<double>();
   // ignore: deprecated_member_use
   List<double> largeWidths = List<double>();
 
+  // !
+  int someCards;
+  int tempShowingCard;
+  List<String> mainAssetsLevelCard;
+  List<String> mainTitleLevelCard;
+  List<String> mainTextLevelCard;
+  List<int> someSubCards;
+  List<String> imageType;
+  //
+  bool isCountBlue;
+  bool isCountSilver;
+  bool isCountGold;
+
   @override
   void initState() {
     _scrollController = new ScrollController();
     cardScrollController = new ScrollController();
-    carouselController = CarouselController();
+    tempShowingCard = widget.showingCard;
+    //  !
 
-    for (int i = 0; i < widget.assetsLevelCard.length; i++) {
-      if (i == widget.showingCard) {
-        largeWidths.add((widget.screenSize.width / 2.25) -
-            (0.054 * widget.screenSize.width //20
-            ));
-        largeHeights.add(0.2027 * widget.screenSize.height //120,
-            );
-      } else {
-        largeWidths.add((widget.screenSize.width / 3.5));
-        largeHeights.add(0.15625 * widget.screenSize.height //100,
-            );
-      }
-    }
+    // Map<String, dynamic> map = prepareMainCards(levelCards: widget.levelCards);
+    // someCards = map["someCards"];
+    // mainTitleLevelCard = map["mainTitleLevelCard"];
+    // mainAssetsLevelCard = map["mainAssetsLevelCard"];
+    // mainTextLevelCard = map["mainTextLevelCard"];
+    // someSubCards = map["someSubCards"];
+    // imageType = map["imageType"];
+    someCards = widget.cardsInfo["someCards"];
+    mainTitleLevelCard = widget.cardsInfo["mainTitleLevelCard"];
+    mainAssetsLevelCard = widget.cardsInfo["mainAssetsLevelCard"];
+    mainTextLevelCard = widget.cardsInfo["mainTextLevelCard"];
+    someSubCards = widget.cardsInfo["someSubCards"];
+    imageType = widget.cardsInfo["imageType"];
+    // largeHeights = widget.cardsInfo["largeHeights"];
+    // largeWidths = widget.cardsInfo["largeWidths"];
 
-    for (var i = 0; i < widget.assetsLevelCard.length; i++) index.add(i);
+    //
+    // createSizedCards(
+    //   someCards: someCards,
+    //   showingCard: widget.showingCard,
+    //   screenSize: widget.screenSize,
+    // );
+
+    Map<String, dynamic> resize = createSizedCards(
+      someCards: someCards,
+      showingCard: widget.showingCard,
+      screenSize: widget.screenSize,
+    );
+
+    largeHeights = resize["largeHeights"];
+    largeWidths = resize["largeWidths"];
 
     super.initState();
+  }
+
+  void animatedCard(int index, Size _screenSize) {
+    cardScrollController.animateTo(
+      index == 0
+          ? 0
+          : index == 1
+              ? (widget.screenSize.width / 2) +
+                  (0.041 * _screenSize.width //15,
+                  )
+              : widget.screenSize.width +
+                  (0.054 * _screenSize.width //20
+
+                  ),
+      duration: Duration(milliseconds: 15),
+      curve: Curves.linear,
+    );
+    largeHeights[widget.showingCard] = 0.2027 * _screenSize.height; //120,
+    largeHeights[index] = 0.234 * _screenSize.height; //150,
+    //
+    largeWidths[widget.showingCard] = (widget.screenSize.width / 3.5);
+    largeWidths[index] = (widget.screenSize.width / 2.25) -
+        (0.054 * _screenSize.width //20
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    if (widget.showingCard != tempShowingCard) {
+      setState(() {
+        tempShowingCard = widget.showingCard;
+      });
+      Map<String, dynamic> resize = createSizedCards(
+        someCards: someCards,
+        showingCard: widget.showingCard,
+        screenSize: widget.screenSize,
+      );
+
+      largeHeights = resize["largeHeights"];
+      largeWidths = resize["largeWidths"];
+      animatedCard(tempShowingCard, _screenSize);
+      // print("tempShowingCard in panel : $tempShowingCard");
+    }
+
     return Container(
       decoration: BoxDecoration(
         // color: Colors.red,
@@ -111,100 +186,12 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               ],
             ),
           ),
-          // ! use CarouselSlider package
-          // CarouselSlider(
-          //   options: CarouselOptions(
-          //     height: 0.33 * _screenSize.width, // 120
-          //     viewportFraction: 0.45,
-          //     // disableCenter: true,
-          //     initialPage: widget.showingCard,
-          //     enableInfiniteScroll: true,
-          //     onPageChanged: (int index, CarouselPageChangedReason reason) {
-          //       setState(() {
-          //         widget.changeShowingCard(index);
-          //       });
-          //     },
-          //     // autoPlay: true,
-          //     autoPlayInterval: Duration(seconds: 4),
-          //     autoPlayAnimationDuration: Duration(milliseconds: 1000),
-          //     autoPlayCurve: Curves.fastOutSlowIn,
-          //     enlargeStrategy: CenterPageEnlargeStrategy.scale,
-          //     enlargeCenterPage: true,
-          //   ),
-          //   carouselController: carouselController,
-          //   items: index.map((i) {
-          //     return Builder(
-          //       builder: (BuildContext context) {
-          //         return GestureDetector(
-          //           child: Stack(
-          //             children: [
-          //               Container(
-          //                 alignment: Alignment.bottomLeft,
-          //                 height: 0.33 * _screenSize.width, // 120
-          //                 decoration: BoxDecoration(
-          //                   borderRadius: BorderRadius.circular(
-          //                     0.027 * _screenSize.width, //10,
-          //                   ),
-          //                   image: DecorationImage(
-          //                     fit: BoxFit.contain,
-          //                     image: new AssetImage(
-          //                         widget.assetsLevelCard.elementAt(i)),
-          //                   ),
-          //                 ),
-          //               ),
-          //               Positioned(
-          //                 bottom: widget.showingCard == i
-          //                     ? 0.016 * _screenSize.height //10
-          //                     : 0.008 * _screenSize.height, //5
-          //                 left: widget.showingCard == i
-          //                     ? 0.027 * _screenSize.width //10
-          //                     : 0.054 * _screenSize.width, //20
-          //                 child: Row(
-          //                   children: [
-          //                     Text(
-          //                       'اطلاعات بیشتر',
-          //                       style: TextStyle(
-          //                         color: i == 0 ? Colors.white : Colors.black,
-          //                         fontSize: 0.027 * _screenSize.width, //10,
-          //                         fontWeight: FontWeight.w500,
-          //                       ),
-          //                     ),
-          //                     Icon(
-          //                       Icons.chevron_right,
-          //                       size: 0.05 * _screenSize.width, //18,
-          //                       color: i == 0 ? Colors.white : Colors.black,
-          //                     ),
-          //                   ],
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //           onTap: () => setState(() {
-          //             if (widget.showingCard ==
-          //                     widget.assetsLevelCard.length - 1 &&
-          //                 i == 0)
-          //               carouselController.nextPage();
-          //             else if (i == widget.assetsLevelCard.length - 1 &&
-          //                 widget.showingCard == 0)
-          //               carouselController.previousPage();
-          //             else
-          //               carouselController.animateToPage(i);
-          //             widget.changeShowingCard(i);
-          //           }),
-          //         );
-          //       },
-          //     );
-          //   }).toList(),
-          // ),
-          // //
-
-          // !
-
           Container(
             width: _screenSize.width,
             height: 0.172 * _screenSize.height, //110,
             child: ListView.builder(
-              itemCount: widget.assetsLevelCard.length,
+              itemCount: someCards,
+              // itemCount: widget.assetsLevelCard.length,
               shrinkWrap: true,
               controller: cardScrollController,
               scrollDirection: Axis.horizontal,
@@ -216,71 +203,34 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                   ),
                   child: AnimatedContainer(
                     width: largeWidths[index],
-                    // widget.showingCard == index ? largeWidth : smallWidth,
                     height: largeHeights[index],
-                    // widget.showingCard == index ? largeHeight : smallHeight,
-                    decoration: BoxDecoration(
-                        // color: Colors.red,
-                        ),
+                    decoration: BoxDecoration(),
                     child: GestureDetector(
-                      child: Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.bottomLeft,
-                            height: 0.14 * _screenSize.height, //90,
-                            decoration: BoxDecoration(
-                              // color: Colors.red,
-                              borderRadius: BorderRadius.circular(
-                                0.027 * _screenSize.width, //10,
+                      child: imageType[index] == "svg"
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  index == tempShowingCard ? 10 : 20)),
+                              child: SvgPicture.network(
+                                mainAssetsLevelCard[index],
+                                placeholderBuilder: (BuildContext context) =>
+                                    new Container(
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: const CircularProgressIndicator(
+                                    backgroundColor: Colors.amber,
+                                  ),
+                                ),
                               ),
-                              image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: new AssetImage(
-                                    widget.assetsLevelCard.elementAt(index)),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  index == tempShowingCard ? 10 : 20)),
+                              child: Image.network(
+                                mainAssetsLevelCard[index],
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 0.00138 * _screenSize.height, //0.5,
-                          ),
-                          widget.showingCard == index
-                              ? Divider(
-                                  thickness: 0.0046 * _screenSize.height, //3,
-                                  height: 0.0046 * _screenSize.height, //3,
-                                  color: MAIN_BLUE_COLOR,
-                                )
-                              : SizedBox(),
-                        ],
-                      ),
                       onTap: () => setState(() {
-                        // cardScrollController.jumpTo(index == 0
-                        //     ? 0
-                        //     : index == 1
-                        //         ? (widget.screenSize.width / 2)
-                        //         : widget.screenSize.width);
-                        cardScrollController.animateTo(
-                          index == 0
-                              ? 0
-                              : index == 1
-                                  ? (widget.screenSize.width / 2) +
-                                      (0.041 * _screenSize.width //15,
-                                      )
-                                  : widget.screenSize.width +
-                                      (0.054 * _screenSize.width //20
+                        animatedCard(index, _screenSize);
 
-                                      ),
-                          duration: Duration(milliseconds: 200),
-                          curve: Curves.linear,
-                        );
-                        largeHeights[widget.showingCard] =
-                            0.2027 * _screenSize.height; //120,
-                        largeHeights[index] = 0.234 * _screenSize.height; //150,
-                        //
-                        largeWidths[widget.showingCard] =
-                            (widget.screenSize.width / 3.5);
-                        largeWidths[index] = (widget.screenSize.width / 2.25) -
-                            (0.054 * _screenSize.width //20
-                            );
                         widget.changeShowingCard(index);
                       }),
                     ),
@@ -291,10 +241,6 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               },
             ),
           ),
-          // ),
-
-          // ??
-          //
           SizedBox(height: 0.0078 * _screenSize.height //5,
               ),
           Container(
@@ -305,7 +251,8 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
             ),
             alignment: Alignment.center,
             child: ListView.builder(
-              itemCount: widget.assetsLevelCard.length,
+              // itemCount: widget.assetsLevelCard.length,
+              itemCount: someCards,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
@@ -350,7 +297,8 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
               horizontal: 0.054 * _screenSize.width, //20
             ),
             child: Text(
-              widget.levels[widget.showingCard].perMainName,
+              // widget.levels[widget.showingCard].perMainName,
+              mainTitleLevelCard[widget.showingCard],
               style: TextStyle(
                 fontSize: 0.038 * _screenSize.width, //14,
                 fontWeight: FontWeight.w600,
@@ -372,7 +320,7 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                       height: 0.015 * _screenSize.height, //10,
                     ),
                     Text(
-                      widget.levels[widget.showingCard].text,
+                      mainTextLevelCard[widget.showingCard],
                       style: TextStyle(
                         fontSize: 0.038 * _screenSize.width, //14,
                         fontWeight: FontWeight.w400,
@@ -382,19 +330,31 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                       height: 0.015 * _screenSize.height, //10,
                     ),
                     ListView.builder(
-                      itemCount:
-                          widget.levels[widget.showingCard].levels.length,
+                      itemCount: someSubCards[widget.showingCard],
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int indexSubLvl) {
+                        int indexOfSubCard = 0;
+                        for (int mainIndex = 0;
+                            mainIndex < widget.showingCard;
+                            mainIndex++) {
+                          for (int subIndex = 0;
+                              subIndex < someSubCards[mainIndex];
+                              subIndex++) {
+                            indexOfSubCard++;
+                          }
+                        }
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            widget.levels[widget.showingCard].levels.length > 1
-                                ? Text(
-                                    widget.levels[widget.showingCard]
-                                        .levels[indexSubLvl].perTitle,
+                            someSubCards[widget.showingCard] == 1
+                                ? SizedBox()
+                                : Text(
+                                    widget
+                                        .levelCards[
+                                            indexOfSubCard + indexSubLvl]
+                                        .perTitle,
                                     style: TextStyle(
                                         fontSize:
                                             0.038 * _screenSize.width, //14,
@@ -402,39 +362,40 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                         color: widget.showingCard == 0
                                             ? MAIN_BLUE_COLOR
                                             : Colors.black),
-                                  )
-                                : SizedBox(),
+                                  ),
                             Text(
-                              widget.levels[widget.showingCard]
-                                  .levels[indexSubLvl].receiptConditions,
+                              widget.levelCards[indexOfSubCard + indexSubLvl]
+                                  .receiptConditions,
                               style: TextStyle(
                                 fontSize: 0.038 * _screenSize.width, //14,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                             ListView.builder(
-                              itemCount: widget.levels[widget.showingCard]
-                                  .levels[indexSubLvl].descriptions.length,
+                              itemCount: widget
+                                  .levelCards[indexOfSubCard + indexSubLvl]
+                                  .descriptions
+                                  .length,
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemBuilder:
                                   (BuildContext contex, int indexDesc) {
                                 return widget
-                                                .levels[widget.showingCard]
-                                                .levels[indexSubLvl]
+                                                .levelCards[indexOfSubCard +
+                                                    indexSubLvl]
                                                 .descriptions[indexDesc] ==
                                             null ||
                                         widget
-                                                .levels[widget.showingCard]
-                                                .levels[indexSubLvl]
+                                                .levelCards[indexOfSubCard +
+                                                    indexSubLvl]
                                                 .descriptions[indexDesc] ==
                                             ''
                                     ? SizedBox()
                                     : Text(
                                         widget
-                                            .levels[widget.showingCard]
-                                            .levels[indexSubLvl]
+                                            .levelCards[
+                                                indexOfSubCard + indexSubLvl]
                                             .descriptions[indexDesc],
                                         style: TextStyle(
                                           fontSize:

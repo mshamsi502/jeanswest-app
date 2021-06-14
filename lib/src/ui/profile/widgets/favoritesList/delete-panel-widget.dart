@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 
 class DeletePanelWidget extends StatefulWidget {
@@ -38,13 +38,14 @@ class _DeletePanelWidgetState extends State<DeletePanelWidget> {
     return Container(
       height: widget.height,
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
-            0.03 * _screenSize.width, //11
+            0.0444 * _screenSize.width, //16
           ),
-          topRight: Radius.circular(
-            0.03 * _screenSize.width, //11
-          ),
+          topRight: Radius.circular(16
+              // 0.03 * _screenSize.width, //11
+              ),
         ),
       ),
       child: Padding(

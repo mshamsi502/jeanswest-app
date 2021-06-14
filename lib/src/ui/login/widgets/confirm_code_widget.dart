@@ -7,8 +7,8 @@
 import 'package:extended_text/extended_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-import 'package:jeanswest/src/constants/global/constants.dart';
-import 'package:jeanswest/src/constants/global/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 
@@ -24,7 +24,8 @@ class ConfirmCodeWidget extends StatefulWidget {
   final FocusNode focusNode;
   final String inputPhone;
   final bool hasError;
-  final String minuteTimer;
+  final bool timerIsDone;
+  // final String minuteTimer;
   final String secondTimer;
   final Function() backToInputPhoneStep;
   final Function() resendCodeToAlreadyPhone;
@@ -40,7 +41,7 @@ class ConfirmCodeWidget extends StatefulWidget {
     this.hasError,
     this.backToInputPhoneStep,
     this.updateInputCode,
-    this.minuteTimer,
+    // this.minuteTimer,
     this.secondTimer,
     this.startDownTimer,
     this.phoneTextEditingController,
@@ -48,6 +49,7 @@ class ConfirmCodeWidget extends StatefulWidget {
     this.focusNode,
     this.updateHasError,
     this.updateErrorMsg,
+    this.timerIsDone,
   }) : super(key: key);
 
   @override
@@ -137,7 +139,7 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
                 ExtendedText.rich(
               TextSpan(
                 text:
-                    'کد تایید برای شماره موبایل ${widget.inputPhone} (98+) ارسال گردید.',
+                    'کد تایید برای شماره موبایل ${widget.inputPhone} ارسال گردید.',
                 style: TextStyle(
                   fontSize: 0.038 * _screenSize.width, //14,
                   color: Colors.grey[700],
@@ -173,7 +175,7 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
                     ),
                     recognizer: (TapGestureRecognizer()
                       ..onTap = () {
-                        print(" 222 tappped teapped ....");
+                        // print(" 222 tappped teapped ....");
                         widget.backToInputPhoneStep();
                       }),
                   ),
@@ -254,7 +256,10 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
           SizedBox(
             height: 0.17736 * _screenSize.height, //105,
           ),
-          widget.minuteTimer == '00' && widget.secondTimer == '00'
+
+          // widget.minuteTimer == '00' &&
+          // widget.secondTimer == '00'
+          widget.timerIsDone
               ? Container(
                   alignment: Alignment.center,
                   height: 0.039 * _screenSize.height, //25,
@@ -289,7 +294,8 @@ class _ConfirmCodeWidgetState extends State<ConfirmCodeWidget> {
                         width: 0.0138 * _screenSize.width, //5,
                       ),
                       Text(
-                        'ارسال مجدد کد تا  ${widget.minuteTimer}:${widget.secondTimer}  دیگر',
+                        'ارسال مجدد کد تا  ${widget.secondTimer}  ثانیه دیگر',
+                        // 'ارسال مجدد کد تا  ${widget.minuteTimer}:${widget.secondTimer}  دیگر',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 0.0333 * _screenSize.width, //12,

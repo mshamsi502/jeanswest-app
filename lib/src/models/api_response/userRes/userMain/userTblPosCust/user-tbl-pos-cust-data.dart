@@ -12,42 +12,22 @@ part 'user-tbl-pos-cust-data.g.dart';
 class UserTblPosCustData extends Equatable {
   @JsonKey(name: 'tblPosCustomers_ID')
   String tblPosCustomersID;
-  //
-  // @JsonKey(name: 'PartnerShipCode')
-  // String partnerShipCode;
-  // @JsonKey(name: 'Mobile')
-  // String mobile;
-  // @JsonKey(name: 'Name')
-  // String name;
-  // @JsonKey(name: 'FamilyName')
-  // String familyName;
-  // @JsonKey(name: 'Gender')
-  // int gender;
-  // @JsonKey(name: 'CusType')
-  // String cusType;
-  // @JsonKey(name: 'Email')
-  // String email;
-  // @JsonKey(name: 'BirthDate')
-  // String birthDate;
-  // @JsonKey(name: 'TSCodeID')
-  // String tSCodeID;
-  // @JsonKey(name: 'UpdateDate')
-  // String updateDate;
+  @JsonKey(name: 'Pay')
+  String pay;
+  @JsonKey(name: 'CTypeName')
+  String cTypeName;
+  @JsonKey(name: 'PriceLevel')
+  String priceLevel;
+  @JsonKey(name: 'PriceLevelTo')
+  String priceLevelTo;
 
   //
   UserTblPosCustData({
     this.tblPosCustomersID,
-    //
-    // this.partnerShipCode,
-    // this.mobile,
-    // this.name,
-    // this.familyName,
-    // this.gender,
-    // this.cusType,
-    // this.email,
-    // this.birthDate,
-    // this.tSCodeID,
-    // this.updateDate,
+    this.pay,
+    this.cTypeName,
+    this.priceLevel,
+    this.priceLevelTo,
   });
 
   factory UserTblPosCustData.fromJson(Map<String, dynamic> json) =>
@@ -58,34 +38,19 @@ class UserTblPosCustData extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'tblPosCustomers_ID': tblPosCustomersID,
-      //
-      // 'PartnerShipCode': partnerShipCode,
-      // 'Mobile': mobile,
-      // 'Name': name,
-      // 'FamilyName': familyName,
-      // 'Gender': gender,
-      // 'CusType': cusType,
-      // 'Email': email,
-      // 'BirthDate': birthDate,
-      // 'TSCodeID': tSCodeID,
-      // 'UpdateDate': updateDate,
+      'Pay': pay,
+      'CTypeName': cTypeName,
+      'PriceLevel': priceLevel,
+      'PriceLevelTo': priceLevelTo,
     };
   }
 
   @override
   List<Object> get props => [
         tblPosCustomersID,
-        //
-        // partnerShipCode,
-        // mobile,
-        // name,
-        // familyName,
-        // gender,
-        // cusType,
-        // email,
-        // birthDate,
-        // tSCodeID,
-        // updateDate,
-        //
+        pay,
+        cTypeName,
+        priceLevel,
+        priceLevelTo,
       ];
 }
