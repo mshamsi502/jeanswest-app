@@ -171,7 +171,13 @@ class _OnlineOrderDetailsScreenState extends State<OnlineOrderDetailsScreen> {
                 AppBarWithBackWidget(
                   title: 'جزئیات سفارش',
                   option: GestureDetector(
-                    child: ProfileSvgImages.myBlueBarcodeIcon,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      padding: EdgeInsets.all(6),
+                      margin: EdgeInsets.all(3),
+                      child: ProfileSvgImages.myBlueBarcodeIcon,
+                    ),
                     onTap: () {
                       showPlatformDialog(
                         context: context,
@@ -184,7 +190,7 @@ class _OnlineOrderDetailsScreenState extends State<OnlineOrderDetailsScreen> {
                       );
                     },
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
               ],
             ),

@@ -46,7 +46,7 @@ dependencies:
   dio: ^3.0.10
   get_it: ^6.0.0
   pretty_dio_logger: ^1.1.1
-  logging: ^0.11.3
+  logging: any
   shared_preferences: ^2.0.4
   connectivity: ^3.0.2
   intent: ^1.4.0
@@ -88,7 +88,7 @@ dependencies:
   google_maps_flutter: any
 #! google_maps_flutter: ^2.0.1 (backup pack)
   #! flutter_map: ^0.10.1+1 (backup pack)
-  latlong: ^0.6.1
+  latlong: any
   # 
   geolocator: any
   # geocoding: any
@@ -109,7 +109,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^3.4.1
-  build_runner: ^1.10.2
+  build_runner: any
 
 
 

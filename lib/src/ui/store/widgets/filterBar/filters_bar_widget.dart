@@ -3,16 +3,22 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/models/filterWidget/filter_widget_model.dart';
-import 'package:jeanswest/src/ui/store/widgets/filter_button_widget.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/filter_button_widget.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class FiltersBarWidget extends StatefulWidget {
+  final ListOfCategory category;
+  final Function(int) openFilterPage;
+  final int filterPageOpened;
   const FiltersBarWidget({
     Key key,
+    @required this.openFilterPage,
+    @required this.filterPageOpened,
+    @required this.category,
   }) : super(key: key);
   @override
   _FiltersBarWidgetState createState() => _FiltersBarWidgetState();
@@ -21,11 +27,11 @@ class FiltersBarWidget extends StatefulWidget {
 class _FiltersBarWidgetState extends State<FiltersBarWidget> {
   ScrollController scrollController;
   List<FilterWidgetModel> filters;
-  int filterPageOpened = -1;
+  // int filterPageOpened = -1;
   @override
   void initState() {
     scrollController = new ScrollController();
-    filters = createFilters();
+    filters = createFilters(mainGroup: widget.category.group ?? []);
     super.initState();
   }
 
@@ -51,16 +57,17 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
                   children: [
                     GestureDetector(
                       onTap: () => setState(() {
-                        if (filterPageOpened == index)
-                          filterPageOpened = -1;
-                        else
-                          filterPageOpened = index;
+                        if (widget.filterPageOpened == index)
+                          widget.openFilterPage(-1);
+                        else {
+                          widget.openFilterPage(index);
+                        }
                       }),
                       child: FiltersButtonWidget(
-                        isSelected: (filterPageOpened == index),
+                        isSelected: (widget.filterPageOpened == index),
                         title: filters[index].title,
                         icon: filters[index].icon,
-                        arrow: filterPageOpened == index
+                        arrow: widget.filterPageOpened == index
                             ? filters[index].openedArrow
                             : filters[index].closedArrow,
                       ),

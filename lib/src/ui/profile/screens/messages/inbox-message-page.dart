@@ -102,7 +102,7 @@ class _InboxMessagePageState extends State<InboxMessagePage> {
               children: [
                 AppBarWithBackWidget(
                   title: 'پیام ها',
-                  onTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
                 Divider(
                   height: 0.00138 * _screenSize.height, //0.5,

@@ -142,7 +142,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                 ),
                             child: AppBarWithBackWidget(
                               title: widget.title,
-                              onTap: () => Navigator.pop(context),
+                              onTapBack: () => Navigator.pop(context),
                             )),
                         Container(
                           height: 0.0138 * _screenSize.width, //5,

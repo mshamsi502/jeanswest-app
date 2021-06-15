@@ -15,6 +15,7 @@ import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMessage/user-message-result.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getCategory/get-categoty-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getInviteFriendsFaqInfo/get-invite-friends-faq.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
 // import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
@@ -129,6 +130,8 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
   print(
       'GLOBAL_INVITE_FRIENDS_FAQ *********************************************');
   inviteFriendsFAQ = await getInviteFriendFAQInfo();
+  print('GLOBAL_CATEGORY *********************************************');
+  await getCategoryInfo();
   //
   print(
       '***********************************************************************');

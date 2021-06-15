@@ -65,7 +65,7 @@ class _TabBarViewPageState extends State<TabBarViewPage>
               children: [
                 AppBarWithBackWidget(
                   title: widget.title,
-                  onTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
                 Container(
                   height: 0.0625 * _screenSize.height, //40,

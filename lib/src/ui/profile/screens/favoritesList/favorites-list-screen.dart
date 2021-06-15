@@ -168,7 +168,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                   children: [
                     AppBarWithBackWidget(
                       title: widget.title,
-                      onTap: () => Navigator.pop(context),
+                      onTapBack: () => Navigator.pop(context),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(

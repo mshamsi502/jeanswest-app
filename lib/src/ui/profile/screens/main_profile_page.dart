@@ -571,6 +571,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                     haveExit: widget.isAuth,
                     backgroundColor: F7_BACKGROUND_COLOR,
                     openLogOutPanel: () => logOutPanel.open(),
+                    screenSize: _screenSize,
                   ),
                   SizedBox(
                     height: 0.14 * _screenSize.height, //90,

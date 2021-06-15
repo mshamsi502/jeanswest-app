@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 //
+
 const bool MANUAL_TOKEN_IS_ENABLE = false;
 // const bool MANUAL_TOKEN_IS_ENABLE = true;
 const String MANUAL_TOKEN =
@@ -28,3 +29,5 @@ const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "xxx-xxx-xxxx";
 // const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "+98xxx-xxx-xxxx";
 // const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = true;
 const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = false;
+const String BACKEND_API_VERSION = "v1";
+

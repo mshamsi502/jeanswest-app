@@ -7,7 +7,10 @@ import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
+Map<String, dynamic> createBottomNavigationBarPages({
+  bool isAuth,
+  Function(bool) changeShowButtonNavigationBar,
+}) {
   // print('3 noAuth noAuthnoAuthnoAuth noAuth noAuth noAuth : $isAuth');
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
@@ -24,7 +27,8 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   }
   _children.add(Container(color: Colors.white));
   // _children.add(Container(color: Colors.blue));
-  _children.add(MainStorePage());
+  _children.add(MainStorePage(
+      changeShowButtonNavigationBar: changeShowButtonNavigationBar));
   _children.add(Container(color: Colors.green));
   _children.add(MainProfilePage(
     isAuth: isAuth,
@@ -40,7 +44,9 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   };
 }
 
-Future<Map<String, dynamic>> authService() async {
+Future<Map<String, dynamic>> authService({
+  Function(bool) changeShowButtonNavigationBar,
+}) async {
   // // ! clear manual token
   // sharedPrefs.clear();
   // sharedPrefs.setString(TOKEN, "");
@@ -89,6 +95,7 @@ Future<Map<String, dynamic>> authService() async {
             print('^*^*^ getAllUserInfo : Successfully');
             Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
               isAuth: isAuth,
+              changeShowButtonNavigationBar: changeShowButtonNavigationBar,
             );
             print('created BottomNavigationBarPages');
             _children = initCreateRes['children'];
@@ -127,6 +134,7 @@ Future<Map<String, dynamic>> authService() async {
 
   Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
     isAuth: isAuth,
+    changeShowButtonNavigationBar: changeShowButtonNavigationBar,
   );
   print('created BottomNavigationBarPages');
   _children = initCreateRes['children'];

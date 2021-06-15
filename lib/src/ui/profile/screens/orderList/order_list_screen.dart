@@ -115,7 +115,7 @@ class _OrderListScreenState extends State<OrderListScreen>
                   ),
                   AppBarWithBackWidget(
                     title: 'سفارشات من',
-                    onTap: () => Navigator.pop(context),
+                    onTapBack: () => Navigator.pop(context),
                   ),
                 ],
               ),

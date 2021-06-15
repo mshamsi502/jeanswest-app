@@ -444,7 +444,7 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                         ),
                     child: AppBarWithBackWidget(
                         title: widget.title,
-                        onTap: () {
+                        onTapBack: () {
                           updateFields();
                           widget.changeWasClose(true);
                           widget.closeEditPanel();

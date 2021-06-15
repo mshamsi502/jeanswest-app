@@ -27,6 +27,7 @@ class MorePage extends StatefulWidget {
 class _MorePageState extends State<MorePage> {
   @override
   Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
       child: Scaffold(
@@ -37,7 +38,7 @@ class _MorePageState extends State<MorePage> {
               children: [
                 AppBarWithBackWidget(
                   title: widget.title,
-                  onTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
                 SizedBox(height: 20),
                 MenuListViewWidget(
@@ -46,6 +47,7 @@ class _MorePageState extends State<MorePage> {
                   pages: widget.pages,
                   haveExit: false,
                   backgroundColor: Colors.white,
+                  screenSize: _screenSize,
                 ),
               ],
             ),

@@ -93,7 +93,7 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
                           ],
                         )
                       : SizedBox(),
-                  onTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
               ),
               Expanded(

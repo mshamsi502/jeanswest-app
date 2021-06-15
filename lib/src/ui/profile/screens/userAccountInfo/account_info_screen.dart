@@ -151,7 +151,7 @@ class _AccountInfoScreenState extends State<AccountInfoScreen> {
                     ),
                     AppBarWithBackWidget(
                       title: widget.title,
-                      onTap: () => Navigator.pop(context),
+                      onTapBack: () => Navigator.pop(context),
                     ),
                     SizedBox(
                       height: 0.008 * _screenSize.height, //5
