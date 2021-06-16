@@ -11,7 +11,7 @@ import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/check_box_in_main_filter_widget.dart';
-import 'package:jeanswest/src/ui/store/widgets/filterBar/sub_filters_panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/sub_group_filters_panel.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MainFiltersPanel extends StatefulWidget {
@@ -80,6 +80,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
         onPanelOpened: () {},
         panel: Container(
           height: _screenSize.height,
+          width: _screenSize.width,
           child: Column(
             children: [
               AppBarWithBackWidget(
@@ -92,15 +93,31 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                 option: SizedBox(height: 45),
               ),
               Expanded(
-                  child: SubFiltersPanel(
-                haveGroupTitle: selectedGroup < widget.category.group.length,
-                groupTitle: selectedGroup < 0
-                    ? ""
+                child: selectedGroup < 0
+                    ? SizedBox()
                     : selectedGroup < widget.category.group.length
-                        ? widget.category.group[selectedGroup]
-                        : optionGroup[
-                            selectedGroup - (widget.category.group.length + 2)],
-              )),
+                        ? SubGroupFiltersPanel(
+                            haveGroupTitle:
+                                selectedGroup < widget.category.group.length,
+                            groupTitle: selectedGroup < 0
+                                ? ""
+                                : selectedGroup < widget.category.group.length
+                                    ? widget.category.group[selectedGroup]
+                                    : optionGroup[selectedGroup -
+                                        (widget.category.group.length + 2)],
+                            subGroupsTitle: widget.category
+                                .subGroup[widget.category.group[selectedGroup]],
+                            subGroupsValue: List.filled(
+                                widget
+                                    .category
+                                    .subGroup[
+                                        widget.category.group[selectedGroup]]
+                                    .length,
+                                false),
+                            updateSubGroupsValue: (List<bool> newValues) {},
+                          )
+                        : SizedBox(),
+              ),
               Container(
                 padding: EdgeInsets.all(15),
                 child: AvakatanButtonWidget(
@@ -114,7 +131,8 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                   borderColor: MAIN_BLUE_COLOR,
                   onTap: () {},
                 ),
-              )
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),
@@ -202,7 +220,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                             Divider(
                               color: Colors.grey,
                               thickness: 0.001 * _screenSize.width, //0.3,
-
                               height: 2,
                             ),
                             CheckBoxInMainFilterWidget(

@@ -77,10 +77,10 @@ class _CheckBoxInMainFilterWidgetState
                                   ? []
                                   : [
                                       BoxShadow(
-                                          color: Colors.grey[200],
+                                          color: Colors.grey[100],
                                           blurRadius: 3,
-                                          spreadRadius: 0.05,
-                                          offset: Offset(1, 1))
+                                          // spreadRadius: 0.05,
+                                          offset: Offset(2, 1))
                                     ],
                             ),
                             child: Stack(
