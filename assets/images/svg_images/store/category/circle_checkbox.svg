@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34" height="34" viewBox="0 0 34 34">
+  <defs>
+    <filter id="Rectangle_107" x="0" y="0" width="34" height="34" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-color="#d9d9d9"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="chech_box" data-name="chech box" transform="translate(-30 -728)">
+    <g transform="matrix(1, 0, 0, 1, 30, 728)" filter="url(#Rectangle_107)">
+      <rect id="Rectangle_107-2" data-name="Rectangle 107" width="28" height="28" rx="14" transform="translate(3 3)" fill="#fff"/>
+    </g>
+    <g id="check_icon" data-name="check icon" transform="translate(35.543 732.664)">
+      <ellipse id="Ellipse_9" data-name="Ellipse 9" cx="12.107" cy="12.093" rx="12.107" ry="12.093" fill="#fff"/>
+      <path id="Path_259" data-name="Path 259" d="M120.512,147.443l-6.08-4.737,1.729-2.219,3.734,2.909,6.162-8.892,2.312,1.6Z" transform="translate(-109.527 -128.598)" fill="#003974"/>
+    </g>
+  </g>
+</svg>

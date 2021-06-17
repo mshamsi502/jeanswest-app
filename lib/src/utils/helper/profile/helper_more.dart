@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 // import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/single-ticket/single-ticket.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 

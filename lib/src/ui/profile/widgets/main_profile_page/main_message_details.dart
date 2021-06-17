@@ -11,7 +11,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/profile/message/single-message.dart';
 import 'package:jeanswest/src/ui/profile/screens/messages/single_message_page.dart';

@@ -75,6 +75,7 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                             titleColor: Colors.black,
                             options: widget.dropDownOptions,
                             mediaQuery: MediaQuery.of(context),
+                            
                             selected: (String _selectedOption) {
                               widget.editingControllers[index].text =
                                   _selectedOption;

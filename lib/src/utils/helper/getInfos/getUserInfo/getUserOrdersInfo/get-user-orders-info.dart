@@ -1,6 +1,6 @@
 //
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-order-info.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 // import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/data-order-result-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/user-order-data-res.dart';

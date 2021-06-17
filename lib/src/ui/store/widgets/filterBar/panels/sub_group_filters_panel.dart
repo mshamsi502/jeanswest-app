@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/constValues/constants.dart';
-import 'package:jeanswest/src/ui/store/widgets/filterBar/label_filters-panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/label_filters-panel.dart';
+import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class SubGroupFiltersPanel extends StatefulWidget {
   final bool haveGroupTitle;
@@ -57,7 +57,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
       height: _screenSize.height,
       child: Column(
         children: [
-          (checkSubGroupStatus(tempSubGroupsValue) == -1)
+          (checkValueListStatus(tempSubGroupsValue) == -1)
               ? SizedBox()
               : Container(
                   width: _screenSize.width,
@@ -65,9 +65,21 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                   padding: EdgeInsets.symmetric(vertical: 15),
                   child: (activeSubGroupsTitle.length ==
                           widget.subGroupsTitle.length)
-                      ? Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: Text("همه ${widget.groupTitle} ها"))
+                      ? Row(
+                          children: [
+                            Container(
+                              height: 60,
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: LabelFiltersPanel(
+                                text: "همه ${widget.groupTitle} ها",
+                                index: -1,
+                                deleteLabel: (int indexInActive) =>
+                                    initializeValues(),
+                              ),
+                            ),
+                            Expanded(child: SizedBox()),
+                          ],
+                        )
                       : ListView.builder(
                           controller: labelScrollController,
                           scrollDirection: Axis.horizontal,
@@ -75,32 +87,21 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                           shrinkWrap: true,
                           itemBuilder: (BuildContext contetx, int index) {
                             return Container(
+                              height: 60,
                               padding: EdgeInsets.symmetric(horizontal: 5),
                               child: LabelFiltersPanel(
                                   text: activeSubGroupsTitle[index],
                                   index: index,
-                                  deleteLabel: (int selectForDelete) {
-                                    print("aaaaaaaaaaaa index : $index");
-                                    print(
-                                        "aaaaaaaaaaaa selectForDelete : $selectForDelete");
-                                    print(
-                                        "aaaaaaaaaaaa activeSubGroupsTitle[selectForDelete] : ${activeSubGroupsTitle[selectForDelete]}");
-                                    print(
-                                        "aaaaaaaaaaaa widget.subGroupsTitle : ${widget.subGroupsTitle}");
-                                    // List<String> tempActiveSubGroupsTitle = [];
-                                    // tempActiveSubGroupsTitle =
-                                    //     deleteFromSeletion(selectForDelet);
+                                  deleteLabel: (int indexInActive) {
+                                    int indexInAll = widget.subGroupsTitle
+                                        .indexOf(activeSubGroupsTitle[
+                                            indexInActive]);
                                     setState(() {
-                                      activeSubGroupsTitle =
-                                          deleteFromSeletion(selectForDelete);
-                                      // activeSubGroupsTitle =
-                                      //     tempActiveSubGroupsTitle;
-                                      int indexInAll = widget.subGroupsTitle
-                                              .indexOf(activeSubGroupsTitle[
-                                                  selectForDelete]) -
-                                          1;
-                                      print(
-                                          "aaaaaaaaaaaa indexInAll : $indexInAll ");
+                                      activeSubGroupsTitle = deleteFromSeletion(
+                                        index: indexInActive,
+                                        activeSubGroupsTitle:
+                                            activeSubGroupsTitle,
+                                      );
                                       changeSubGroupStatus(indexInAll);
                                     });
                                   }),
@@ -144,7 +145,6 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                                     selectAllStatus);
                                 activeSubGroupsTitle = selectAllStatus
                                     ? widget.subGroupsTitle
-                                    // ? ["همه ${widget.groupTitle} ها"]
                                     : [];
                               });
                             },
@@ -240,7 +240,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
   changeSubGroupStatus(int index) {
     setState(() {
       tempSubGroupsValue[index] = !tempSubGroupsValue[index];
-      selectAllStatus = (checkSubGroupStatus(tempSubGroupsValue) == 1);
+      selectAllStatus = (checkValueListStatus(tempSubGroupsValue) == 1);
     });
   }
 
@@ -248,7 +248,6 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
     List<String> tempActiveSubGroupsTitle = [];
     setState(() {
       if (selectAllStatus)
-        // tempActiveSubGroupsTitle = ["همه ${widget.groupTitle} ها"];
         tempActiveSubGroupsTitle = widget.subGroupsTitle;
       else {
         //! sort by widget.subGroupsTitle list
@@ -266,74 +265,27 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
         if (activeSubGroupsTitle.contains(widget.subGroupsTitle[index])) {
           int indexInActive =
               activeSubGroupsTitle.indexOf(widget.subGroupsTitle[index]);
-          tempActiveSubGroupsTitle = deleteFromSeletion(indexInActive);
-          // activeSubGroupsTitle.removeAt(indexInActive);
+          tempActiveSubGroupsTitle = deleteFromSeletion(
+            index: indexInActive,
+            activeSubGroupsTitle: activeSubGroupsTitle,
+          );
         } else {
           tempActiveSubGroupsTitle = activeSubGroupsTitle;
           tempActiveSubGroupsTitle.add(widget.subGroupsTitle[index]);
         }
       }
-      // print("subGroupsTitle : ${widget.subGroupsTitle}");
-      // print("activeSubGroupsTitle : $activeSubGroupsTitle");
       activeSubGroupsTitle = tempActiveSubGroupsTitle;
     });
-  }
-
-  List<String> deleteFromSeletion(int index) {
-    List<String> tempActiveSubGroupsTitle = [];
-
-    print("index : $index");
-
-    tempActiveSubGroupsTitle.addAll(activeSubGroupsTitle.sublist(0, index));
-    tempActiveSubGroupsTitle.addAll(activeSubGroupsTitle.sublist(index + 1));
-    return tempActiveSubGroupsTitle;
   }
 
   initializeValues() {
     setState(() {
       tempSubGroupsValue = widget.subGroupsValue;
       activeSubGroupsTitle = [];
-      int check = checkSubGroupStatus(tempSubGroupsValue);
+      int check = checkValueListStatus(tempSubGroupsValue);
       selectAllStatus = (check == 1);
       notSelected = (check == -1);
       tempGroupTitle = widget.groupTitle;
     });
-  }
-//
-}
-
-//
-int checkSubGroupStatus(List<bool> tempSubGroupsValue) {
-  // print(tempSubGroupsValue);
-  // !check all is true, return 1
-  bool allIsTrue = true;
-  bool allIsFalse = true;
-
-  for (int t = 0; t < tempSubGroupsValue.length; t++) {
-    if (tempSubGroupsValue[t]) {
-      allIsTrue = true;
-    } else {
-      allIsTrue = false;
-      break;
-    }
-  }
-  // print("allIsTrue : $allIsTrue");
-  // !check all is false, return -1
-  for (int f = 0; f < tempSubGroupsValue.length; f++) {
-    if (!tempSubGroupsValue[f]) {
-      allIsFalse = true;
-    } else {
-      allIsFalse = false;
-      break;
-    }
-  }
-  // print("allIsFalse : $allIsFalse");
-  if (allIsTrue)
-    return 1;
-  else if (allIsFalse)
-    return -1;
-  else {
-    // print("true and false together");
-    return 0;
   }
 }

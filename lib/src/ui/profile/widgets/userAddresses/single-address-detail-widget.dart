@@ -8,8 +8,8 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-district.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/city/city.dart';

@@ -6,12 +6,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/ui/profile/widgets/favoritesList/add-to-card-panel-widget.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';

@@ -3,7 +3,7 @@
 // *   Created Date & Time:  2021-01-10  ,  15:30 AM
 // ****************************************************************************
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/level-cards-data.dart';
 // import 'package:jeanswest/src/constants/test_data/levels_card.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 // import 'package:jeanswest/src/models/profile/level_card/level_card.dart';

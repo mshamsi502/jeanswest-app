@@ -18,6 +18,9 @@ class CustomDropdownButtonWidget extends StatefulWidget {
   final MediaQueryData mediaQuery;
   final List<String> options;
   final Function(String) selected;
+  final bool hasCheckBox;
+  final Map<String, bool> initialCheckBoxValue;
+  final Function(Map<String, bool>) updateCheckBoxValue;
 
   const CustomDropdownButtonWidget({
     Key key,
@@ -27,12 +30,17 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     this.selected,
     this.hintTitle,
     this.titleColor = MAIN_BLUE_COLOR,
+    this.initialCheckBoxValue,
+    this.updateCheckBoxValue,
+    this.hasCheckBox = false,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomDropdownButtonWidgetState();
 }
 
 class _CustomDropdownButtonWidgetState
     extends State<CustomDropdownButtonWidget> {
+  ScrollController scrollController = new ScrollController();
+
   double heightTextField;
   double heightTitle;
   String dropdownValue;
@@ -72,81 +80,101 @@ class _CustomDropdownButtonWidgetState
     Size _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.transparent,
+      // color: Colors.red,
       height: heightTextField +
           heightTitle + //
           (isShowDropDown
-              ? (0.0844594 *
-                  _screenSize.height //50,
-                  *
-                  widget.options.length)
+              ? 0.24166 * _screenSize.height //145
               : 0.008 * _screenSize.height //5 // !
           ),
-      width: widget.mediaQuery.size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: heightTitle - 0.054 * widget.mediaQuery.size.height, //30
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.027 * widget.mediaQuery.size.width, //10,
+
+      width: widget.mediaQuery.size.width - 0.054 * _screenSize.width, //20
+
+      child: Container(
+        height: heightTextField +
+            heightTitle + //
+            (isShowDropDown
+                ? (0.0844594 *
+                    _screenSize.height //50,
+                    *
+                    widget.options.length)
+                : 0.008 * _screenSize.height //5 // !
             ),
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 0.038 * widget.mediaQuery.size.width, // 14,
-                color: widget.titleColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: heightTitle - 0.054 * widget.mediaQuery.size.height, //30
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.027 * widget.mediaQuery.size.width, //10,
               ),
-            ),
-          ),
-          SizedBox(
-            height: 0.0078 * widget.mediaQuery.size.height, //5
-          ),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(
-                  0.0078 * widget.mediaQuery.size.height, //5
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 0.038 * widget.mediaQuery.size.width, // 14,
+                  color: widget.titleColor,
                 ),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                        alignment: Alignment.center,
-                        child: SelectDropList(
-                            selectedIcon: SizedBox(),
-                            itemSelected: optionItemSelected,
-                            dropListModel: dropListModel,
-                            onOptionSelected: (optionItem) {
-                              setState(() {
-                                optionItemSelected = optionItem;
-                              });
-                              widget.selected(optionItem.title);
-                            },
-                            changeIsShow: (bool newIsShow) async {
-                              if (newIsShow) {
-                                setState(() {
-                                  isShowDropDown = newIsShow;
-                                });
-                              }
-                              await Future.delayed(Duration(milliseconds: 500));
-                              if (!newIsShow) {
-                                setState(() {
-                                  isShowDropDown = newIsShow;
-                                });
-                              }
-                              setState(() {
-                                isShowDropDown = newIsShow;
-                              });
-                            })),
+            ),
+            SizedBox(
+              height: 0.0078 * widget.mediaQuery.size.height, //5
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(
+                    0.0078 * widget.mediaQuery.size.height, //5
                   ),
-                ],
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: SelectDropList(
+                              selectedIcon: SizedBox(),
+                              hasCheckBox: widget.hasCheckBox,
+                              initialCheckBoxValue: widget.initialCheckBoxValue,
+                              updateCheckBoxValue:
+                                  (Map<String, bool> newValue) {},
+                              itemSelected: optionItemSelected,
+                              dropListModel: dropListModel,
+                              optionsHeight: (0.0844594 *
+                                  _screenSize.height //50,
+                                  *
+                                  widget.options.length),
+                              onOptionSelected: (optionItem) {
+                                setState(() {
+                                  optionItemSelected = optionItem;
+                                });
+                                widget.selected(optionItem.title);
+                              },
+                              changeIsShow: (bool newIsShow) async {
+                                if (newIsShow) {
+                                  setState(() {
+                                    isShowDropDown = newIsShow;
+                                  });
+                                }
+                                await Future.delayed(
+                                    Duration(milliseconds: 500));
+                                if (!newIsShow) {
+                                  setState(() {
+                                    isShowDropDown = newIsShow;
+                                  });
+                                }
+                                setState(() {
+                                  isShowDropDown = newIsShow;
+                                });
+                              })),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

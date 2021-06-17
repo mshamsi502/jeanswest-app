@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/level-cards-data.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/current_level_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/user_level/level_cards_info_widget.dart';

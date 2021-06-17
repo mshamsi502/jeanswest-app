@@ -6,7 +6,7 @@
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline_order_list_widget.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-order-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online-tabs-widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

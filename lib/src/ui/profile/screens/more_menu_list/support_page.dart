@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 // import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
@@ -21,7 +21,7 @@ import 'package:jeanswest/src/ui/profile/widgets/support_page/main_ticket_widget
 import 'package:jeanswest/src/ui/profile/widgets/support_page/questions_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/send_new_ticket_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/contact-us-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/contact-us-data.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_more.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 

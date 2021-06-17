@@ -3,7 +3,7 @@
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/aboutUs/about-us-res.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/about-us-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-data.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 
 Future<void> getAboutUsInfo() async {

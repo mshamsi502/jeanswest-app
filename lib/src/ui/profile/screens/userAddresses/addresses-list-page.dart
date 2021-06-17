@@ -5,7 +5,7 @@ import 'package:jeanswest/src/ui/profile/widgets/favoritesList/delete-panel-widg
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddressesInfo/get-user-addresses-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';

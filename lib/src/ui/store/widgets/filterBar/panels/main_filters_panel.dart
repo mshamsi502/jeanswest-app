@@ -5,13 +5,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/constValues/arabic_to_persian.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/color_filters_panel.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/check_box_in_main_filter_widget.dart';
-import 'package:jeanswest/src/ui/store/widgets/filterBar/sub_group_filters_panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/price_filters_panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/size_filters_panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filters_panel.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MainFiltersPanel extends StatefulWidget {
@@ -42,6 +47,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   List<TextStyle> mainGroupTextStyles = [];
   List<bool> genderCheckBoxValue = [];
   List<bool> ageGroupCheckBoxValue = [];
+  List<Map<String, bool>> sizeGroupCheckBoxValue = [];
   //
 
   int selectedGroup = -1;
@@ -61,6 +67,19 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
 
     genderCheckBoxValue = List.filled(widget.category.gender.length, false);
     ageGroupCheckBoxValue = List.filled(widget.category.gender.length, false);
+    sizeGroupCheckBoxValue = [];
+
+    widget.category.size.keys.forEach((element) {
+      Map<String, bool> map = {};
+
+      widget.category.size[element].forEach((subGroupSizeName) {
+        map[subGroupSizeName] =
+            (widget.category.size[element][0] == subGroupSizeName);
+      });
+
+      sizeGroupCheckBoxValue.add(map);
+    });
+
     super.initState();
   }
 
@@ -116,7 +135,31 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                 false),
                             updateSubGroupsValue: (List<bool> newValues) {},
                           )
-                        : SizedBox(),
+                        : selectedGroup == widget.category.group.length + 2
+                            ? ColorFiltersPanel(
+                                colors: tempCatColors,
+                                colorsValue: List.filled(
+                                    widget.category.colorFamily.length, false),
+                                updateColorsValue: (List<bool> newValue) {},
+                              )
+                            : selectedGroup == widget.category.group.length + 3
+                                ? SizeFiltersPanel(
+                                    titles: widget.category.group,
+                                    sizeTitles: widget.category.size,
+                                    sizeValue: sizeGroupCheckBoxValue,
+                                    updateSizesValue:
+                                        (List<Map<String, bool>> newValue) {},
+                                    mediaQuery: MediaQuery.of(context),
+                                  )
+                                : selectedGroup ==
+                                        widget.category.group.length + 4
+                                    ? PriceFiltersPanel(
+                                        minPrice: 0,
+                                        maxPrice: 1000000,
+                                        updatePriceLimit: (int newMinPrice,
+                                            int newMaxPrice) {},
+                                      )
+                                    : SizedBox(),
               ),
               Container(
                 padding: EdgeInsets.all(15),

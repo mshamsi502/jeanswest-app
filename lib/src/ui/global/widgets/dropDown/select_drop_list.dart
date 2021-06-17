@@ -8,6 +8,10 @@ class SelectDropList extends StatefulWidget {
   final DropListModel dropListModel;
   final Function(OptionItem optionItem) onOptionSelected;
   final Function(bool) changeIsShow;
+  final double optionsHeight;
+  final bool hasCheckBox;
+  final Map<String, bool> initialCheckBoxValue;
+  final Function(Map<String, bool>) updateCheckBoxValue;
 
   SelectDropList({
     this.itemSelected,
@@ -15,6 +19,10 @@ class SelectDropList extends StatefulWidget {
     this.onOptionSelected,
     this.selectedIcon,
     this.changeIsShow,
+    this.optionsHeight,
+    this.hasCheckBox = false,
+    this.initialCheckBoxValue,
+    this.updateCheckBoxValue,
   });
 
   @override
@@ -24,6 +32,7 @@ class SelectDropList extends StatefulWidget {
 
 class _SelectDropListState extends State<SelectDropList>
     with SingleTickerProviderStateMixin {
+  ScrollController scrollController = new ScrollController();
   OptionItem optionItemSelected;
   final DropListModel dropListModel;
 
@@ -31,6 +40,8 @@ class _SelectDropListState extends State<SelectDropList>
   Animation<double> animation;
 
   bool isShow = false;
+  //
+  Map<String, bool> tempCheckBoxValue = {};
 
   // AnimationController arrowAnimationController;
 
@@ -38,6 +49,7 @@ class _SelectDropListState extends State<SelectDropList>
 
   @override
   void initState() {
+    tempCheckBoxValue = widget.initialCheckBoxValue;
     super.initState();
     expandController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 350));
@@ -66,6 +78,8 @@ class _SelectDropListState extends State<SelectDropList>
   @override
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
+    if (widget.optionsHeight != null)
+      print("widget.optionsHeight  : ${widget.optionsHeight}");
     return Container(
       width: _screenSize.width,
       color: Colors.transparent,
@@ -125,41 +139,81 @@ class _SelectDropListState extends State<SelectDropList>
               ],
             ),
           ),
-          SizeTransition(
-              axisAlignment: 1.0,
-              sizeFactor: animation,
-              child: Container(
-                  margin: EdgeInsets.only(
-                    bottom: 0.016 * _screenSize.height, //10
-                    left: 0.0333 * _screenSize.width, //12,
-                    right: 0.0333 * _screenSize.width, //12,
+          Container(
+            height: isShow
+                ? widget.optionsHeight == null ||
+                        widget.optionsHeight >
+                            0.24166 * _screenSize.height //145
+                    ? 0.24166 * _screenSize.height //145
+                    : widget.optionsHeight
+                : 0,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+            ),
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: 0.0333 * _screenSize.width, //12,
+              ),
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 0.0138 * _screenSize.width, //5
+                      color: Colors.black26,
+                      offset: Offset(
+                        0.00555 * _screenSize.width, //2,
+                        0.011 * _screenSize.width, //4,
+                      ))
+                ],
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(
+                    0.0333 * _screenSize.width, //12,
                   ),
-                  padding:
-                      EdgeInsets.only(bottom: 0.016 * _screenSize.height //10
-                          ),
-                  decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(
-                          0.0138 * _screenSize.width, //5
-                        ),
-                        bottomRight: Radius.circular(
-                          0.0138 * _screenSize.width, //5
-                        )),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 0.0138 * _screenSize.width, //5
-                          color: Colors.black26,
-                          offset: Offset(
-                            0.00555 * _screenSize.width, //2,
-                            0.011 * _screenSize.width, //4,
-                          ))
-                    ],
+                  bottomRight: Radius.circular(
+                    0.0333 * _screenSize.width, //12,
                   ),
-                  child: _buildDropListOptions(
-                      widget.dropListModel.listOptionItems,
-                      context,
-                      _screenSize))),
+                ),
+              ),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      child: SizeTransition(
+                          axisAlignment: 1.0,
+                          sizeFactor: animation,
+                          child: Container(
+                              margin: EdgeInsets.only(
+                                bottom: 0.016 * _screenSize.height, //10
+                              ),
+                              padding: EdgeInsets.only(
+                                  bottom: 0.016 * _screenSize.height //10
+                                  ),
+                              decoration: new BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(
+                                      0.0138 * _screenSize.width, //5
+                                    ),
+                                    bottomRight: Radius.circular(
+                                      0.0138 * _screenSize.width, //5
+                                    )),
+                                // color: Colors.red,
+                                color: Colors.white,
+                              ),
+                              child: _buildDropListOptions(
+                                  widget.dropListModel.listOptionItems,
+                                  context,
+                                  _screenSize))),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 0.027 * _screenSize.width, //10,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -185,14 +239,64 @@ class _SelectDropListState extends State<SelectDropList>
       child: GestureDetector(
         child: Row(
           children: <Widget>[
+            SizedBox(
+              width: 0.027 * _screenSize.width, //10,
+            ),
+            widget.hasCheckBox
+                ? Row(
+                    children: [
+                      SizedBox(
+                        width: 0.0138 * _screenSize.width, //5,
+                      ),
+                      Container(
+                        width: 0.083 * _screenSize.width, //30,
+                        height: 0.083 * _screenSize.width, //30,
+                        decoration: BoxDecoration(
+                          boxShadow: tempCheckBoxValue[item.title]
+                              ? []
+                              : [
+                                  BoxShadow(
+                                      color: Colors.grey[100],
+                                      blurRadius: 3,
+                                      // spreadRadius: 0.05,
+                                      offset: Offset(2, 1))
+                                ],
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                                color: tempCheckBoxValue[item.title]
+                                    ? Colors.white
+                                    : Colors.grey,
+                                margin: EdgeInsets.all(
+                                  0.0138 * _screenSize.width, //5,
+                                )),
+                            Icon(
+                              Icons.check_box,
+                              size: 0.083 * _screenSize.width, //30,
+                              color: tempCheckBoxValue[item.title]
+                                  ? GREEN_TEXT_COLOR
+                                  : Colors.white,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : SizedBox(),
             Expanded(
               flex: 1,
               child: Container(
                 padding: EdgeInsets.only(
                   top: 0.008 * _screenSize.height, //5
+                  left: 0.027 * _screenSize.width, //10,
+                  right: 0.027 * _screenSize.width, //10,
                 ),
                 child: Text(item.title,
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 0.038 * _screenSize.width, //14,
+                    ),
                     maxLines: 1,
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.ellipsis),
@@ -201,13 +305,37 @@ class _SelectDropListState extends State<SelectDropList>
           ],
         ),
         onTap: () {
-          this.optionItemSelected = item;
-          isShow = false;
-          widget.changeIsShow(isShow);
-          expandController.reverse();
-          widget.onOptionSelected(item);
+          if (widget.hasCheckBox) {
+            changeColorsStatus(item.id);
+          } else {
+            this.optionItemSelected = item;
+            isShow = false;
+            widget.changeIsShow(isShow);
+            expandController.reverse();
+            widget.onOptionSelected(item);
+          }
         },
       ),
     );
+  }
+
+  // initializeValues() {
+  //   setState(() {
+  //     tempCheckBoxValue = widget.initialCheckBoxValue;
+  //   });
+  // }
+
+  changeColorsStatus(String selectedID) {
+    // int index = 0;
+    widget.dropListModel.listOptionItems.forEach((element) {
+      if (element.id == selectedID)
+        setState(() {
+          tempCheckBoxValue[element.title] = !tempCheckBoxValue[element.title];
+          // tempCheckBoxValue[index] = !tempCheckBoxValue[index];
+        });
+      // index++;
+    });
+    // widget.dropListModel.listOptionItems.every((element) => element.id == selectedID)
+    // tempCheckBoxValue.every((element) => element. == selectedID)
   }
 }

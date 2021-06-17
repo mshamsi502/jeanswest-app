@@ -5,14 +5,14 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/about-us-data.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/return-policy-data.dart';
 
 import 'svg_images/profile_svg_images.dart';
 

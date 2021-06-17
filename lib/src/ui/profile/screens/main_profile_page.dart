@@ -8,16 +8,16 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/invite-friends-faq-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/level-cards-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
 
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 

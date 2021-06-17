@@ -1,6 +1,6 @@
 // //
 
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-friends-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-friends-info.dart';
 // import 'package:jeanswest/src/models/api_response/userRes/userFriends/user-friends-info-res.dart';
 // import 'package:jeanswest/src/models/profile/user/user-friends-info.dart';
 // import 'package:jeanswest/src/models/profile/user/user-main-info.dart';

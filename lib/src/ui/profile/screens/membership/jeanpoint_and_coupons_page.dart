@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-// import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
+// import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/models/profile/user/user-copouns-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/copoun_detail_panel_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/membership/points_and_coupons/coupons_info_widget.dart';

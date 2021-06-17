@@ -6,7 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-payment-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/edit-account-panel-widget.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
@@ -14,7 +14,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/userAccountInfo/account-info-widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
 
 class AccountInfoScreen extends StatefulWidget {
   final String title;

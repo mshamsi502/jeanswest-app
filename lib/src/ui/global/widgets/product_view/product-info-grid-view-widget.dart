@@ -5,7 +5,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';

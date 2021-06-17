@@ -7,8 +7,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-jeanpoints-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userMain/userMainInfo/user-main-info-data.dart';
@@ -25,10 +25,10 @@ import 'package:jeanswest/src/ui/profile/screens/more_menu_list/about_us_page.da
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/support_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/favoritesList/favorites-list-screen.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/about-us-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/return-policy-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-data.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
 
 import 'dart:io';
 
