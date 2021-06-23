@@ -13,7 +13,7 @@ import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 
-Future<UserMainInfoRes> getUserMainInfo({@required Function notAuth}) async {
+Future<UserMainInfoRes> getUserMainInfo({@required Function() notAuth}) async {
   UserMainInfoRes userAccountRes = UserMainInfoRes();
   // UserTblPosCustRes userTblPosCustRes;
   // UserMainInfo user;
@@ -37,8 +37,9 @@ Future<UserMainInfoRes> getUserMainInfo({@required Function notAuth}) async {
       }
     } else if (errorRealAPI.response.statusCode == 401) {
       print('Token is Expired');
+
+      // tryToGetAllUserInfo = -1;
       notAuth();
-      tryToGetAllUserInfo = -1;
     }
   }
 

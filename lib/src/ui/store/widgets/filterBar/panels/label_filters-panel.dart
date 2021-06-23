@@ -27,7 +27,7 @@ class _LabelFiltersPanelState extends State<LabelFiltersPanel> {
 
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
+    // var _screenSize = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(

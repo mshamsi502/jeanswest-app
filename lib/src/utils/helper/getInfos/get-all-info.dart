@@ -51,7 +51,9 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
       'USER_MAIN_INFO ********************************************************');
   if (getIsContinued)
     userAccountRes = await getUserMainInfo(notAuth: () {
+     
       getIsContinued = false;
+      tryToGetAllUserInfo = -1;
       noAuth();
     });
   if (getIsContinued) {

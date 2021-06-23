@@ -78,7 +78,8 @@ dependencies:
   drop_cap_text: ^1.1.3
   screenshot: ^0.3.0
   flutter_switch: ^0.3.1
-
+# 
+  flutter_gifimage: ^1.0.0
 #----------------Converts-----------------
   qr_flutter: ^4.0.0
   shamsi_date: ^0.9.1
@@ -160,6 +161,9 @@ flutter:
     - assets/images/svg_images/profile/more/
     - assets/images/svg_images/store/category/
     - assets/images/svg_images/store/category/color/
+      #------------------GIF Image--------------------
+    - assets/images/gif_images/
+    - assets/images/gif_images/global/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

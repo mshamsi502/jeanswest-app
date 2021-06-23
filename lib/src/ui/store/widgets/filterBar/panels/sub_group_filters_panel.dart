@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/label_filters-panel.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class SubGroupFiltersPanel extends StatefulWidget {
   final bool haveGroupTitle;
+  final int indexInOptionWidgets;
   final String groupTitle;
   final List<String> subGroupsTitle;
   final List<bool> subGroupsValue;
@@ -21,6 +23,7 @@ class SubGroupFiltersPanel extends StatefulWidget {
     Key key,
     @required this.groupTitle,
     @required this.haveGroupTitle,
+    @required this.indexInOptionWidgets,
     @required this.subGroupsTitle,
     @required this.subGroupsValue,
     @required this.updateSubGroupsValue,
@@ -33,6 +36,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
   ScrollController scrollController = new ScrollController();
   ScrollController labelScrollController = new ScrollController();
   //
+  int tempIndexInOptionWidgets;
   String tempGroupTitle;
   List<String> activeSubGroupsTitle = [];
   List<bool> tempSubGroupsValue = [];
@@ -49,7 +53,8 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    if (widget.groupTitle != tempGroupTitle) {
+    if (tempIndexInOptionWidgets != widget.indexInOptionWidgets ||
+        widget.groupTitle != tempGroupTitle) {
       initializeValues();
     }
     return Container(
@@ -57,12 +62,13 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
       height: _screenSize.height,
       child: Column(
         children: [
-          (checkValueListStatus(tempSubGroupsValue) == -1)
+          // (checkValueListStatus(tempSubGroupsValue) == -1)
+          notSelected
               ? SizedBox()
               : Container(
                   width: _screenSize.width,
-                  height: 60,
-                  padding: EdgeInsets.symmetric(vertical: 15),
+                  height: 50,
+                  padding: EdgeInsets.symmetric(vertical: 10),
                   child: (activeSubGroupsTitle.length ==
                           widget.subGroupsTitle.length)
                       ? Row(
@@ -232,15 +238,41 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               },
             ),
           ),
+          // widget.indexInOptionWidgets <= 0
+          //     ? SizedBox()
+          //     :
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: AvakatanButtonWidget(
+              backgroundColor: MAIN_BLUE_COLOR,
+              textColor: Colors.white,
+              borderColor: MAIN_BLUE_COLOR,
+              hasShadow: false,
+              title: widget.indexInOptionWidgets <= 0 ? "تایید" : 'اعمال فیلتر',
+              height: 0.07 * _screenSize.height, //45,
+              width: _screenSize.width,
+              fontSize: 0.05 * _screenSize.width, //18,
+              radius: 0.011 * _screenSize.width, //4,
+              onTap: () {
+                widget.updateSubGroupsValue(tempSubGroupsValue);
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 
   changeSubGroupStatus(int index) {
+    bool _temp = !tempSubGroupsValue[index];
+    List<bool> _tempList = tempSubGroupsValue.sublist(0, index);
+    _tempList.add(_temp);
+    _tempList.addAll(tempSubGroupsValue.sublist(index + 1));
     setState(() {
-      tempSubGroupsValue[index] = !tempSubGroupsValue[index];
+      tempSubGroupsValue = [];
+      tempSubGroupsValue = _tempList;
       selectAllStatus = (checkValueListStatus(tempSubGroupsValue) == 1);
+      notSelected = (checkValueListStatus(tempSubGroupsValue) == -1);
     });
   }
 
@@ -280,6 +312,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
 
   initializeValues() {
     setState(() {
+      tempIndexInOptionWidgets = widget.indexInOptionWidgets;
       tempSubGroupsValue = widget.subGroupsValue;
       activeSubGroupsTitle = [];
       int check = checkValueListStatus(tempSubGroupsValue);

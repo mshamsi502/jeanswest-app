@@ -17,7 +17,7 @@ const Color BLUE_SKY_FADE_COLOR =
     Color.fromRGBO(0xb4, 0xd9, 0xff, 0.35); // Columbia Blue
 //
 const Color COLOMBIA_BLUE = Color(0xff9EF9FC); // Columbia Blue
-// const Color FADE_COLOMBIA_BLUE = Color(0xffAED6FF); // Columbia Blue
+const Color ALICE_BLUE = Color(0xffF8FBFF); // Alice Blue
 const Color MAYA_BLUE = Color(0xff44BFFF); // Maya Blue
 const Color LOCHMARA_BLUE = Color(0xff3C6AAE); // Lochmara
 //

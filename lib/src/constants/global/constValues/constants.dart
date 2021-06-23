@@ -35,7 +35,16 @@ const List<String> shamsiMonthName = [
   'اسفند',
 ];
 const String HINT_PHONE_NUMBER_INPUT = '0912 - - - - - - -';
-
+List<String> optionGroup = [
+  "جنسیت",
+  "رده سنی",
+  "گروه رنگی",
+  "سایز",
+  "محدوده قیمت",
+];
+double minPriceCategoty = 0;
+double maxPriceCategoty = 30000000;
+double unitPriceCategoty = 200000;
 // //
 // List<Branch> localBranches = new List<Branch>();
 //

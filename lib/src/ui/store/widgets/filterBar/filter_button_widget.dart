@@ -30,7 +30,7 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
+    // var _screenSize = MediaQuery.of(context).size;
     return Container(
       // height: 40,
       decoration: BoxDecoration(

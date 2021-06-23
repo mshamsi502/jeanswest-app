@@ -9,15 +9,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/categoryColor/category-color.dart';
+import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class ColorFiltersPanel extends StatefulWidget {
+  final int indexInOptionWidgets;
   final List<CategoryColor> colors;
   final List<bool> colorsValue;
   final Function(List<bool>) updateColorsValue;
 
   const ColorFiltersPanel({
     Key key,
+    @required this.indexInOptionWidgets,
     @required this.colors,
     @required this.colorsValue,
     @required this.updateColorsValue,
@@ -29,6 +32,7 @@ class ColorFiltersPanel extends StatefulWidget {
 class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
   ScrollController scrollController = new ScrollController();
   ScrollController labelScrollController = new ScrollController();
+  int tempIndexInOptionWidgets;
   //
   // List<CategoryColor> activeColors = [];
   List<bool> tempColorsValue = [];
@@ -43,16 +47,20 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
 
   initializeValues() {
     setState(() {
+      tempColorsValue = [];
       tempColorsValue = widget.colorsValue;
       int check = checkValueListStatus(tempColorsValue);
       selectAllStatus = (check == 1);
       notSelected = (check == -1);
+      tempIndexInOptionWidgets = widget.indexInOptionWidgets;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    if (tempIndexInOptionWidgets != widget.indexInOptionWidgets)
+      initializeValues();
 
     return Container(
       width: _screenSize.width,
@@ -149,49 +157,42 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
               }),
             ),
           )),
+          Expanded(child: SizedBox()),
+          // widget.indexInOptionWidgets <= 0
+          //     ? SizedBox()
+          //     :
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: AvakatanButtonWidget(
+              backgroundColor: MAIN_BLUE_COLOR,
+              textColor: Colors.white,
+              borderColor: MAIN_BLUE_COLOR,
+              hasShadow: false,
+              title: 'اعمال فیلتر',
+              height: 0.07 * _screenSize.height, //45,
+              width: _screenSize.width,
+              fontSize: 0.05 * _screenSize.width, //18,
+              radius: 0.011 * _screenSize.width, //4,
+              onTap: () {
+                widget.updateColorsValue(tempColorsValue);
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 
-  changeColorsStatus(int index) {
+  void changeColorsStatus(int index) {
+    bool _temp = !tempColorsValue[index];
+    List<bool> _tempList = tempColorsValue.sublist(0, index);
+    _tempList.add(_temp);
+    _tempList.addAll(tempColorsValue.sublist(index + 1));
     setState(() {
-      tempColorsValue[index] = !tempColorsValue[index];
+      tempColorsValue = [];
+      tempColorsValue = _tempList;
       selectAllStatus = (checkValueListStatus(tempColorsValue) == 1);
+      notSelected = (checkValueListStatus(tempColorsValue) == -1);
     });
   }
-
-  // updateActiveColors(int index) {
-  //   List<CategoryColor> tempActiveColors = [];
-  //   setState(() {
-  //     if (selectAllStatus)
-  //       tempActiveColors = widget.colors;
-  //     else {
-  //       //! sort by widget.subGroupsTitle list
-  //       //
-  //       // if (activeSubGroupsTitle.contains("همه ${widget.groupTitle} ها")) {
-  //       //   activeSubGroupsTitle = widget.subGroupsTitle;
-  //       // }
-  //       // activeSubGroupsTitle = [];
-  //       // for (int i = 0; i < tempSubGroupsValue.length; i++) {
-  //       //   if (tempSubGroupsValue[i])
-  //       //     activeSubGroupsTitle.add(widget.subGroupsTitle[i]);
-  //       // }
-  //       //
-  //       //! sort by user activation
-  //       if (activeSubGroupsTitle.contains(widget.subGroupsTitle[index])) {
-  //         int indexInActive =
-  //             activeSubGroupsTitle.indexOf(widget.subGroupsTitle[index]);
-  //         tempActiveSubGroupsTitle = deleteFromSeletion(
-  //           index: indexInActive,
-  //           activeSubGroupsTitle: activeSubGroupsTitle,
-  //         );
-  //       } else {
-  //         tempActiveSubGroupsTitle = activeSubGroupsTitle;
-  //         tempActiveSubGroupsTitle.add(widget.subGroupsTitle[index]);
-  //       }
-  //     }
-  //     activeSubGroupsTitle = tempActiveSubGroupsTitle;
-  //   });
-  // }
 }

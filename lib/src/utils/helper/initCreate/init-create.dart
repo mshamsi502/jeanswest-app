@@ -28,7 +28,8 @@ Map<String, dynamic> createBottomNavigationBarPages({
   _children.add(Container(color: Colors.white));
   // _children.add(Container(color: Colors.blue));
   _children.add(MainStorePage(
-      changeShowButtonNavigationBar: changeShowButtonNavigationBar));
+    changeShowButtonNavigationBar: changeShowButtonNavigationBar,
+  ));
   _children.add(Container(color: Colors.green));
   _children.add(MainProfilePage(
     isAuth: isAuth,
@@ -51,22 +52,17 @@ Future<Map<String, dynamic>> authService({
   // sharedPrefs.clear();
   // sharedPrefs.setString(TOKEN, "");
   //
+  if (sharedPrefs == null) sharedPrefs = await SharedPreferences.getInstance();
   if (MANUAL_TOKEN_IS_ENABLE) {
     // ! put token in device
-    if (sharedPrefs == null) {
-      sharedPrefs = await SharedPreferences.getInstance();
-    } else
-      sharedPrefs.setString(
-        TOKEN,
-        MANUAL_TOKEN,
-      );
+    sharedPrefs.setString(
+      TOKEN,
+      MANUAL_TOKEN,
+    );
   }
   //
   String getToken = "";
-  if (sharedPrefs == null) {
-    sharedPrefs = await SharedPreferences.getInstance();
-  } else
-    getToken = sharedPrefs.getString(TOKEN) ?? "";
+  getToken = sharedPrefs.getString(TOKEN) ?? "";
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
@@ -85,8 +81,8 @@ Future<Map<String, dynamic>> authService({
       while (tryToGetAllUser >= 0) {
         try {
           await getAllUserInfo(noAuth: () {
-            tryToGetAllUserInfo = 0;
-            tryToGetAllUser = 0;
+            tryToGetAllUserInfo = -1;
+            tryToGetAllUser = -1;
             isAuth = false;
             tokenIsExpired = true;
           });

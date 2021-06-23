@@ -5,6 +5,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gifimage/flutter_gifimage.dart';
 
 class LoadingPage extends StatefulWidget {
   final String text;
@@ -25,10 +26,15 @@ class LoadingPage extends StatefulWidget {
   State<StatefulWidget> createState() => LoadingPageState();
 }
 
-class LoadingPageState extends State<LoadingPage> {
+class LoadingPageState extends State<LoadingPage>
+    with SingleTickerProviderStateMixin {
   String loading;
+
+  GifController controller;
   @override
   void initState() {
+    controller = GifController(vsync: this);
+    controller.repeat(min: 0, max: 29, period: Duration(milliseconds: 500));
     loading = '';
     splashProvider();
     splashDuration();
@@ -84,9 +90,12 @@ class LoadingPageState extends State<LoadingPage> {
             Container(
               width: 0.09 * _screenSize.width,
               height: 0.09 * _screenSize.width,
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.redAccent,
-                strokeWidth: 0.008 * _screenSize.width,
+              child: GifImage(
+                controller: controller,
+                width: 50,
+                height: 50,
+                image:
+                    AssetImage("assets/images/gif_images/global/loading.gif"),
               ),
             ),
             SizedBox(

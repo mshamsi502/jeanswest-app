@@ -6,6 +6,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gifimage/flutter_gifimage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
@@ -40,9 +41,11 @@ class CardsInfoWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _CardsInfoWidgetState();
 }
 
-class _CardsInfoWidgetState extends State<CardsInfoWidget> {
+class _CardsInfoWidgetState extends State<CardsInfoWidget>
+    with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
   ScrollController cardScrollController;
+  GifController loadingController;
 
   // ignore: deprecated_member_use
   List<double> largeHeights = List<double>();
@@ -66,6 +69,9 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
   void initState() {
     _scrollController = new ScrollController();
     cardScrollController = new ScrollController();
+    loadingController = GifController(vsync: this);
+    loadingController.repeat(
+        min: 0, max: 29, period: Duration(milliseconds: 500));
     tempShowingCard = widget.showingCard;
     //  !
 
@@ -215,8 +221,12 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                                 placeholderBuilder: (BuildContext context) =>
                                     new Container(
                                   padding: const EdgeInsets.all(30.0),
-                                  child: const CircularProgressIndicator(
-                                    backgroundColor: Colors.amber,
+                                  child: GifImage(
+                                    controller: loadingController,
+                                    width: 50,
+                                    height: 50,
+                                    image: AssetImage(
+                                        "assets/images/gif_images/global/loading.gif"),
                                   ),
                                 ),
                               ),
@@ -224,9 +234,17 @@ class _CardsInfoWidgetState extends State<CardsInfoWidget> {
                           : ClipRRect(
                               borderRadius: BorderRadius.all(Radius.circular(
                                   index == tempShowingCard ? 10 : 20)),
-                              child: Image.network(
-                                mainAssetsLevelCard[index],
-                              ),
+                              child: Image.network(mainAssetsLevelCard[index],
+                                  loadingBuilder:
+                                      (BuildContext context, child, _) {
+                                return GifImage(
+                                  controller: loadingController,
+                                  width: 50,
+                                  height: 50,
+                                  image: AssetImage(
+                                      "assets/images/gif_images/global/loading.gif"),
+                                );
+                              }),
                             ),
                       onTap: () => setState(() {
                         animatedCard(index, _screenSize);

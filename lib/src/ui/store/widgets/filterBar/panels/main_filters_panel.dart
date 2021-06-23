@@ -5,30 +5,62 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/constValues/arabic_to_persian.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_view_widget.dart';
-import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/color_filters_panel.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/check_box_in_main_filter_widget.dart';
-import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/price_filters_panel.dart';
-import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/size_filters_panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/group_filter_menu_list_view_widget.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/option_filter_menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filters_panel.dart';
+import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MainFiltersPanel extends StatefulWidget {
   final Function() closePanel;
   final ListOfCategory category;
-  final Size screenSize;
-
+  final List<String> optionGroup;
+  final MediaQueryData mediaQuery;
+  // final List<Widget> optionWidgets;
+  //
+  final List<List<String>> subGroupsTitles;
+  final List<List<bool>> subGroupsValue;
+  //
+  final List<bool> genderCheckBoxValue;
+  final List<bool> ageCheckBoxValue;
+  //
+  final List<bool> colorCheckBoxValue;
+  final List<Map<String, bool>> sizeGroupCheckBoxValue;
+  final Map<String, int> priceLimitValue;
+  //
+  final Function(List<List<bool>>) confirmSubGroupValues;
+  final Function(
+    List<bool> genderCheckBoxValue,
+    List<bool> ageCheckBoxValue,
+    List<bool> colorCheckBoxValue,
+    List<Map<String, bool>> sizeGroupCheckBoxValue,
+    Map<String, int> priceLimitValue,
+  ) confirmOptionsValues;
+//
   const MainFiltersPanel({
     Key key,
     @required this.closePanel,
     @required this.category,
-    @required this.screenSize,
+    @required this.optionGroup,
+    @required this.mediaQuery,
+    // @required this.optionWidgets,
+    //
+    @required this.sizeGroupCheckBoxValue,
+    @required this.subGroupsTitles,
+    @required this.subGroupsValue,
+    @required this.genderCheckBoxValue,
+    @required this.ageCheckBoxValue,
+    @required this.priceLimitValue,
+    @required this.colorCheckBoxValue,
+    @required this.confirmSubGroupValues,
+    @required this.confirmOptionsValues,
   }) : super(key: key);
   @override
   _MainFiltersPanelState createState() => _MainFiltersPanelState();
@@ -37,55 +69,167 @@ class MainFiltersPanel extends StatefulWidget {
 class _MainFiltersPanelState extends State<MainFiltersPanel> {
   ScrollController scrollController = new ScrollController();
   PanelController subCategoryPanelController = new PanelController();
+  //
 
-  List<String> optionGroup = [
-    "گروه رنگی",
-    "سایز",
-    "محدوده قیمت",
-  ];
   //
   List<TextStyle> mainGroupTextStyles = [];
-  List<bool> genderCheckBoxValue = [];
-  List<bool> ageGroupCheckBoxValue = [];
-  List<Map<String, bool>> sizeGroupCheckBoxValue = [];
+  //
+  List<List<String>> tempSubGroupsTitles = [];
+  List<List<bool>> tempSubGroupsValue = [];
+  //
+  List<bool> tempGenderCheckBoxValue = [];
+  List<bool> tempAgeGroupCheckBoxValue = [];
+  List<bool> tempColorsValue = [];
+  List<Map<String, bool>> tempSizeGroupCheckBoxValue = [];
+  Map<String, int> tempPriceLimitValue = {};
   //
 
+  List<String> colorsSubtitleName = [];
+  List<Widget> colorsSubtitleWidget = [];
+  bool isShowColorWidget;
+  Map<String, List<String>> sizeGroupSubtitleName;
+
+  //
+  List<Widget> optionsWidget = [];
   int selectedGroup = -1;
+  int tempSelectedGroup;
   //
   @override
   void initState() {
+    isShowColorWidget = false;
     mainGroupTextStyles = [];
     widget.category.group.forEach((element) {
       mainGroupTextStyles.add(
         TextStyle(
           color: Colors.black87,
-          fontSize: 0.0444 * widget.screenSize.width, //16,
+          fontSize: 0.0444 * widget.mediaQuery.size.width, //16,
           fontWeight: FontWeight.w400,
         ),
       );
     });
 
-    genderCheckBoxValue = List.filled(widget.category.gender.length, false);
-    ageGroupCheckBoxValue = List.filled(widget.category.gender.length, false);
-    sizeGroupCheckBoxValue = [];
-
-    widget.category.size.keys.forEach((element) {
-      Map<String, bool> map = {};
-
-      widget.category.size[element].forEach((subGroupSizeName) {
-        map[subGroupSizeName] =
-            (widget.category.size[element][0] == subGroupSizeName);
-      });
-
-      sizeGroupCheckBoxValue.add(map);
-    });
+    initializeValues();
+    updateSubtitles();
+    prepareValues();
 
     super.initState();
+  }
+
+  prepareValues() {
+    setState(() {
+      sizeGroupSubtitleName = {};
+      for (int indexOfGroup = 0;
+          indexOfGroup < widget.sizeGroupCheckBoxValue.length;
+          indexOfGroup++) {
+        List<String> subNameInGroup = [];
+
+        for (int indexOfSub = 0;
+            indexOfSub <
+                widget.sizeGroupCheckBoxValue[indexOfGroup].values.length;
+            indexOfSub++) {
+          if (widget.sizeGroupCheckBoxValue[indexOfGroup].values
+              .elementAt(indexOfSub)) {
+            subNameInGroup.add(widget.category
+                    .size[widget.category.size.keys.elementAt(indexOfGroup)]
+                [indexOfSub]);
+            sizeGroupSubtitleName[widget.category.group[indexOfGroup]] =
+                subNameInGroup;
+          }
+        }
+      }
+      widget.sizeGroupCheckBoxValue.forEach((element) {});
+      optionsWidget = prepareOptionsWidgets(
+        selectedIndexPage: selectedGroup - 5,
+        haveGenderAndAge: false,
+        mediaQuery: widget.mediaQuery,
+        listOfCat: listOfCategory,
+        genderCheckBoxValue: tempGenderCheckBoxValue,
+        ageCheckBoxValue: tempAgeGroupCheckBoxValue,
+        colorCheckBoxValue: tempColorsValue,
+        sizeGroupCheckBoxValue: tempSizeGroupCheckBoxValue,
+        priceLimitValue: tempPriceLimitValue,
+        //
+        updateGenderValue: (List<bool> newValue) => setState(() {
+          tempGenderCheckBoxValue = newValue;
+          selectedGroup = -1;
+        }),
+
+        updateAgeValue: (List<bool> newValue) => setState(() {
+          tempAgeGroupCheckBoxValue = newValue;
+          selectedGroup = -1;
+        }),
+
+        updateSizeValue: (List<Map<String, bool>> newValue) => setState(() {
+          tempSizeGroupCheckBoxValue = newValue;
+          updateSubtitles();
+          selectedGroup = -1;
+          subCategoryPanelController.close();
+        }),
+        updateColorValue: (List<bool> newValue) => setState(() {
+          tempColorsValue = newValue;
+          updateSubtitles();
+          selectedGroup = -1;
+          subCategoryPanelController.close();
+        }),
+        updatePriceValue: (int newMinPrice, int newMaxPrice) => setState(() {
+          tempPriceLimitValue["min"] = newMinPrice;
+          tempPriceLimitValue["max"] = newMaxPrice;
+          updateSubtitles();
+          selectedGroup = -1;
+          subCategoryPanelController.close();
+          print("..................................");
+          // if (subCategoryPanelController.isPanelClosed) selectedGroup = -1;
+        }),
+      );
+      tempSelectedGroup = selectedGroup;
+    });
+  }
+
+  updateSubtitles() {
+    setState(() {
+      int checkColor = checkValueListStatus(tempColorsValue);
+      if (checkColor == 1) {
+        colorsSubtitleName = ["همه رنگ ها"];
+        isShowColorWidget = false;
+      } else if (checkColor == -1) {
+        isShowColorWidget = false;
+        colorsSubtitleName = [];
+      } else {
+        isShowColorWidget = true;
+        colorsSubtitleName = [];
+        colorsSubtitleWidget = [];
+
+        for (int index = 0; index < catColors.length; index++) {
+          if (tempColorsValue[index]) {
+            colorsSubtitleWidget.add(catColors[index].image);
+          }
+        }
+      }
+    });
+  }
+
+  initializeValues() {
+    setState(() {
+      tempSubGroupsTitles = widget.subGroupsTitles;
+      tempSubGroupsValue = widget.subGroupsValue;
+      tempSizeGroupCheckBoxValue = widget.sizeGroupCheckBoxValue;
+      tempGenderCheckBoxValue = widget.genderCheckBoxValue;
+      tempAgeGroupCheckBoxValue = widget.ageCheckBoxValue;
+      tempColorsValue = widget.colorCheckBoxValue;
+      tempPriceLimitValue = widget.priceLimitValue;
+      selectedGroup = -1;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    print("selectedGroup : $selectedGroup");
+    if (tempSelectedGroup != selectedGroup) {
+      // initializeValues();
+      updateSubtitles();
+      prepareValues();
+    }
     return Container(
       width: _screenSize.width,
       height: _screenSize.height,
@@ -105,76 +249,39 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
               AppBarWithBackWidget(
                 title: selectedGroup < 0
                     ? ""
-                    : selectedGroup < 3
+                    : selectedGroup < widget.category.group.length
                         ? widget.category.group[selectedGroup]
-                        : optionGroup[selectedGroup - 5],
-                onTapBack: () => subCategoryPanelController.close(),
+                        : widget.optionGroup[
+                            (selectedGroup - widget.optionGroup.length) + 4],
+                onTapBack: () {
+                  initializeValues();
+                  subCategoryPanelController.close();
+                },
                 option: SizedBox(height: 45),
               ),
               Expanded(
-                child: selectedGroup < 0
-                    ? SizedBox()
-                    : selectedGroup < widget.category.group.length
-                        ? SubGroupFiltersPanel(
-                            haveGroupTitle:
-                                selectedGroup < widget.category.group.length,
-                            groupTitle: selectedGroup < 0
-                                ? ""
-                                : selectedGroup < widget.category.group.length
-                                    ? widget.category.group[selectedGroup]
-                                    : optionGroup[selectedGroup -
-                                        (widget.category.group.length + 2)],
-                            subGroupsTitle: widget.category
-                                .subGroup[widget.category.group[selectedGroup]],
-                            subGroupsValue: List.filled(
-                                widget
-                                    .category
-                                    .subGroup[
-                                        widget.category.group[selectedGroup]]
-                                    .length,
-                                false),
-                            updateSubGroupsValue: (List<bool> newValues) {},
-                          )
-                        : selectedGroup == widget.category.group.length + 2
-                            ? ColorFiltersPanel(
-                                colors: tempCatColors,
-                                colorsValue: List.filled(
-                                    widget.category.colorFamily.length, false),
-                                updateColorsValue: (List<bool> newValue) {},
-                              )
-                            : selectedGroup == widget.category.group.length + 3
-                                ? SizeFiltersPanel(
-                                    titles: widget.category.group,
-                                    sizeTitles: widget.category.size,
-                                    sizeValue: sizeGroupCheckBoxValue,
-                                    updateSizesValue:
-                                        (List<Map<String, bool>> newValue) {},
-                                    mediaQuery: MediaQuery.of(context),
-                                  )
-                                : selectedGroup ==
-                                        widget.category.group.length + 4
-                                    ? PriceFiltersPanel(
-                                        minPrice: 0,
-                                        maxPrice: 1000000,
-                                        updatePriceLimit: (int newMinPrice,
-                                            int newMaxPrice) {},
-                                      )
-                                    : SizedBox(),
-              ),
-              Container(
-                padding: EdgeInsets.all(15),
-                child: AvakatanButtonWidget(
-                  backgroundColor: MAIN_BLUE_COLOR,
-                  textColor: Colors.white,
-                  title: "تایید",
-                  height: 0.0625 * _screenSize.height, //40,
-                  width: _screenSize.width,
-                  radius: 0.0138 * _screenSize.width, //5,
-                  fontSize: 0.041 * _screenSize.width, //15,
-                  borderColor: MAIN_BLUE_COLOR,
-                  onTap: () {},
-                ),
-              ),
+                  child: selectedGroup < 0
+                      ? SizedBox()
+                      : selectedGroup < widget.category.group.length
+                          ? SubGroupFiltersPanel(
+                              indexInOptionWidgets: -1,
+                              haveGroupTitle: true,
+                              groupTitle: widget.category.group[selectedGroup],
+                              subGroupsTitle:
+                                  tempSubGroupsTitles[selectedGroup],
+                              subGroupsValue: tempSubGroupsValue[selectedGroup],
+                              updateSubGroupsValue: (List<bool> newValues) {
+                                //TODO
+                                subCategoryPanelController.close();
+                                updateSubGroupValue(selectedGroup, newValues);
+                              },
+                            )
+                          : selectedGroup <
+                                  widget.category.group.length +
+                                      optionsWidget.length
+                              ? optionsWidget[
+                                  selectedGroup - widget.category.group.length]
+                              : SizedBox()),
               SizedBox(height: 20),
             ],
           ),
@@ -183,7 +290,10 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
           children: [
             AppBarWithBackWidget(
               title: "فیلترها",
-              onTapBack: () => widget.closePanel(),
+              onTapBack: () {
+                initializeValues();
+                widget.closePanel();
+              },
               option: GestureDetector(
                 child: Container(
                   // color: Colors.amber,
@@ -208,15 +318,21 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding: EdgeInsets.symmetric(
+                  // horizontal: 15,
+                  vertical: 10,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "دسته بندی",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        "دسته بندی",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                     Expanded(
@@ -224,27 +340,33 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                         controller: scrollController,
                         child: Column(
                           children: [
-                            MenuListViewWidget(
+                            GroupFilterMenuListViewWidget(
                               titles: widget.category.group,
-                              haveIcons: false,
-                              haveExit: false,
-                              isNavigation: false,
-                              textStyles: mainGroupTextStyles,
+                              subtitlesValue: tempSubGroupsValue,
+                              subtitlesName: widget.category.subGroup,
+                              // haveIcons: false,
+                              // haveExit: false,
+                              // isNavigation: false,
+                              // textStyles: mainGroupTextStyles,
                               selectedIndex: (int index) {
                                 setState(() {
                                   selectedGroup = index;
                                 });
+                                print(
+                                    "update selectedGroup fom group, index : $selectedGroup");
                                 subCategoryPanelController.open();
                               },
-                              backgroundColor: Colors.white,
+                              // backgroundColor: Colors.white,
                               screenSize: _screenSize,
+                              // showName: [true, true, true],
+                              subtitlesWidget: {},
                             ),
                             CheckBoxInMainFilterWidget(
                               title: "جنسیت",
                               titleTextStyle: TextStyle(
                                 color: Colors.black87,
                                 fontSize:
-                                    0.0444 * widget.screenSize.width, //16,
+                                    0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
                               checkBoxTitles: widget.category.gender,
@@ -253,10 +375,10 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                               ),
-                              checkBoxValue: genderCheckBoxValue,
+                              checkBoxValue: tempGenderCheckBoxValue,
                               updateCheckBoxValue: (int index, bool newValue) {
                                 setState(() {
-                                  genderCheckBoxValue[index] = newValue;
+                                  tempGenderCheckBoxValue[index] = newValue;
                                 });
                               },
                             ),
@@ -270,7 +392,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               titleTextStyle: TextStyle(
                                 color: Colors.black87,
                                 fontSize:
-                                    0.0444 * widget.screenSize.width, //16,
+                                    0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
                               checkBoxTitles: widget.category.ageGroup,
@@ -279,10 +401,10 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                               ),
-                              checkBoxValue: ageGroupCheckBoxValue,
+                              checkBoxValue: tempAgeGroupCheckBoxValue,
                               updateCheckBoxValue: (int index, bool newValue) {
                                 setState(() {
-                                  ageGroupCheckBoxValue[index] = newValue;
+                                  tempAgeGroupCheckBoxValue[index] = newValue;
                                 });
                               },
                             ),
@@ -291,27 +413,53 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               thickness: 0.001 * _screenSize.width, //0.3,
                               height: 2,
                             ),
-                            MenuListViewWidget(
-                              titles: optionGroup,
-                              haveIcons: false,
-                              haveExit: false,
-                              isNavigation: false,
-                              textStyles: mainGroupTextStyles,
+                            OptionFilterMenuListViewWidget(
+                              titles: widget.optionGroup.sublist(2),
                               selectedIndex: (int index) {
                                 setState(() {
-                                  selectedGroup = index +
-                                      (widget.category.group.length + 2);
+                                  selectedGroup =
+                                      index + (widget.category.group.length);
                                 });
                                 subCategoryPanelController.open();
                               },
-                              backgroundColor: Colors.white,
                               screenSize: _screenSize,
+                              colorSubtitlesName: colorsSubtitleName,
+                              colorSubtitlesWidget: colorsSubtitleWidget,
+                              sizeSubtitlesName: sizeGroupSubtitleName,
+                              priceSubtitlesName:
+                                  "از ${widget.priceLimitValue["min"]} تا ${widget.priceLimitValue["max"]} تومان",
+                              showName: [!isShowColorWidget, true, true],
                             ),
                             SizedBox(height: 15),
                           ],
                         ),
                       ),
                     ),
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      child: AvakatanButtonWidget(
+                        backgroundColor: MAIN_BLUE_COLOR,
+                        textColor: Colors.white,
+                        title: "اعمال فیلتر",
+                        height: 0.0625 * _screenSize.height, //40,
+                        width: _screenSize.width,
+                        radius: 0.0138 * _screenSize.width, //5,
+                        fontSize: 0.041 * _screenSize.width, //15,
+                        borderColor: MAIN_BLUE_COLOR,
+                        onTap: () {
+                          widget.confirmSubGroupValues(tempSubGroupsValue);
+                          widget.confirmOptionsValues(
+                            tempGenderCheckBoxValue,
+                            tempAgeGroupCheckBoxValue,
+                            tempColorsValue,
+                            tempSizeGroupCheckBoxValue,
+                            tempPriceLimitValue,
+                          );
+                          widget.closePanel();
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 15),
                   ],
                 ),
               ),
@@ -320,5 +468,16 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
         ),
       ),
     );
+  }
+
+  updateSubGroupValue(int index, List<bool> newValues) {
+    List<bool> _temp = newValues;
+    List<List<bool>> _tempList = tempSubGroupsValue.sublist(0, index);
+    _tempList.add(_temp);
+    _tempList.addAll(tempSubGroupsValue.sublist(index + 1));
+    setState(() {
+      tempSubGroupsValue = [];
+      tempSubGroupsValue = _tempList;
+    });
   }
 }

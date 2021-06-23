@@ -68,6 +68,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       changeShowButtonNavigationBar: (bool isShowing) =>
           changeShowButtonNavigationBar(isShowing),
     );
+    // if (!mounted)
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];
@@ -181,8 +182,11 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   /// => [changeShowButtonNavigationBar] change [showButtonNavigationBar] for when Bottom Navigation Bar Should to be Hide Like [LoginPage]
   changeShowButtonNavigationBar(bool isShow) {
-    setState(() {
-      showButtonNavigationBar = isShow;
+    // if (!mounted)
+    Future.delayed(Duration.zero, () async {
+      setState(() {
+        showButtonNavigationBar = isShow;
+      });
     });
   }
 

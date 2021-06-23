@@ -20,7 +20,7 @@ class CustomDropdownButtonWidget extends StatefulWidget {
   final Function(String) selected;
   final bool hasCheckBox;
   final Map<String, bool> initialCheckBoxValue;
-  final Function(Map<String, bool>) updateCheckBoxValue;
+  // final Function(Map<String, bool>) updateCheckBoxValue;
 
   const CustomDropdownButtonWidget({
     Key key,
@@ -31,7 +31,7 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     this.hintTitle,
     this.titleColor = MAIN_BLUE_COLOR,
     this.initialCheckBoxValue,
-    this.updateCheckBoxValue,
+    // this.updateCheckBoxValue,
     this.hasCheckBox = false,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomDropdownButtonWidgetState();

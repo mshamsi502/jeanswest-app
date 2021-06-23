@@ -34,7 +34,7 @@ class _CheckBoxInMainFilterWidgetState
   ScrollController scrollController = new ScrollController();
   @override
   Widget build(BuildContext context) {
-    var _screenSize = MediaQuery.of(context).size;
+    // var _screenSize = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(
