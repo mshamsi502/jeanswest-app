@@ -34,7 +34,7 @@ class MainFiltersPanel extends StatefulWidget {
   final List<bool> colorCheckBoxValue;
   final List<Map<String, bool>> sizeGroupCheckBoxValue;
   final Map<String, int> priceLimitValue;
-  //
+
   final Function(List<List<bool>>) confirmSubGroupValues;
   final Function(
     List<bool> genderCheckBoxValue,
@@ -83,11 +83,11 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   List<Map<String, bool>> tempSizeGroupCheckBoxValue = [];
   Map<String, int> tempPriceLimitValue = {};
   //
-
   List<String> colorsSubtitleName = [];
   List<Widget> colorsSubtitleWidget = [];
   bool isShowColorWidget;
   Map<String, List<String>> sizeGroupSubtitleName;
+  //
 
   //
   List<Widget> optionsWidget = [];
@@ -271,7 +271,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                   tempSubGroupsTitles[selectedGroup],
                               subGroupsValue: tempSubGroupsValue[selectedGroup],
                               updateSubGroupsValue: (List<bool> newValues) {
-                                //TODO
                                 subCategoryPanelController.close();
                                 updateSubGroupValue(selectedGroup, newValues);
                               },

@@ -53,6 +53,13 @@ class _MainStorePageState extends State<MainStorePage> {
   Map<String, int> priceLimit = {};
   List<bool> genderCheckBoxValue = [];
   List<bool> ageCheckBoxValue = [];
+  //
+  List<int> someOfActiveSubGroup = [];
+  int someOfActiveGenders;
+  int someOfActiveAges;
+  int someOfActiveColors;
+  int someOfActiveSizes;
+  int someOfActivePrice;
 
   @override
   void initState() {
@@ -74,11 +81,7 @@ class _MainStorePageState extends State<MainStorePage> {
   }
 
   initPrepareValues() {
-    Map<String, List<dynamic>> subGroup =
-        prepareSubGroupValues(listOfCategory, falseValues: true);
-    groupsTitles = subGroup["groupsTitles"] as List<String>;
-    subGroupsTitles = subGroup["subGroupsTitles"] as List<List<String>>;
-    subGroupsValue = subGroup["subGroupsValue"] as List<List<bool>>;
+    initPrepareSubGroupValues();
     genderCheckBoxValue =
         prepareGenderValues(listOfCategory, falseValues: true);
     ageCheckBoxValue = prepareAgeValues(listOfCategory, falseValues: true);
@@ -86,6 +89,16 @@ class _MainStorePageState extends State<MainStorePage> {
     sizeGroupCheckBoxValue =
         prepareSizeGroupCheckBox(listOfCategory, falseValues: true);
     priceLimit = preparePriceCheckBox(isBiggest: true);
+  }
+
+  initPrepareSubGroupValues() {
+    setState(() {
+      Map<String, List<dynamic>> subGroup =
+          prepareSubGroupValues(listOfCategory, falseValues: true);
+      groupsTitles = subGroup["groupsTitles"] as List<String>;
+      subGroupsTitles = subGroup["subGroupsTitles"] as List<List<String>>;
+      subGroupsValue = subGroup["subGroupsValue"] as List<List<bool>>;
+    });
   }
 
   prepareValues() {
@@ -114,30 +127,53 @@ class _MainStorePageState extends State<MainStorePage> {
         }),
 
         updateSizeValue: (List<Map<String, bool>> newValue) => setState(() {
-          //  TODO
           sizeGroupCheckBoxValue = newValue;
           filterPageOpened = -1;
         }),
         updateColorValue: (List<bool> newValue) => setState(() {
           colorCheckBoxValue = newValue;
-          print("aaaaaaaaaa");
           filterPageOpened = -1;
         }),
         updatePriceValue: (int newMinPrice, int newMaxPrice) => setState(() {
           priceLimit["min"] = newMinPrice;
           priceLimit["max"] = newMaxPrice;
-          print("priceLimit : $priceLimit");
           if (filtersPanelController.isPanelClosed) filterPageOpened = -1;
         }),
       );
       tempFilterPageOpened = filterPageOpened;
+      //
+      someOfActiveSubGroup = [];
+      subGroupsValue.forEach((element) {
+        int sum = updateSomeOfActives(element);
+        someOfActiveSubGroup.add(sum);
+      });
+      someOfActiveGenders = updateSomeOfActives(genderCheckBoxValue);
+      someOfActiveAges = updateSomeOfActives(ageCheckBoxValue);
+      someOfActiveColors = updateSomeOfActives(colorCheckBoxValue);
+      //
+      someOfActiveSizes = 0;
+
+      sizeGroupCheckBoxValue.forEach((subGroup) {
+        subGroup.values.forEach((element) {
+          if (element) someOfActiveSizes++;
+        });
+      });
+
+      // someOfActiveSizes = updateSomeOfActives(tempSizeGroupCheckBoxValue);
+      //
+      if (priceLimit == null ||
+          priceLimit["min"] == null ||
+          priceLimit["max"] == null ||
+          (priceLimit["min"] == 0 && priceLimit["max"] == maxPriceCategoty)) {
+        someOfActivePrice = 0;
+      } else
+        someOfActivePrice = 1;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    print("filterPageOpened : $filterPageOpened");
     if (!getedMediaQuery || tempFilterPageOpened != filterPageOpened)
       prepareValues();
     if (filterPageOpened != null &&
@@ -171,7 +207,6 @@ class _MainStorePageState extends State<MainStorePage> {
           },
           category: listOfCategory,
           optionGroup: optionGroup,
-          // optionWidgets: optionsWidget.sublist(2),
           mediaQuery: MediaQuery.of(context),
           subGroupsTitles: filterPageOpened < 0 &&
                   filterPageOpened > (listOfCategory.group.length)
@@ -230,6 +265,41 @@ class _MainStorePageState extends State<MainStorePage> {
                     filterPageOpened = openedPage;
                   });
               },
+              someOfActiveSubGroup: someOfActiveSubGroup,
+              someOfActiveGenders: someOfActiveGenders,
+              someOfActiveAges: someOfActiveAges,
+              someOfActiveColors: someOfActiveColors,
+              someOfActiveSizes: someOfActiveSizes,
+              someOfActivePrice: someOfActivePrice,
+              clearActiveSubGroup: (int index) {
+                // subGroupsValue[index] =
+                initPrepareSubGroupValues();
+                print("000000000000000 : clearActiveSubGroup[$index]");
+              },
+              clearActiveGender: () => setState(() {
+                genderCheckBoxValue =
+                    prepareGenderValues(listOfCategory, falseValues: true);
+                print("000000000000000 : genderCheckBoxValue");
+              }),
+              clearActiveAge: () => setState(() {
+                ageCheckBoxValue =
+                    prepareAgeValues(listOfCategory, falseValues: true);
+                print("000000000000000 : ageCheckBoxValue");
+              }),
+              clearActiveColor: () => setState(() {
+                colorCheckBoxValue =
+                    prepareColorValues(catColors, falseValues: true);
+                print("000000000000000 : colorCheckBoxValue");
+              }),
+              clearActiveSize: () => setState(() {
+                sizeGroupCheckBoxValue =
+                    prepareSizeGroupCheckBox(listOfCategory, falseValues: true);
+                print("000000000000000 : sizeGroupCheckBoxValue");
+              }),
+              clearActivePrice: () => setState(() {
+                priceLimit = preparePriceCheckBox(isBiggest: true);
+                print("000000000000000 : priceLimit");
+              }),
             ),
             Expanded(
               child: filterPageOpened > 0 &&
@@ -268,7 +338,9 @@ class _MainStorePageState extends State<MainStorePage> {
                                   subGroupsValue:
                                       subGroupsValue[filterPageOpened - 1],
                                   updateSubGroupsValue: (List<bool> newValues) {
-                                    //TODO
+                                    filtersPanelController.close();
+                                    updateSubGroupValue(
+                                        filterPageOpened - 1, newValues);
                                   },
                                 )
                               : optionsWidget[filterPageOpened -
@@ -284,5 +356,16 @@ class _MainStorePageState extends State<MainStorePage> {
         ),
       ),
     );
+  }
+
+  updateSubGroupValue(int index, List<bool> newValues) {
+    List<bool> _temp = newValues;
+    List<List<bool>> _tempList = subGroupsValue.sublist(0, index);
+    _tempList.add(_temp);
+    _tempList.addAll(subGroupsValue.sublist(index + 1));
+    setState(() {
+      subGroupsValue = [];
+      subGroupsValue = _tempList;
+    });
   }
 }

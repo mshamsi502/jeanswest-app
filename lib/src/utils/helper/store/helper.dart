@@ -45,7 +45,6 @@ List<FilterWidgetModel> createFilters({@required List<String> mainGroup}) {
       ),
     );
   });
-
   return filters;
 }
 
@@ -182,7 +181,10 @@ Map<String, int> preparePriceCheckBox({
   Map<String, int> initValues,
 }) {
   if (initValues == null || isBiggest) {
-    return {"min": 0, "max": 10000000};
+    return {
+      "min": minPriceCategoty.toInt(),
+      "max": maxPriceCategoty.toInt(),
+    };
   } else
     return initValues;
 }
@@ -263,4 +265,33 @@ List<Widget> prepareOptionsWidgets(
   ));
 
   return widgets;
+}
+
+int updateSomeOfActives(List<bool> values) {
+  int sumOfActive = 0;
+  values.forEach((element) {
+    if (element) {
+      sumOfActive++;
+    }
+  });
+  return sumOfActive;
+}
+
+List<int> createSomeOfActive({
+  List<int> someOfActiveSubGroup,
+  int someOfActiveGenders,
+  int someOfActiveAges,
+  int someOfActiveColors,
+  int someOfActiveSizes,
+  int someOfActivePrice,
+}) {
+  List<int> some = [];
+  some.addAll(someOfActiveSubGroup);
+  some.add(someOfActiveGenders);
+  some.add(someOfActiveAges);
+  some.add(someOfActiveColors);
+  some.add(someOfActiveSizes);
+  some.add(someOfActivePrice);
+
+  return some;
 }

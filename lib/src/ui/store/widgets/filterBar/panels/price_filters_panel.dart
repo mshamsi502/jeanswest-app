@@ -181,7 +181,7 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
             fontSize: 0.05 * _screenSize.width, //18,
             radius: 0.011 * _screenSize.width, //4,
             onTap: () {
-              print("002222222222222220000");
+              // print("002222222222222220000");
               widget.updatePriceLimit(
                 selectedRange.start.toInt(),
                 selectedRange.end.toInt(),
