@@ -291,3 +291,4 @@ Future<Uint8List> capturePng(GlobalKey globalKey) async {
 // Future<Uint8List> takeSnapshotMethod(GoogleMapController controller) {
 //   return controller.takeSnapshot();
 // }
+

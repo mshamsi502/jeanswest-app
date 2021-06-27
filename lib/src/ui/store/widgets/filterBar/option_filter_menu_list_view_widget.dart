@@ -80,7 +80,7 @@ class _OptionFilterMenuListViewWidgetState
   }
 
   String prepareSizeSub() {
-    print(widget.sizeSubtitlesName);
+    // print(widget.sizeSubtitlesName);
     String sizeSub = "";
     bool addesEXT = false;
     for (int index = 0; index < widget.sizeSubtitlesName.keys.length; index++) {

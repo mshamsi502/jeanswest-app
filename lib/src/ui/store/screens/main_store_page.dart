@@ -10,12 +10,18 @@ import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-req-body.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-data.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
+import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 
 import 'package:jeanswest/src/ui/store/widgets/filterBar/filters_bar_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/main_filters_panel.dart';
 
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filters_panel.dart';
 import 'package:jeanswest/src/ui/store/widgets/searchBar/store-search-bar-widget.dart';
+import 'package:jeanswest/src/ui/store/widgets/storeBody/store-main-body-widget.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -60,27 +66,43 @@ class _MainStorePageState extends State<MainStorePage> {
   int someOfActiveColors;
   int someOfActiveSizes;
   int someOfActivePrice;
+  //
+  int pageNumber;
+  int ascentNumber;
+  String sortByName;
+  String searchKeywordName;
+  String uniqueName;
+  //
+  ProductReqBody filter;
+  //
+  ListOfProductsRes productsRes = ListOfProductsRes(
+      data: ListOfProductsData(result: [SingleProductInfoRes()]));
 
   @override
   void initState() {
-    searchTextFeildIsEnabled = false;
-    tempFilterPageOpened = filterPageOpened;
-    keyboardVisibilityController.onChange.listen((bool visible) {
-      if (visible) {
-        setState(() {
+    setState(() {
+      searchTextFeildIsEnabled = false;
+      tempFilterPageOpened = filterPageOpened;
+      keyboardVisibilityController.onChange.listen((bool visible) {
+        if (visible) {
           searchTextFeildIsEnabled = true;
-        });
-      } else {
-        setState(() {
+        } else {
           searchTextFeildIsEnabled = false;
-        });
-      }
+        }
+      });
+
+      initPrepareValues();
     });
-    initPrepareValues();
     super.initState();
   }
 
   initPrepareValues() {
+    pageNumber = 1;
+    ascentNumber = 0;
+    sortByName = STYLE_CODE_SORT;
+    searchKeywordName = "";
+    uniqueName = STYLE_UNIQUE;
+    //
     initPrepareSubGroupValues();
     genderCheckBoxValue =
         prepareGenderValues(listOfCategory, falseValues: true);
@@ -171,11 +193,96 @@ class _MainStorePageState extends State<MainStorePage> {
     });
   }
 
+  prepareUpdateFilterReq() async {
+    //
+    List<String> ageSelected = [];
+    for (int index = 0; index < ageCheckBoxValue.length; index++) {
+      if (ageCheckBoxValue[index])
+        ageSelected.add(listOfCategory.ageGroup[index]);
+    }
+    //
+    List<String> colorSelected = [];
+    for (int index = 0; index < colorCheckBoxValue.length; index++) {
+      if (colorCheckBoxValue[index])
+        colorSelected.add(listOfCategory.colorFamily[index]);
+    }
+    //
+    List<String> genderSelected = [];
+    for (int index = 0; index < genderCheckBoxValue.length; index++) {
+      if (genderCheckBoxValue[index])
+        genderSelected.add(listOfCategory.gender[index]);
+    }
+    //
+    List<String> sizeSelected = [];
+    for (int indexOfGroup = 0;
+        indexOfGroup < sizeGroupCheckBoxValue.length;
+        indexOfGroup++) {
+      for (int indexOfSub = 0;
+          indexOfSub < sizeGroupCheckBoxValue.length;
+          indexOfSub++) {
+        if (checkValueListStatus(
+                sizeGroupCheckBoxValue[indexOfGroup].values.toList()) ==
+            1) {
+          sizeSelected = [];
+        }
+        if (sizeGroupCheckBoxValue[indexOfGroup].values.elementAt(indexOfSub))
+          sizeSelected.add(
+              sizeGroupCheckBoxValue[indexOfGroup].keys.elementAt(indexOfSub));
+      }
+    }
+//
+    Map<String, List<String>> subGroup = {};
+    for (int indexOfGroup = 0;
+        indexOfGroup < groupsTitles.length;
+        indexOfGroup++) {
+      List<String> subInGroup = [];
+      for (int indexOfSub = 0;
+          indexOfSub < subGroupsValue[indexOfGroup].length;
+          indexOfSub++) {
+        if (subGroupsValue[indexOfGroup][indexOfSub]) {
+          subInGroup.add(subGroupsTitles[indexOfGroup][indexOfSub]);
+        }
+      }
+      if (subInGroup != null && subInGroup.length > 0) {
+        if (subInGroup.length == subGroupsTitles[indexOfGroup].length) {
+          subGroup[groupsTitles[indexOfGroup]] = [];
+        } else {
+          subGroup[groupsTitles[indexOfGroup]] = subInGroup;
+        }
+      }
+    }
+    //
+    ProductReqBody filter = updateproductReqBody(
+      priceSelected: priceLimit,
+      ageSelected: ageSelected,
+      subGroupSelected: subGroup,
+      colorSelected: colorSelected,
+      genderSelected: genderSelected,
+      sizeSelected: sizeSelected,
+      page: pageNumber,
+      ascent: ascentNumber,
+      sortBy: sortByName,
+      searchKeyword: searchKeywordName,
+      unique: uniqueName,
+    );
+    print("77777777 filter : ${filter.map}");
+    ListOfProductsRes tempProductRes =
+        await globalLocator<GlobalRestClient>().getProductList(filter.map);
+    print("555555555555555 555 total : ${tempProductRes.data.total}");
+    print(
+        "555555555555555 555 total : ${tempProductRes.data.result[0].banimodeDetails.productName}");
+    setState(() {
+      productsRes = tempProductRes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    if (!getedMediaQuery || tempFilterPageOpened != filterPageOpened)
+    if (!getedMediaQuery || tempFilterPageOpened != filterPageOpened) {
       prepareValues();
+      prepareUpdateFilterReq();
+    }
     if (filterPageOpened != null &&
         filterPageOpened >= 0 &&
         filterPageOpened <=
@@ -272,7 +379,6 @@ class _MainStorePageState extends State<MainStorePage> {
               someOfActiveSizes: someOfActiveSizes,
               someOfActivePrice: someOfActivePrice,
               clearActiveSubGroup: (int index) {
-                // subGroupsValue[index] =
                 initPrepareSubGroupValues();
                 print("000000000000000 : clearActiveSubGroup[$index]");
               },
@@ -350,7 +456,10 @@ class _MainStorePageState extends State<MainStorePage> {
                         SizedBox(height: 25),
                       ],
                     )
-                  : SizedBox(),
+                  : StoreMainBodyWidget(
+                      products: productsRes.data.result,
+                      openAddToCardPanel: () {},
+                    ),
             ),
           ],
         ),

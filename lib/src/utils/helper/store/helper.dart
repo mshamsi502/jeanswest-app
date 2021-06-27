@@ -6,6 +6,13 @@
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
+import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
+import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-filter-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-option-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-search-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-unique-req-body.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/models/categoryColor/category-color.dart';
 import 'package:jeanswest/src/models/filterWidget/filter_widget_model.dart';
@@ -294,4 +301,66 @@ List<int> createSomeOfActive({
   some.add(someOfActivePrice);
 
   return some;
+}
+
+ProductReqBody updateproductReqBody({
+  @required Map<String, int> priceSelected,
+  @required List<String> ageSelected,
+  @required Map<String, List<String>> subGroupSelected,
+  @required List<String> colorSelected,
+  @required List<String> genderSelected,
+  @required List<String> sizeSelected,
+  int page = 1,
+  int ascent = 0,
+  String sortBy = STYLE_CODE_SORT,
+  @required String searchKeyword,
+  String unique = STYLE_UNIQUE,
+}) {
+  List<String> sub = [];
+  subGroupSelected.values.forEach((subGroup) {
+    sub.addAll(subGroup);
+  });
+  ProductReqBody reqBody = ProductReqBody(
+    filter: ProductFilterReqBody(
+      basePrice: priceSelected != null
+          ? OperationString(
+              oGT: priceSelected["min"].toString(),
+              oLT: priceSelected["max"].toString(),
+            )
+          : null,
+      ageGroup: ageSelected != null && ageSelected.length > 0
+          ? OperationString(oEQL: ageSelected)
+          : null,
+      group: subGroupSelected != null && subGroupSelected.length > 0
+          ? OperationString(oEQL: subGroupSelected.keys.toList())
+          : null,
+      subGroup: subGroupSelected != null && subGroupSelected.length > 0
+          ? OperationString(oEQL: sub)
+          : null,
+      colorFamily: colorSelected != null && colorSelected.length > 0
+          ? OperationString(oEQL: colorSelected)
+          : null,
+      gender: genderSelected != null && genderSelected.length > 0
+          ? OperationString(oEQL: genderSelected)
+          : null,
+      size: sizeSelected != null && sizeSelected.length > 0
+          ? OperationString(oCT: sizeSelected)
+          : null,
+    ),
+    option: ProductOptionReqBody(
+      page: OperationInt(oEQ: page),
+      limit: OperationInt(oEQ: getProductLimit),
+      ascent: OperationInt(oEQ: ascent),
+      sort: OperationString(oEQ: sortBy),
+    ),
+    search: searchKeyword != null && searchKeyword != ""
+        ? ProductSearchReqBody(keyword: OperationString(oEQ: searchKeyword))
+        : null,
+    unique: ProductUniqueReqBody(
+      color: unique == COLOR_UNIQUE ? OperationInt(oEQ: 1) : null,
+      style: unique == STYLE_UNIQUE ? OperationInt(oEQ: 1) : null,
+    ),
+  );
+
+  return reqBody;
 }

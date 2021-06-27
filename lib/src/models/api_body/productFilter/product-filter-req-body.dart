@@ -22,6 +22,7 @@ class ProductFilterReqBody {
   OperationString seasonCode1;
   OperationString seasonCode2;
   OperationString ageGroup;
+  OperationString basePrice;
   OperationString cutting;
   //
   Map<String, dynamic> map;
@@ -43,6 +44,7 @@ class ProductFilterReqBody {
     this.seasonCode1,
     this.seasonCode2,
     this.ageGroup,
+    this.basePrice,
     this.cutting,
   }) {
     this.map = {};
@@ -62,6 +64,7 @@ class ProductFilterReqBody {
     if (seasonCode1 != null) map["seasonCode1"] = seasonCode1.map;
     if (seasonCode2 != null) map["seasonCode2"] = seasonCode2.map;
     if (ageGroup != null) map["ageGroup"] = ageGroup.map;
+    if (basePrice != null) map["basePrice"] = basePrice.map;
     if (cutting != null) map["cutting"] = cutting.map;
     // print("mapppp created id : $map");
   }

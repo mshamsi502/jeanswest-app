@@ -2,24 +2,19 @@
 // *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
+import 'package:jeanswest/src/ui/global/widgets/product_view/product-info-grid-view-widget.dart';
 
 class StoreMainBodyWidget extends StatefulWidget {
-  final FocusNode searchFocusNode;
-  final TextEditingController searchTextEditingController;
-  final bool searchTextFeildIsEnabled;
-  final Function(bool) changeSearchTextFeildIsEnabled;
-
+  final List<SingleProductInfoRes> products;
+  final Function() openAddToCardPanel;
   const StoreMainBodyWidget({
     Key key,
-    @required this.searchFocusNode,
-    @required this.searchTextEditingController,
-    @required this.searchTextFeildIsEnabled,
-    @required this.changeSearchTextFeildIsEnabled,
+    @required this.products,
+    @required this.openAddToCardPanel,
   }) : super(key: key);
   @override
   _StoreMainBodyWidgetState createState() => _StoreMainBodyWidgetState();
@@ -28,75 +23,127 @@ class StoreMainBodyWidget extends StatefulWidget {
 class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
   ScrollController scrollController = new ScrollController();
 
+  int selectedProduct;
+  List<SingleProductInfoRes> tempProducts = [];
+  List<bool> activeProducts;
+
+  @override
+  void initState() {
+    updateProducts();
+    super.initState();
+  }
+
+  updateProducts() {
+    setState(() {
+      tempProducts = widget.products;
+      activeProducts = createActiveProducts(widget.products);
+      print("widget.products.length : ${widget.products.length}");
+      print("activeProducts.length : ${activeProducts.length}");
+    });
+  }
+
+  List<bool> createActiveProducts(List<SingleProductInfoRes> products) {
+    // ignore: deprecated_member_use
+    List<bool> activtionProducts = [];
+    if (widget.products == null || widget.products.length == 0) {
+      for (int j = 0; j < products.length; j++) {
+        bool isBreak = false;
+        for (int i = 0; i < products[j].banimodeDetails.size.length; i++) {
+          if (products[j].banimodeDetails.size[i].quantity != 0) {
+            isBreak = true;
+          }
+        }
+        isBreak ? activtionProducts.add(true) : activtionProducts.add(false);
+      }
+    }
+    return activtionProducts;
+  }
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    if (tempProducts != widget.products) updateProducts();
     return Container(
       width: _screenSize.width,
-      height: 60,
+      // height: 60,
       // color: Colors.red,
-      child: Row(
-        children: [
-          Stack(
-            children: [
-              Center(
-                child: Container(
-                  width: _screenSize.width - 45,
-                  child: SearchAppBarWidget(
-                    preTitle: '${"search_in_list_hint".tr()} ',
-                    title: "همه محصولات",
-                    textFielIsActive: widget.searchTextFeildIsEnabled,
-                    textEditingController: widget.searchTextEditingController,
-                    onChangeSearchField: (String value) {},
-                    focusNode: widget.searchFocusNode,
-                    titleStyle: TextStyle(
-                      color: DARK_GREY,
-                      fontSize: 0.0444 * _screenSize.width, //16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    titleIsCenter: false,
-                    icon: Icon(
-                      Icons.search_outlined,
-                      color: Colors.black,
-                    ),
-                    onTapIcon: () {},
-                    openRealSearchPanel:
-                        (bool isOpen, BuildContext buildContext) {},
-                    screenSize: _screenSize,
-                  ),
-                ),
-              ),
-              widget.searchTextFeildIsEnabled
-                  ? SizedBox()
-                  : GestureDetector(
-                      child: Container(
-                        width: _screenSize.width - 45,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        color: Colors.transparent,
-                        // color: Colors.red,
+      child: SingleChildScrollView(
+        child: tempProducts != null && tempProducts.length > 0
+            ? ListView.builder(
+                itemCount: (tempProducts.length / 2).ceil(),
+                controller: scrollController,
+                // physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  // print("favProducts : ${favProducts.data.length}");
+                  // print(
+                  //     "styleCode of $index : ${favProducts.data[index * 2].styleCode}");
+                  return Column(
+                    children: [
+                      Row(
+                        children: [
+                          ProductInfoGridViewWidget(
+                            width: ((_screenSize.width / 2) -
+                                (0.041 * _screenSize.width //15,
+                                )),
+                            product: tempProducts[index * 2],
+                            productIndex: index * 2,
+                            hasDelete: false,
+                            hasAddToFav: false,
+                            // productIsActive: activeProducts[index * 2],
+                            productIsActive: true,
+                            addToCardFromFav: (int productIndex) {
+                              setState(() {
+                                selectedProduct = productIndex;
+                              });
+                              widget.openAddToCardPanel();
+                            },
+                            deleteFromFav: (int productIndex) {
+                              setState(() {
+                                selectedProduct = productIndex;
+                              });
+                              // deleteProductPanel.open();
+                            },
+                          ),
+                          SizedBox(
+                            width: 0.027 * _screenSize.width, //10,
+                          ),
+                          (tempProducts.length / 2).floor() > index
+                              ? ProductInfoGridViewWidget(
+                                  width: ((_screenSize.width / 2) -
+                                      (0.041 * _screenSize.width //15,
+                                      )),
+                                  product: tempProducts[(index * 2) + 1],
+                                  productIndex: (index * 2) + 1,
+                                  hasDelete: true,
+                                  hasAddToFav: false,
+                                  isFave: index == 0,
+                                  productIsActive:
+                                      activeProducts[(index * 2) + 1],
+                                  addToCardFromFav: (int productIndex) {
+                                    setState(() {
+                                      selectedProduct = productIndex;
+                                    });
+                                    widget.openAddToCardPanel();
+                                  },
+                                  deleteFromFav: (int productIndex) {
+                                    setState(() {
+                                      selectedProduct = productIndex;
+                                    });
+                                    // deleteProductPanel.open();
+                                  },
+                                )
+                              : Container(),
+                        ],
                       ),
-                      onTap: () {
-                        setState(() {
-                          widget.searchFocusNode.requestFocus();
-                          widget.changeSearchTextFeildIsEnabled(true);
-                        });
-                      },
-                    ),
-            ],
-          ),
-          Container(
-            width: 37,
-            height: 37,
-            decoration: BoxDecoration(
-              color: F2_BACKGROUND_COLOR,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Icon(
-              Icons.qr_code_scanner_sharp,
-              size: 28,
-            ),
-          ),
-        ],
+                      SizedBox(
+                        height: 0.046 * _screenSize.height, //30
+                      ),
+                    ],
+                  );
+                },
+              )
+            : SizedBox(),
       ),
     );
   }
