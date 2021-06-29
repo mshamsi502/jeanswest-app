@@ -24,6 +24,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
   final bool productIsActive;
   final Function(int) deleteFromFav;
   final Function(int) addToCardFromFav;
+  final Function(int, bool) changeFav;
 
   ProductInfoGridViewWidget({
     Key key,
@@ -36,6 +37,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
     this.productIndex,
     this.addToCardFromFav,
     this.productIsActive,
+    this.changeFav,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoGridViewWidgetState();
@@ -84,11 +86,11 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                   height: 0.3547 * _screenSize.height, //210,
                   width: widget.width,
                   child: Image.network(
-                    widget.product.banimodeDetails.images.homeDefault[widget
+                    widget.product.banimodeDetails.images.thickboxDefault[widget
                                     .product
                                     .banimodeDetails
                                     .images
-                                    .homeDefault
+                                    .thickboxDefault
                                     .length >
                                 6
                             ? 2
@@ -109,6 +111,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       ? GestureDetector(
                           onTap: () {
                             // !  change isFave
+                            widget.changeFav(
+                                widget.productIndex, !widget.isFave);
                           },
                           child: Container(
                             height: 0.09722 * _screenSize.width, //35,

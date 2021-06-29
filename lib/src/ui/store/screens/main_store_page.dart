@@ -20,6 +20,7 @@ import 'package:jeanswest/src/ui/store/widgets/filterBar/filters_bar_widget.dart
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/main_filters_panel.dart';
 
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filters_panel.dart';
+import 'package:jeanswest/src/ui/store/widgets/filterBar/sort_bar_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/searchBar/store-search-bar-widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/storeBody/store-main-body-widget.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
@@ -77,10 +78,13 @@ class _MainStorePageState extends State<MainStorePage> {
   //
   ListOfProductsRes productsRes = ListOfProductsRes(
       data: ListOfProductsData(result: [SingleProductInfoRes()]));
+  //
+  bool isGridView;
 
   @override
   void initState() {
     setState(() {
+      isGridView = true;
       searchTextFeildIsEnabled = false;
       tempFilterPageOpened = filterPageOpened;
       keyboardVisibilityController.onChange.listen((bool visible) {
@@ -92,6 +96,8 @@ class _MainStorePageState extends State<MainStorePage> {
       });
 
       initPrepareValues();
+      defaultFilter();
+      // prepareUpdateFilterReq();
     });
     super.initState();
   }
@@ -180,7 +186,6 @@ class _MainStorePageState extends State<MainStorePage> {
           if (element) someOfActiveSizes++;
         });
       });
-
       // someOfActiveSizes = updateSomeOfActives(tempSizeGroupCheckBoxValue);
       //
       if (priceLimit == null ||
@@ -268,12 +273,26 @@ class _MainStorePageState extends State<MainStorePage> {
     print("77777777 filter : ${filter.map}");
     ListOfProductsRes tempProductRes =
         await globalLocator<GlobalRestClient>().getProductList(filter.map);
-    print("555555555555555 555 total : ${tempProductRes.data.total}");
-    print(
-        "555555555555555 555 total : ${tempProductRes.data.result[0].banimodeDetails.productName}");
     setState(() {
       productsRes = tempProductRes;
     });
+  }
+
+  defaultFilter() async {
+    ProductReqBody filter = updateproductReqBody(
+      ascent: 1,
+      sortBy: STYLE_CODE_SORT,
+      unique: STYLE_UNIQUE,
+    );
+    ListOfProductsRes tempProductRes =
+        await globalLocator<GlobalRestClient>().getProductList(filter.map);
+
+    setState(() {
+      productsRes = tempProductRes;
+    });
+    print("555555555555555 555 total : ${productsRes.data.total}");
+    print(
+        "555555555555555 555 total : ${productsRes.data.result[0].banimodeDetails.productName}");
   }
 
   @override
@@ -348,6 +367,7 @@ class _MainStorePageState extends State<MainStorePage> {
           }),
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             StoreSearchBarWidget(
               searchFocusNode: searchFocusNode,
@@ -379,31 +399,86 @@ class _MainStorePageState extends State<MainStorePage> {
               someOfActiveSizes: someOfActiveSizes,
               someOfActivePrice: someOfActivePrice,
               clearActiveSubGroup: (int index) {
-                initPrepareSubGroupValues();
+                // initPrepareSubGroupValues();
+                List<bool> falseList =
+                    List.filled(subGroupsValue[index].length, false);
+                setState(() {
+                  subGroupsValue[index] = falseList;
+                });
+                prepareUpdateFilterReq();
                 print("000000000000000 : clearActiveSubGroup[$index]");
               },
               clearActiveGender: () => setState(() {
-                genderCheckBoxValue =
-                    prepareGenderValues(listOfCategory, falseValues: true);
+                // genderCheckBoxValue =
+                //     prepareGenderValues(listOfCategory, falseValues: true);
+                List<bool> falseList =
+                    List.filled(genderCheckBoxValue.length, false);
+                setState(() {
+                  genderCheckBoxValue = falseList;
+                });
+                prepareUpdateFilterReq();
                 print("000000000000000 : genderCheckBoxValue");
               }),
               clearActiveAge: () => setState(() {
-                ageCheckBoxValue =
-                    prepareAgeValues(listOfCategory, falseValues: true);
+                // ageCheckBoxValue =
+                //     prepareAgeValues(listOfCategory, falseValues: true);
+                List<bool> falseList =
+                    List.filled(ageCheckBoxValue.length, false);
+                setState(() {
+                  ageCheckBoxValue = falseList;
+                });
+                prepareUpdateFilterReq();
                 print("000000000000000 : ageCheckBoxValue");
               }),
               clearActiveColor: () => setState(() {
-                colorCheckBoxValue =
-                    prepareColorValues(catColors, falseValues: true);
+                // colorCheckBoxValue =
+                //     prepareColorValues(catColors, falseValues: true);
+                List<bool> falseList =
+                    List.filled(colorCheckBoxValue.length, false);
+                setState(() {
+                  colorCheckBoxValue = falseList;
+                  someOfActiveColors = updateSomeOfActives(colorCheckBoxValue);
+                  print(
+                      "000000000000000 someOfActiveColors : $someOfActiveColors");
+                });
+                prepareUpdateFilterReq();
                 print("000000000000000 : colorCheckBoxValue");
               }),
               clearActiveSize: () => setState(() {
-                sizeGroupCheckBoxValue =
-                    prepareSizeGroupCheckBox(listOfCategory, falseValues: true);
+                // sizeGroupCheckBoxValue =
+                //     prepareSizeGroupCheckBox(listOfCategory, falseValues: true);
+                // List<List<bool>> falseAllList = [];
+                setState(() {
+                  for (int index = 0;
+                      index < sizeGroupCheckBoxValue.length;
+                      index++) {
+                    sizeGroupCheckBoxValue[index].keys.forEach((keyElement) {
+                      sizeGroupCheckBoxValue[index][keyElement] = false;
+                    });
+                  }
+                });
+
+                //
+                // List<bool> falseList = List.filled(
+                //     sizeGroupCheckBoxValue[index].values.toList().length,
+                //     false);
+                // falseAllList.add(falseList);
+
+                // setState(() {
+                //   sizeGroupCheckBoxValue[index][] = falseAllList;
+                // });
+
+                prepareUpdateFilterReq();
                 print("000000000000000 : sizeGroupCheckBoxValue");
               }),
               clearActivePrice: () => setState(() {
                 priceLimit = preparePriceCheckBox(isBiggest: true);
+                // List<bool> falseList =
+                //     List.filled(ageCheckBoxValue.length, false);
+                // setState(() {
+                //   ageCheckBoxValue = falseList;
+                // });
+                // prepareUpdateFilterReq();
                 print("000000000000000 : priceLimit");
               }),
             ),
@@ -453,14 +528,30 @@ class _MainStorePageState extends State<MainStorePage> {
                                   listOfCategory.group.length -
                                   1],
                         ),
-                        SizedBox(height: 25),
+                        // SizedBox(height: 25),
                       ],
                     )
                   : StoreMainBodyWidget(
                       products: productsRes.data.result,
                       openAddToCardPanel: () {},
+                      isGridView: isGridView,
                     ),
             ),
+            filterPageOpened > 0
+                ? SizedBox()
+                : Column(
+                    children: [
+                      SortBarWidget(
+                        title: 'مرتب سازی',
+                        isGridView: isGridView,
+                        changeView: (bool newISGridView) => setState(() {
+                          isGridView = newISGridView;
+                        }),
+                        openSortPanel: () {},
+                      ),
+                      SizedBox(height: 80),
+                    ],
+                  ),
           ],
         ),
       ),

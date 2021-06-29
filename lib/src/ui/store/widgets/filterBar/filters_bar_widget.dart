@@ -78,9 +78,6 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
         someOfActivePrice: widget.someOfActivePrice,
       );
     });
-
-    print("ssssssssssssssome : ${someOfActive.length}");
-    print("ssssssssssssssome : ${filters.length}");
   }
 
   @override

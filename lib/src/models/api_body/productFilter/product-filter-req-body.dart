@@ -3,9 +3,11 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
 
 class ProductFilterReqBody {
+  OperationInt quantity;
   OperationString name;
   OperationString nameFA;
   OperationString brand;
@@ -28,6 +30,7 @@ class ProductFilterReqBody {
   Map<String, dynamic> map;
 
   ProductFilterReqBody({
+    this.quantity,
     this.name,
     this.nameFA,
     this.brand,
@@ -48,6 +51,7 @@ class ProductFilterReqBody {
     this.cutting,
   }) {
     this.map = {};
+    if (quantity != null) map["quantity"] = quantity.map;
     if (name != null) map["name"] = name.map;
     if (nameFA != null) map["nameFA"] = nameFA.map;
     if (brand != null) map["brand"] = brand.map;

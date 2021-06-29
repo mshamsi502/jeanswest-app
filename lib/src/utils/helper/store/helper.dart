@@ -304,25 +304,33 @@ List<int> createSomeOfActive({
 }
 
 ProductReqBody updateproductReqBody({
-  @required Map<String, int> priceSelected,
-  @required List<String> ageSelected,
-  @required Map<String, List<String>> subGroupSelected,
-  @required List<String> colorSelected,
-  @required List<String> genderSelected,
-  @required List<String> sizeSelected,
+  Map<String, int> priceSelected,
+  List<String> ageSelected,
+  int quantityBiggerThan = 0,
+  Map<String, List<String>> subGroupSelected,
+  List<String> colorSelected,
+  List<String> genderSelected,
+  List<String> sizeSelected,
   int page = 1,
   int ascent = 0,
   String sortBy = STYLE_CODE_SORT,
-  @required String searchKeyword,
+  String searchKeyword,
   String unique = STYLE_UNIQUE,
 }) {
   List<String> sub = [];
-  subGroupSelected.values.forEach((subGroup) {
-    sub.addAll(subGroup);
-  });
+  if (subGroupSelected != null && subGroupSelected.length > 0)
+    subGroupSelected.values.forEach((subGroup) {
+      sub.addAll(subGroup);
+    });
+
   ProductReqBody reqBody = ProductReqBody(
     filter: ProductFilterReqBody(
-      basePrice: priceSelected != null
+      quantity: OperationInt(
+        oGT: quantityBiggerThan,
+      ),
+      basePrice: priceSelected != null &&
+              priceSelected["min"] != null &&
+              priceSelected["max"] != null
           ? OperationString(
               oGT: priceSelected["min"].toString(),
               oLT: priceSelected["max"].toString(),
