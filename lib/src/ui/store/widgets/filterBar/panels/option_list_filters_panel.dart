@@ -147,6 +147,7 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
             },
           ),
         ),
+        SizedBox(height: 85),
       ],
     );
   }

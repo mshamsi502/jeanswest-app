@@ -13,6 +13,7 @@ import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class SubGroupFiltersPanel extends StatefulWidget {
   final bool haveGroupTitle;
+  final isFromMainFilter;
   final int indexInOptionWidgets;
   final String groupTitle;
   final List<String> subGroupsTitle;
@@ -27,6 +28,7 @@ class SubGroupFiltersPanel extends StatefulWidget {
     @required this.subGroupsTitle,
     @required this.subGroupsValue,
     @required this.updateSubGroupsValue,
+    @required this.isFromMainFilter,
   }) : super(key: key);
   @override
   _SubGroupFiltersPanelState createState() => _SubGroupFiltersPanelState();
@@ -248,7 +250,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               textColor: Colors.white,
               borderColor: MAIN_BLUE_COLOR,
               hasShadow: false,
-              title: widget.indexInOptionWidgets <= 0 ? "تایید" : 'اعمال فیلتر',
+              title: widget.indexInOptionWidgets <= 0 ? "تایید" : "اعمال فیلتر",
               height: 0.07 * _screenSize.height, //45,
               width: _screenSize.width,
               fontSize: 0.05 * _screenSize.width, //18,
@@ -258,6 +260,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               },
             ),
           ),
+          SizedBox(height: widget.isFromMainFilter ? 0 : 85),
         ],
       ),
     );

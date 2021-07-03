@@ -372,3 +372,17 @@ ProductReqBody updateproductReqBody({
 
   return reqBody;
 }
+
+String updatePerNameOfSortBy(String engNameOfSortBy, int ascentNumber) {
+  if (engNameOfSortBy == COLOR_SORT)
+    return "تنوع بر اساس رنگ";
+  else if (engNameOfSortBy == SALE_PRICE_SORT) {
+    if (ascentNumber == 1)
+      return "گران ترین";
+    else
+      return "ارزان ترین";
+  } else if (engNameOfSortBy == DISCOUNT_SORT && ascentNumber == 1)
+    return "بیشترین تخفیف";
+  else
+    return "پیش فرض";
+}

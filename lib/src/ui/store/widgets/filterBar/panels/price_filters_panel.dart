@@ -189,6 +189,7 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
             },
           ),
         ),
+        SizedBox(height: 85),
       ],
     );
   }

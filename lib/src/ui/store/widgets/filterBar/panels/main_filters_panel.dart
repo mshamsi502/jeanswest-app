@@ -19,6 +19,7 @@ import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MainFiltersPanel extends StatefulWidget {
+  final PanelState mainFilterPanelState;
   final Function() closePanel;
   final ListOfCategory category;
   final List<String> optionGroup;
@@ -61,6 +62,7 @@ class MainFiltersPanel extends StatefulWidget {
     @required this.colorCheckBoxValue,
     @required this.confirmSubGroupValues,
     @required this.confirmOptionsValues,
+    @required this.mainFilterPanelState,
   }) : super(key: key);
   @override
   _MainFiltersPanelState createState() => _MainFiltersPanelState();
@@ -88,7 +90,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   bool isShowColorWidget;
   Map<String, List<String>> sizeGroupSubtitleName;
   //
-
+  PanelState tempMainFilterPanelState;
   //
   List<Widget> optionsWidget = [];
   int selectedGroup = -1;
@@ -98,6 +100,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   void initState() {
     isShowColorWidget = false;
     mainGroupTextStyles = [];
+    tempMainFilterPanelState = widget.mainFilterPanelState;
     widget.category.group.forEach((element) {
       mainGroupTextStyles.add(
         TextStyle(
@@ -182,6 +185,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
         }),
       );
       tempSelectedGroup = selectedGroup;
+      tempMainFilterPanelState = widget.mainFilterPanelState;
     });
   }
 
@@ -224,9 +228,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    print("selectedGroup : $selectedGroup");
-    if (tempSelectedGroup != selectedGroup) {
-      // initializeValues();
+    print("............................. selectedGroup : $selectedGroup");
+    if (widget.mainFilterPanelState == PanelState.OPEN) {
+
       updateSubtitles();
       prepareValues();
     }
@@ -239,8 +243,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
         minHeight: 0,
         maxHeight: _screenSize.height,
         isDraggable: false,
-        onPanelClosed: () {},
-        onPanelOpened: () {},
         panel: Container(
           height: _screenSize.height,
           width: _screenSize.width,
@@ -264,6 +266,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                       ? SizedBox()
                       : selectedGroup < widget.category.group.length
                           ? SubGroupFiltersPanel(
+                              isFromMainFilter: true,
                               indexInOptionWidgets: -1,
                               haveGroupTitle: true,
                               groupTitle: widget.category.group[selectedGroup],

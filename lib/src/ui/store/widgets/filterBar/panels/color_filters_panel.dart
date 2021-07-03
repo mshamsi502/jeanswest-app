@@ -157,7 +157,7 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
               }),
             ),
           )),
-          Expanded(child: SizedBox()),
+          // Expanded(child: SizedBox()),
           // widget.indexInOptionWidgets <= 0
           //     ? SizedBox()
           //     :
@@ -178,6 +178,7 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
               },
             ),
           ),
+          SizedBox(height: 85),
         ],
       ),
     );

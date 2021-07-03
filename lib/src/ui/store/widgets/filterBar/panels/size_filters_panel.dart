@@ -124,6 +124,7 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
             },
           ),
         ),
+        SizedBox(height: 85),
       ],
     );
   }

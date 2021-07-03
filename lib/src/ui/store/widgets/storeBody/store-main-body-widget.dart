@@ -11,8 +11,8 @@ import 'package:jeanswest/src/ui/global/widgets/product_view/product-info-list-v
 
 class StoreMainBodyWidget extends StatefulWidget {
   final List<SingleProductInfoRes> products;
-  final Function() openAddToCardPanel;
-  final Function() openSortByPanel;
+  final Function(int) openAddToCardPanel;
+  // final Function() openSortByPanel;
 
   final bool isGridView;
   const StoreMainBodyWidget({
@@ -20,7 +20,7 @@ class StoreMainBodyWidget extends StatefulWidget {
     @required this.products,
     @required this.openAddToCardPanel,
     @required this.isGridView,
-    @required this.openSortByPanel,
+    // @required this.openSortByPanel,
   }) : super(key: key);
   @override
   _StoreMainBodyWidgetState createState() => _StoreMainBodyWidgetState();
@@ -96,11 +96,20 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
     print("tempProducts.length : ${tempProducts.length}");
     print("activeProducts.length : ${activeProducts.length}");
     print("tempProducts : $tempProducts");
-    if (tempProducts == null || tempProducts.length != widget.products.length)
+    print("widget.products : ${widget.products}");
+    print("-------------------------------------------------------");
+    if (tempProducts == null ||
+        (tempProducts.length != widget.products.length &&
+            tempProducts.length > 0 &&
+            widget.products.length > 0) ||
+        tempProducts.first.barcode != widget.products.first.barcode ||
+        tempProducts.last.barcode != widget.products.last.barcode) {
+      print(
+          "aaaaaaaaaabbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccddddddddddddddddddeeeeeeeeeeeee");
       setState(() {
         updateProducts();
       });
-
+    }
     return Container(
       // color: Colors.amber,
       padding: EdgeInsets.only(
@@ -137,7 +146,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
                                 setState(() {
                                   selectedProduct = productIndex;
                                 });
-                                widget.openAddToCardPanel();
+
+                                widget.openAddToCardPanel(productIndex);
                               },
                               deleteFromFav: (int productIndex) {
                                 setState(() {
@@ -173,7 +183,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
                                       setState(() {
                                         selectedProduct = productIndex;
                                       });
-                                      widget.openAddToCardPanel();
+
+                                      widget.openAddToCardPanel(productIndex);
                                     },
                                     deleteFromFav: (int productIndex) {
                                       setState(() {
@@ -216,7 +227,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
                             setState(() {
                               selectedProduct = productIndex;
                             });
-                            widget.openAddToCardPanel();
+
+                            widget.openAddToCardPanel(productIndex);
                           },
                           changeFav: (int indexOfProduct, bool newValue) {
                             setState(() {

@@ -241,7 +241,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                     padding: EdgeInsets.symmetric(
                       vertical: 0.0046 * _screenSize.height, //3,
                     ),
-                    width: 0.111 * _screenSize.width, //40,
+                    // width: 0.111 * _screenSize.width, //40,
                     height: 0.075 * _screenSize.height, //45,
                     child: widget.productIsActive
                         ? Column(
@@ -303,6 +303,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       setState(() {
                         addToCardProductDetailRes = _addToCardProductDetailRes;
                       });
+
                       widget.addToCardFromFav(widget.productIndex);
                     } catch (e) {
                       printErrorMessage(e);

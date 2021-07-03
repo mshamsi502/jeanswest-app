@@ -53,6 +53,14 @@ List<String> optionGroup = [
   "محدوده قیمت",
 ];
 //
+List<String> sortOptionsName = [
+  "پیش فرض",
+  "ارزان ترین",
+  "گران ترین",
+  "بیشترین تخفیف",
+  "تنوع بر اساس رنگ",
+];
+//
 const double minPriceCategoty = 0;
 const double maxPriceCategoty = 30000000;
 const double unitPriceCategoty = 200000;

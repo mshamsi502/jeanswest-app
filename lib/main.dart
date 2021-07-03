@@ -14,6 +14,7 @@ import 'package:jeanswest/src/utils/service_locator/locator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   //
   // await FlutterConfig.loadEnvVariables();
   await dotenv.load(fileName: ".env");
