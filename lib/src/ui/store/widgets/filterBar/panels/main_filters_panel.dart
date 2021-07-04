@@ -44,6 +44,7 @@ class MainFiltersPanel extends StatefulWidget {
     List<Map<String, bool>> sizeGroupCheckBoxValue,
     Map<String, int> priceLimitValue,
   ) confirmOptionsValues;
+  final Function() clearAllFilters;
 //
   const MainFiltersPanel({
     Key key,
@@ -63,6 +64,7 @@ class MainFiltersPanel extends StatefulWidget {
     @required this.confirmSubGroupValues,
     @required this.confirmOptionsValues,
     @required this.mainFilterPanelState,
+    @required this.clearAllFilters,
   }) : super(key: key);
   @override
   _MainFiltersPanelState createState() => _MainFiltersPanelState();
@@ -230,7 +232,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
     var _screenSize = MediaQuery.of(context).size;
     print("............................. selectedGroup : $selectedGroup");
     if (widget.mainFilterPanelState == PanelState.OPEN) {
-
       updateSubtitles();
       prepareValues();
     }
@@ -310,7 +311,8 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                   ),
                 ),
                 onTap: () {
-                  print("00000");
+                  widget.clearAllFilters();
+                  initializeValues();
                 },
               ),
             ),

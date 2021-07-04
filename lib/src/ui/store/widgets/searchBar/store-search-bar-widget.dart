@@ -5,6 +5,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
 
@@ -28,6 +29,29 @@ class StoreSearchBarWidget extends StatefulWidget {
 class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
   ScrollController scrollController = new ScrollController();
 
+  bool keyboardIsOpen;
+  var keyboardVisibilityController = KeyboardVisibilityController();
+
+  @override
+  void initState() {
+    keyboardIsOpen = false;
+    keyboardVisibilityController.onChange.listen((bool visible) {
+      if (visible) {
+        if (mounted)
+          setState(() {
+            keyboardIsOpen = true;
+          });
+      } else {
+        widget.searchFocusNode.unfocus();
+        if (mounted)
+          setState(() {
+            keyboardIsOpen = false;
+          });
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -43,14 +67,21 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
                 child: Container(
                   width: _screenSize.width - 45,
                   child: SearchAppBarWidget(
-                    preTitle: '${"search_in_list_hint".tr()} ',
-                    title: "همه محصولات",
+                    preTitle: widget.searchTextEditingController.text.length > 0
+                        ? ""
+                        : '${"search_in_list_hint".tr()} ',
+                    title: widget.searchTextEditingController.text.length > 0
+                        ? widget.searchTextEditingController.text
+                        : "همه محصولات",
                     textFielIsActive: widget.searchTextFeildIsEnabled,
                     textEditingController: widget.searchTextEditingController,
                     onChangeSearchField: (String value) {},
                     focusNode: widget.searchFocusNode,
                     titleStyle: TextStyle(
-                      color: DARK_GREY,
+                      color: keyboardIsOpen &&
+                              widget.searchTextEditingController.text.length > 0
+                          ? Colors.black
+                          : DARK_GREY,
                       fontSize: 0.0444 * _screenSize.width, //16,
                       fontWeight: FontWeight.w400,
                     ),

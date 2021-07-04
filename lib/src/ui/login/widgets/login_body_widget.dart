@@ -67,20 +67,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
           });
       }
     });
-    // KeyboardVisibilityNotification().addNewListener(
-    //   onChange: (bool visible) {
-    //     if (visible)
-    //       setState(() {
-    //         keyboardIsOpen = true;
-    //       });
-    //     else {
-    //       widget.focusNode.unfocus();
-    //       setState(() {
-    //         keyboardIsOpen = false;
-    //       });
-    //     }
-    //   },
-    // );
+
     super.initState();
   }
 

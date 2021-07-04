@@ -52,10 +52,15 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
 
   @override
   void initState() {
-    discountPercent = ((widget.product.basePrice - widget.product.salePrice) /
-            widget.product.basePrice *
-            100)
-        .round();
+    if (widget.product != null &&
+        widget.product.basePrice != null &&
+        widget.product.salePrice != null)
+      discountPercent = ((widget.product.basePrice - widget.product.salePrice) /
+              widget.product.basePrice *
+              100)
+          .round();
+    else
+      discountPercent = 0;
     super.initState();
   }
 
@@ -86,16 +91,16 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                   height: 0.3547 * _screenSize.height, //210,
                   width: widget.width,
                   child: Image.network(
-                    widget.product.banimodeDetails.images.thickboxDefault[widget
-                                    .product
-                                    .banimodeDetails
-                                    .images
-                                    .thickboxDefault
-                                    .length >
-                                6
-                            ? 2
-                            : 0] ??
-                        EMPTY_IMAGE,
+                    widget.product != null &&
+                            widget.product.banimodeDetails != null &&
+                            widget.product.banimodeDetails.images != null
+                        ? widget.product.banimodeDetails.images.thickboxDefault[
+                            widget.product.banimodeDetails.images
+                                        .thickboxDefault.length >
+                                    6
+                                ? 2
+                                : 0]
+                        : EMPTY_IMAGE,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -177,7 +182,13 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
             child: Container(
               alignment: Alignment.centerRight,
               child: Text(
-                widget.product.banimodeDetails.productManufacturerEnName,
+                widget.product != null &&
+                        widget.product.banimodeDetails != null &&
+                        widget.product.banimodeDetails
+                                .productManufacturerEnName !=
+                            null
+                    ? widget.product.banimodeDetails.productManufacturerEnName
+                    : "",
                 textAlign: TextAlign.right,
                 textDirection: rtlTextDirection,
                 style: TextStyle(
@@ -191,7 +202,9 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
           ),
           Expanded(
             child: Text(
-              widget.product.banimodeDetails.productName,
+              widget.product != null && widget.product.banimodeDetails != null
+                  ? widget.product.banimodeDetails.productName
+                  : "",
               textDirection: rtlTextDirection,
               style: TextStyle(
                 fontSize: 0.0333 * _screenSize.width, //12,

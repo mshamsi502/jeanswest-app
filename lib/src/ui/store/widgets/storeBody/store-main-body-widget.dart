@@ -5,12 +5,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/product-info-grid-view-widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/product-info-list-view-widget.dart';
 
 class StoreMainBodyWidget extends StatefulWidget {
   final List<SingleProductInfoRes> products;
+  final ScrollController listOfProductsScrollController;
   final Function(int) openAddToCardPanel;
   // final Function() openSortByPanel;
 
@@ -20,6 +22,7 @@ class StoreMainBodyWidget extends StatefulWidget {
     @required this.products,
     @required this.openAddToCardPanel,
     @required this.isGridView,
+    @required this.listOfProductsScrollController,
     // @required this.openSortByPanel,
   }) : super(key: key);
   @override
@@ -27,7 +30,7 @@ class StoreMainBodyWidget extends StatefulWidget {
 }
 
 class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
-  ScrollController scrollController = new ScrollController();
+  // ScrollController scrollController = new ScrollController();
 
   int selectedProduct;
   List<SingleProductInfoRes> tempProducts = [];
@@ -65,9 +68,12 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
       // isFavProducts = ;
       tempProducts = widget.products;
       activeProducts = createActiveProducts(widget.products);
-      print("widget.products.length : ${widget.products.length}");
-      print("tempProducts.length : ${tempProducts.length}");
-      print("activeProducts.length : ${activeProducts.length}");
+
+      if (widget.products != null && widget.products.length > 0) {
+        print("widget.products.length : ${widget.products.length}");
+        print("tempProducts.length : ${tempProducts.length}");
+        print("activeProducts.length : ${activeProducts.length}");
+      }
     });
   }
 
@@ -93,23 +99,21 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    print("tempProducts.length : ${tempProducts.length}");
-    print("activeProducts.length : ${activeProducts.length}");
-    print("tempProducts : $tempProducts");
-    print("widget.products : ${widget.products}");
-    print("-------------------------------------------------------");
+    if (widget.products != null && widget.products.length > 0) {
+      print("tempProducts.length : ${tempProducts.length}");
+      print("activeProducts.length : ${activeProducts.length}");
+      print("tempProducts : $tempProducts");
+      print("widget.products : ${widget.products}");
+      print("-------------------------------------------------------");
+    }
     if (tempProducts == null ||
-        (tempProducts.length != widget.products.length &&
-            tempProducts.length > 0 &&
-            widget.products.length > 0) ||
-        tempProducts.first.barcode != widget.products.first.barcode ||
-        tempProducts.last.barcode != widget.products.last.barcode) {
-      print(
-          "aaaaaaaaaabbbbbbbbbbbbbbbbbbbbbccccccccccccccccccccddddddddddddddddddeeeeeeeeeeeee");
+        tempProducts.length != widget.products.length ||
+        tempProducts.first.barcode != widget.products.first.barcode) {
       setState(() {
         updateProducts();
       });
     }
+
     return Container(
       // color: Colors.amber,
       padding: EdgeInsets.only(
@@ -119,13 +123,11 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
         top: 5,
       ),
       width: _screenSize.width,
-      child: tempProducts != null &&
-              tempProducts.length > 0 &&
-              tempProducts.first.barcode != null
+      child: tempProducts != null && tempProducts.length > 0
           ? widget.isGridView
               ? ListView.builder(
                   itemCount: (tempProducts.length / 2).ceil(),
-                  controller: scrollController,
+                  controller: widget.listOfProductsScrollController,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
@@ -212,7 +214,7 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
                 )
               : ListView.builder(
                   itemCount: tempProducts.length,
-                  controller: scrollController,
+                  controller: widget.listOfProductsScrollController,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (BuildContext context, int index) {
@@ -243,7 +245,27 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
                     );
                   },
                 )
-          : SizedBox(),
+          : Center(
+              child: Container(
+                // width: 180,
+                height: 180,
+                // color: Colors.red,
+                child: Column(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/svg_images/store/category/no_exist_product.svg',
+                      width: 140,
+                      height: 140,
+                    ),
+                    SizedBox(height: 10),
+                    Text("آیتم موردنظر شما موجود نیست.",
+                        style: TextStyle(
+                          fontSize: 16,
+                        )),
+                  ],
+                ),
+              ),
+            ),
       // ),
     );
   }

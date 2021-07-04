@@ -42,6 +42,12 @@ class MainStorePage extends StatefulWidget {
 }
 
 class _MainStorePageState extends State<MainStorePage> {
+  ScrollController listOfProductsScrollController = ScrollController();
+  // int _currentPage = 1;
+  int _total;
+  bool _isLoading = true;
+  //
+
   var keyboardVisibilityController = KeyboardVisibilityController();
   PanelController filtersPanelController = PanelController();
   PanelController addToCardPanelController = PanelController();
@@ -119,12 +125,22 @@ class _MainStorePageState extends State<MainStorePage> {
       else
         defaultFilter();
     });
+    listOfProductsScrollController.addListener(() {
+      double maxScroll =
+          listOfProductsScrollController.position.maxScrollExtent;
+      double currentScroll = listOfProductsScrollController.position.pixels;
+
+      if (maxScroll - currentScroll <= 200 &&
+          productsRes.data.result.length < _total) if (!_isLoading)
+        prepareUpdateFilterReq(page: pageNumber + 1);
+      // _getProducts(page: _currentPage + 1);
+    });
+
     super.initState();
   }
 
   Future<void> searchListener() async {
     searchTextEditingController.addListener(() async {
-      await Future.delayed(Duration(milliseconds: 500));
       if (searchTextEditingController.text != null &&
           searchTextEditingController.text != "") {
         setState(() {
@@ -132,7 +148,16 @@ class _MainStorePageState extends State<MainStorePage> {
         });
         print(
             "------------------------ : searchKeywordName : $searchKeywordName");
-        await prepareUpdateFilterReq();
+        await Future.delayed(Duration(milliseconds: 500));
+        if (searchKeywordName == searchTextEditingController.text &&
+            searchKeywordName.length >= 3) {
+          setState(() {
+            ascentNumber = 1;
+            engNameOfSortBy = SEARCH_SORT;
+            uniqueName = STYLE_UNIQUE;
+          });
+          await prepareUpdateFilterReq();
+        }
       }
     });
   }
@@ -235,7 +260,10 @@ class _MainStorePageState extends State<MainStorePage> {
     });
   }
 
-  prepareUpdateFilterReq() async {
+  // void _getProducts({int page: 1, bool refresh: false}) {}
+
+  prepareUpdateFilterReq({int page: 1, bool refresh: false}) async {
+    setState(() => _isLoading = true);
     //
     List<String> ageSelected = [];
     for (int index = 0; index < ageCheckBoxValue.length; index++) {
@@ -310,8 +338,33 @@ class _MainStorePageState extends State<MainStorePage> {
     print("7777777777777777777777 filter : ${filter.map}");
     ListOfProductsRes tempProductRes =
         await globalLocator<GlobalRestClient>().getProductList(filter.map);
+    // setState(() {
+    //   productsRes = tempProductRes;
+    // });
+    //
     setState(() {
-      productsRes = tempProductRes;
+      if (refresh) productsRes.data.result.clear();
+
+      List<SingleProductInfoRes> resMessage = tempProductRes.data.result;
+      if (resMessage != null) {
+        resMessage.forEach((product) {
+          tempProductRes.data.result.add(
+            SingleProductInfoRes(
+              quantity: product.quantity,
+              barcode: product.barcode,
+              styleCode: product.styleCode,
+              basePrice: product.basePrice,
+              salePrice: product.salePrice,
+              banimodeDetails: product.banimodeDetails,
+            ),
+          );
+        });
+      }
+      _total = tempProductRes.data.total;
+      print("total : $_total ");
+      pageNumber = tempProductRes.data.page;
+      print("currentPage : $pageNumber ");
+      _isLoading = false;
     });
   }
 
@@ -399,6 +452,9 @@ class _MainStorePageState extends State<MainStorePage> {
             colorCheckBoxValue = newColorCheckBoxValue;
             sizeGroupCheckBoxValue = newSizeGroupCheckBoxValue;
             priceLimit = newPriceLimitValue;
+          }),
+          clearAllFilters: () => setState(() {
+            initPrepareValues();
           }),
         ),
         body: SlidingUpPanel(
@@ -606,6 +662,8 @@ class _MainStorePageState extends State<MainStorePage> {
                         )
                       : StoreMainBodyWidget(
                           products: productsRes.data.result,
+                          listOfProductsScrollController:
+                              listOfProductsScrollController,
                           openAddToCardPanel: (int selectedIndex) {
                             print("aaaaaaaaaaaaaaa");
                             setState(() {
@@ -658,35 +716,46 @@ class _MainStorePageState extends State<MainStorePage> {
           {
             engNameOfSortBy = STYLE_CODE_SORT;
             ascentNumber = 0;
+
+            uniqueName = STYLE_UNIQUE;
             break;
           }
         case 1:
           {
             engNameOfSortBy = SALE_PRICE_SORT;
             ascentNumber = 0;
+
+            uniqueName = STYLE_UNIQUE;
             break;
           }
         case 2:
           {
             engNameOfSortBy = SALE_PRICE_SORT;
             ascentNumber = 1;
+
+            uniqueName = STYLE_UNIQUE;
             break;
           }
         case 3:
           {
             engNameOfSortBy = DISCOUNT_SORT;
             ascentNumber = 1;
+            uniqueName = STYLE_UNIQUE;
             break;
           }
         case 4:
           {
             engNameOfSortBy = COLOR_SORT;
             ascentNumber = 0;
+            uniqueName = COLOR_UNIQUE;
             break;
           }
       }
-      perNameOfSortBy = updatePerNameOfSortBy(engNameOfSortBy, ascentNumber);
+      setState(() {
+        perNameOfSortBy = updatePerNameOfSortBy(engNameOfSortBy, ascentNumber);
+      });
     });
+    print(".........................sss ......... $perNameOfSortBy");
     await prepareUpdateFilterReq();
   }
 }

@@ -153,6 +153,7 @@ flutter:
     - assets/images/svg_images/branch/
     - assets/images/svg_images/global/
     - assets/images/svg_images/global/bottom_navigation_bar/
+    - assets/images/svg_images/global/message/
     - assets/images/svg_images/login/
     - assets/images/svg_images/login/flags/
     - assets/images/svg_images/profile/
