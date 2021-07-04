@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_gifimage/flutter_gifimage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/product-info-grid-view-widget.dart';
@@ -14,6 +15,7 @@ class StoreMainBodyWidget extends StatefulWidget {
   final List<SingleProductInfoRes> products;
   final ScrollController listOfProductsScrollController;
   final Function(int) openAddToCardPanel;
+  final bool isLoadingForGetting;
   // final Function() openSortByPanel;
 
   final bool isGridView;
@@ -23,51 +25,62 @@ class StoreMainBodyWidget extends StatefulWidget {
     @required this.openAddToCardPanel,
     @required this.isGridView,
     @required this.listOfProductsScrollController,
+    @required this.isLoadingForGetting,
     // @required this.openSortByPanel,
   }) : super(key: key);
   @override
   _StoreMainBodyWidgetState createState() => _StoreMainBodyWidgetState();
 }
 
-class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
+class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
+    with SingleTickerProviderStateMixin {
   // ScrollController scrollController = new ScrollController();
 
   int selectedProduct;
   List<SingleProductInfoRes> tempProducts = [];
+  bool tempIsGridView;
   List<bool> activeProducts = [];
   List<bool> isFavProducts = [];
+  //
+  // double percentScroll = 0;
+  //
 
+  GifController controller;
   @override
   void initState() {
+    controller = GifController(vsync: this);
+    controller.repeat(min: 0, max: 29, period: Duration(milliseconds: 500));
+    tempIsGridView = widget.isGridView;
     tempProducts = widget.products;
     isFavProducts = List.filled(tempProducts.length, false);
     updateProducts();
+
     super.initState();
   }
 
   updateProducts() {
+    // print("updaaaaaaaaaaaaaaaaaaaaaaaating ...");
     setState(() {
       List<SingleProductInfoRes> _newProducts = widget.products;
-      List<bool> tempIsFavProducts = List.filled(_newProducts.length, false);
-      // for (int index = 0; index < _newProducts.length; index++) {
-      //
+      int minLength = _newProducts.length <= tempProducts.length
+          ? _newProducts.length
+          : tempProducts.length;
+      int maxLength = _newProducts.length <= tempProducts.length
+          ? tempProducts.length
+          : _newProducts.length;
+
+      List<bool> tempIsFavProducts = List.filled(maxLength, false);
+
       for (int indexOfProduct = 0;
-          indexOfProduct < tempProducts.length;
+          indexOfProduct < minLength;
           indexOfProduct++) {
-        _newProducts.forEach((element) {
-          if (tempProducts[indexOfProduct].barcode == element.barcode) {
-            tempIsFavProducts[indexOfProduct] =
-                !tempIsFavProducts[indexOfProduct];
-          }
-        });
+        tempIsFavProducts[indexOfProduct] = isFavProducts[indexOfProduct];
       }
-      // if (_newProducts[index].barcode == tempProducts[index].barcode) {
-      //   tempIsFavProducts[index] = isFavProducts[index];
-      // }
-      // }
-      // isFavProducts = ;
-      tempProducts = widget.products;
-      activeProducts = createActiveProducts(widget.products);
+
+      isFavProducts = tempIsFavProducts;
+      tempProducts = _newProducts;
+      tempIsGridView = widget.isGridView;
+      activeProducts = createActiveProducts(tempProducts);
 
       if (widget.products != null && widget.products.length > 0) {
         print("widget.products.length : ${widget.products.length}");
@@ -100,6 +113,7 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     if (widget.products != null && widget.products.length > 0) {
+      print("widget.products.length : ${widget.products.length}");
       print("tempProducts.length : ${tempProducts.length}");
       print("activeProducts.length : ${activeProducts.length}");
       print("tempProducts : $tempProducts");
@@ -108,7 +122,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
     }
     if (tempProducts == null ||
         tempProducts.length != widget.products.length ||
-        tempProducts.first.barcode != widget.products.first.barcode) {
+        tempProducts.first.barcode != widget.products.first.barcode ||
+        tempIsGridView != widget.isGridView) {
       setState(() {
         updateProducts();
       });
@@ -124,127 +139,201 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget> {
       ),
       width: _screenSize.width,
       child: tempProducts != null && tempProducts.length > 0
-          ? widget.isGridView
-              ? ListView.builder(
-                  itemCount: (tempProducts.length / 2).ceil(),
-                  controller: widget.listOfProductsScrollController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Row(
-                          children: [
-                            ProductInfoGridViewWidget(
-                              width: ((_screenSize.width / 2) -
-                                  (0.041 * _screenSize.width //15,
-                                  )),
-                              product: tempProducts[index * 2],
-                              productIndex: index * 2,
-                              hasDelete: false,
-                              hasAddToFav: true,
-                              isFave: false,
-                              productIsActive: true,
-                              addToCardFromFav: (int productIndex) {
-                                setState(() {
-                                  selectedProduct = productIndex;
-                                });
+          ? Column(
+              children: [
+                Expanded(
+                  child: widget.isGridView
+                      ? ListView.builder(
+                          itemCount: (tempProducts.length / 2).ceil(),
+                          controller: widget.listOfProductsScrollController,
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int indexOfGrid) {
+                            // if (!mounted)
+                            //   setState(() {
+                            // percentScroll = (widget
+                            //         .listOfProductsScrollController
+                            //         .position
+                            //         .pixels /
+                            //     (widget.listOfProductsScrollController.position
+                            //         .maxScrollExtent));
+                            // });
 
-                                widget.openAddToCardPanel(productIndex);
-                              },
-                              deleteFromFav: (int productIndex) {
-                                setState(() {
-                                  selectedProduct = productIndex;
-                                });
-                                // deleteProductPanel.open();
-                              },
-                              changeFav: (int indexOfProduct, bool newValue) {
-                                setState(() {
-                                  isFavProducts[indexOfProduct] = newValue;
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              width: 0.027 * _screenSize.width, //10,
-                            ),
-                            (tempProducts.length / 2).floor() > index
-                                ? ProductInfoGridViewWidget(
-                                    width: ((_screenSize.width / 2) -
-                                        (0.041 * _screenSize.width //15,
-                                        )),
-                                    product: tempProducts[(index * 2) + 1],
-                                    productIndex: (index * 2) + 1,
-                                    hasDelete: false,
-                                    hasAddToFav: true,
-                                    // hasAddToFav: false,
-                                    // isFave: isFavProducts[(index * 2) + 1],
-                                    isFave: false,
-                                    productIsActive: true,
-                                    //    productIsActive:
-                                    // activeProducts[(index * 2) + 1],
-                                    addToCardFromFav: (int productIndex) {
-                                      setState(() {
-                                        selectedProduct = productIndex;
-                                      });
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    ProductInfoGridViewWidget(
+                                      width: ((_screenSize.width / 2) -
+                                          (0.041 * _screenSize.width //15,
+                                          )),
+                                      product: tempProducts[indexOfGrid * 2],
+                                      productIndex: indexOfGrid * 2,
+                                      hasDelete: false,
+                                      hasAddToFav: true,
+                                      isFave: isFavProducts[indexOfGrid * 2],
+                                      productIsActive: true,
+                                      addToCardFromFav: (int productIndex) {
+                                        setState(() {
+                                          selectedProduct = productIndex;
+                                        });
 
-                                      widget.openAddToCardPanel(productIndex);
-                                    },
-                                    deleteFromFav: (int productIndex) {
-                                      setState(() {
-                                        selectedProduct = productIndex;
-                                      });
-                                      // deleteProductPanel.open();
-                                    },
-                                    changeFav:
-                                        (int indexOfProduct, bool newValue) {
-                                      setState(() {
-                                        isFavProducts[indexOfProduct] =
-                                            newValue;
-                                      });
-                                    },
-                                  )
-                                : Container(),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 0.046 * _screenSize.height, //30
-                        ),
-                      ],
-                    );
-                  },
-                )
-              : ListView.builder(
-                  itemCount: tempProducts.length,
-                  controller: widget.listOfProductsScrollController,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        ProductInfoListViewWidget(
-                          width: _screenSize.width,
-                          product: tempProducts[index],
-                          productIndex: index,
-                          isFave: isFavProducts[index],
-                          openAddToCardPanel: (int productIndex) {
-                            setState(() {
-                              selectedProduct = productIndex;
-                            });
+                                        widget.openAddToCardPanel(productIndex);
+                                      },
+                                      deleteFromFav: (int productIndex) {
+                                        setState(() {
+                                          selectedProduct = productIndex;
+                                        });
+                                        // deleteProductPanel.open();
+                                      },
+                                      changeFav:
+                                          (int indexOfProduct, bool newValue) {
+                                        setState(() {
+                                          isFavProducts[indexOfProduct] =
+                                              newValue;
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(
+                                      width: 0.027 * _screenSize.width, //10,
+                                    ),
+                                    (tempProducts.length / 2).floor() >
+                                            indexOfGrid
+                                        ? ProductInfoGridViewWidget(
+                                            width: ((_screenSize.width / 2) -
+                                                (0.041 * _screenSize.width //15,
+                                                )),
+                                            product: tempProducts[
+                                                (indexOfGrid * 2) + 1],
+                                            productIndex: (indexOfGrid * 2) + 1,
+                                            hasDelete: false,
+                                            hasAddToFav: true,
+                                            // hasAddToFav: false,
+                                            isFave: isFavProducts[
+                                                (indexOfGrid * 2) + 1],
+                                            // isFave: false,
+                                            productIsActive: true,
+                                            //    productIsActive:
+                                            // activeProducts[(index * 2) + 1],
+                                            addToCardFromFav:
+                                                (int productIndex) {
+                                              setState(() {
+                                                selectedProduct = productIndex;
+                                              });
 
-                            widget.openAddToCardPanel(productIndex);
+                                              widget.openAddToCardPanel(
+                                                  productIndex);
+                                            },
+                                            deleteFromFav: (int productIndex) {
+                                              setState(() {
+                                                selectedProduct = productIndex;
+                                              });
+                                              // deleteProductPanel.open();
+                                            },
+                                            changeFav: (int indexOfProduct,
+                                                bool newValue) {
+                                              setState(() {
+                                                isFavProducts[indexOfProduct] =
+                                                    newValue;
+                                              });
+                                            },
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                                widget.isLoadingForGetting &&
+                                        indexOfGrid ==
+                                            (tempProducts.length / 2).ceil() - 1
+                                    ? Container(
+                                        // margin: EdgeInsets.only(bottom: 15),
+                                        width: 0.09 * _screenSize.width,
+                                        height: 0.09 * _screenSize.width,
+                                        child: GifImage(
+                                          controller: controller,
+                                          width: 50,
+                                          height: 50,
+                                          image: AssetImage(
+                                              "assets/images/gif_images/global/loading.gif"),
+                                        ),
+                                      )
+                                    : SizedBox(),
+                                SizedBox(height: 20),
+                              ],
+                            );
                           },
-                          changeFav: (int indexOfProduct, bool newValue) {
-                            setState(() {
-                              isFavProducts[indexOfProduct] = newValue;
-                            });
+                        )
+                      : ListView.builder(
+                          itemCount: tempProducts.length,
+                          controller: widget.listOfProductsScrollController,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (BuildContext context, int indexOfList) {
+                            // if (!mounted)
+                            //   setState(() {
+                            // percentScroll = (widget
+                            //         .listOfProductsScrollController
+                            //         .position
+                            //         .pixels /
+                            //     (widget.listOfProductsScrollController.position
+                            //         .maxScrollExtent));
+                            // });
+                            print(
+                                ",,,,,,,,,,,, tempProducts.length  : ${tempProducts.length}");
+                            print(",,,,,,,,,,,, indexOfList  : $indexOfList");
+                            print(
+                                ",,,,,,,,,,,, tempProducts[indexOfList]  : ${tempProducts[indexOfList].barcode}");
+                            return tempProducts[indexOfList] == null ||
+                                    tempProducts[indexOfList].barcode == null ||
+                                    indexOfList > tempProducts.length
+                                ? SizedBox()
+                                : Column(
+                                    children: [
+                                      ProductInfoListViewWidget(
+                                        width: _screenSize.width,
+                                        product: tempProducts[indexOfList],
+                                        productIndex: indexOfList,
+                                        isFave: isFavProducts[indexOfList],
+                                        openAddToCardPanel: (int productIndex) {
+                                          setState(() {
+                                            selectedProduct = productIndex;
+                                          });
+
+                                          widget
+                                              .openAddToCardPanel(productIndex);
+                                        },
+                                        changeFav: (int indexOfProduct,
+                                            bool newValue) {
+                                          setState(() {
+                                            isFavProducts[indexOfProduct] =
+                                                newValue;
+                                          });
+                                        },
+                                      ),
+                                      SizedBox(height: 20),
+                                      widget.isLoadingForGetting &&
+                                              indexOfList ==
+                                                  tempProducts.length - 1
+                                          ? Container(
+                                              // margin: EdgeInsets.only(bottom: 15),
+                                              width: 0.09 * _screenSize.width,
+                                              height: 0.09 * _screenSize.width,
+                                              child: GifImage(
+                                                controller: controller,
+                                                width: 50,
+                                                height: 50,
+                                                image: AssetImage(
+                                                    "assets/images/gif_images/global/loading.gif"),
+                                              ),
+                                            )
+                                          : SizedBox(),
+                                      SizedBox(height: 20),
+                                    ],
+                                  );
                           },
                         ),
-                        // SizedBox(
-                        //   height: 0.046 * _screenSize.height, //30
-                        // ),
-                      ],
-                    );
-                  },
-                )
+                ),
+              ],
+            )
           : Center(
               child: Container(
                 // width: 180,

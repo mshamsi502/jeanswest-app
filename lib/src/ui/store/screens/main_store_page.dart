@@ -26,6 +26,7 @@ import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filter
 import 'package:jeanswest/src/ui/store/widgets/filterBar/sort_bar_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/searchBar/store-search-bar-widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/storeBody/store-main-body-widget.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -45,7 +46,8 @@ class _MainStorePageState extends State<MainStorePage> {
   ScrollController listOfProductsScrollController = ScrollController();
   // int _currentPage = 1;
   int _total;
-  bool _isLoading = true;
+  // bool _isLoading = true;
+  bool _isGettingNewProduct = false;
   //
 
   var keyboardVisibilityController = KeyboardVisibilityController();
@@ -108,6 +110,7 @@ class _MainStorePageState extends State<MainStorePage> {
       selectedSize = -1;
       selectedProduct = -1;
       //
+      _isGettingNewProduct = false;
       isGridView = true;
       searchTextFeildIsEnabled = false;
       tempFilterPageOpened = filterPageOpened;
@@ -125,15 +128,19 @@ class _MainStorePageState extends State<MainStorePage> {
       else
         defaultFilter();
     });
+    // prepareUpdateFilterReq();
+    _getProducts(page: pageNumber);
     listOfProductsScrollController.addListener(() {
       double maxScroll =
           listOfProductsScrollController.position.maxScrollExtent;
       double currentScroll = listOfProductsScrollController.position.pixels;
 
-      if (maxScroll - currentScroll <= 200 &&
-          productsRes.data.result.length < _total) if (!_isLoading)
-        prepareUpdateFilterReq(page: pageNumber + 1);
-      // _getProducts(page: _currentPage + 1);
+      // if (maxScroll - currentScroll <= 5 &&
+      if (maxScroll == currentScroll &&
+          productsRes.data.result.length < _total &&
+          !_isGettingNewProduct) {
+        _getProducts(page: pageNumber + 1, isNew: false);
+      }
     });
 
     super.initState();
@@ -156,7 +163,8 @@ class _MainStorePageState extends State<MainStorePage> {
             engNameOfSortBy = SEARCH_SORT;
             uniqueName = STYLE_UNIQUE;
           });
-          await prepareUpdateFilterReq();
+          // await prepareUpdateFilterReq();
+          _getProducts(page: pageNumber);
         }
       }
     });
@@ -260,11 +268,65 @@ class _MainStorePageState extends State<MainStorePage> {
     });
   }
 
-  // void _getProducts({int page: 1, bool refresh: false}) {}
+  void _getProducts({
+    int page,
+    bool isNew: true,
+  }) async {
+    print("geted Page : $page ");
+    // setState(() => _isLoading = true);
 
-  prepareUpdateFilterReq({int page: 1, bool refresh: false}) async {
-    setState(() => _isLoading = true);
+    setState(() {
+      if (isNew) page = 1;
+      filter = prepareUpdateFilterReq(page: page);
+      _isGettingNewProduct = true;
+    });
+    ListOfProductsRes tempProductRes;
+    try {
+      tempProductRes =
+          await globalLocator<GlobalRestClient>().getProductList(filter.map);
+    } catch (e) {
+      printErrorMessage(e);
+    }
     //
+    setState(() {
+      if (tempProductRes != null && tempProductRes.statusCode == 200) {
+        _total = tempProductRes.data.total;
+        print("total : $_total ");
+        pageNumber = tempProductRes.data.page;
+        print("currentPage : $page ");
+
+        List<SingleProductInfoRes> newProducts = [];
+        if (isNew) {
+          pageNumber = 1;
+          newProducts = tempProductRes.data.result;
+          print("is New products , length : ${newProducts.length} ");
+        } else {
+          if (productsRes != null &&
+              productsRes.data != null &&
+              productsRes.data.result != null)
+            newProducts.addAll(productsRes.data.result);
+          if (tempProductRes != null &&
+              tempProductRes.data != null &&
+              tempProductRes.data.result != null)
+            newProducts.addAll(tempProductRes.data.result);
+        }
+        if (newProducts != null) {
+          productsRes = new ListOfProductsRes(
+              data: ListOfProductsData(
+            result: newProducts,
+            page: tempProductRes.data.page,
+            perPage: tempProductRes.data.perPage,
+            total: tempProductRes.data.total,
+          ));
+        }
+      }
+      _isGettingNewProduct = false;
+    });
+  }
+
+  ProductReqBody prepareUpdateFilterReq({page: 1}) {
+    //
+
     List<String> ageSelected = [];
     for (int index = 0; index < ageCheckBoxValue.length; index++) {
       if (ageCheckBoxValue[index])
@@ -322,50 +384,21 @@ class _MainStorePageState extends State<MainStorePage> {
       }
     }
     //
-    ProductReqBody filter = updateproductReqBody(
+    ProductReqBody _filter = updateproductReqBody(
       priceSelected: priceLimit,
       ageSelected: ageSelected,
       subGroupSelected: subGroup,
       colorSelected: colorSelected,
       genderSelected: genderSelected,
       sizeSelected: sizeSelected,
-      page: pageNumber,
+      page: page,
       ascent: ascentNumber,
       sortBy: engNameOfSortBy,
       searchKeyword: searchKeywordName,
       unique: uniqueName,
     );
     print("7777777777777777777777 filter : ${filter.map}");
-    ListOfProductsRes tempProductRes =
-        await globalLocator<GlobalRestClient>().getProductList(filter.map);
-    // setState(() {
-    //   productsRes = tempProductRes;
-    // });
-    //
-    setState(() {
-      if (refresh) productsRes.data.result.clear();
-
-      List<SingleProductInfoRes> resMessage = tempProductRes.data.result;
-      if (resMessage != null) {
-        resMessage.forEach((product) {
-          tempProductRes.data.result.add(
-            SingleProductInfoRes(
-              quantity: product.quantity,
-              barcode: product.barcode,
-              styleCode: product.styleCode,
-              basePrice: product.basePrice,
-              salePrice: product.salePrice,
-              banimodeDetails: product.banimodeDetails,
-            ),
-          );
-        });
-      }
-      _total = tempProductRes.data.total;
-      print("total : $_total ");
-      pageNumber = tempProductRes.data.page;
-      print("currentPage : $pageNumber ");
-      _isLoading = false;
-    });
+    return _filter;
   }
 
   defaultFilter() async {
@@ -386,8 +419,14 @@ class _MainStorePageState extends State<MainStorePage> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     if (!getedMediaQuery || tempFilterPageOpened != filterPageOpened) {
+      setState(() {
+        pageNumber = 1;
+      });
       prepareValues();
-      prepareUpdateFilterReq();
+      // prepareUpdateFilterReq();
+
+      _getProducts(page: pageNumber);
+      // _getProducts();
     }
 
     return Container(
@@ -558,7 +597,8 @@ class _MainStorePageState extends State<MainStorePage> {
                     setState(() {
                       subGroupsValue[index] = falseList;
                     });
-                    prepareUpdateFilterReq();
+                    // prepareUpdateFilterReq();
+                    _getProducts(page: pageNumber);
                   },
                   clearActiveGender: () => setState(() {
                     List<bool> falseList =
@@ -566,7 +606,8 @@ class _MainStorePageState extends State<MainStorePage> {
                     setState(() {
                       genderCheckBoxValue = falseList;
                     });
-                    prepareUpdateFilterReq();
+                    // prepareUpdateFilterReq();
+                    _getProducts(page: pageNumber);
                   }),
                   clearActiveAge: () => setState(() {
                     List<bool> falseList =
@@ -574,7 +615,8 @@ class _MainStorePageState extends State<MainStorePage> {
                     setState(() {
                       ageCheckBoxValue = falseList;
                     });
-                    prepareUpdateFilterReq();
+                    // prepareUpdateFilterReq();
+                    _getProducts(page: pageNumber);
                   }),
                   clearActiveColor: () => setState(() {
                     List<bool> falseList =
@@ -584,7 +626,8 @@ class _MainStorePageState extends State<MainStorePage> {
                       someOfActiveColors =
                           updateSomeOfActives(colorCheckBoxValue);
                     });
-                    prepareUpdateFilterReq();
+                    // prepareUpdateFilterReq();
+                    _getProducts(page: pageNumber);
                   }),
                   clearActiveSize: () => setState(() {
                     setState(() {
@@ -598,7 +641,8 @@ class _MainStorePageState extends State<MainStorePage> {
                         });
                       }
                     });
-                    prepareUpdateFilterReq();
+                    // prepareUpdateFilterReq();
+                    _getProducts(page: pageNumber);
                   }),
                   clearActivePrice: () => setState(() {
                     priceLimit = preparePriceCheckBox(isBiggest: true);
@@ -661,6 +705,7 @@ class _MainStorePageState extends State<MainStorePage> {
                           ],
                         )
                       : StoreMainBodyWidget(
+                          isLoadingForGetting: _isGettingNewProduct,
                           products: productsRes.data.result,
                           listOfProductsScrollController:
                               listOfProductsScrollController,
@@ -756,6 +801,7 @@ class _MainStorePageState extends State<MainStorePage> {
       });
     });
     print(".........................sss ......... $perNameOfSortBy");
-    await prepareUpdateFilterReq();
+    // await prepareUpdateFilterReq();
+    _getProducts();
   }
 }

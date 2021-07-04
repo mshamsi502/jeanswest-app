@@ -126,7 +126,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                               widget.isFave
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              color: widget.isFave ? Colors.red : Colors.grey,
+                              color:
+                                  widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
                               size: 0.083 * _screenSize.width, //30
                             ),
                           ),

@@ -5,9 +5,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dialogs/flutter_dialogs.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/qr_code_scanner_widget.dart';
 
 class StoreSearchBarWidget extends StatefulWidget {
   final FocusNode searchFocusNode;
@@ -115,16 +117,29 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
                     ),
             ],
           ),
-          Container(
-            width: 37,
-            height: 37,
-            decoration: BoxDecoration(
-              color: F2_BACKGROUND_COLOR,
-              borderRadius: BorderRadius.circular(4),
+          GestureDetector(
+            child: Container(
+              width: 37,
+              height: 37,
+              decoration: BoxDecoration(
+                color: F2_BACKGROUND_COLOR,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Icon(
+                Icons.qr_code_scanner_sharp,
+                size: 28,
+              ),
             ),
-            child: Icon(
-              Icons.qr_code_scanner_sharp,
-              size: 28,
+            onTap: () => showPlatformDialog(
+              context: context,
+              builder: (_) => BasicDialogAlert(
+                content: QRCodeScannerWidget(
+                  sendResult: (String code) {
+                    //
+                  },
+                ),
+              ),
+              androidBarrierDismissible: true,
             ),
           ),
         ],
