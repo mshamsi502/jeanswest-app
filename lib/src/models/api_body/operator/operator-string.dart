@@ -4,6 +4,7 @@
 // ****************************************************************************
 
 class OperationString {
+  List<String> oEQL;
   String oEQ;
   String oGT;
   String oLT;
@@ -11,11 +12,12 @@ class OperationString {
   String oLTE;
   String oIN;
   String oNOT;
-  String oCT;
+  List<String> oCT;
   //
   Map<String, dynamic> map;
 
   OperationString({
+    this.oEQL,
     this.oEQ,
     this.oGT,
     this.oLT,
@@ -25,8 +27,8 @@ class OperationString {
     this.oNOT,
     this.oCT,
   }) {
-    
     this.map = {};
+    if (oEQL != null && oEQL.length > 0) map["eq"] = oEQL;
     if (oEQ != null) map["eq"] = oEQ;
     if (oGT != null) map["gt"] = oGT;
     if (oLT != null) map["lt"] = oLT;
@@ -34,7 +36,7 @@ class OperationString {
     if (oLTE != null) map["lte"] = oLTE;
     if (oIN != null) map["in"] = oIN;
     if (oNOT != null) map["not"] = oNOT;
-    if (oCT != null) map["ct"] = oCT;
+    if (oCT != null && oCT.length > 0) map["ct"] = oCT;
     // print("OperationString mapppp created id : $map");
   }
 }

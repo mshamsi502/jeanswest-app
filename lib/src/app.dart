@@ -15,6 +15,7 @@ import 'ui/global/screens/loading_page.dart';
 import 'ui/global/widgets/app_bars/bottom_navigation_bar_widget.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/utils/helper/initCreate/init-create.dart';
+// import 'package:flutter_config/flutter_config.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -57,12 +58,17 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     loading = 'Loading';
 
     // ! check user auth and Create Pages
+
     auth();
     createEasyLoading();
   }
 
   auth() async {
-    Map<String, dynamic> authServiceRes = await authService();
+    Map<String, dynamic> authServiceRes = await authService(
+      changeShowButtonNavigationBar: (bool isShowing) =>
+          changeShowButtonNavigationBar(isShowing),
+    );
+    // if (!mounted)
     setState(() {
       userIsAuth = authServiceRes['userIsAuth'];
       pagesCreatedFinished = authServiceRes['pagesCreatedFinished'];
@@ -176,8 +182,11 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
 
   /// => [changeShowButtonNavigationBar] change [showButtonNavigationBar] for when Bottom Navigation Bar Should to be Hide Like [LoginPage]
   changeShowButtonNavigationBar(bool isShow) {
-    setState(() {
-      showButtonNavigationBar = isShow;
+    // if (!mounted)
+    Future.delayed(Duration.zero, () async {
+      setState(() {
+        showButtonNavigationBar = isShow;
+      });
     });
   }
 

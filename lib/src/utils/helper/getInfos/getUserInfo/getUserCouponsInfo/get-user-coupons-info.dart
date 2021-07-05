@@ -1,6 +1,6 @@
 //
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-jeanpoints-info.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-data.dart';

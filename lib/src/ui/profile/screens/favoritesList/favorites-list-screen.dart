@@ -6,12 +6,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-favorites-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
-import 'package:jeanswest/src/ui/profile/widgets/favoritesList/add-to-card-panel-widget.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
+import 'package:jeanswest/src/ui/global/widgets/product_view/add-to-card-panel-widget.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -154,6 +154,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                   closeAddToCardPanel: () => addToCardPanel.close(),
                   selectedColor: selectedColor,
                   selectedSize: selectedSize,
+                  addToCardPanelIsClosed: addToCardPanel.isAttached
+                      ? addToCardPanel.isPanelClosed
+                      : true,
                   changeSelectedColor: (int value) => setState(() {
                     selectedColor = value;
                   }),
@@ -165,7 +168,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                   children: [
                     AppBarWithBackWidget(
                       title: widget.title,
-                      onTap: () => Navigator.pop(context),
+                      onTapBack: () => Navigator.pop(context),
                     ),
                     Container(
                       margin: EdgeInsets.symmetric(
@@ -189,9 +192,9 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            print("favProducts : ${favProducts.data.length}");
-                            print(
-                                "styleCode of $index : ${favProducts.data[index * 2].styleCode}");
+                            // print("favProducts : ${favProducts.data.length}");
+                            // print(
+                            //     "styleCode of $index : ${favProducts.data[index * 2].styleCode}");
                             return Column(
                               children: [
                                 Row(

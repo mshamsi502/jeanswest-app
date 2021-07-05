@@ -852,6 +852,24 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<CategoryRes> getAllCategory() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/category/list',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CategoryRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<ListOfProductsRes> getAddToCardProductDetailInfo(barcode) async {
     ArgumentError.checkNotNull(barcode, 'barcode');
     const _extra = <String, dynamic>{};

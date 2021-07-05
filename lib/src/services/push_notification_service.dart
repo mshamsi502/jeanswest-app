@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/constValues/route_names.dart';
 import 'package:jeanswest/src/services/navigation_service.dart';
 
 class PushNotificationService {
   // ignore: deprecated_member_use
-  final FirebaseMessaging _fcm = FirebaseMessaging();
+  // final FirebaseMessaging _fcm = FirebaseMessaging();
+  // final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final NavigationService _navigationService =
       globalLocator<NavigationService>();
 
@@ -15,10 +16,9 @@ class PushNotificationService {
     if (Platform.isIOS) {
       // request permissions if we're on android
       // ignore: deprecated_member_use
-      _fcm.requestNotificationPermissions(IosNotificationSettings());
+      // _fcm.requestNotificationPermissions(IosNotificationSettings());
+      // _fcm.requestNotificationPermissions();
     }
-
-
 
     // _fcm.configure(
     //   // Called when the app is in the foreground and we receive a push notification

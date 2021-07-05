@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/ui/profile/screens/main_profile_page.dart';
+import 'package:jeanswest/src/ui/store/screens/main_store_page.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/get-all-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
+Map<String, dynamic> createBottomNavigationBarPages({
+  bool isAuth,
+  Function(bool) changeShowButtonNavigationBar,
+}) {
   // print('3 noAuth noAuthnoAuthnoAuth noAuth noAuth noAuth : $isAuth');
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
@@ -14,7 +18,6 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   if (isAuth)
     _children.add(MainProfilePage(
       isAuth: !isAuth,
-      // screenSize: screenSize,
       showCompeletProfileMessage: showCompeletProfileMessage,
       changeCompeletProfileMessage: (bool value) =>
           showCompeletProfileMessage = value,
@@ -23,8 +26,10 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
     _children.add(Container(color: Colors.white));
   }
   _children.add(Container(color: Colors.white));
-  _children.add(Container(color: Colors.blue));
-  // _children.add(shoppingBasketPage);
+  // _children.add(Container(color: Colors.blue));
+  _children.add(MainStorePage(
+    changeShowButtonNavigationBar: changeShowButtonNavigationBar,
+  ));
   _children.add(Container(color: Colors.green));
   _children.add(MainProfilePage(
     isAuth: isAuth,
@@ -40,27 +45,24 @@ Map<String, dynamic> createBottomNavigationBarPages({bool isAuth}) {
   };
 }
 
-Future<Map<String, dynamic>> authService() async {
+Future<Map<String, dynamic>> authService({
+  Function(bool) changeShowButtonNavigationBar,
+}) async {
   // // ! clear manual token
-  // globalLocator<SharedPreferences>().clear();
-  // globalLocator<SharedPreferences>().setString(TOKEN, "");
+  // sharedPrefs.clear();
+  // sharedPrefs.setString(TOKEN, "");
   //
+  if (sharedPrefs == null) sharedPrefs = await SharedPreferences.getInstance();
   if (MANUAL_TOKEN_IS_ENABLE) {
     // ! put token in device
-    if (sharedPrefs == null) {
-      sharedPrefs = await SharedPreferences.getInstance();
-    } else
-      sharedPrefs.setString(
-        TOKEN,
-        MANUAL_TOKEN,
-      );
+    sharedPrefs.setString(
+      TOKEN,
+      MANUAL_TOKEN,
+    );
   }
   //
   String getToken = "";
-  if (sharedPrefs == null) {
-    sharedPrefs = await SharedPreferences.getInstance();
-  } else
-    getToken = sharedPrefs.getString(TOKEN) ?? "";
+  getToken = sharedPrefs.getString(TOKEN) ?? "";
   // ignore: deprecated_member_use
   List<Widget> _children = List<Widget>();
   bool pagesCreatedFinished = false;
@@ -79,9 +81,8 @@ Future<Map<String, dynamic>> authService() async {
       while (tryToGetAllUser >= 0) {
         try {
           await getAllUserInfo(noAuth: () {
-            // =>
-
-            tryToGetAllUserInfo = 0;
+            tryToGetAllUserInfo = -1;
+            tryToGetAllUser = -1;
             isAuth = false;
             tokenIsExpired = true;
           });
@@ -90,12 +91,13 @@ Future<Map<String, dynamic>> authService() async {
             print('^*^*^ getAllUserInfo : Successfully');
             Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
               isAuth: isAuth,
-              // screenSize: screenSize,
+              changeShowButtonNavigationBar: changeShowButtonNavigationBar,
             );
             print('created BottomNavigationBarPages');
             _children = initCreateRes['children'];
             pagesCreatedFinished = initCreateRes['success'];
             //
+
             checkCompleteProfileMsgDateTime();
             //
             return {
@@ -104,6 +106,7 @@ Future<Map<String, dynamic>> authService() async {
               'children': _children,
             };
           }
+          print('----tryToGetAllUserInfo : $tryToGetAllUserInfo');
         } catch (e) {
           print('^*^*^ getAllUserInfo : NOOOT Successfully');
 
@@ -127,7 +130,7 @@ Future<Map<String, dynamic>> authService() async {
 
   Map<String, dynamic> initCreateRes = createBottomNavigationBarPages(
     isAuth: isAuth,
-    // screenSize: screenSize,
+    changeShowButtonNavigationBar: changeShowButtonNavigationBar,
   );
   print('created BottomNavigationBarPages');
   _children = initCreateRes['children'];
@@ -146,11 +149,9 @@ checkCompleteProfileMsgDateTime() {
   // !
   //
 
-  if (globalLocator<SharedPreferences>()
-          .getString('completeProfileMsgDataTime') !=
-      null) {
-    completeProfileMsgDateTime = globalLocator<SharedPreferences>()
-        .getString('completeProfileMsgDataTime');
+  if (sharedPrefs.getString('completeProfileMsgDataTime') != null) {
+    completeProfileMsgDateTime =
+        sharedPrefs.getString('completeProfileMsgDataTime');
     if (DateTime.now()
             .difference(DateTime.parse(completeProfileMsgDateTime))
             .inDays >
@@ -158,14 +159,14 @@ checkCompleteProfileMsgDateTime() {
       //     .inSeconds >
       // 15) {
       completeProfileMsgDateTime = DateTime.now().toString();
-      globalLocator<SharedPreferences>()
-          .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);
+      sharedPrefs.setString(
+          'completeProfileMsgDataTime', completeProfileMsgDateTime);
       showCompeletProfileMessage = true;
     }
   } else {
     completeProfileMsgDateTime = DateTime.now().toString();
-    globalLocator<SharedPreferences>()
-        .setString('completeProfileMsgDataTime', completeProfileMsgDateTime);
+    sharedPrefs.setString(
+        'completeProfileMsgDataTime', completeProfileMsgDateTime);
     showCompeletProfileMessage = true;
   }
 }

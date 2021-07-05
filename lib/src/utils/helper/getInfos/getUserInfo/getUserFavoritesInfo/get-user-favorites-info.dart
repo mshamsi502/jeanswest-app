@@ -1,6 +1,7 @@
 //
 
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
@@ -13,14 +14,24 @@ Future<UserFavoriteInfoRes> userFavoritesInfo(String id) async {
     userFavoritesRes = await globalLocator<GlobalRestClient>()
         .getUserFavoriteInfo(tblPosCustomersID);
   } catch (errorRealAPI) {
+    // if (ERROR_404_HANDLE_FOR_EMPTY_DATA && errorRealAPI.response == 404)
+    //   return UserFavoriteInfoRes(data: []);
+    // else {
     print('Catch Error getUserFavoriteInfo from ** Real API ** !');
     printErrorMessage(errorRealAPI);
-    try {
-      userFavoritesRes =
-          await globalLocator<GlobalRestClient>().getMockUserFavoriteInfo();
-    } catch (errorMockoon) {
-      print('Catch Error getUserFavoriteInfo from ** Mockoon ** !');
-      printErrorMessage(errorMockoon);
+    if (MOCK_IS_ENABLE) {
+      try {
+        userFavoritesRes =
+            await globalLocator<GlobalRestClient>().getMockUserFavoriteInfo();
+      } catch (errorMockoon) {
+        // if (ERROR_404_HANDLE_FOR_EMPTY_DATA && errorRealAPI.status == 404)
+        //   return UserFavoriteInfoRes(data: []);
+        // else {
+        print('Catch Error getUserFavoriteInfo from ** Mockoon ** !');
+        printErrorMessage(errorMockoon);
+        //       }
+        //     }
+      }
     }
   }
 

@@ -5,7 +5,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/product-add-to-card-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
@@ -24,6 +24,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
   final bool productIsActive;
   final Function(int) deleteFromFav;
   final Function(int) addToCardFromFav;
+  final Function(int, bool) changeFav;
 
   ProductInfoGridViewWidget({
     Key key,
@@ -36,6 +37,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
     this.productIndex,
     this.addToCardFromFav,
     this.productIsActive,
+    this.changeFav,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoGridViewWidgetState();
@@ -50,10 +52,15 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
 
   @override
   void initState() {
-    discountPercent = ((widget.product.basePrice - widget.product.salePrice) /
-            widget.product.basePrice *
-            100)
-        .round();
+    if (widget.product != null &&
+        widget.product.basePrice != null &&
+        widget.product.salePrice != null)
+      discountPercent = ((widget.product.basePrice - widget.product.salePrice) /
+              widget.product.basePrice *
+              100)
+          .round();
+    else
+      discountPercent = 0;
     super.initState();
   }
 
@@ -84,16 +91,16 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                   height: 0.3547 * _screenSize.height, //210,
                   width: widget.width,
                   child: Image.network(
-                    widget.product.banimodeDetails.images.homeDefault[widget
-                                    .product
-                                    .banimodeDetails
-                                    .images
-                                    .homeDefault
-                                    .length >
-                                6
-                            ? 2
-                            : 0] ??
-                        EMPTY_IMAGE,
+                    widget.product != null &&
+                            widget.product.banimodeDetails != null &&
+                            widget.product.banimodeDetails.images != null
+                        ? widget.product.banimodeDetails.images.thickboxDefault[
+                            widget.product.banimodeDetails.images
+                                        .thickboxDefault.length >
+                                    6
+                                ? 2
+                                : 0]
+                        : EMPTY_IMAGE,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -109,6 +116,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       ? GestureDetector(
                           onTap: () {
                             // !  change isFave
+                            widget.changeFav(
+                                widget.productIndex, !widget.isFave);
                           },
                           child: Container(
                             height: 0.09722 * _screenSize.width, //35,
@@ -117,7 +126,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                               widget.isFave
                                   ? Icons.favorite
                                   : Icons.favorite_border,
-                              color: widget.isFave ? Colors.red : Colors.grey,
+                              color:
+                                  widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
                               size: 0.083 * _screenSize.width, //30
                             ),
                           ),
@@ -173,7 +183,13 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
             child: Container(
               alignment: Alignment.centerRight,
               child: Text(
-                widget.product.banimodeDetails.productManufacturerEnName,
+                widget.product != null &&
+                        widget.product.banimodeDetails != null &&
+                        widget.product.banimodeDetails
+                                .productManufacturerEnName !=
+                            null
+                    ? widget.product.banimodeDetails.productManufacturerEnName
+                    : "",
                 textAlign: TextAlign.right,
                 textDirection: rtlTextDirection,
                 style: TextStyle(
@@ -187,7 +203,9 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
           ),
           Expanded(
             child: Text(
-              widget.product.banimodeDetails.productName,
+              widget.product != null && widget.product.banimodeDetails != null
+                  ? widget.product.banimodeDetails.productName
+                  : "",
               textDirection: rtlTextDirection,
               style: TextStyle(
                 fontSize: 0.0333 * _screenSize.width, //12,
@@ -237,7 +255,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                     padding: EdgeInsets.symmetric(
                       vertical: 0.0046 * _screenSize.height, //3,
                     ),
-                    width: 0.111 * _screenSize.width, //40,
+                    // width: 0.111 * _screenSize.width, //40,
                     height: 0.075 * _screenSize.height, //45,
                     child: widget.productIsActive
                         ? Column(
@@ -299,6 +317,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       setState(() {
                         addToCardProductDetailRes = _addToCardProductDetailRes;
                       });
+
                       widget.addToCardFromFav(widget.productIndex);
                     } catch (e) {
                       printErrorMessage(e);

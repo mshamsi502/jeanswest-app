@@ -3,22 +3,19 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 class AppBarWithBackWidget extends StatefulWidget {
   final String title;
   final Widget option;
-  final Function() onTap;
+  final Function() onTapBack;
 
   const AppBarWithBackWidget({
     Key key,
     this.title,
-    this.option,
-    @required this.onTap,
+    this.option = const SizedBox(),
+    @required this.onTapBack,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AppBarWithBackWidgetState();
@@ -30,7 +27,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
-      height: 0.078125 * _screenSize.height, //50,
+      // height: 0.078125 * _screenSize.height, //50,
       width: _screenSize.width,
       child: Row(
         children: [
@@ -59,7 +56,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                   ],
                 ),
               ),
-              onTap: widget.onTap,
+              onTap: widget.onTapBack,
             ),
           ),
           Expanded(
@@ -74,17 +71,8 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
           ),
           SizedBox(width: 0.016 * _screenSize.height //10
               ),
-          GestureDetector(
-                child: Container(
-                  height: 0.138 * _screenSize.width, //50,
-                  width: 0.138 * _screenSize.width, //50,
-                  // padding: EdgeInsets.all(
-                  //   0.027 * _screenSize.width, //10,
-                  // ),
-                  child: widget.option,
-                ),
-                onTap: () {},
-              ) ??
+          widget.option
+              ??
               Container(),
           SizedBox(width: 0.016 * _screenSize.height //10
               ),

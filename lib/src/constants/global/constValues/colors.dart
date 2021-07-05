@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 // ! BLUE
 const Color MAIN_BLUE_COLOR = Color(0xff2c3d73); // Resolution Blue
-const Color MAIN_BLUE_00_COLOR = Color(0xff003974); // Prussian Blue
+const Color RESOLUTION_BLUE_COLOR = Color(0xff003974); // Prussian Blue
 
 const Color BLUE_SKY_COLOR = Color(0xffE4E9F8); // Lavender
 const Color LIGHT_BLUE_SKY_COLOR = Color(0xFFF8FAFF); // Alice Blue
@@ -17,6 +17,7 @@ const Color BLUE_SKY_FADE_COLOR =
     Color.fromRGBO(0xb4, 0xd9, 0xff, 0.35); // Columbia Blue
 //
 const Color COLOMBIA_BLUE = Color(0xff9EF9FC); // Columbia Blue
+const Color ALICE_BLUE = Color(0xffF8FBFF); // Alice Blue
 const Color MAYA_BLUE = Color(0xff44BFFF); // Maya Blue
 const Color LOCHMARA_BLUE = Color(0xff3C6AAE); // Lochmara
 //
@@ -35,6 +36,7 @@ const Color GREY_FADE_SELECTED_COLOR = Color(0x50bdbdbd);
 const Color DARK_GREY = Color(0xffACACAC); // Dark Grey
 const Color WHITE_SMOKE_COLOR = Color(0xFFEBEBEB); // White Smoke
 const Color CHARCOAL_GREY_COLOR = Color(0xFF4A4A4A); // Charcoal Grey
+const Color NERO_GREY_COLOR = Color(0xFF272727); // Charcoal Grey
 //
 // ! GOLD, AMBER, YELLOW
 const Color MAIN_GOLD_COLOR = Color(0xFFFFC107);

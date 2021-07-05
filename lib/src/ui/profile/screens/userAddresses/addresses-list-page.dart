@@ -5,7 +5,7 @@ import 'package:jeanswest/src/ui/profile/widgets/favoritesList/delete-panel-widg
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddressesInfo/get-user-addresses-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-addresses-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
@@ -84,6 +84,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                 maxHeight: 0.3 * _screenSize.height,
                 isDraggable: true,
                 backdropEnabled: true,
+                color: Colors.transparent,
                 panel: DeletePanelWidget(
                   height: 0.3 * _screenSize.height,
                   closeDeletePanel: () => deletePanelController.close(),
@@ -141,7 +142,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                 ),
                             child: AppBarWithBackWidget(
                               title: widget.title,
-                              onTap: () => Navigator.pop(context),
+                              onTapBack: () => Navigator.pop(context),
                             )),
                         Container(
                           height: 0.0138 * _screenSize.width, //5,
@@ -167,7 +168,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                           editAddress: (int seleted) {
                                             setState(() {
                                               mapPanelState = PanelState.CLOSED;
-                                            
+
                                               selectForEdit = seleted;
                                             });
                                             editPanelController.open();
@@ -224,7 +225,7 @@ class _AddressesListPageState extends State<AddressesListPage> {
                                 selectForEdit = 0;
                                 mapPanelState = PanelState.OPEN;
                               });
-                      
+
                               editPanelController.open();
                             },
                           ),

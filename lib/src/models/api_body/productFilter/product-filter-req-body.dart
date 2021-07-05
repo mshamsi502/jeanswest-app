@@ -3,9 +3,11 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
 
 class ProductFilterReqBody {
+  OperationInt quantity;
   OperationString name;
   OperationString nameFA;
   OperationString brand;
@@ -22,11 +24,13 @@ class ProductFilterReqBody {
   OperationString seasonCode1;
   OperationString seasonCode2;
   OperationString ageGroup;
+  OperationString basePrice;
   OperationString cutting;
   //
   Map<String, dynamic> map;
 
   ProductFilterReqBody({
+    this.quantity,
     this.name,
     this.nameFA,
     this.brand,
@@ -43,9 +47,11 @@ class ProductFilterReqBody {
     this.seasonCode1,
     this.seasonCode2,
     this.ageGroup,
+    this.basePrice,
     this.cutting,
   }) {
     this.map = {};
+    if (quantity != null) map["quantity"] = quantity.map;
     if (name != null) map["name"] = name.map;
     if (nameFA != null) map["nameFA"] = nameFA.map;
     if (brand != null) map["brand"] = brand.map;
@@ -62,6 +68,7 @@ class ProductFilterReqBody {
     if (seasonCode1 != null) map["seasonCode1"] = seasonCode1.map;
     if (seasonCode2 != null) map["seasonCode2"] = seasonCode2.map;
     if (ageGroup != null) map["ageGroup"] = ageGroup.map;
+    if (basePrice != null) map["basePrice"] = basePrice.map;
     if (cutting != null) map["cutting"] = cutting.map;
     // print("mapppp created id : $map");
   }

@@ -5,6 +5,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:jeanswest/src/constants/global/constValues/size_constants.dart';
+import 'package:jeanswest/src/models/api_response/category/category-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/address/all-city.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/contactUs/contact-us-res.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/faq/faq-res.dart';
@@ -34,15 +35,14 @@ import 'package:jeanswest/src/models/api_response/globalRes/address/all-district
 import 'package:jeanswest/src/services/jeanswest_apis/rest-client.dart';
 import 'package:retrofit/retrofit.dart';
 
+// part 'rest_client_global.g.dart';
 part 'rest_client_global.g.dart';
 
 // @RestApi(baseUrl: BASE_URL_FOR_BRANCH_ADDRESS)
 // @RestApi(baseUrl: BASE_URL_FOR_MOCKOON)
 @RestApi(baseUrl: "")
 abstract class GlobalRestClient extends RestClient {
-  /// pre setting dio
-  /// [dio] auto set in service_locator.dart file and
-  /// optional named parameter [baseUrl] if you want change base url
+//
   factory GlobalRestClient(Dio dio, {String baseUrl}) {
     dio.options = BaseOptions(
         receiveTimeout: RECEIVE_TIMEOUT, connectTimeout: CONNECT_TIMEOUT);
@@ -239,6 +239,12 @@ abstract class GlobalRestClient extends RestClient {
 
   @POST('http://10.0.1.111:8000/api/v1/product/list')
   Future<ListOfProductsRes> getProductList(@Body() Map<String, dynamic> filter);
+
+  // *          CATEGORY *******************************************************
+
+  @GET('http://10.0.1.111:8000/api/v1/category/list')
+  // @GET('http://10.0.1.111:8000/api/$BACKEND_API_VERSION/category/list')
+  Future<CategoryRes> getAllCategory();
 
   // !
 

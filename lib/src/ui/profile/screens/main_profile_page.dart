@@ -6,23 +6,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/invite-friends-faq-data.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/level-cards-data.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-tickets-info.dart';
-import 'package:jeanswest/src/constants/global/option.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/invite-friends-faq-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/level-cards-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
+
 import 'package:jeanswest/src/constants/profile/constants.dart';
 import 'package:jeanswest/src/constants/profile/svg_images/profile_svg_images.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-payment-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-payment-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
 
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
 import 'package:jeanswest/src/models/profile/user/user-main-info.dart';
 
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-message-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/friends/invite_friend_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/messages/inbox-message-page.dart';
@@ -33,6 +33,7 @@ import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/menu_list_vie
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/cards-info-widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/auth_profile_appbar_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/unauth_profile_appbar_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_level.dart';
 import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -65,10 +66,13 @@ class _MainProfilePageState extends State<MainProfilePage>
   PanelController cardsInfoPanel;
   Color fadeBlackColor;
   ScrollController listViewScrollController;
-  LevelCard userLevel;
+  SingleLevelCard userLevel;
+  String userLevelAssets;
+  // LevelCard userLevel;
   String userLevelName;
-  LevelCard nextLevel;
-  LevelCard preLevel;
+  // LevelCard nextLevel;
+  SingleLevelCard nextLevel;
+  // LevelCard preLevel;
   bool haveUnreadMessage;
   List<Widget> mainProfileListMenu = [];
   List<Widget> moreListMenu;
@@ -76,38 +80,63 @@ class _MainProfilePageState extends State<MainProfilePage>
   //
   int percentCompleteProfile;
   int showingCard = 0;
+  //
+  Map<String, dynamic> cardsInfoMap;
 
   @override
   void initState() {
     super.initState();
+
+    // print("aaaaaaaaaaaaaaaaaaaaaaaaaa levelCardsData : $levelCardsData");
+    cardsInfoMap = prepareMainCards(
+      levelCards: levelCardsData,
+      // screenSize: widget.screenSize,
+    );
+    // print("bbbbbbbbb");
     if (widget.isAuth) {
       percentCompleteProfile = 100;
       userLevelName = userPayment.cTypeName;
-      userLevel = userLevelProvider(userPayment.payToman);
-      nextLevel = nextLevelProvider(userLevel);
-      haveUnreadMessage = false;
+      // userLevel = userLevelProvider(userPayment.payToman);
+      // nextLevel = nextLevelProvider(userLevel);
+      userLevel = userLevelProvider(
+        moneyBuying: userPayment.payToman,
+        cardsInfo: levelCardsData,
+      );
+      // print("userlevel : $userLevel");
+      nextLevel = nextLevelProvider(
+        userLevel: userLevel,
+        cardsInfo: levelCardsData,
+      );
 
+      userLevelAssets = userLevel.image;
+      // print("nextLevel : $nextLevel");
+      haveUnreadMessage = false;
+      scrollController = new ScrollController();
+      logOutPanel = new PanelController();
+      cardsInfoPanel = new PanelController();
       // for (var i = 0; i < userMessages.length; i++) {
-      for (var i = 0; i < userNotifs.length; i++) {
-        scrollController = new ScrollController();
-        logOutPanel = new PanelController();
-        cardsInfoPanel = new PanelController();
-        buildProfile();
-        moreListMenu = createMoreListMenuPages(
-            updateUserTickets: (List<DataTicket> newTickets) => setState(() {
-                  userTickets = newTickets;
-                }));
-        moreListWidgets = createMorePages(
+      buildProfile();
+      // for (var i = 0; i < userNotifs.length; i++) {
+      moreListMenu = createMoreListMenuPages(
+          userTicketss: userTickets,
+          updateUserTickets: (List<DataTicket> newTickets) {
+            updateUserTickets(newTickets);
+          });
+      moreListWidgets = createMorePages(
           context: context,
-          updateUserTickets: updateUserTickets,
-        );
-      }
+          userTicketss: userTickets,
+          updateUserTickets: (List<DataTicket> newTickets) {
+            updateUserTickets(newTickets);
+          });
+      // }
     }
   }
 
   updateUserTickets(List<DataTicket> tickets) {
     setState(() {
       userTickets = tickets;
+      print(
+          "last ticket : ${userTickets[userTickets.length - 1].context[userTickets[userTickets.length - 1].context.length - 1].text}");
     });
   }
 
@@ -141,13 +170,21 @@ class _MainProfilePageState extends State<MainProfilePage>
     if (percentCompleteProfile == 100)
       widget.changeCompeletProfileMessage(false);
     // print('percentCompleteProfile : $percentCompleteProfile %');
+    print("rebuild in main profile page");
     mainProfileListMenu = createProfileListMenuPages(
       // screenSize: widget.screenSize,
       userLevel: userLevel,
       userLevelName: userLevelName,
       nextLevel: nextLevel,
+      imageType: getTypeFileLink(userLevelAssets),
+      assetsLevelCard: userLevelAssets,
       moneyBuying: userPayment.payToman,
-      rebuild: () => buildProfile(),
+      rebuild: (UserMainInfo newUser) {
+        setState(() {
+          user = newUser;
+        });
+        buildProfile();
+      },
     );
   }
 
@@ -188,6 +225,7 @@ class _MainProfilePageState extends State<MainProfilePage>
           ),
           panel: CardsInfoWidget(
             levelCards: levelCardsData,
+            cardsInfo: cardsInfoMap,
             // assetsLevelCard: assetsLevelCard,
             // levels: mainLevels,
             screenSize: _screenSize,
@@ -375,7 +413,10 @@ class _MainProfilePageState extends State<MainProfilePage>
                                                   userAccountInfo: user,
                                                   updateUser: (UserMainInfo
                                                       userMainInfo) {
-                                                    user = userMainInfo;
+                                                    setState(() {
+                                                      user = userMainInfo;
+                                                    });
+
                                                     buildProfile();
                                                   }),
                                         ),
@@ -425,7 +466,9 @@ class _MainProfilePageState extends State<MainProfilePage>
                                           userAccountInfo: user,
                                           updateUser:
                                               (UserMainInfo userMainInfo) {
-                                            user = userMainInfo;
+                                            setState(() {
+                                              user = userMainInfo;
+                                            });
                                             buildProfile();
                                           }),
                                     ),
@@ -453,6 +496,8 @@ class _MainProfilePageState extends State<MainProfilePage>
                                 userLevel: userLevel,
                                 userLevelName: userLevelName,
                                 nextLevel: nextLevel,
+                                imageType: getTypeFileLink(userLevelAssets),
+                                assetsLevelCard: userLevelAssets,
                                 moneyBuying: userPayment.payToman)
                             : UnauthProfileAppBarWidget(),
                         widget.isAuth
@@ -489,7 +534,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                                         someOfShoppingFromInvited: userInvite
                                             .someOfShoppingFromInvited,
                                         faq: inviteFriendsFAQ,
-                                        // screenSize: _screenSize,
+                                        screenSize: _screenSize,
                                       ),
                                     ),
                                   );
@@ -506,9 +551,11 @@ class _MainProfilePageState extends State<MainProfilePage>
                   //   child:
                   MembershipCardWidget(
                       showingCard: showingCard,
+                      assetsLevelCard: cardsInfoMap["mainAssetsLevelCard"],
+                      imageType: cardsInfoMap["imageType"],
                       changeShowingCard: (int index) => setState(() {
                             showingCard = index;
-                            print("--------showingCard : $showingCard");
+                            // print("--------showingCard : $showingCard");
                             if (cardsInfoPanel.isAttached &&
                                 cardsInfoPanel.isPanelClosed)
                               cardsInfoPanel.open();
@@ -524,6 +571,7 @@ class _MainProfilePageState extends State<MainProfilePage>
                     haveExit: widget.isAuth,
                     backgroundColor: F7_BACKGROUND_COLOR,
                     openLogOutPanel: () => logOutPanel.open(),
+                    screenSize: _screenSize,
                   ),
                   SizedBox(
                     height: 0.14 * _screenSize.height, //90,

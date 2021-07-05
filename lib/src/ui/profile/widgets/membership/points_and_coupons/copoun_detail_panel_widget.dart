@@ -43,10 +43,10 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
-            0.03 * _screenSize.width, //11
+            0.0444 * _screenSize.width, //16
           ),
           topRight: Radius.circular(
-            0.03 * _screenSize.width, //11
+            0.0444 * _screenSize.width, //16
           ),
         ),
       ),
@@ -120,7 +120,7 @@ class _CopounDetailPanelWidgetState extends State<CopounDetailPanelWidget> {
                       : Container(
                           height: 0.234 * _screenSize.height, //150,
                           alignment: Alignment.center,
-                          color: Colors.amber[200],
+                          // color: Colors.amber[200],
                           child: Text(
                             "اطلاعاتی برای نمایش وجود ندارد",
                             style: TextStyle(

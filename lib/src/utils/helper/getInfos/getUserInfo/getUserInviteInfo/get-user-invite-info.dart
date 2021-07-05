@@ -1,5 +1,5 @@
 //
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-invite-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-invite-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userInvite/user-invite-info-res.dart';
 import 'package:jeanswest/src/models/profile/user/user-invite-info.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';

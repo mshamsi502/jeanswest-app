@@ -25,6 +25,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
@@ -100,7 +101,12 @@ dependencies {
      implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
      implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.32"
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
-    // implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+//      implementation('com.journeyapps:zxing-android-embedded:4.1.0') { transitive = false }
+//    implementation 'com.google.zxing:core:3.4.1'
+//    implementation 'androidx.camera:camera-camera2:1.1.0-alpha06'
+//    implementation 'androidx.camera:camera-lifecycle:1.1.0-alpha06'
+//    implementation 'androidx.camera:camera-view:1.0.0-alpha26'
+//     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }
 
 // allprojects {

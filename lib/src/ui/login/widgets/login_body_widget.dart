@@ -6,7 +6,7 @@
 import 'package:flutter/services.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/models/country/country.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +24,7 @@ class LoginBodyWidget extends StatefulWidget {
   final String inputPhone;
   final bool hasError;
   final bool check;
-  final Country selectedCountry;
+  // final Country selectedCountry;
   final Function(String) changeTextFieldSearch;
   final Function(List<dynamic>) changeHasError;
 
@@ -34,7 +34,7 @@ class LoginBodyWidget extends StatefulWidget {
     // this.preTelCodePanelController,
     this.inputPhone,
     this.hasError,
-    this.selectedCountry,
+    // this.selectedCountry,
     this.focusNode,
     this.changeTextFieldSearch,
     this.changeHasError,
@@ -46,7 +46,7 @@ class LoginBodyWidget extends StatefulWidget {
 }
 
 class _LoginBodyWidgetState extends State<LoginBodyWidget> {
-  String hintPhone = '0 9 - - - - - - - - -';
+  String hintPhone = HINT_PHONE_NUMBER_INPUT;
   bool keyboardIsOpen;
   var keyboardVisibilityController = KeyboardVisibilityController();
 
@@ -54,11 +54,12 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
   void initState() {
     keyboardIsOpen = false;
     keyboardVisibilityController.onChange.listen((bool visible) {
-      if (visible) if (mounted)
-        setState(() {
-          keyboardIsOpen = true;
-        });
-      else {
+      if (visible) {
+        if (mounted)
+          setState(() {
+            keyboardIsOpen = true;
+          });
+      } else {
         widget.focusNode.unfocus();
         if (mounted)
           setState(() {
@@ -66,24 +67,9 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
           });
       }
     });
-    // KeyboardVisibilityNotification().addNewListener(
-    //   onChange: (bool visible) {
-    //     if (visible)
-    //       setState(() {
-    //         keyboardIsOpen = true;
-    //       });
-    //     else {
-    //       widget.focusNode.unfocus();
-    //       setState(() {
-    //         keyboardIsOpen = false;
-    //       });
-    //     }
-    //   },
-    // );
+
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +173,11 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                               autofocus: false,
                               onSubmitted: (value) {
                                 List<dynamic> checkPhone = checkCorrectPhone(
-                                    inputPhone: value, startWithZero: true);
+                                  inputPhone: value,
+                                  startWithZero:
+                                      (STANDARD_PHONE_NUMBER_STYLE_FOR_API ==
+                                          "0xxx-xxx-xxxx"),
+                                );
                                 widget.changeHasError(checkPhone);
                                 widget.focusNode.unfocus();
                               },
@@ -215,7 +205,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            widget.focusNode.unfocus();
+                            // widget.focusNode.unfocus();
                             widget.phoneTextEditingController.clear();
                           });
                         },

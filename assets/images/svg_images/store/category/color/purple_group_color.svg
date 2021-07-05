@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="57.077" height="57.5" viewBox="0 0 57.077 57.5">
+  <g id="Purple_Group" data-name="Purple Group" transform="translate(-186 -472.504)">
+    <circle id="Ellipse_95" data-name="Ellipse 95" cx="27.687" cy="27.687" r="27.687" transform="translate(186.852 473.778)" fill="#a50073"/>
+    <path id="Polygon_1" data-name="Polygon 1" d="M12.353,0,24.705,24.705H0Z" transform="translate(202.186 501.891)" fill="#ce3af9"/>
+    <path id="Polygon_2" data-name="Polygon 2" d="M12.353,0,24.705,24.705H0Z" transform="matrix(0.602, 0.799, -0.799, 0.602, 206.747, 491.998)" fill="#ff5bfa"/>
+    <path id="Polygon_3" data-name="Polygon 3" d="M12.353,0,24.705,24.705H0Z" transform="translate(217.465 489.432) rotate(106)" fill="#ffc1ee"/>
+    <path id="Path_1533" data-name="Path 1533" d="M12.353,0,24.187,24.688,0,24.705Z" transform="translate(225.935 496.208) rotate(158)" fill="#ff87db"/>
+    <path id="Polygon_6" data-name="Polygon 6" d="M12.353,0,24.705,24.705H0Z" transform="translate(218.496 513.181) rotate(-106)" fill="#600078"/>
+    <path id="Path_1532" data-name="Path 1532" d="M7.872,0,19.6,24.929,0,25.987Z" transform="translate(221.829 504.809) rotate(-150)" fill="#f0c"/>
+    <path id="Polygon_7" data-name="Polygon 7" d="M12.353,0,24.705,24.705H0Z" transform="matrix(0.602, -0.799, 0.799, 0.602, 207.646, 511.728)" fill="#ab00ff"/>
+    <g id="Ellipse_94" data-name="Ellipse 94" transform="translate(186 472.926)" fill="none" stroke="#f9f9f9" stroke-width="4">
+      <circle cx="28.539" cy="28.539" r="28.539" stroke="none"/>
+      <circle cx="28.539" cy="28.539" r="26.539" fill="none"/>
+    </g>
+  </g>
+</svg>

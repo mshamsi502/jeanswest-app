@@ -8,12 +8,12 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jeanswest/src/constants/global/constValues/api_respones.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/option.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 checkPhoneInput({
   @required BuildContext context,
@@ -26,17 +26,19 @@ checkPhoneInput({
   @required Function() startDownTimer,
   @required Function(Map<String, dynamic>) apiResponse,
 }) async {
-  List<dynamic> phoneStringIsValid =
-      checkCorrectPhone(inputPhone: phoneNumber, startWithZero: true);
+  List<dynamic> phoneStringIsValid = checkCorrectPhone(
+    inputPhone: phoneNumber,
+    startWithZero: (STANDARD_PHONE_NUMBER_STYLE_FOR_API == "0xxx-xxx-xxxx"),
+  );
   print('phoneStringIsValid : $phoneStringIsValid');
   if (!phoneStringIsValid[0]) {
     changeHasError(true);
     changeErrorMsg(phoneStringIsValid[1]);
   } else {
     Map<String, String> otpReqBody = {
-      "phoneNumber": "+98${phoneNumber.substring(1)}",
+      "phoneNumber": phoneNumber,
     };
-    print("widget.phoneNumber : +98${phoneNumber.substring(1)}");
+    print("widget.phoneNumber sended : $phoneNumber");
     try {
       OTPReqResponse otpReq =
           await globalLocator<GlobalRestClient>().reqOtp(otpReqBody);
@@ -53,16 +55,16 @@ checkPhoneInput({
         changeInputPhoneStep(false);
         startDownTimer();
       } else {
-        changeInputPhoneStep(true);
+        // changeInputPhoneStep(true);
         print('req is NOOOOT successfuly');
         changeHasError(true);
         apiResponse(statusCodes[otpReq]);
       }
     } catch (e) {
-      print('aaaaaaaaaaaaaa : ${e.response.data['statusCode']}');
+      print('aaaaaa statusCode: ${e.response.data['statusCode']}');
       print(
-          'aaaaaaaaaaaaaa : ${statusCodes[e.response.data['statusCode']]['perMessage']}');
-      changeInputPhoneStep(true);
+          'aaaaaa errorMessage: ${statusCodes[e.response.data['statusCode']]['perMessage']}');
+      // changeInputPhoneStep(true);
       print('req is NOOOOT successfuly');
       changeHasError(true);
       apiResponse(statusCodes[e.response.data['statusCode']]);
@@ -94,11 +96,11 @@ checkCodeInput({
       currentFocus.focusedChild.unfocus();
     }
     Map<String, String> authReqBody = {
-      "phoneNumber": "+98${phoneNumber.substring(1)}",
+      "phoneNumber": phoneNumber,
       "pin": verifyCode
     };
-    print("widget.phoneNumber : +98${phoneNumber.substring(1)}");
-    print('pin: $verifyCode');
+    print("phoneNumber sended : $phoneNumber");
+    print('pin sended: $verifyCode');
     try {
       AuthReqRespons authReq =
           await globalLocator<GlobalRestClient>().reqAuth(authReqBody);
@@ -106,13 +108,12 @@ checkCodeInput({
         if (authReq.data.accessToken != null &&
             authReq.data.accessToken != '') {
           print('req is successfuly , token ${authReq.data.accessToken}');
-          globalLocator<SharedPreferences>()
-              .setString(TOKEN, authReq.data.accessToken);
-          print(
-              'token has save, loaded token ${globalLocator<SharedPreferences>().getString(TOKEN)}');
+          sharedPrefs.setString(TOKEN, authReq.data.accessToken);
+          print('token has save, loaded token ${sharedPrefs.getString(TOKEN)}');
           // getAllUserInfo(token: authReqData.accessToken); // ! Get All Info
 
           // !
+          tryToGetAllUserInfo = 2;
           await Future.delayed(Duration(microseconds: 1000));
           await Phoenix.rebirth(context); // ! restart the app
         } else {
@@ -146,3 +147,4 @@ checkCodeInput({
 //   print('checkVerifyCode : $checkVerifyCode');
 //   return checkVerifyCode;
 // }
+

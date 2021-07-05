@@ -4,7 +4,7 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-order-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-order-info.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online_order_list_widget.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
 import 'package:flutter/cupertino.dart';

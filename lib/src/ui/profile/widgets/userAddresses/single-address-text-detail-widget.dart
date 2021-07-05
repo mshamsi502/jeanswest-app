@@ -255,6 +255,7 @@ class _SingleAddressTextDetailWidgetState
             titleColor: CHARCOAL_GREY_COLOR,
             textEditingController: widget.addressTextEditingController,
             mediaQuery: MediaQuery.of(context),
+            width: MediaQuery.of(context).size.width,
             lines: 3,
           ),
           CustomTextFieldWidget(
@@ -262,6 +263,7 @@ class _SingleAddressTextDetailWidgetState
             textEditingController: widget.houseNumberTextEditingController,
             titleColor: CHARCOAL_GREY_COLOR,
             mediaQuery: MediaQuery.of(context),
+            width: MediaQuery.of(context).size.width,
             lines: 1,
           ),
           CustomTextFieldWidget(
@@ -269,6 +271,7 @@ class _SingleAddressTextDetailWidgetState
             textEditingController: widget.unitNumberTextEditingController,
             titleColor: CHARCOAL_GREY_COLOR,
             mediaQuery: MediaQuery.of(context),
+            width: MediaQuery.of(context).size.width,
             lines: 1,
           ),
           CustomTextFieldWidget(
@@ -276,6 +279,7 @@ class _SingleAddressTextDetailWidgetState
             textEditingController: widget.postalCodeTextEditingController,
             titleColor: CHARCOAL_GREY_COLOR,
             mediaQuery: MediaQuery.of(context),
+            width: MediaQuery.of(context).size.width,
             lines: 1,
           ),
           SizedBox(
@@ -297,6 +301,7 @@ class _SingleAddressTextDetailWidgetState
             titleColor: CHARCOAL_GREY_COLOR,
             textColor: Colors.black,
             mediaQuery: MediaQuery.of(context),
+            width: MediaQuery.of(context).size.width,
             lines: 1,
           ),
           CustomTextFieldWidget(
@@ -306,6 +311,7 @@ class _SingleAddressTextDetailWidgetState
             titleColor: CHARCOAL_GREY_COLOR,
             textColor: Colors.black,
             mediaQuery: MediaQuery.of(context),
+            width: MediaQuery.of(context).size.width,
             lines: 1,
           ),
         ],

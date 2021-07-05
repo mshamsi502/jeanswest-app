@@ -6,9 +6,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-jeanpoints-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/userAllInfo/user-main-info.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-jeanpoints-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widget.dart';
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
@@ -17,8 +17,12 @@ import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupon
 
 class AuthProfileAppBarWidget extends StatefulWidget {
   final String userLevelName;
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
+  final SingleLevelCard userLevel;
+  // final LevelCard userLevel;
+  final SingleLevelCard nextLevel;
+  // final LevelCard nextLevel;
+  final String imageType;
+  final String assetsLevelCard;
   final int moneyBuying;
 
   const AuthProfileAppBarWidget({
@@ -27,6 +31,8 @@ class AuthProfileAppBarWidget extends StatefulWidget {
     this.nextLevel,
     this.moneyBuying,
     this.userLevelName,
+    this.imageType,
+    this.assetsLevelCard,
   }) : super(key: key);
   State<StatefulWidget> createState() => _AuthProfileAppBarWidgetState();
 }
@@ -166,6 +172,9 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                                       widget.userLevelName,
                                                   userLevel: widget.userLevel,
                                                   nextLevel: widget.nextLevel,
+                                                  imageType: widget.imageType,
+                                                  assetsLevelCard:
+                                                      widget.assetsLevelCard,
                                                   moneyBuying:
                                                       widget.moneyBuying,
                                                 ),
@@ -253,7 +262,7 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                               ? 'assets/images/png_images/global/userProfile/user-unknown.png'
                               : user.gender == 1
                                   ? 'assets/images/png_images/global/userProfile/user-male.png'
-                                  : user.gender == 2
+                                  : user.gender == 0
                                       ? 'assets/images/png_images/global/userProfile/user-female.png'
                                       : 'assets/images/png_images/global/userProfile/user-unknown.png',
                         ),

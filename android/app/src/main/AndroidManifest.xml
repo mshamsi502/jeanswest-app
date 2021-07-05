@@ -1,13 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="club.jeanswest.app">
-  <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
    <application
         android:label="Jeanswest"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
        <meta-data
            android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyBHrqkIRrie34dDJp5pbYBGw4ec8dYdz-s"/>
+           android:value="@string/GOOGLE_MAP_API"/>
+           <!-- android:value="AIzaSyBHrqkIRrie34dDJp5pbYBGw4ec8dYdz-s"/> -->
 
         <activity
             android:name="club.jeanswest.app.MainActivity"

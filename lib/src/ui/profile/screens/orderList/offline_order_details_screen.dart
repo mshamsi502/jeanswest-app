@@ -12,7 +12,7 @@ import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_p
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/shopping_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline_payment_info_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/offlineOrderDetails/offline_payment_detail_widget.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/return-policy-data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -180,7 +180,13 @@ class _OfflineOrderDetailsScreenState extends State<OfflineOrderDetailsScreen> {
                   AppBarWithBackWidget(
                     title: 'جزئیات سفارش',
                     option: GestureDetector(
-                      child: ProfileSvgImages.myBlueBarcodeIcon,
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        padding: EdgeInsets.all(6),
+                        margin: EdgeInsets.all(3),
+                        child: ProfileSvgImages.myBlueBarcodeIcon,
+                      ),
                       onTap: () {
                         showPlatformDialog(
                           context: context,
@@ -193,7 +199,7 @@ class _OfflineOrderDetailsScreenState extends State<OfflineOrderDetailsScreen> {
                         );
                       },
                     ),
-                    onTap: () => Navigator.pop(context),
+                    onTapBack: () => Navigator.pop(context),
                   ),
                 ],
               ),

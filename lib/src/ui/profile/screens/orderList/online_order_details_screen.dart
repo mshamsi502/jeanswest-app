@@ -15,7 +15,7 @@ import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/online
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/return-policy-data.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/return-policy-data.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/qr_code_order_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_main_info_widget.dart';
@@ -171,7 +171,13 @@ class _OnlineOrderDetailsScreenState extends State<OnlineOrderDetailsScreen> {
                 AppBarWithBackWidget(
                   title: 'جزئیات سفارش',
                   option: GestureDetector(
-                    child: ProfileSvgImages.myBlueBarcodeIcon,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      padding: EdgeInsets.all(6),
+                      margin: EdgeInsets.all(3),
+                      child: ProfileSvgImages.myBlueBarcodeIcon,
+                    ),
                     onTap: () {
                       showPlatformDialog(
                         context: context,
@@ -184,7 +190,7 @@ class _OnlineOrderDetailsScreenState extends State<OnlineOrderDetailsScreen> {
                       );
                     },
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
               ],
             ),

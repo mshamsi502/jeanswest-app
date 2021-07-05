@@ -66,6 +66,7 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
   @override
   void initState() {
     heightBar = 0.0625 * widget.screenSize.height; //40
+
     super.initState();
   }
 
@@ -101,50 +102,74 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
                 widget.openRealSearchPanel(true, context);
               },
               child: widget.textFielIsActive
-                  ? TextField(
-                      // enabled: widget.isEnable,
-                      // keyboardType: TextInputType,
-                      // style: TextStyle(
-                      //   color: widget.textColor,
-                      //   fontSize: 0.0388 * widget.mediaQuery.size.width, // 14,
-                      // ),
-                      // maxLines: widget.lines ?? 1,
-                      focusNode: widget.focusNode,
-                      controller: widget.textEditingController,
-                      cursorColor: MAIN_BLUE_COLOR,
-                      showCursor: true,
-                      onChanged: widget.onChangeSearchField,
-                      decoration: InputDecoration(
-                        hintText: widget.preTitle + widget.title ?? '',
-                        hintStyle: widget.titleStyle,
-                        contentPadding: EdgeInsets.symmetric(
-                          vertical: 0.015 * _screenSize.height, // 10,
-                          horizontal: 0.055 * _screenSize.width, // 20,
+                  ? Container(
+                      // color: Colors.red,
+                      child: TextField(
+                        // enabled: widget.isEnable,
+                        // keyboardType: TextInputType,
+                        // style: TextStyle(
+                        //   color: widget.textColor,
+                        //   fontSize: 0.0388 * widget.mediaQuery.size.width, // 14,
+                        // ),
+                        // maxLines: widget.lines ?? 1,
+                        focusNode: widget.focusNode,
+                        controller: widget.textEditingController,
+                        textAlign: TextAlign.right,
+                        cursorColor: MAIN_BLUE_COLOR,
+                        showCursor: true,
+                        onChanged: widget.onChangeSearchField,
+                        decoration: InputDecoration(
+                          hintText: widget.preTitle + widget.title ?? '',
+                          hintStyle: widget.titleStyle,
+                          contentPadding: EdgeInsets.all(
+                            0.015 * _screenSize.height, // 10,
+                          )
+                          // (
+                          //   vertical: 0.015 * _screenSize.height, // 10,
+                          //   horizontal: 10, //0.055 * _screenSize.width, // 20,
+                          // )
+                          ,
+                          border: InputBorder.none,
                         ),
-                        border: InputBorder.none,
                       ),
                     )
                   : Stack(
                       alignment: Alignment.centerRight,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              widget.preTitle ?? "branch_screen.search_in".tr(),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: 'IRANSansLight',
+                        Container(
+                          height: heightBar,
+                          // color: Colors.green,
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.preTitle ??
+                                    "branch_screen.search_in".tr(),
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontFamily: 'IRANSansLight',
+                                  fontSize: widget.titleStyle.fontSize,
+                                  fontWeight: widget.titleStyle.fontWeight,
+                                ),
                               ),
-                            ),
-                            widget.titleIsCenter
-                                ? SizedBox()
-                                : Text(widget.title, style: widget.titleStyle),
-                          ],
+                              widget.titleIsCenter
+                                  ? SizedBox()
+                                  : Expanded(
+                                      child: Text(
+                                        widget.title,
+                                        style: widget.titleStyle,
+                                      ),
+                                    ),
+                            ],
+                          ),
                         ),
                         widget.titleIsCenter
                             ? Center(
-                                child: Text(widget.title,
-                                    style: widget.titleStyle),
+                                child: Text(
+                                  widget.title,
+                                  style: widget.titleStyle,
+                                ),
                               )
                             : SizedBox(),
                       ],

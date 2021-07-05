@@ -10,12 +10,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
-import 'package:jeanswest/src/models/profile/level_card/level_card.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/levelCards/single-level-card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class CustomCircularPercentIndicatorWidget extends StatefulWidget {
-  final LevelCard userLevel;
-  final LevelCard nextLevel;
+  final SingleLevelCard userLevel;
+  // final LevelCard userLevel;
+  final SingleLevelCard nextLevel;
+  // final LevelCard nextLevel;
   final int moneyBuying;
   final bool currentLevelWidgetAnimation;
 
@@ -39,13 +41,25 @@ class _CustomCircularPercentIndicatorWidgetState
 
   @override
   void initState() {
+    print("userLevel =: ${widget.userLevel}");
     loadPercent = 0;
     isEndAnimation = false;
-    orgPercent = ((double.parse(widget.userLevel.maxPay) - widget.moneyBuying) /
-            (double.parse(widget.userLevel.maxPay) -
-                double.parse(widget.userLevel.minPay)) *
-            100)
-        .toStringAsFixed(0);
+    if (widget.userLevel.minPay == widget.moneyBuying)
+      orgPercent = "0";
+    else
+      orgPercent =
+          ((widget.moneyBuying - (widget.userLevel.minPay).toDouble()) /
+                  ((widget.userLevel.maxPay).toDouble() -
+                      (widget.userLevel.minPay).toDouble()) *
+                  100)
+              .toStringAsFixed(0);
+    // ((double.parse(widget.userLevel.maxPay) - widget.moneyBuying) /
+    //         (double.parse(widget.userLevel.maxPay) -
+    //             double.parse(widget.userLevel.minPay)) *
+    //         100)
+    //     .toStringAsFixed(0);
+
+    print("orgPercent =: $orgPercent");
     percentAnimation();
     super.initState();
   }
@@ -106,7 +120,7 @@ class _CustomCircularPercentIndicatorWidgetState
                 child: Text(
                   widget.userLevel.title == 'Gold'
                       ? '_____'
-                      : '${widget.nextLevel.title}',
+                      : '${widget.nextLevel.engTitle}',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 0.0333 * _screenSize.width, //12,
@@ -131,9 +145,9 @@ class _CustomCircularPercentIndicatorWidgetState
       await Future.delayed(Duration(
           milliseconds: (int.parse((2000 /
                   (((double.parse((widget.moneyBuying).toStringAsFixed(0)) -
-                          double.parse(widget.userLevel.minPay)) /
-                      (double.parse(widget.userLevel.maxPay) -
-                          double.parse(widget.userLevel.minPay)) *
+                          (widget.userLevel.minPay).toDouble()) /
+                      ((widget.userLevel.maxPay).toDouble() -
+                          (widget.userLevel.minPay).toDouble()) *
                       100)))
               .toStringAsFixed(0)))));
     } while (!isEndAnimation);

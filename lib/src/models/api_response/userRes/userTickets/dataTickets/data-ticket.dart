@@ -12,8 +12,8 @@ part 'data-ticket.g.dart';
 @JsonSerializable(nullable: true)
 // ignore: must_be_immutable
 class DataTicket extends Equatable {
-  @JsonKey(name: 'ticketCode')
-  String ticketCode;
+  @JsonKey(name: 'code')
+  String code;
   @JsonKey(name: 'title')
   String title;
   @JsonKey(name: 'context')
@@ -22,7 +22,7 @@ class DataTicket extends Equatable {
   int status;
 
   DataTicket({
-    this.ticketCode,
+    this.code,
     this.title,
     this.context,
     this.status,
@@ -35,7 +35,7 @@ class DataTicket extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'ticketCode': ticketCode,
+      'code': code,
       'title': title,
       'context': context,
       'status': status,
@@ -44,7 +44,7 @@ class DataTicket extends Equatable {
 
   @override
   List<Object> get props => [
-        ticketCode,
+        code,
         title,
         context,
         status,
