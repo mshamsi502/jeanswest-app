@@ -4,12 +4,14 @@
 // ****************************************************************************
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_dialogs/flutter_dialogs.dart';
+
+import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/search_appbar_widget.dart';
-import 'package:jeanswest/src/ui/global/widgets/qr_code_scanner_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 class StoreSearchBarWidget extends StatefulWidget {
   final FocusNode searchFocusNode;
@@ -118,30 +120,37 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
             ],
           ),
           GestureDetector(
-            child: Container(
-              width: 37,
-              height: 37,
-              decoration: BoxDecoration(
-                color: F2_BACKGROUND_COLOR,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Icon(
-                Icons.qr_code_scanner_sharp,
-                size: 28,
-              ),
-            ),
-            onTap: () => showPlatformDialog(
-              context: context,
-              builder: (_) => BasicDialogAlert(
-                content: QRCodeScannerWidget(
-                  sendResult: (String code) {
-                    //
-                  },
+              child: Container(
+                width: 37,
+                height: 37,
+                decoration: BoxDecoration(
+                  color: F2_BACKGROUND_COLOR,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Icon(
+                  Icons.qr_code_scanner_sharp,
+                  size: 28,
                 ),
               ),
-              androidBarrierDismissible: true,
-            ),
-          ),
+              onTap: () async {
+                String barcodeScanRes;
+
+                print(
+                    "#${MAIN_BLUE_COLOR.toString().substring(10, MAIN_BLUE_COLOR.toString().length - 1)}");
+
+                try {
+                  barcodeScanRes = await scanner.scan();
+                  print(barcodeScanRes);
+                  if (barcodeScanRes != "-1")
+                    showToast(
+                      message: "بارکد محصول اسکن شده : $barcodeScanRes",
+                      textColor: Colors.white,
+                      backgroundColor: GREEN_TEXT_COLOR,
+                    );
+                } on PlatformException {
+                  barcodeScanRes = 'Failed to get platform version.';
+                }
+              }),
         ],
       ),
     );

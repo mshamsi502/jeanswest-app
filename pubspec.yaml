@@ -81,7 +81,10 @@ dependencies:
   flutter_switch: ^0.3.1
 # 
   flutter_gifimage: ^1.0.0
-  qr_code_scanner: ^0.5.1
+  # qr_code_scanner: ^0.5.1
+  # flutter_barcode_scanner: ^2.0.0
+  # flutter_barcode_scanner: any
+  qrscan: ^0.3.2
 #----------------Converts-----------------
   qr_flutter: ^4.0.0
   shamsi_date: ^0.9.1
@@ -89,7 +92,9 @@ dependencies:
 
 #----------------Map-----------------
 
-  google_maps_flutter: any
+  # google_maps_flutter: any
+  # google_maps_flutter: ^2.0.6
+  google_maps_flutter: ^0.5.26
 #! google_maps_flutter: ^2.0.1 (backup pack)
   #! flutter_map: ^0.10.1+1 (backup pack)
   latlong: any
@@ -100,7 +105,8 @@ dependencies:
   geocoding: ^2.0.0
   location: any
 
-  search_map_place: ^0.3.0
+  # search_map_place: ^0.3.0
+  search_map_place: any
   
 #-------------------------------------------------------------------
 
