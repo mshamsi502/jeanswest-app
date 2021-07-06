@@ -4,6 +4,7 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
+import 'package:jeanswest/src/models/api_response/productRes/banimode/banimode-detail-product-features-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimodeSubDetails/banimode-image-product-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimodeSubDetails/banimode-size-product-res.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -31,6 +32,10 @@ class BanimodeDetailsProductRes extends Equatable {
   String productManufacturerName;
   @JsonKey(name: 'product_manufacturer_en_name')
   String productManufacturerEnName;
+  @JsonKey(name: 'product_description_short')
+  String productDescriptionShort;
+  @JsonKey(name: 'product_features')
+  List<BanimodeDetailsProductFeaturesRes> productFeatures;
 
   BanimodeDetailsProductRes({
     this.productSizeGuide,
@@ -42,6 +47,8 @@ class BanimodeDetailsProductRes extends Equatable {
     this.productName,
     this.productManufacturerName,
     this.productManufacturerEnName,
+    this.productDescriptionShort,
+    this.productFeatures,
   });
 
   factory BanimodeDetailsProductRes.fromJson(Map<String, dynamic> json) =>
@@ -60,6 +67,8 @@ class BanimodeDetailsProductRes extends Equatable {
       'product_name': productName,
       'product_manufacturer_name': productManufacturerName,
       'product_manufacturer_en_name': productManufacturerEnName,
+      'product_description_short': productDescriptionShort,
+      'product_features': productFeatures,
     };
   }
 
@@ -74,5 +83,7 @@ class BanimodeDetailsProductRes extends Equatable {
         productName,
         productManufacturerName,
         productManufacturerEnName,
+        productDescriptionShort,
+        productFeatures,
       ];
 }

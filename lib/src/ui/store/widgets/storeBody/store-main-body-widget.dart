@@ -148,16 +148,6 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                           controller: widget.listOfProductsScrollController,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int indexOfGrid) {
-                            // if (!mounted)
-                            //   setState(() {
-                            // percentScroll = (widget
-                            //         .listOfProductsScrollController
-                            //         .position
-                            //         .pixels /
-                            //     (widget.listOfProductsScrollController.position
-                            //         .maxScrollExtent));
-                            // });
-
                             return Column(
                               children: [
                                 Row(
@@ -268,20 +258,6 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (BuildContext context, int indexOfList) {
-                            // if (!mounted)
-                            //   setState(() {
-                            // percentScroll = (widget
-                            //         .listOfProductsScrollController
-                            //         .position
-                            //         .pixels /
-                            //     (widget.listOfProductsScrollController.position
-                            //         .maxScrollExtent));
-                            // });
-                            print(
-                                ",,,,,,,,,,,, tempProducts.length  : ${tempProducts.length}");
-                            print(",,,,,,,,,,,, indexOfList  : $indexOfList");
-                            print(
-                                ",,,,,,,,,,,, tempProducts[indexOfList]  : ${tempProducts[indexOfList].barcode}");
                             return tempProducts[indexOfList] == null ||
                                     tempProducts[indexOfList].barcode == null ||
                                     indexOfList > tempProducts.length

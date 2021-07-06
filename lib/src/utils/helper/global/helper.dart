@@ -20,10 +20,16 @@ import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 // import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'dart:io';
+
+import 'package:intent/action.dart' as android_action;
+import 'package:intent/intent.dart' as android_intent;
+import 'package:intent/extra.dart' as android_extra;
 
 Map<String, double> updateHeigths({
   double screenHeight,
@@ -145,8 +151,14 @@ String shamsiDayOfWeek(int year, int mouth, int day) {
   return shamsiDay;
 }
 
-String toPriceStyle(int price) {
+String toPriceStyle(int price, {bool isFromRialToToman = false}) {
   String sPrice = price.toString();
+  if (isFromRialToToman) {
+    if (sPrice == null || sPrice == "" || sPrice == "0")
+      sPrice = "0";
+    else
+      sPrice = (int.parse(sPrice) ~/ 10).toString();
+  }
   int _counter = 0;
   String comma = ',';
   for (var i = sPrice.length - 1; i >= 0; i--) {
@@ -158,6 +170,7 @@ String toPriceStyle(int price) {
       _counter = 0;
     }
   }
+
   return sPrice;
 }
 
@@ -292,3 +305,44 @@ Future<Uint8List> capturePng(GlobalKey globalKey) async {
 //   return controller.takeSnapshot();
 // }
 
+shareATextLink(String textLink) {
+  // String link = 'club.avakatan.ir/public/jeanswest.apk';
+  // String text = 'به جین وست ملحق شو :)\n$link';
+
+  if (Platform.isAndroid) {
+    android_intent.Intent()
+      ..setAction(android_action.Action.ACTION_SEND)
+      ..setType('text/plain')
+      ..putExtra(android_extra.Extra.EXTRA_TEXT, textLink)
+      ..startActivity().catchError((e) => print(e));
+  }
+
+  // ignore: unused_element
+
+  //  else if (Platform.isIOS) {
+  //   // IOS Intent to Map Apps
+  //   //   "comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"
+  //   Uri.parse(
+  //       'comgooglemaps://?saddr=Google+Inc,+8th+Avenue,+New+York,+NY&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit');
+  // } else {
+  //   // Other OS Intent to Map Apps
+  // }
+}
+
+Future<ListOfProductsRes> getAllColorsAndSizes(String styleCode) async {
+  // ListOfProductsRes allColorsAndSizesProducts;
+  Map<String, dynamic> mapFilter = {
+    "filter": {
+      "styleCode": {"eq": styleCode},
+      "quantity": {"gt": 0}
+    },
+    "option": {
+      "page": {"eq": 1},
+      "limit": {"eq": 20}
+    },
+    "unique": {
+      "color": {"eq": 1}
+    }
+  };
+  return await globalLocator<GlobalRestClient>().getProductList(mapFilter);
+}

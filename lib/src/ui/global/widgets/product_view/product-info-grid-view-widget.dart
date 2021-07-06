@@ -11,6 +11,7 @@ import 'package:jeanswest/src/models/api_response/productRes/single-product-info
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
+import 'package:jeanswest/src/ui/singleProduct/screens/single_product_main_page.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
@@ -87,22 +88,34 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
             ),
             child: Stack(
               children: [
-                Container(
-                  height: 0.3547 * _screenSize.height, //210,
-                  width: widget.width,
-                  child: Image.network(
-                    widget.product != null &&
-                            widget.product.banimodeDetails != null &&
-                            widget.product.banimodeDetails.images != null
-                        ? widget.product.banimodeDetails.images.thickboxDefault[
-                            widget.product.banimodeDetails.images
-                                        .thickboxDefault.length >
-                                    6
-                                ? 2
-                                : 0]
-                        : EMPTY_IMAGE,
-                    fit: BoxFit.fitWidth,
+                GestureDetector(
+                  child: Container(
+                    height: 0.3547 * _screenSize.height, //210,
+                    width: widget.width,
+                    child: Image.network(
+                      widget.product != null &&
+                              widget.product.banimodeDetails != null &&
+                              widget.product.banimodeDetails.images != null
+                          ? widget.product.banimodeDetails.images
+                              .thickboxDefault[widget.product.banimodeDetails
+                                      .images.thickboxDefault.length >
+                                  6
+                              ? 2
+                              : 0]
+                          : EMPTY_IMAGE,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
+                  // ! navigation to single product
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SingleProductMainPage(
+                                product: widget.product,
+                                isFave: widget.isFave,
+                                changeFave: (bool newIsFave) => widget
+                                    .changeFav(widget.productIndex, newIsFave),
+                              ))),
                 ),
                 widget.productIsActive
                     ? SizedBox()
@@ -227,7 +240,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       children: [
                         widget.productIsActive && discountPercent != 0
                             ? Text(
-                                toPriceStyle(widget.product.basePrice),
+                                toPriceStyle(widget.product.basePrice,
+                                    isFromRialToToman: true),
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 0.0333 * _screenSize.width, //12,
@@ -236,7 +250,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                             : SizedBox(),
                         Text(
                           widget.productIsActive
-                              ? toPriceStyle(widget.product.salePrice)
+                              ? toPriceStyle(widget.product.salePrice,
+                                  isFromRialToToman: true)
                               : 'ناموجود',
                           style: TextStyle(
                             color: widget.productIsActive

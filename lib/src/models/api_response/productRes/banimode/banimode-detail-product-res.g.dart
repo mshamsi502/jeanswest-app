@@ -27,6 +27,13 @@ BanimodeDetailsProductRes _$BanimodeDetailsProductResFromJson(
     productName: json['product_name'] as String,
     productManufacturerName: json['product_manufacturer_name'] as String,
     productManufacturerEnName: json['product_manufacturer_en_name'] as String,
+    productDescriptionShort: json['product_description_short'] as String,
+    productFeatures: (json['product_features'] as List)
+        ?.map((e) => e == null
+            ? null
+            : BanimodeDetailsProductFeaturesRes.fromJson(
+                e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -42,4 +49,6 @@ Map<String, dynamic> _$BanimodeDetailsProductResToJson(
       'product_name': instance.productName,
       'product_manufacturer_name': instance.productManufacturerName,
       'product_manufacturer_en_name': instance.productManufacturerEnName,
+      'product_description_short': instance.productDescriptionShort,
+      'product_features': instance.productFeatures,
     };

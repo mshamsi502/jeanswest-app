@@ -11,6 +11,7 @@ import 'package:jeanswest/src/models/api_response/productRes/single-product-info
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
+import 'package:jeanswest/src/ui/singleProduct/screens/single_product_main_page.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
@@ -80,18 +81,30 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
             child: Stack(
               children: [
                 Center(
-                  child: Container(
-                    width: widget.width,
-                    child: Image.network(
-                      widget.product.banimodeDetails.images.thickboxDefault[
-                              widget.product.banimodeDetails.images
-                                          .thickboxDefault.length >
-                                      6
-                                  ? 2
-                                  : 0] ??
-                          EMPTY_IMAGE,
-                      fit: BoxFit.fitWidth,
+                  child: GestureDetector(
+                    child: Container(
+                      width: widget.width,
+                      child: Image.network(
+                        widget.product.banimodeDetails.images.thickboxDefault[
+                                widget.product.banimodeDetails.images
+                                            .thickboxDefault.length >
+                                        6
+                                    ? 2
+                                    : 0] ??
+                            EMPTY_IMAGE,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
+                    // ! navigation to single product
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SingleProductMainPage(
+                                  product: widget.product,
+                                  isFave: widget.isFave,
+                                  changeFave: (bool newIsFav) => widget
+                                      .changeFav(widget.productIndex, newIsFav),
+                                ))),
                   ),
                 ),
                 Positioned(
@@ -250,7 +263,8 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
                             children: [
                               discountPercent != 0
                                   ? Text(
-                                      toPriceStyle(widget.product.basePrice),
+                                      toPriceStyle(widget.product.basePrice,
+                                          isFromRialToToman: true),
                                       style: TextStyle(
                                           color: Colors.grey,
                                           fontSize:
@@ -260,7 +274,8 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
                                     )
                                   : SizedBox(),
                               Text(
-                                toPriceStyle(widget.product.salePrice),
+                                toPriceStyle(widget.product.salePrice,
+                                    isFromRialToToman: true),
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 0.038 * _screenSize.width, //14,

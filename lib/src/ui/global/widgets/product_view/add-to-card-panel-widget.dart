@@ -7,8 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
-import 'package:jeanswest/src/ui/profile/widgets/favoritesList/detail-product-widget.dart';
-import 'package:jeanswest/src/ui/profile/widgets/favoritesList/size-guid-product-widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/product_view/detail-product-widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/product_view/size-guid-product-widget.dart';
 
 class AddToCardPanelWidget extends StatefulWidget {
   final ListOfProductsRes productDetail;
