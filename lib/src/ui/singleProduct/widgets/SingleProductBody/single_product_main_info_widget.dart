@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
-import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductMainInfo/single_product_image_in_body_widget.dart';
-import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductMainInfo/single_product_title_widget.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/SingleProductMainInfo/single_product_image_in_body_widget.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/SingleProductMainInfo/single_product_title_widget.dart';
 
 class SingleProductMainInfoWidget extends StatefulWidget {
   final SingleProductInfoRes product;
@@ -30,10 +30,22 @@ class SingleProductMainInfoWidget extends StatefulWidget {
 class _SingleProductMainInfoWidgetState
     extends State<SingleProductMainInfoWidget> {
   ScrollController scrollController = new ScrollController();
+  SingleProductInfoRes _selectedProduct;
+  @override
+  void initState() {
+    _selectedProduct = widget.product;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
+    if (_selectedProduct.barcode != widget.product.barcode)
+      setState(() {
+        _selectedProduct = widget.product;
+        // print(
+        //     "_selectedProduct.banimodeDetails : ${_selectedProduct.banimodeDetails.images.thickboxDefault}");
+      });
     return Container(
         // color: Colors.red,
         // height: _screenSize.height,
@@ -43,15 +55,15 @@ class _SingleProductMainInfoWidgetState
           child: Column(children: [
             SingleProductImageInBodyWidget(
               screenSize: _screenSize,
-              images: widget.product.banimodeDetails.images.thickboxDefault,
+              images: _selectedProduct.banimodeDetails.images.thickboxDefault,
               linkProductForShare: 'تستیییی',
               isFave: widget.isFave,
               changeFave: (bool newIsFave) => widget.changeFave(newIsFave),
             ),
             SingleProductTitleWidget(
-              brand: widget.product.banimodeDetails.productManufacturerEnName,
-              fullName: widget.product.banimodeDetails.productName,
-              price: widget.product.salePrice,
+              brand: _selectedProduct.banimodeDetails.productManufacturerEnName,
+              fullName: _selectedProduct.banimodeDetails.productName,
+              price: _selectedProduct.salePrice,
               openExistInBranches: () => widget.openExistInBranches(),
             ),
           ]),

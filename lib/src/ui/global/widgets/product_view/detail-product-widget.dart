@@ -208,9 +208,9 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
                       ),
                       onTap: () {
                         widget.changeSelectedColor(index);
-                        int selectedSize = createSelectedSize(widget
-                            .productDetail.result[index].banimodeDetails.size);
-                        widget.changeSelectedSize(selectedSize);
+                        // int selectedSize = createSelectedSize(widget
+                        //     .productDetail.result[index].banimodeDetails.size);
+                        widget.changeSelectedSize(-1);
                       }),
                   SizedBox(
                     width: 0.0138 * _screenSize.width, //5

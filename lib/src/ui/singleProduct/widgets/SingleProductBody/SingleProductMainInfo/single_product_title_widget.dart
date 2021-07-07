@@ -29,10 +29,30 @@ class SingleProductTitleWidget extends StatefulWidget {
 }
 
 class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
+  String _brand;
+  String _fullName;
+  int _price;
+
+  @override
+  void initState() {
+    updateTitlesValue();
+    super.initState();
+  }
+
+  void updateTitlesValue() {
+    setState(() {
+      _brand = widget.brand;
+      _fullName = widget.fullName;
+      _price = widget.price;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
+    if (_brand != widget.brand ||
+        _fullName != widget.fullName ||
+        _price != widget.price) updateTitlesValue();
     return Container(
       // color: Colors.green,
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -42,7 +62,7 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                widget.brand,
+                _brand,
                 style: TextStyle(fontSize: 14),
               ),
               GestureDetector(
@@ -88,7 +108,7 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
             children: [
               Expanded(
                 child: Text(
-                  widget.fullName,
+                  _fullName,
                   style: TextStyle(fontSize: 14),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -97,7 +117,7 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
               SizedBox(width: 20),
               Row(children: [
                 Text(
-                  toPriceStyle(widget.price, isFromRialToToman: true),
+                  toPriceStyle(_price, isFromRialToToman: true),
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(width: 2),

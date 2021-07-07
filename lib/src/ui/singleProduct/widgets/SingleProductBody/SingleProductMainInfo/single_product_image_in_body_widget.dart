@@ -40,29 +40,46 @@ class _SingleProductImageInBodyWidgetState
   //
   int selectedImage = 0;
   bool tempIsFav;
+  //
+  List<String> _imagesOfSelectedProduct;
 
   @override
   void initState() {
-    widget.images.forEach((image) {
-      imageItemWidget.add(GestureDetector(
-        child: Container(
-          width: widget.screenSize.width,
-          // color: Colors.amber,
-          child: Image.network(
-            image ?? EMPTY_IMAGE,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-      ));
-    });
     tempIsFav = widget.isFave;
+    _imagesOfSelectedProduct = widget.images;
+    updateImageWidgets();
     super.initState();
+  }
+
+  updateImageWidgets() {
+    setState(() {
+      imageItemWidget = [];
+      _imagesOfSelectedProduct = widget.images;
+      if (selectedImage != 0) {
+        selectedImage = 0;
+        carouselController.jumpToPage(selectedImage);
+      }
+      _imagesOfSelectedProduct.forEach((image) {
+        imageItemWidget.add(GestureDetector(
+          child: Container(
+            width: widget.screenSize.width,
+            // color: Colors.amber,
+            child: Image.network(
+              image ?? EMPTY_IMAGE,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ));
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
+    if (_imagesOfSelectedProduct.length != widget.images.length ||
+        _imagesOfSelectedProduct.first != widget.images.first)
+      updateImageWidgets();
     return SingleChildScrollView(
       controller: scrollController,
       child: Column(
@@ -81,6 +98,7 @@ class _SingleProductImageInBodyWidgetState
                         (int index, CarouselPageChangedReason reason) {
                       setState(() {
                         selectedImage = index;
+                       
                       });
                     },
                     autoPlay: false,
@@ -164,7 +182,7 @@ class _SingleProductImageInBodyWidgetState
                   // color: Colors.red,
                   alignment: Alignment.center,
                   child: ListView.builder(
-                      itemCount: widget.images.length,
+                      itemCount: _imagesOfSelectedProduct.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       controller: circleOptCarouselController,

@@ -23,6 +23,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
   final bool hasAddToFav;
   final bool isFave;
   final bool productIsActive;
+  final bool addToCardIsActive;
   final Function(int) deleteFromFav;
   final Function(int) addToCardFromFav;
   final Function(int, bool) changeFav;
@@ -39,6 +40,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
     this.addToCardFromFav,
     this.productIsActive,
     this.changeFav,
+    this.addToCardIsActive = true,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoGridViewWidgetState();
@@ -304,63 +306,66 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                 ],
               ),
               Expanded(child: SizedBox()),
-              Container(
-                height: 0.125 * _screenSize.width, //45,
-                width: 0.125 * _screenSize.width, //45,
-                child: GestureDetector(
-                  onTap: () async {
-                    try {
-                      print('styleCode : ${widget.product.styleCode}');
+              widget.addToCardIsActive
+                  ? Container(
+                      height: 0.125 * _screenSize.width, //45,
+                      width: 0.125 * _screenSize.width, //45,
+                      child: GestureDetector(
+                        onTap: () async {
+                          try {
+                            print('styleCode : ${widget.product.styleCode}');
 
-                      Map<String, dynamic> mapFilter = {
-                        "filter": {
-                          "styleCode": {"eq": widget.product.styleCode},
-                          "quantity": {"gt": 0}
+                            Map<String, dynamic> mapFilter = {
+                              "filter": {
+                                "styleCode": {"eq": widget.product.styleCode},
+                                "quantity": {"gt": 0}
+                              },
+                              "option": {
+                                "page": {"eq": 1},
+                                "limit": {"eq": 20}
+                              },
+                              "unique": {
+                                "color": {"eq": 1}
+                              }
+                            };
+                            ListOfProductsRes _addToCardProductDetailRes =
+                                await globalLocator<GlobalRestClient>()
+                                    .getProductList(mapFilter);
+
+                            setState(() {
+                              addToCardProductDetailRes =
+                                  _addToCardProductDetailRes;
+                            });
+
+                            widget.addToCardFromFav(widget.productIndex);
+                          } catch (e) {
+                            printErrorMessage(e);
+                            print('error :(');
+                          }
+                          // } else // ! for test, delete it
+                          //   print('no exist :)');
                         },
-                        "option": {
-                          "page": {"eq": 1},
-                          "limit": {"eq": 20}
-                        },
-                        "unique": {
-                          "color": {"eq": 1}
-                        }
-                      };
-                      ListOfProductsRes _addToCardProductDetailRes =
-                          await globalLocator<GlobalRestClient>()
-                              .getProductList(mapFilter);
-
-                      setState(() {
-                        addToCardProductDetailRes = _addToCardProductDetailRes;
-                      });
-
-                      widget.addToCardFromFav(widget.productIndex);
-                    } catch (e) {
-                      printErrorMessage(e);
-                      print('error :(');
-                    }
-                    // } else // ! for test, delete it
-                    //   print('no exist :)');
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(
-                        0.138 * _screenSize.width, //50,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            ),
+                            border: Border.all(
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.add_shopping_cart,
+                            size: 0.069 * _screenSize.width, //25,
+                            color: widget.productIsActive
+                                ? MAIN_BLUE_COLOR
+                                : Colors.grey,
+                          ),
+                        ),
                       ),
-                      border: Border.all(
-                        color: Colors.grey[300],
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.add_shopping_cart,
-                      size: 0.069 * _screenSize.width, //25,
-                      color: widget.productIsActive
-                          ? MAIN_BLUE_COLOR
-                          : Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
+                    )
+                  : SizedBox(),
             ],
           )
         ],

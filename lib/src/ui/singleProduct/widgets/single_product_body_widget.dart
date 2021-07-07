@@ -10,8 +10,9 @@ import 'package:jeanswest/src/models/api_response/productRes/list-of-products-re
 
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/detail-product-widget.dart';
-import 'package:jeanswest/src/ui/singleProduct/widgets/single_product_attributes_widget.dart';
-import 'package:jeanswest/src/ui/singleProduct/widgets/single_product_main_info_widget.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/single_product_attributes_widget.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/single_product_main_info_widget.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/single_product_similar_widget.dart';
 
 class SingleProductBodyWidget extends StatefulWidget {
   final SingleProductInfoRes product;
@@ -41,11 +42,12 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
   //
   int selectedColor;
   int selectedSize;
+  SingleProductInfoRes _selectedProduct;
   @override
   void initState() {
     selectedColor = 0;
     selectedSize = -1;
-
+    _selectedProduct = widget.product;
     super.initState();
   }
 
@@ -64,7 +66,7 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
               SingleProductMainInfoWidget(
                 changeFave: (bool newIsFave) => widget.changeFave(newIsFave),
                 isFave: widget.isFave,
-                product: widget.product,
+                product: _selectedProduct,
                 openExistInBranches: () => widget.openExistInBranchesPanel(),
               ),
               Container(
@@ -82,6 +84,9 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                       showSizeGuid: () => widget.openSizeGuidPanel(),
                       changeSelectedColor: (int value) => setState(() {
                         selectedColor = value;
+                        _selectedProduct =
+                            widget.allColorsAndSizesProducts.data.result[value];
+                        selectedSize = -1;
                       }),
                       changeSelectedSize: (int value) => setState(() {
                         selectedSize = value;
@@ -94,7 +99,7 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                 color: F7_BACKGROUND_COLOR,
               ),
               SingleProductAttributesWidget(
-                product: widget.product,
+                product: _selectedProduct,
                 titles: ["ویژگی ها"],
                 shortDiscribtions: [
                   widget.product.banimodeDetails.productDescriptionShort
@@ -105,6 +110,23 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                 height: 8,
                 color: F7_BACKGROUND_COLOR,
               ),
+              widget.allColorsAndSizesProducts != null &&
+                      widget.allColorsAndSizesProducts.data != null &&
+                      widget.allColorsAndSizesProducts.data.result != null &&
+                      widget.allColorsAndSizesProducts.data.result.length > 0
+                  ? Column(
+                      children: [
+                        SingleProductSimilarWidget(
+                          similarProducts:
+                              widget.allColorsAndSizesProducts.data.result,
+                        ),
+                        Container(
+                          height: 8,
+                          color: F7_BACKGROUND_COLOR,
+                        ),
+                      ],
+                    )
+                  : SizedBox(),
             ],
           ),
         ));
