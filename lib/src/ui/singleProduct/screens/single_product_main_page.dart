@@ -9,10 +9,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
+import 'package:jeanswest/src/models/branch/branch-for-product.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/size-guid-product-widget.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/panels/branch-detail-panel.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/panels/exist_in_branch_panel.dart';
+import 'package:jeanswest/src/ui/singleProduct/widgets/panels/image_expanded_panel.dart';
 import 'package:jeanswest/src/ui/singleProduct/widgets/single_product_body_widget.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getProduct/get-available-in-branch-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -32,20 +37,47 @@ class SingleProductMainPage extends StatefulWidget {
 }
 
 class _SingleProductMainPageState extends State<SingleProductMainPage> {
+  PanelController imageExpandedPanel = PanelController();
+  PanelController directToBranchPanel = PanelController();
   PanelController existInBranchesPanel = PanelController();
   PanelController sizeGuidePanel = PanelController();
   //
   ListOfProductsRes allColorsAndSizesProducts;
+  SingleProductInfoRes _selectedProduct;
+//
+  int _selectedSize = 0;
+  List<BranchForProduct> _availableInBranches;
+  BranchForProduct _selectedBranches;
 
   @override
   void initState() {
+    _selectedProduct = widget.product;
     getAllColorsAndSizes(widget.product.styleCode).then((products) {
       setState(() {
         allColorsAndSizesProducts = products;
       });
     });
+    updateAvailableInBranches();
     super.initState();
   }
+
+  updateAvailableInBranches() async {
+    print(
+        "getting new AvailableInBranches whith reference : ${_selectedProduct.banimodeDetails.size[_selectedSize].reference}");
+    List<BranchForProduct> tempAvailableInBranches =
+        // await getAvailableInBranches(_selectedProduct.barcode);
+        await getAvailableInBranches(
+            _selectedProduct.banimodeDetails.size[_selectedSize].reference);
+    setState(() {
+      _availableInBranches = tempAvailableInBranches;
+      _selectedBranches = tempAvailableInBranches.first;
+    });
+  }
+  // 94591992-2010-120-1
+  // 1901424420881051
+  // 1901424461921051
+  // 1901424420840051
+  // 1901424420865051
 
   @override
   Widget build(BuildContext context) {
@@ -61,27 +93,20 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
             color: Colors.white,
             // color: Colors.red,
             child: SlidingUpPanel(
-              controller: existInBranchesPanel,
+              controller: imageExpandedPanel,
               minHeight: 0,
-              maxHeight: 0.7 * _screenSize.height, //??,
+              maxHeight: _screenSize.height,
               backdropEnabled: true,
               onPanelClosed: () => FocusScope.of(context).unfocus(),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(
-                  0.03 * _screenSize.width, //11,
-                ),
-                topRight: Radius.circular(
-                  0.03 * _screenSize.width, //11,
-                ),
-              ),
-              panel: Container(
-                color: Colors.red,
-                height: 0.7 * _screenSize.height, //??,
+              panel: ImageExapndedPanel(
+                product: _selectedProduct,
+                closePanel: () => imageExpandedPanel.close(),
+                screenSize: _screenSize,
               ),
               body: SlidingUpPanel(
-                controller: sizeGuidePanel,
+                controller: directToBranchPanel,
                 minHeight: 0,
-                maxHeight: 0.52 * _screenSize.height, //??,
+                maxHeight: 0.4 * _screenSize.height, //??,
                 backdropEnabled: true,
                 onPanelClosed: () => FocusScope.of(context).unfocus(),
                 borderRadius: BorderRadius.only(
@@ -92,63 +117,139 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                     0.03 * _screenSize.width, //11,
                   ),
                 ),
-                panel: Container(
-                  height: 0.52 * _screenSize.height, //??,
-                  child: SizeGuideProductWidget(
-                    productDetail: allColorsAndSizesProducts,
-                    height: 0.3,
-                    hideSizeGuide: () => sizeGuidePanel.close(),
+                panel: BranchDetailPanel(
+                  selectedBranch: _selectedBranches,
+                  close: () => directToBranchPanel.close(),
+                ),
+                // Container(
+                //   color: Colors.amber,
+                //   height: 0.3 * _screenSize.height, //??,
+                // ),
+                body: SlidingUpPanel(
+                  controller: existInBranchesPanel,
+                  minHeight: 0,
+                  maxHeight: 0.7 * _screenSize.height, //??,
+                  backdropEnabled: true,
+                  onPanelClosed: () => FocusScope.of(context).unfocus(),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      0.03 * _screenSize.width, //11,
+                    ),
+                    topRight: Radius.circular(
+                      0.03 * _screenSize.width, //11,
+                    ),
+                  ),
+                  panel: ExistInBranchPanel(
+                    close: () => existInBranchesPanel.close(),
+                    availableInBranches: _availableInBranches,
+                    openBranchDetail: (BranchForProduct _branch) {
+                      setState(() {
+                        _selectedBranches = _branch;
+                      });
+                      existInBranchesPanel.close();
+                      directToBranchPanel.open();
+                    },
+                  ),
+                  body: SlidingUpPanel(
+                    controller: sizeGuidePanel,
+                    minHeight: 0,
+                    maxHeight: 0.52 * _screenSize.height, //??,
+                    backdropEnabled: true,
+                    onPanelClosed: () => FocusScope.of(context).unfocus(),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(
+                        0.03 * _screenSize.width, //11,
+                      ),
+                      topRight: Radius.circular(
+                        0.03 * _screenSize.width, //11,
+                      ),
+                    ),
+                    panel: Container(
+                      height: 0.52 * _screenSize.height, //??,
+                      child: SizeGuideProductWidget(
+                        productDetail: allColorsAndSizesProducts,
+                        height: 0.3,
+                        hideSizeGuide: () => sizeGuidePanel.close(),
+                      ),
+                    ),
+                    body: Column(children: [
+                      SizedBox(height: 2.5),
+                      AppBarWithBackWidget(
+                        title: "",
+                        option: GestureDetector(
+                          child: SvgPicture.asset(
+                            'assets/images/svg_images/global/new/fi-rr-shopping-cart.svg',
+                            color: Colors.black,
+                            width: 23,
+                            height: 23,
+                          ),
+                          onTap: () {
+                            // ! Navigation to Shopping BAsket
+                          },
+                        ),
+                        onTapBack: () => Navigator.pop(context),
+                      ),
+                      SizedBox(height: 2.5),
+                      Container(
+                        height: 3,
+                        color: F7_BACKGROUND_COLOR,
+                      ),
+                      Expanded(
+                          child: SingleProductBodyWidget(
+                        product: widget.product,
+                        allColorsAndSizesProducts: allColorsAndSizesProducts,
+                        isFave: widget.isFave,
+                        changeFave: (bool newIsFave) =>
+                            widget.changeFave(newIsFave),
+                        openExistInBranchesPanel: () {
+                          if (_availableInBranches != null &&
+                              _availableInBranches.length > 0)
+                            existInBranchesPanel.open();
+                          else
+                            showToast(
+                              message:
+                                  "این محصول با رنگ انختاب شده در هیچ شعبه ای موجود نیست!",
+                              textColor: Colors.white,
+                              backgroundColor: NERO_GREY_COLOR,
+                            );
+                        },
+                        openSizeGuidPanel: () => sizeGuidePanel.open(),
+                        updateSelectedProduct:
+                            (SingleProductInfoRes _product) => setState(() {
+                          _selectedProduct = _product;
+                        }),
+                        imageExpandedPanel: () => imageExpandedPanel.open(),
+                        updateSelectedColor: (int newValue) {
+                          setState(() {
+                            _selectedSize = newValue;
+                          });
+
+                          updateAvailableInBranches();
+                        },
+                        openShoppingBasket: () {
+                          // TODO : Navigate To Shopping BAsket Page
+                        },
+                      )),
+                      Container(
+                        // color: Colors.red,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        child: AvakatanButtonWidget(
+                          title: "افزودن به سبد خرید",
+                          backgroundColor: MAIN_BLUE_COLOR,
+                          borderColor: MAIN_BLUE_COLOR,
+                          textColor: Colors.white,
+                          height: 43,
+                          width: _screenSize.width,
+                          onTap: () {
+                            // ! addToCard
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                    ]),
                   ),
                 ),
-                body: Column(children: [
-                  SizedBox(height: 2.5),
-                  AppBarWithBackWidget(
-                    title: "",
-                    option: GestureDetector(
-                      child: SvgPicture.asset(
-                        'assets/images/svg_images/global/new/fi-rr-shopping-cart.svg',
-                        color: Colors.black,
-                        width: 23,
-                        height: 23,
-                      ),
-                      onTap: () {
-                        // ! Navigation to Shopping BAsket
-                      },
-                    ),
-                    onTapBack: () => Navigator.pop(context),
-                  ),
-                  SizedBox(height: 2.5),
-                  Container(
-                    height: 3,
-                    color: F7_BACKGROUND_COLOR,
-                  ),
-                  Expanded(
-                      child: SingleProductBodyWidget(
-                    product: widget.product,
-                    allColorsAndSizesProducts: allColorsAndSizesProducts,
-                    isFave: widget.isFave,
-                    changeFave: (bool newIsFave) =>
-                        widget.changeFave(newIsFave),
-                    openExistInBranchesPanel: () => existInBranchesPanel.open(),
-                    openSizeGuidPanel: () => sizeGuidePanel.open(),
-                  )),
-                  Container(
-                    // color: Colors.red,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    child: AvakatanButtonWidget(
-                      title: "افزودن به سبد خرید",
-                      backgroundColor: MAIN_BLUE_COLOR,
-                      borderColor: MAIN_BLUE_COLOR,
-                      textColor: Colors.white,
-                      height: 43,
-                      width: _screenSize.width,
-                      onTap: () {
-                        // ! addToCard
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                ]),
               ),
             ),
           ),

@@ -41,7 +41,9 @@ class _SingleProductSimilarWidgetState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 15),
+          SizedBox(
+            height: 0.023 * _screenSize.height, //15
+          ),
           Container(
             alignment: Alignment.centerRight,
             padding: EdgeInsets.symmetric(horizontal: 20),

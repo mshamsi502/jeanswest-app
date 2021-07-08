@@ -5,13 +5,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/ui/singleProduct/screens/single_product_main_page.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
@@ -52,9 +55,11 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
   //
   int selectedColor;
   int selectedSize;
+  bool tempIsFav;
 
   @override
   void initState() {
+    tempIsFav = widget.isFave;
     if (widget.product != null &&
         widget.product.basePrice != null &&
         widget.product.salePrice != null)
@@ -125,28 +130,66 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                         color: GREY_FADE_BACKGROUND_COLOR,
                       ),
                 Positioned(
-                  right: 0.00555 * _screenSize.width, //2,
-                  bottom: 0.003125 * _screenSize.height, //2,
+                  right: 7,
+                  bottom: 7,
                   child: widget.hasAddToFav
                       ? GestureDetector(
-                          onTap: () {
-                            // !  change isFave
-                            widget.changeFav(
-                                widget.productIndex, !widget.isFave);
-                          },
                           child: Container(
-                            height: 0.09722 * _screenSize.width, //35,
-                            width: 0.09722 * _screenSize.width, //35,
-                            child: Icon(
-                              widget.isFave
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color:
-                                  widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
-                              size: 0.083 * _screenSize.width, //30
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    spreadRadius: 0.02,
+                                    color: Colors.grey[300],
+                                  )
+                                ]),
+                            padding: EdgeInsets.all(7),
+                            child: SvgPicture.asset(
+                              tempIsFav
+                                  ? 'assets/images/svg_images/global/new/heart-fill.svg'
+                                  : 'assets/images/svg_images/global/new/heart.svg',
+                              color: tempIsFav ? MAIN_BLUE_COLOR : Colors.grey,
+                              width: 24,
+                              height: 24,
                             ),
                           ),
-                        )
+                          onTap: () async {
+                            setState(() {
+                              tempIsFav = !tempIsFav;
+                            });
+                            GeneralRespons res =
+                                await addToUserFavoriteInfo(widget.product.sku);
+                            if (res != null && res.statusCode == 200) {
+                              widget.changeFav(widget.productIndex, tempIsFav);
+                            } else
+                              setState(() {
+                                tempIsFav = !tempIsFav;
+                              });
+                          })
+
+                      // GestureDetector(
+                      //     onTap: () {
+                      //       // !  change isFave
+                      //       widget.changeFav(
+                      //           widget.productIndex, !widget.isFave);
+                      //     },
+                      //     child: Container(
+                      //       height: 0.09722 * _screenSize.width, //35,
+                      //       width: 0.09722 * _screenSize.width, //35,
+                      //       child: Icon(
+                      //         widget.isFave
+                      //             ? Icons.favorite
+                      //             : Icons.favorite_border,
+                      //         color:
+                      //             widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
+                      //         size: 0.083 * _screenSize.width, //30
+                      //       ),
+                      //     ),
+                      //   )
                       : SizedBox(),
                 ),
                 Positioned(

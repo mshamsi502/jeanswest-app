@@ -20,8 +20,12 @@ class SingleProductBodyWidget extends StatefulWidget {
   final bool isFave;
   final Function(bool) changeFave;
 
+  final Function() imageExpandedPanel;
   final Function() openExistInBranchesPanel;
   final Function() openSizeGuidPanel;
+  final Function() openShoppingBasket;
+  final Function(int) updateSelectedColor;
+  final Function(SingleProductInfoRes) updateSelectedProduct;
   const SingleProductBodyWidget({
     Key key,
     @required this.product,
@@ -30,6 +34,10 @@ class SingleProductBodyWidget extends StatefulWidget {
     @required this.openExistInBranchesPanel,
     @required this.openSizeGuidPanel,
     @required this.allColorsAndSizesProducts,
+    @required this.updateSelectedProduct,
+    @required this.imageExpandedPanel,
+    @required this.updateSelectedColor,
+    @required this.openShoppingBasket,
   }) : super(key: key);
   @override
   _SingleProductBodyWidgetState createState() =>
@@ -67,6 +75,7 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                 changeFave: (bool newIsFave) => widget.changeFave(newIsFave),
                 isFave: widget.isFave,
                 product: _selectedProduct,
+                openImageExpandedPanel: () => widget.imageExpandedPanel(),
                 openExistInBranches: () => widget.openExistInBranchesPanel(),
               ),
               Container(
@@ -86,6 +95,8 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                         selectedColor = value;
                         _selectedProduct =
                             widget.allColorsAndSizesProducts.data.result[value];
+                        widget.updateSelectedProduct(_selectedProduct);
+                        widget.updateSelectedColor(selectedColor);
                         selectedSize = -1;
                       }),
                       changeSelectedSize: (int value) => setState(() {

@@ -5,13 +5,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/ui/singleProduct/screens/single_product_main_page.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
@@ -43,8 +46,11 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
   int selectedColor;
   int selectedSize;
 
+  bool tempIsFav;
+
   @override
   void initState() {
+    tempIsFav = widget.isFave;
     discountPercent = ((widget.product.basePrice - widget.product.salePrice) /
             widget.product.basePrice *
             100)
@@ -108,41 +114,45 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
                   ),
                 ),
                 Positioned(
-                  right: 15,
-                  bottom: 10,
-                  child: GestureDetector(
-                    onTap: () {
-                      // !  change isFave
-                      widget.changeFav(widget.productIndex, !widget.isFave);
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(
-                          0.138 * _screenSize.width, //50,
+                    right: 15,
+                    bottom: 10,
+                    child: GestureDetector(
+                        child: Container(
+                          width: 45,
+                          height: 45,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5,
+                                  spreadRadius: 0.02,
+                                  color: Colors.grey[300],
+                                )
+                              ]),
+                          padding: EdgeInsets.all(10),
+                          child: SvgPicture.asset(
+                            tempIsFav
+                                ? 'assets/images/svg_images/global/new/heart-fill.svg'
+                                : 'assets/images/svg_images/global/new/heart.svg',
+                            color: tempIsFav ? MAIN_BLUE_COLOR : Colors.grey,
+                            // width: 24,
+                            // height: 24,
+                          ),
                         ),
-                        border: Border.all(
-                          color: Colors.grey[300],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            spreadRadius: 0.00555 * _screenSize.width, //2,
-                            blurRadius: 0.022 * _screenSize.width, //8,
-                            color: Colors.grey[200],
-                          )
-                        ],
-                      ),
-                      child: Icon(
-                        widget.isFave ? Icons.favorite : Icons.favorite_border,
-                        color: widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
-                        size: 0.083 * _screenSize.width, //30
-                      ),
-                    ),
-                    // ),
-                  ),
-                ),
+                        onTap: () async {
+                          setState(() {
+                            tempIsFav = !tempIsFav;
+                          });
+                          GeneralRespons res =
+                              await addToUserFavoriteInfo(widget.product.sku);
+                          if (res != null && res.statusCode == 200) {
+                            widget.changeFav(widget.productIndex, tempIsFav);
+                          } else
+                            setState(() {
+                              tempIsFav = !tempIsFav;
+                            });
+                        })),
                 Positioned(
                   left: 15,
                   bottom: 10,

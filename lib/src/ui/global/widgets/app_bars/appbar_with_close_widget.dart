@@ -8,8 +8,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class AppBarWithCloseWidget extends StatefulWidget {
   final String title;
@@ -45,12 +45,19 @@ class _AppBarWithCloseWidgetState extends State<AppBarWithCloseWidget> {
           ),
           GestureDetector(
             child: Container(
+              // color: Colors.red,
               height: 0.138 * _screenSize.width, //50,
               width: 0.138 * _screenSize.width, //50,
               padding: EdgeInsets.all(
-                0.027 * _screenSize.width, //10,
+                0.047 * _screenSize.width, //17,
               ),
-              child: GlobalSvgImages.closeIcon,
+              // child: GlobalSvgImages.closeIcon,
+              child: SvgPicture.asset(
+                'assets/images/svg_images/global/new/fi-rr-cross.svg',
+                color: Colors.black,
+                // width: 30,
+                // height: 30,
+              ),
             ),
             onTap: () {
               widget.closeOnTap();

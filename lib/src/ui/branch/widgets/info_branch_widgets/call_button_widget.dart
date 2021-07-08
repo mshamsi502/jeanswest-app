@@ -6,9 +6,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intent/action.dart' as android_action;
 import 'package:intent/intent.dart' as android_intent;
-import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 class CallButtonWidget extends StatefulWidget {
@@ -37,17 +37,24 @@ class _CallButtonWidgetState extends State<CallButtonWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            RotationTransition(
+              turns: new AlwaysStoppedAnimation(-110 / 360),
+              child: SvgPicture.asset(
+                'assets/images/svg_images/global/new/telephone.svg',
+                color: MAIN_BLUE_COLOR,
+                width: 20,
+                height: 20,
+              ),
+            ),
+            SizedBox(width: 5),
             Text(
-              widget.depTel,
+              "تماس",
               style: TextStyle(
-                  color: MAIN_BLUE_COLOR,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500),
+                color: MAIN_BLUE_COLOR,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            SizedBox(
-              width: 2,
-            ),
-            BranchSvgImages.callIcon,
           ],
         ),
       ),

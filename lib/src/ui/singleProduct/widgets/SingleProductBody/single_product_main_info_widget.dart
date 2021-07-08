@@ -14,6 +14,7 @@ class SingleProductMainInfoWidget extends StatefulWidget {
   final SingleProductInfoRes product;
   final bool isFave;
   final Function(bool) changeFave;
+  final Function() openImageExpandedPanel;
   final Function() openExistInBranches;
   const SingleProductMainInfoWidget({
     Key key,
@@ -21,6 +22,7 @@ class SingleProductMainInfoWidget extends StatefulWidget {
     @required this.isFave,
     @required this.changeFave,
     @required this.openExistInBranches,
+    @required this.openImageExpandedPanel,
   }) : super(key: key);
   @override
   _SingleProductMainInfoWidgetState createState() =>
@@ -43,8 +45,6 @@ class _SingleProductMainInfoWidgetState
     if (_selectedProduct.barcode != widget.product.barcode)
       setState(() {
         _selectedProduct = widget.product;
-        // print(
-        //     "_selectedProduct.banimodeDetails : ${_selectedProduct.banimodeDetails.images.thickboxDefault}");
       });
     return Container(
         // color: Colors.red,
@@ -59,6 +59,8 @@ class _SingleProductMainInfoWidgetState
               linkProductForShare: 'تستیییی',
               isFave: widget.isFave,
               changeFave: (bool newIsFave) => widget.changeFave(newIsFave),
+              openImageExpandedPanel: () => widget.openImageExpandedPanel(),
+              productSKU: _selectedProduct.sku,
             ),
             SingleProductTitleWidget(
               brand: _selectedProduct.banimodeDetails.productManufacturerEnName,

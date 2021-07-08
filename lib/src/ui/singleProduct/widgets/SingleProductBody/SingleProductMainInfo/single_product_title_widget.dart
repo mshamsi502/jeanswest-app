@@ -55,7 +55,9 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
         _price != widget.price) updateTitlesValue();
     return Container(
       // color: Colors.green,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(
+          horizontal: 0.054 * _screenSize.width, //20
+          vertical: 10),
       child: Column(
         children: [
           Row(

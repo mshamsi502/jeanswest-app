@@ -9,9 +9,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intent/action.dart' as android_action;
 import 'package:intent/intent.dart' as android_intent;
-import 'package:jeanswest/src/constants/branch/svg_images/branch_svg_images.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
 
@@ -44,7 +44,12 @@ class _DirectionButtonWidgetState extends State<DirectionButtonWidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BranchSvgImages.directionIcon,
+            SvgPicture.asset(
+              'assets/images/svg_images/global/new/compass.svg',
+              color: Colors.white,
+              width: 20,
+              height: 20,
+            ),
             SizedBox(
               width: 0.0194 * _screenSize.width, //7,
             ),

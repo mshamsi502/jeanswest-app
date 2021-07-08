@@ -10,6 +10,7 @@ SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
   return SingleProductInfoRes(
     quantity: json['quantity'] as int,
     barcode: json['barcode'] as String,
+    sku: json['sku'] as String,
     styleCode: json['styleCode'] as String,
     basePrice: json['basePrice'] as int,
     salePrice: json['salePrice'] as int,
@@ -25,6 +26,7 @@ Map<String, dynamic> _$SingleProductInfoResToJson(
     <String, dynamic>{
       'quantity': instance.quantity,
       'barcode': instance.barcode,
+      'sku': instance.sku,
       'styleCode': instance.styleCode,
       'basePrice': instance.basePrice,
       'salePrice': instance.salePrice,

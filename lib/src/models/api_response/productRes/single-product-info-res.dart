@@ -18,6 +18,8 @@ class SingleProductInfoRes extends Equatable {
   int quantity;
   @JsonKey(name: 'barcode')
   String barcode;
+  @JsonKey(name: 'sku')
+  String sku;
   @JsonKey(name: 'styleCode')
   String styleCode;
   @JsonKey(name: 'basePrice')
@@ -31,6 +33,7 @@ class SingleProductInfoRes extends Equatable {
     // this.active,
     this.quantity,
     this.barcode,
+    this.sku,
     this.styleCode,
     this.basePrice,
     this.salePrice,
@@ -47,6 +50,7 @@ class SingleProductInfoRes extends Equatable {
       // 'active': active,
       'quantity': quantity,
       'barcode': barcode,
+      'sku': sku,
       'styleCode': styleCode,
       'basePrice': basePrice,
       'salePrice': salePrice,
@@ -59,6 +63,7 @@ class SingleProductInfoRes extends Equatable {
         // active,
         quantity,
         barcode,
+        sku,
         styleCode,
         basePrice,
         salePrice,

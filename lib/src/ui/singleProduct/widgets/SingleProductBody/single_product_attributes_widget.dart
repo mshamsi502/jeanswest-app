@@ -238,10 +238,14 @@ class _SingleProductAttributesWidgetState
                       ),
                     ],
                   ),
-                  isAllExpanded[index]
+                  Container(
+                      height: index == widget.titles.length - 1 &&
+                              !isAllExpanded[index]
+                          ? 5
+                          : 0),
+                  index == widget.titles.length - 1 || isAllExpanded[index]
                       ? SizedBox()
                       : Divider(
-                          endIndent: 5,
                           thickness: 0.0016 * _screenSize.height, //1
                         ),
                 ],

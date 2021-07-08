@@ -1,0 +1,243 @@
+// *   Created By:  Mohammad Shamsi    *|*    Email:  mshamsi502@gmail.com
+// *   Project Name:  mobile_jeanswest_app_android    *|*    App Name: Jeanswest
+// *   Created Date & Time:  2021-01-01  ,  10:00 AM
+// ****************************************************************************
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
+import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
+import 'package:photo_view/photo_view_gallery.dart';
+
+class ImageExapndedPanel extends StatefulWidget {
+  final SingleProductInfoRes product;
+  final Size screenSize;
+  final Function() closePanel;
+  const ImageExapndedPanel({
+    Key key,
+    @required this.product,
+    @required this.closePanel,
+    @required this.screenSize,
+  }) : super(key: key);
+  @override
+  _ImageExapndedPanelState createState() => _ImageExapndedPanelState();
+}
+
+class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
+  ScrollController scrollController = new ScrollController();
+  CarouselController carouselController = CarouselController();
+  ScrollController circleOptCarouselController = new ScrollController();
+  ScrollController smallImagescrollController = new ScrollController();
+
+  //
+  int selectedImage = 0;
+  List<Widget> bigImageItemWidget = [];
+  List<String> _imagesOfSelectedProduct;
+  // PhotoViewControllerBase<PhotoViewControllerValue> photoViewController =
+  //     new PhotoViewController();
+  PageController pageController = new PageController();
+
+  @override
+  void initState() {
+    _imagesOfSelectedProduct =
+        widget.product.banimodeDetails.images.thickboxDefault;
+    updateImageWidgets();
+    super.initState();
+  }
+
+  updateImageWidgets() {
+    setState(() {
+      if (selectedImage != 0) {
+        selectedImage = 0;
+        carouselController.jumpToPage(selectedImage);
+      }
+      _imagesOfSelectedProduct.forEach((image) {
+        bigImageItemWidget.add(
+          Container(
+            width: widget.screenSize.width,
+            child: PhotoView(
+                // controller: photoViewController,
+                imageProvider: NetworkImage(
+              image ?? EMPTY_IMAGE,
+              // fit: BoxFit.fitWidth,
+            )
+
+                // Image.network(
+                //   image ?? EMPTY_IMAGE,
+                //   fit: BoxFit.fitWidth,
+                // ),
+                //  AssetImage("assets/large-image.jpg"),
+                ),
+          ),
+        );
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var _screenSize = MediaQuery.of(context).size;
+    if (_imagesOfSelectedProduct.length !=
+            widget.product.banimodeDetails.images.thickboxDefault.length ||
+        _imagesOfSelectedProduct.first !=
+            widget.product.banimodeDetails.images.thickboxDefault.first)
+      updateImageWidgets();
+    return Container(
+      // color: Colors.red,
+      height: _screenSize.height,
+      width: _screenSize.width,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: SizedBox()),
+              AppBarWithCloseWidget(
+                title: "",
+                closeOnTap: () => widget.closePanel(),
+              ),
+            ],
+          ),
+          Expanded(
+            child: PhotoViewGallery.builder(
+              scrollPhysics: const BouncingScrollPhysics(),
+              builder: (BuildContext context, int index) {
+                return PhotoViewGalleryPageOptions(
+                  imageProvider: NetworkImage(widget
+                      .product.banimodeDetails.images.thickboxDefault[index]),
+                  initialScale: PhotoViewComputedScale.contained,
+                  maxScale: PhotoViewComputedScale.contained * 2,
+                  minScale: PhotoViewComputedScale.contained,
+                  // heroAttributes: PhotoViewHeroAttributes(tag: galleryItems[index].id),
+                );
+              },
+              itemCount:
+                  widget.product.banimodeDetails.images.thickboxDefault.length,
+              loadingBuilder: (context, event) => Center(
+                child: Container(
+                  width: 20.0,
+                  height: 20.0,
+                  child: CircularProgressIndicator(
+                    value: event == null
+                        ? 0
+                        : event.cumulativeBytesLoaded /
+                            event.expectedTotalBytes,
+                  ),
+                ),
+              ),
+              backgroundDecoration: BoxDecoration(),
+              pageController: pageController,
+              onPageChanged: (int newValue) {
+                setState(() {
+                  selectedImage = newValue;
+                });
+                smallImagescrollController.animateTo(
+                  selectedImage.toDouble() * 100,
+                  duration: Duration(milliseconds: 250),
+                  curve: Curves.linear,
+                );
+              },
+            ),
+          ),
+          Container(
+            height: 12,
+            width: _screenSize.width,
+            margin: EdgeInsets.symmetric(vertical: 15),
+            // color: Colors.red,
+            alignment: Alignment.center,
+            child: ListView.builder(
+                itemCount: _imagesOfSelectedProduct.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                controller: circleOptCarouselController,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    width: selectedImage == index
+                        ? 8
+                        : selectedImage - index == 1 ||
+                                index - selectedImage == 1
+                            ? 5.5
+                            : 4,
+                    height: selectedImage == index
+                        ? 8
+                        : selectedImage - index == 1 ||
+                                index - selectedImage == 1
+                            ? 5.5
+                            : 4,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: selectedImage == index
+                          ? Colors.grey[700]
+                          : selectedImage - index == 1 ||
+                                  index - selectedImage == 1
+                              ? Colors.black26
+                              : Colors.black12,
+                    ),
+                    margin: EdgeInsets.symmetric(
+                        horizontal: 3.5,
+                        vertical: selectedImage == index
+                            ? 2
+                            : selectedImage - index == 1 ||
+                                    index - selectedImage == 1
+                                ? 3.25
+                                : 4),
+                  );
+                }),
+          ),
+          Container(
+            height: 120,
+            // color: Colors.amber,
+            padding: EdgeInsets.all(5),
+
+            child: ListView.builder(
+                itemCount: _imagesOfSelectedProduct.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                controller: smallImagescrollController,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    width: 90,
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                        // color: Colors.red,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                          width: 2,
+                          color: index == selectedImage
+                              ? MAIN_BLUE_COLOR
+                              : Colors.grey[400],
+                        )),
+                    child: GestureDetector(
+                        child: Container(
+                          padding: EdgeInsets.all(1),
+                          child: Image.network(
+                            _imagesOfSelectedProduct[index] ?? EMPTY_IMAGE,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                        onTap: () => setState(() {
+                              selectedImage = index;
+                              // carouselController.animateToPage(selectedImage);
+                              pageController.animateToPage(
+                                selectedImage,
+                                duration: Duration(milliseconds: 250),
+                                curve: Curves.linear,
+                              );
+                              smallImagescrollController.animateTo(
+                                index.toDouble() * 100,
+                                duration: Duration(milliseconds: 250),
+                                curve: Curves.linear,
+                              );
+                            })),
+                  );
+                }),
+          ),
+          SizedBox(height: 60),
+        ],
+      ),
+    );
+  }
+}

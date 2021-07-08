@@ -9,14 +9,18 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 
 class SingleProductImageInBodyWidget extends StatefulWidget {
   final List<String> images;
   final String linkProductForShare;
+  final String productSKU;
   final bool isFave;
   final Function(bool) changeFave;
+  final Function() openImageExpandedPanel;
   final Size screenSize;
   const SingleProductImageInBodyWidget({
     Key key,
@@ -25,6 +29,8 @@ class SingleProductImageInBodyWidget extends StatefulWidget {
     @required this.linkProductForShare,
     @required this.isFave,
     @required this.changeFave,
+    @required this.openImageExpandedPanel,
+    @required this.productSKU,
   }) : super(key: key);
   @override
   _SingleProductImageInBodyWidgetState createState() =>
@@ -69,6 +75,7 @@ class _SingleProductImageInBodyWidgetState
               fit: BoxFit.fitWidth,
             ),
           ),
+          onTap: () => widget.openImageExpandedPanel(),
         ));
       });
     });
@@ -98,7 +105,6 @@ class _SingleProductImageInBodyWidgetState
                         (int index, CarouselPageChangedReason reason) {
                       setState(() {
                         selectedImage = index;
-                       
                       });
                     },
                     autoPlay: false,
@@ -138,12 +144,18 @@ class _SingleProductImageInBodyWidgetState
                         height: 24,
                       ),
                     ),
-                    onTap: () {
-                      // TODO : send to api
+                    onTap: () async {
                       setState(() {
                         tempIsFav = !tempIsFav;
                       });
-                      widget.changeFave(!widget.isFave);
+                      GeneralRespons res =
+                          await addToUserFavoriteInfo(widget.productSKU);
+                      if (res != null && res.statusCode == 200) {
+                        widget.changeFave(tempIsFav);
+                      } else
+                        setState(() {
+                          tempIsFav = !tempIsFav;
+                        });
                     }),
               ),
               Positioned(

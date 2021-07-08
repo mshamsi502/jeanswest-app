@@ -35,6 +35,7 @@ const List<String> shamsiMonthName = [
   'اسفند',
 ];
 const String HINT_PHONE_NUMBER_INPUT = '0912 - - - - - - -';
+const String DEFAULT_BRANCH_WORK_TIME = 'همه روزه از 10 تا 22';
 //
 const String STYLE_CODE_SORT = "styleCode";
 const String SALE_PRICE_SORT = "salePrice";

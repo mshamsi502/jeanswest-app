@@ -14,6 +14,7 @@ BanimodeSizeProductRes _$BanimodeSizeProductResFromJson(
     idSize: json['id_size'] as int,
     position: json['position'] as int,
     quantity: json['quantity'] as int,
+    reference: json['reference'] as String,
   );
 }
 
@@ -25,4 +26,5 @@ Map<String, dynamic> _$BanimodeSizeProductResToJson(
       'id_size': instance.idSize,
       'position': instance.position,
       'quantity': instance.quantity,
+      'reference': instance.reference,
     };

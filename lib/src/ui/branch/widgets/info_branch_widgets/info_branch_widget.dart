@@ -93,14 +93,20 @@ class _InfoBranchWidgetState extends State<InfoBranchWidget>
                 child: Container(),
               ),
               UserLocationButtonWidget(
-                selectedBranch: widget.selectedBranch,
+                // selectedBranch: widget.selectedBranch,
                 changeCameraPosition: changeCameraPosition,
+                lat: double.parse(widget.selectedBranch.lat),
+                lng: double.parse(widget.selectedBranch.lng),
               ),
               SizedBox(
                 width: 0.041 * _screenSize.width, //15,
               ),
               ShareLocationButtonWidget(
-                selectedBranch: widget.selectedBranch,
+                // selectedBranch: widget.selectedBranch,
+                depAddress: widget.selectedBranch.depAddress,
+                depName: widget.selectedBranch.depName,
+                lat: double.parse(widget.selectedBranch.lat),
+                lng: double.parse(widget.selectedBranch.lng),
               ),
             ],
           ),
