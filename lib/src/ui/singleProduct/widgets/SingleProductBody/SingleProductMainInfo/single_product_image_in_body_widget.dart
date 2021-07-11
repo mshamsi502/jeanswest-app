@@ -97,7 +97,7 @@ class _SingleProductImageInBodyWidgetState
                 child: CarouselSlider(
                   carouselController: carouselController,
                   options: CarouselOptions(
-                    height: 430,
+                    height: 0.72635 * _screenSize.height, //430
                     viewportFraction: 1,
                     initialPage: selectedImage,
                     enableInfiniteScroll: false,
@@ -118,30 +118,42 @@ class _SingleProductImageInBodyWidgetState
                 ),
               ),
               Positioned(
-                bottom: 15,
-                right: 15,
+                bottom: 0.041 * _screenSize.width, //15,
+
+                right: 0.041 * _screenSize.width, //15,
+
                 child: GestureDetector(
                     child: Container(
-                      width: 42,
-                      height: 42,
+                      width: 0.11666 * _screenSize.width, //42,
+
+                      height: 0.11666 * _screenSize.width, //42,
+
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(
+                            0.138 * _screenSize.width, //50,
+                          ),
                           boxShadow: [
                             BoxShadow(
-                              blurRadius: 5,
-                              spreadRadius: 0.02,
+                              blurRadius: 0.0138 * _screenSize.width, //5,
+
+                              spreadRadius:
+                                  0.0000555 * _screenSize.width, //0.02,
+
                               color: Colors.grey[300],
                             )
                           ]),
-                      padding: EdgeInsets.all(9),
+                      padding: EdgeInsets.all(
+                        0.025 * _screenSize.width, //9,
+                      ),
                       child: SvgPicture.asset(
                         tempIsFav
                             ? 'assets/images/svg_images/global/new/heart-fill.svg'
                             : 'assets/images/svg_images/global/new/heart.svg',
                         color: tempIsFav ? MAIN_BLUE_COLOR : Colors.grey,
-                        width: 24,
-                        height: 24,
+                        width: 0.06667 * _screenSize.width, //24,
+
+                        height: 0.06667 * _screenSize.width, //24,
                       ),
                     ),
                     onTap: () async {
@@ -159,37 +171,50 @@ class _SingleProductImageInBodyWidgetState
                     }),
               ),
               Positioned(
-                bottom: 70,
-                right: 15,
+                bottom: 0.1093 * _screenSize.height, //70,
+
+                right: 0.041 * _screenSize.width, //15,
+
                 child: GestureDetector(
                   child: Container(
-                    width: 42,
-                    height: 42,
+                    width: 0.11666 * _screenSize.width, //42,
+
+                    height: 0.11666 * _screenSize.width, //42,
+
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(
+                          0.138 * _screenSize.width, //50,
+                        ),
                         boxShadow: [
                           BoxShadow(
-                            blurRadius: 5,
-                            spreadRadius: 0.02,
+                            blurRadius: 0.0138 * _screenSize.width, //5,
+
+                            spreadRadius: 0.0000555 * _screenSize.width, //0.02,
+
                             color: Colors.grey[300],
                           )
                         ]),
-                    padding: EdgeInsets.all(11),
+                    padding: EdgeInsets.all(
+                      0.03 * _screenSize.width, //11
+                    ),
                     child: SvgPicture.asset(
                       'assets/images/svg_images/global/new/fi-rr-share.svg',
                       color: Colors.grey,
-                      width: 20,
-                      height: 20,
+                      width: 0.054 * _screenSize.width, //20
+
+                      height: 0.054 * _screenSize.width, //20
                     ),
                   ),
                   onTap: () => shareATextLink(widget.linkProductForShare),
                 ),
               ),
               Positioned(
-                bottom: 15,
+                bottom: 0.023 * _screenSize.height, //15
+
                 child: Container(
-                  height: 12,
+                  height: 0.018 * _screenSize.height, //12
+
                   width: _screenSize.width,
                   // color: Colors.red,
                   alignment: Alignment.center,
@@ -201,19 +226,27 @@ class _SingleProductImageInBodyWidgetState
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           width: selectedImage == index
-                              ? 8
+                              ? 0.022 * _screenSize.width //8
+
                               : selectedImage - index == 1 ||
                                       index - selectedImage == 1
-                                  ? 5.5
-                                  : 4,
+                                  ? 0.01527 * _screenSize.width //5.5
+
+                                  : 0.011 * _screenSize.width, //4,
+
                           height: selectedImage == index
-                              ? 8
+                              ? 0.0125 * _screenSize.height //8,
+
                               : selectedImage - index == 1 ||
                                       index - selectedImage == 1
-                                  ? 5.5
-                                  : 4,
+                                  ? 0.00859 * _screenSize.height //5.5,
+
+                                  : 0.00625 * _screenSize.height, //4,
+
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            ),
                             color: selectedImage == index
                                 ? Colors.grey[700]
                                 : selectedImage - index == 1 ||
@@ -222,13 +255,18 @@ class _SingleProductImageInBodyWidgetState
                                     : Colors.black12,
                           ),
                           margin: EdgeInsets.symmetric(
-                              horizontal: 3.5,
+                              horizontal: 0.009722 * _screenSize.width, //3.5,
+
                               vertical: selectedImage == index
-                                  ? 2
+                                  ? 0.003125 * _screenSize.height //2,
+
                                   : selectedImage - index == 1 ||
                                           index - selectedImage == 1
-                                      ? 3.25
-                                      : 4),
+                                      ? 0.005078 * _screenSize.height //3.25,
+
+                                      : 0.00625 * _screenSize.height //4,
+
+                              ),
                         );
                       }),
                 ),

@@ -118,8 +118,10 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                   widget.product.banimodeDetails.images.thickboxDefault.length,
               loadingBuilder: (context, event) => Center(
                 child: Container(
-                  width: 20.0,
-                  height: 20.0,
+                  width: 0.054 * _screenSize.width, //20
+
+                  height: 0.054 * _screenSize.width, //20
+
                   child: CircularProgressIndicator(
                     value: event == null
                         ? 0
@@ -135,7 +137,10 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                   selectedImage = newValue;
                 });
                 smallImagescrollController.animateTo(
-                  selectedImage.toDouble() * 100,
+                  selectedImage.toDouble() *
+                      (0.277 * _screenSize.width //100,
+
+                      ),
                   duration: Duration(milliseconds: 250),
                   curve: Curves.linear,
                 );
@@ -143,9 +148,12 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
             ),
           ),
           Container(
-            height: 12,
+            height: 0.018 * _screenSize.height, //12
+
             width: _screenSize.width,
-            margin: EdgeInsets.symmetric(vertical: 15),
+            margin: EdgeInsets.symmetric(
+              vertical: 0.023 * _screenSize.height, //15
+            ),
             // color: Colors.red,
             alignment: Alignment.center,
             child: ListView.builder(
@@ -156,19 +164,26 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: selectedImage == index
-                        ? 8
+                        ? 0.022 * _screenSize.width //8
+
                         : selectedImage - index == 1 ||
                                 index - selectedImage == 1
-                            ? 5.5
-                            : 4,
+                            ? 0.01527 * _screenSize.width //5.5
+                            : 0.011 * _screenSize.width, //4,
+
                     height: selectedImage == index
-                        ? 8
+                        ? 0.0125 * _screenSize.height //8,
+
                         : selectedImage - index == 1 ||
                                 index - selectedImage == 1
-                            ? 5.5
-                            : 4,
+                            ? 0.00859 * _screenSize.height //5.5,
+
+                            : 0.00625 * _screenSize.height, //4,
+
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(
+                        0.138 * _screenSize.width, //50,
+                      ),
                       color: selectedImage == index
                           ? Colors.grey[700]
                           : selectedImage - index == 1 ||
@@ -177,20 +192,27 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                               : Colors.black12,
                     ),
                     margin: EdgeInsets.symmetric(
-                        horizontal: 3.5,
+                        horizontal: 0.009722 * _screenSize.width, //3.5,
+
                         vertical: selectedImage == index
-                            ? 2
+                            ? 0.003125 * _screenSize.height //2,
+
                             : selectedImage - index == 1 ||
                                     index - selectedImage == 1
-                                ? 3.25
-                                : 4),
+                                ? 0.005078 * _screenSize.height //3.25,
+
+                                : 0.00625 * _screenSize.height //4,
+                        ),
                   );
                 }),
           ),
           Container(
-            height: 120,
+            height: 0.2027 * _screenSize.height, //120,
+
             // color: Colors.amber,
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(
+              0.0138 * _screenSize.width, //5,
+            ),
 
             child: ListView.builder(
                 itemCount: _imagesOfSelectedProduct.length,
@@ -199,20 +221,28 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                 controller: smallImagescrollController,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    width: 90,
-                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    width: 0.25 * _screenSize.width, //90,
+
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 0.0138 * _screenSize.width, //5,
+                    ),
                     decoration: BoxDecoration(
                         // color: Colors.red,
-                        borderRadius: BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(
+                          0.011 * _screenSize.width, //4,
+                        ),
                         border: Border.all(
-                          width: 2,
+                          width: 0.00555 * _screenSize.width, //2,
+
                           color: index == selectedImage
                               ? MAIN_BLUE_COLOR
                               : Colors.grey[400],
                         )),
                     child: GestureDetector(
                         child: Container(
-                          padding: EdgeInsets.all(1),
+                          padding: EdgeInsets.all(
+                            0.00277 * _screenSize.width, //1,
+                          ),
                           child: Image.network(
                             _imagesOfSelectedProduct[index] ?? EMPTY_IMAGE,
                             fit: BoxFit.fitHeight,
@@ -227,7 +257,9 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                                 curve: Curves.linear,
                               );
                               smallImagescrollController.animateTo(
-                                index.toDouble() * 100,
+                                index.toDouble() *
+                                    (0.277 * _screenSize.width //100,
+                                    ),
                                 duration: Duration(milliseconds: 250),
                                 curve: Curves.linear,
                               );
@@ -235,7 +267,9 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                   );
                 }),
           ),
-          SizedBox(height: 60),
+          SizedBox(
+            height: 0.09375 * _screenSize.height, //60,
+          ),
         ],
       ),
     );

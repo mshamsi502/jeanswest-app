@@ -42,7 +42,7 @@ class _SortByPanelState extends State<SortByPanel> {
       width: _screenSize.width,
       padding: EdgeInsets.symmetric(
         horizontal: 0.054 * _screenSize.width, //20
-        vertical: 10,
+        vertical: 0.015 * _screenSize.height, //10,
       ),
       child: Column(
         children: [
@@ -51,7 +51,7 @@ class _SortByPanelState extends State<SortByPanel> {
               Text(
                 'مرتب سازی',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 0.0444 * _screenSize.width, //16,
                 ),
               ),
               Expanded(child: SizedBox()),
@@ -79,7 +79,8 @@ class _SortByPanelState extends State<SortByPanel> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   // color: Colors.red,
-                  height: 35,
+                  height: 0.05468 * _screenSize.height, //35,
+
                   alignment: Alignment.center,
                   // margin: EdgeInsets.symmetric(vertical: 2),
                   child: Row(
@@ -89,12 +90,12 @@ class _SortByPanelState extends State<SortByPanel> {
                             ? Icon(
                                 Icons.radio_button_on,
                                 color: MAIN_BLUE_COLOR,
-                                size: 23,
+                                size: 0.06388 * _screenSize.width, //23,
                               )
                             : Icon(
                                 Icons.radio_button_unchecked,
                                 color: Colors.grey,
-                                size: 23,
+                                size: 0.06388 * _screenSize.width, //23,
                               ),
                         onPressed: () {
                           widget.updateSelectedSortOption(index);
@@ -106,7 +107,9 @@ class _SortByPanelState extends State<SortByPanel> {
                       ),
                       Text(
                         sortOptionsName[index],
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(
+                          fontSize: 0.038 * _screenSize.width, //14,
+                        ),
                       ),
                     ],
                   ),

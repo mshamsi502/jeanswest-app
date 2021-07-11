@@ -79,7 +79,8 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                 openExistInBranches: () => widget.openExistInBranchesPanel(),
               ),
               Container(
-                height: 8,
+                height: 0.0125 * _screenSize.height, //8,
+
                 color: F7_BACKGROUND_COLOR,
               ),
               widget.allColorsAndSizesProducts == null ||
@@ -104,9 +105,12 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                       }),
                       closeAddToCardPanel: () {},
                     ),
-              SizedBox(height: 15),
+              SizedBox(
+                height: 0.023 * _screenSize.height, //15
+              ),
               Container(
-                height: 8,
+                height: 0.0125 * _screenSize.height, //8,
+
                 color: F7_BACKGROUND_COLOR,
               ),
               SingleProductAttributesWidget(
@@ -118,7 +122,8 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                 features: [widget.product.banimodeDetails.productFeatures],
               ),
               Container(
-                height: 8,
+                height: 0.0125 * _screenSize.height, //8,
+
                 color: F7_BACKGROUND_COLOR,
               ),
               widget.allColorsAndSizesProducts != null &&
@@ -132,7 +137,8 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                               widget.allColorsAndSizesProducts.data.result,
                         ),
                         Container(
-                          height: 8,
+                          height: 0.0125 * _screenSize.height, //8,
+
                           color: F7_BACKGROUND_COLOR,
                         ),
                       ],

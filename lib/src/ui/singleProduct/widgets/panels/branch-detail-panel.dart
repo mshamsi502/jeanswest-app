@@ -58,9 +58,13 @@ class _BranchDetailPanelState extends State<BranchDetailPanel>
                     GestureDetector(
                       child: Container(
                         // color: Colors.red,
-                        height: 30,
-                        width: 30,
-                        padding: EdgeInsets.all(8),
+                        height: 0.083 * _screenSize.width, //30,
+
+                        width: 0.083 * _screenSize.width, //30,
+
+                        padding: EdgeInsets.all(0.022 * _screenSize.width //8
+
+                            ),
                         child: SvgPicture.asset(
                           'assets/images/svg_images/global/new/fi-rr-cross.svg',
                           color: Colors.black,
@@ -79,7 +83,8 @@ class _BranchDetailPanelState extends State<BranchDetailPanel>
                       child: Text(
                         widget.selectedBranch.depName,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
+
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -89,7 +94,9 @@ class _BranchDetailPanelState extends State<BranchDetailPanel>
                     ),
                   ],
                 ),
-                SizedBox(height: 15),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -97,21 +104,24 @@ class _BranchDetailPanelState extends State<BranchDetailPanel>
                       child: Text(
                         widget.selectedBranch.depAddress,
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
                         ),
                       ),
                     ),
                     // )
                   ],
                 ),
-                SizedBox(height: 10),
+                SizedBox(
+                  height: 0.015 * _screenSize.height, //10,
+                ),
                 Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   // GlobalSvgImages.blueTimeIcon,
                   SvgPicture.asset(
                     'assets/images/svg_images/global/new/fi-rr-clock.svg',
                     color: Colors.black,
-                    width: 18,
-                    height: 18,
+                    width: 0.05 * _screenSize.width, //18,
+
+                    height: 0.05 * _screenSize.width, //18,
                   ),
                   SizedBox(
                     width: 0.0138 * _screenSize.width, //5,
@@ -120,11 +130,13 @@ class _BranchDetailPanelState extends State<BranchDetailPanel>
                     widget.selectedBranch.workTime ?? DEFAULT_BRANCH_WORK_TIME,
                     style: TextStyle(
                       // color: MAIN_BLUE_COLOR,
-                      fontSize: 14,
+                      fontSize: 0.038 * _screenSize.width, //14,
                     ),
                   ),
                 ]),
-                SizedBox(height: 15),
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
                 Row(
                   children: [
                     Expanded(

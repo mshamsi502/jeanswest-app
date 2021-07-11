@@ -37,7 +37,7 @@ class _SingleProductSimilarWidgetState
     var _screenSize = MediaQuery.of(context).size;
 
     return Container(
-      height: 380,
+      height: 0.59375 * _screenSize.height, //380
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -46,15 +46,19 @@ class _SingleProductSimilarWidgetState
           ),
           Container(
             alignment: Alignment.centerRight,
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.054 * _screenSize.width, //20
+            ),
             child: Text(
               "محصولات مرتبط",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 0.038 * _screenSize.width, //14,
               ),
             ),
           ),
-          SizedBox(height: 15),
+          SizedBox(
+            height: 0.041 * _screenSize.width, //15,
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: widget.similarProducts.length,
@@ -63,9 +67,12 @@ class _SingleProductSimilarWidgetState
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 0.027 * _screenSize.width, //10,
+                  ),
                   child: ProductInfoGridViewWidget(
-                    width: 180,
+                    width: 0.5 * _screenSize.width, //180,
+
                     product: widget.similarProducts[index],
                     productIndex: index,
                     hasDelete: false,

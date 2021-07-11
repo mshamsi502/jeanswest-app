@@ -75,7 +75,11 @@ class _OptionFilterMenuListViewWidgetState
   }
 
   bool prepareHaveColorMore({@required Size screenSize}) {
-    double maxColorWidget = (((0.6 * screenSize.width) - 30) / 30);
+    double maxColorWidget = (((0.6 * screenSize.width) -
+            (0.083 * screenSize.width //30,
+            )) /
+        (0.083 * screenSize.width //30,
+        ));
     return widget.colorSubtitlesWidget.length >= maxColorWidget;
   }
 
@@ -143,7 +147,8 @@ class _OptionFilterMenuListViewWidgetState
                                         (widget.colorSubtitlesWidget != null &&
                                             widget.colorSubtitlesWidget.length >
                                                 0))
-                                ? 5
+                                ? 0.0078 * _screenSize.height //5,
+
                                 : 0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -156,7 +161,9 @@ class _OptionFilterMenuListViewWidgetState
                                   textAlign: TextAlign.start,
                                   style: TextStyle(),
                                 ),
-                                SizedBox(width: 5),
+                                SizedBox(
+                                  width: 0.0138 * _screenSize.width, //5,
+                                ),
                                 (widget.showName[index] &&
                                             (sub[index] != null &&
                                                 sub[index] != "")) ||
@@ -167,12 +174,15 @@ class _OptionFilterMenuListViewWidgetState
                                                         .length >
                                                     0))
                                     ? Container(
-                                        width: 5,
-                                        height: 5,
+                                        width: 0.0138 * _screenSize.width, //5,
+
+                                        height: 0.0138 * _screenSize.width, //5,
+
                                         decoration: BoxDecoration(
                                           color: MAIN_GOLD_COLOR,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
+                                          borderRadius: BorderRadius.circular(
+                                            0.138 * _screenSize.width, //50,
+                                          ),
                                         ))
                                     : SizedBox(),
                               ],
@@ -192,7 +202,9 @@ class _OptionFilterMenuListViewWidgetState
                                           ? Text(
                                               sub[index],
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 0.0333 *
+                                                    _screenSize.width, //12,
+
                                                 fontWeight: FontWeight.w400,
                                                 color: Colors.grey,
                                               ),
@@ -216,20 +228,36 @@ class _OptionFilterMenuListViewWidgetState
                                                       return Row(
                                                         children: [
                                                           Container(
-                                                            width: 20,
-                                                            height: 20,
+                                                            width: 0.054 *
+                                                                _screenSize
+                                                                    .width, //20
+
+                                                            height: 0.054 *
+                                                                _screenSize
+                                                                    .width, //20
+
                                                             child: widget
                                                                     .colorSubtitlesWidget[
                                                                 colorWidgetIndex],
                                                           ),
-                                                          SizedBox(width: 5),
+                                                          SizedBox(
+                                                            width: 0.0138 *
+                                                                _screenSize
+                                                                    .width, //5,
+                                                          ),
                                                         ],
                                                       );
                                                     }),
                                                 haveColorMore
                                                     ? Container(
-                                                        width: 30,
-                                                        height: 30,
+                                                        width: 0.083 *
+                                                            _screenSize
+                                                                .width, //30,
+
+                                                        height: 0.083 *
+                                                            _screenSize
+                                                                .width, //30,
+
                                                         child: Icon(
                                                             Icons.more_horiz))
                                                     : SizedBox()
@@ -262,7 +290,7 @@ class _OptionFilterMenuListViewWidgetState
             Divider(
               color: Colors.grey,
               thickness: 0.001 * _screenSize.width, //0.3,
-              height: 2,
+              height: 0.003125 * _screenSize.height, //2,
             ),
           ],
         );

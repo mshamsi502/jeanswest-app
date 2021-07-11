@@ -168,20 +168,24 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                       height: 0.52 * _screenSize.height, //??,
                       child: SizeGuideProductWidget(
                         productDetail: allColorsAndSizesProducts,
-                        height: 0.3,
+                        height: 0.0004687 * _screenSize.height, //0.3,
+
                         hideSizeGuide: () => sizeGuidePanel.close(),
                       ),
                     ),
                     body: Column(children: [
-                      SizedBox(height: 2.5),
+                      SizedBox(
+                        height: 0.0039 * _screenSize.height, //2.5,
+                      ),
                       AppBarWithBackWidget(
                         title: "",
                         option: GestureDetector(
                           child: SvgPicture.asset(
                             'assets/images/svg_images/global/new/fi-rr-shopping-cart.svg',
                             color: Colors.black,
-                            width: 23,
-                            height: 23,
+                            width: 0.06388 * _screenSize.width, //23,
+
+                            height: 0.06388 * _screenSize.width, //23,
                           ),
                           onTap: () {
                             // ! Navigation to Shopping BAsket
@@ -189,9 +193,12 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                         ),
                         onTapBack: () => Navigator.pop(context),
                       ),
-                      SizedBox(height: 2.5),
+                      SizedBox(
+                        height: 0.0039 * _screenSize.height, //2.5,
+                      ),
                       Container(
-                        height: 3,
+                        height: 0.0046 * _screenSize.height, //3,
+
                         color: F7_BACKGROUND_COLOR,
                       ),
                       Expanded(
@@ -232,21 +239,26 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                       )),
                       Container(
                         // color: Colors.red,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 0.054 * _screenSize.width, //20
+                          vertical: 0.041 * _screenSize.width, //15,
+                        ),
                         child: AvakatanButtonWidget(
                           title: "افزودن به سبد خرید",
                           backgroundColor: MAIN_BLUE_COLOR,
                           borderColor: MAIN_BLUE_COLOR,
                           textColor: Colors.white,
-                          height: 43,
+                          height: 0.07263 * _screenSize.height, //43,
+
                           width: _screenSize.width,
                           onTap: () {
                             // ! addToCard
                           },
                         ),
                       ),
-                      SizedBox(height: 25),
+                      SizedBox(
+                        height: 0.039 * _screenSize.height, //25,
+                      ),
                     ]),
                   ),
                 ),

@@ -69,15 +69,21 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               ? SizedBox()
               : Container(
                   width: _screenSize.width,
-                  height: 50,
-                  padding: EdgeInsets.symmetric(vertical: 10),
+                  height: 0.078125 * _screenSize.height, //50,
+
+                  padding: EdgeInsets.symmetric(
+                    vertical: 0.015 * _screenSize.height, //10,
+                  ),
                   child: (activeSubGroupsTitle.length ==
                           widget.subGroupsTitle.length)
                       ? Row(
                           children: [
                             Container(
-                              height: 60,
-                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              height: 0.09375 * _screenSize.height, //60,
+
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 0.0138 * _screenSize.width, //5,
+                              ),
                               child: LabelFiltersPanel(
                                 text: "همه ${widget.groupTitle} ها",
                                 index: -1,
@@ -95,8 +101,11 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                           shrinkWrap: true,
                           itemBuilder: (BuildContext contetx, int index) {
                             return Container(
-                              height: 60,
-                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              height: 0.09375 * _screenSize.height, //60,
+
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 0.0138 * _screenSize.width, //5,
+                              ),
                               child: LabelFiltersPanel(
                                   text: activeSubGroupsTitle[index],
                                   index: index,
@@ -121,27 +130,37 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               ? Column(
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.054 * _screenSize.width, //20
+
+                        vertical: 0.015 * _screenSize.height, //10,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "انتخاب همه ${widget.groupTitle} ها",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 0.0444 * _screenSize.width, //16,
+
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           FlutterSwitch(
-                            width: 60,
-                            height: 33,
-                            valueFontSize: 14,
-                            toggleSize: 30,
+                            width: 0.166 * _screenSize.width, //60,
+
+                            height: 0.0515 * _screenSize.height, //33,
+
+                            valueFontSize: 0.038 * _screenSize.width, //14,
+
+                            toggleSize: 0.083 * _screenSize.width, //30,
+
                             inactiveColor: MAIN_BLUE_COLOR,
                             activeColor: Colors.grey[400],
-                            borderRadius: 50,
-                            padding: 3,
+                            borderRadius: 0.138 * _screenSize.width, //50,
+
+                            padding: 0.0083 * _screenSize.width, //3,
+
                             showOnOff: false,
                             value: !selectAllStatus,
                             onToggle: (val) {
@@ -160,11 +179,13 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(
+                      height: 0.0138 * _screenSize.width, //5,
+                    ),
                     Divider(
                       color: Colors.grey,
                       thickness: 0.001 * _screenSize.width, //0.3,
-                      height: 2,
+                      height: 0.003125 * _screenSize.height, //2,
                     ),
                   ],
                 )
@@ -183,22 +204,33 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                         updateActiveSubGroups(index);
                       },
                       child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 0.023 * _screenSize.height, //15
+
+                          horizontal: 0.031 * _screenSize.height, //20,
+                        ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: 32,
-                              height: 32,
+                              width: 0.0888 * _screenSize.width, //32,
+
+                              height: 0.0888 * _screenSize.width, //32,
+
                               decoration: BoxDecoration(
                                 boxShadow: tempSubGroupsValue[index]
                                     ? []
                                     : [
                                         BoxShadow(
                                             color: Colors.grey[100],
-                                            blurRadius: 3,
-                                            offset: Offset(2, 1))
+                                            blurRadius:
+                                                0.0083 * _screenSize.width, //3,
+
+                                            offset: Offset(
+                                              0.00555 * _screenSize.width, //2,
+
+                                              0.00277 * _screenSize.width, //1,
+                                            ))
                                       ],
                               ),
                               child: Stack(
@@ -207,10 +239,13 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                                       color: tempSubGroupsValue[index]
                                           ? Colors.white
                                           : Colors.grey,
-                                      margin: EdgeInsets.all(5)),
+                                      margin: EdgeInsets.all(
+                                        0.0138 * _screenSize.width, //5,
+                                      )),
                                   Icon(
                                     Icons.check_box,
-                                    size: 32,
+                                    size: 0.0888 * _screenSize.width, //32,
+
                                     color: tempSubGroupsValue[index]
                                         ? GREEN_TEXT_COLOR
                                         : Colors.white,
@@ -218,11 +253,14 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(
+                              width: 0.027 * _screenSize.width, //10,
+                            ),
                             Text(
                               widget.subGroupsTitle[index],
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 0.0444 * _screenSize.width, //16,
+
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -233,7 +271,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                     Divider(
                       color: Colors.grey,
                       thickness: 0.001 * _screenSize.width, //0.3,
-                      height: 2,
+                      height: 0.00555 * _screenSize.width, //2,
                     ),
                   ],
                 );
@@ -244,7 +282,9 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
           //     ? SizedBox()
           //     :
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(
+              0.054 * _screenSize.width, //20
+            ),
             child: AvakatanButtonWidget(
               backgroundColor: MAIN_BLUE_COLOR,
               textColor: Colors.white,
@@ -260,7 +300,10 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               },
             ),
           ),
-          SizedBox(height: widget.isFromMainFilter ? 0 : 85),
+          SizedBox(
+            height:
+                widget.isFromMainFilter ? 0 : 0.1328 * _screenSize.height, //85,
+          ),
         ],
       ),
     );

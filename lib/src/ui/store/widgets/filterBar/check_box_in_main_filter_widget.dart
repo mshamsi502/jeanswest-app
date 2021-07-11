@@ -34,19 +34,25 @@ class _CheckBoxInMainFilterWidgetState
   ScrollController scrollController = new ScrollController();
   @override
   Widget build(BuildContext context) {
-    // var _screenSize = MediaQuery.of(context).size;
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.015 * _screenSize.height, //10,
+
+        horizontal: 0.027 * _screenSize.width, //10,
+      ),
       child: Row(
         children: [
           Text(
             "${widget.title} :",
             style: widget.titleTextStyle,
           ),
-          SizedBox(width: 5),
+          SizedBox(
+            width: 0.0138 * _screenSize.width, //5,
+          ),
           Expanded(
             child: Container(
-              height: 42,
+              height: 0.0656 * _screenSize.height, //42,
               // color: Colors.red,
               child: ListView.builder(
                 itemCount: widget.checkBoxTitles.length,
@@ -56,11 +62,18 @@ class _CheckBoxInMainFilterWidgetState
                 itemBuilder: (BuildContext contex, int index) {
                   return GestureDetector(
                     child: Container(
-                      margin: EdgeInsets.all(4),
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                      margin: EdgeInsets.all(
+                        0.011 * _screenSize.width, //4,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.0138 * _screenSize.width, //5,
+                        vertical: 0.0046 * _screenSize.height, //3,
+                      ),
                       decoration: BoxDecoration(
                         // color: Colors.red,
-                        borderRadius: BorderRadius.circular(3),
+                        borderRadius: BorderRadius.circular(
+                          0.0083 * _screenSize.width, //3,
+                        ),
                         border: Border.all(
                             color: widget.checkBoxValue[index]
                                 ? FADE_BLUE_00_COLOR
@@ -70,17 +83,25 @@ class _CheckBoxInMainFilterWidgetState
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 25,
-                            height: 25,
+                            width: 0.069 * _screenSize.width, //25,
+
+                            height: 0.069 * _screenSize.width, //25,
+
                             decoration: BoxDecoration(
                               boxShadow: widget.checkBoxValue[index]
                                   ? []
                                   : [
                                       BoxShadow(
                                           color: Colors.grey[100],
-                                          blurRadius: 3,
+                                          blurRadius:
+                                              0.0083 * _screenSize.width, //3,
+
                                           // spreadRadius: 0.05,
-                                          offset: Offset(2, 1))
+                                          offset: Offset(
+                                            0.00555 * _screenSize.width, //2,
+
+                                            0.00277 * _screenSize.width, //1,
+                                          ))
                                     ],
                             ),
                             child: Stack(
@@ -89,10 +110,13 @@ class _CheckBoxInMainFilterWidgetState
                                     color: widget.checkBoxValue[index]
                                         ? Colors.white
                                         : Colors.grey,
-                                    margin: EdgeInsets.all(5)),
+                                    margin: EdgeInsets.all(
+                                      0.0138 * _screenSize.width, //5,
+                                    )),
                                 Icon(
                                   Icons.check_box,
-                                  size: 25,
+                                  size: 0.069 * _screenSize.width, //25,
+
                                   color: widget.checkBoxValue[index]
                                       ? GREEN_TEXT_COLOR
                                       : Colors.white,
@@ -100,7 +124,9 @@ class _CheckBoxInMainFilterWidgetState
                               ],
                             ),
                           ),
-                          SizedBox(width: 7),
+                          SizedBox(
+                            width: 0.0194 * _screenSize.width, //7,
+                          ),
                           Text(
                             widget.checkBoxTitles[index],
                             style: widget.checkBoxTitlesTextStyle,

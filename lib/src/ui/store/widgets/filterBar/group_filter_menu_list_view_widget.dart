@@ -116,7 +116,8 @@ class _GroupFilterMenuListViewWidgetState
                         margin: EdgeInsets.symmetric(
                             vertical: (subtitleList[index] != null &&
                                     subtitleList[index] != "")
-                                ? 5
+                                ? 0.0078 * _screenSize.height //5,
+
                                 : 0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -129,17 +130,22 @@ class _GroupFilterMenuListViewWidgetState
                                   textAlign: TextAlign.start,
                                   // style: tempTextStyles[index],
                                 ),
-                                SizedBox(width: 5),
+                                SizedBox(
+                                  width: 0.0138 * _screenSize.width, //5,
+                                ),
                                 subtitleList.length > 0 &&
                                         subtitleList[index] != null &&
                                         subtitleList[index].length > 0
                                     ? Container(
-                                        width: 5,
-                                        height: 5,
+                                        width: 0.0138 * _screenSize.width, //5,
+
+                                        height: 0.0138 * _screenSize.width, //5,
+
                                         decoration: BoxDecoration(
                                           color: MAIN_GOLD_COLOR,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
+                                          borderRadius: BorderRadius.circular(
+                                            0.138 * _screenSize.width, //50,
+                                          ),
                                         ))
                                     : SizedBox(),
                                 Expanded(child: SizedBox()),
@@ -155,7 +161,8 @@ class _GroupFilterMenuListViewWidgetState
                                       child: Text(
                                         subtitleList[index],
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
                                           fontWeight: FontWeight.w400,
                                           color: Colors.grey,
                                         ),
@@ -202,7 +209,7 @@ class _GroupFilterMenuListViewWidgetState
               color: Colors.grey,
               thickness: 0.001 * _screenSize.width, //0.3,
 
-              height: 2,
+              height: 0.003125 * _screenSize.height, //2,
             ),
           ],
         );

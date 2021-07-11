@@ -44,9 +44,7 @@ class MainStorePage extends StatefulWidget {
 
 class _MainStorePageState extends State<MainStorePage> {
   ScrollController listOfProductsScrollController = ScrollController();
-  // int _currentPage = 1;
   int _total;
-  // bool _isLoading = true;
   bool _isGettingNewProduct = false;
   //
 
@@ -135,7 +133,6 @@ class _MainStorePageState extends State<MainStorePage> {
           listOfProductsScrollController.position.maxScrollExtent;
       double currentScroll = listOfProductsScrollController.position.pixels;
 
-      // if (maxScroll - currentScroll <= 5 &&
       if (maxScroll == currentScroll &&
           productsRes.data.result.length < _total &&
           !_isGettingNewProduct) {
@@ -148,8 +145,8 @@ class _MainStorePageState extends State<MainStorePage> {
 
   Future<void> searchListener() async {
     searchTextEditingController.addListener(() async {
-      if (searchTextEditingController.text != null &&
-          searchTextEditingController.text != "") {
+      if ((searchTextEditingController.text != null &&
+          searchTextEditingController.text != "")) {
         setState(() {
           searchKeywordName = searchTextEditingController.text;
         });
@@ -163,7 +160,6 @@ class _MainStorePageState extends State<MainStorePage> {
             engNameOfSortBy = SEARCH_SORT;
             uniqueName = STYLE_UNIQUE;
           });
-          // await prepareUpdateFilterReq();
           _getProducts(page: pageNumber);
         }
       }
@@ -203,7 +199,6 @@ class _MainStorePageState extends State<MainStorePage> {
     setState(() {
       mediaQuery = MediaQuery.of(context);
       getedMediaQuery = true;
-
       optionsWidget = prepareOptionsWidgets(
         selectedIndexPage: filterPageOpened,
         mediaQuery: mediaQuery,
@@ -272,9 +267,6 @@ class _MainStorePageState extends State<MainStorePage> {
     int page,
     bool isNew: true,
   }) async {
-    print("geted Page : $page ");
-    // setState(() => _isLoading = true);
-
     setState(() {
       if (isNew) page = 1;
       filter = prepareUpdateFilterReq(page: page);
@@ -328,62 +320,73 @@ class _MainStorePageState extends State<MainStorePage> {
     //
 
     List<String> ageSelected = [];
-    for (int index = 0; index < ageCheckBoxValue.length; index++) {
-      if (ageCheckBoxValue[index])
-        ageSelected.add(listOfCategory.ageGroup[index]);
-    }
-    //
     List<String> colorSelected = [];
-    for (int index = 0; index < colorCheckBoxValue.length; index++) {
-      if (colorCheckBoxValue[index])
-        colorSelected.add(listOfCategory.colorFamily[index]);
-    }
-    //
     List<String> genderSelected = [];
-    for (int index = 0; index < genderCheckBoxValue.length; index++) {
-      if (genderCheckBoxValue[index])
-        genderSelected.add(listOfCategory.gender[index]);
-    }
-    //
     List<String> sizeSelected = [];
-    for (int indexOfGroup = 0;
-        indexOfGroup < sizeGroupCheckBoxValue.length;
-        indexOfGroup++) {
-      for (int indexOfSub = 0;
-          indexOfSub < sizeGroupCheckBoxValue.length;
-          indexOfSub++) {
-        if (checkValueListStatus(
-                sizeGroupCheckBoxValue[indexOfGroup].values.toList()) ==
-            1) {
-          sizeSelected = [];
-        }
-        if (sizeGroupCheckBoxValue[indexOfGroup].values.elementAt(indexOfSub))
-          sizeSelected.add(
-              sizeGroupCheckBoxValue[indexOfGroup].keys.elementAt(indexOfSub));
-      }
-    }
-//
+
     Map<String, List<String>> subGroup = {};
-    for (int indexOfGroup = 0;
-        indexOfGroup < groupsTitles.length;
-        indexOfGroup++) {
-      List<String> subInGroup = [];
-      for (int indexOfSub = 0;
-          indexOfSub < subGroupsValue[indexOfGroup].length;
-          indexOfSub++) {
-        if (subGroupsValue[indexOfGroup][indexOfSub]) {
-          subInGroup.add(subGroupsTitles[indexOfGroup][indexOfSub]);
+    //
+    if (engNameOfSortBy != SEARCH_SORT) {
+      for (int index = 0; index < ageCheckBoxValue.length; index++) {
+        if (ageCheckBoxValue[index])
+          ageSelected.add(listOfCategory.ageGroup[index]);
+      }
+      //
+
+      for (int index = 0; index < colorCheckBoxValue.length; index++) {
+        if (colorCheckBoxValue[index])
+          colorSelected.add(listOfCategory.colorFamily[index]);
+      }
+      //
+
+      for (int index = 0; index < genderCheckBoxValue.length; index++) {
+        if (genderCheckBoxValue[index])
+          genderSelected.add(listOfCategory.gender[index]);
+      }
+      //
+
+      for (int indexOfGroup = 0;
+          indexOfGroup < sizeGroupCheckBoxValue.length;
+          indexOfGroup++) {
+        for (int indexOfSub = 0;
+            indexOfSub < sizeGroupCheckBoxValue.length;
+            indexOfSub++) {
+          if (checkValueListStatus(
+                  sizeGroupCheckBoxValue[indexOfGroup].values.toList()) ==
+              1) {
+            sizeSelected = [];
+          }
+          if (sizeGroupCheckBoxValue[indexOfGroup].values.elementAt(indexOfSub))
+            sizeSelected.add(sizeGroupCheckBoxValue[indexOfGroup]
+                .keys
+                .elementAt(indexOfSub));
         }
       }
-      if (subInGroup != null && subInGroup.length > 0) {
-        if (subInGroup.length == subGroupsTitles[indexOfGroup].length) {
-          subGroup[groupsTitles[indexOfGroup]] = [];
-        } else {
-          subGroup[groupsTitles[indexOfGroup]] = subInGroup;
+//
+
+      for (int indexOfGroup = 0;
+          indexOfGroup < groupsTitles.length;
+          indexOfGroup++) {
+        List<String> subInGroup = [];
+        for (int indexOfSub = 0;
+            indexOfSub < subGroupsValue[indexOfGroup].length;
+            indexOfSub++) {
+          if (subGroupsValue[indexOfGroup][indexOfSub]) {
+            subInGroup.add(subGroupsTitles[indexOfGroup][indexOfSub]);
+          }
+        }
+        if (subInGroup != null && subInGroup.length > 0) {
+          if (subInGroup.length == subGroupsTitles[indexOfGroup].length) {
+            subGroup[groupsTitles[indexOfGroup]] = [];
+          } else {
+            subGroup[groupsTitles[indexOfGroup]] = subInGroup;
+          }
         }
       }
     }
+    // _getProducts(page: pageNumber);
     //
+
     ProductReqBody _filter = updateproductReqBody(
       priceSelected: priceLimit,
       ageSelected: ageSelected,
@@ -396,6 +399,24 @@ class _MainStorePageState extends State<MainStorePage> {
       sortBy: engNameOfSortBy,
       searchKeyword: searchKeywordName,
       unique: uniqueName,
+      restSaerchKey: () {
+        setState(() {
+          searchTextEditingController.clear();
+          searchTextEditingController.text = "";
+        });
+      },
+      restFilters: () {
+        print("nnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+        setState(() {
+          ageSelected = [];
+          for (int index = 0; index < subGroup.keys.length; index++)
+            subGroup = {
+              subGroup.keys.elementAt(index): [],
+            };
+          colorSelected = [];
+          genderSelected = [];
+        });
+      },
     );
     print("7777777777777777777777 filter : ${filter.map}");
     return _filter;
@@ -423,10 +444,7 @@ class _MainStorePageState extends State<MainStorePage> {
         pageNumber = 1;
       });
       prepareValues();
-      // prepareUpdateFilterReq();
-
       _getProducts(page: pageNumber);
-      // _getProducts();
     }
 
     return Container(
@@ -438,7 +456,6 @@ class _MainStorePageState extends State<MainStorePage> {
         maxHeight: _screenSize.height,
         isDraggable: false,
         onPanelClosed: () {
-          // if (sortPanelController.isPanelClosed)
           widget.changeShowButtonNavigationBar(true);
           setState(() {
             filterPageOpened = -1;
@@ -446,7 +463,6 @@ class _MainStorePageState extends State<MainStorePage> {
           FocusScope.of(context).unfocus();
         },
         onPanelOpened: () {
-          // if (sortPanelController.isPanelOpen)
           widget.changeShowButtonNavigationBar(false);
         },
         panel: MainFiltersPanel(
@@ -503,7 +519,7 @@ class _MainStorePageState extends State<MainStorePage> {
           backdropEnabled: true,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(
-              15,
+              0.03 * _screenSize.width, //11
             ),
             topRight: Radius.circular(
               0.03 * _screenSize.width, //11
@@ -660,7 +676,9 @@ class _MainStorePageState extends State<MainStorePage> {
                               width: _screenSize.width,
                               color: ALICE_BLUE,
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
+                                horizontal: 0.054 * _screenSize.width, //20
+                                vertical: 0.023 * _screenSize.height, //15
+                              ),
                               child: Text(filterPageOpened <=
                                       listOfCategory.group.length
                                   ? listOfCategory.group[filterPageOpened - 1]

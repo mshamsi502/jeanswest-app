@@ -60,7 +60,11 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
     for (int index = 0; index < widget.sizeTitles.length; index++) {
       tempDropDownItems.add(
         Positioned(
-          top: ((100 * (widget.sizeTitles.length - index - 1)).toDouble()),
+          top: (((0.15625 * widget.mediaQuery.size.height //100,
+
+                  ) *
+                  (widget.sizeTitles.length - index - 1))
+              .toDouble()),
           child: CustomDropdownButtonWidget(
             title: widget.sizeTitles.keys
                 .elementAt(widget.sizeTitles.length - index - 1),
@@ -98,7 +102,9 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
         Expanded(
           child: Container(
             height: _screenSize.height,
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.027 * _screenSize.width, //10,
+            ),
             child: Stack(
               children: dropDownItems,
             ),
@@ -108,7 +114,9 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
         //     ? SizedBox()
         //     :
         Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(
+            0.054 * _screenSize.width, //20
+          ),
           child: AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
@@ -124,7 +132,9 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
             },
           ),
         ),
-        SizedBox(height: 85),
+        SizedBox(
+          height: 0.1328 * _screenSize.height, //85,
+        ),
       ],
     );
   }

@@ -67,22 +67,35 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
               children: [
                 GestureDetector(
                   child: Container(
-                    margin: EdgeInsets.all(4),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    margin: EdgeInsets.all(
+                      0.011 * _screenSize.width, //4,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.027 * _screenSize.width, //10,
+                      vertical: 0.027 * _screenSize.width, //10,
+                    ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 32,
-                          height: 32,
+                          width: 0.0888 * _screenSize.width, //32,
+
+                          height: 0.0888 * _screenSize.width, //32,
+
                           decoration: BoxDecoration(
                             boxShadow: tempcheckBoxValue[index]
                                 ? []
                                 : [
                                     BoxShadow(
                                         color: Colors.grey[100],
-                                        blurRadius: 3,
-                                        offset: Offset(2, 1))
+                                        blurRadius:
+                                            0.0083 * _screenSize.width, //3,
+
+                                        offset: Offset(
+                                          0.00555 * _screenSize.width, //2,
+
+                                          0.00277 * _screenSize.width, //1,
+                                        ))
                                   ],
                           ),
                           child: Stack(
@@ -91,10 +104,13 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
                                   color: tempcheckBoxValue[index]
                                       ? Colors.white
                                       : Colors.grey,
-                                  margin: EdgeInsets.all(5)),
+                                  margin: EdgeInsets.all(
+                                    0.0138 * _screenSize.width, //5,
+                                  )),
                               Icon(
                                 Icons.check_box,
-                                size: 32,
+                                size: 0.0888 * _screenSize.width, //32,
+
                                 color: tempcheckBoxValue[index]
                                     ? GREEN_TEXT_COLOR
                                     : Colors.white,
@@ -102,7 +118,9 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 7),
+                        SizedBox(
+                          width: 0.0194 * _screenSize.width, //7,
+                        ),
                         Text(
                           widget.checkBoxTitles[index],
                           style: widget.checkBoxTitlesTextStyle,
@@ -121,7 +139,7 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
                 Divider(
                   color: Colors.grey,
                   thickness: 0.001 * _screenSize.width, //0.3,
-                  height: 2,
+                  height: 0.003125 * _screenSize.height, //2,
                 ),
               ],
             );
@@ -129,7 +147,9 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
         ),
         Expanded(child: SizedBox()),
         Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(
+            0.054 * _screenSize.width, //20
+          ),
           child: AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
@@ -147,7 +167,9 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
             },
           ),
         ),
-        SizedBox(height: 85),
+        SizedBox(
+          height: 0.1328 * _screenSize.height, //85,
+        ),
       ],
     );
   }

@@ -50,7 +50,9 @@ class _SingleProductAttributesWidgetState
 
     return Column(
       children: [
-        SizedBox(height: 10),
+        SizedBox(
+          height: 0.015 * _screenSize.height, //10,
+        ),
         ListView.builder(
             itemCount: widget.titles.length,
             shrinkWrap: true,
@@ -59,8 +61,9 @@ class _SingleProductAttributesWidgetState
               return Column(
                 children: [
                   SizedBox(
-                      height:
-                          index - 1 >= 0 && isAllExpanded[index - 1] ? 10 : 0),
+                      height: index - 1 >= 0 && isAllExpanded[index - 1]
+                          ? 0.015 * _screenSize.height //10,
+                          : 0),
                   ConfigurableExpansionTile(
                     onExpansionChanged: (bool isExpanded) => setState(() {
                       isAllExpanded[index] = isExpanded;
@@ -68,11 +71,15 @@ class _SingleProductAttributesWidgetState
                     headerExpanded: Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          bottom: 7,
-                          top: 5,
-                        ),
+                            left: 0.054 * _screenSize.width, //20
+
+                            right: 0.054 * _screenSize.width, //20
+
+                            bottom: 0.011824 * _screenSize.height, //7,
+
+                            top: 0.0078 * _screenSize.height //5,
+
+                            ),
                         child: Text(
                           widget.titles[index],
                           style: TextStyle(
@@ -84,11 +91,15 @@ class _SingleProductAttributesWidgetState
                     header: Expanded(
                       child: Padding(
                         padding: EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                          bottom: 7,
-                          top: 5,
-                        ),
+                            left: 0.054 * _screenSize.width, //20
+
+                            right: 0.054 * _screenSize.width, //20
+
+                            bottom: 0.011824 * _screenSize.height, //7,
+
+                            top: 0.0078 * _screenSize.height //5,
+
+                            ),
                         child: Text(
                           widget.titles[index],
                           style: TextStyle(
@@ -99,11 +110,15 @@ class _SingleProductAttributesWidgetState
                     ),
                     animatedWidgetFollowingHeader: Padding(
                       padding: EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                        bottom: 7,
-                        top: 5,
-                      ),
+                          left: 0.054 * _screenSize.width, //20
+
+                          right: 0.054 * _screenSize.width, //20
+
+                          bottom: 0.011824 * _screenSize.height, //7,
+
+                          top: 0.0078 * _screenSize.height //5,
+
+                          ),
                       child: Icon(
                         Icons.chevron_right,
                         color: Colors.grey[600],
@@ -115,8 +130,9 @@ class _SingleProductAttributesWidgetState
                     children: <Widget>[
                       Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
+                          horizontal: 0.054 * _screenSize.width, //20
+
+                          vertical: 0.015 * _screenSize.height, //10,
                         ),
                         color: F2_BACKGROUND_COLOR,
                         alignment: Alignment.centerRight,
@@ -128,33 +144,38 @@ class _SingleProductAttributesWidgetState
                               style: {
                                 "p": Style.fromTextStyle(
                                   TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black54,
                                   ),
                                 ),
                                 "table": Style.fromTextStyle(
                                   TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+
                                     fontWeight: FontWeight.w400,
                                     color: Colors.black54,
                                   ),
                                 ),
                                 "strong": Style.fromTextStyle(
                                   TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 "li": Style.fromTextStyle(
                                   TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
                                 "a": Style.fromTextStyle(
                                   TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 0.0333 * _screenSize.width, //12,
+
                                     fontWeight: FontWeight.w400,
                                     // color: Colors.black54,
                                   ),
@@ -180,7 +201,8 @@ class _SingleProductAttributesWidgetState
                             Text(
                               "مشخصات:",
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 0.038 * _screenSize.width, //14,
+
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -191,14 +213,18 @@ class _SingleProductAttributesWidgetState
                               itemBuilder: (BuildContext context,
                                   int indexOfSingleProFeature) {
                                 return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 0.027 * _screenSize.width, //10,
+                                  ),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: 4,
-                                        height: 4,
+                                        width: 0.011 * _screenSize.width, //4,
+
+                                        height: 0.011 * _screenSize.width, //4,
+
                                         margin:
                                             EdgeInsets.symmetric(vertical: 10),
                                         decoration: BoxDecoration(
@@ -207,15 +233,21 @@ class _SingleProductAttributesWidgetState
                                           color: Colors.black,
                                         ),
                                       ),
-                                      SizedBox(width: 10),
+                                      SizedBox(
+                                        width: 0.015 * _screenSize.height, //10,
+                                      ),
                                       Text(
                                         "${widget.features[index][indexOfSingleProFeature].title}:",
                                         style: TextStyle(
-                                          fontSize: 12,
+                                          fontSize:
+                                              0.0333 * _screenSize.width, //12,
+
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      SizedBox(width: 5),
+                                      SizedBox(
+                                        width: 0.0138 * _screenSize.width, //5,
+                                      ),
                                       Expanded(
                                         child: Text(
                                           widget
@@ -223,7 +255,9 @@ class _SingleProductAttributesWidgetState
                                                   [indexOfSingleProFeature]
                                               .value,
                                           style: TextStyle(
-                                            fontSize: 12,
+                                            fontSize: 0.0333 *
+                                                _screenSize.width, //12,
+
                                             fontWeight: FontWeight.w400,
                                           ),
                                         ),
@@ -241,7 +275,8 @@ class _SingleProductAttributesWidgetState
                   Container(
                       height: index == widget.titles.length - 1 &&
                               !isAllExpanded[index]
-                          ? 5
+                          ? 0.0078*_screenSize.height//5,
+
                           : 0),
                   index == widget.titles.length - 1 || isAllExpanded[index]
                       ? SizedBox()

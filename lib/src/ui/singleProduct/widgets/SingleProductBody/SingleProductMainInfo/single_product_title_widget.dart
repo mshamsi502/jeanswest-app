@@ -56,8 +56,9 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
     return Container(
       // color: Colors.green,
       padding: EdgeInsets.symmetric(
-          horizontal: 0.054 * _screenSize.width, //20
-          vertical: 10),
+        horizontal: 0.054 * _screenSize.width, //20
+        vertical: 0.015 * _screenSize.height, //10,
+      ),
       child: Column(
         children: [
           Row(
@@ -65,14 +66,22 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
             children: [
               Text(
                 _brand,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(
+                  fontSize: 0.038 * _screenSize.width, //14,
+                ),
               ),
               GestureDetector(
                 onTap: () => widget.openExistInBranches(),
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 0.0083 * _screenSize.width, //3,
+
+                    vertical: 0.003125 * _screenSize.height, //2,
+                  ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(
+                      0.138 * _screenSize.width, //50,
+                    ),
                     border: Border.all(color: MAIN_BLUE_COLOR),
                   ),
                   child: Row(
@@ -80,14 +89,18 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
                       SvgPicture.asset(
                         'assets/images/svg_images/global/new/fi-rr-marker.svg',
                         color: MAIN_BLUE_COLOR,
-                        width: 16,
-                        height: 16,
+                        width: 0.0444 * _screenSize.width, //16,
+
+                        height: 0.0444 * _screenSize.width, //16,
                       ),
-                      SizedBox(width: 3),
+                      SizedBox(
+                        width: 0.0083 * _screenSize.width, //3,
+                      ),
                       Text(
                         "موجودی شعب",
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 0.0333 * _screenSize.width, //12,
+
                           color: MAIN_BLUE_COLOR,
                         ),
                       ),
@@ -95,8 +108,9 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
                       SvgPicture.asset(
                         'assets/images/svg_images/global/new/fi-rr-angle-small-left.svg',
                         color: MAIN_BLUE_COLOR,
-                        width: 18,
-                        height: 18,
+                        width: 0.05 * _screenSize.width, //18,
+
+                        height: 0.05 * _screenSize.width, //18,
                       ),
                     ],
                   ),
@@ -104,28 +118,40 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(
+            height: 0.031 * _screenSize.height, //20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Text(
                   _fullName,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(
+                    fontSize: 0.038 * _screenSize.width, //14,
+                  ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(width: 20),
+              SizedBox(
+                width: 0.054 * _screenSize.width, //20
+              ),
               Row(children: [
                 Text(
                   toPriceStyle(_price, isFromRialToToman: true),
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(
+                    fontSize: 0.0444 * _screenSize.width, //16,
+                  ),
                 ),
-                SizedBox(width: 2),
+                SizedBox(
+                  width: 0.00555 * _screenSize.width, //2,
+                ),
                 Text(
                   "تومان",
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(
+                    fontSize: 0.038 * _screenSize.width, //14,
+                  ),
                 )
               ]),
             ],

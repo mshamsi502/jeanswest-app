@@ -27,37 +27,46 @@ class _LabelFiltersPanelState extends State<LabelFiltersPanel> {
 
   @override
   Widget build(BuildContext context) {
-    // var _screenSize = MediaQuery.of(context).size;
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(
+        horizontal: 0.0138 * _screenSize.width, //5,
+      ),
       decoration: BoxDecoration(
           color: BLUE_SKY_FADE_COLOR,
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(
+            0.138 * _screenSize.width, //50,
+          ),
           border: Border.all(color: MAIN_BLUE_COLOR)),
       child: Row(
         children: [
           Text(
             widget.text,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 0.038 * _screenSize.width, //14,
+
               color: MAIN_BLUE_COLOR,
             ),
           ),
-          SizedBox(width: 7),
+          SizedBox(
+            width: 0.0194 * _screenSize.width, //7,
+          ),
           GestureDetector(
             onTap: () => widget.deleteLabel(widget.index),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(
+                  0.138 * _screenSize.width, //50,
+                ),
                 border: Border.all(
                   color: MAIN_BLUE_COLOR,
-                  width: 0.7,
+                  width: 0.001944 * _screenSize.width, //0.7,
                 ),
               ),
               child: Icon(
                 Icons.close,
-                size: 18,
+                size: 0.05 * _screenSize.width, //18,
                 color: MAIN_BLUE_COLOR,
               ),
             ),

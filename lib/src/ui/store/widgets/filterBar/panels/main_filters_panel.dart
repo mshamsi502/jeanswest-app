@@ -260,7 +260,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                   initializeValues();
                   subCategoryPanelController.close();
                 },
-                option: SizedBox(height: 45),
+                option: SizedBox(
+                  height: 0.07 * _screenSize.height, //45,
+                ),
               ),
               Expanded(
                   child: selectedGroup < 0
@@ -285,7 +287,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               ? optionsWidget[
                                   selectedGroup - widget.category.group.length]
                               : SizedBox()),
-              SizedBox(height: 20),
+              SizedBox(
+                height: 0.031 * _screenSize.height, //20,
+              ),
             ],
           ),
         ),
@@ -300,11 +304,14 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
               option: GestureDetector(
                 child: Container(
                   // color: Colors.amber,
-                  padding: EdgeInsets.all(15),
+                  padding: EdgeInsets.all(
+                    0.041 * _screenSize.width, //15,
+                  ),
                   child: Text(
                     "حذف همه فیلترها",
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 0.038 * _screenSize.width, //14,
+
                       fontWeight: FontWeight.w400,
                       color: MAIN_BLUE_COLOR,
                     ),
@@ -317,24 +324,28 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
               ),
             ),
             Container(
-              height: 3,
+              height: 0.0046 * _screenSize.height, //3,
+
               color: FB_BACKGROUND_COLOR,
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   // horizontal: 15,
-                  vertical: 10,
+                  vertical: 0.015 * _screenSize.height, //10,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 0.041 * _screenSize.width, //15,
+                      ),
                       child: Text(
                         "دسته بندی",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 0.0444 * _screenSize.width, //16,
+
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -376,7 +387,8 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               checkBoxTitles: widget.category.gender,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,
-                                fontSize: 14,
+                                fontSize: 0.038 * _screenSize.width, //14,
+
                                 fontWeight: FontWeight.w400,
                               ),
                               checkBoxValue: tempGenderCheckBoxValue,
@@ -389,7 +401,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                             Divider(
                               color: Colors.grey,
                               thickness: 0.001 * _screenSize.width, //0.3,
-                              height: 2,
+                              height: 0.003125 * _screenSize.height, //2,
                             ),
                             CheckBoxInMainFilterWidget(
                               title: "رده سنی",
@@ -402,7 +414,8 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               checkBoxTitles: widget.category.ageGroup,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,
-                                fontSize: 14,
+                                fontSize: 0.038 * _screenSize.width, //14,
+
                                 fontWeight: FontWeight.w400,
                               ),
                               checkBoxValue: tempAgeGroupCheckBoxValue,
@@ -415,7 +428,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                             Divider(
                               color: Colors.grey,
                               thickness: 0.001 * _screenSize.width, //0.3,
-                              height: 2,
+                              height: 0.003125 * _screenSize.height, //2,
                             ),
                             OptionFilterMenuListViewWidget(
                               titles: widget.optionGroup.sublist(2),
@@ -434,13 +447,17 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                   "از ${widget.priceLimitValue["min"]} تا ${widget.priceLimitValue["max"]} تومان",
                               showName: [!isShowColorWidget, true, true],
                             ),
-                            SizedBox(height: 15),
+                            SizedBox(
+                              height: 0.023 * _screenSize.height, //15
+                            ),
                           ],
                         ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: EdgeInsets.all(
+                        0.041 * _screenSize.width, //15,
+                      ),
                       child: AvakatanButtonWidget(
                         backgroundColor: MAIN_BLUE_COLOR,
                         textColor: Colors.white,
@@ -463,7 +480,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                         },
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(
+                      height: 0.023 * _screenSize.height, //15
+                    ),
                   ],
                 ),
               ),

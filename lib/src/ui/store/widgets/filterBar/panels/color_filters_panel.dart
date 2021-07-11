@@ -70,32 +70,39 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.054 * _screenSize.width, //20
+
+                  vertical: 0.015 * _screenSize.height, //10,
+                ),
                 child: Row(
                   children: [
                     SvgPicture.asset(
                       'assets/images/svg_images/store/category/wheel_color.svg',
-                      width: 25,
-                      height: 25,
+                      width: 0.069 * _screenSize.width, //25,
+                      height: 0.039 * _screenSize.height, //25,
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(
+                      width: 0.027 * _screenSize.width, //10,
+                    ),
                     Text(
                       "نمایش همه رنگ ها",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 0.0444 * _screenSize.width, //16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Expanded(child: SizedBox()),
                     FlutterSwitch(
-                      width: 60,
-                      height: 33,
-                      valueFontSize: 14,
-                      toggleSize: 30,
+                      width: 0.166 * _screenSize.width, //60,
+
+                      height: 0.0515 * _screenSize.height, //33,
+                      valueFontSize: 0.038 * _screenSize.width, //14,
+                      toggleSize: 0.083 * _screenSize.width, //30,
                       inactiveColor: MAIN_BLUE_COLOR,
                       activeColor: Colors.grey[400],
-                      borderRadius: 50,
-                      padding: 3,
+                      borderRadius: 0.138 * _screenSize.width, //50,
+                      padding: 0.0083 * _screenSize.width, //3,
                       showOnOff: false,
                       value: !selectAllStatus,
                       onToggle: (val) {
@@ -110,22 +117,34 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
                   ],
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 0.0078 * _screenSize.height //5,
+
+                  ),
               Divider(
                 color: Colors.grey,
                 thickness: 0.001 * _screenSize.width, //0.3,
-                height: 2,
+                height: 0.003125 * _screenSize.height, //2,
               ),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10,
+          ),
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(
+              horizontal: 0.054 * _screenSize.width, //20
+            ),
             child: GridView.count(
-              crossAxisCount: ((_screenSize.width - 30) ~/ 65),
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 5,
+              crossAxisCount: ((_screenSize.width -
+                      (0.083 * _screenSize.width //30,
+                      )) ~/
+                  (0.1805 * _screenSize.width //65,
+                  )),
+              mainAxisSpacing: 0.054 * _screenSize.width, //20
+
+              crossAxisSpacing: 0.0138 * _screenSize.width, //5,
+
               children: List.generate(widget.colors.length, (index) {
                 return GestureDetector(
                   onTap: () {
@@ -133,8 +152,10 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
                     // updateActiveColors(index);
                   },
                   child: Container(
-                    width: 65,
-                    height: 65,
+                    width: 0.1805 * _screenSize.width, //65,
+
+                    height: 0.1805 * _screenSize.width, //65,
+
                     alignment: Alignment.center,
                     child: Stack(
                       children: [
@@ -145,8 +166,8 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
                             ? Center(
                                 child: SvgPicture.asset(
                                   'assets/images/svg_images/store/category/circle_checkbox.svg',
-                                  width: 35,
-                                  height: 35,
+                                  width: 0.09722 * _screenSize.width, //35,
+                                  height: 0.09722 * _screenSize.width, //35,
                                 ),
                               )
                             : SizedBox()
@@ -162,7 +183,9 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
           //     ? SizedBox()
           //     :
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(
+              0.054 * _screenSize.width, //20
+            ),
             child: AvakatanButtonWidget(
               backgroundColor: MAIN_BLUE_COLOR,
               textColor: Colors.white,
@@ -178,7 +201,9 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
               },
             ),
           ),
-          SizedBox(height: 85),
+          SizedBox(
+            height: 0.1328 * _screenSize.height, //85,
+          ),
         ],
       ),
     );

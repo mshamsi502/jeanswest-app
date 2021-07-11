@@ -86,15 +86,20 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
     if (widget.filterPageOpened != tempFilterPageOpened) update();
 
     return Container(
-      height: 50,
+      height: 0.078125 * _screenSize.height, //50,
+
       width: _screenSize.width,
       // color: Colors.red,
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: 0.0078 * _screenSize.height //5,
+
+          ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         controller: scrollController,
         child: Container(
-          padding: EdgeInsets.only(right: 10),
+          padding: EdgeInsets.only(
+            right: 0.027 * _screenSize.width, //10,
+          ),
           child: ListView.builder(
               itemCount: filters.length,
               scrollDirection: Axis.horizontal,
@@ -159,7 +164,9 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(
+                      width: 0.027 * _screenSize.width, //10,
+                    ),
                   ],
                 );
               }),

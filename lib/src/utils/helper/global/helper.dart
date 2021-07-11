@@ -11,17 +11,22 @@
 import 'dart:typed_data';
 import 'package:flutter/rendering.dart';
 import 'dart:ui' as ui;
+import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
+import 'package:jeanswest/src/models/branch/branch-for-product.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
+import 'package:jeanswest/src/utils/helper/branch/helper_map.dart';
+import 'package:latlong/latlong.dart';
 // import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -345,4 +350,43 @@ Future<ListOfProductsRes> getAllColorsAndSizes(String styleCode) async {
     }
   };
   return await globalLocator<GlobalRestClient>().getProductList(mapFilter);
+}
+
+Future<List<double>> createDistances(
+    {@required List<BranchForProduct> branches}) async {
+  CameraPosition userLocation = await updateUserLocation();
+  List<double> _distances = [];
+  branches.forEach((branch) {
+    double _dis = getDistanceFromLatLonInKm(
+      lat1: userLocation.target.latitude,
+      lon1: userLocation.target.longitude,
+      lat2: double.parse(branch.lat),
+      lon2: double.parse(branch.lng),
+    );
+    _distances.add(_dis);
+  });
+  return _distances;
+}
+
+double getDistanceFromLatLonInKm({
+  @required double lat1,
+  @required double lon1,
+  @required double lat2,
+  @required double lon2,
+}) {
+  double R = 6371; // Radius of the earth in km
+  double dLat = deg2rad(deg: lat2 - lat1); // deg2rad below
+  double dLon = deg2rad(deg: lon2 - lon1);
+  double a = sin(dLat / 2) * sin(dLat / 2) +
+      cos(deg2rad(deg: lat1)) *
+          cos(deg2rad(deg: lat2)) *
+          sin(dLon / 2) *
+          sin(dLon / 2);
+  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+  double d = R * c; // Distance in km
+  return d;
+}
+
+double deg2rad({@required double deg}) {
+  return deg * (PI / 180);
 }

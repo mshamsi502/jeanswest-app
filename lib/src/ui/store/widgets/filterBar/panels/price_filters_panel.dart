@@ -60,10 +60,16 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
         Container(
           width: _screenSize.width,
           // height: _screenSize.height,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+          padding: EdgeInsets.symmetric(
+            horizontal: 0.054 * _screenSize.width, //20
+
+            vertical: 0.069 * _screenSize.width, //25,
+          ),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              SizedBox(
+                height: 0.027 * _screenSize.width, //10,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -72,32 +78,42 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
                       Text(
                         "از",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
+
                           color: Colors.black54,
                         ),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(
+                        width: 0.0138 * _screenSize.width, //5,
+                      ),
                       Container(
-                          width: 100,
-                          height: 35,
+                          width: 0.277 * _screenSize.width, //100,
+                          height: 0.05468 * _screenSize.height, //35,
+
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(
+                              0.0138 * _screenSize.width, //5,
+                            ),
                             color: F2_BACKGROUND_COLOR,
                           ),
                           child: Text(
                             toPriceStyle(selectedRange.start.toInt()),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 0.0444 * _screenSize.width, //16,
+
                               fontWeight: FontWeight.w600,
                               color: MAIN_BLUE_COLOR,
                             ),
                           )),
-                      SizedBox(width: 5),
+                      SizedBox(
+                        width: 0.0138 * _screenSize.width, //5,
+                      ),
                       Text(
                         "تومان",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
+
                           color: MAIN_BLUE_COLOR,
                         ),
                       ),
@@ -108,32 +124,43 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
                       Text(
                         "تا",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
+
                           color: Colors.black54,
                         ),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(
+                        width: 0.0138 * _screenSize.width, //5,
+                      ),
                       Container(
-                          width: 100,
-                          height: 35,
+                          width: 0.277 * _screenSize.width, //100,
+
+                          height: 0.05468 * _screenSize.height, //35,
+
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(
+                              0.0138 * _screenSize.width, //5,
+                            ),
                             color: F2_BACKGROUND_COLOR,
                           ),
                           child: Text(
                             toPriceStyle(selectedRange.end.toInt()),
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 0.0444 * _screenSize.width, //16,
+
                               fontWeight: FontWeight.w600,
                               color: MAIN_BLUE_COLOR,
                             ),
                           )),
-                      SizedBox(width: 5),
+                      SizedBox(
+                        width: 0.0138 * _screenSize.width, //5,
+                      ),
                       Text(
                         "تومان",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 0.038 * _screenSize.width, //14,
+
                           color: MAIN_BLUE_COLOR,
                         ),
                       ),
@@ -141,10 +168,12 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: 0.031 * _screenSize.height, //20,
+              ),
               SliderTheme(
                 data: SliderThemeData(
-                  trackHeight: 3,
+                  trackHeight: 0.0046 * _screenSize.height, //3,
                 ),
                 child: RangeSlider(
                   min: minPriceCategoty,
@@ -169,7 +198,9 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
         //     ? SizedBox()
         //     :
         Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(
+            0.054 * _screenSize.width, //20
+          ),
           child: AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
             textColor: Colors.white,
@@ -189,7 +220,9 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
             },
           ),
         ),
-        SizedBox(height: 85),
+        SizedBox(
+          height: 0.1328 * _screenSize.height, //85,
+        ),
       ],
     );
   }
