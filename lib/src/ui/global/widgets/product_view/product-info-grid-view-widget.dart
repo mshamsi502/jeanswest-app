@@ -5,12 +5,16 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
+import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
+import 'package:jeanswest/src/ui/singleProduct/screens/single_product_main_page.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_label_widget.dart';
 
@@ -22,6 +26,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
   final bool hasAddToFav;
   final bool isFave;
   final bool productIsActive;
+  final bool addToCardIsActive;
   final Function(int) deleteFromFav;
   final Function(int) addToCardFromFav;
   final Function(int, bool) changeFav;
@@ -38,6 +43,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
     this.addToCardFromFav,
     this.productIsActive,
     this.changeFav,
+    this.addToCardIsActive = true,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoGridViewWidgetState();
@@ -49,9 +55,11 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
   //
   int selectedColor;
   int selectedSize;
+  bool tempIsFav;
 
   @override
   void initState() {
+    tempIsFav = widget.isFave;
     if (widget.product != null &&
         widget.product.basePrice != null &&
         widget.product.salePrice != null)
@@ -87,22 +95,34 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
             ),
             child: Stack(
               children: [
-                Container(
-                  height: 0.3547 * _screenSize.height, //210,
-                  width: widget.width,
-                  child: Image.network(
-                    widget.product != null &&
-                            widget.product.banimodeDetails != null &&
-                            widget.product.banimodeDetails.images != null
-                        ? widget.product.banimodeDetails.images.thickboxDefault[
-                            widget.product.banimodeDetails.images
-                                        .thickboxDefault.length >
-                                    6
-                                ? 2
-                                : 0]
-                        : EMPTY_IMAGE,
-                    fit: BoxFit.fitWidth,
+                GestureDetector(
+                  child: Container(
+                    height: 0.3547 * _screenSize.height, //210,
+                    width: widget.width,
+                    child: Image.network(
+                      widget.product != null &&
+                              widget.product.banimodeDetails != null &&
+                              widget.product.banimodeDetails.images != null
+                          ? widget.product.banimodeDetails.images
+                              .thickboxDefault[widget.product.banimodeDetails
+                                      .images.thickboxDefault.length >
+                                  6
+                              ? 2
+                              : 0]
+                          : EMPTY_IMAGE,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
+                  // ! navigation to single product
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SingleProductMainPage(
+                                product: widget.product,
+                                isFave: widget.isFave,
+                                changeFave: (bool newIsFave) => widget
+                                    .changeFav(widget.productIndex, newIsFave),
+                              ))),
                 ),
                 widget.productIsActive
                     ? SizedBox()
@@ -110,28 +130,66 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                         color: GREY_FADE_BACKGROUND_COLOR,
                       ),
                 Positioned(
-                  right: 0.00555 * _screenSize.width, //2,
-                  bottom: 0.003125 * _screenSize.height, //2,
+                  right: 7,
+                  bottom: 7,
                   child: widget.hasAddToFav
                       ? GestureDetector(
-                          onTap: () {
-                            // !  change isFave
-                            widget.changeFav(
-                                widget.productIndex, !widget.isFave);
-                          },
                           child: Container(
-                            height: 0.09722 * _screenSize.width, //35,
-                            width: 0.09722 * _screenSize.width, //35,
-                            child: Icon(
-                              widget.isFave
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color:
-                                  widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
-                              size: 0.083 * _screenSize.width, //30
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    spreadRadius: 0.02,
+                                    color: Colors.grey[300],
+                                  )
+                                ]),
+                            padding: EdgeInsets.all(7),
+                            child: SvgPicture.asset(
+                              tempIsFav
+                                  ? 'assets/images/svg_images/global/new/heart-fill.svg'
+                                  : 'assets/images/svg_images/global/new/heart.svg',
+                              color: tempIsFav ? MAIN_BLUE_COLOR : Colors.grey,
+                              width: 24,
+                              height: 24,
                             ),
                           ),
-                        )
+                          onTap: () async {
+                            setState(() {
+                              tempIsFav = !tempIsFav;
+                            });
+                            GeneralRespons res =
+                                await addToUserFavoriteInfo(widget.product.sku);
+                            if (res != null && res.statusCode == 200) {
+                              widget.changeFav(widget.productIndex, tempIsFav);
+                            } else
+                              setState(() {
+                                tempIsFav = !tempIsFav;
+                              });
+                          })
+
+                      // GestureDetector(
+                      //     onTap: () {
+                      //       // !  change isFave
+                      //       widget.changeFav(
+                      //           widget.productIndex, !widget.isFave);
+                      //     },
+                      //     child: Container(
+                      //       height: 0.09722 * _screenSize.width, //35,
+                      //       width: 0.09722 * _screenSize.width, //35,
+                      //       child: Icon(
+                      //         widget.isFave
+                      //             ? Icons.favorite
+                      //             : Icons.favorite_border,
+                      //         color:
+                      //             widget.isFave ? MAIN_BLUE_COLOR : Colors.grey,
+                      //         size: 0.083 * _screenSize.width, //30
+                      //       ),
+                      //     ),
+                      //   )
                       : SizedBox(),
                 ),
                 Positioned(
@@ -227,7 +285,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                       children: [
                         widget.productIsActive && discountPercent != 0
                             ? Text(
-                                toPriceStyle(widget.product.basePrice),
+                                toPriceStyle(widget.product.basePrice,
+                                    isFromRialToToman: true),
                                 style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 0.0333 * _screenSize.width, //12,
@@ -236,7 +295,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                             : SizedBox(),
                         Text(
                           widget.productIsActive
-                              ? toPriceStyle(widget.product.salePrice)
+                              ? toPriceStyle(widget.product.salePrice,
+                                  isFromRialToToman: true)
                               : 'ناموجود',
                           style: TextStyle(
                             color: widget.productIsActive
@@ -289,63 +349,66 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                 ],
               ),
               Expanded(child: SizedBox()),
-              Container(
-                height: 0.125 * _screenSize.width, //45,
-                width: 0.125 * _screenSize.width, //45,
-                child: GestureDetector(
-                  onTap: () async {
-                    try {
-                      print('styleCode : ${widget.product.styleCode}');
+              widget.addToCardIsActive
+                  ? Container(
+                      height: 0.125 * _screenSize.width, //45,
+                      width: 0.125 * _screenSize.width, //45,
+                      child: GestureDetector(
+                        onTap: () async {
+                          try {
+                            print('styleCode : ${widget.product.styleCode}');
 
-                      Map<String, dynamic> mapFilter = {
-                        "filter": {
-                          "styleCode": {"eq": widget.product.styleCode},
-                          "quantity": {"gt": 0}
+                            Map<String, dynamic> mapFilter = {
+                              "filter": {
+                                "styleCode": {"eq": widget.product.styleCode},
+                                "quantity": {"gt": 0}
+                              },
+                              "option": {
+                                "page": {"eq": 1},
+                                "limit": {"eq": 20}
+                              },
+                              "unique": {
+                                "color": {"eq": 1}
+                              }
+                            };
+                            ListOfProductsRes _addToCardProductDetailRes =
+                                await globalLocator<GlobalRestClient>()
+                                    .getProductList(mapFilter);
+
+                            setState(() {
+                              addToCardProductDetailRes =
+                                  _addToCardProductDetailRes;
+                            });
+
+                            widget.addToCardFromFav(widget.productIndex);
+                          } catch (e) {
+                            printErrorMessage(e);
+                            print('error :(');
+                          }
+                          // } else // ! for test, delete it
+                          //   print('no exist :)');
                         },
-                        "option": {
-                          "page": {"eq": 1},
-                          "limit": {"eq": 20}
-                        },
-                        "unique": {
-                          "color": {"eq": 1}
-                        }
-                      };
-                      ListOfProductsRes _addToCardProductDetailRes =
-                          await globalLocator<GlobalRestClient>()
-                              .getProductList(mapFilter);
-
-                      setState(() {
-                        addToCardProductDetailRes = _addToCardProductDetailRes;
-                      });
-
-                      widget.addToCardFromFav(widget.productIndex);
-                    } catch (e) {
-                      printErrorMessage(e);
-                      print('error :(');
-                    }
-                    // } else // ! for test, delete it
-                    //   print('no exist :)');
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(
-                        0.138 * _screenSize.width, //50,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            ),
+                            border: Border.all(
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.add_shopping_cart,
+                            size: 0.069 * _screenSize.width, //25,
+                            color: widget.productIsActive
+                                ? MAIN_BLUE_COLOR
+                                : Colors.grey,
+                          ),
+                        ),
                       ),
-                      border: Border.all(
-                        color: Colors.grey[300],
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.add_shopping_cart,
-                      size: 0.069 * _screenSize.width, //25,
-                      color: widget.productIsActive
-                          ? MAIN_BLUE_COLOR
-                          : Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
+                    )
+                  : SizedBox(),
             ],
           )
         ],

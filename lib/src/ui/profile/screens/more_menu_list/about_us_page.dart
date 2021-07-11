@@ -127,8 +127,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                               children: [
                                 InfoCardWidget(
                                   text: widget.aboutUsData.cards[index].text,
-                                  imagePAth: widget
-                                      .aboutUsData.cards[index].picture,
+                                  imagePAth:
+                                      widget.aboutUsData.cards[index].picture,
                                   customDirection: rtlTextDirection,
                                   icon: [],
                                   screenSize: _screenSize,

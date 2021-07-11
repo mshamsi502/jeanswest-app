@@ -30,11 +30,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-
 
 import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
 
-import 'dart:io';
 
-import 'package:intent/action.dart' as android_action;
-import 'package:intent/intent.dart' as android_intent;
-import 'package:intent/extra.dart' as android_extra;
 
 List<Widget> createProfileListMenuPages({
   // Size screenSize,
@@ -121,29 +117,6 @@ List<Widget> createMoreListMenuPages({
   return profileListMenu;
 }
 
-bottomButtonFunction(String textLink) {
-  // String link = 'club.avakatan.ir/public/jeanswest.apk';
-  // String text = 'به جین وست ملحق شو :)\n$link';
-
-  if (Platform.isAndroid) {
-    android_intent.Intent()
-      ..setAction(android_action.Action.ACTION_SEND)
-      ..setType('text/plain')
-      ..putExtra(android_extra.Extra.EXTRA_TEXT, textLink)
-      ..startActivity().catchError((e) => print(e));
-  }
-
-  // ignore: unused_element
-
-  //  else if (Platform.isIOS) {
-  //   // IOS Intent to Map Apps
-  //   //   "comgooglemaps://?center=40.765819,-73.975866&zoom=14&views=traffic"
-  //   Uri.parse(
-  //       'comgooglemaps://?saddr=Google+Inc,+8th+Avenue,+New+York,+NY&daddr=John+F.+Kennedy+International+Airport,+Van+Wyck+Expressway,+Jamaica,+New+York&directionsmode=transit');
-  // } else {
-  //   // Other OS Intent to Map Apps
-  // }
-}
 
 UserMainInfo createUser({
   @required UserMainInfoData userAccount,

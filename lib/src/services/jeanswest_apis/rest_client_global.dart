@@ -14,6 +14,7 @@ import 'package:jeanswest/src/models/api_response/globalRes/levelCards/level-car
 
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/auth-req-response.dart';
+import 'package:jeanswest/src/models/api_response/productRes/erp/exist-in-branches-list-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userJeanpointAndBons/user-jeanpoints-res.dart';
@@ -126,7 +127,7 @@ abstract class GlobalRestClient extends RestClient {
   Future<GeneralRespons> removeFromUserFavorite(
       @Body() Map<String, dynamic> barcode);
 
-  @POST('http://10.0.1.111:8000/api/v1/favorite/remove')
+  @POST('http://10.0.1.111:8000/api/v1/favorite/add')
   Future<GeneralRespons> addToUserFavorite(
       @Body() Map<String, dynamic> barcode);
 
@@ -245,6 +246,11 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.0.1.111:8000/api/v1/category/list')
   // @GET('http://10.0.1.111:8000/api/$BACKEND_API_VERSION/category/list')
   Future<CategoryRes> getAllCategory();
+  @POST(
+      'http://10.0.1.111:8000/api/v1/erp/product/getProductsAvailabilityInBranches')
+  // @GET('http://10.0.1.111:8000/api/$BACKEND_API_VERSION/category/list')
+  Future<ExistInBranchesListRes> getExistInBranches(
+      @Body() Map<String, dynamic> barcode);
 
   // !
 

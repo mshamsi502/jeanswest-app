@@ -52,19 +52,6 @@ class BottomNavigationBarSvgImages {
 
   //----------------------------------------
 
-  static Widget disableShoppingBasketIcon = SvgPicture.asset(
-    'assets/images/svg_images/global/bottom_navigation_bar/shopping_basket_icon.svg',
-    color: Colors.grey,
-    width: 20,
-    height: 20,
-  );
-  static Widget enableShoppingBasketIcon = SvgPicture.asset(
-    'assets/images/svg_images/global/bottom_navigation_bar/shopping_basket_icon.svg',
-    color: MAIN_BLUE_COLOR,
-    width: 23,
-    height: 23,
-  );
-
   static Widget disableProfileIcon = SvgPicture.asset(
     'assets/images/svg_images/global/bottom_navigation_bar/profile_icon.svg',
     color: Colors.grey,

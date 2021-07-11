@@ -85,6 +85,7 @@ dependencies:
   # flutter_barcode_scanner: ^2.0.0
   # flutter_barcode_scanner: any
   qrscan: ^0.3.2
+  photo_view: ^0.11.1
 #----------------Converts-----------------
   qr_flutter: ^4.0.0
   shamsi_date: ^0.9.1
@@ -162,6 +163,7 @@ flutter:
     - assets/images/svg_images/global/
     - assets/images/svg_images/global/bottom_navigation_bar/
     - assets/images/svg_images/global/message/
+    - assets/images/svg_images/global/new/
     - assets/images/svg_images/login/
     - assets/images/svg_images/login/flags/
     - assets/images/svg_images/profile/

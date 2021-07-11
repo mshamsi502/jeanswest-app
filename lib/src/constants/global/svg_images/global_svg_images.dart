@@ -135,4 +135,19 @@ class GlobalSvgImages {
     // height: 60,
     // width: 60,
   );
+  //
+  // -----------------------------------------------------
+  //
+  static Widget disableShoppingBasketIcon = SvgPicture.asset(
+    'assets/images/svg_images/global/new/fi-rr-shopping-cart.svg',
+    color: Colors.grey,
+    width: 20,
+    height: 20,
+  );
+  static Widget enableShoppingBasketIcon = SvgPicture.asset(
+    'assets/images/svg_images/global/fi-sr-shopping-cart.svg',
+    color: MAIN_BLUE_COLOR,
+    width: 23,
+    height: 23,
+  );
 }

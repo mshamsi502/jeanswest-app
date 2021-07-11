@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
+import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   final int selectedIndex;
@@ -87,13 +88,11 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
                 ? SizedBox(
                     width: 0.035 * _screenSize.height, //23,
                     height: 0.035 * _screenSize.height, //23,
-                    child:
-                        BottomNavigationBarSvgImages.enableShoppingBasketIcon)
+                    child: GlobalSvgImages.enableShoppingBasketIcon)
                 : SizedBox(
                     width: 0.035 * _screenSize.height, //23,
                     height: 0.035 * _screenSize.height, //23,
-                    child:
-                        BottomNavigationBarSvgImages.disableShoppingBasketIcon),
+                    child: GlobalSvgImages.disableShoppingBasketIcon),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.shopping_basket".tr(),

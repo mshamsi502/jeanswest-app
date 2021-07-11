@@ -35,7 +35,7 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // var _screenSize = MediaQuery.of(context).size;
+    var _screenSize = MediaQuery.of(context).size;
     return Container(
       // height: 40,
       decoration: BoxDecoration(
@@ -43,7 +43,9 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
           color: widget.isSelected || widget.haveSomeActive
               ? LIGHT_BLUE_SKY_COLOR
               : Colors.white,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(
+            0.0138 * _screenSize.width, //5,
+          ),
           border: Border.all(
             color: widget.isSelected || widget.haveSomeActive
                 ? RESOLUTION_BLUE_COLOR
@@ -53,29 +55,39 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
             widget.isSelected || widget.haveSomeActive
                 ? BoxShadow()
                 : BoxShadow(
-                    blurRadius: 1,
-                    spreadRadius: 1,
+                    blurRadius: 0.00277 * _screenSize.width, //1,
+
+                    spreadRadius: 0.00277 * _screenSize.width, //1,
+
                     color: GREY_FADE_SELECTED_COLOR,
                   )
           ]),
 
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 7),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.0138 * _screenSize.width, //5,
+
+        horizontal: 0.0194 * _screenSize.width, //7,
+      ),
       child: Row(
         children: [
           widget.icon == null
               ? SizedBox()
               : Icon(
                   widget.icon,
-                  size: 20,
+                  size: 0.054 * _screenSize.width, //20
+
                   color: widget.isSelected || widget.haveSomeActive
                       ? RESOLUTION_BLUE_COLOR
                       : Colors.black,
                 ),
-          SizedBox(width: 3),
+          SizedBox(
+            width: 0.0083 * _screenSize.width, //3,
+          ),
           Text(
             widget.title,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 0.038 * _screenSize.width, //14,
+
               color: widget.isSelected || widget.haveSomeActive
                   ? RESOLUTION_BLUE_COLOR
                   : Colors.black,
@@ -87,7 +99,8 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
                       ? ""
                       : " (${widget.someNumber.toString()})",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 0.038 * _screenSize.width, //14,
+
                     color: widget.isSelected || widget.haveSomeActive
                         ? RESOLUTION_BLUE_COLOR
                         : Colors.black,
@@ -97,27 +110,34 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
           widget.haveSomeActive
               ? Row(
                   children: [
-                    SizedBox(width: 5),
+                    SizedBox(
+                      width: 0.0138 * _screenSize.width, //5,
+                    ),
                     GestureDetector(
                       onTap: () => widget.clear(),
                       child: Container(
                         decoration: BoxDecoration(
                             // color: Colors.blue,
                             color: LIGHT_BLUE_SKY_COLOR,
-                            borderRadius: BorderRadius.circular(50),
+                            borderRadius: BorderRadius.circular(
+                              0.138 * _screenSize.width, //50,
+                            ),
                             border: Border.all(
                               color: RESOLUTION_BLUE_COLOR,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: 1,
-                                spreadRadius: 1,
+                                blurRadius: 0.00277 * _screenSize.width, //1,
+
+                                spreadRadius: 0.00277 * _screenSize.width, //1,
+
                                 color: GREY_FADE_SELECTED_COLOR,
                               )
                             ]),
                         child: Icon(
                           Icons.close,
-                          size: 18,
+                          size: 0.05 * _screenSize.width, //18,
+
                           color: RESOLUTION_BLUE_COLOR,
                         ),
                       ),
@@ -128,7 +148,8 @@ class _FiltersButtonWidgetState extends State<FiltersButtonWidget> {
                   ? SizedBox()
                   : Icon(
                       widget.arrow,
-                      size: 20,
+                      size: 0.054 * _screenSize.width, //20
+
                       color: widget.isSelected || widget.haveSomeActive
                           ? RESOLUTION_BLUE_COLOR
                           : Colors.black,

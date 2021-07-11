@@ -333,7 +333,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(barcode ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/v1/favorite/remove',
+        'http://10.0.1.111:8000/api/v1/favorite/add',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -866,6 +866,26 @@ class _GlobalRestClient implements GlobalRestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = CategoryRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ExistInBranchesListRes> getExistInBranches(barcode) async {
+    ArgumentError.checkNotNull(barcode, 'barcode');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(barcode ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.0.1.111:8000/api/v1/erp/product/getProductsAvailabilityInBranches',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ExistInBranchesListRes.fromJson(_result.data);
     return value;
   }
 

@@ -42,11 +42,11 @@ Future<UserFavoriteInfoRes> userFavoritesInfo(String id) async {
   return userFavoritesRes;
 }
 
-Future<GeneralRespons> addToUserFavoriteInfo(String barcode) async {
-  Map<String, String> mapBarcode = {"barcode": barcode};
+Future<GeneralRespons> addToUserFavoriteInfo(String sku) async {
+  Map<String, String> mapSKU = {"sku": sku};
   GeneralRespons res;
   try {
-    res = await globalLocator<GlobalRestClient>().addToUserFavorite(mapBarcode);
+    res = await globalLocator<GlobalRestClient>().addToUserFavorite(mapSKU);
   } catch (errorRealAPI) {
     print('Catch Error getUserFavoriteInfo from ** Real API ** !');
     printErrorMessage(errorRealAPI);
@@ -55,12 +55,12 @@ Future<GeneralRespons> addToUserFavoriteInfo(String barcode) async {
   return res;
 }
 
-Future<GeneralRespons> removeFromUserFavoriteInfo(String barcode) async {
-  Map<String, String> mapBarcode = {"barcode": barcode};
+Future<GeneralRespons> removeFromUserFavoriteInfo(String sku) async {
+  Map<String, String> mapSKU = {"sku": sku};
   GeneralRespons res;
   try {
-    res = await globalLocator<GlobalRestClient>()
-        .removeFromUserFavorite(mapBarcode);
+    res =
+        await globalLocator<GlobalRestClient>().removeFromUserFavorite(mapSKU);
   } catch (errorRealAPI) {
     print('Catch Error from ** Real API ** !');
     printErrorMessage(errorRealAPI);

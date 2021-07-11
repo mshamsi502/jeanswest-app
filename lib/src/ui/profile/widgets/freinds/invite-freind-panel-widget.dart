@@ -15,7 +15,6 @@ import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 import 'package:jeanswest/src/ui/global/widgets/custom_text_field_widget.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
-import 'package:jeanswest/src/utils/helper/profile/helper_main_profile.dart';
 
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
 
@@ -171,7 +170,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
                             color: MAIN_BLUE_COLOR,
                           ),
                         ),
-                        onTap: () => bottomButtonFunction(textLink),
+                        onTap: () => shareATextLink(textLink),
                       ),
                     ),
                     SizedBox(

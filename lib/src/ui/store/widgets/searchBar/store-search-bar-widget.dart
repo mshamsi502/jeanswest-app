@@ -61,15 +61,16 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       width: _screenSize.width,
-      height: 60,
-      // color: Colors.red,
+      height: 0.09375 * _screenSize.height, //60,
       child: Row(
         children: [
           Stack(
             children: [
               Center(
                 child: Container(
-                  width: _screenSize.width - 45,
+                  width: _screenSize.width -
+                      (0.125 * _screenSize.width //45,
+                      ),
                   child: SearchAppBarWidget(
                     preTitle: widget.searchTextEditingController.text.length > 0
                         ? ""
@@ -105,8 +106,12 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
                   ? SizedBox()
                   : GestureDetector(
                       child: Container(
-                        width: _screenSize.width - 45,
-                        margin: EdgeInsets.symmetric(vertical: 10),
+                        width: _screenSize.width -
+                            (0.125 * _screenSize.width //45,
+                            ),
+                        margin: EdgeInsets.symmetric(
+                          vertical: 0.015 * _screenSize.height, //10,
+                        ),
                         color: Colors.transparent,
                         // color: Colors.red,
                       ),
@@ -121,15 +126,17 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
           ),
           GestureDetector(
               child: Container(
-                width: 37,
-                height: 37,
+                width: 0.1027 * _screenSize.width, //37,
+                height: 0.1027 * _screenSize.width, //37,
                 decoration: BoxDecoration(
                   color: F2_BACKGROUND_COLOR,
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: BorderRadius.circular(
+                    0.011 * _screenSize.width, //4,
+                  ),
                 ),
                 child: Icon(
                   Icons.qr_code_scanner_sharp,
-                  size: 28,
+                  size: 0.07777 * _screenSize.width, //28
                 ),
               ),
               onTap: () async {

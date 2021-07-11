@@ -132,10 +132,15 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
     return Container(
       // color: Colors.amber,
       padding: EdgeInsets.only(
-        right: widget.isGridView ? 9 : 0,
-        left: widget.isGridView ? 9 : 0,
+        right: widget.isGridView
+            ? 0.025 * _screenSize.width //9,
+
+            : 0,
+        left: widget.isGridView
+            ? 0.025 * _screenSize.width //9,
+            : 0,
         bottom: 0,
-        top: 5,
+        top: 0.0138 * _screenSize.width, //5,
       ),
       width: _screenSize.width,
       child: tempProducts != null && tempProducts.length > 0
@@ -148,16 +153,6 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                           controller: widget.listOfProductsScrollController,
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int indexOfGrid) {
-                            // if (!mounted)
-                            //   setState(() {
-                            // percentScroll = (widget
-                            //         .listOfProductsScrollController
-                            //         .position
-                            //         .pixels /
-                            //     (widget.listOfProductsScrollController.position
-                            //         .maxScrollExtent));
-                            // });
-
                             return Column(
                               children: [
                                 Row(
@@ -240,7 +235,9 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                         : Container(),
                                   ],
                                 ),
-                                SizedBox(height: 20),
+                                SizedBox(
+                                  height: 0.031 * _screenSize.height, //20,
+                                ),
                                 widget.isLoadingForGetting &&
                                         indexOfGrid ==
                                             (tempProducts.length / 2).ceil() - 1
@@ -250,14 +247,20 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                         height: 0.09 * _screenSize.width,
                                         child: GifImage(
                                           controller: controller,
-                                          width: 50,
-                                          height: 50,
+                                          width:
+                                              0.138 * _screenSize.width, //50,
+
+                                          height:
+                                              0.138 * _screenSize.width, //50,
+
                                           image: AssetImage(
                                               "assets/images/gif_images/global/loading.gif"),
                                         ),
                                       )
                                     : SizedBox(),
-                                SizedBox(height: 20),
+                                SizedBox(
+                                  height: 0.031 * _screenSize.height, //20,
+                                ),
                               ],
                             );
                           },
@@ -268,20 +271,6 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemBuilder: (BuildContext context, int indexOfList) {
-                            // if (!mounted)
-                            //   setState(() {
-                            // percentScroll = (widget
-                            //         .listOfProductsScrollController
-                            //         .position
-                            //         .pixels /
-                            //     (widget.listOfProductsScrollController.position
-                            //         .maxScrollExtent));
-                            // });
-                            print(
-                                ",,,,,,,,,,,, tempProducts.length  : ${tempProducts.length}");
-                            print(",,,,,,,,,,,, indexOfList  : $indexOfList");
-                            print(
-                                ",,,,,,,,,,,, tempProducts[indexOfList]  : ${tempProducts[indexOfList].barcode}");
                             return tempProducts[indexOfList] == null ||
                                     tempProducts[indexOfList].barcode == null ||
                                     indexOfList > tempProducts.length
@@ -309,7 +298,10 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                           });
                                         },
                                       ),
-                                      SizedBox(height: 20),
+                                      SizedBox(
+                                        height:
+                                            0.031 * _screenSize.height, //20,
+                                      ),
                                       widget.isLoadingForGetting &&
                                               indexOfList ==
                                                   tempProducts.length - 1
@@ -319,14 +311,21 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                               height: 0.09 * _screenSize.width,
                                               child: GifImage(
                                                 controller: controller,
-                                                width: 50,
-                                                height: 50,
+                                                width: 0.138 *
+                                                    _screenSize.width, //50,
+
+                                                height: 0.138 *
+                                                    _screenSize.width, //50,
+
                                                 image: AssetImage(
                                                     "assets/images/gif_images/global/loading.gif"),
                                               ),
                                             )
                                           : SizedBox(),
-                                      SizedBox(height: 20),
+                                      SizedBox(
+                                        height:
+                                            0.031 * _screenSize.height, //20,
+                                      ),
                                     ],
                                   );
                           },
@@ -337,19 +336,22 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
           : Center(
               child: Container(
                 // width: 180,
-                height: 180,
+                height: 0.28 * _screenSize.height, //180,
                 // color: Colors.red,
                 child: Column(
                   children: [
                     SvgPicture.asset(
                       'assets/images/svg_images/store/category/no_exist_product.svg',
-                      width: 140,
-                      height: 140,
+                      width: 0.38888 * _screenSize.width, //140,
+
+                      height: 0.38888 * _screenSize.width, //140,
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(
+                      height: 0.015 * _screenSize.height, //10,
+                    ),
                     Text("آیتم موردنظر شما موجود نیست.",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 0.0444 * _screenSize.width, //16,
                         )),
                   ],
                 ),

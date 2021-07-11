@@ -44,7 +44,8 @@ class _SortBarWidgetState extends State<SortBarWidget> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            blurRadius: 10,
+            blurRadius: 0.027 * _screenSize.width, //10,
+
             spreadRadius: 0.5,
             color: Colors.grey[200],
           ),
@@ -52,26 +53,46 @@ class _SortBarWidgetState extends State<SortBarWidget> {
         color: Colors.white,
         // color: Colors.red,
       ),
-      padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 15),
+      padding: EdgeInsets.only(
+        left: 0.054 * _screenSize.width, //20
+
+        right: 0.054 * _screenSize.width, //20
+
+        top: 0.015 * _screenSize.height, //10,
+
+        bottom: 0.023 * _screenSize.height, //15
+      ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         GestureDetector(
           onTap: () => widget.openSortPanel(),
           child: Container(
-              height: 32,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              height: 0.05 * _screenSize.height, //32,
+
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.027 * _screenSize.width, //10,
+              ),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(
+                  0.138 * _screenSize.width, //50,
+                ),
                 border: Border.all(color: MAIN_BLUE_COLOR),
               ),
               child: Row(children: [
                 Icon(
                   Icons.sort_rounded,
-                  size: 25,
+                  size: 0.069 * _screenSize.width, //25,
+
                   color: MAIN_BLUE_COLOR,
                 ),
-                SizedBox(width: 5),
+                SizedBox(
+                  width: 0.0138 * _screenSize.width, //5,
+                ),
                 Text(widget.title,
-                    style: TextStyle(fontSize: 14, color: MAIN_BLUE_COLOR)),
+                    style: TextStyle(
+                      fontSize: 0.038 * _screenSize.width, //14,
+
+                      color: MAIN_BLUE_COLOR,
+                    )),
               ])),
         ),
         GestureDetector(
@@ -80,7 +101,8 @@ class _SortBarWidgetState extends State<SortBarWidget> {
               widget.isGridView
                   ? Icons.view_module_rounded
                   : Icons.view_day_outlined,
-              size: 32,
+              size: 0.0888 * _screenSize.width, //32,
+
               color: MAIN_BLUE_COLOR,
             )),
       ]),

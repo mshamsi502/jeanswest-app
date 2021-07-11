@@ -5,9 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppBarWithBackWidget extends StatefulWidget {
   final String title;
+  final double height;
   final Widget option;
   final Function() onTapBack;
 
@@ -16,6 +18,7 @@ class AppBarWithBackWidget extends StatefulWidget {
     this.title,
     this.option = const SizedBox(),
     @required this.onTapBack,
+    this.height = 0.078125, //50,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _AppBarWithBackWidgetState();
@@ -27,7 +30,7 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.white,
-      // height: 0.078125 * _screenSize.height, //50,
+      height: widget.height * _screenSize.height,
       width: _screenSize.width,
       child: Row(
         children: [
@@ -45,12 +48,12 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
                     Container(
                       height: 0.111 * _screenSize.width, //40,
                       width: 0.111 * _screenSize.width, //40,
-                      // padding: EdgeInsets.all(0.016 * _screenSize.height //10
-                      //     ),
-                      child: Icon(
-                        Icons.arrow_back_ios_rounded,
-                        color: Colors.black87,
-                        size: 0.069 * _screenSize.width, //25,
+                      padding: EdgeInsets.all(0.022 * _screenSize.width //8,
+
+                          ),
+                      child: SvgPicture.asset(
+                        'assets/images/svg_images/global/new/fi-rr-angle-right.svg',
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -71,11 +74,10 @@ class _AppBarWithBackWidgetState extends State<AppBarWithBackWidget> {
           ),
           SizedBox(width: 0.016 * _screenSize.height //10
               ),
-          widget.option
-              ??
-              Container(),
-          SizedBox(width: 0.016 * _screenSize.height //10
-              ),
+          widget.option ?? Container(),
+          SizedBox(
+            width: 0.054 * _screenSize.width, //20
+          ),
         ],
       ),
     );

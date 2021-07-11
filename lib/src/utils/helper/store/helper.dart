@@ -316,59 +316,94 @@ ProductReqBody updateproductReqBody({
   String sortBy = STYLE_CODE_SORT,
   String searchKeyword,
   String unique = STYLE_UNIQUE,
+  Function() restSaerchKey,
+  Function() restFilters,
 }) {
   List<String> sub = [];
-  if (subGroupSelected != null && subGroupSelected.length > 0)
-    subGroupSelected.values.forEach((subGroup) {
-      sub.addAll(subGroup);
-    });
-
-  ProductReqBody reqBody = ProductReqBody(
-    filter: ProductFilterReqBody(
-      quantity: OperationInt(
-        oGT: quantityBiggerThan,
+  ProductReqBody reqBody;
+  if (sortBy == SEARCH_SORT) {
+    reqBody = ProductReqBody(
+      filter: ProductFilterReqBody(
+        quantity: OperationInt(
+          oGT: quantityBiggerThan,
+        ),
       ),
-      basePrice: priceSelected != null &&
-              priceSelected["min"] != null &&
-              priceSelected["max"] != null
-          ? OperationString(
-              oGT: priceSelected["min"].toString(),
-              oLT: priceSelected["max"].toString(),
-            )
+      option: ProductOptionReqBody(
+        page: OperationInt(oEQ: page),
+        limit: OperationInt(oEQ: getProductLimit),
+        ascent: OperationInt(oEQ: ascent),
+        sort: OperationString(oEQ: sortBy),
+      ),
+      search: searchKeyword != null && searchKeyword != ""
+          ? ProductSearchReqBody(keyword: OperationString(oEQ: searchKeyword))
           : null,
-      ageGroup: ageSelected != null && ageSelected.length > 0
-          ? OperationString(oEQL: ageSelected)
+      unique: ProductUniqueReqBody(
+        color: unique == COLOR_UNIQUE ? OperationInt(oEQ: 1) : null,
+        style: unique == STYLE_UNIQUE ? OperationInt(oEQ: 1) : null,
+      ),
+    );
+    restFilters();
+  } else {
+    if (subGroupSelected != null && subGroupSelected.length > 0)
+      subGroupSelected.values.forEach((subGroup) {
+        sub.addAll(subGroup);
+      });
+    if ((ageSelected != null && ageSelected.length > 0) ||
+        (subGroupSelected != null && subGroupSelected.length > 0) ||
+        (colorSelected != null && colorSelected.length > 0) ||
+        (genderSelected != null && genderSelected.length > 0) ||
+        (sizeSelected != null && sizeSelected.length > 0)) {
+      searchKeyword = "";
+      sortBy = STYLE_CODE_SORT;
+      restSaerchKey();
+    }
+    reqBody = ProductReqBody(
+      filter: ProductFilterReqBody(
+        quantity: OperationInt(
+          oGT: quantityBiggerThan,
+        ),
+        basePrice: priceSelected != null &&
+                priceSelected["min"] != null &&
+                priceSelected["max"] != null
+            ? OperationString(
+                oGT: priceSelected["min"].toString(),
+                oLT: priceSelected["max"].toString(),
+              )
+            : null,
+        ageGroup: ageSelected != null && ageSelected.length > 0
+            ? OperationString(oEQL: ageSelected)
+            : null,
+        group: subGroupSelected != null && subGroupSelected.length > 0
+            ? OperationString(oEQL: subGroupSelected.keys.toList())
+            : null,
+        subGroup: subGroupSelected != null && subGroupSelected.length > 0
+            ? OperationString(oEQL: sub)
+            : null,
+        colorFamily: colorSelected != null && colorSelected.length > 0
+            ? OperationString(oEQL: colorSelected)
+            : null,
+        gender: genderSelected != null && genderSelected.length > 0
+            ? OperationString(oEQL: genderSelected)
+            : null,
+        size: sizeSelected != null && sizeSelected.length > 0
+            ? OperationString(oCT: sizeSelected)
+            : null,
+      ),
+      option: ProductOptionReqBody(
+        page: OperationInt(oEQ: page),
+        limit: OperationInt(oEQ: getProductLimit),
+        ascent: OperationInt(oEQ: ascent),
+        sort: OperationString(oEQ: sortBy),
+      ),
+      search: searchKeyword != null && searchKeyword != ""
+          ? ProductSearchReqBody(keyword: OperationString(oEQ: searchKeyword))
           : null,
-      group: subGroupSelected != null && subGroupSelected.length > 0
-          ? OperationString(oEQL: subGroupSelected.keys.toList())
-          : null,
-      subGroup: subGroupSelected != null && subGroupSelected.length > 0
-          ? OperationString(oEQL: sub)
-          : null,
-      colorFamily: colorSelected != null && colorSelected.length > 0
-          ? OperationString(oEQL: colorSelected)
-          : null,
-      gender: genderSelected != null && genderSelected.length > 0
-          ? OperationString(oEQL: genderSelected)
-          : null,
-      size: sizeSelected != null && sizeSelected.length > 0
-          ? OperationString(oCT: sizeSelected)
-          : null,
-    ),
-    option: ProductOptionReqBody(
-      page: OperationInt(oEQ: page),
-      limit: OperationInt(oEQ: getProductLimit),
-      ascent: OperationInt(oEQ: ascent),
-      sort: OperationString(oEQ: sortBy),
-    ),
-    search: searchKeyword != null && searchKeyword != ""
-        ? ProductSearchReqBody(keyword: OperationString(oEQ: searchKeyword))
-        : null,
-    unique: ProductUniqueReqBody(
-      color: unique == COLOR_UNIQUE ? OperationInt(oEQ: 1) : null,
-      style: unique == STYLE_UNIQUE ? OperationInt(oEQ: 1) : null,
-    ),
-  );
+      unique: ProductUniqueReqBody(
+        color: unique == COLOR_UNIQUE ? OperationInt(oEQ: 1) : null,
+        style: unique == STYLE_UNIQUE ? OperationInt(oEQ: 1) : null,
+      ),
+    );
+  }
 
   return reqBody;
 }

@@ -21,6 +21,8 @@ class BanimodeSizeProductRes extends Equatable {
   int position;
   @JsonKey(name: 'quantity')
   int quantity;
+  @JsonKey(name: 'reference')
+  String reference;
 
   BanimodeSizeProductRes({
     this.name,
@@ -28,6 +30,7 @@ class BanimodeSizeProductRes extends Equatable {
     this.idSize,
     this.position,
     this.quantity,
+    this.reference,
   });
 
   factory BanimodeSizeProductRes.fromJson(Map<String, dynamic> json) =>
@@ -42,6 +45,7 @@ class BanimodeSizeProductRes extends Equatable {
       'id_size': idSize,
       'position': position,
       'quantity': quantity,
+      'reference': reference,
     };
   }
 
@@ -52,5 +56,6 @@ class BanimodeSizeProductRes extends Equatable {
         idSize,
         position,
         quantity,
+        reference,
       ];
 }
