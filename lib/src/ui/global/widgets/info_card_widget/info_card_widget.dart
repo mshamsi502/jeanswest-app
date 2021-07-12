@@ -31,7 +31,7 @@ class InfoCardWidget extends StatefulWidget {
 
 class _InfoCardWidgetState extends State<InfoCardWidget> {
   double imageSize;
-  GlobalKey widgetKey = GlobalKey();
+  GlobalKey<FormState> widgetKey = GlobalKey<FormState>();
   Widget body;
   Size size;
   var keyContext;

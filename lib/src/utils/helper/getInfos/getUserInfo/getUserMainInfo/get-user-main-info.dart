@@ -20,6 +20,7 @@ Future<UserMainInfoRes> getUserMainInfo({@required Function() notAuth}) async {
   try {
     userAccountRes = await globalLocator<GlobalRestClient>()
         .getUserMainInfo(); // ! from real API
+    print('userAccountRes : $userAccountRes');
   } catch (errorRealAPI) {
     print('Catch Error from getUserMainInfo ** Real API ** !');
     printErrorMessage(errorRealAPI);
@@ -35,10 +36,12 @@ Future<UserMainInfoRes> getUserMainInfo({@required Function() notAuth}) async {
         printErrorMessage(errorMockoon);
         print('*********************************');
       }
-    } else if (errorRealAPI.response.statusCode == 401) {
-      print('Token is Expired');
-
-      // tryToGetAllUserInfo = -1;
+    } else {
+      // if (errorRealAPI.response.statusCode == 401) {
+      if (errorRealAPI.response.statusCode != 200) {
+        print('Token is Expired');
+        // tryToGetAllUserInfo = -1;
+      }
       notAuth();
     }
   }

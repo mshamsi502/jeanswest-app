@@ -42,6 +42,7 @@ const String SALE_PRICE_SORT = "salePrice";
 const String DISCOUNT_SORT = "discount";
 const String COLOR_SORT = "color";
 const String SEARCH_SORT = "search";
+const String RANDOM_SORT = "random";
 //
 const String COLOR_UNIQUE = "color";
 const String STYLE_UNIQUE = "style";

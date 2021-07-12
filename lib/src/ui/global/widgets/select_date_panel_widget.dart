@@ -40,7 +40,7 @@ class _SelectDatePanelWidgetState extends State<SelectDatePanelWidget> {
   String _yearValue;
   int someDayOfMonth = 31;
 
-  GlobalKey yearKey;
+  GlobalKey<FormState> yearKey;
 
   @override
   void initState() {

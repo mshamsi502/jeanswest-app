@@ -18,6 +18,10 @@ SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
         ? null
         : BanimodeDetailsProductRes.fromJson(
             json['banimodeDetails'] as Map<String, dynamic>),
+    erpDetails: json['erpDetails'] == null
+        ? null
+        : ErpDetailsProductRes.fromJson(
+            json['erpDetails'] as Map<String, dynamic>),
   );
 }
 
@@ -31,4 +35,5 @@ Map<String, dynamic> _$SingleProductInfoResToJson(
       'basePrice': instance.basePrice,
       'salePrice': instance.salePrice,
       'banimodeDetails': instance.banimodeDetails,
+      'erpDetails': instance.erpDetails,
     };

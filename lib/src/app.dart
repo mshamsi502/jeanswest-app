@@ -41,6 +41,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   /// => [_children] is Pages of Bottom Navigation Bar
   List<Widget> _children = [];
   //
+  // GlobalKey<FormState> _materialKey = new GlobalKey<FormState>();
   GlobalKey _materialKey = new GlobalKey();
 
   @override

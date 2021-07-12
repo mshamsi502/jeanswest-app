@@ -5,6 +5,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:jeanswest/src/models/api_response/productRes/banimode/banimode-detail-product-res.dart';
+import 'package:jeanswest/src/models/api_response/productRes/erp/erp-detail-product-res.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'single-product-info-res.g.dart';
@@ -29,6 +30,9 @@ class SingleProductInfoRes extends Equatable {
   @JsonKey(name: 'banimodeDetails')
   BanimodeDetailsProductRes banimodeDetails;
 
+  @JsonKey(name: 'erpDetails')
+  ErpDetailsProductRes erpDetails;
+
   SingleProductInfoRes({
     // this.active,
     this.quantity,
@@ -38,6 +42,7 @@ class SingleProductInfoRes extends Equatable {
     this.basePrice,
     this.salePrice,
     this.banimodeDetails,
+    this.erpDetails,
   });
 
   factory SingleProductInfoRes.fromJson(Map<String, dynamic> json) =>
@@ -55,6 +60,7 @@ class SingleProductInfoRes extends Equatable {
       'basePrice': basePrice,
       'salePrice': salePrice,
       'banimodeDetails': banimodeDetails,
+      'erpDetails': erpDetails,
     };
   }
 
@@ -68,5 +74,6 @@ class SingleProductInfoRes extends Equatable {
         basePrice,
         salePrice,
         banimodeDetails,
+        erpDetails,
       ];
 }

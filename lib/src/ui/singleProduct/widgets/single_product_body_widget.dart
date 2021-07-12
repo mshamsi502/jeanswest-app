@@ -17,6 +17,7 @@ import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/single_
 class SingleProductBodyWidget extends StatefulWidget {
   final SingleProductInfoRes product;
   final ListOfProductsRes allColorsAndSizesProducts;
+  final ListOfProductsRes relatedProducts;
   final bool isFave;
   final Function(bool) changeFave;
 
@@ -34,6 +35,7 @@ class SingleProductBodyWidget extends StatefulWidget {
     @required this.openExistInBranchesPanel,
     @required this.openSizeGuidPanel,
     @required this.allColorsAndSizesProducts,
+    @required this.relatedProducts,
     @required this.updateSelectedProduct,
     @required this.imageExpandedPanel,
     @required this.updateSelectedColor,
@@ -46,7 +48,6 @@ class SingleProductBodyWidget extends StatefulWidget {
 
 class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
   ScrollController scrollController = new ScrollController();
-
   //
   int selectedColor;
   int selectedSize;
@@ -64,88 +65,111 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
     var _screenSize = MediaQuery.of(context).size;
 
     return Container(
-        // color: Colors.red,
-        height: _screenSize.height,
-        width: _screenSize.width,
-        child: SingleChildScrollView(
-          controller: scrollController,
-          child: Column(
-            children: [
-              SingleProductMainInfoWidget(
-                changeFave: (bool newIsFave) => widget.changeFave(newIsFave),
-                isFave: widget.isFave,
-                product: _selectedProduct,
-                openImageExpandedPanel: () => widget.imageExpandedPanel(),
-                openExistInBranches: () => widget.openExistInBranchesPanel(),
-              ),
-              Container(
-                height: 0.0125 * _screenSize.height, //8,
-
-                color: F7_BACKGROUND_COLOR,
-              ),
-              widget.allColorsAndSizesProducts == null ||
-                      widget.allColorsAndSizesProducts.data == null
-                  ? SizedBox()
-                  : DetailProductWidget(
-                      isAddToCardPanel: false,
-                      productDetail: widget.allColorsAndSizesProducts.data,
-                      selectedColor: selectedColor,
-                      selectedSize: selectedSize,
-                      showSizeGuid: () => widget.openSizeGuidPanel(),
-                      changeSelectedColor: (int value) => setState(() {
-                        selectedColor = value;
-                        _selectedProduct =
-                            widget.allColorsAndSizesProducts.data.result[value];
-                        widget.updateSelectedProduct(_selectedProduct);
-                        widget.updateSelectedColor(selectedColor);
-                        selectedSize = -1;
-                      }),
-                      changeSelectedSize: (int value) => setState(() {
-                        selectedSize = value;
-                      }),
-                      closeAddToCardPanel: () {},
+      // color: Colors.red,
+      height: _screenSize.height,
+      width: _screenSize.width,
+      child: widget.allColorsAndSizesProducts == null ||
+              widget.allColorsAndSizesProducts.data == null ||
+              widget.allColorsAndSizesProducts.data.result == null ||
+              widget.allColorsAndSizesProducts.data.result.length == 0 ||
+              widget.relatedProducts == null ||
+              widget.relatedProducts.data == null ||
+              widget.relatedProducts.data.result == null ||
+              widget.relatedProducts.data.result.length == null
+          ? SizedBox()
+          : SingleChildScrollView(
+              controller: scrollController,
+              child: Container(
+                width: _screenSize.width,
+                child: Column(
+                  children: [
+                    SingleProductMainInfoWidget(
+                      changeFave: (bool newIsFave) =>
+                          widget.changeFave(newIsFave),
+                      isFave: widget.isFave,
+                      product: _selectedProduct,
+                      openImageExpandedPanel: () => widget.imageExpandedPanel(),
+                      openExistInBranches: () =>
+                          widget.openExistInBranchesPanel(),
                     ),
-              SizedBox(
-                height: 0.023 * _screenSize.height, //15
-              ),
-              Container(
-                height: 0.0125 * _screenSize.height, //8,
+                    Container(
+                      height: 0.0125 * _screenSize.height, //8,
 
-                color: F7_BACKGROUND_COLOR,
-              ),
-              SingleProductAttributesWidget(
-                product: _selectedProduct,
-                titles: ["ویژگی ها"],
-                shortDiscribtions: [
-                  widget.product.banimodeDetails.productDescriptionShort
-                ],
-                features: [widget.product.banimodeDetails.productFeatures],
-              ),
-              Container(
-                height: 0.0125 * _screenSize.height, //8,
+                      color: F7_BACKGROUND_COLOR,
+                    ),
+                    widget.allColorsAndSizesProducts == null ||
+                            widget.allColorsAndSizesProducts.data == null
+                        ? SizedBox()
+                        : DetailProductWidget(
+                            isAddToCardPanel: false,
+                            productDetail:
+                                widget.allColorsAndSizesProducts.data,
+                            selectedColor: selectedColor,
+                            selectedSize: selectedSize,
+                            showSizeGuid: () => widget.openSizeGuidPanel(),
+                            changeSelectedColor: (int value) => setState(() {
+                              selectedColor = value;
+                              _selectedProduct = widget
+                                  .allColorsAndSizesProducts.data.result[value];
+                              widget.updateSelectedProduct(_selectedProduct);
+                              widget.updateSelectedColor(selectedColor);
+                              selectedSize = -1;
+                            }),
+                            changeSelectedSize: (int value) => setState(() {
+                              selectedSize = value;
+                            }),
+                            closeAddToCardPanel: () {},
+                          ),
+                    SizedBox(
+                      height: 0.023 * _screenSize.height, //15
+                    ),
+                    Container(
+                      height: 0.0125 * _screenSize.height, //8,
 
-                color: F7_BACKGROUND_COLOR,
-              ),
-              widget.allColorsAndSizesProducts != null &&
-                      widget.allColorsAndSizesProducts.data != null &&
-                      widget.allColorsAndSizesProducts.data.result != null &&
-                      widget.allColorsAndSizesProducts.data.result.length > 0
-                  ? Column(
-                      children: [
-                        SingleProductSimilarWidget(
-                          similarProducts:
-                              widget.allColorsAndSizesProducts.data.result,
-                        ),
-                        Container(
-                          height: 0.0125 * _screenSize.height, //8,
-
-                          color: F7_BACKGROUND_COLOR,
-                        ),
+                      color: F7_BACKGROUND_COLOR,
+                    ),
+                    SingleProductAttributesWidget(
+                      product: _selectedProduct,
+                      titles: ["ویژگی ها"],
+                      shortDiscribtions: [
+                        widget.product.banimodeDetails.productDescriptionShort
                       ],
-                    )
-                  : SizedBox(),
-            ],
-          ),
-        ));
+                      features: [
+                        widget.product.banimodeDetails.productFeatures
+                      ],
+                    ),
+                    Container(
+                      height: 0.0125 * _screenSize.height, //8,
+
+                      color: F7_BACKGROUND_COLOR,
+                    ),
+                    widget.allColorsAndSizesProducts != null &&
+                            widget.allColorsAndSizesProducts.data != null &&
+                            widget.allColorsAndSizesProducts.data.result !=
+                                null &&
+                            widget.allColorsAndSizesProducts.data.result
+                                    .length >
+                                0
+                        ? Column(
+                            children: [
+                              SingleProductSimilarWidget(
+                                similarProducts:
+                                    // [],
+                                    // widget.allColorsAndSizesProducts.data.result,
+                                    widget.relatedProducts.data.result,
+                              ),
+                              Container(
+                                height: 0.0125 * _screenSize.height, //8,
+
+                                color: F7_BACKGROUND_COLOR,
+                              ),
+                            ],
+                          )
+                        : SizedBox(),
+                  ],
+                ),
+              ),
+            ),
+    );
   }
 }

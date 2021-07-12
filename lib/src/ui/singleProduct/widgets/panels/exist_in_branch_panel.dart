@@ -58,8 +58,9 @@ class _ExistInBranchPanelState extends State<ExistInBranchPanel> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    if (_availableInBranches == null ||
-        _availableInBranches.length != widget.availableInBranches.length)
+    if (widget.availableInBranches != null &&
+        (_availableInBranches == null ||
+            _availableInBranches.length != widget.availableInBranches.length))
       updateAvailableInBranches();
     // print(
     //     ";;;;;;;;;;;;;;;;;;;;;;;;; _availableInBranches.length : ${widget.availableInBranches.length}");

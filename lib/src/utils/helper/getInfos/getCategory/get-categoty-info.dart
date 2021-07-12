@@ -16,21 +16,34 @@ Future<void> getCategoryInfo() async {
   try {
     listOfCategotyRes =
         await globalLocator<GlobalRestClient>().getAllCategory();
+    if (listOfCategotyRes != null &&
+        listOfCategotyRes.data != null &&
+        listOfCategotyRes.data.group != null &&
+        listOfCategotyRes.data.group.length > 0) {
+      listOfCategory = listOfCategotyRes.data;
+      print(
+          '_=_ get successfully listOfCategory group length: ${listOfCategory.group.length}');
+    } else
+      print('_=_ listOfCategory is Empty');
   } catch (e) {
     printErrorMessage(e);
+    if (HARDCORE_DATA_IS_ENABLE) {
+      print("   / use HardCOre DATA listOfCategory");
+      listOfCategory = listOfCategoryTempData;
+    }
   }
 
-  if (listOfCategotyRes.data != null &&
-      listOfCategotyRes.data.group != null &&
-      listOfCategotyRes.data.group.length > 0) {
-    listOfCategory = listOfCategotyRes.data;
-  } else if (HARDCORE_DATA_IS_ENABLE) {
-    print("   / use HardCOre DATA contactUsInfo");
-    listOfCategory = listOfCategoryTempData;
-  }
-  if (listOfCategory != null && listOfCategory.group.length > 0)
-    print(
-        '_=_ get successfully listOfCategory group length: ${listOfCategory.group.length}');
+  // if (listOfCategotyRes.data != null &&
+  //     listOfCategotyRes.data.group != null &&
+  //     listOfCategotyRes.data.group.length > 0) {
+  //   listOfCategory = listOfCategotyRes.data;
+  // } else if (HARDCORE_DATA_IS_ENABLE) {
+  //   print("   / use HardCOre DATA contactUsInfo");
+  //   listOfCategory = listOfCategoryTempData;
+  // }
+  // if (listOfCategory != null && listOfCategory.group.length > 0)
+  //   print(
+  //       '_=_ get successfully listOfCategory group length: ${listOfCategory.group.length}');
   if (listOfCategory != null && listOfCategory.colorFamily.length > 0)
     catColors = createCategotyColors(listOfCategory);
   else

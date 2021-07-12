@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/models/api_response/productRes/list-of-products-data.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
 import 'package:jeanswest/src/models/branch/branch-for-product.dart';
@@ -42,7 +43,10 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
   PanelController existInBranchesPanel = PanelController();
   PanelController sizeGuidePanel = PanelController();
   //
-  ListOfProductsRes allColorsAndSizesProducts;
+  ListOfProductsRes allColorsAndSizesProducts =
+      ListOfProductsRes(data: ListOfProductsData(result: []));
+  ListOfProductsRes relatedProducts =
+      ListOfProductsRes(data: ListOfProductsData(result: []));
   SingleProductInfoRes _selectedProduct;
 //
   int _selectedSize = 0;
@@ -56,6 +60,18 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
       setState(() {
         allColorsAndSizesProducts = products;
       });
+    });
+    getRelatedProduct(
+      group: widget.product.erpDetails.group,
+      subGroup: widget.product.erpDetails.subGroup,
+      gender: widget.product.erpDetails.gender,
+      ageGroup: widget.product.erpDetails.ageGroup,
+    ).then((products) {
+      setState(() {
+        relatedProducts = products;
+      });
+      print("***************************************");
+      print("relatedProducts : $relatedProducts");
     });
     updateAvailableInBranches();
     super.initState();
@@ -73,11 +89,6 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
       _selectedBranches = tempAvailableInBranches.first;
     });
   }
-  // 94591992-2010-120-1
-  // 1901424420881051
-  // 1901424461921051
-  // 1901424420840051
-  // 1901424420865051
 
   @override
   Widget build(BuildContext context) {
@@ -205,6 +216,8 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                           child: SingleProductBodyWidget(
                         product: widget.product,
                         allColorsAndSizesProducts: allColorsAndSizesProducts,
+                        relatedProducts: relatedProducts,
+                        // relatedProducts: allColorsAndSizesProducts,
                         isFave: widget.isFave,
                         changeFave: (bool newIsFave) =>
                             widget.changeFave(newIsFave),

@@ -251,11 +251,12 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                         onTap: () => setState(() {
                               selectedImage = index;
                               // carouselController.animateToPage(selectedImage);
-                              pageController.animateToPage(
-                                selectedImage,
-                                duration: Duration(milliseconds: 250),
-                                curve: Curves.linear,
-                              );
+                              if (selectedImage > 0)
+                                pageController.animateToPage(
+                                  selectedImage,
+                                  duration: Duration(milliseconds: 250),
+                                  curve: Curves.linear,
+                                );
                               smallImagescrollController.animateTo(
                                 index.toDouble() *
                                     (0.277 * _screenSize.width //100,

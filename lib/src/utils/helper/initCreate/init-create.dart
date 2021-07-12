@@ -48,11 +48,11 @@ Map<String, dynamic> createBottomNavigationBarPages({
 Future<Map<String, dynamic>> authService({
   Function(bool) changeShowButtonNavigationBar,
 }) async {
-  // // ! clear manual token
+  if (sharedPrefs == null) sharedPrefs = await SharedPreferences.getInstance();
+  // ! clear manual token
   // sharedPrefs.clear();
   // sharedPrefs.setString(TOKEN, "");
   //
-  if (sharedPrefs == null) sharedPrefs = await SharedPreferences.getInstance();
   if (MANUAL_TOKEN_IS_ENABLE) {
     // ! put token in device
     sharedPrefs.setString(

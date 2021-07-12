@@ -30,8 +30,6 @@ import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-
 
 import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
 
-
-
 List<Widget> createProfileListMenuPages({
   // Size screenSize,
   SingleLevelCard userLevel,
@@ -117,14 +115,15 @@ List<Widget> createMoreListMenuPages({
   return profileListMenu;
 }
 
-
 UserMainInfo createUser({
   @required UserMainInfoData userAccount,
   String userTblPosCustRes,
   String dateFormat = STANDARD_DATE_FORMAT,
 }) {
+  print('birthDate : ${userAccount.birthDate}');
   DateTime parseDate = new DateFormat(dateFormat).parse(userAccount.birthDate);
   print('_=_ create user success');
+
   return UserMainInfo(
     code: userAccount.code,
     tblPosCustomersID: userTblPosCustRes,

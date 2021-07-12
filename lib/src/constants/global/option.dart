@@ -13,7 +13,7 @@ const String MANUAL_TOKEN =
 const bool MOCK_IS_ENABLE = false;
 // const bool MOCK_IS_ENABLE = true;
 //
-const bool HARDCORE_DATA_IS_ENABLE = false;
+const bool HARDCORE_DATA_IS_ENABLE = true;
 // const bool HARDCORE_DATA_IS_ENABLE = true;
 int tryToGetAllUserInfo = 2;
 
@@ -30,4 +30,3 @@ const String STANDARD_PHONE_NUMBER_STYLE_FOR_API = "xxx-xxx-xxxx";
 // const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = true;
 const bool ERROR_404_HANDLE_FOR_EMPTY_DATA = false;
 const String BACKEND_API_VERSION = "v1";
-

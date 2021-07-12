@@ -19,6 +19,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
+import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-filter-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-option-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-req-body.dart';
+import 'package:jeanswest/src/models/api_body/productFilter/product-unique-req-body.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:jeanswest/src/models/api_response/loginRes/jeanswestRes/otp-req-response.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
@@ -339,7 +345,7 @@ Future<ListOfProductsRes> getAllColorsAndSizes(String styleCode) async {
   Map<String, dynamic> mapFilter = {
     "filter": {
       "styleCode": {"eq": styleCode},
-      "quantity": {"gt": 0}
+      // "quantity": {"gt": 0}
     },
     "option": {
       "page": {"eq": 1},
@@ -350,6 +356,36 @@ Future<ListOfProductsRes> getAllColorsAndSizes(String styleCode) async {
     }
   };
   return await globalLocator<GlobalRestClient>().getProductList(mapFilter);
+}
+
+Future<ListOfProductsRes> getRelatedProduct({
+  // SingleProductInfoRes product,
+  @required String group,
+  @required String subGroup,
+  @required String gender,
+  @required String ageGroup,
+}) async {
+  ProductReqBody filter = ProductReqBody(
+    filter: ProductFilterReqBody(
+      group: OperationString(oEQ: group),
+      subGroup: OperationString(oEQ: subGroup),
+      gender: OperationString(oEQ: gender),
+      ageGroup: OperationString(oEQ: ageGroup),
+      // quantity: OperationInt(
+      //   oGT: 0,
+      // ),
+    ),
+    option: ProductOptionReqBody(
+      page: OperationInt(oEQ: 1),
+      limit: OperationInt(oEQ: 8),
+      ascent: OperationInt(oEQ: 1),
+      sort: OperationString(oEQ: RANDOM_SORT),
+    ),
+    unique: ProductUniqueReqBody(
+      color: OperationInt(oEQ: 1),
+    ),
+  );
+  return await globalLocator<GlobalRestClient>().getProductList(filter.map);
 }
 
 Future<List<double>> createDistances(

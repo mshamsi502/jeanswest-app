@@ -51,25 +51,30 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
       'USER_MAIN_INFO ********************************************************');
   if (getIsContinued)
     userAccountRes = await getUserMainInfo(notAuth: () {
-     
       getIsContinued = false;
+      print('getIsContinued : $getIsContinued');
       tryToGetAllUserInfo = -1;
       noAuth();
     });
+  // print('getIsContinued : $getIsContinued');
+
   if (getIsContinued) {
     print(
         'USER_PAYMENT **********************************************************');
     userPayment = await userPaymentInfo();
 
+    // print("userPayment : ${userPayment.tblPosCustomersID}");
     print(
         'CREATE_USER_ACCOUNT ***************************************************');
 
     if (userPayment.tblPosCustomersID != null &&
-        userPayment.tblPosCustomersID.length != 0) {
+        // userPayment.tblPosCustomersID.length != 0) {
+        userPayment.tblPosCustomersID != "") {
       user = createUser(
           userAccount: userAccountRes.data,
           userTblPosCustRes: userPayment.tblPosCustomersID,
-          dateFormat: STANDARD_DATE_FORMAT);
+          // dateFormat: STANDARD_DATE_FORMAT);
+          dateFormat: SMALL_JUST_DATE_FORMAT);
     }
 
     // await userInviteInfo();
@@ -79,7 +84,7 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
     print(
         'USER_ADDRESSES ********************************************************');
     userAddresses = await userAddressesInfo();
-
+    // print("userAddresses : ${userAddresses}");
     print(
         'USER_FAVORITES ********************************************************');
     userFavorites = await userFavoritesInfo(user.tblPosCustomersID);

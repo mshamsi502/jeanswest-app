@@ -36,60 +36,62 @@ class _SingleProductSimilarWidgetState
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
 
-    return Container(
-      height: 0.59375 * _screenSize.height, //380
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 0.023 * _screenSize.height, //15
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.054 * _screenSize.width, //20
-            ),
-            child: Text(
-              "محصولات مرتبط",
-              style: TextStyle(
-                fontSize: 0.038 * _screenSize.width, //14,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 0.041 * _screenSize.width, //15,
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: widget.similarProducts.length,
-              controller: scrollController,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 0.027 * _screenSize.width, //10,
+    return widget.similarProducts == null || widget.similarProducts.length == 0
+        ? SizedBox()
+        : Container(
+            height: 0.59375 * _screenSize.height, //380
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 0.023 * _screenSize.height, //15
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 0.054 * _screenSize.width, //20
                   ),
-                  child: ProductInfoGridViewWidget(
-                    width: 0.5 * _screenSize.width, //180,
+                  child: Text(
+                    "محصولات مرتبط",
+                    style: TextStyle(
+                      fontSize: 0.038 * _screenSize.width, //14,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 0.041 * _screenSize.width, //15,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: widget.similarProducts.length,
+                    controller: scrollController,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 0.027 * _screenSize.width, //10,
+                        ),
+                        child: ProductInfoGridViewWidget(
+                          width: 0.5 * _screenSize.width, //180,
 
-                    product: widget.similarProducts[index],
-                    productIndex: index,
-                    hasDelete: false,
-                    hasAddToFav: true,
-                    isFave: false,
-                    productIsActive: true,
-                    addToCardFromFav: (int productIndex) {},
-                    addToCardIsActive: false,
-                    deleteFromFav: (int productIndex) {},
-                    changeFav: (int indexOfProduct, bool newValue) {},
+                          product: widget.similarProducts[index],
+                          productIndex: index,
+                          hasDelete: false,
+                          hasAddToFav: true,
+                          isFave: false,
+                          productIsActive: true,
+                          addToCardFromFav: (int productIndex) {},
+                          addToCardIsActive: false,
+                          deleteFromFav: (int productIndex) {},
+                          changeFav: (int indexOfProduct, bool newValue) {},
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 }
