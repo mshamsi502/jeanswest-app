@@ -17,7 +17,8 @@ class CustomDropdownButtonWidget extends StatefulWidget {
   final Color titleColor;
   final MediaQueryData mediaQuery;
   final List<String> options;
-  final Function(String) selected;
+  // final Function(String) selected;
+  final Function(String, List<String>) selected;
   final bool hasCheckBox;
   final Map<String, bool> initialCheckBoxValue;
   // final Function(Map<String, bool>) updateCheckBoxValue;
@@ -54,7 +55,20 @@ class _CustomDropdownButtonWidgetState
   OptionItem optionItemSelected;
   @override
   void initState() {
+    print(";;;;;;;;;;;;;;;;;;;;;; aaaaaa    recreate");
     isShowDropDown = false;
+    update();
+    heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
+    heightTitle = 0.1 * widget.mediaQuery.size.height; // 60;
+
+    widthDropdown = widget.mediaQuery.size.width;
+    // _drop0
+    
+    super.initState();
+    //
+  }
+
+  update() {
     optionItemSelected = OptionItem(id: null, title: widget.hintTitle);
     for (var index = 0; index < widget.options.length; index++) {
       dropListModel.listOptionItems
@@ -62,22 +76,13 @@ class _CustomDropdownButtonWidgetState
     }
 
     dropdownValue = widget.hintTitle ?? 'انتخاب کنید ...';
-    heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
-    heightTitle = 0.1 * widget.mediaQuery.size.height; // 60;
-
-    widthDropdown = widget.mediaQuery.size.width;
-    // _dropdownMenuItems = buildDropdownMenuItems(
-    //   widget.options,
-    //   widthDropdown,
-    //   widget.mediaQuery.size,
-    // );
-    super.initState();
-    //
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.hintTitle != null && dropdownValue != widget.hintTitle) update();
     Size _screenSize = MediaQuery.of(context).size;
+    print("widget.hintTitle  : ${widget.hintTitle}");
     return Container(
       color: Colors.transparent,
       // color: Colors.red,
@@ -134,11 +139,41 @@ class _CustomDropdownButtonWidgetState
                       child: Container(
                           alignment: Alignment.center,
                           child: SelectDropList(
+                              selectedTile: "",
+                              // widget.hintTitle,
                               selectedIcon: SizedBox(),
                               hasCheckBox: widget.hasCheckBox,
                               initialCheckBoxValue: widget.initialCheckBoxValue,
                               updateCheckBoxValue:
-                                  (Map<String, bool> newValue) {},
+                                  (Map<String, bool> newValue) {
+                                String _hint = "";
+                                List<String> _actived = [];
+                                bool isFisrt = true;
+                                int index = 0;
+                                print("33333333333333 newValue : $newValue");
+                                newValue.values.forEach((element) {
+                                  if (element) {
+                                    _actived
+                                        .add(newValue.keys.elementAt(index));
+                                    if (!_hint.contains(
+                                        newValue.keys.elementAt(index))) {
+                                      _hint = isFisrt
+                                          ? _hint +
+                                              "" +
+                                              newValue.keys.elementAt(index)
+                                          : _hint +
+                                              "، " +
+                                              newValue.keys.elementAt(index);
+                                      isFisrt = false;
+                                    }
+                                  }
+                                  index++;
+                                });
+                                print("33333333333333 _hint : $_hint");
+                                print("33333333333333 _actived : $_actived");
+                                widget.selected(_hint, _actived);
+                                // widget.selected(_hint);
+                              },
                               itemSelected: optionItemSelected,
                               dropListModel: dropListModel,
                               optionsHeight: (0.0844594 *
@@ -149,7 +184,9 @@ class _CustomDropdownButtonWidgetState
                                 setState(() {
                                   optionItemSelected = optionItem;
                                 });
-                                widget.selected(optionItem.title);
+                                print(
+                                    "********** ** ** select : $optionItemSelected");
+                                widget.selected(optionItem.title, []);
                               },
                               changeIsShow: (bool newIsShow) async {
                                 if (newIsShow) {

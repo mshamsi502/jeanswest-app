@@ -35,9 +35,26 @@ Future<void> userCouponsInfo() async {
       }
     }
   }
-  // print(
-  //     '_=_ get successfully userJeanpointBons length: ${userJeanpointBons.length}');
-  // print('_=_  first userJeanpointBons code: ${userJeanpointBons[0].code}');
+
+  if (MOCK_IS_ENABLE && userJeanpointBonsRes.statusCode != 200) {
+    try {
+      userJeanpointBonsRes = await globalLocator<GlobalRestClient>()
+          .getMockUserJeanpointBonsInfo(); // ! from mockoon
+      addCopouns(userJeanpointBonsRes.data);
+    } catch (errorMockoon) {
+      print('*********************************');
+      print('Catch Error from userMockCouponsInfo ** Mockoon ** !');
+      printErrorMessage(errorMockoon);
+      print('*********************************');
+    }
+  }
+  if (userJeanpointBonsRes.statusCode == 200 &&
+      userJeanpointBonsRes.data != null &&
+      userJeanpointBonsRes.data.length > 0) {
+    print(
+        '_=_ get successfully userJeanpointBons length: ${userJeanpointBons.length}');
+    print('_=_  first userJeanpointBons code: ${userJeanpointBons[0].code}');
+  }
 }
 
 addCopouns(List<UserJeanpointsData> copouns) {

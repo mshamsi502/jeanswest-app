@@ -31,6 +31,18 @@ Future<UserPaymentInfo> userPaymentInfo() async {
       }
     }
   }
+  if (MOCK_IS_ENABLE && userPaymentInfoRes.statusCode != 200) {
+    try {
+      userPaymentInfoRes = await globalLocator<GlobalRestClient>()
+          .getMockUserPaymentInfo(); // ! from mockoon
+
+    } catch (errorMockoon) {
+      print('*********************************');
+      print('Catch Error from ** Mockoon ** !');
+      printErrorMessage(errorMockoon);
+      print('*********************************');
+    }
+  }
 
   return UserPaymentInfo(
     tblPosCustomersID: userPaymentInfoRes.data[0].tblPosCustomersID,

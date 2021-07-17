@@ -102,7 +102,7 @@ class _MainStorePageState extends State<MainStorePage> {
 
   @override
   void initState() {
-    searchListener();
+    // searchListener();
     setState(() {
       selectedColor = 0;
       selectedSize = -1;
@@ -439,6 +439,7 @@ class _MainStorePageState extends State<MainStorePage> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+
     if (!getedMediaQuery || tempFilterPageOpened != filterPageOpened) {
       setState(() {
         pageNumber = 1;
@@ -446,7 +447,7 @@ class _MainStorePageState extends State<MainStorePage> {
       prepareValues();
       _getProducts(page: pageNumber);
     }
-
+    print("a0a1a2a3aaaaaaaaaaaaaaaa filterPageOpened : $filterPageOpened");
     return Container(
       width: _screenSize.width,
       height: _screenSize.height,
@@ -457,9 +458,9 @@ class _MainStorePageState extends State<MainStorePage> {
         isDraggable: false,
         onPanelClosed: () {
           widget.changeShowButtonNavigationBar(true);
-          setState(() {
-            filterPageOpened = -1;
-          });
+          // setState(() {
+          //   filterPageOpened = -1;
+          // });
           FocusScope.of(context).unfocus();
         },
         onPanelOpened: () {
@@ -582,6 +583,28 @@ class _MainStorePageState extends State<MainStorePage> {
                   searchFocusNode: searchFocusNode,
                   searchTextEditingController: searchTextEditingController,
                   searchTextFeildIsEnabled: searchTextFeildIsEnabled,
+                  sumbittSearch: (String newValue) async {
+                    if ((searchTextEditingController.text != null &&
+                        searchTextEditingController.text != "")) {
+                      setState(() {
+                        searchKeywordName = searchTextEditingController.text;
+                      });
+                      print(
+                          "------------------------ : searchKeywordName : $searchKeywordName");
+                      await Future.delayed(Duration(milliseconds: 500));
+                      if (searchKeywordName ==
+                              searchTextEditingController.text &&
+                          searchKeywordName.length >= 3) {
+                        setState(() {
+                          ascentNumber = 1;
+                          engNameOfSortBy = SEARCH_SORT;
+                          uniqueName = STYLE_UNIQUE;
+                        });
+                        _getProducts(page: pageNumber);
+                      }
+                    }
+                    // TODO
+                  },
                   changeSearchTextFeildIsEnabled: (bool isEnable) =>
                       setState(() {
                     searchTextFeildIsEnabled = isEnable;
@@ -591,15 +614,22 @@ class _MainStorePageState extends State<MainStorePage> {
                   category: listOfCategory,
                   filterPageOpened: filterPageOpened,
                   openFilterPage: (int openedPage) {
-                    if (openedPage == 0) {
-                      setState(() {
-                        filterPageOpened = openedPage;
-                      });
-                      filtersPanelController.open();
-                    } else
-                      setState(() {
-                        filterPageOpened = openedPage;
-                      });
+                    setState(() {
+                      print(
+                          "******************************************************************");
+                      print("aaaaaaaaaaaaaaaaaaaa openedPage : $openedPage");
+                      if (openedPage == 0) {
+                        filtersPanelController.open();
+                      } else {
+                        // if (filterPageOpened == openedPage)
+                        if (filterPageOpened == openedPage)
+                          filterPageOpened = -1;
+                        else {
+                          filtersPanelController.close();
+                          filterPageOpened = openedPage;
+                        }
+                      }
+                    });
                   },
                   someOfActiveSubGroup: someOfActiveSubGroup,
                   someOfActiveGenders: someOfActiveGenders,
@@ -711,8 +741,12 @@ class _MainStorePageState extends State<MainStorePage> {
                                       updateSubGroupsValue:
                                           (List<bool> newValues) {
                                         filtersPanelController.close();
+
                                         updateSubGroupValue(
                                             filterPageOpened - 1, newValues);
+                                        setState(() {
+                                          filterPageOpened = -1;
+                                        });
                                       },
                                     )
                                   : optionsWidget[filterPageOpened -

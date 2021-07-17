@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
@@ -34,6 +35,8 @@ class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   final Size screenSize;
   @required
   final Function(bool, BuildContext) openRealSearchPanel;
+
+  final bool haveClearText;
   @override
   Size get preferredSize => Size.fromHeight(0.093 * screenSize.height //60
       );
@@ -55,6 +58,7 @@ class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
     this.focusNode,
     this.onChangeSearchField,
     this.screenSize,
+    this.haveClearText = false,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => _SearchAppBarWidgetState();
@@ -115,20 +119,20 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
                         focusNode: widget.focusNode,
                         controller: widget.textEditingController,
                         textAlign: TextAlign.right,
+                        textInputAction: TextInputAction.search,
                         cursorColor: MAIN_BLUE_COLOR,
                         showCursor: true,
-                        onChanged: widget.onChangeSearchField,
+                        // onChanged: widget.onChangeSearchField,
+                        onSubmitted: (String value) {
+                          print("cccddddddddddddddddddddddddddd");
+                          widget.onChangeSearchField(value);
+                        },
                         decoration: InputDecoration(
                           hintText: widget.preTitle + widget.title ?? '',
                           hintStyle: widget.titleStyle,
                           contentPadding: EdgeInsets.all(
                             0.015 * _screenSize.height, // 10,
-                          )
-                          // (
-                          //   vertical: 0.015 * _screenSize.height, // 10,
-                          //   horizontal: 10, //0.055 * _screenSize.width, // 20,
-                          // )
-                          ,
+                          ),
                           border: InputBorder.none,
                         ),
                       ),
@@ -176,6 +180,39 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
                     ),
             ),
           ),
+          widget.textEditingController != null &&
+                  widget.textEditingController.text != null &&
+                  widget.textEditingController.text != ""
+              ? GestureDetector(
+                  onTap: () {
+                    widget.textEditingController.clear();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    // color: Colors.red,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 0.3,
+                            spreadRadius: 0.7,
+                            color: Colors.grey[200],
+                          ),
+                        ],
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/images/svg_images/global/new/fi-rr-cross.svg',
+                        color: Colors.black,
+                        height: 10,
+                        width: 10,
+                      ),
+                    ),
+                  ),
+                )
+              : SizedBox()
         ],
       ),
     );

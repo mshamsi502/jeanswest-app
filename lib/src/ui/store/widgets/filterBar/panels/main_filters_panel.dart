@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
@@ -445,7 +446,14 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               sizeSubtitlesName: sizeGroupSubtitleName,
                               priceSubtitlesName:
                                   "از ${widget.priceLimitValue["min"]} تا ${widget.priceLimitValue["max"]} تومان",
-                              showName: [!isShowColorWidget, true, true],
+                              showName: [
+                                !isShowColorWidget,
+                                true,
+                                (widget.priceLimitValue["min"] !=
+                                        minPriceCategoty ||
+                                    widget.priceLimitValue["max"] !=
+                                        maxPriceCategoty)
+                              ],
                             ),
                             SizedBox(
                               height: 0.023 * _screenSize.height, //15

@@ -18,6 +18,7 @@ import 'package:jeanswest/src/models/api_response/userRes/userMessage/user-messa
 import 'package:jeanswest/src/utils/helper/getInfos/getCategory/get-categoty-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getInviteFriendsFaqInfo/get-invite-friends-faq.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
+import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserCouponsInfo/get-user-coupons-info.dart';
 // import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMessagesInfo/get-user-messages-info.dart';
@@ -25,7 +26,6 @@ import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserPaymentIn
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserOrdersInfo/get-user-orders-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
-import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserCouponsInfo/get-user-coupons-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserAddressesInfo/get-user-addresses-info.dart';
 //
 import 'package:jeanswest/src/utils/helper/getInfos/getContactUsInfo/get-contact-us-info.dart';
@@ -111,7 +111,7 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
     Map<String, dynamic> result = await userMessagesInfo(body: body.map);
     userNotifs = result["messages"];
     print(
-        'USER_COPOUNS **********************************************************');
+    'USER_COPOUNS **********************************************************');
     await userCouponsInfo();
   }
 

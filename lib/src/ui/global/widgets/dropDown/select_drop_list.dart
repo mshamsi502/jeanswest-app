@@ -4,6 +4,7 @@ import 'package:jeanswest/src/models/dropDown/drop-list-model.dart';
 
 class SelectDropList extends StatefulWidget {
   final Widget selectedIcon;
+  final String selectedTile;
   final OptionItem itemSelected;
   final DropListModel dropListModel;
   final Function(OptionItem optionItem) onOptionSelected;
@@ -15,6 +16,7 @@ class SelectDropList extends StatefulWidget {
 
   SelectDropList({
     this.itemSelected,
+    @required this.selectedTile,
     this.dropListModel,
     this.onOptionSelected,
     this.selectedIcon,
@@ -79,7 +81,7 @@ class _SelectDropListState extends State<SelectDropList>
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
     // if (widget.optionsHeight != null)
-    //   print("widget.optionsHeight  : ${widget.optionsHeight}");
+    print("widget.selectedTile  : ${widget.selectedTile}");
     return Container(
       width: _screenSize.width,
       color: Colors.transparent,
@@ -118,7 +120,8 @@ class _SelectDropListState extends State<SelectDropList>
                     setState(() {});
                   },
                   child: Text(
-                    optionItemSelected.title,
+                    // optionItemSelected.title,
+                    widget.selectedTile,
                     style: TextStyle(
                       fontSize: 0.0444 * _screenSize.width, //16,
                     ),
@@ -331,6 +334,8 @@ class _SelectDropListState extends State<SelectDropList>
       if (element.id == selectedID)
         setState(() {
           tempCheckBoxValue[element.title] = !tempCheckBoxValue[element.title];
+          //
+          widget.updateCheckBoxValue(tempCheckBoxValue);
           // tempCheckBoxValue[index] = !tempCheckBoxValue[index];
         });
       // index++;

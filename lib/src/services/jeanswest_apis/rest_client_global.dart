@@ -65,23 +65,23 @@ abstract class GlobalRestClient extends RestClient {
   // ***************************************************************************
   // # LOGIN *******************************************************************
 
-  @POST('http://10.0.1.111:8000/api/v1/otp/request')
+  @POST('http://10.0.1.111:3500/api/v1/otp/request')
   Future<OTPReqResponse> reqOtp(@Body() Map<String, dynamic> map);
 
-  @POST('http://10.0.1.111:8000/api/v1/customerAuth')
+  @POST('http://10.0.1.111:3500/api/v1/customerAuth')
   Future<AuthReqRespons> reqAuth(@Body() Map<String, dynamic> map);
 
   // ***************************************************************************
   // # PROFILE *****************************************************************
   // *          USER MAIN INFO *************************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/customer/myCustomer')
+  @GET('http://10.0.1.111:3500/api/v1/customer/myCustomer')
   Future<UserMainInfoRes> getUserMainInfo();
 
-  @POST('http://10.0.1.111:8000/api/v1/erp/user/user')
+  @POST('http://10.0.1.111:3500/api/v1/erp/user/user')
   Future<UserTblPosCustRes> getUserErp(@Body() Map<String, dynamic> mobile);
 
-  @POST('http://10.0.1.111:8000/api/v1/customer/updateMyCustomer')
+  @POST('http://10.0.1.111:3500/api/v1/customer/updateMyCustomer')
   Future<UserMainInfoRes> updateUserMainInfo(
       @Body() Map<String, dynamic> newUser);
   // !
@@ -93,7 +93,7 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          USER PAYMENT INFO **********************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/customer/myCustomerMembershipLevel')
+  @GET('http://10.0.1.111:3500/api/v1/customer/myCustomerMembershipLevel')
   Future<UserPaymentInfoRes> getUserPaymentInfo();
   // !
   @POST('http://10.1.2.94:3003/v1/getUserPaymentInfo')
@@ -110,24 +110,24 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3003/v1/getUserInviteInfo')
   Future<UserInviteInfoRes> getUserInviteInfo(); // ! Mockoon
 
-  @POST('http://10.0.1.111:8000/api/v1/customer/sendInviteLink')
+  @POST('http://10.0.1.111:3500/api/v1/customer/sendInviteLink')
   Future<GeneralRespons> sendInviteFriendLink(
       @Body() Map<String, dynamic> friendMobile);
 
-  @GET('http://10.0.1.111:8000/api/v1/inviteFriendsFAQ/list')
+  @GET('http://10.0.1.111:3500/api/v1/inviteFriendsFAQ/list')
   Future<FAQRes> getInviteFriendFAQ();
 
   // *          USER FAVORITES INFO ********************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/favorite/list')
+  @GET('http://10.0.1.111:3500/api/v1/favorite/list')
   Future<UserFavoriteInfoRes> getUserFavoriteInfo(
       @Body() Map<String, dynamic> tblPosCustomersID);
 
-  @DELETE('http://10.0.1.111:8000/api/v1/favorite/remove')
+  @DELETE('http://10.0.1.111:3500/api/v1/favorite/remove')
   Future<GeneralRespons> removeFromUserFavorite(
       @Body() Map<String, dynamic> barcode);
 
-  @POST('http://10.0.1.111:8000/api/v1/favorite/add')
+  @POST('http://10.0.1.111:3500/api/v1/favorite/add')
   Future<GeneralRespons> addToUserFavorite(
       @Body() Map<String, dynamic> barcode);
 
@@ -137,7 +137,7 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          USER JEANSPOINT INFO *******************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/promotion/point/customer/list')
+  @GET('http://10.0.1.111:3500/api/v1/promotion/point/customer/list')
   Future<UserJeanpointsRes> getUserJeanpointBonsInfo();
   // !
   @GET('http://10.1.2.94:3003/v1/getUserJeanpointBons')
@@ -150,18 +150,18 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          USER TICKET INFO ***********************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/ticket/list')
+  @GET('http://10.0.1.111:3500/api/v1/ticket/list')
   Future<UserTicketsRes> getUserTicketsInfo();
 
-  @POST('http://10.0.1.111:8000/api/v1/ticket/create')
+  @POST('http://10.0.1.111:3500/api/v1/ticket/create')
   Future<CreateTicketRes> createUserTicketsInfo(
       @Body() Map<String, dynamic> newTicket);
 
-  @POST('http://10.0.1.111:8000/api/v1/ticket/reply')
+  @POST('http://10.0.1.111:3500/api/v1/ticket/reply')
   Future<CreateTicketRes> replyTicketsInfo(
       @Body() Map<String, dynamic> newMessage);
 
-  @POST('http://10.0.1.111:8000/api/v1/ticket/close')
+  @POST('http://10.0.1.111:3500/api/v1/ticket/close')
   Future<GeneralRespons> closeTicketsInfo(
       @Body() Map<String, dynamic> ticketId);
 
@@ -170,7 +170,7 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          USER NOTIFICATION INFO *****************************************
 
-  @POST('http://10.0.1.111:8000/api/v1/notification/list')
+  @POST('http://10.0.1.111:3500/api/v1/notification/list')
   Future<UserMessageRes> getUserMessagesInfo(@Body() Map<String, dynamic> body);
 
   @GET('http://10.1.2.94:3006/v1/getUserMessages')
@@ -182,18 +182,18 @@ abstract class GlobalRestClient extends RestClient {
   Future<UserAddressesInfoRes> getMockUserAddressesInfo();
 
   // ! Jeanswest API
-  @GET('http://10.0.1.111:8000/api/v1/address/list')
+  @GET('http://10.0.1.111:3500/api/v1/address/list')
   Future<UserAddressesInfoRes> getUserAddressesInfo();
 
-  @POST('http://10.0.1.111:8000/api/v1/address/create')
+  @POST('http://10.0.1.111:3500/api/v1/address/create')
   Future<GeneralRespons> addToUserAddressesInfo(
       @Body() Map<String, dynamic> address);
 
-  @PATCH('http://10.0.1.111:8000/api/v1/address/edit')
+  @PATCH('http://10.0.1.111:3500/api/v1/address/edit')
   Future<GeneralRespons> editUserAddressesInfo(
       @Body() Map<String, dynamic> address);
 
-  @DELETE('http://10.0.1.111:8000/api/v1/address/remove')
+  @DELETE('http://10.0.1.111:3500/api/v1/address/remove')
   Future<GeneralRespons> deleteUserAddressesInfo(
       @Body() Map<String, dynamic> code);
 
@@ -201,16 +201,16 @@ abstract class GlobalRestClient extends RestClient {
   // # GLOBAL ******************************************************************
   // *          MORE ***********************************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/contactUs/list')
+  @GET('http://10.0.1.111:3500/api/v1/contactUs/list')
   Future<ContactUsRes> getContactUsInfo();
 
-  @GET('http://10.0.1.111:8000/api/v1/faq/list')
+  @GET('http://10.0.1.111:3500/api/v1/faq/list')
   Future<FAQRes> getFAQInfo();
 
-  @GET('http://10.0.1.111:8000/api/v1/aboutUs/list')
+  @GET('http://10.0.1.111:3500/api/v1/aboutUs/list')
   Future<AboutUsRes> getAboutUsInfo();
 
-  @GET('http://10.0.1.111:8000/api/v1/returnPolicy/list')
+  @GET('http://10.0.1.111:3500/api/v1/returnPolicy/list')
   Future<ReturnPolicyRes> getReturnPolicyInfo();
 
   @GET('http://10.1.2.94:3006/api/v1/faq/list')
@@ -221,34 +221,34 @@ abstract class GlobalRestClient extends RestClient {
 
   // *          LEVEL CARDS ****************************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/membershipLevelCards/list')
+  @GET('http://10.0.1.111:3500/api/v1/membershipLevelCards/list')
   Future<LevelCardsRes> getLevelCardsInfo();
 
   // *          ADRRESS ********************************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/logistic/states')
+  @GET('http://10.0.1.111:3500/api/v1/logistic/states')
   Future<AllProvince> getAllProvinceInfo();
 
-  @POST('http://10.0.1.111:8000/api/v1/logistic/cities')
+  @POST('http://10.0.1.111:3500/api/v1/logistic/cities')
   Future<AllCity> getAllCityInfo(@Body() Map<String, dynamic> idState);
 
-  @POST('http://10.0.1.111:8000/api/v1/logistic/districts')
+  @POST('http://10.0.1.111:3500/api/v1/logistic/districts')
   Future<AllDistrict> getAllDistrictInfo(@Body() Map<String, dynamic> idCity);
 
   // ***************************************************************************
   // # PRODUCT *****************************************************************
 
-  @POST('http://10.0.1.111:8000/api/v1/product/list')
+  @POST('http://10.0.1.111:3500/api/v1/product/list')
   Future<ListOfProductsRes> getProductList(@Body() Map<String, dynamic> filter);
 
   // *          CATEGORY *******************************************************
 
-  @GET('http://10.0.1.111:8000/api/v1/category/list')
-  // @GET('http://10.0.1.111:8000/api/$BACKEND_API_VERSION/category/list')
+  @GET('http://10.0.1.111:3500/api/v1/category/list')
+  // @GET('http://10.0.1.111:3500/api/$BACKEND_API_VERSION/category/list')
   Future<CategoryRes> getAllCategory();
   @POST(
-      'http://10.0.1.111:8000/api/v1/erp/product/getProductsAvailabilityInBranches')
-  // @GET('http://10.0.1.111:8000/api/$BACKEND_API_VERSION/category/list')
+      'http://10.0.1.111:3500/api/v1/erp/product/getProductsAvailabilityInBranches')
+  // @GET('http://10.0.1.111:3500/api/$BACKEND_API_VERSION/category/list')
   Future<ExistInBranchesListRes> getExistInBranches(
       @Body() Map<String, dynamic> barcode);
 

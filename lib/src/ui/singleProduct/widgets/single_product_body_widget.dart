@@ -9,6 +9,7 @@ import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
 
 import 'package:jeanswest/src/models/api_response/productRes/single-product-info-res.dart';
+import 'package:jeanswest/src/ui/global/screens/loading_page.dart';
 import 'package:jeanswest/src/ui/global/widgets/product_view/detail-product-widget.dart';
 import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/single_product_attributes_widget.dart';
 import 'package:jeanswest/src/ui/singleProduct/widgets/SingleProductBody/single_product_main_info_widget.dart';
@@ -25,7 +26,7 @@ class SingleProductBodyWidget extends StatefulWidget {
   final Function() openExistInBranchesPanel;
   final Function() openSizeGuidPanel;
   final Function() openShoppingBasket;
-  final Function(int) updateSelectedColor;
+  final Function(int) updateSelectedSize;
   final Function(SingleProductInfoRes) updateSelectedProduct;
   const SingleProductBodyWidget({
     Key key,
@@ -38,7 +39,7 @@ class SingleProductBodyWidget extends StatefulWidget {
     @required this.relatedProducts,
     @required this.updateSelectedProduct,
     @required this.imageExpandedPanel,
-    @required this.updateSelectedColor,
+    @required this.updateSelectedSize,
     @required this.openShoppingBasket,
   }) : super(key: key);
   @override
@@ -76,7 +77,7 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
               widget.relatedProducts.data == null ||
               widget.relatedProducts.data.result == null ||
               widget.relatedProducts.data.result.length == null
-          ? SizedBox()
+          ? LoadingPage()
           : SingleChildScrollView(
               controller: scrollController,
               child: Container(
@@ -112,11 +113,13 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                               _selectedProduct = widget
                                   .allColorsAndSizesProducts.data.result[value];
                               widget.updateSelectedProduct(_selectedProduct);
-                              widget.updateSelectedColor(selectedColor);
+
                               selectedSize = -1;
+                              widget.updateSelectedSize(selectedSize);
                             }),
                             changeSelectedSize: (int value) => setState(() {
                               selectedSize = value;
+                              widget.updateSelectedSize(selectedSize);
                             }),
                             closeAddToCardPanel: () {},
                           ),

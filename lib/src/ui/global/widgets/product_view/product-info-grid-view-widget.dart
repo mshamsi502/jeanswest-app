@@ -104,11 +104,13 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                               widget.product.banimodeDetails != null &&
                               widget.product.banimodeDetails.images != null
                           ? widget.product.banimodeDetails.images
-                              .thickboxDefault[widget.product.banimodeDetails
-                                      .images.thickboxDefault.length >
-                                  6
-                              ? 2
-                              : 0]
+                                  .thickboxDefault[
+                              // widget.product.banimodeDetails
+                              //             .images.thickboxDefault.length >
+                              //         6
+                              //     ? 2
+                              //     :
+                              0]
                           : EMPTY_IMAGE,
                       fit: BoxFit.fitWidth,
                     ),

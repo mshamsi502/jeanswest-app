@@ -84,7 +84,8 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     if (widget.filterPageOpened != tempFilterPageOpened) update();
-
+    print(
+        "555555555555555 widget.filterPageOpened in filter bar widget : ${widget.filterPageOpened}");
     return Container(
       height: 0.078125 * _screenSize.height, //50,
 
@@ -109,19 +110,22 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
                   children: [
                     GestureDetector(
                       onTap: () => setState(() {
-                        if (widget.filterPageOpened == index)
-                          widget.openFilterPage(-1);
-                        else {
-                          widget.openFilterPage(index);
-                        }
+                        // if (widget.filterPageOpened == index)
+                        // widget.openFilterPage(-1);
+                        //  {
+                        // else
+                        widget.openFilterPage(index);
+                        // }
                       }),
                       child: FiltersButtonWidget(
                         isSelected: (widget.filterPageOpened == index),
                         title: filters[index].title,
                         icon: filters[index].icon,
-                        arrow: widget.filterPageOpened == index
-                            ? filters[index].openedArrow
-                            : filters[index].closedArrow,
+                        arrow: index == 0
+                            ? null
+                            : widget.filterPageOpened == index
+                                ? filters[index].openedArrow
+                                : filters[index].closedArrow,
                         haveSomeActive: index == 0 ||
                                 someOfActive == null ||
                                 someOfActive[index - 1] == null

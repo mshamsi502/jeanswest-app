@@ -49,7 +49,7 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
       ListOfProductsRes(data: ListOfProductsData(result: []));
   SingleProductInfoRes _selectedProduct;
 //
-  int _selectedSize = 0;
+  int _selectedSize = -1;
   List<BranchForProduct> _availableInBranches;
   BranchForProduct _selectedBranches;
 
@@ -78,21 +78,26 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
   }
 
   updateAvailableInBranches() async {
+    print("2____________________selectedSize : $_selectedSize");
     print(
         "getting new AvailableInBranches whith reference : ${_selectedProduct.banimodeDetails.size[_selectedSize].reference}");
-    List<BranchForProduct> tempAvailableInBranches =
-        // await getAvailableInBranches(_selectedProduct.barcode);
-        await getAvailableInBranches(
-            _selectedProduct.banimodeDetails.size[_selectedSize].reference);
-    setState(() {
-      _availableInBranches = tempAvailableInBranches;
-      _selectedBranches = tempAvailableInBranches.first;
-    });
+    if (_selectedSize > 0) {
+      List<BranchForProduct> tempAvailableInBranches =
+          // await getAvailableInBranches(_selectedProduct.barcode);
+          await getAvailableInBranches(
+              _selectedProduct.banimodeDetails.size[_selectedSize].reference);
+      setState(() {
+        _availableInBranches = tempAvailableInBranches;
+        _selectedBranches = tempAvailableInBranches.first;
+      });
+    } else
+      showToast(message: "لطفا اول سایز را انتخاب کنید ...");
   }
 
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    print("____________________selectedSize : $_selectedSize");
 
     return Container(
       color: Colors.grey,
@@ -222,13 +227,20 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                         changeFave: (bool newIsFave) =>
                             widget.changeFave(newIsFave),
                         openExistInBranchesPanel: () {
-                          if (_availableInBranches != null &&
-                              _availableInBranches.length > 0)
-                            existInBranchesPanel.open();
-                          else
+                          if (_selectedSize != -1) {
+                            if (_availableInBranches != null &&
+                                _availableInBranches.length > 0)
+                              existInBranchesPanel.open();
+                            else
+                              showToast(
+                                message:
+                                    "این محصول با مشخصات انتخاب شده در هیچ شعبه ای موجود نیست!",
+                                textColor: Colors.white,
+                                backgroundColor: NERO_GREY_COLOR,
+                              );
+                          } else
                             showToast(
-                              message:
-                                  "این محصول با رنگ انختاب شده در هیچ شعبه ای موجود نیست!",
+                              message: "اول سایز را انتخاب کنید ...",
                               textColor: Colors.white,
                               backgroundColor: NERO_GREY_COLOR,
                             );
@@ -239,7 +251,7 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                           _selectedProduct = _product;
                         }),
                         imageExpandedPanel: () => imageExpandedPanel.open(),
-                        updateSelectedColor: (int newValue) {
+                        updateSelectedSize: (int newValue) {
                           setState(() {
                             _selectedSize = newValue;
                           });

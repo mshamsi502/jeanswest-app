@@ -18,6 +18,7 @@ class StoreSearchBarWidget extends StatefulWidget {
   final TextEditingController searchTextEditingController;
   final bool searchTextFeildIsEnabled;
   final Function(bool) changeSearchTextFeildIsEnabled;
+  final Function(String) sumbittSearch;
 
   const StoreSearchBarWidget({
     Key key,
@@ -25,6 +26,7 @@ class StoreSearchBarWidget extends StatefulWidget {
     @required this.searchTextEditingController,
     @required this.searchTextFeildIsEnabled,
     @required this.changeSearchTextFeildIsEnabled,
+    @required this.sumbittSearch,
   }) : super(key: key);
   @override
   _StoreSearchBarWidgetState createState() => _StoreSearchBarWidgetState();
@@ -80,7 +82,12 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
                         : "همه محصولات",
                     textFielIsActive: widget.searchTextFeildIsEnabled,
                     textEditingController: widget.searchTextEditingController,
-                    onChangeSearchField: (String value) {},
+                    onChangeSearchField: (String value) {
+                      //  TODO
+
+                      print("aaaaaaaaaaaaa onChangeSearchField : $value");
+                      widget.sumbittSearch(value);
+                    },
                     focusNode: widget.searchFocusNode,
                     titleStyle: TextStyle(
                       color: keyboardIsOpen &&
@@ -95,6 +102,7 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
                       Icons.search_outlined,
                       color: Colors.black,
                     ),
+                    haveClearText: true,
                     onTapIcon: () {},
                     openRealSearchPanel:
                         (bool isOpen, BuildContext buildContext) {},

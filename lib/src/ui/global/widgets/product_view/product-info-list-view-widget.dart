@@ -92,11 +92,12 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
                       width: widget.width,
                       child: Image.network(
                         widget.product.banimodeDetails.images.thickboxDefault[
-                                widget.product.banimodeDetails.images
-                                            .thickboxDefault.length >
-                                        6
-                                    ? 2
-                                    : 0] ??
+                                // widget.product.banimodeDetails
+                                //             .images.thickboxDefault.length >
+                                //         6
+                                //     ? 2
+                                //     :
+                                0] ??
                             EMPTY_IMAGE,
                         fit: BoxFit.fitWidth,
                       ),

@@ -112,14 +112,14 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    if (widget.products != null && widget.products.length > 0) {
-      print("widget.products.length : ${widget.products.length}");
-      print("tempProducts.length : ${tempProducts.length}");
-      print("activeProducts.length : ${activeProducts.length}");
-      print("tempProducts : $tempProducts");
-      print("widget.products : ${widget.products}");
-      print("-------------------------------------------------------");
-    }
+    // if (widget.products != null && widget.products.length > 0) {
+    //   print("widget.products.length : ${widget.products.length}");
+    //   print("tempProducts.length : ${tempProducts.length}");
+    //   print("activeProducts.length : ${activeProducts.length}");
+    //   print("tempProducts : $tempProducts");
+    //   print("widget.products : ${widget.products}");
+    //   print("-------------------------------------------------------");
+    // }
     if (tempProducts == null ||
         tempProducts.length != widget.products.length ||
         tempProducts.first.barcode != widget.products.first.barcode ||
