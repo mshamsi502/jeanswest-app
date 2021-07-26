@@ -59,6 +59,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
         widget.groupTitle != tempGroupTitle) {
       initializeValues();
     }
+    print("tempSubGroupsValue : ${tempSubGroupsValue ?? "null"}");
     return Container(
       width: _screenSize.width,
       height: _screenSize.height,
@@ -102,7 +103,6 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                           itemBuilder: (BuildContext contetx, int index) {
                             return Container(
                               height: 0.09375 * _screenSize.height, //60,
-
                               padding: EdgeInsets.symmetric(
                                 horizontal: 0.0138 * _screenSize.width, //5,
                               ),
@@ -191,11 +191,18 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                 )
               : SizedBox(),
           Expanded(
-            child: ListView.builder(
+            child:
+                //  SizedBox(),
+                ListView.builder(
               controller: scrollController,
               itemCount: widget.subGroupsTitle.length,
               shrinkWrap: true,
               itemBuilder: (BuildContext contetx, int index) {
+                print(
+                    "222 -/-/-/-/-/-/-   widget.subGroupsTitle : ${widget.subGroupsTitle}");
+                // print(
+                // "-/-/-/-/-/-/-  subGroupsTitles : ${subGroupsTitles ?? "null"}");
+
                 return Column(
                   children: [
                     GestureDetector(
@@ -206,7 +213,6 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           vertical: 0.023 * _screenSize.height, //15
-
                           horizontal: 0.031 * _screenSize.height, //20,
                         ),
                         child: Row(
@@ -214,9 +220,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                           children: [
                             Container(
                               width: 0.0888 * _screenSize.width, //32,
-
                               height: 0.0888 * _screenSize.width, //32,
-
                               decoration: BoxDecoration(
                                 boxShadow: tempSubGroupsValue[index]
                                     ? []

@@ -41,7 +41,10 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
   bool tempIsGridView;
   List<bool> activeProducts = [];
   List<bool> isFavProducts = [];
+
   //
+  double currentScrollPosition;
+  int scrollOnIndex;
   // double percentScroll = 0;
   //
 
@@ -54,7 +57,14 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
     tempProducts = widget.products;
     isFavProducts = List.filled(tempProducts.length, false);
     updateProducts();
-
+    widget.listOfProductsScrollController.addListener(() {
+      currentScrollPosition =
+          widget.listOfProductsScrollController.position.pixels;
+      double _temp = (currentScrollPosition /
+          widget.listOfProductsScrollController.position.maxScrollExtent *
+          tempProducts.length);
+      scrollOnIndex = tempIsGridView ? (_temp / 2).floor() : (_temp).floor();
+    });
     super.initState();
   }
 
@@ -79,14 +89,26 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
 
       isFavProducts = tempIsFavProducts;
       tempProducts = _newProducts;
+      if (!tempIsGridView && widget.isGridView) {
+        //
+        scrollOnIndex = (scrollOnIndex / 2).floor();
+        // print("/**/*/*/*/*/* change to grid, scrollOnIndex : $scrollOnIndex");
+        widget.listOfProductsScrollController.jumpTo(
+            (scrollOnIndex / tempProducts.length) *
+                widget.listOfProductsScrollController.position.maxScrollExtent);
+      } else if (tempIsGridView && !widget.isGridView) {
+        //
+        // print("/**/*/*/*/*/*/* change to lits, scrollOnIndex : $scrollOnIndex");
+        widget.listOfProductsScrollController.jumpTo(scrollOnIndex *
+            widget.listOfProductsScrollController.position.maxScrollExtent);
+      }
       tempIsGridView = widget.isGridView;
       activeProducts = createActiveProducts(tempProducts);
-
-      if (widget.products != null && widget.products.length > 0) {
-        print("widget.products.length : ${widget.products.length}");
-        print("tempProducts.length : ${tempProducts.length}");
-        print("activeProducts.length : ${activeProducts.length}");
-      }
+      // if (widget.products != null && widget.products.length > 0) {
+      // print("widget.products.length : ${widget.products.length}");
+      // print("tempProducts.length : ${tempProducts.length}");
+      // print("activeProducts.length : ${activeProducts.length}");
+      // }
     });
   }
 

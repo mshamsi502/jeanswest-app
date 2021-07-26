@@ -47,6 +47,10 @@ const String RANDOM_SORT = "random";
 const String COLOR_UNIQUE = "color";
 const String STYLE_UNIQUE = "style";
 //
+const String FARSI_LANGUAGE = "FA";
+const String ENGLISH_LANGUAGE = "ENG";
+
+//
 List<String> optionGroup = [
   "جنسیت",
   "رده سنی",
@@ -63,11 +67,12 @@ List<String> sortOptionsName = [
   "تنوع بر اساس رنگ",
 ];
 //
-const double minPriceCategoty = 0;
-const double maxPriceCategoty = 30000000;
-const double unitPriceCategoty = 200000;
+const double MIN_PRICE_CATEGORY = 0;
+const double MAX_PRICE_CATEGORY = 30000000;
+const double UNIT_PRICE_CATEGORY = 200000;
 //
-const int getProductLimit = 8;
+const int GET_PRODUCT_LIMIT = 8;
+
 //
 // List<Branch> localBranches = new List<Branch>();
 //

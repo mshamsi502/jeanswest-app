@@ -145,7 +145,7 @@ class GlobalSvgImages {
     height: 20,
   );
   static Widget enableShoppingBasketIcon = SvgPicture.asset(
-    'assets/images/svg_images/global/fi-sr-shopping-cart.svg',
+    'assets/images/svg_images/global/new/fi-sr-shopping-cart.svg',
     color: MAIN_BLUE_COLOR,
     width: 23,
     height: 23,

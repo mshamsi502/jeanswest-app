@@ -10,11 +10,7 @@ UserTblPosCustRes _$UserTblPosCustResFromJson(Map<String, dynamic> json) {
   return UserTblPosCustRes(
     statusCode: json['statusCode'] as int,
     message: json['message'] as String,
-    data: (json['data'] as List)
-        ?.map((e) => e == null
-            ? null
-            : UserTblPosCustData.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    data: json['data'] as List,
   );
 }
 

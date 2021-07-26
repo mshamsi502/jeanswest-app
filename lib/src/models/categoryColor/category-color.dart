@@ -4,13 +4,14 @@
 // ****************************************************************************
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
+// // ignore: must_be_immutable
 class CategoryColor {
   String engName;
   String perName;
   String minHexCode;
   String maxHexCode;
   Widget image;
+  int priority;
 
   CategoryColor({
     @required this.engName,
@@ -18,5 +19,6 @@ class CategoryColor {
     this.minHexCode,
     this.maxHexCode,
     @required this.image,
+    @required this.priority,
   });
 }

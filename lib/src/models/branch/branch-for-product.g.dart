@@ -17,6 +17,7 @@ BranchForProduct _$BranchForProductFromJson(Map<String, dynamic> json) {
     stockStatus: json['StockStatus'] as String,
     lat: json['lat'] as String,
     lng: json['long'] as String,
+    workTime: json['WorkTime'] as String ?? 'همه روزه از 10 تا 22',
   );
 }
 
@@ -31,4 +32,5 @@ Map<String, dynamic> _$BranchForProductToJson(BranchForProduct instance) =>
       'StockStatus': instance.stockStatus,
       'lat': instance.lat,
       'long': instance.lng,
+      'WorkTime': instance.workTime,
     };

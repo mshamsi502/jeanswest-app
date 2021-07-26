@@ -26,6 +26,7 @@ import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filter
 import 'package:jeanswest/src/ui/store/widgets/filterBar/sort_bar_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/searchBar/store-search-bar-widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/storeBody/store-main-body-widget.dart';
+import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -102,7 +103,6 @@ class _MainStorePageState extends State<MainStorePage> {
 
   @override
   void initState() {
-    // searchListener();
     setState(() {
       selectedColor = 0;
       selectedSize = -1;
@@ -144,26 +144,27 @@ class _MainStorePageState extends State<MainStorePage> {
   }
 
   Future<void> searchListener() async {
-    searchTextEditingController.addListener(() async {
-      if ((searchTextEditingController.text != null &&
-          searchTextEditingController.text != "")) {
-        setState(() {
-          searchKeywordName = searchTextEditingController.text;
-        });
-        print(
-            "------------------------ : searchKeywordName : $searchKeywordName");
-        await Future.delayed(Duration(milliseconds: 500));
-        if (searchKeywordName == searchTextEditingController.text &&
-            searchKeywordName.length >= 3) {
-          setState(() {
-            ascentNumber = 1;
-            engNameOfSortBy = SEARCH_SORT;
-            uniqueName = STYLE_UNIQUE;
-          });
-          _getProducts(page: pageNumber);
-        }
-      }
+    setState(() {
+      searchKeywordName = searchTextEditingController.text;
     });
+    print("------------------------ : searchKeywordName : $searchKeywordName");
+    await Future.delayed(Duration(milliseconds: 500));
+    if ((searchTextEditingController.text != null &&
+        searchTextEditingController.text != "" &&
+        searchKeywordName == searchTextEditingController.text &&
+        searchKeywordName.length >= 3)) {
+      setState(() {
+        ascentNumber = 1;
+        engNameOfSortBy = SEARCH_SORT;
+        uniqueName = STYLE_UNIQUE;
+      });
+      _getProducts(page: pageNumber);
+    } else {
+      ascentNumber = 0;
+      engNameOfSortBy = STYLE_CODE_SORT;
+      uniqueName = STYLE_UNIQUE;
+    }
+    // });
   }
 
   initPrepareValues() {
@@ -179,7 +180,8 @@ class _MainStorePageState extends State<MainStorePage> {
     genderCheckBoxValue =
         prepareGenderValues(listOfCategory, falseValues: true);
     ageCheckBoxValue = prepareAgeValues(listOfCategory, falseValues: true);
-    colorCheckBoxValue = prepareColorValues(catColors, falseValues: true);
+    colorCheckBoxValue =
+        prepareColorValues(listOfCategory.colorFamily, falseValues: true);
     sizeGroupCheckBoxValue =
         prepareSizeGroupCheckBox(listOfCategory, falseValues: true);
     priceLimit = preparePriceCheckBox(isBiggest: true);
@@ -196,6 +198,8 @@ class _MainStorePageState extends State<MainStorePage> {
   }
 
   prepareValues() {
+    print(
+        "-*-*-*-*-*-*-*-*-*-*-*-*-* , sizeGroupCheckBoxValue : $sizeGroupCheckBoxValue");
     setState(() {
       mediaQuery = MediaQuery.of(context);
       getedMediaQuery = true;
@@ -256,7 +260,7 @@ class _MainStorePageState extends State<MainStorePage> {
       if (priceLimit == null ||
           priceLimit["min"] == null ||
           priceLimit["max"] == null ||
-          (priceLimit["min"] == 0 && priceLimit["max"] == maxPriceCategoty)) {
+          (priceLimit["min"] == 0 && priceLimit["max"] == MAX_PRICE_CATEGORY)) {
         someOfActivePrice = 0;
       } else
         someOfActivePrice = 1;
@@ -329,19 +333,34 @@ class _MainStorePageState extends State<MainStorePage> {
     if (engNameOfSortBy != SEARCH_SORT) {
       for (int index = 0; index < ageCheckBoxValue.length; index++) {
         if (ageCheckBoxValue[index])
-          ageSelected.add(listOfCategory.ageGroup[index]);
+          // ageSelected.add(listOfCategory.ageGroup[index]);
+          // TODO ! age
+          genderSelected.add(listOfCategory
+              .ageGroup[index]
+              .translation[listOfCategory.ageGroup[index].translation
+                  .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+              .value);
       }
       //
 
-      for (int index = 0; index < colorCheckBoxValue.length; index++) {
-        if (colorCheckBoxValue[index])
-          colorSelected.add(listOfCategory.colorFamily[index]);
+      for (int index = 0; index < listOfCategory.colorFamily.length; index++) {
+        if (colorCheckBoxValue[index]) {
+          List<String> _splitedColor =
+              splitStringFromDash(listOfCategory.colorFamily[index].value);
+          _splitedColor.forEach((element) {
+            colorSelected.add(element);
+          });
+        }
       }
       //
-
       for (int index = 0; index < genderCheckBoxValue.length; index++) {
         if (genderCheckBoxValue[index])
-          genderSelected.add(listOfCategory.gender[index]);
+          // TODO ! gender
+          genderSelected.add(listOfCategory
+              .gender[index]
+              .translation[listOfCategory.gender[index].translation
+                  .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+              .value);
       }
       //
 
@@ -447,7 +466,7 @@ class _MainStorePageState extends State<MainStorePage> {
       prepareValues();
       _getProducts(page: pageNumber);
     }
-    print("a0a1a2a3aaaaaaaaaaaaaaaa filterPageOpened : $filterPageOpened");
+
     return Container(
       width: _screenSize.width,
       height: _screenSize.height,
@@ -458,9 +477,6 @@ class _MainStorePageState extends State<MainStorePage> {
         isDraggable: false,
         onPanelClosed: () {
           widget.changeShowButtonNavigationBar(true);
-          // setState(() {
-          //   filterPageOpened = -1;
-          // });
           FocusScope.of(context).unfocus();
         },
         onPanelOpened: () {
@@ -584,26 +600,8 @@ class _MainStorePageState extends State<MainStorePage> {
                   searchTextEditingController: searchTextEditingController,
                   searchTextFeildIsEnabled: searchTextFeildIsEnabled,
                   sumbittSearch: (String newValue) async {
-                    if ((searchTextEditingController.text != null &&
-                        searchTextEditingController.text != "")) {
-                      setState(() {
-                        searchKeywordName = searchTextEditingController.text;
-                      });
-                      print(
-                          "------------------------ : searchKeywordName : $searchKeywordName");
-                      await Future.delayed(Duration(milliseconds: 500));
-                      if (searchKeywordName ==
-                              searchTextEditingController.text &&
-                          searchKeywordName.length >= 3) {
-                        setState(() {
-                          ascentNumber = 1;
-                          engNameOfSortBy = SEARCH_SORT;
-                          uniqueName = STYLE_UNIQUE;
-                        });
-                        _getProducts(page: pageNumber);
-                      }
-                    }
-                    // TODO
+                    await searchListener();
+                    _getProducts(page: pageNumber);
                   },
                   changeSearchTextFeildIsEnabled: (bool isEnable) =>
                       setState(() {
@@ -710,11 +708,23 @@ class _MainStorePageState extends State<MainStorePage> {
                                 vertical: 0.023 * _screenSize.height, //15
                               ),
                               child: Text(filterPageOpened <=
-                                      listOfCategory.group.length
-                                  ? listOfCategory.group[filterPageOpened - 1]
-                                  : optionGroup[filterPageOpened -
-                                      listOfCategory.group.length -
-                                      1]),
+                                          listOfCategory.group.length
+                                      ? listOfCategory
+                                          .group[filterPageOpened - 1]
+                                          .translation[listOfCategory
+                                              .group[filterPageOpened - 1]
+                                              .translation
+                                              .indexWhere(
+                                          (element) =>
+                                              element.language ==
+                                              FARSI_LANGUAGE,
+                                        )]
+                                          .value
+                                      : optionGroup[filterPageOpened -
+                                          listOfCategory.group.length -
+                                          1]
+                                  //
+                                  ),
                             ),
                             Expanded(
                               child: filterPageOpened <=
@@ -756,13 +766,15 @@ class _MainStorePageState extends State<MainStorePage> {
                             // SizedBox(height: 25),
                           ],
                         )
-                      : StoreMainBodyWidget(
+                      :
+                      // SizedBox()
+                      StoreMainBodyWidget(
                           isLoadingForGetting: _isGettingNewProduct,
                           products: productsRes.data.result,
                           listOfProductsScrollController:
                               listOfProductsScrollController,
                           openAddToCardPanel: (int selectedIndex) {
-                            print("aaaaaaaaaaaaaaa");
+                            // print("aaaaaaaaaaaaaaa");
                             setState(() {
                               selectedProduct = selectedIndex;
                             });

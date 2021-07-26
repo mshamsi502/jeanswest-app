@@ -299,6 +299,7 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+    print("5555555555555555555555555555555 : tempSizesValue : $tempSizesValue");
     // if (tempIndexInOptionWidgets != widget.indexInOptionWidgets) {
     //   initializeValues();
     // }

@@ -67,7 +67,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(map ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/otp/request',
+        'http://10.0.1.111:8000/api/v1/otp/request',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -87,7 +87,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(map ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/customerAuth',
+        'http://10.0.1.111:8000/api/v1/customerAuth',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -105,7 +105,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/customer/myCustomer',
+        'http://10.0.1.111:8000/api/v1/customer/myCustomer',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -125,7 +125,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(mobile ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/erp/user/user',
+        'http://10.0.1.111:8000/api/v1/erp/user/user',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -145,7 +145,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(newUser ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/customer/updateMyCustomer',
+        'http://10.0.1.111:8000/api/v1/customer/updateMyCustomer',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -199,7 +199,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/customer/myCustomerMembershipLevel',
+        'http://10.0.1.111:8000/api/v1/customer/myCustomerMembershipLevel',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -255,7 +255,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(friendMobile ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/customer/sendInviteLink',
+        'http://10.0.1.111:8000/api/v1/customer/sendInviteLink',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -273,7 +273,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/inviteFriendsFAQ/list',
+        'http://10.0.1.111:8000/api/v1/inviteFriendsFAQ/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -293,7 +293,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(tblPosCustomersID ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/favorite/list',
+        'http://10.0.1.111:8000/api/v1/favorite/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -313,7 +313,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(barcode ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/favorite/remove',
+        'http://10.0.1.111:8000/api/v1/favorite/remove',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -333,7 +333,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(barcode ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/favorite/add',
+        'http://10.0.1.111:8000/api/v1/favorite/add',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -369,7 +369,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/promotion/point/customer/list',
+        'http://10.0.1.111:8000/api/v1/promotion/point/customer/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -423,7 +423,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/ticket/list',
+        'http://10.0.1.111:8000/api/v1/ticket/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -443,7 +443,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(newTicket ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/ticket/create',
+        'http://10.0.1.111:8000/api/v1/ticket/create',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -463,7 +463,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(newMessage ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/ticket/reply',
+        'http://10.0.1.111:8000/api/v1/ticket/reply',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -483,7 +483,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(ticketId ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/ticket/close',
+        'http://10.0.1.111:8000/api/v1/ticket/close',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -521,7 +521,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(body ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/notification/list',
+        'http://10.0.1.111:8000/api/v1/notification/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -575,7 +575,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/address/list',
+        'http://10.0.1.111:8000/api/v1/address/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -595,7 +595,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(address ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/address/create',
+        'http://10.0.1.111:8000/api/v1/address/create',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -615,7 +615,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(address ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/address/edit',
+        'http://10.0.1.111:8000/api/v1/address/edit',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'PATCH',
@@ -635,7 +635,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(code ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/address/remove',
+        'http://10.0.1.111:8000/api/v1/address/remove',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'DELETE',
@@ -653,7 +653,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/contactUs/list',
+        'http://10.0.1.111:8000/api/v1/contactUs/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -671,7 +671,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/faq/list',
+        'http://10.0.1.111:8000/api/v1/faq/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -689,7 +689,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/aboutUs/list',
+        'http://10.0.1.111:8000/api/v1/aboutUs/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -707,7 +707,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/returnPolicy/list',
+        'http://10.0.1.111:8000/api/v1/returnPolicy/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -761,7 +761,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/membershipLevelCards/list',
+        'http://10.0.1.111:8000/api/v1/membershipLevelCards/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -779,7 +779,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/logistic/states',
+        'http://10.0.1.111:8000/api/v1/logistic/states',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -799,7 +799,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(idState ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/logistic/cities',
+        'http://10.0.1.111:8000/api/v1/logistic/cities',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -819,7 +819,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(idCity ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/logistic/districts',
+        'http://10.0.1.111:8000/api/v1/logistic/districts',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -839,7 +839,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(filter ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/product/list',
+        'http://10.0.1.111:8000/api/v1/product/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -857,7 +857,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/category/list',
+        'http://10.0.1.111:8000/api/v1/category/list',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -877,7 +877,7 @@ class _GlobalRestClient implements GlobalRestClient {
     final _data = <String, dynamic>{};
     _data.addAll(barcode ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:3500/api/v1/erp/product/getProductsAvailabilityInBranches',
+        'http://10.0.1.111:8000/api/v1/erp/product/getProductsAvailabilityInBranches',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

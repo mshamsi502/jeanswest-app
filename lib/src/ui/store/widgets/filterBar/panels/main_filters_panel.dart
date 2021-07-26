@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
@@ -16,6 +17,7 @@ import 'package:jeanswest/src/ui/store/widgets/filterBar/check_box_in_main_filte
 import 'package:jeanswest/src/ui/store/widgets/filterBar/group_filter_menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/option_filter_menu_list_view_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filters_panel.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -75,7 +77,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   ScrollController scrollController = new ScrollController();
   PanelController subCategoryPanelController = new PanelController();
   //
-
+  List<String> tempGroupName;
+  List<String> tempGenderName;
+  List<String> tempAgeName;
   //
   List<TextStyle> mainGroupTextStyles = [];
   //
@@ -114,6 +118,27 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
       );
     });
 
+    tempGroupName = [];
+    widget.category.group.forEach((_group) {
+      tempGroupName.add(_group
+          .translation[_group.translation
+              .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+          .value);
+    });
+    tempGenderName = [];
+    widget.category.gender.forEach((_gender) {
+      tempGenderName.add(_gender
+          .translation[_gender.translation
+              .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+          .value);
+    });
+    tempAgeName = [];
+    widget.category.ageGroup.forEach((_ageGroup) {
+      tempAgeName.add(_ageGroup
+          .translation[_ageGroup.translation
+              .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+          .value);
+    });
     initializeValues();
     updateSubtitles();
     prepareValues();
@@ -135,11 +160,26 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
             indexOfSub++) {
           if (widget.sizeGroupCheckBoxValue[indexOfGroup].values
               .elementAt(indexOfSub)) {
-            subNameInGroup.add(widget.category
-                    .size[widget.category.size.keys.elementAt(indexOfGroup)]
-                [indexOfSub]);
-            sizeGroupSubtitleName[widget.category.group[indexOfGroup]] =
-                subNameInGroup;
+            // TODO : ! size
+            // subNameInGroup.add(widget.category
+            //         .size[widget.category.size.keys.elementAt(indexOfGroup)]
+            //     [indexOfSub]);
+            subNameInGroup.add(widget
+                .category
+                .size[indexOfGroup]
+                .translation[widget.category.size[indexOfGroup].translation
+                    .indexWhere((_size) => _size.value == FARSI_LANGUAGE)]
+                .value);
+            print("subNameInGroup : $subNameInGroup");
+            // TODO : ! group
+            sizeGroupSubtitleName[widget
+                .category
+                .group[indexOfGroup]
+                .translation[
+                    widget.category.group[selectedGroup].translation.indexWhere(
+              (element) => element.language == FARSI_LANGUAGE,
+            )]
+                .value] = subNameInGroup;
           }
         }
       }
@@ -206,9 +246,23 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
         colorsSubtitleName = [];
         colorsSubtitleWidget = [];
 
-        for (int index = 0; index < catColors.length; index++) {
+        for (int index = 0;
+            index < listOfCategory.colorFamily.length;
+            index++) {
           if (tempColorsValue[index]) {
-            colorsSubtitleWidget.add(catColors[index].image);
+            colorsSubtitleWidget.add(listOfCategory.colorFamily[index].image ==
+                        null ||
+                    listOfCategory.colorFamily[index].image == ""
+                ? tempCatColors[tempCatColors.indexWhere((_temp) =>
+                    _temp.engName == listOfCategory.colorFamily[index].name)]
+                : getTypeFileLink(listOfCategory.colorFamily[index].image) ==
+                        "svg"
+                    ? SvgPicture.network(
+                        listOfCategory.colorFamily[index].image)
+                    : Image.network(listOfCategory.colorFamily[index].image));
+
+            //
+            // listOfCategory.colorFamily[index].image);
           }
         }
       }
@@ -273,7 +327,22 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               isFromMainFilter: true,
                               indexInOptionWidgets: -1,
                               haveGroupTitle: true,
-                              groupTitle: widget.category.group[selectedGroup],
+                              // TODO : ! group
+                              groupTitle:
+                                  //
+                                  widget
+                                      .category.group[selectedGroup].translation
+                                      .elementAt(
+                                        //
+                                        widget.category.group[selectedGroup]
+                                            .translation
+                                            .indexWhere(
+                                          (element) =>
+                                              element.language ==
+                                              FARSI_LANGUAGE,
+                                        ),
+                                      )
+                                      .value,
                               subGroupsTitle:
                                   tempSubGroupsTitles[selectedGroup],
                               subGroupsValue: tempSubGroupsValue[selectedGroup],
@@ -357,8 +426,11 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                         child: Column(
                           children: [
                             GroupFilterMenuListViewWidget(
-                              titles: widget.category.group,
+                              // TODO : ! group
+                              titles: tempGroupName,
                               subtitlesValue: tempSubGroupsValue,
+                              // TODO :  subgroup
+                              // subtitlesName: widget.category.subGroup,
                               subtitlesName: widget.category.subGroup,
                               // haveIcons: false,
                               // haveExit: false,
@@ -385,7 +457,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                     0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
-                              checkBoxTitles: widget.category.gender,
+                              // TODO : ! gender
+                              // checkBoxTitles: widget.category.gender,
+                              checkBoxTitles: tempGenderName,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,
                                 fontSize: 0.038 * _screenSize.width, //14,
@@ -412,7 +486,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                     0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
-                              checkBoxTitles: widget.category.ageGroup,
+                              // checkBoxTitles: widget.category.ageGroup,
+                              // TODO : ! age
+                              checkBoxTitles: tempAgeName,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,
                                 fontSize: 0.038 * _screenSize.width, //14,
@@ -450,9 +526,9 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                 !isShowColorWidget,
                                 true,
                                 (widget.priceLimitValue["min"] !=
-                                        minPriceCategoty ||
+                                        MIN_PRICE_CATEGORY ||
                                     widget.priceLimitValue["max"] !=
-                                        maxPriceCategoty)
+                                        MAX_PRICE_CATEGORY)
                               ],
                             ),
                             SizedBox(

@@ -8,13 +8,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categoryColor/category-color.dart';
 import 'package:jeanswest/src/models/categoryColor/category-color.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
+import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class ColorFiltersPanel extends StatefulWidget {
   final int indexInOptionWidgets;
-  final List<CategoryColor> colors;
+  final List<CategoryColorRes> colors;
   final List<bool> colorsValue;
   final Function(List<bool>) updateColorsValue;
 
@@ -39,6 +42,8 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
   bool selectAllStatus = false;
   bool notSelected = true;
   //
+  List<Widget> _assetColors = [];
+  //
   @override
   void initState() {
     initializeValues();
@@ -48,11 +53,49 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
   initializeValues() {
     setState(() {
       tempColorsValue = [];
+      _assetColors = [];
       tempColorsValue = widget.colorsValue;
       int check = checkValueListStatus(tempColorsValue);
       selectAllStatus = (check == 1);
       notSelected = (check == -1);
       tempIndexInOptionWidgets = widget.indexInOptionWidgets;
+//
+      for (int index = 0; index < widget.colors.length; index++) {
+        if (widget.colors[index].image == null ||
+            widget.colors[index].image == "") {
+          int indexWhere = tempCatColors.indexWhere((_tempColor) {
+            List<String> _orgSplited =
+                splitStringFromDash(widget.colors[index].name, withSpace: true);
+            for (int indexOfOrg = 0;
+                indexOfOrg < _orgSplited.length;
+                indexOfOrg++)
+              if (_orgSplited[indexOfOrg] == _tempColor.engName) return true;
+
+            List<String> _tempSplited = splitStringFromDash(_tempColor.engName);
+            for (int indexOfOrg = 0;
+                indexOfOrg < _orgSplited.length;
+                indexOfOrg++) {
+              for (int indexOfTemp = 0;
+                  indexOfTemp < _tempSplited.length;
+                  indexOfTemp++)
+                if (_orgSplited[indexOfOrg] == _tempSplited[indexOfTemp])
+                  return true;
+            }
+            return false;
+          });
+          if (indexWhere != -1) {
+            _assetColors.add(tempCatColors[indexWhere].image);
+          } else {
+            _assetColors.add(
+              Container(
+                width: 40,
+                height: 40,
+                color: Colors.grey,
+              ),
+            );
+          }
+        }
+      }
     });
   }
 
@@ -145,7 +188,10 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
 
               crossAxisSpacing: 0.0138 * _screenSize.width, //5,
 
-              children: List.generate(widget.colors.length, (index) {
+              // children: List.generate(widget.colors.length, (index) {
+              children: List.generate(_assetColors.length, (index) {
+                // List<String> _splitedColor = [];
+
                 return GestureDetector(
                   onTap: () {
                     changeColorsStatus(index);
@@ -160,7 +206,7 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
                     child: Stack(
                       children: [
                         Center(
-                          child: widget.colors[index].image,
+                          child: _assetColors[index],
                         ),
                         tempColorsValue[index]
                             ? Center(

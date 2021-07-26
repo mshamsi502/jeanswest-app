@@ -176,10 +176,10 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
                   trackHeight: 0.0046 * _screenSize.height, //3,
                 ),
                 child: RangeSlider(
-                  min: minPriceCategoty,
-                  max: maxPriceCategoty,
+                  min: MIN_PRICE_CATEGORY,
+                  max: MAX_PRICE_CATEGORY,
                   // divisions: 150,
-                  divisions: maxPriceCategoty ~/ unitPriceCategoty,
+                  divisions: MAX_PRICE_CATEGORY ~/ UNIT_PRICE_CATEGORY,
                   values: selectedRange,
                   activeColor: MAIN_BLUE_COLOR,
                   inactiveColor: F2_BACKGROUND_COLOR,

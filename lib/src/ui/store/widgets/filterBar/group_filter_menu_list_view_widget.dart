@@ -7,12 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categorySubGroup/category-sub-group.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class GroupFilterMenuListViewWidget extends StatefulWidget {
   final List<String> titles;
   final List<List<bool>> subtitlesValue;
-  final Map<String, List<String>> subtitlesName;
+  // final Map<String, List<String>> subtitlesName;
+  final List<CategorySubGroupRes> subtitlesName;
   final Map<String, List<Widget>> subtitlesWidget;
   // final List<bool> showName;
   final Function(int) selectedIndex;
@@ -53,15 +56,15 @@ class _GroupFilterMenuListViewWidgetState
           subtitle = "همه ی ${widget.titles[indexOfGroup]} ها";
         } else {
           bool isFirst = true;
-          int counter = 0;
-          int indexTitleInSubtitle;
+          // int counter = 0;
+          // int indexTitleInSubtitle;
 
-          widget.subtitlesName.keys.forEach((subElement) {
-            if (subElement == widget.titles[indexOfGroup])
-              indexTitleInSubtitle = counter;
-            else
-              counter++;
-          });
+          // widget.subtitlesName.keys.forEach((subElement) {
+          //   if (subElement == widget.titles[indexOfGroup])
+          //     indexTitleInSubtitle = counter;
+          //   else
+          //     counter++;
+          // });
 
           for (int indexOfSub = 0;
               indexOfSub < widget.subtitlesValue[indexOfGroup].length;
@@ -69,8 +72,17 @@ class _GroupFilterMenuListViewWidgetState
             String newSub = "";
 
             if (widget.subtitlesValue[indexOfGroup][indexOfSub]) {
-              newSub = widget.subtitlesName.values
-                  .elementAt(indexTitleInSubtitle)[indexOfSub];
+              //  TODO : ! subGroup
+              // newSub = widget.subtitlesName.values
+              //     .elementAt(indexTitleInSubtitle)[indexOfSub];
+              newSub = widget
+                  .subtitlesName[indexOfGroup]
+                  .value[indexOfSub]
+                  .translation[widget
+                      .subtitlesName[indexOfGroup].value[indexOfSub].translation
+                      .indexWhere(
+                          (_trans) => _trans.language == FARSI_LANGUAGE)]
+                  .value;
               if (indexOfSub == 0 || isFirst) {
                 subtitle = subtitle + newSub;
                 isFirst = false;
@@ -98,7 +110,6 @@ class _GroupFilterMenuListViewWidgetState
       itemCount: widget.titles.length,
       itemBuilder: (BuildContext context, int index) {
         List<String> subtitleList = createSubTitle();
-
         return Column(
           children: [
             GestureDetector(

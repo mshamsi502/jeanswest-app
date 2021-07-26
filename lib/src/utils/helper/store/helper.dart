@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
@@ -14,6 +15,7 @@ import 'package:jeanswest/src/models/api_body/productFilter/product-req-body.dar
 import 'package:jeanswest/src/models/api_body/productFilter/product-search-req-body.dart';
 import 'package:jeanswest/src/models/api_body/productFilter/product-unique-req-body.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categoryColor/category-color.dart';
 import 'package:jeanswest/src/models/categoryColor/category-color.dart';
 import 'package:jeanswest/src/models/filterWidget/filter_widget_model.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/color_filters_panel.dart';
@@ -114,13 +116,28 @@ Map<String, List<dynamic>> prepareSubGroupValues(
   List<List<bool>> _subGroupsValue = [];
   List<bool> _tempSubGroupValues = [];
   listOfCat.group.forEach((element) {
-    _groupsTitles.add(element);
-    _subGroupsTitles.add(listOfCat.subGroup[element]);
+    // TODO :! group
+    _groupsTitles.add(element
+        .translation[element.translation
+            .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+        .value);
+    // TODO : ! subGroup
+    // _subGroupsTitles.add(listOfCat.subGroup[element]);
+    listOfCat.subGroup.forEach((_group) {
+      List<String> _subsInGroup = [];
+      _group.value.forEach((_subGroup) {
+        _subsInGroup.add(_subGroup
+            .translation[_subGroup.translation
+                .indexWhere((_trans) => _trans.language == FARSI_LANGUAGE)]
+            .value);
+      });
+      _tempSubGroupValues = initValues == null && falseValues
+          ? List.filled(_subsInGroup.length, false)
+          : initValues[element];
+      _subGroupsValue.add(_tempSubGroupValues);
 
-    _tempSubGroupValues = initValues == null && falseValues
-        ? List.filled(listOfCat.subGroup[element].length, false)
-        : initValues[element];
-    _subGroupsValue.add(_tempSubGroupValues);
+      _subGroupsTitles.add(_subsInGroup);
+    });
   });
 
   return {
@@ -153,7 +170,7 @@ List<bool> prepareAgeValues(
 }
 
 List<bool> prepareColorValues(
-  List<CategoryColor> catColors, {
+  List<CategoryColorRes> catColors, {
   bool falseValues = true,
   List<bool> initValues,
 }) {
@@ -170,14 +187,25 @@ List<Map<String, bool>> prepareSizeGroupCheckBox(
 }) {
   if (initValues == null || falseValues) {
     List<Map<String, bool>> _sizeGroupCheckBoxValue = [];
-    listOfCat.size.keys.forEach((element) {
-      Map<String, bool> map = {};
-      listOfCat.size[element].forEach((subGroupSizeName) {
-        map[subGroupSizeName] = false;
+    // TODO : ! size
+    listOfCat.size.forEach((_groupSize) {
+      Map<String, bool> _mapInGroup = {};
+      _groupSize.value.forEach((_subSize) {
+        _mapInGroup[_subSize
+            .translation[_subSize.translation
+                .indexWhere((_trans) => _trans.language == FARSI_LANGUAGE)]
+            .value] = false;
       });
-
-      _sizeGroupCheckBoxValue.add(map);
+      _sizeGroupCheckBoxValue.add(_mapInGroup);
     });
+    // listOfCat.size.keys.forEach((element) {
+    //   Map<String, bool> map = {};
+    //   listOfCat.size[element].forEach((subGroupSizeName) {
+    //     map[subGroupSizeName] = false;
+    //   });
+
+    //   _sizeGroupCheckBoxValue.add(map);
+    // });
     return _sizeGroupCheckBoxValue;
   } else
     return initValues;
@@ -189,8 +217,8 @@ Map<String, int> preparePriceCheckBox({
 }) {
   if (initValues == null || isBiggest) {
     return {
-      "min": minPriceCategoty.toInt(),
-      "max": maxPriceCategoty.toInt(),
+      "min": MIN_PRICE_CATEGORY.toInt(),
+      "max": MAX_PRICE_CATEGORY.toInt(),
     };
   } else
     return initValues;
@@ -214,11 +242,52 @@ List<Widget> prepareOptionsWidgets(
     //
     @required MediaQueryData mediaQuery}) {
   List<Widget> widgets = [];
+  List<String> tempGenderName = [];
+  List<String> tempAgeName = [];
+  Map<String, List<String>> tempSizeName = {};
+
+  listOfCat.gender.forEach((_gender) {
+    tempGenderName.add(_gender
+        .translation[_gender.translation
+            .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+        .value);
+  });
+  listOfCat.ageGroup.forEach((_ageGroup) {
+    tempAgeName.add(_ageGroup
+        .translation[_ageGroup.translation
+            .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+        .value);
+  });
+  // sizeGroupCheckBoxValue = [];
+  for (int index = 0; index < listOfCat.group.length; index++) {
+    // listOfCat.group.forEach((_mainGroup) {
+
+    tempSizeName[listOfCat.group[index].name] = [];
+    listOfCat.subGroup
+        .elementAt(
+          listOfCat.subGroup.indexWhere(
+            (element) => element.name == listOfCat.group[index].name,
+          ),
+        )
+        .value
+        .forEach((_subGroup) {
+      tempSizeName[listOfCat.group[index].name].add(_subGroup
+          .translation[_subGroup.translation.indexWhere(
+        (element) => element.language == FARSI_LANGUAGE,
+      )]
+          .value);
+    });
+  }
+
+  print(
+      "454545454545454545454545454 :  :::: sizeGroupCheckBoxValue : $sizeGroupCheckBoxValue");
+
   if (haveGenderAndAge) {
     widgets.add(OptionListFiltersPanel(
       indexInOptionWidgets: selectedIndexPage,
       // indexInOptionWidgets: listOfCat.group.length,
-      checkBoxTitles: listOfCat.gender,
+      // TODO : ! gender
+      checkBoxTitles: tempGenderName,
       checkBoxTitlesTextStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -230,7 +299,8 @@ List<Widget> prepareOptionsWidgets(
     widgets.add(OptionListFiltersPanel(
       indexInOptionWidgets: selectedIndexPage,
       // indexInOptionWidgets: listOfCat.group.length + 1,
-      checkBoxTitles: listOfCat.ageGroup,
+      // TODO : ! age
+      checkBoxTitles: tempAgeName,
       checkBoxTitlesTextStyle: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -241,18 +311,30 @@ List<Widget> prepareOptionsWidgets(
   }
   widgets.add(ColorFiltersPanel(
     indexInOptionWidgets: selectedIndexPage,
-    colors: catColors,
+    // TODO : ! color
+    colors: listOfCategory.colorFamily,
     colorsValue: colorCheckBoxValue,
     // colorsValue: List.filled(listOfCat.colorFamily.length, false),
     updateColorsValue: (List<bool> newValue) {
       updateColorValue(newValue);
     },
   ));
-
+  //
+  List<String> tempGroupName = [];
+  listOfCat.group.forEach((_group) {
+    tempGroupName.add(_group
+        .translation[_group.translation
+            .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+        .value);
+  });
+  print("555555555555555555555555555656565, tempSizeName : ${tempSizeName}");
   widgets.add(SizeFiltersPanel(
     indexInOptionWidgets: selectedIndexPage,
-    titles: listOfCat.group,
-    sizeTitles: listOfCat.size,
+    // TODO :! group
+    titles: tempGroupName,
+    // TODO :  size
+    // sizeTitles: listOfCat.size,
+    sizeTitles: tempSizeName,
     sizeValue: sizeGroupCheckBoxValue,
     updateSizesValue: (List<Map<String, bool>> newValue) =>
         updateSizeValue(newValue),
@@ -330,7 +412,7 @@ ProductReqBody updateproductReqBody({
       ),
       option: ProductOptionReqBody(
         page: OperationInt(oEQ: page),
-        limit: OperationInt(oEQ: getProductLimit),
+        limit: OperationInt(oEQ: GET_PRODUCT_LIMIT),
         ascent: OperationInt(oEQ: ascent),
         sort: OperationString(oEQ: sortBy),
       ),
@@ -365,9 +447,9 @@ ProductReqBody updateproductReqBody({
         basePrice: priceSelected != null &&
                 priceSelected["min"] != null &&
                 priceSelected["max"] != null
-            ? OperationString(
-                oGT: priceSelected["min"].toString(),
-                oLT: priceSelected["max"].toString(),
+            ? OperationInt(
+                oGT: priceSelected["min"],
+                oLT: priceSelected["max"],
               )
             : null,
         ageGroup: ageSelected != null && ageSelected.length > 0
@@ -391,7 +473,7 @@ ProductReqBody updateproductReqBody({
       ),
       option: ProductOptionReqBody(
         page: OperationInt(oEQ: page),
-        limit: OperationInt(oEQ: getProductLimit),
+        limit: OperationInt(oEQ: GET_PRODUCT_LIMIT),
         ascent: OperationInt(oEQ: ascent),
         sort: OperationString(oEQ: sortBy),
       ),
@@ -420,4 +502,43 @@ String updatePerNameOfSortBy(String engNameOfSortBy, int ascentNumber) {
     return "بیشترین تخفیف";
   else
     return "پیش فرض";
+}
+
+ListOfCategory sortCategotyElements(ListOfCategory _cat) {
+  // ! sort groups
+  _cat.group.sort((a, b) {
+    return a.priority.compareTo(b.priority);
+  });
+  // ! sort subGroups
+  _cat.subGroup.sort((a, b) {
+    return a.priority.compareTo(b.priority);
+  });
+  _cat.subGroup.forEach((element) {
+    element.value.sort((a, b) {
+      return a.priority.compareTo(b.priority);
+    });
+  });
+
+  // ! sort sizes
+  _cat.size.sort((a, b) {
+    return a.priority.compareTo(b.priority);
+  });
+  _cat.size.forEach((element) {
+    element.value.sort((a, b) {
+      return a.priority.compareTo(b.priority);
+    });
+  });
+  // ! sort gender
+  _cat.gender.sort((a, b) {
+    return a.priority.compareTo(b.priority);
+  });
+  // ! sort age
+  _cat.ageGroup.sort((a, b) {
+    return a.priority.compareTo(b.priority);
+  });
+  // ! sort color
+  _cat.colorFamily.sort((a, b) {
+    return a.priority.compareTo(b.priority);
+  });
+  return _cat;
 }

@@ -7,17 +7,25 @@ import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 
 Future<void> getAboutUsInfo() async {
-  AboutUsRes aboutUsRes =
-      await globalLocator<GlobalRestClient>().getAboutUsInfo();
-  aboutUsData = aboutUsRes.data[0];
-
-  if (aboutUsRes.data != null &&
-      aboutUsRes.data[0] != null &&
-      aboutUsRes.data[0].banner != null) {
+  try {
+    AboutUsRes aboutUsRes =
+        await globalLocator<GlobalRestClient>().getAboutUsInfo();
     aboutUsData = aboutUsRes.data[0];
-  } else if (HARDCORE_DATA_IS_ENABLE) {
-    print("   / use HardCOre DATA contactUsInfo");
-    aboutUsData = aboutUsTempData;
+
+    if (aboutUsRes.data != null &&
+        aboutUsRes.data[0] != null &&
+        aboutUsRes.data[0].banner != null) {
+      aboutUsData = aboutUsRes.data[0];
+    } else if (HARDCORE_DATA_IS_ENABLE) {
+      print("   / use HardCOre DATA contactUsInfo");
+      aboutUsData = aboutUsTempData;
+    }
+  } catch (e) {
+    // printErrorMessage(e);
+    if (HARDCORE_DATA_IS_ENABLE) {
+      print("   / use HardCOre DATA contactUsInfo");
+      aboutUsData = aboutUsTempData;
+    }
   }
   print('_=_ get successfully contactUsInfo phone: ${aboutUsData.banner.text}');
 }

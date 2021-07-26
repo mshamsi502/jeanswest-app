@@ -27,6 +27,6 @@ class ProductReqBody {
     if (option != null) map["option"] = option.map;
     if (search != null) map["search"] = search.map;
     if (unique != null) map["unique"] = unique.map;
-    // print("mapppp created id : $map");
+    print("mapppp created id : $map");
   }
 }

@@ -25,13 +25,13 @@ class CustomDropdownButtonWidget extends StatefulWidget {
 
   const CustomDropdownButtonWidget({
     Key key,
-    this.title,
-    this.options,
-    this.mediaQuery,
-    this.selected,
-    this.hintTitle,
+    @required this.title,
+    @required this.options,
+    @required this.mediaQuery,
+    @required this.selected,
+    @required this.hintTitle,
     this.titleColor = MAIN_BLUE_COLOR,
-    this.initialCheckBoxValue,
+    @required this.initialCheckBoxValue,
     // this.updateCheckBoxValue,
     this.hasCheckBox = false,
   }) : super(key: key);
@@ -63,7 +63,7 @@ class _CustomDropdownButtonWidgetState
 
     widthDropdown = widget.mediaQuery.size.width;
     // _drop0
-    
+
     super.initState();
     //
   }

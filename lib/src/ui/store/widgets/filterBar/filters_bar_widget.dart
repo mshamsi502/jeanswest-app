@@ -5,6 +5,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/models/filterWidget/filter_widget_model.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/filter_button_widget.dart';
@@ -57,11 +58,19 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
   List<int> someOfActive = [0, 0, 0, 0, 0, 0, 0, 0];
 
   int tempFilterPageOpened;
+  //
+  List<String> groupsName = [];
 
   @override
   void initState() {
     scrollController = new ScrollController();
-    filters = createFilters(mainGroup: widget.category.group ?? []);
+    widget.category.group.forEach((_group) {
+      groupsName.add(_group
+          .translation[_group.translation
+              .indexWhere((_trns) => _trns.language == FARSI_LANGUAGE)]
+          .value);
+    });
+    filters = createFilters(mainGroup: groupsName);
     update();
     super.initState();
   }
@@ -84,15 +93,11 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     if (widget.filterPageOpened != tempFilterPageOpened) update();
-    print(
-        "555555555555555 widget.filterPageOpened in filter bar widget : ${widget.filterPageOpened}");
     return Container(
       height: 0.078125 * _screenSize.height, //50,
 
       width: _screenSize.width,
-      // color: Colors.red,
       padding: EdgeInsets.symmetric(vertical: 0.0078 * _screenSize.height //5,
-
           ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -110,12 +115,7 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
                   children: [
                     GestureDetector(
                       onTap: () => setState(() {
-                        // if (widget.filterPageOpened == index)
-                        // widget.openFilterPage(-1);
-                        //  {
-                        // else
                         widget.openFilterPage(index);
-                        // }
                       }),
                       child: FiltersButtonWidget(
                         isSelected: (widget.filterPageOpened == index),
@@ -140,7 +140,6 @@ class _FiltersBarWidgetState extends State<FiltersBarWidget> {
                           if (index != 0) {
                             if (index <= widget.someOfActiveSubGroup.length) {
                               widget.clearActiveSubGroup(index - 1);
-                              print("33333333333333333 is sub 000000000");
                             } else if (index ==
                                 widget.someOfActiveSubGroup.length + 1)
                               widget.clearActiveGender();

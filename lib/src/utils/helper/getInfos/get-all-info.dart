@@ -3,6 +3,7 @@
 
 //
 import 'package:flutter/cupertino.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/invite-friends-faq-data.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
@@ -111,13 +112,14 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
     Map<String, dynamic> result = await userMessagesInfo(body: body.map);
     userNotifs = result["messages"];
     print(
-    'USER_COPOUNS **********************************************************');
+        'USER_COPOUNS **********************************************************');
     await userCouponsInfo();
   }
 
   // !
   print(
       'GLOBAL_CONTACT_US *****************************************************');
+
   await getContactUsInfo();
   //
   print(
@@ -131,7 +133,8 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
   print('GLOBAL_ABOUT_US ****************************************************');
   await getAboutUsInfo();
   //
-  print('***************************************************************');
+  print(
+      'GLOBAL_LEVEL_CARDS ****************************************************');
   await getLevelCardsInfo();
   //
   print(
@@ -139,6 +142,7 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
   inviteFriendsFAQ = await getInviteFriendFAQInfo();
   print('GLOBAL_CATEGORY *********************************************');
   await getCategoryInfo();
+
   //
   print(
       '***********************************************************************');

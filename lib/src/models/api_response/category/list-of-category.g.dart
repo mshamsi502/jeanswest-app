@@ -8,17 +8,39 @@ part of 'list-of-category.dart';
 
 ListOfCategory _$ListOfCategoryFromJson(Map<String, dynamic> json) {
   return ListOfCategory(
-    group: (json['group'] as List)?.map((e) => e as String)?.toList(),
-    subGroup: (json['subGroup'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, (e as List)?.map((e) => e as String)?.toList()),
-    ),
-    size: (json['size'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, (e as List)?.map((e) => e as String)?.toList()),
-    ),
-    gender: (json['gender'] as List)?.map((e) => e as String)?.toList(),
-    ageGroup: (json['ageGroup'] as List)?.map((e) => e as String)?.toList(),
-    colorFamily:
-        (json['colorFamily'] as List)?.map((e) => e as String)?.toList(),
+    group: (json['group'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CategoryObjectRes.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    subGroup: (json['subGroup'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CategorySubGroupRes.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    // (json['subGroup'] as Map<String, dynamic>)?.map(
+    //   (k, e) => MapEntry(k, (e as List)?.map((e) => e as String)?.toList()),
+    // ),
+    size: (json['size'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CategoryGroupSizeRes.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    gender: (json['gender'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CategoryObjectRes.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    ageGroup: (json['ageGroup'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CategoryObjectRes.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    colorFamily: (json['colorFamily'] as List)
+        ?.map((e) => e == null
+            ? null
+            : CategoryColorRes.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 

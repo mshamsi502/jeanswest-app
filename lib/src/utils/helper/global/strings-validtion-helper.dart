@@ -56,10 +56,14 @@ bool isNaturalNumeric(String s) {
 }
 
 String getTypeFileLink(String link) {
-  String reversedLink = link.split('').reversed.join();
-  List<String> listreversedLink = reversedLink.split(".");
-  // print(listreversedLink);
-  String type = listreversedLink[0].split('').reversed.join().toLowerCase();
-  // print(type);
+  String type = "";
+  if (link.contains(".")) {
+    String reversedLink = link.split('').reversed.join();
+
+    List<String> listreversedLink = reversedLink.split(".");
+    // print(listreversedLink);
+    type = listreversedLink[0].split('').reversed.join().toLowerCase();
+    // print(type);
+  }
   return type;
 }

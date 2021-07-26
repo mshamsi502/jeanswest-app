@@ -268,3 +268,25 @@ String toStandardPhoneNumberforAPIs(String phone) {
   } else
     return phone;
 }
+
+List<String> splitStringFromDash(String oldString, {bool withSpace = false}) {
+  List<String> _splitedColor = [];
+  if (oldString.contains(withSpace ? " - " : "-")) {
+    _splitedColor = oldString.split(withSpace ? " - " : "-");
+    for (int clearIndex = 0; clearIndex < _splitedColor.length; clearIndex++) {
+      if (_splitedColor[clearIndex].startsWith(' ') ||
+          _splitedColor[clearIndex].endsWith(' ')) {
+        while (_splitedColor[clearIndex].startsWith(' ')) {
+          _splitedColor[clearIndex] = _splitedColor[clearIndex].substring(1);
+        }
+        while (_splitedColor[clearIndex].endsWith(' ')) {
+          _splitedColor[clearIndex] = _splitedColor[clearIndex]
+              .substring(0, _splitedColor[clearIndex].length - 1);
+        }
+      }
+    }
+  } else {
+    _splitedColor.add(oldString);
+  }
+  return _splitedColor;
+}

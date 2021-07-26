@@ -114,7 +114,6 @@ Future<Map<String, dynamic>> authService({
           isAuth = false;
           tryToGetAllUser--;
           print('try to getAllUser : remaind $tryToGetAllUser time');
-          //
         }
       }
       // ! server is down, try agian

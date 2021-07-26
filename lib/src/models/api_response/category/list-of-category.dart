@@ -4,6 +4,10 @@
 // ****************************************************************************
 
 import 'package:equatable/equatable.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/category-object.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categoryColor/category-color.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categorySize/category-group-size.dart';
+import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categorySubGroup/category-sub-group.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'list-of-category.g.dart';
@@ -12,17 +16,19 @@ part 'list-of-category.g.dart';
 // ignore: must_be_immutable
 class ListOfCategory extends Equatable {
   @JsonKey(name: 'group')
-  List<String> group;
+  List<CategoryObjectRes> group;
   @JsonKey(name: 'subGroup') // !
-  Map<String, List<String>> subGroup;
+  // Map<String, List<String>> subGroup;
+  List<CategorySubGroupRes> subGroup;
   @JsonKey(name: 'size') // !
-  Map<String, List<String>> size;
+  // Map<String, List<String>> size;
+  List<CategoryGroupSizeRes> size;
   @JsonKey(name: 'gender')
-  List<String> gender;
+  List<CategoryObjectRes> gender;
   @JsonKey(name: 'ageGroup')
-  List<String> ageGroup;
+  List<CategoryObjectRes> ageGroup;
   @JsonKey(name: 'colorFamily')
-  List<String> colorFamily;
+  List<CategoryColorRes> colorFamily;
 
   ListOfCategory({
     this.group,

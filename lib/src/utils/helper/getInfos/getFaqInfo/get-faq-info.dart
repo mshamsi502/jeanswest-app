@@ -7,14 +7,22 @@ import 'package:jeanswest/src/constants/global/globalInstances/profile/faq-data.
 import 'package:jeanswest/src/services/jeanswest_apis/rest_client_global.dart';
 
 Future<void> getFaqInfo() async {
-  FAQRes faqRes = await globalLocator<GlobalRestClient>().getFAQInfo();
-  if (faqRes.data != null &&
-      faqRes.data[0] != null &&
-      faqRes.data[0].answer != null) {
-    faqData = faqRes.data;
-  } else if (HARDCORE_DATA_IS_ENABLE) {
-    print("   / use HardCOre DATA contactUsInfo");
-    faqData = faqTempData;
+  try {
+    FAQRes faqRes = await globalLocator<GlobalRestClient>().getFAQInfo();
+    if (faqRes.data != null &&
+        faqRes.data[0] != null &&
+        faqRes.data[0].answer != null) {
+      faqData = faqRes.data;
+    } else if (HARDCORE_DATA_IS_ENABLE) {
+      print("   / use HardCOre DATA getFaqInfo");
+      faqData = faqTempData;
+    }
+  } catch (e) {
+    // printErrorMessage(e);
+    if (HARDCORE_DATA_IS_ENABLE) {
+      print("   / use HardCOre DATA getFaqInfo");
+      faqData = faqTempData;
+    }
   }
 
   print('_=_ get successfully faqData: ${faqData[0].question}');

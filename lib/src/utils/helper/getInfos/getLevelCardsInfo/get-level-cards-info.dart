@@ -24,7 +24,7 @@ Future<void> getLevelCardsInfo() async {
       print("not get from api and not get from hardcore");
     }
   } catch (e) {
-    printErrorMessage(e);
+    // printErrorMessage(e);
     if (HARDCORE_DATA_IS_ENABLE) {
       print("   / use HardCOre DATA contactUsInfo");
       levelCardsData = levelCardsTempData;

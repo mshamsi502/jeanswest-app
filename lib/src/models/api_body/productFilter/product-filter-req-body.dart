@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
 
@@ -24,7 +25,7 @@ class ProductFilterReqBody {
   OperationString seasonCode1;
   OperationString seasonCode2;
   OperationString ageGroup;
-  OperationString basePrice;
+  OperationInt basePrice;
   OperationString cutting;
   //
   Map<String, dynamic> map;
@@ -51,7 +52,7 @@ class ProductFilterReqBody {
     this.cutting,
   }) {
     this.map = {};
-    if (quantity != null) map["quantity"] = quantity.map;
+    if (quantity != null && quantity.oGT != 0) map["quantity"] = quantity.map;
     if (name != null) map["name"] = name.map;
     if (nameFA != null) map["nameFA"] = nameFA.map;
     if (brand != null) map["brand"] = brand.map;
@@ -68,7 +69,9 @@ class ProductFilterReqBody {
     if (seasonCode1 != null) map["seasonCode1"] = seasonCode1.map;
     if (seasonCode2 != null) map["seasonCode2"] = seasonCode2.map;
     if (ageGroup != null) map["ageGroup"] = ageGroup.map;
-    if (basePrice != null) map["basePrice"] = basePrice.map;
+    if (basePrice != null &&
+        basePrice.oGT != MIN_PRICE_CATEGORY &&
+        basePrice.oLT != MAX_PRICE_CATEGORY) map["basePrice"] = basePrice.map;
     if (cutting != null) map["cutting"] = cutting.map;
     // print("mapppp created id : $map");
   }
