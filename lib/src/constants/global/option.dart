@@ -4,6 +4,8 @@
 // ****************************************************************************
 //
 
+
+
 const bool MANUAL_TOKEN_IS_ENABLE = false;
 // const bool MANUAL_TOKEN_IS_ENABLE = true;
 const String MANUAL_TOKEN =
@@ -13,8 +15,8 @@ const String MANUAL_TOKEN =
 // const bool MOCK_IS_ENABLE = false;
 const bool MOCK_IS_ENABLE = false;
 //
-// const bool HARDCORE_DATA_IS_ENABLE = false;
-const bool HARDCORE_DATA_IS_ENABLE = true;
+const bool HARDCORE_DATA_IS_ENABLE = false;
+// const bool HARDCORE_DATA_IS_ENABLE = true;
 int tryToGetAllUserInfo = 1;
 
 const int SOME_OF_IN_PAGENATION_LIST = 10;

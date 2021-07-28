@@ -11,7 +11,7 @@ CategoryObjectRes _$CategoryObjectResFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     code: json['code'] as String,
     name: json['name'] as String,
-    value: json['value'] as String,
+    value: (json['value'] as List)?.map((e) => e as String)?.toList(),
     active: json['active'] as bool,
     priority: json['priority'] as int,
     translation: (json['translation'] as List)

@@ -52,6 +52,9 @@ class _SelectDropListState extends State<SelectDropList>
   @override
   void initState() {
     tempCheckBoxValue = widget.initialCheckBoxValue;
+    print("*-*-*-*-*-*-*-*-*-*-*-* tempCheckBoxValue  : $tempCheckBoxValue");
+    print(
+        "*-*-*-*-*-*-*-*-*-*-*-*  widget.dropListModel.listOptionItems  : ${widget.dropListModel.listOptionItems.first.title}");
     super.initState();
     expandController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 350));
@@ -81,7 +84,7 @@ class _SelectDropListState extends State<SelectDropList>
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
     // if (widget.optionsHeight != null)
-    print("widget.selectedTile  : ${widget.selectedTile}");
+
     return Container(
       width: _screenSize.width,
       color: Colors.transparent,
@@ -111,14 +114,14 @@ class _SelectDropListState extends State<SelectDropList>
                 SizedBox(
                   width: 0.027 * _screenSize.width, //10,
                 ),
-                Expanded(
-                    child: GestureDetector(
+                Expanded(child: GestureDetector(
                   onTap: () {
                     this.isShow = !this.isShow;
                     widget.changeIsShow(isShow);
                     _runExpandCheck();
                     setState(() {});
                   },
+                  // TODO: one of
                   child: Text(
                     // optionItemSelected.title,
                     widget.selectedTile,
@@ -184,30 +187,32 @@ class _SelectDropListState extends State<SelectDropList>
                     child: SingleChildScrollView(
                       controller: scrollController,
                       child: SizeTransition(
-                          axisAlignment: 1.0,
-                          sizeFactor: animation,
-                          child: Container(
-                              margin: EdgeInsets.only(
-                                bottom: 0.016 * _screenSize.height, //10
+                        axisAlignment: 1.0,
+                        sizeFactor: animation,
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            bottom: 0.016 * _screenSize.height, //10
+                          ),
+                          padding: EdgeInsets.only(
+                              bottom: 0.016 * _screenSize.height //10
                               ),
-                              padding: EdgeInsets.only(
-                                  bottom: 0.016 * _screenSize.height //10
-                                  ),
-                              decoration: new BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(
-                                      0.0138 * _screenSize.width, //5
-                                    ),
-                                    bottomRight: Radius.circular(
-                                      0.0138 * _screenSize.width, //5
-                                    )),
-                                // color: Colors.red,
-                                color: Colors.white,
-                              ),
-                              child: _buildDropListOptions(
-                                  widget.dropListModel.listOptionItems,
-                                  context,
-                                  _screenSize))),
+                          decoration: new BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(
+                                  0.0138 * _screenSize.width, //5
+                                ),
+                                bottomRight: Radius.circular(
+                                  0.0138 * _screenSize.width, //5
+                                )),
+                            // color: Colors.red,
+                            color: Colors.white,
+                          ),
+                          child: _buildDropListOptions(
+                              widget.dropListModel.listOptionItems,
+                              context,
+                              _screenSize),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(

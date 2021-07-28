@@ -3,7 +3,6 @@
 
 //
 import 'package:flutter/cupertino.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/invite-friends-faq-data.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-addresses-info.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
@@ -20,7 +19,6 @@ import 'package:jeanswest/src/utils/helper/getInfos/getCategory/get-categoty-inf
 import 'package:jeanswest/src/utils/helper/getInfos/getInviteFriendsFaqInfo/get-invite-friends-faq.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserCouponsInfo/get-user-coupons-info.dart';
-// import 'package:jeanswest/src/utils/helper/getInfos/getLevelCardsInfo/get-level-cards-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMainInfo/get-user-main-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserMessagesInfo/get-user-messages-info.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserPaymentInfo/get-user-payment-info.dart';
@@ -42,12 +40,8 @@ import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllIn
 Future<void> getAllUserInfo({@required Function() noAuth}) async {
   bool getIsContinued = true;
   UserMainInfoRes userAccountRes;
-
-  // if (!MOCK_IS_ENABLE &&
-  //     (sharedPrefs.getString(TOKEN) == null ||
-  //         sharedPrefs.getString(TOKEN) == "")) {
-  //   noAuth();
-  // }
+  const String env = String.fromEnvironment('base_url');
+  print(' ******************************************************** $env} **');
   print(
       'USER_MAIN_INFO ********************************************************');
   if (getIsContinued)
@@ -79,7 +73,6 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
     }
 
     // await userInviteInfo();
-    //
 
     //
     print(

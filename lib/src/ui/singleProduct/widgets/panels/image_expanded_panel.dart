@@ -15,13 +15,15 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 class ImageExapndedPanel extends StatefulWidget {
   final SingleProductInfoRes product;
+  final int selectedImage;
   final Size screenSize;
-  final Function() closePanel;
+  final Function(int) closePanel;
   const ImageExapndedPanel({
     Key key,
     @required this.product,
     @required this.closePanel,
     @required this.screenSize,
+    @required this.selectedImage,
   }) : super(key: key);
   @override
   _ImageExapndedPanelState createState() => _ImageExapndedPanelState();
@@ -29,12 +31,12 @@ class ImageExapndedPanel extends StatefulWidget {
 
 class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
   ScrollController scrollController = new ScrollController();
-  CarouselController carouselController = CarouselController();
+  // CarouselController carouselController = CarouselController();
   ScrollController circleOptCarouselController = new ScrollController();
   ScrollController smallImagescrollController = new ScrollController();
 
   //
-  int selectedImage = 0;
+  int selectedImage;
   List<Widget> bigImageItemWidget = [];
   List<String> _imagesOfSelectedProduct;
   // PhotoViewControllerBase<PhotoViewControllerValue> photoViewController =
@@ -43,35 +45,28 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
 
   @override
   void initState() {
-    _imagesOfSelectedProduct =
-        widget.product.banimodeDetails.images.thickboxDefault;
+    // selectedImage = 0;
+    selectedImage = widget.selectedImage;
     updateImageWidgets();
     super.initState();
   }
 
-  updateImageWidgets() {
+  updateImageWidgets({Size screenSize}) {
     setState(() {
-      if (selectedImage != 0) {
-        selectedImage = 0;
-        carouselController.jumpToPage(selectedImage);
-      }
+      if (screenSize != null) changePage(selectedImage, screenSize);
+      _imagesOfSelectedProduct =
+          widget.product.banimodeDetails.images.thickboxDefault;
       _imagesOfSelectedProduct.forEach((image) {
         bigImageItemWidget.add(
           Container(
             width: widget.screenSize.width,
             child: PhotoView(
-                // controller: photoViewController,
-                imageProvider: NetworkImage(
-              image ?? EMPTY_IMAGE,
-              // fit: BoxFit.fitWidth,
-            )
-
-                // Image.network(
-                //   image ?? EMPTY_IMAGE,
-                //   fit: BoxFit.fitWidth,
-                // ),
-                //  AssetImage("assets/large-image.jpg"),
-                ),
+              // controller: photoViewController,
+              imageProvider: NetworkImage(
+                image ?? EMPTY_IMAGE,
+                // fit: BoxFit.fitWidth,
+              ),
+            ),
           ),
         );
       });
@@ -84,8 +79,12 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
     if (_imagesOfSelectedProduct.length !=
             widget.product.banimodeDetails.images.thickboxDefault.length ||
         _imagesOfSelectedProduct.first !=
-            widget.product.banimodeDetails.images.thickboxDefault.first)
-      updateImageWidgets();
+            widget.product.banimodeDetails.images.thickboxDefault.first ||
+        selectedImage != widget.selectedImage)
+      updateImageWidgets(screenSize: _screenSize);
+
+    if (selectedImage != widget.selectedImage)
+      print("isDiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiif");
     return Container(
       // color: Colors.red,
       height: _screenSize.height,
@@ -97,7 +96,7 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
               Expanded(child: SizedBox()),
               AppBarWithCloseWidget(
                 title: "",
-                closeOnTap: () => widget.closePanel(),
+                closeOnTap: () => widget.closePanel(selectedImage),
               ),
             ],
           ),
@@ -239,32 +238,33 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                               : Colors.grey[400],
                         )),
                     child: GestureDetector(
-                        child: Container(
-                          padding: EdgeInsets.all(
-                            0.00277 * _screenSize.width, //1,
-                          ),
-                          child: Image.network(
-                            _imagesOfSelectedProduct[index] ?? EMPTY_IMAGE,
-                            fit: BoxFit.fitHeight,
-                          ),
+                      child: Container(
+                        padding: EdgeInsets.all(
+                          0.00277 * _screenSize.width, //1,
                         ),
-                        onTap: () => setState(() {
-                              selectedImage = index;
-                              // carouselController.animateToPage(selectedImage);
-                              if (selectedImage > 0)
-                                pageController.animateToPage(
-                                  selectedImage,
-                                  duration: Duration(milliseconds: 250),
-                                  curve: Curves.linear,
-                                );
-                              smallImagescrollController.animateTo(
-                                index.toDouble() *
-                                    (0.277 * _screenSize.width //100,
-                                    ),
-                                duration: Duration(milliseconds: 250),
-                                curve: Curves.linear,
-                              );
-                            })),
+                        child: Image.network(
+                          _imagesOfSelectedProduct[index] ?? EMPTY_IMAGE,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                      onTap: () => changePage(index, _screenSize),
+                      // setState(() {
+                      //       selectedImage = index;
+                      //       if (selectedImage > 0)
+                      //         pageController.animateToPage(
+                      //           selectedImage,
+                      //           duration: Duration(milliseconds: 250),
+                      //           curve: Curves.linear,
+                      //         );
+                      //       smallImagescrollController.animateTo(
+                      //         index.toDouble() *
+                      //             (0.277 * _screenSize.width //100,
+                      //             ),
+                      //         duration: Duration(milliseconds: 250),
+                      //         curve: Curves.linear,
+                      //       );
+                      //     })
+                    ),
                   );
                 }),
           ),
@@ -274,5 +274,24 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
         ],
       ),
     );
+  }
+
+  changePage(int index, Size _screenSize) {
+    setState(() {
+      selectedImage = index;
+      if (selectedImage > 0)
+        pageController.animateToPage(
+          selectedImage,
+          duration: Duration(milliseconds: 250),
+          curve: Curves.linear,
+        );
+      smallImagescrollController.animateTo(
+        index.toDouble() *
+            (0.277 * _screenSize.width //100,
+            ),
+        duration: Duration(milliseconds: 250),
+        curve: Curves.linear,
+      );
+    });
   }
 }

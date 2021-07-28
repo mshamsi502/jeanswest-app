@@ -22,11 +22,11 @@ import 'package:jeanswest/src/ui/profile/widgets/favoritesList/delete-panel-widg
 
 class FavoritesListScreen extends StatefulWidget {
   final String title;
-  final UserFavoriteInfoRes products;
+  // final UserFavoriteInfoRes products;
 
   const FavoritesListScreen({
     Key key,
-    this.products,
+    // this.products,
     this.title,
   }) : super(key: key);
   @override
@@ -40,6 +40,8 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
   int selectedProduct;
   UserFavoriteInfoRes favProducts;
   List<bool> activeProducts;
+//
+  int _itemCount;
   //
   int selectedColor;
   int selectedSize;
@@ -49,7 +51,8 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
     scrollController = new ScrollController();
     deleteProductPanel = new PanelController();
     addToCardPanel = new PanelController();
-    favProducts = widget.products;
+    favProducts = userFavorites;
+    _itemCount = (favProducts.data.length / 2).ceil();
     activeProducts = createActiveProducts(favProducts);
     selectedProduct = 0;
     selectedColor = 0;
@@ -76,6 +79,12 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (userFavorites.data.length != favProducts.data.length)
+      setState(() {
+        favProducts = userFavorites;
+
+        _itemCount = (favProducts.data.length / 2).ceil();
+      });
     var _screenSize = MediaQuery.of(context).size;
     return Container(
       color: Colors.grey,
@@ -114,9 +123,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                 deleteFunction: (int selectedProduct) async {
                   try {
                     GeneralRespons res = await removeFromUserFavoriteInfo(
-                        favProducts.data[selectedProduct].barcode
-                        // userFavorites.data[selectedProduct].barcode
-                        );
+                        favProducts.data[selectedProduct].sku);
                     if (res.statusCode == 200) {
                       UserFavoriteInfoRes userFavoritesRes =
                           await userFavoritesInfo(user.tblPosCustomersID);
@@ -187,7 +194,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                       color: Colors.white,
                       child: SingleChildScrollView(
                         child: ListView.builder(
-                          itemCount: (favProducts.data.length / 2).ceil(),
+                          itemCount: _itemCount,
                           controller: scrollController,
                           // physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,

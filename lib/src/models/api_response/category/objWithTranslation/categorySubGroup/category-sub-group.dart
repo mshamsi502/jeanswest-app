@@ -21,7 +21,6 @@ class CategorySubGroupRes extends Equatable {
   String name;
   @JsonKey(name: 'value')
   List<CategorySubGroupObjectRes> value;
-  // List<CategoryObjectRes> value;
   @JsonKey(name: 'active')
   bool active;
   @JsonKey(name: 'priority')

@@ -17,11 +17,9 @@ part 'list-of-category.g.dart';
 class ListOfCategory extends Equatable {
   @JsonKey(name: 'group')
   List<CategoryObjectRes> group;
-  @JsonKey(name: 'subGroup') // !
-  // Map<String, List<String>> subGroup;
+  @JsonKey(name: 'subGroup')
   List<CategorySubGroupRes> subGroup;
-  @JsonKey(name: 'size') // !
-  // Map<String, List<String>> size;
+  @JsonKey(name: 'size')
   List<CategoryGroupSizeRes> size;
   @JsonKey(name: 'gender')
   List<CategoryObjectRes> gender;

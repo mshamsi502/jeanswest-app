@@ -78,7 +78,8 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                             selected: (String _selectedOption, _) {
                               widget.editingControllers[index].text =
                                   _selectedOption;
-                            })
+                            },
+                          )
                         : GestureDetector(
                             child: CustomTextFieldWidget(
                               title: widget.titeKeys[index],

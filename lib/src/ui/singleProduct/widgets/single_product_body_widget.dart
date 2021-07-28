@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
@@ -20,7 +21,10 @@ class SingleProductBodyWidget extends StatefulWidget {
   final ListOfProductsRes allColorsAndSizesProducts;
   final ListOfProductsRes relatedProducts;
   final bool isFave;
+
+  final CarouselController carouselController;
   final Function(bool) changeFave;
+  final Function(int) changeSelectedImage;
 
   final Function() imageExpandedPanel;
   final Function() openExistInBranchesPanel;
@@ -28,11 +32,13 @@ class SingleProductBodyWidget extends StatefulWidget {
   final Function() openShoppingBasket;
   final Function(int) updateSelectedSize;
   final Function(SingleProductInfoRes) updateSelectedProduct;
+
   const SingleProductBodyWidget({
     Key key,
     @required this.product,
     @required this.isFave,
     @required this.changeFave,
+    @required this.changeSelectedImage,
     @required this.openExistInBranchesPanel,
     @required this.openSizeGuidPanel,
     @required this.allColorsAndSizesProducts,
@@ -41,6 +47,7 @@ class SingleProductBodyWidget extends StatefulWidget {
     @required this.imageExpandedPanel,
     @required this.updateSelectedSize,
     @required this.openShoppingBasket,
+    @required this.carouselController,
   }) : super(key: key);
   @override
   _SingleProductBodyWidgetState createState() =>
@@ -88,10 +95,13 @@ class _SingleProductBodyWidgetState extends State<SingleProductBodyWidget> {
                       changeFave: (bool newIsFave) =>
                           widget.changeFave(newIsFave),
                       isFave: widget.isFave,
+                      changeSelectedImage: (int newIndex) =>
+                          widget.changeSelectedImage(newIndex),
                       product: _selectedProduct,
                       openImageExpandedPanel: () => widget.imageExpandedPanel(),
                       openExistInBranches: () =>
                           widget.openExistInBranchesPanel(),
+                      carouselController: widget.carouselController,
                     ),
                     Container(
                       height: 0.0125 * _screenSize.height, //8,

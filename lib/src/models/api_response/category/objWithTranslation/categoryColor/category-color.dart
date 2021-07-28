@@ -5,6 +5,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:jeanswest/src/models/api_response/category/objWithTranslation/category-translation.dart';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'category-color.g.dart';
@@ -23,7 +24,7 @@ class CategoryColorRes extends Equatable {
   @JsonKey(name: 'image')
   String image;
   @JsonKey(name: 'value')
-  String value;
+  List<String> value;
   @JsonKey(name: 'active')
   bool active;
   @JsonKey(name: 'priority')

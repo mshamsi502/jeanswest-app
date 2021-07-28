@@ -118,9 +118,8 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
               ),
             ],
           ),
-          SizedBox(
-            height: 0.031 * _screenSize.height, //20,
-          ),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -130,8 +129,8 @@ class _SingleProductTitleWidgetState extends State<SingleProductTitleWidget> {
                   style: TextStyle(
                     fontSize: 0.038 * _screenSize.width, //14,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                  // overflow: TextOverflow.ellipsis,
                 ),
               ),
               SizedBox(

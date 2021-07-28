@@ -31,7 +31,7 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     @required this.selected,
     @required this.hintTitle,
     this.titleColor = MAIN_BLUE_COLOR,
-    @required this.initialCheckBoxValue,
+    this.initialCheckBoxValue,
     // this.updateCheckBoxValue,
     this.hasCheckBox = false,
   }) : super(key: key);
@@ -55,7 +55,6 @@ class _CustomDropdownButtonWidgetState
   OptionItem optionItemSelected;
   @override
   void initState() {
-    print(";;;;;;;;;;;;;;;;;;;;;; aaaaaa    recreate");
     isShowDropDown = false;
     update();
     heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
@@ -70,6 +69,7 @@ class _CustomDropdownButtonWidgetState
 
   update() {
     optionItemSelected = OptionItem(id: null, title: widget.hintTitle);
+
     for (var index = 0; index < widget.options.length; index++) {
       dropListModel.listOptionItems
           .add(OptionItem(id: "$index", title: widget.options[index]));
@@ -83,6 +83,9 @@ class _CustomDropdownButtonWidgetState
     if (widget.hintTitle != null && dropdownValue != widget.hintTitle) update();
     Size _screenSize = MediaQuery.of(context).size;
     print("widget.hintTitle  : ${widget.hintTitle}");
+    print("optionItemSelected : ${optionItemSelected.title}");
+    print("widget.initialCheckBoxValue : ${widget.initialCheckBoxValue}");
+    print("dropListModel : ${dropListModel.listOptionItems.first.title}");
     return Container(
       color: Colors.transparent,
       // color: Colors.red,
@@ -137,74 +140,74 @@ class _CustomDropdownButtonWidgetState
                   children: [
                     Expanded(
                       child: Container(
-                          alignment: Alignment.center,
-                          child: SelectDropList(
-                              selectedTile: "",
-                              // widget.hintTitle,
-                              selectedIcon: SizedBox(),
-                              hasCheckBox: widget.hasCheckBox,
-                              initialCheckBoxValue: widget.initialCheckBoxValue,
-                              updateCheckBoxValue:
-                                  (Map<String, bool> newValue) {
-                                String _hint = "";
-                                List<String> _actived = [];
-                                bool isFisrt = true;
-                                int index = 0;
-                                print("33333333333333 newValue : $newValue");
-                                newValue.values.forEach((element) {
-                                  if (element) {
-                                    _actived
-                                        .add(newValue.keys.elementAt(index));
-                                    if (!_hint.contains(
-                                        newValue.keys.elementAt(index))) {
-                                      _hint = isFisrt
-                                          ? _hint +
-                                              "" +
-                                              newValue.keys.elementAt(index)
-                                          : _hint +
-                                              "، " +
-                                              newValue.keys.elementAt(index);
-                                      isFisrt = false;
-                                    }
-                                  }
-                                  index++;
-                                });
-                                print("33333333333333 _hint : $_hint");
-                                print("33333333333333 _actived : $_actived");
-                                widget.selected(_hint, _actived);
-                                // widget.selected(_hint);
-                              },
-                              itemSelected: optionItemSelected,
-                              dropListModel: dropListModel,
-                              optionsHeight: (0.0844594 *
-                                  _screenSize.height //50,
-                                  *
-                                  widget.options.length),
-                              onOptionSelected: (optionItem) {
-                                setState(() {
-                                  optionItemSelected = optionItem;
-                                });
-                                print(
-                                    "********** ** ** select : $optionItemSelected");
-                                widget.selected(optionItem.title, []);
-                              },
-                              changeIsShow: (bool newIsShow) async {
-                                if (newIsShow) {
-                                  setState(() {
-                                    isShowDropDown = newIsShow;
-                                  });
+                        alignment: Alignment.center,
+                        child: SelectDropList(
+                          selectedTile:
+                              // "",
+                              widget.hintTitle,
+                          selectedIcon: SizedBox(),
+                          hasCheckBox: widget.hasCheckBox,
+                          initialCheckBoxValue: widget.initialCheckBoxValue,
+                          updateCheckBoxValue: (Map<String, bool> newValue) {
+                            String _hint = "";
+                            List<String> _actived = [];
+                            bool isFisrt = true;
+                            int index = 0;
+                            print("33333333333333 newValue : $newValue");
+                            newValue.values.forEach((element) {
+                              if (element) {
+                                _actived.add(newValue.keys.elementAt(index));
+                                if (!_hint
+                                    .contains(newValue.keys.elementAt(index))) {
+                                  _hint = isFisrt
+                                      ? _hint +
+                                          "" +
+                                          newValue.keys.elementAt(index)
+                                      : _hint +
+                                          "، " +
+                                          newValue.keys.elementAt(index);
+                                  isFisrt = false;
                                 }
-                                await Future.delayed(
-                                    Duration(milliseconds: 500));
-                                if (!newIsShow) {
-                                  setState(() {
-                                    isShowDropDown = newIsShow;
-                                  });
-                                }
-                                setState(() {
-                                  isShowDropDown = newIsShow;
-                                });
-                              })),
+                              }
+                              index++;
+                            });
+                            print("33333333333333 _hint : $_hint");
+                            print("33333333333333 _actived : $_actived");
+                            widget.selected(_hint, _actived);
+                            // widget.selected(_hint);
+                          },
+                          itemSelected: optionItemSelected,
+                          dropListModel: dropListModel,
+                          optionsHeight: (0.0844594 *
+                              _screenSize.height //50,
+                              *
+                              widget.options.length),
+                          onOptionSelected: (optionItem) {
+                            setState(() {
+                              optionItemSelected = optionItem;
+                            });
+                            print(
+                                "********** ** ** select : $optionItemSelected");
+                            widget.selected(optionItem.title, []);
+                          },
+                          changeIsShow: (bool newIsShow) async {
+                            if (newIsShow) {
+                              setState(() {
+                                isShowDropDown = newIsShow;
+                              });
+                            }
+                            await Future.delayed(Duration(milliseconds: 500));
+                            if (!newIsShow) {
+                              setState(() {
+                                isShowDropDown = newIsShow;
+                              });
+                            }
+                            setState(() {
+                              isShowDropDown = newIsShow;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ],
                 ),

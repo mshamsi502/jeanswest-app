@@ -10,7 +10,7 @@ CategorySubGroupSizeRes _$CategorySubGroupSizeResFromJson(
     Map<String, dynamic> json) {
   return CategorySubGroupSizeRes(
     name: json['name'] as String,
-    value: json['value'] as String,
+    value: (json['value'] as List)?.map((e) => e as String)?.toList(),
     active: json['active'] as bool,
     subGroup: json['subGroup'] as String,
     priority: json['priority'] as int,

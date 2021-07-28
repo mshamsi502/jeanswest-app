@@ -72,9 +72,6 @@ class _GroupFilterMenuListViewWidgetState
             String newSub = "";
 
             if (widget.subtitlesValue[indexOfGroup][indexOfSub]) {
-              //  TODO : ! subGroup
-              // newSub = widget.subtitlesName.values
-              //     .elementAt(indexTitleInSubtitle)[indexOfSub];
               newSub = widget
                   .subtitlesName[indexOfGroup]
                   .value[indexOfSub]

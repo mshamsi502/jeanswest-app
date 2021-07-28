@@ -5,14 +5,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categoryColor/category-color.dart';
-import 'package:jeanswest/src/models/categoryColor/category-color.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
-import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
+import 'package:jeanswest/src/utils/helper/global/strings-validtion-helper.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 
 class ColorFiltersPanel extends StatefulWidget {
@@ -44,8 +43,11 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
   //
   List<Widget> _assetColors = [];
   //
+  String mediaCenterBaseUrl;
+  //
   @override
   void initState() {
+    mediaCenterBaseUrl = dotenv.env['MEDIA_CENTER_LINK'];
     initializeValues();
     super.initState();
   }
@@ -59,43 +61,11 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
       selectAllStatus = (check == 1);
       notSelected = (check == -1);
       tempIndexInOptionWidgets = widget.indexInOptionWidgets;
-//
-      for (int index = 0; index < widget.colors.length; index++) {
-        if (widget.colors[index].image == null ||
-            widget.colors[index].image == "") {
-          int indexWhere = tempCatColors.indexWhere((_tempColor) {
-            List<String> _orgSplited =
-                splitStringFromDash(widget.colors[index].name, withSpace: true);
-            for (int indexOfOrg = 0;
-                indexOfOrg < _orgSplited.length;
-                indexOfOrg++)
-              if (_orgSplited[indexOfOrg] == _tempColor.engName) return true;
-
-            List<String> _tempSplited = splitStringFromDash(_tempColor.engName);
-            for (int indexOfOrg = 0;
-                indexOfOrg < _orgSplited.length;
-                indexOfOrg++) {
-              for (int indexOfTemp = 0;
-                  indexOfTemp < _tempSplited.length;
-                  indexOfTemp++)
-                if (_orgSplited[indexOfOrg] == _tempSplited[indexOfTemp])
-                  return true;
-            }
-            return false;
-          });
-          if (indexWhere != -1) {
-            _assetColors.add(tempCatColors[indexWhere].image);
-          } else {
-            _assetColors.add(
-              Container(
-                width: 40,
-                height: 40,
-                color: Colors.grey,
-              ),
-            );
-          }
-        }
-      }
+      widget.colors.forEach((element) {
+        _assetColors.add(getTypeFileLink(element.image) == "svg"
+            ? SvgPicture.network(mediaCenterBaseUrl + element.image)
+            : Image.network(mediaCenterBaseUrl + element.image));
+      });
     });
   }
 
@@ -187,21 +157,14 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
               mainAxisSpacing: 0.054 * _screenSize.width, //20
 
               crossAxisSpacing: 0.0138 * _screenSize.width, //5,
-
-              // children: List.generate(widget.colors.length, (index) {
               children: List.generate(_assetColors.length, (index) {
-                // List<String> _splitedColor = [];
-
                 return GestureDetector(
                   onTap: () {
                     changeColorsStatus(index);
-                    // updateActiveColors(index);
                   },
                   child: Container(
                     width: 0.1805 * _screenSize.width, //65,
-
                     height: 0.1805 * _screenSize.width, //65,
-
                     alignment: Alignment.center,
                     child: Stack(
                       children: [
@@ -224,10 +187,6 @@ class _ColorFiltersPanelState extends State<ColorFiltersPanel> {
               }),
             ),
           )),
-          // Expanded(child: SizedBox()),
-          // widget.indexInOptionWidgets <= 0
-          //     ? SizedBox()
-          //     :
           Padding(
             padding: EdgeInsets.all(
               0.054 * _screenSize.width, //20

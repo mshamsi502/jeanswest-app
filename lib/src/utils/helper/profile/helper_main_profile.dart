@@ -72,7 +72,7 @@ List<Widget> createProfileListMenuPages({
   profileListMenu.add(OrderListScreen());
   profileListMenu.add(FavoritesListScreen(
     title: "علاقه مندی ها",
-    products: userFavorites,
+    // products: userFavorites,
   ));
   profileListMenu.add(AddressesListPage(
     title: 'لیست آدرس ها',

@@ -840,6 +840,7 @@ class _GlobalRestClient implements GlobalRestClient {
     _data.addAll(filter ?? <String, dynamic>{});
     final _result = await _dio.request<Map<String, dynamic>>(
         'http://10.0.1.111:8000/api/v1/product/list',
+        // '/v1/product/oldList',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -857,7 +858,8 @@ class _GlobalRestClient implements GlobalRestClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'http://10.0.1.111:8000/api/v1/category/list',
+        'http://10.0.1.111:8000/api/v1/category/oldList',
+        // 'v1/category/oldLlist',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

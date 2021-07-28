@@ -6,7 +6,6 @@
 import 'package:flutter/material.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-int.dart';
 import 'package:jeanswest/src/models/api_body/operator/operator-string.dart';
 import 'package:jeanswest/src/models/api_body/productFilter/product-filter-req-body.dart';
@@ -16,7 +15,6 @@ import 'package:jeanswest/src/models/api_body/productFilter/product-search-req-b
 import 'package:jeanswest/src/models/api_body/productFilter/product-unique-req-body.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/models/api_response/category/objWithTranslation/categoryColor/category-color.dart';
-import 'package:jeanswest/src/models/categoryColor/category-color.dart';
 import 'package:jeanswest/src/models/filterWidget/filter_widget_model.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/color_filters_panel.dart';
 import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/option_list_filters_panel.dart';
@@ -116,13 +114,11 @@ Map<String, List<dynamic>> prepareSubGroupValues(
   List<List<bool>> _subGroupsValue = [];
   List<bool> _tempSubGroupValues = [];
   listOfCat.group.forEach((element) {
-    // TODO :! group
-    _groupsTitles.add(element
-        .translation[element.translation
-            .indexWhere((element) => element.language == FARSI_LANGUAGE)]
+    _groupsTitles.addAll(element
+        // _groupsTitles.add(element
+        // .translation[element.translation
+        //     .indexWhere((element) => element.language == FARSI_LANGUAGE)]
         .value);
-    // TODO : ! subGroup
-    // _subGroupsTitles.add(listOfCat.subGroup[element]);
     listOfCat.subGroup.forEach((_group) {
       List<String> _subsInGroup = [];
       _group.value.forEach((_subGroup) {
@@ -187,7 +183,6 @@ List<Map<String, bool>> prepareSizeGroupCheckBox(
 }) {
   if (initValues == null || falseValues) {
     List<Map<String, bool>> _sizeGroupCheckBoxValue = [];
-    // TODO : ! size
     listOfCat.size.forEach((_groupSize) {
       Map<String, bool> _mapInGroup = {};
       _groupSize.value.forEach((_subSize) {
@@ -258,35 +253,24 @@ List<Widget> prepareOptionsWidgets(
             .indexWhere((element) => element.language == FARSI_LANGUAGE)]
         .value);
   });
-  // sizeGroupCheckBoxValue = [];
-  for (int index = 0; index < listOfCat.group.length; index++) {
-    // listOfCat.group.forEach((_mainGroup) {
 
-    tempSizeName[listOfCat.group[index].name] = [];
-    listOfCat.subGroup
-        .elementAt(
-          listOfCat.subGroup.indexWhere(
-            (element) => element.name == listOfCat.group[index].name,
-          ),
-        )
-        .value
-        .forEach((_subGroup) {
-      tempSizeName[listOfCat.group[index].name].add(_subGroup
-          .translation[_subGroup.translation.indexWhere(
-        (element) => element.language == FARSI_LANGUAGE,
-      )]
+  listOfCat.size.forEach((_subGSize) {
+    String _keyName = _subGSize
+        .translation[_subGSize.translation
+            .indexWhere((_trans) => _trans.language == FARSI_LANGUAGE)]
+        .value;
+    tempSizeName[_keyName] = [];
+    _subGSize.value.forEach((_singleSize) {
+      tempSizeName[_keyName].add(_singleSize
+          .translation[_singleSize.translation
+              .indexWhere((_trans) => _trans.language == FARSI_LANGUAGE)]
           .value);
     });
-  }
-
-  print(
-      "454545454545454545454545454 :  :::: sizeGroupCheckBoxValue : $sizeGroupCheckBoxValue");
+  });
 
   if (haveGenderAndAge) {
     widgets.add(OptionListFiltersPanel(
       indexInOptionWidgets: selectedIndexPage,
-      // indexInOptionWidgets: listOfCat.group.length,
-      // TODO : ! gender
       checkBoxTitles: tempGenderName,
       checkBoxTitlesTextStyle: TextStyle(
         fontSize: 14,
@@ -298,8 +282,6 @@ List<Widget> prepareOptionsWidgets(
 
     widgets.add(OptionListFiltersPanel(
       indexInOptionWidgets: selectedIndexPage,
-      // indexInOptionWidgets: listOfCat.group.length + 1,
-      // TODO : ! age
       checkBoxTitles: tempAgeName,
       checkBoxTitlesTextStyle: TextStyle(
         fontSize: 14,
@@ -311,7 +293,6 @@ List<Widget> prepareOptionsWidgets(
   }
   widgets.add(ColorFiltersPanel(
     indexInOptionWidgets: selectedIndexPage,
-    // TODO : ! color
     colors: listOfCategory.colorFamily,
     colorsValue: colorCheckBoxValue,
     // colorsValue: List.filled(listOfCat.colorFamily.length, false),
@@ -327,13 +308,9 @@ List<Widget> prepareOptionsWidgets(
             .indexWhere((element) => element.language == FARSI_LANGUAGE)]
         .value);
   });
-  print("555555555555555555555555555656565, tempSizeName : ${tempSizeName}");
   widgets.add(SizeFiltersPanel(
     indexInOptionWidgets: selectedIndexPage,
-    // TODO :! group
     titles: tempGroupName,
-    // TODO :  size
-    // sizeTitles: listOfCat.size,
     sizeTitles: tempSizeName,
     sizeValue: sizeGroupCheckBoxValue,
     updateSizesValue: (List<Map<String, bool>> newValue) =>
@@ -468,7 +445,7 @@ ProductReqBody updateproductReqBody({
             ? OperationString(oEQL: genderSelected)
             : null,
         size: sizeSelected != null && sizeSelected.length > 0
-            ? OperationString(oCT: sizeSelected)
+            ? OperationString(oEQL: sizeSelected)
             : null,
       ),
       option: ProductOptionReqBody(
@@ -504,11 +481,16 @@ String updatePerNameOfSortBy(String engNameOfSortBy, int ascentNumber) {
     return "پیش فرض";
 }
 
-ListOfCategory sortCategotyElements(ListOfCategory _cat) {
+ListOfCategory cleanCategotyElements(ListOfCategory _cat) {
   // ! sort groups
   _cat.group.sort((a, b) {
     return a.priority.compareTo(b.priority);
   });
+  // ! clean groups
+  _cat.group.forEach((_singleGroup) {
+    if (!_singleGroup.active) _cat.group.remove(_singleGroup);
+  });
+  //
   // ! sort subGroups
   _cat.subGroup.sort((a, b) {
     return a.priority.compareTo(b.priority);

@@ -8,6 +8,8 @@ part of 'single-product-info-res.dart';
 
 SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
   return SingleProductInfoRes(
+    title: json['title'] as String,
+    size: json['size'] as String,
     quantity: json['quantity'] as int,
     barcode: json['barcode'] as String,
     sku: json['sku'] as String,
@@ -28,6 +30,8 @@ SingleProductInfoRes _$SingleProductInfoResFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$SingleProductInfoResToJson(
         SingleProductInfoRes instance) =>
     <String, dynamic>{
+      'title': instance.title,
+      'size': instance.size,
       'quantity': instance.quantity,
       'barcode': instance.barcode,
       'sku': instance.sku,

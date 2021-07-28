@@ -81,6 +81,7 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
       width: widget.width,
       // color: Colors.amber,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             height: 0.3547 * _screenSize.height, //210,
@@ -264,9 +265,11 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
           Expanded(
             child: Text(
               widget.product != null && widget.product.banimodeDetails != null
-                  ? widget.product.banimodeDetails.productName
+                  // ? widget.product.banimodeDetails.productName
+                  ? widget.product.title
                   : "",
               textDirection: rtlTextDirection,
+              textAlign: TextAlign.right,
               style: TextStyle(
                 fontSize: 0.0333 * _screenSize.width, //12,
               ),

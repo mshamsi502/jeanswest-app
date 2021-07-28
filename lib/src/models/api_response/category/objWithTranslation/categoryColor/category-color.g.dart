@@ -9,11 +9,12 @@ part of 'category-color.dart';
 CategoryColorRes _$CategoryColorResFromJson(Map<String, dynamic> json) {
   return CategoryColorRes(
     id: json['id'] as String,
+ 
     code: json['code'] as String,
     name: json['name'] as String,
     color: json['color'] as String,
     image: json['image'] as String,
-    value: json['value'] as String,
+    value: (json['value'] as List)?.map((e) => e as String)?.toList(),
     active: json['active'] as bool,
     priority: json['priority'] as int,
     translation: (json['translation'] as List)

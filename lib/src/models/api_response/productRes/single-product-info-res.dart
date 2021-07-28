@@ -15,6 +15,10 @@ part 'single-product-info-res.g.dart';
 class SingleProductInfoRes extends Equatable {
   // @JsonKey(name: 'active')
   // bool active;
+  @JsonKey(name: 'title')
+  String title;
+  @JsonKey(name: 'size')
+  String size;
   @JsonKey(name: 'quantity')
   int quantity;
   @JsonKey(name: 'barcode')
@@ -35,6 +39,8 @@ class SingleProductInfoRes extends Equatable {
 
   SingleProductInfoRes({
     // this.active,
+    this.title,
+    this.size,
     this.quantity,
     this.barcode,
     this.sku,
@@ -53,6 +59,8 @@ class SingleProductInfoRes extends Equatable {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       // 'active': active,
+      'title': title,
+      'size': size,
       'quantity': quantity,
       'barcode': barcode,
       'sku': sku,
@@ -67,6 +75,8 @@ class SingleProductInfoRes extends Equatable {
   @override
   List<Object> get props => [
         // active,
+        title,
+        size,
         quantity,
         barcode,
         sku,

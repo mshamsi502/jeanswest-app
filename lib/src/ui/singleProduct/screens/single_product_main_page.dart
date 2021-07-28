@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,6 +43,7 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
   PanelController directToBranchPanel = PanelController();
   PanelController existInBranchesPanel = PanelController();
   PanelController sizeGuidePanel = PanelController();
+  CarouselController carouselController = CarouselController();
   //
   ListOfProductsRes allColorsAndSizesProducts =
       ListOfProductsRes(data: ListOfProductsData(result: []));
@@ -50,6 +52,7 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
   SingleProductInfoRes _selectedProduct;
 //
   int _selectedSize = -1;
+  int _selectedImage = 0;
   List<BranchForProduct> _availableInBranches;
   BranchForProduct _selectedBranches;
 
@@ -116,8 +119,16 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
               onPanelClosed: () => FocusScope.of(context).unfocus(),
               panel: ImageExapndedPanel(
                 product: _selectedProduct,
-                closePanel: () => imageExpandedPanel.close(),
+                closePanel: (int newIndex) {
+                  setState(() {
+                    _selectedImage = newIndex;
+                  });
+                  if (carouselController != null)
+                    carouselController.jumpToPage(newIndex);
+                  imageExpandedPanel.close();
+                },
                 screenSize: _screenSize,
+                selectedImage: _selectedImage,
               ),
               body: SlidingUpPanel(
                 controller: directToBranchPanel,
@@ -222,6 +233,9 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                         product: widget.product,
                         allColorsAndSizesProducts: allColorsAndSizesProducts,
                         relatedProducts: relatedProducts,
+                        changeSelectedImage: (int newIndex) => setState(() {
+                          _selectedImage = newIndex;
+                        }),
                         // relatedProducts: allColorsAndSizesProducts,
                         isFave: widget.isFave,
                         changeFave: (bool newIsFave) =>
@@ -261,6 +275,7 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                         openShoppingBasket: () {
                           // TODO : Navigate To Shopping BAsket Page
                         },
+                        carouselController: carouselController,
                       )),
                       Container(
                         // color: Colors.red,

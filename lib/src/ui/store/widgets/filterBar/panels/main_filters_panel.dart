@@ -5,11 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_response/category/list-of-category.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/global/widgets/avakatan_button_widget.dart';
@@ -103,8 +103,11 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
   int selectedGroup = -1;
   int tempSelectedGroup;
   //
+  String mediaCenterBaseUrl;
+  //
   @override
   void initState() {
+    mediaCenterBaseUrl = dotenv.env['MEDIA_CENTER_LINK'];
     isShowColorWidget = false;
     mainGroupTextStyles = [];
     tempMainFilterPanelState = widget.mainFilterPanelState;
@@ -170,8 +173,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                 .translation[widget.category.size[indexOfGroup].translation
                     .indexWhere((_size) => _size.value == FARSI_LANGUAGE)]
                 .value);
-            print("subNameInGroup : $subNameInGroup");
-            // TODO : ! group
             sizeGroupSubtitleName[widget
                 .category
                 .group[indexOfGroup]
@@ -250,16 +251,19 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
             index < listOfCategory.colorFamily.length;
             index++) {
           if (tempColorsValue[index]) {
-            colorsSubtitleWidget.add(listOfCategory.colorFamily[index].image ==
-                        null ||
-                    listOfCategory.colorFamily[index].image == ""
-                ? tempCatColors[tempCatColors.indexWhere((_temp) =>
-                    _temp.engName == listOfCategory.colorFamily[index].name)]
-                : getTypeFileLink(listOfCategory.colorFamily[index].image) ==
-                        "svg"
-                    ? SvgPicture.network(
+            // colorsSubtitleWidget.add(listOfCategory.colorFamily[index].image ==
+            //             null ||
+            //         listOfCategory.colorFamily[index].image == ""
+            //     ? tempCatColors[tempCatColors.indexWhere((_temp) =>
+            //         _temp.engName == listOfCategory.colorFamily[index].name)]
+            //     :
+            getTypeFileLink(listOfCategory.colorFamily[index].image) == "svg"
+                    ? SvgPicture.network(mediaCenterBaseUrl +
                         listOfCategory.colorFamily[index].image)
-                    : Image.network(listOfCategory.colorFamily[index].image));
+                    : Image.network(mediaCenterBaseUrl +
+                        listOfCategory.colorFamily[index].image)
+                // )
+                ;
 
             //
             // listOfCategory.colorFamily[index].image);
@@ -327,7 +331,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                               isFromMainFilter: true,
                               indexInOptionWidgets: -1,
                               haveGroupTitle: true,
-                              // TODO : ! group
                               groupTitle:
                                   //
                                   widget
@@ -426,11 +429,8 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                         child: Column(
                           children: [
                             GroupFilterMenuListViewWidget(
-                              // TODO : ! group
                               titles: tempGroupName,
                               subtitlesValue: tempSubGroupsValue,
-                              // TODO :  subgroup
-                              // subtitlesName: widget.category.subGroup,
                               subtitlesName: widget.category.subGroup,
                               // haveIcons: false,
                               // haveExit: false,
@@ -457,8 +457,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                     0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
-                              // TODO : ! gender
-                              // checkBoxTitles: widget.category.gender,
                               checkBoxTitles: tempGenderName,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,
@@ -486,8 +484,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                     0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
-                              // checkBoxTitles: widget.category.ageGroup,
-                              // TODO : ! age
+                            
                               checkBoxTitles: tempAgeName,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,

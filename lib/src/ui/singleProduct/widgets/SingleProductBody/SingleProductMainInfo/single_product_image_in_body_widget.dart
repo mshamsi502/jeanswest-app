@@ -9,7 +9,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
+import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-main-info.dart';
 import 'package:jeanswest/src/models/api_response/globalRes/general_response.dart';
+import 'package:jeanswest/src/models/api_response/userRes/userFavorite/user-favorite-info-res.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserFavoritesInfo/get-user-favorites-info.dart';
 
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
@@ -19,9 +22,11 @@ class SingleProductImageInBodyWidget extends StatefulWidget {
   final String linkProductForShare;
   final String productSKU;
   final bool isFave;
+  final Function(int) changeSelectedImage;
   final Function(bool) changeFave;
   final Function() openImageExpandedPanel;
   final Size screenSize;
+  final CarouselController carouselController;
   const SingleProductImageInBodyWidget({
     Key key,
     @required this.screenSize,
@@ -29,8 +34,10 @@ class SingleProductImageInBodyWidget extends StatefulWidget {
     @required this.linkProductForShare,
     @required this.isFave,
     @required this.changeFave,
+    @required this.changeSelectedImage,
     @required this.openImageExpandedPanel,
     @required this.productSKU,
+    @required this.carouselController,
   }) : super(key: key);
   @override
   _SingleProductImageInBodyWidgetState createState() =>
@@ -41,7 +48,7 @@ class _SingleProductImageInBodyWidgetState
     extends State<SingleProductImageInBodyWidget> {
   ScrollController scrollController = new ScrollController();
   ScrollController circleOptCarouselController = new ScrollController();
-  CarouselController carouselController = CarouselController();
+  // CarouselController carouselController = CarouselController();
   List<Widget> imageItemWidget = [];
   //
   int selectedImage = 0;
@@ -61,10 +68,11 @@ class _SingleProductImageInBodyWidgetState
     setState(() {
       imageItemWidget = [];
       _imagesOfSelectedProduct = widget.images;
-      if (selectedImage != 0) {
-        selectedImage = 0;
-        carouselController.jumpToPage(selectedImage);
-      }
+
+      // if (selectedImage != 0) {
+      //   selectedImage = 0;
+      //   widget.carouselController.jumpToPage(selectedImage);
+      // }
       _imagesOfSelectedProduct.forEach((image) {
         imageItemWidget.add(GestureDetector(
           child: Container(
@@ -95,14 +103,15 @@ class _SingleProductImageInBodyWidgetState
             children: [
               Center(
                 child: CarouselSlider(
-                  carouselController: carouselController,
+                  carouselController: widget.carouselController,
                   options: CarouselOptions(
                     height: 0.72635 * _screenSize.height, //430
                     viewportFraction: 1,
-                    initialPage: selectedImage,
+                    initialPage: 0,
                     enableInfiniteScroll: false,
                     onPageChanged:
                         (int index, CarouselPageChangedReason reason) {
+                      widget.changeSelectedImage(index);
                       setState(() {
                         selectedImage = index;
                       });
@@ -164,6 +173,11 @@ class _SingleProductImageInBodyWidgetState
                           await addToUserFavoriteInfo(widget.productSKU);
                       if (res != null && res.statusCode == 200) {
                         widget.changeFave(tempIsFav);
+                        UserFavoriteInfoRes userFavoritesRes =
+                            await userFavoritesInfo(user.tblPosCustomersID);
+                        setState(() {
+                          userFavorites = userFavoritesRes;
+                        });
                       } else
                         setState(() {
                           tempIsFav = !tempIsFav;

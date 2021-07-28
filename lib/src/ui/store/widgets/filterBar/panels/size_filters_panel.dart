@@ -56,37 +56,10 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
     setState(() {
       tempIndexInOptionWidgets = widget.indexInOptionWidgets;
       tempSizesValue = widget.sizeValue;
-      // updateActivedTitles();
 
-      print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;'''''''''''''''''");
-      print(
-          ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;''''''''''''''''' _hints : $_hints");
-      // dropDownItems =
       createDropDownsSizes(widget.mediaQuery);
     });
   }
-
-  // updateActivedTitles() {
-  //   activedTitles = [];
-  //   for (int indexOfTitle = 0;
-  //       indexOfTitle < widget.titles.length;
-  //       indexOfTitle++) {
-  //     List<String> subGroupTitle =
-  //         widget.sizeTitles.values.elementAt(indexOfTitle);
-  //     List<String> _actived = [];
-
-  //     Map<String, bool> ff = widget.sizeValue[indexOfTitle];
-  //     for (int indexOfSub = 0; indexOfSub < ff.keys.length; indexOfSub++) {
-  //       if (ff.values.elementAt(indexOfSub)) {
-  //         _actived.add(subGroupTitle[indexOfSub]);
-  //       }
-  //     }
-  //     activedTitles.add(_actived);
-  //   }
-  //   print("activedTitles : $activedTitles");
-  // }
-
-  // List<Widget>
   // !
 
   createDropDownsSizes(MediaQueryData mediaQuery) {
@@ -94,9 +67,6 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
     print("drop downs recreate");
 
     for (int index = 0; index < widget.sizeTitles.length; index++) {
-      // updateDropDownsSizes(mediaQuery, _hint, tempDropDownItems, index);
-      //
-
       tempDropDownItems.add(
         Positioned(
           top: (((0.15625 * widget.mediaQuery.size.height //100,
@@ -118,62 +88,21 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
                 tempSizesValue[widget.sizeTitles.length - index - 1],
             selected: (String newHint, List<String> _newActived) {
               setState(() {
-                // _hints[widget.sizeTitles.length - index - 1] = "";
-                //
-                print("changeeeeeeeeeee : _newActived : $_newActived");
-                print("changeeeeeeeeeee : newHint : $newHint");
-                //
-                // if (_hints[widget.sizeTitles.length - index - 1] == null ||
-                //     _hints[widget.sizeTitles.length - index - 1] == "")
-                //   _hints[widget.sizeTitles.length - index - 1] =
-                //       _hints[widget.sizeTitles.length - index - 1] + newHint;
-                // else {
-                //   _newActived.forEach((element) {
-                //     if (!_hints[widget.sizeTitles.length - index - 1]
-                //         .contains(element))
-                //       _hints[widget.sizeTitles.length - index - 1] =
-                //           _hints[widget.sizeTitles.length - index - 1] +
-                //               "، " +
-                //               newHint;
-                //   });
                 List<String> newHintList = [];
                 for (int subIndex = widget.sizeTitles.length - 1;
                     subIndex > index;
                     subIndex--) {
-                  print("$subIndex.............. : subIndex : $subIndex");
-                  print(
-                      "$subIndex.............. : _hints[$subIndex] : ${_hints[subIndex]}");
                   newHintList
                       .add(_hints[widget.sizeTitles.length - subIndex - 1]);
                 }
 
                 newHintList.add(newHint);
                 for (int subIndex = index - 1; subIndex >= 0; subIndex--) {
-                  print("$subIndex.............. : subIndex : $subIndex");
-                  print(
-                      "$subIndex.............. : _hints[$subIndex] : ${_hints[subIndex]}");
                   newHintList
                       .add(_hints[widget.sizeTitles.length - subIndex - 1]);
                 }
                 print("changeeeeeeeeeee : newHintList : $newHintList");
                 _hints = newHintList;
-                //
-                //   if (!_hints[widget.sizeTitles.length - index - 1]
-                //       .contains(newHint))
-                //     _hints[widget.sizeTitles.length - index - 1] =
-                //         _hints[widget.sizeTitles.length - index - 1] +
-                //             "، " +
-                //             newHint;
-                // }
-                // if (_hints.length < widget.sizeTitles.length - index)
-                //   _hints.add(newHint);
-                // else
-                //   _hints[widget.sizeTitles.length - index - 1] = newHint;
-                //
-                // dropDownItems =
-                // updateDropDownsSizes(
-                //     mediaQuery, _hint, tempDropDownItems, index);
-                // initializeValues();
               });
               print(
                   "_hints[${widget.sizeTitles.length - index - 1}] : ${_hints[widget.sizeTitles.length - index - 1]}");
@@ -199,49 +128,7 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
   ) {
     // List<Widget> _newTempDropDownItems = [];
     List<Widget> _newTempDropDownItems = tempDropDownItems;
-    // for (int indexDropDownItems = 0;
-    //     indexDropDownItems < index;
-    //     indexDropDownItems++) {
-    //   _newTempDropDownItems.add(tempDropDownItems[indexDropDownItems]);
-    // }
-    // _newTempDropDownItems.add(Positioned(
-    //   top: (((0.15625 * widget.mediaQuery.size.height //100,
 
-    //           ) *
-    //           (widget.sizeTitles.length - index - 1))
-    //       .toDouble()),
-    //   child: CustomDropdownButtonWidget(
-    //     title: widget.sizeTitles.keys
-    //         .elementAt(widget.sizeTitles.length - index - 1),
-    //     hintTitle: _hints[widget.sizeTitles.length - index - 1],
-    //     titleColor: Colors.black,
-    //     hasCheckBox: true,
-    //     options: widget.sizeTitles[widget.sizeTitles.keys
-    //         .elementAt(widget.sizeTitles.length - index - 1)],
-    //     mediaQuery: mediaQuery,
-    //     initialCheckBoxValue:
-    //         // widget.sizeValue[widget.sizeTitles.length - index - 1],
-    //         tempSizesValue[widget.sizeTitles.length - index - 1],
-    //     selected: (String newHint, List<String> _newActived) {
-    //       print("_newActived : $_newActived");
-    //       setState(() {
-    //         _hints[widget.sizeTitles.length - index - 1] = newHint;
-    //         // tempDropDownItems =
-    //         updateDropDownsSizes(mediaQuery, _hint, tempDropDownItems, index);
-    //       });
-    //       print(
-    //           "_hints[${widget.sizeTitles.length - index - 1}] : ${_hints[widget.sizeTitles.length - index - 1]}");
-
-    //       // initializeValues();
-    //     },
-    //   ),
-    // ));
-    // for (int indexDropDownItems = index + 1;
-    //     indexDropDownItems < tempDropDownItems.length;
-    //     indexDropDownItems++) {
-    //   _newTempDropDownItems.add(tempDropDownItems[indexDropDownItems]);
-    // }
-    //
     _newTempDropDownItems[index] = Positioned(
       top: (((0.15625 * widget.mediaQuery.size.height //100,
 
@@ -266,16 +153,6 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
           print(
               "oldHint in update: ${_hints[widget.sizeTitles.length - index - 1]}");
           setState(() {
-            // if (!_hints[widget.sizeTitles.length - index - 1]
-            //     .contains(newHint)) {
-            // if (_hints[widget.sizeTitles.length - index - 1] == null ||
-            //     _hints[widget.sizeTitles.length - index - 1] == "")
-            //   _hints[widget.sizeTitles.length - index - 1] =
-            //       _hints[widget.sizeTitles.length - index - 1] + newHint;
-            // else
-            //   _hints[widget.sizeTitles.length - index - 1] =
-            //       _hints[widget.sizeTitles.length - index - 1] + ", " + newHint;
-            // }
             _hints[widget.sizeTitles.length - index - 1] = newHint;
 
             // tempDropDownItems =
@@ -300,12 +177,7 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     print("5555555555555555555555555555555 : tempSizesValue : $tempSizesValue");
-    // if (tempIndexInOptionWidgets != widget.indexInOptionWidgets) {
-    //   initializeValues();
-    // }
 
-    // print("widget.sizeValue : ${widget.sizeValue}");
-    // print("tempSizesValue : $tempSizesValue");
     return Column(
       children: [
         Expanded(
@@ -393,23 +265,6 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
                                 "changeeeeeeeeeee : newHintList : $newHintList");
                             setState(() {
                               _hints = newHintList;
-                              //
-                              //   if (!_hints[widget.sizeTitles.length - index - 1]
-                              //       .contains(newHint))
-                              //     _hints[widget.sizeTitles.length - index - 1] =
-                              //         _hints[widget.sizeTitles.length - index - 1] +
-                              //             "، " +
-                              //             newHint;
-                              // }
-                              // if (_hints.length < widget.sizeTitles.length - index)
-                              //   _hints.add(newHint);
-                              // else
-                              //   _hints[widget.sizeTitles.length - index - 1] = newHint;
-                              //
-                              // dropDownItems =
-                              // updateDropDownsSizes(
-                              //     mediaQuery, _hint, tempDropDownItems, index);
-                              // initializeValues();
                             });
                             print(
                                 "_hints[${widget.sizeTitles.length - index - 1}] : ${_hints[widget.sizeTitles.length - index - 1]}");
@@ -417,12 +272,12 @@ class _SizeFiltersPanelState extends State<SizeFiltersPanel> {
                             // initializeValues();
                           },
                         ),
-                        Positioned(
-                          top: 47,
-                          right: 40,
-                          child: Text(
-                              _hints[widget.sizeTitles.length - index - 1]),
-                        ),
+                        // Positioned(
+                        //   top: 47,
+                        //   right: 40,
+                        //   child: Text(
+                        //       _hints[widget.sizeTitles.length - index - 1]),
+                        // ),
                       ],
                     ),
                   ),

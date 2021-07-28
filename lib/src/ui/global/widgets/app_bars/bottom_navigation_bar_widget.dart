@@ -5,6 +5,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
@@ -27,29 +28,58 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    return SizedBox(
+    return Container(
+      color: Colors.white,
       // height: BOTTOM_NAVIGATION_BAR_HEIGHT,
       height: 0.09 * _screenSize.height, // 58,
       child: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
         selectedItemColor: MAIN_BLUE_COLOR,
-        selectedFontSize: 0.02 * _screenSize.height, //13,
-        unselectedFontSize: 0.017 * _screenSize.height, //11,
+        backgroundColor: Colors.white,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: widget.selectedIndex == 0
-                ? SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: BottomNavigationBarSvgImages.enableHomeIcon)
-                : SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: BottomNavigationBarSvgImages.disableHomeIcon),
+                ?
+                // SizedBox(
+                //     width: 0.035 * _screenSize.height, //23,
+                //     height: 0.035 * _screenSize.height, //23,
+                //     child
+                // :
+                SvgPicture.asset(
+                    'assets/images/svg_images/global/new/fi-sr-home.svg',
+                    color: MAIN_BLUE_COLOR,
+                    width: 20,
+                    height: 20,
+                  )
+                // BottomNavigationBarSvgImages.enableHomeIcon,
+                // )
+                :
+
+                // SizedBox(
+                //     width: 0.035 * _screenSize.height, //23,
+                //     height: 0.035 * _screenSize.height, //23,
+                //     child
+                // :
+                SvgPicture.asset(
+                    'assets/images/svg_images/global/new/fi-rr-home.svg',
+                    color: Colors.grey,
+                    width: 20,
+                    height: 20,
+                  ),
+            //  BottomNavigationBarSvgImages.disableHomeIcon,
+            // )
+
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.home".tr(),
+              style: TextStyle(
+                // fontSize: 0.027 * _screenSize.width, //10,
+                // fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -65,6 +95,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.branches".tr(),
+              style: TextStyle(
+                fontSize: 0.03 * _screenSize.width, //11
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -81,6 +115,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.store".tr(),
+              style: TextStyle(
+                fontSize: 0.03 * _screenSize.width, //11
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -96,6 +134,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.shopping_basket".tr(),
+              style: TextStyle(
+                fontSize: 0.03 * _screenSize.width, //11
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           BottomNavigationBarItem(
@@ -111,6 +153,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.profile".tr(),
+              style: TextStyle(
+                fontSize: 0.03 * _screenSize.width, //11
+                fontWeight: FontWeight.w500,
+              ),
             ),
           )
         ],

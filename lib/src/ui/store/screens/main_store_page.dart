@@ -10,7 +10,6 @@ import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 import 'package:jeanswest/src/constants/global/constValues/constants.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/category.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/product-add-to-card-info.dart';
-import 'package:jeanswest/src/constants/global/globalInstances/store/category_colors.dart';
 import 'package:jeanswest/src/models/api_body/productFilter/product-req-body.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-data.dart';
 import 'package:jeanswest/src/models/api_response/productRes/list-of-products-res.dart';
@@ -26,7 +25,6 @@ import 'package:jeanswest/src/ui/store/widgets/filterBar/panels/sub_group_filter
 import 'package:jeanswest/src/ui/store/widgets/filterBar/sort_bar_widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/searchBar/store-search-bar-widget.dart';
 import 'package:jeanswest/src/ui/store/widgets/storeBody/store-main-body-widget.dart';
-import 'package:jeanswest/src/utils/helper/global/convertation-helper.dart';
 import 'package:jeanswest/src/utils/helper/global/helper.dart';
 import 'package:jeanswest/src/utils/helper/store/helper.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -333,8 +331,6 @@ class _MainStorePageState extends State<MainStorePage> {
     if (engNameOfSortBy != SEARCH_SORT) {
       for (int index = 0; index < ageCheckBoxValue.length; index++) {
         if (ageCheckBoxValue[index])
-          // ageSelected.add(listOfCategory.ageGroup[index]);
-          // TODO ! age
           genderSelected.add(listOfCategory
               .ageGroup[index]
               .translation[listOfCategory.ageGroup[index].translation
@@ -345,8 +341,10 @@ class _MainStorePageState extends State<MainStorePage> {
 
       for (int index = 0; index < listOfCategory.colorFamily.length; index++) {
         if (colorCheckBoxValue[index]) {
-          List<String> _splitedColor =
-              splitStringFromDash(listOfCategory.colorFamily[index].value);
+          List<String> _splitedColor = listOfCategory.colorFamily[index].value;
+
+          // List<String> _splitedColor =
+          // splitStringFromDash(listOfCategory.colorFamily[index].value);
           _splitedColor.forEach((element) {
             colorSelected.add(element);
           });
@@ -355,7 +353,6 @@ class _MainStorePageState extends State<MainStorePage> {
       //
       for (int index = 0; index < genderCheckBoxValue.length; index++) {
         if (genderCheckBoxValue[index])
-          // TODO ! gender
           genderSelected.add(listOfCategory
               .gender[index]
               .translation[listOfCategory.gender[index].translation
@@ -437,7 +434,7 @@ class _MainStorePageState extends State<MainStorePage> {
         });
       },
     );
-    print("7777777777777777777777 filter : ${filter.map}");
+    print("0.0.0.0.0.0.0.0.0 , filter created : $filter");
     return _filter;
   }
 
@@ -467,7 +464,7 @@ class _MainStorePageState extends State<MainStorePage> {
       _getProducts(page: pageNumber);
     }
 
-    return Container(
+    return  Container(
       width: _screenSize.width,
       height: _screenSize.height,
       child: SlidingUpPanel(

@@ -20,7 +20,7 @@ class CategoryObjectRes extends Equatable {
   @JsonKey(name: 'name')
   String name;
   @JsonKey(name: 'value')
-  String value;
+  List<String> value;
   @JsonKey(name: 'active')
   bool active;
   @JsonKey(name: 'priority')

@@ -3,6 +3,7 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -14,15 +15,20 @@ class SingleProductMainInfoWidget extends StatefulWidget {
   final SingleProductInfoRes product;
   final bool isFave;
   final Function(bool) changeFave;
+
+  final Function(int) changeSelectedImage;
   final Function() openImageExpandedPanel;
   final Function() openExistInBranches;
+  final CarouselController carouselController;
   const SingleProductMainInfoWidget({
     Key key,
     @required this.product,
     @required this.isFave,
     @required this.changeFave,
+    @required this.changeSelectedImage,
     @required this.openExistInBranches,
     @required this.openImageExpandedPanel,
+    @required this.carouselController,
   }) : super(key: key);
   @override
   _SingleProductMainInfoWidgetState createState() =>
@@ -58,9 +64,12 @@ class _SingleProductMainInfoWidgetState
               images: _selectedProduct.banimodeDetails.images.thickboxDefault,
               linkProductForShare: 'تستیییی',
               isFave: widget.isFave,
+              changeSelectedImage: (int newIndex) =>
+                  widget.changeSelectedImage(newIndex),
               changeFave: (bool newIsFave) => widget.changeFave(newIsFave),
               openImageExpandedPanel: () => widget.openImageExpandedPanel(),
               productSKU: _selectedProduct.sku,
+              carouselController: widget.carouselController,
             ),
             SingleProductTitleWidget(
               brand: _selectedProduct.banimodeDetails.productManufacturerEnName,
