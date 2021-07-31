@@ -83,9 +83,6 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
                     textFielIsActive: widget.searchTextFeildIsEnabled,
                     textEditingController: widget.searchTextEditingController,
                     onChangeSearchField: (String value) {
-                      //  TODO
-
-                      print("aaaaaaaaaaaaa onChangeSearchField : $value");
                       widget.sumbittSearch(value);
                     },
                     focusNode: widget.searchFocusNode,

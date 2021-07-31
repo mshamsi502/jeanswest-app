@@ -12,6 +12,7 @@ import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllIn
 import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 // import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-tickets-info.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTickets/data-ticket.dart';
+import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 // import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
@@ -76,26 +77,9 @@ class _SupportPageState extends State<SupportPage>
 
   @override
   Widget build(BuildContext context) {
-    // if (tempUserTickets[tempUserTickets.length - 1]
-    //         .context[
-    //             tempUserTickets[tempUserTickets.length - 1].context.length - 1]
-    //         .text !=
-    //     widget
-    //         .userTickets[widget.userTickets.length - 1]
-    //         .context[widget
-    //                 .userTickets[widget.userTickets.length - 1].context.length -
-    //             1]
-    //         .text) {
-    //   setState(() {
-    //     tempUserTickets = widget.userTickets;
-    //   });
-    // print(
-    //     "last ticket : ${tempUserTickets[tempUserTickets.length - 1].context[tempUserTickets[tempUserTickets.length - 1].context.length - 1].text }");
-    print(
-        "222 last ticket : ${userTickets[userTickets.length - 1].context[userTickets[userTickets.length - 1].context.length - 1].text}");
-    // print(
-    //     "222 last ticket : ${widget.userTickets[widget.userTickets.length - 1].context[widget.userTickets[widget.userTickets.length - 1].context.length - 1].text}");
-    // }
+    if (userTickets != null && userTickets.length > 0)
+      print(
+          "222 last ticket : ${userTickets[userTickets.length - 1].context[userTickets[userTickets.length - 1].context.length - 1].text}");
 
     var _screenSize = MediaQuery.of(context).size;
     return Container(
@@ -220,10 +204,14 @@ class _SupportPageState extends State<SupportPage>
                   color: Colors.white,
                   child: Column(
                     children: [
-                      AppBarWithCloseWidget(
+                      AppBarWithBackWidget(
                         title: 'پشتیبانی',
-                        closeOnTap: () => Navigator.pop(context),
+                        onTapBack: () => Navigator.pop(context),
                       ),
+                      // AppBarWithCloseWidget(
+                      //   title: 'پشتیبانی',
+                      //   closeOnTap: () => Navigator.pop(context),
+                      // ),
                       Container(
                         height: 0.0625 * _screenSize.height, //40,
                         child: TabBar(

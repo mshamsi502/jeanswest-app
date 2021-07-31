@@ -46,12 +46,14 @@ class MainProfilePage extends StatefulWidget {
   // final Size screenSize;
   final bool showCompeletProfileMessage;
   final Function(bool) changeCompeletProfileMessage;
+  final Function(bool) changeShowButtonNavigationBar;
 
   const MainProfilePage({
     Key key,
-    this.isAuth,
-    this.showCompeletProfileMessage,
-    this.changeCompeletProfileMessage,
+    @required this.isAuth,
+    @required this.showCompeletProfileMessage,
+    @required this.changeCompeletProfileMessage,
+    @required this.changeShowButtonNavigationBar,
     // this.screenSize,
   }) : super(key: key);
   @override
@@ -68,9 +70,7 @@ class _MainProfilePageState extends State<MainProfilePage>
   ScrollController listViewScrollController;
   SingleLevelCard userLevel;
   String userLevelAssets;
-  // LevelCard userLevel;
   String userLevelName;
-  // LevelCard nextLevel;
   SingleLevelCard nextLevel;
   // LevelCard preLevel;
   bool haveUnreadMessage;
@@ -82,6 +82,9 @@ class _MainProfilePageState extends State<MainProfilePage>
   int showingCard = 0;
   //
   Map<String, dynamic> cardsInfoMap;
+  //
+  int selectedCopoun = 0;
+  PanelController copounPanelController = new PanelController();
 
   @override
   void initState() {
@@ -185,6 +188,14 @@ class _MainProfilePageState extends State<MainProfilePage>
         });
         buildProfile();
       },
+      openCopounPanel: (int index) {
+        setState(() {
+          selectedCopoun = index;
+        });
+        copounPanelController.open();
+      },
+      panelController: copounPanelController,
+      selectedCoupon: selectedCopoun,
     );
   }
 
@@ -223,6 +234,12 @@ class _MainProfilePageState extends State<MainProfilePage>
               0.083 * _screenSize.width, //30
             ),
           ),
+          onPanelOpened: () {
+            widget.changeShowButtonNavigationBar(false);
+          },
+          onPanelClosed: () {
+            widget.changeShowButtonNavigationBar(true);
+          },
           panel: CardsInfoWidget(
             levelCards: levelCardsData,
             cardsInfo: cardsInfoMap,

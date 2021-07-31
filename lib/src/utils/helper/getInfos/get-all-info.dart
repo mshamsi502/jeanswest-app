@@ -78,7 +78,7 @@ Future<void> getAllUserInfo({@required Function() noAuth}) async {
     print(
         'USER_ADDRESSES ********************************************************');
     userAddresses = await userAddressesInfo();
-    // print("userAddresses : ${userAddresses}");
+    // print("userAddresses : ${userAddresses.}");
     print(
         'USER_FAVORITES ********************************************************');
     userFavorites = await userFavoritesInfo(user.tblPosCustomersID);

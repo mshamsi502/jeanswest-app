@@ -482,6 +482,7 @@ String updatePerNameOfSortBy(String engNameOfSortBy, int ascentNumber) {
 }
 
 ListOfCategory cleanCategotyElements(ListOfCategory _cat) {
+  //  TODO: Clean Geted Category
   // ! sort groups
   _cat.group.sort((a, b) {
     return a.priority.compareTo(b.priority);

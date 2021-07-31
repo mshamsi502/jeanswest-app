@@ -7,8 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/bottom_navigation_bar_svg_images.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   final int selectedIndex;
@@ -36,125 +34,139 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         unselectedItemColor: Colors.grey,
         selectedItemColor: MAIN_BLUE_COLOR,
         backgroundColor: Colors.white,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
+        selectedFontSize: 0.027 * _screenSize.width, //10,
+        unselectedFontSize: 0.027 * _screenSize.width, //10,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: widget.selectedIndex == 0
-                ?
-                // SizedBox(
-                //     width: 0.035 * _screenSize.height, //23,
-                //     height: 0.035 * _screenSize.height, //23,
-                //     child
-                // :
-                SvgPicture.asset(
-                    'assets/images/svg_images/global/new/fi-sr-home.svg',
-                    color: MAIN_BLUE_COLOR,
-                    width: 20,
-                    height: 20,
-                  )
-                // BottomNavigationBarSvgImages.enableHomeIcon,
-                // )
-                :
-
-                // SizedBox(
-                //     width: 0.035 * _screenSize.height, //23,
-                //     height: 0.035 * _screenSize.height, //23,
-                //     child
-                // :
-                SvgPicture.asset(
-                    'assets/images/svg_images/global/new/fi-rr-home.svg',
-                    color: Colors.grey,
-                    width: 20,
-                    height: 20,
-                  ),
-            //  BottomNavigationBarSvgImages.disableHomeIcon,
-            // )
-
+            icon: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0.0046 * _screenSize.height, //3,
+              ),
+              child: widget.selectedIndex == 0
+                  ? SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-sr-home.svg',
+                      color: MAIN_BLUE_COLOR,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    )
+                  : SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-rr-home.svg',
+                      color: Colors.grey,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    ),
+            ),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.home".tr(),
               style: TextStyle(
-                // fontSize: 0.027 * _screenSize.width, //10,
-                // fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           BottomNavigationBarItem(
-            icon: widget.selectedIndex == 1
-                ? SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: BottomNavigationBarSvgImages.enableBranchIcon)
-                : SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: BottomNavigationBarSvgImages.disableBranchIcon),
+            icon: Padding(
+              padding: EdgeInsets.symmetric(vertical: 3),
+              child: widget.selectedIndex == 1
+                  ? SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-sr-marker.svg',
+                      color: MAIN_BLUE_COLOR,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    )
+                  : SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-rr-marker.svg',
+                      color: Colors.grey,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    ),
+            ),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.branches".tr(),
               style: TextStyle(
-                fontSize: 0.03 * _screenSize.width, //11
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.store_mall_directory_outlined,
-              color: widget.selectedIndex == 2 ? MAIN_BLUE_COLOR : Colors.grey,
-              size: widget.selectedIndex == 2
-                  ? 0.035 * _screenSize.height //23
-                  : 0.031 * _screenSize.height, //20,
+            icon: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0.0046 * _screenSize.height, //3,
+              ),
+              child: widget.selectedIndex == 2
+                  ? SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-sr-shop.svg',
+                      color: MAIN_BLUE_COLOR,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    )
+                  : SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-rr-shop.svg',
+                      color: Colors.grey,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    ),
             ),
-            // widget.selectedIndex == 2
-            //     ? BottomNavigationBarSvgImages.enableBranchIcon
-            //     : BottomNavigationBarSvgImages.disableBranchIcon,
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.store".tr(),
               style: TextStyle(
-                fontSize: 0.03 * _screenSize.width, //11
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           BottomNavigationBarItem(
-            icon: widget.selectedIndex == 3
-                ? SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: GlobalSvgImages.enableShoppingBasketIcon)
-                : SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: GlobalSvgImages.disableShoppingBasketIcon),
+            icon: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0.0046 * _screenSize.height, //3,
+              ),
+              child: widget.selectedIndex == 3
+                  ? SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-sr-shopping-cart.svg',
+                      color: MAIN_BLUE_COLOR,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    )
+                  : SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-rr-shopping-cart.svg',
+                      color: Colors.grey,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    ),
+            ),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.shopping_basket".tr(),
               style: TextStyle(
-                fontSize: 0.03 * _screenSize.width, //11
                 fontWeight: FontWeight.w500,
               ),
             ),
           ),
           BottomNavigationBarItem(
-            icon: widget.selectedIndex == 4
-                ? SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: BottomNavigationBarSvgImages.enableProfileIcon)
-                : SizedBox(
-                    width: 0.035 * _screenSize.height, //23,
-                    height: 0.035 * _screenSize.height, //23,
-                    child: BottomNavigationBarSvgImages.disableProfileIcon),
+            icon: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0.0046 * _screenSize.height, //3,
+              ),
+              child: widget.selectedIndex == 4
+                  ? SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-sr-user.svg',
+                      color: MAIN_BLUE_COLOR,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    )
+                  : SvgPicture.asset(
+                      'assets/images/svg_images/global/new/fi-rr-user.svg',
+                      color: Colors.grey,
+                      width: 0.054 * _screenSize.width, //20
+                      height: 0.054 * _screenSize.width, //20
+                    ),
+            ),
             // ignore: deprecated_member_use
             title: Text(
               "bottom_navigation_bar_widget.profile".tr(),
               style: TextStyle(
-                fontSize: 0.03 * _screenSize.width, //11
                 fontWeight: FontWeight.w500,
               ),
             ),

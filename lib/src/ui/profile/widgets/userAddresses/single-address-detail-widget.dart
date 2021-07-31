@@ -123,33 +123,54 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
     scrollController = new ScrollController();
     editScrollController = new ScrollController();
     newEditingLatLng = LatLng(
-      widget.address.latitude,
-      widget.address.longitude,
+      widget.address != null && widget.address.latitude != null
+          ? widget.address.latitude
+          : 35.699749,
+      widget.address != null && widget.address.longitude != null
+          ? widget.address.longitude
+          : 51.3340,
     );
 
     // ignore: deprecated_member_use
     allProvince = new List<Province>();
     // ignore: deprecated_member_use
     searchedProvince = new List<Province>();
-    selectedProvince = widget.address.province.name;
+    selectedProvince = widget.address != null &&
+            widget.address.province != null &&
+            widget.address.province.name != null
+        ? widget.address.province.name
+        : "";
     // ignore: deprecated_member_use
     allCity = new List<City>();
     // ignore: deprecated_member_use
     searchedCity = new List<City>();
-    selectedCity = widget.address.city.name;
+    selectedCity = widget.address != null &&
+            widget.address.city != null &&
+            widget.address.city.name != null
+        ? widget.address.city.name
+        : "";
+
     // ignore: deprecated_member_use
     allDistrict = new List<District>();
     // ignore: deprecated_member_use
     searchedDistrict = new List<District>();
-    selectedDistrict = widget.address.district.name;
+    selectedDistrict = widget.address != null &&
+            widget.address.district != null &&
+            widget.address.district.name != null
+        ? widget.address.district.name
+        : "";
     //
     tempMapPanelState = widget.mapPanelState;
     tempIndexAddress = widget.indexAddress;
     updateFields();
     createGoogleMap(
       LatLng(
-        widget.address.latitude ?? 35.7447,
-        widget.address.longitude ?? 51.3340,
+        widget.address != null && widget.address.latitude != null
+            ? widget.address.latitude
+            : 35.699749,
+        widget.address != null && widget.address.longitude != null
+            ? widget.address.longitude
+            : 51.3340,
       ),
     ).then((_) async {
       await Future.delayed(Duration(milliseconds: 1000));
@@ -605,8 +626,14 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                           unitNumberTextEditingController.text,
                                       postalCode:
                                           postalCodeTextEditingController.text,
-                                      latitude: newEditingLatLng.latitude,
-                                      longitude: newEditingLatLng.longitude,
+                                      latitude: newEditingLatLng != null &&
+                                              newEditingLatLng.latitude != null
+                                          ? newEditingLatLng.latitude
+                                          : 35.7447,
+                                      longitude: newEditingLatLng != null &&
+                                              newEditingLatLng.longitude != null
+                                          ? newEditingLatLng.longitude
+                                          : 51.3340,
                                       isUser: true,
                                       title: '',
                                     );
@@ -635,8 +662,14 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
                                           unitNumberTextEditingController.text,
                                       postalCode:
                                           postalCodeTextEditingController.text,
-                                      latitude: newEditingLatLng.latitude,
-                                      longitude: newEditingLatLng.longitude,
+                                      latitude: newEditingLatLng != null &&
+                                              newEditingLatLng.latitude != null
+                                          ? newEditingLatLng.latitude
+                                          : 35.7447,
+                                      longitude: newEditingLatLng != null &&
+                                              newEditingLatLng.longitude != null
+                                          ? newEditingLatLng.longitude
+                                          : 51.3340,
                                       // isUser: true,
                                       // title: '',
                                     );
@@ -733,8 +766,8 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
       },
       mapType: MapType.normal,
       initialCameraPosition: CameraPosition(
-        target: latLng,
-        zoom: latLng.latitude != null ? 16 : 14,
+        target: latLng ?? LatLng(35.699749, 51.3340),
+        zoom: latLng == null || latLng.latitude == null ? 16 : 14,
       ),
     );
   }
@@ -839,12 +872,30 @@ class _SingleAddressDetailWidgetState extends State<SingleAddressDetailWidget> {
             widget.address.recieverFullName ?? "";
         recieverPhoneNumberTextEditingController.text =
             widget.address.receiverMobile ?? "";
-        selectedProvince = widget.address.province.name;
-        selectedDistrict = widget.address.district.name;
-        selectedCity = widget.address.city.name;
+        selectedProvince = widget.address != null &&
+                widget.address.province != null &&
+                widget.address.province.name != null
+            ? widget.address.province.name
+            : "";
+        selectedDistrict = widget.address != null &&
+                widget.address.district != null &&
+                widget.address.district.name != null
+            ? widget.address.district.name
+            : "";
+
+        selectedCity = widget.address != null &&
+                widget.address.city != null &&
+                widget.address.city.name != null
+            ? widget.address.city.name
+            : "";
+
         newEditingLatLng = LatLng(
-          widget.address.latitude,
-          widget.address.longitude,
+          widget.address != null && widget.address.latitude != null
+              ? widget.address.latitude
+              : 35.699749,
+          widget.address != null && widget.address.longitude != null
+              ? widget.address.longitude
+              : 51.3340,
         );
       }
       mapIsOpen = (widget.mapPanelState == PanelState.OPEN);

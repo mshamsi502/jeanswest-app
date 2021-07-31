@@ -16,7 +16,9 @@ class CustomTextFieldWidget extends StatefulWidget {
   final Color titleColor;
   final int lines;
   final String initText;
-
+//
+  final Color customBackColor;
+//
   final Color textColor;
   final Color hintTextColor;
   final bool isEnable;
@@ -44,6 +46,7 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.isEnable = true,
     this.hintTextColor = Colors.grey,
     this.textColor = Colors.black,
+    this.customBackColor = Colors.white,
     this.internalIcon,
     this.externalIcon,
     this.hasValidation = false,
@@ -52,7 +55,7 @@ class CustomTextFieldWidget extends StatefulWidget {
     this.inputFormatters = const [],
     this.textInputType = TextInputType.multiline,
     @required this.width,
-    this.customPadding = const EdgeInsets.symmetric(horizontal: 10),
+    this.customPadding,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomTextFieldWidgetState();
 }
@@ -112,8 +115,13 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
     }
 
     return Container(
-      // color: Colors.green,
-      padding: widget.customPadding,
+      color: widget.customBackColor,
+      padding: widget.customPadding ??
+          EdgeInsets.only(
+            left: 0.027 * widget.mediaQuery.size.width,
+            right: 0.027 * widget.mediaQuery.size.width,
+            top: 0.0078 * widget.mediaQuery.size.height,
+          ),
       // EdgeInsets.symmetric(
       //   horizontal: 0.027 * widget.mediaQuery.size.width, //10,
       // ),
@@ -213,7 +221,8 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                               hintText: widget.initText ?? '',
                               hintStyle: TextStyle(color: widget.hintTextColor),
                               contentPadding: EdgeInsets.symmetric(
-                                vertical: 5,
+                                vertical:
+                                    0.0078 * widget.mediaQuery.size.height, //5,
                                 horizontal:
                                     0.055 * widget.mediaQuery.size.width, // 20,
                               ),

@@ -52,7 +52,8 @@ class _AddressesListPageState extends State<AddressesListPage> {
   @override
   Widget build(BuildContext context) {
     _screenSize = MediaQuery.of(context).size;
-    print('address length : ${userAddresses.length}');
+    if (userAddresses != null && userAddresses.length > 0)
+      print('address length : ${userAddresses.length}');
     return Container(
       color: Colors.grey,
       child: SafeArea(
@@ -90,17 +91,19 @@ class _AddressesListPageState extends State<AddressesListPage> {
                   closeDeletePanel: () => deletePanelController.close(),
                   selectedProduct: selectForDelete,
                   deleteFunction: (int selected) async {
-                    bool res = await deleteUserAddresses(
-                        code: userAddresses[selected].code);
+                    if (userAddresses != null && userAddresses.length > 0) {
+                      bool res = await deleteUserAddresses(
+                          code: userAddresses[selected].code);
 
-                    if (res) {
-                      List<AddressInfoRes> addRes = await userAddressesInfo();
-                      setState(() {
-                        userAddresses = addRes;
-                      });
-                      print('delete success');
-                    } else
-                      print('delete not success ');
+                      if (res) {
+                        List<AddressInfoRes> addRes = await userAddressesInfo();
+                        setState(() {
+                          userAddresses = addRes;
+                        });
+                        print('delete success');
+                      } else
+                        print('delete not success ');
+                    }
                   },
                 ),
                 body: SlidingUpPanel(
@@ -111,9 +114,13 @@ class _AddressesListPageState extends State<AddressesListPage> {
                   onPanelClosed: () => setState(() {
                     wasClose = false;
                   }),
-                  panel: SingleAddressDetailWidget(
+                  panel:
+                      // SizedBox(),
+                      SingleAddressDetailWidget(
                     title: 'جزئیات آدرس',
-                    address: userAddresses[selectForEdit],
+                    address: userAddresses != null && userAddresses.length > 0
+                        ? userAddresses[selectForEdit]
+                        : null,
                     updateAdresses: (List<AddressInfoRes> newAddress) =>
                         setState(() {
                       userAddresses = newAddress;
@@ -153,44 +160,48 @@ class _AddressesListPageState extends State<AddressesListPage> {
                             controller: scrollController,
                             child: Column(
                               children: [
-                                ListView.builder(
-                                  itemCount: userAddresses.length,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Column(
-                                      children: [
-                                        SingleAddressInListWidget(
-                                          address: userAddresses[index],
-                                          indexAddress: index,
-                                          selected: selectForEdit,
-                                          editAddress: (int seleted) {
-                                            setState(() {
-                                              mapPanelState = PanelState.CLOSED;
+                                userAddresses != null &&
+                                        userAddresses.length > 0
+                                    ? ListView.builder(
+                                        itemCount: userAddresses.length,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Column(
+                                            children: [
+                                              SingleAddressInListWidget(
+                                                address: userAddresses[index],
+                                                indexAddress: index,
+                                                selected: selectForEdit,
+                                                editAddress: (int seleted) {
+                                                  setState(() {
+                                                    mapPanelState =
+                                                        PanelState.CLOSED;
 
-                                              selectForEdit = seleted;
-                                            });
-                                            editPanelController.open();
-                                          },
-                                          deleteAddress: (int selected) {
-                                            setState(() {
-                                              selectForDelete = selected;
-                                            });
-                                            deletePanelController.open();
-                                          },
-                                        ),
-                                        Divider(
-                                          height:
-                                              0.0138 * _screenSize.width, //5,
-                                          thickness:
-                                              0.00555 * _screenSize.width, //2,
-                                          color: Colors.grey[300],
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                ),
+                                                    selectForEdit = seleted;
+                                                  });
+                                                  editPanelController.open();
+                                                },
+                                                deleteAddress: (int selected) {
+                                                  setState(() {
+                                                    selectForDelete = selected;
+                                                  });
+                                                  deletePanelController.open();
+                                                },
+                                              ),
+                                              Divider(
+                                                height: 0.0138 *
+                                                    _screenSize.width, //5,
+                                                thickness: 0.00555 *
+                                                    _screenSize.width, //2,
+                                                color: Colors.grey[300],
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      )
+                                    : SizedBox(),
                                 SizedBox(
                                   height: 0.015 * _screenSize.height, //10,
                                 )

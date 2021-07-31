@@ -14,6 +14,7 @@ import 'package:jeanswest/src/ui/profile/widgets/main_profile_page/qr_code_widge
 import 'package:jeanswest/src/ui/profile/screens/tab_bar_view_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/membership_level_page.dart';
 import 'package:jeanswest/src/ui/profile/screens/membership/jeanpoint_and_coupons_page.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class AuthProfileAppBarWidget extends StatefulWidget {
   final String userLevelName;
@@ -38,6 +39,8 @@ class AuthProfileAppBarWidget extends StatefulWidget {
 }
 
 class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
+  int selectedCopoun = 0;
+  PanelController panelController = new PanelController();
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -181,9 +184,21 @@ class _AuthProfileAppBarWidgetState extends State<AuthProfileAppBarWidget> {
                                                 JeanpointAndCouponsPage(
                                                   userJeanpointBons:
                                                       userJeanpointBons,
+                                                  openPanel: (int index) {
+                                                    setState(() {
+                                                      selectedCopoun = index;
+                                                    });
+                                                    panelController.open();
+                                                  },
+                                                  panelController:
+                                                      panelController,
                                                 ),
                                               ],
                                               bottomButtonFunction: () {},
+                                              userJeanpointBons:
+                                                  userJeanpointBons,
+                                              panelController: panelController,
+                                              selectedCoupon: selectedCopoun,
                                             ),
                                           ),
                                         ),

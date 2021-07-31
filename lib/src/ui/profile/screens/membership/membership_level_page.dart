@@ -99,8 +99,9 @@ class _MembershipLevelPageState extends State<MembershipLevelPage> {
             ),
             Column(
               children: [
-                SizedBox(
+                Container(
                   height: 0.0078 * _screenSize.height, //5,
+                  color: F7_BACKGROUND_COLOR,
                 ),
                 CurrentLevelWidget(
                   userLevelName: widget.userLevelName,

@@ -27,8 +27,7 @@ import 'package:jeanswest/src/ui/profile/screens/more_menu_list/return_process_p
 import 'package:jeanswest/src/ui/profile/screens/favoritesList/favorites-list-screen.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/return-policy-data.dart';
 import 'package:jeanswest/src/constants/global/globalInstances/profile/about-us-data.dart';
-
-import 'package:jeanswest/src/constants/global/globalInstances/profile/userAllInfo/user-favorites-info.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 List<Widget> createProfileListMenuPages({
   // Size screenSize,
@@ -41,6 +40,9 @@ List<Widget> createProfileListMenuPages({
   String assetsLevelCard,
   int moneyBuying,
   Function(UserMainInfo) rebuild,
+  @required int selectedCoupon,
+  @required Function(int) openCopounPanel,
+  @required PanelController panelController,
 }) {
   // ignore: deprecated_member_use
   List<Widget> profileListMenu = new List<Widget>();
@@ -63,10 +65,16 @@ List<Widget> createProfileListMenuPages({
           assetsLevelCard: assetsLevelCard,
         ),
         JeanpointAndCouponsPage(
-            // ignore: deprecated_member_use
-            userJeanpointBons: userJeanpointBons ?? List<UserCouponsInfo>()),
+          // ignore: deprecated_member_use
+          userJeanpointBons: userJeanpointBons ?? List<UserCouponsInfo>(),
+          openPanel: (int index) => openCopounPanel(index),
+          panelController: panelController,
+        ),
       ],
       bottomButtonFunction: () {},
+      userJeanpointBons: userJeanpointBons ?? [],
+      selectedCoupon: selectedCoupon,
+      panelController: panelController,
     ),
   );
   profileListMenu.add(OrderListScreen());

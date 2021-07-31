@@ -3,7 +3,6 @@
 // *   Created Date & Time:  2021-01-01  ,  10:00 AM
 // ****************************************************************************
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';

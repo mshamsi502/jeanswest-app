@@ -21,6 +21,7 @@ Map<String, dynamic> createBottomNavigationBarPages({
       showCompeletProfileMessage: showCompeletProfileMessage,
       changeCompeletProfileMessage: (bool value) =>
           showCompeletProfileMessage = value,
+      changeShowButtonNavigationBar: changeShowButtonNavigationBar,
     ));
   else {
     _children.add(Container(color: Colors.white));
@@ -37,6 +38,7 @@ Map<String, dynamic> createBottomNavigationBarPages({
     showCompeletProfileMessage: showCompeletProfileMessage,
     changeCompeletProfileMessage: (bool value) =>
         showCompeletProfileMessage = value,
+    changeShowButtonNavigationBar: changeShowButtonNavigationBar,
   ));
   pagesCreatedFinished = true;
   return {
