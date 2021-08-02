@@ -16,7 +16,6 @@ class StoreMainBodyWidget extends StatefulWidget {
   final ScrollController listOfProductsScrollController;
   final Function(int) openAddToCardPanel;
   final bool isLoadingForGetting;
-  // final Function() openSortByPanel;
 
   final bool isGridView;
   const StoreMainBodyWidget({
@@ -26,7 +25,6 @@ class StoreMainBodyWidget extends StatefulWidget {
     @required this.isGridView,
     @required this.listOfProductsScrollController,
     @required this.isLoadingForGetting,
-    // @required this.openSortByPanel,
   }) : super(key: key);
   @override
   _StoreMainBodyWidgetState createState() => _StoreMainBodyWidgetState();
@@ -34,7 +32,6 @@ class StoreMainBodyWidget extends StatefulWidget {
 
 class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
     with SingleTickerProviderStateMixin {
-  // ScrollController scrollController = new ScrollController();
 
   int selectedProduct;
   List<SingleProductInfoRes> tempProducts = [];
@@ -45,7 +42,6 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
   //
   double currentScrollPosition;
   int scrollOnIndex;
-  // double percentScroll = 0;
   //
 
   GifController controller;
@@ -64,12 +60,20 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
           widget.listOfProductsScrollController.position.maxScrollExtent *
           tempProducts.length);
       scrollOnIndex = tempIsGridView ? (_temp / 2).floor() : (_temp).floor();
+      //
+      Future.delayed(Duration(milliseconds: 300)).then((_) {
+        if (widget.isLoadingForGetting)
+          widget.listOfProductsScrollController.animateTo(
+            widget.listOfProductsScrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 100),
+            curve: Curves.linear,
+          );
+      });
     });
     super.initState();
   }
 
   updateProducts() {
-    // print("updaaaaaaaaaaaaaaaaaaaaaaaating ...");
     setState(() {
       List<SingleProductInfoRes> _newProducts = widget.products;
       int minLength = _newProducts.length <= tempProducts.length
@@ -92,23 +96,17 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
       if (!tempIsGridView && widget.isGridView) {
         //
         scrollOnIndex = (scrollOnIndex / 2).floor();
-        // print("/**/*/*/*/*/* change to grid, scrollOnIndex : $scrollOnIndex");
         widget.listOfProductsScrollController.jumpTo(
             (scrollOnIndex / tempProducts.length) *
                 widget.listOfProductsScrollController.position.maxScrollExtent);
       } else if (tempIsGridView && !widget.isGridView) {
-        //
-        // print("/**/*/*/*/*/*/* change to lits, scrollOnIndex : $scrollOnIndex");
+        
         widget.listOfProductsScrollController.jumpTo(scrollOnIndex *
             widget.listOfProductsScrollController.position.maxScrollExtent);
       }
       tempIsGridView = widget.isGridView;
       activeProducts = createActiveProducts(tempProducts);
-      // if (widget.products != null && widget.products.length > 0) {
-      // print("widget.products.length : ${widget.products.length}");
-      // print("tempProducts.length : ${tempProducts.length}");
-      // print("activeProducts.length : ${activeProducts.length}");
-      // }
+
     });
   }
 
@@ -134,14 +132,12 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-    // if (widget.products != null && widget.products.length > 0) {
-    //   print("widget.products.length : ${widget.products.length}");
-    //   print("tempProducts.length : ${tempProducts.length}");
-    //   print("activeProducts.length : ${activeProducts.length}");
-    //   print("tempProducts : $tempProducts");
-    //   print("widget.products : ${widget.products}");
-    //   print("-------------------------------------------------------");
-    // }
+    // if (widget.isLoadingForGetting)
+    //   widget.listOfProductsScrollController.animateTo(
+    //     widget.listOfProductsScrollController.position.maxScrollExtent,
+    //     duration: Duration(milliseconds: 100),
+    //     curve: Curves.linear,
+    //   );
     if (tempProducts == null ||
         tempProducts.length != widget.products.length ||
         tempProducts.first.barcode != widget.products.first.barcode ||
@@ -257,9 +253,9 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                         : Container(),
                                   ],
                                 ),
-                                SizedBox(
-                                  height: 0.031 * _screenSize.height, //20,
-                                ),
+                                // SizedBox(
+                                //   height: 0.031 * _screenSize.height, //20,
+                                // ),
                                 widget.isLoadingForGetting &&
                                         indexOfGrid ==
                                             (tempProducts.length / 2).ceil() - 1

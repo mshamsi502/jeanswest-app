@@ -45,7 +45,6 @@ class _SortBarWidgetState extends State<SortBarWidget> {
         boxShadow: [
           BoxShadow(
             blurRadius: 0.027 * _screenSize.width, //10,
-
             spreadRadius: 0.5,
             color: Colors.grey[200],
           ),
@@ -55,11 +54,8 @@ class _SortBarWidgetState extends State<SortBarWidget> {
       ),
       padding: EdgeInsets.only(
         left: 0.054 * _screenSize.width, //20
-
         right: 0.054 * _screenSize.width, //20
-
         top: 0.015 * _screenSize.height, //10,
-
         bottom: 0.023 * _screenSize.height, //15
       ),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -67,7 +63,6 @@ class _SortBarWidgetState extends State<SortBarWidget> {
           onTap: () => widget.openSortPanel(),
           child: Container(
               height: 0.05 * _screenSize.height, //32,
-
               padding: EdgeInsets.symmetric(
                 horizontal: 0.027 * _screenSize.width, //10,
               ),
@@ -81,7 +76,6 @@ class _SortBarWidgetState extends State<SortBarWidget> {
                 Icon(
                   Icons.sort_rounded,
                   size: 0.069 * _screenSize.width, //25,
-
                   color: MAIN_BLUE_COLOR,
                 ),
                 SizedBox(
@@ -90,7 +84,6 @@ class _SortBarWidgetState extends State<SortBarWidget> {
                 Text(widget.title,
                     style: TextStyle(
                       fontSize: 0.038 * _screenSize.width, //14,
-
                       color: MAIN_BLUE_COLOR,
                     )),
               ])),
@@ -102,7 +95,6 @@ class _SortBarWidgetState extends State<SortBarWidget> {
                   ? Icons.view_module_rounded
                   : Icons.view_day_outlined,
               size: 0.0888 * _screenSize.width, //32,
-
               color: MAIN_BLUE_COLOR,
             )),
       ]),

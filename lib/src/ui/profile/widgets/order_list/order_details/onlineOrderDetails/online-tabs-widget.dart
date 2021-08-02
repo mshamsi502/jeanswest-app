@@ -48,6 +48,7 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
+
     return Container(
       color: Colors.grey,
       child: SafeArea(
@@ -118,8 +119,10 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                             0.003125 * _screenSize.height, //2,
                                       ),
                                       child: Text(
-                                        widget.inProgressOrders.length
-                                            .toString(),
+                                        widget.inProgressOrders != null
+                                            ? widget.inProgressOrders.length
+                                                .toString()
+                                            : "0",
                                         style: TextStyle(
                                             fontSize:
                                                 0.03 * _screenSize.width, //11
@@ -175,8 +178,10 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                             0.003125 * _screenSize.height, //2,
                                       ),
                                       child: Text(
-                                        widget.compeletedOrders.length
-                                            .toString(),
+                                        widget.compeletedOrders != null
+                                            ? widget.compeletedOrders.length
+                                                .toString()
+                                            : "0",
                                         style: TextStyle(
                                             fontSize:
                                                 0.03 * _screenSize.width, //11
@@ -232,7 +237,10 @@ class _OnlineTabsWidgetState extends State<OnlineTabsWidget>
                                             0.003125 * _screenSize.height, //2,
                                       ),
                                       child: Text(
-                                        widget.returnedOrders.length.toString(),
+                                        widget.returnedOrders != null
+                                            ? widget.returnedOrders.length
+                                                .toString()
+                                            : "0",
                                         style: TextStyle(
                                             fontSize:
                                                 0.03 * _screenSize.width, //11

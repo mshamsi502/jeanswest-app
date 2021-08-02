@@ -32,7 +32,23 @@ class EditInfoWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _EditInfoWidgetState();
 }
 
-class _EditInfoWidgetState extends State<EditInfoWidget> {
+class _EditInfoWidgetState extends State<EditInfoWidget>
+    with SingleTickerProviderStateMixin {
+  AnimationController expandController;
+  Animation<double> animation;
+  //
+  @override
+  void initState() {
+    expandController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+
+    animation = CurvedAnimation(
+      parent: expandController,
+      curve: Curves.fastOutSlowIn,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
@@ -79,6 +95,9 @@ class _EditInfoWidgetState extends State<EditInfoWidget> {
                               widget.editingControllers[index].text =
                                   _selectedOption;
                             },
+                            closeOtherDropDowns: (bool _) {},
+                            expandController: expandController,
+                            animation: animation,
                           )
                         : GestureDetector(
                             child: CustomTextFieldWidget(

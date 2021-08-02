@@ -83,7 +83,8 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
               child: SlidingUpPanel(
                 controller: sendingPanel,
                 minHeight: 0,
-                maxHeight: 0.61655 * _screenSize.height, //365,
+                // maxHeight: 0.61655 * _screenSize.height, //365,
+                maxHeight: 0.54 * _screenSize.height, //365,
                 backdropEnabled: true,
                 onPanelClosed: () => FocusScope.of(context).unfocus(),
                 borderRadius: BorderRadius.only(
@@ -95,8 +96,8 @@ class _InviteFrindePageState extends State<InviteFrindePage> {
                   ),
                 ),
                 panel: Container(
-                  color: Colors.red,
-                  height: 0.61655 * _screenSize.height, //365,
+                  // color: Colors.red,
+                  // height: 0.61655 * _screenSize.height, //365,
                   child: InviteFriendPanelWidget(
                     closePanel: () => sendingPanel.close(),
                     inviteLink:

@@ -23,8 +23,8 @@ Future<void> getCategoryInfo() async {
     }
   }
   if (listOfCategotyRes != null && listOfCategotyRes.data != null) {
-    print(
-        '_=_ get successfully listOfCategotyRes.data  : ${listOfCategotyRes.data}');
+    // print(
+    //     '_=_ get successfully listOfCategotyRes.data  : ${listOfCategotyRes.data}');
     if (listOfCategotyRes.data.group != null &&
         listOfCategotyRes.data.group.length > 0) {
       listOfCategory = cleanCategotyElements(listOfCategotyRes.data);

@@ -37,9 +37,12 @@ class _DirectionButtonWidgetState extends State<DirectionButtonWidget> {
         width: _screenSize.width * 0.5,
         decoration: BoxDecoration(
           color: MAIN_BLUE_COLOR,
-          borderRadius: BorderRadius.all(Radius.circular(
-            0.0138 * _screenSize.width, //5
-          )),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              0.0138 * _screenSize.width, //5
+            ),
+          ),
+          border: Border.all(color: Colors.white),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

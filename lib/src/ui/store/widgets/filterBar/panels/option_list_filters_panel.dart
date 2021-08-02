@@ -67,6 +67,7 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
               children: [
                 GestureDetector(
                   child: Container(
+                    color: Colors.white,
                     margin: EdgeInsets.all(
                       0.011 * _screenSize.width, //4,
                     ),
@@ -146,9 +147,20 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
           },
         ),
         Expanded(child: SizedBox()),
-        Padding(
+        Container(
           padding: EdgeInsets.all(
             0.054 * _screenSize.width, //20
+          ),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[200],
+                blurRadius: 8,
+                spreadRadius: 1,
+                offset: Offset(3, 0),
+              )
+            ],
+            color: Colors.white,
           ),
           child: AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
@@ -168,7 +180,7 @@ class _OptionListFiltersPanelState extends State<OptionListFiltersPanel> {
           ),
         ),
         SizedBox(
-          height: 0.1328 * _screenSize.height, //85,
+          height: 0.036 * _screenSize.height, //23,
         ),
       ],
     );

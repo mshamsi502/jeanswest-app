@@ -122,27 +122,7 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
             right: 0.027 * widget.mediaQuery.size.width,
             top: 0.0078 * widget.mediaQuery.size.height,
           ),
-      // EdgeInsets.symmetric(
-      //   horizontal: 0.027 * widget.mediaQuery.size.width, //10,
-      // ),
       height: totalHeigth,
-      // height: heightTitle + heightTextField + heightError,
-      // ( // ! heightTextField
-      //         (widget.lines == null || widget.lines == 1)
-      //             ? (0.03125 * widget.mediaQuery.size.height) //20
-      //             : widget.title == null || widget.title == ""
-      //                 ? 0.0355 * widget.mediaQuery.size.height // 21
-      //                 : (0.0355 *
-      //                     widget.mediaQuery.size.height // 21
-      //                     *
-      //                     widget.lines.toInt())) +
-      //     ( // ! heightTitle
-      //         (0.093 * widget.mediaQuery.size.height) //60
-      //     ) +
-      //     ( // ! heightError
-      //         ((!widget.hasValidation || widget.isValid) ? 0 : 20)) +
-      //     0.033 * widget.mediaQuery.size.height, //15,
-      // width: widget.mediaQuery.size.width,
       width: widget.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

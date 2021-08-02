@@ -68,31 +68,24 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
     return Column(
       children: [
         widget.isAddToCardPanel
-            ? Column(
+            ? Row(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(child: SizedBox()),
-                      GestureDetector(
-                        child: Container(
-                          padding: EdgeInsets.all(
-                            0.0138 * _screenSize.width, //5
-                          ),
-                          child: Icon(
-                            Icons.close,
-                            size: 0.069 * _screenSize.width, //25,
-                            color: Colors.black,
-                          ),
-                        ),
-                        onTap: () => widget.closeAddToCardPanel(),
+                  Expanded(child: SizedBox()),
+                  GestureDetector(
+                    child: Container(
+                      padding: EdgeInsets.all(
+                        0.0138 * _screenSize.width, //5
                       ),
-                      SizedBox(
-                        width: 0.041 * _screenSize.width, //15,
+                      child: Icon(
+                        Icons.close,
+                        size: 0.069 * _screenSize.width, //25,
+                        color: Colors.black,
                       ),
-                    ],
+                    ),
+                    onTap: () => widget.closeAddToCardPanel(),
                   ),
                   SizedBox(
-                    height: 0.008 * _screenSize.height, //5
+                    width: 0.041 * _screenSize.width, //15,
                   ),
                 ],
               )
@@ -120,7 +113,7 @@ class _DetailProductWidgetState extends State<DetailProductWidget> {
           ),
         ),
         Container(
-          height: 0.15625 * _screenSize.height, //100,
+          height: 0.1328 * _screenSize.height, //85,
           width: _screenSize.width,
           child: ListView.builder(
             controller: colorScrollController,

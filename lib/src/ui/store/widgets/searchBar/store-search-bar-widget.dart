@@ -62,77 +62,89 @@ class _StoreSearchBarWidgetState extends State<StoreSearchBarWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
+      // color: Colors.red,
       width: _screenSize.width,
       height: 0.09375 * _screenSize.height, //60,
       child: Row(
         children: [
-          Stack(
-            children: [
-              Center(
-                child: Container(
-                  width: _screenSize.width -
-                      (0.125 * _screenSize.width //45,
+          Expanded(
+            child: Stack(
+              children: [
+                Center(
+                  child: Container(
+                    // width: _screenSize.width -
+                    //     (0.125 * _screenSize.width //45,
+                    //     ),
+                    height: 55,
+                    child: SearchAppBarWidget(
+                      preTitle:
+                          widget.searchTextEditingController.text.length > 0
+                              ? ""
+                              : '${"search_in_list_hint".tr()} ',
+                      title: widget.searchTextEditingController.text.length > 0
+                          ? widget.searchTextEditingController.text
+                          : "همه محصولات",
+                      textFielIsActive: widget.searchTextFeildIsEnabled,
+                      textEditingController: widget.searchTextEditingController,
+                      onChangeSearchField: (String value) {
+                        widget.sumbittSearch(value);
+                      },
+                      focusNode: widget.searchFocusNode,
+                      titleStyle: TextStyle(
+                        color: keyboardIsOpen &&
+                                widget.searchTextEditingController.text.length >
+                                    0
+                            ? Colors.black
+                            : DARK_GREY,
+                        fontSize: 0.0444 * _screenSize.width, //16,
+                        fontWeight: FontWeight.w400,
                       ),
-                  child: SearchAppBarWidget(
-                    preTitle: widget.searchTextEditingController.text.length > 0
-                        ? ""
-                        : '${"search_in_list_hint".tr()} ',
-                    title: widget.searchTextEditingController.text.length > 0
-                        ? widget.searchTextEditingController.text
-                        : "همه محصولات",
-                    textFielIsActive: widget.searchTextFeildIsEnabled,
-                    textEditingController: widget.searchTextEditingController,
-                    onChangeSearchField: (String value) {
-                      widget.sumbittSearch(value);
-                    },
-                    focusNode: widget.searchFocusNode,
-                    titleStyle: TextStyle(
-                      color: keyboardIsOpen &&
-                              widget.searchTextEditingController.text.length > 0
-                          ? Colors.black
-                          : DARK_GREY,
-                      fontSize: 0.0444 * _screenSize.width, //16,
-                      fontWeight: FontWeight.w400,
+                      titleIsCenter: false,
+                      icon: Icon(
+                        Icons.search_outlined,
+                        color: Colors.black,
+                      ),
+                      haveClearText: true,
+                      onTapIcon: () {},
+                      openRealSearchPanel:
+                          (bool isOpen, BuildContext buildContext) {},
+                      screenSize: _screenSize,
                     ),
-                    titleIsCenter: false,
-                    icon: Icon(
-                      Icons.search_outlined,
-                      color: Colors.black,
-                    ),
-                    haveClearText: true,
-                    onTapIcon: () {},
-                    openRealSearchPanel:
-                        (bool isOpen, BuildContext buildContext) {},
-                    screenSize: _screenSize,
                   ),
                 ),
-              ),
-              widget.searchTextFeildIsEnabled
-                  ? SizedBox()
-                  : GestureDetector(
-                      child: Container(
-                        width: _screenSize.width -
-                            (0.125 * _screenSize.width //45,
-                            ),
-                        margin: EdgeInsets.symmetric(
-                          vertical: 0.015 * _screenSize.height, //10,
+                widget.searchTextFeildIsEnabled
+                    ? SizedBox()
+                    : GestureDetector(
+                        child: Container(
+                          width: _screenSize.width -
+                              (0.125 * _screenSize.width //45,
+                              ),
+                          margin: EdgeInsets.symmetric(
+                            vertical: 0.015 * _screenSize.height, //10,
+                          ),
+
+                          color: Colors.transparent,
+                          // color: Colors.red,
                         ),
-                        color: Colors.transparent,
-                        // color: Colors.red,
+                        onTap: () {
+                          setState(() {
+                            widget.searchFocusNode.requestFocus();
+                            widget.changeSearchTextFeildIsEnabled(true);
+                          });
+                        },
                       ),
-                      onTap: () {
-                        setState(() {
-                          widget.searchFocusNode.requestFocus();
-                          widget.changeSearchTextFeildIsEnabled(true);
-                        });
-                      },
-                    ),
-            ],
+              ],
+            ),
           ),
           GestureDetector(
               child: Container(
-                width: 0.1027 * _screenSize.width, //37,
-                height: 0.1027 * _screenSize.width, //37,
+                width: 40,
+                height: 40,
+                margin: EdgeInsets.only(
+                    top: 0.022 * _screenSize.width, //8,
+                    bottom: 0.022 * _screenSize.width, //8,
+                    left: 0.022 * _screenSize.width //8,
+                    ),
                 decoration: BoxDecoration(
                   color: F2_BACKGROUND_COLOR,
                   borderRadius: BorderRadius.circular(

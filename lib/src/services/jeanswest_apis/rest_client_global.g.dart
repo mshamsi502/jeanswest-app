@@ -418,6 +418,24 @@ class _GlobalRestClient implements GlobalRestClient {
   }
 
   @override
+  Future<UserOrderDataRes> getMockUserOrdersInfo() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://10.1.2.94:3006/v1/getUserOrders',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserOrderDataRes.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<UserTicketsRes> getUserTicketsInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -618,7 +636,7 @@ class _GlobalRestClient implements GlobalRestClient {
         'http://10.0.1.111:8000/api/v1/address/edit',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'PATCH',
+            method: 'PUT',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

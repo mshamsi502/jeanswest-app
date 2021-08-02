@@ -15,7 +15,6 @@ import 'package:jeanswest/src/models/api_response/userRes/userTickets/dataTicket
 import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 // import 'package:jeanswest/src/models/api_response/userRes/userTickets/user-tickets-res.dart';
 import 'package:jeanswest/src/utils/helper/getInfos/getUserInfo/getUserTicketsInfo/get-user-tickets-info.dart';
-import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
 import 'package:jeanswest/src/ui/login/screens/login_page.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/contact_us_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/main_ticket_widget.dart';

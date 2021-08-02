@@ -29,7 +29,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
     return Container(
       color: Colors.white,
       // height: BOTTOM_NAVIGATION_BAR_HEIGHT,
-      height: 0.09 * _screenSize.height, // 58,
+      height: 0.093 * _screenSize.height, //60,
       child: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
         selectedItemColor: MAIN_BLUE_COLOR,

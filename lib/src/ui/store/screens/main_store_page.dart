@@ -214,25 +214,32 @@ class _MainStorePageState extends State<MainStorePage> {
         updateGenderValue: (List<bool> newValue) => setState(() {
           genderCheckBoxValue = newValue;
           filterPageOpened = -1;
+          widget.changeShowButtonNavigationBar(true);
         }),
 
         updateAgeValue: (List<bool> newValue) => setState(() {
           ageCheckBoxValue = newValue;
           filterPageOpened = -1;
+          widget.changeShowButtonNavigationBar(true);
         }),
 
         updateSizeValue: (List<Map<String, bool>> newValue) => setState(() {
           sizeGroupCheckBoxValue = newValue;
           filterPageOpened = -1;
+          widget.changeShowButtonNavigationBar(true);
         }),
         updateColorValue: (List<bool> newValue) => setState(() {
           colorCheckBoxValue = newValue;
           filterPageOpened = -1;
+          widget.changeShowButtonNavigationBar(true);
         }),
         updatePriceValue: (int newMinPrice, int newMaxPrice) => setState(() {
           priceLimit["min"] = newMinPrice;
           priceLimit["max"] = newMaxPrice;
-          if (filtersPanelController.isPanelClosed) filterPageOpened = -1;
+          if (filtersPanelController.isPanelClosed) {
+            filterPageOpened = -1;
+            widget.changeShowButtonNavigationBar(true);
+          }
         }),
       );
       tempFilterPageOpened = filterPageOpened;
@@ -455,7 +462,10 @@ class _MainStorePageState extends State<MainStorePage> {
   @override
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
-
+    // if (filterPageOpened != -1)
+    //   widget.changeShowButtonNavigationBar(false);
+    // else
+    //   widget.changeShowButtonNavigationBar(true);
     if (!getedMediaQuery || tempFilterPageOpened != filterPageOpened) {
       setState(() {
         pageNumber = 1;
@@ -464,7 +474,7 @@ class _MainStorePageState extends State<MainStorePage> {
       _getProducts(page: pageNumber);
     }
 
-    return  Container(
+    return Container(
       width: _screenSize.width,
       height: _screenSize.height,
       child: SlidingUpPanel(
@@ -472,10 +482,6 @@ class _MainStorePageState extends State<MainStorePage> {
         minHeight: 0,
         maxHeight: _screenSize.height,
         isDraggable: false,
-        onPanelClosed: () {
-          widget.changeShowButtonNavigationBar(true);
-          FocusScope.of(context).unfocus();
-        },
         onPanelOpened: () {
           widget.changeShowButtonNavigationBar(false);
         },
@@ -486,7 +492,12 @@ class _MainStorePageState extends State<MainStorePage> {
               : PanelState.CLOSED,
           closePanel: () {
             prepareValues();
+            FocusScope.of(context).unfocus();
             filtersPanelController.close();
+            widget.changeShowButtonNavigationBar(true);
+            setState(() {
+              filterPageOpened = -1;
+            });
           },
           category: listOfCategory,
           optionGroup: optionGroup,
@@ -559,8 +570,22 @@ class _MainStorePageState extends State<MainStorePage> {
           body: SlidingUpPanel(
             controller: addToCardPanelController,
             minHeight: 0,
-            maxHeight: 0.6587 * _screenSize.height, //390,
+            maxHeight: 370,
+            // TODOOO : addToCardPanelController
+            // 0.6587 * _screenSize.height, //390,
             backdropEnabled: true,
+            onPanelClosed: () {
+              widget.changeShowButtonNavigationBar(true);
+              setState(() {
+                selectedColor = 0;
+                selectedSize = -1;
+                filterPageOpened = -1;
+              });
+              FocusScope.of(context).unfocus();
+            },
+            onPanelOpened: () {
+              widget.changeShowButtonNavigationBar(false);
+            },
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(
                 0.03 * _screenSize.width, //11
@@ -569,10 +594,7 @@ class _MainStorePageState extends State<MainStorePage> {
                 0.03 * _screenSize.width, //11
               ),
             ),
-            onPanelClosed: () => setState(() {
-              selectedColor = 0;
-              selectedSize = -1;
-            }),
+
             panel: AddToCardPanelWidget(
               productDetail: addToCardProductDetailRes,
               closeAddToCardPanel: () => addToCardPanelController.close(),
@@ -617,10 +639,12 @@ class _MainStorePageState extends State<MainStorePage> {
                         filtersPanelController.open();
                       } else {
                         // if (filterPageOpened == openedPage)
-                        if (filterPageOpened == openedPage)
+                        if (filterPageOpened == openedPage) {
                           filterPageOpened = -1;
-                        else {
+                          widget.changeShowButtonNavigationBar(true);
+                        } else {
                           filtersPanelController.close();
+                          widget.changeShowButtonNavigationBar(false);
                           filterPageOpened = openedPage;
                         }
                       }
@@ -748,7 +772,8 @@ class _MainStorePageState extends State<MainStorePage> {
                                       updateSubGroupsValue:
                                           (List<bool> newValues) {
                                         filtersPanelController.close();
-
+                                        widget.changeShowButtonNavigationBar(
+                                            true);
                                         updateSubGroupValue(
                                             filterPageOpened - 1, newValues);
                                         setState(() {
@@ -793,7 +818,8 @@ class _MainStorePageState extends State<MainStorePage> {
                             }),
                             openSortPanel: () => sortPanelController.open(),
                           ),
-                          SizedBox(height: 80),
+                          SizedBox(height: 0.125 * _screenSize.height //80,
+                              ),
                         ],
                       ),
               ],

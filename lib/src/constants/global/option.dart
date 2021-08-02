@@ -4,12 +4,14 @@
 // ****************************************************************************
 //
 
-
-
-const bool MANUAL_TOKEN_IS_ENABLE = false;
-// const bool MANUAL_TOKEN_IS_ENABLE = true;
+// const bool MANUAL_TOKEN_IS_ENABLE = false;
+const bool MANUAL_TOKEN_IS_ENABLE = true;
+// ! MMD
+// const String MANUAL_TOKEN =
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIzZDgzNDM4YS01MjFmLTQ2ZTUtYjMxZi0zY2MyZTU2MjgyMzYiLCJpYXQiOjE2MjYwODkxNjAsImV4cCI6MTY1NzY0Njc2MH0.-dXCCg1WE5J-6kEpgYmrmaWT4WfR12gpGFp426faqj4';
+// ! Mohsen
 const String MANUAL_TOKEN =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiI4YjQzNzhlMS1hNjI2LTQwZWYtYWE0Yy05YWE3MmEyOGUyZmEiLCJpYXQiOjE2MjIzNTEyMTMsImV4cCI6MTY1Mzg4NzIxM30.VXhGD7JbIWiiraiN_J5mYOIadcm_VtiKq-19ftC3FDg';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJmMGE2NWNjNy0zOTI5LTQ0MDMtYjRlNi0xYTdkMWE1ZDVjZjUiLCJpYXQiOjE2MjcyOTg3MzQsImV4cCI6MTY1ODg1NjMzNH0._ncPM0RycXVcEy970QbHbBa1wcEWE__JbvqWNhOouV8';
 
 //
 // const bool MOCK_IS_ENABLE = false;

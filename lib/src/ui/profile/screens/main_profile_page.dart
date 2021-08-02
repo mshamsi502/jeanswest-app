@@ -61,7 +61,8 @@ class MainProfilePage extends StatefulWidget {
 }
 
 class _MainProfilePageState extends State<MainProfilePage>
-    with SingleTickerProviderStateMixin {
+    // with SingleTickerProviderStateMixin
+     {
   ScrollController scrollController;
 
   PanelController logOutPanel;
@@ -217,6 +218,12 @@ class _MainProfilePageState extends State<MainProfilePage>
             0.083 * _screenSize.width, //30
           ),
         ),
+        onPanelOpened: () {
+          widget.changeShowButtonNavigationBar(false);
+        },
+        onPanelClosed: () {
+          widget.changeShowButtonNavigationBar(true);
+        },
         panel: LogOutPanelWidget(
           height: 0.234 * _screenSize.height, //150,
           closeLogOutPanel: () => logOutPanel.close(),

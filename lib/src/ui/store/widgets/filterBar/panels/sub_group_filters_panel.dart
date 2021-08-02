@@ -65,7 +65,6 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
       height: _screenSize.height,
       child: Column(
         children: [
-          // (checkValueListStatus(tempSubGroupsValue) == -1)
           notSelected
               ? SizedBox()
               : Container(
@@ -211,6 +210,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
                         updateActiveSubGroups(index);
                       },
                       child: Container(
+                        color: Colors.white,
                         padding: EdgeInsets.symmetric(
                           vertical: 0.023 * _screenSize.height, //15
                           horizontal: 0.031 * _screenSize.height, //20,
@@ -282,12 +282,20 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
               },
             ),
           ),
-          // widget.indexInOptionWidgets <= 0
-          //     ? SizedBox()
-          //     :
-          Padding(
+          Container(
             padding: EdgeInsets.all(
               0.054 * _screenSize.width, //20
+            ),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[200],
+                  blurRadius: 8,
+                  spreadRadius: 1,
+                  offset: Offset(3, 0),
+                )
+              ],
+              color: Colors.white,
             ),
             child: AvakatanButtonWidget(
               backgroundColor: MAIN_BLUE_COLOR,
@@ -305,8 +313,7 @@ class _SubGroupFiltersPanelState extends State<SubGroupFiltersPanel> {
             ),
           ),
           SizedBox(
-            height:
-                widget.isFromMainFilter ? 0 : 0.1328 * _screenSize.height, //85,
+            height: 0.036 * _screenSize.height, //23,
           ),
         ],
       ),

@@ -133,15 +133,15 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
               body: SlidingUpPanel(
                 controller: directToBranchPanel,
                 minHeight: 0,
-                maxHeight: 0.4 * _screenSize.height, //??,
+                maxHeight: 0.36 * _screenSize.height, //,
                 backdropEnabled: true,
                 onPanelClosed: () => FocusScope.of(context).unfocus(),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(
-                    0.03 * _screenSize.width, //11,
+                    0.0444 * _screenSize.width, //16
                   ),
                   topRight: Radius.circular(
-                    0.03 * _screenSize.width, //11,
+                    0.0444 * _screenSize.width, //16
                   ),
                 ),
                 panel: BranchDetailPanel(

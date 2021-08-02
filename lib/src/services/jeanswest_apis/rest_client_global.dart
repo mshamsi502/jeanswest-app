@@ -143,6 +143,9 @@ abstract class GlobalRestClient extends RestClient {
   @GET('http://10.1.2.94:3006/v1/getUserOrders')
   Future<UserOrderDataRes> getUserOrdersInfo(); // ! Mockoon
 
+  @GET('http://10.1.2.94:3006/v1/getUserOrders')
+  Future<UserOrderDataRes> getMockUserOrdersInfo(); // ! Mockoon
+
   // *          USER TICKET INFO ***********************************************
 
   @GET('http://10.0.1.111:8000/api/v1/ticket/list')
@@ -184,7 +187,7 @@ abstract class GlobalRestClient extends RestClient {
   Future<GeneralRespons> addToUserAddressesInfo(
       @Body() Map<String, dynamic> address);
 
-  @PATCH('http://10.0.1.111:8000/api/v1/address/edit')
+  @PUT('http://10.0.1.111:8000/api/v1/address/edit')
   Future<GeneralRespons> editUserAddressesInfo(
       @Body() Map<String, dynamic> address);
 

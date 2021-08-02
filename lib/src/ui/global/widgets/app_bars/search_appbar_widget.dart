@@ -65,11 +65,11 @@ class SearchAppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
-  double heightBar; //40
+  // double heightBar; //40
 
   @override
   void initState() {
-    heightBar = 0.0625 * widget.screenSize.height; //40
+    // heightBar = 0.0625 * widget.screenSize.height; //40
 
     super.initState();
   }
@@ -78,10 +78,10 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
   Widget build(BuildContext context) {
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: heightBar,
+      // height: heightBar,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
-          0.0083 * _screenSize.width, //3,
+          0.011 * _screenSize.width, //4,
         ),
         color: F2_BACKGROUND_COLOR,
       ),
@@ -141,7 +141,7 @@ class _SearchAppBarWidgetState extends State<SearchAppBarWidget> {
                       alignment: Alignment.centerRight,
                       children: [
                         Container(
-                          height: heightBar,
+                          // height: heightBar,
                           // color: Colors.green,
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Row(

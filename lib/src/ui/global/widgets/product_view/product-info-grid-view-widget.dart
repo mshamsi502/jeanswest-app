@@ -77,28 +77,28 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
     // ignore: unused_local_variable
     var _screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 0.5067 * _screenSize.height, //300,
+      // height: 0.5067 * _screenSize.height, //300,
       width: widget.width,
       // color: Colors.amber,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 0.3547 * _screenSize.height, //210,
+            height: 1.16 * widget.width,
             width: widget.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 0.00555 * _screenSize.width, //2,
               ),
               border: Border.all(
-                color: Colors.grey[300],
+                color: Colors.grey[200],
               ),
             ),
             child: Stack(
               children: [
                 GestureDetector(
                   child: Container(
-                    height: 0.3547 * _screenSize.height, //210,
+                    height: 1.16 * widget.width,
                     width: widget.width,
                     child: Image.network(
                       widget.product != null &&
@@ -240,36 +240,21 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.centerRight,
-              child: Text(
-                widget.product != null &&
-                        widget.product.banimodeDetails != null &&
-                        widget.product.banimodeDetails
-                                .productManufacturerEnName !=
-                            null
-                    ? widget.product.banimodeDetails.productManufacturerEnName
-                    : "",
-                textAlign: TextAlign.right,
-                textDirection: rtlTextDirection,
-                style: TextStyle(
-                  fontSize: 0.0333 * _screenSize.width, //12,
-                ),
-                maxLines: 1,
-                softWrap: false,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
+          SizedBox(
+            height: 0.015 * _screenSize.height, //10,
           ),
-          Expanded(
+          Container(
+            alignment: Alignment.centerRight,
             child: Text(
-              widget.product != null && widget.product.banimodeDetails != null
-                  // ? widget.product.banimodeDetails.productName
-                  ? widget.product.title
+              widget.product != null &&
+                      widget.product.banimodeDetails != null &&
+                      widget.product.banimodeDetails
+                              .productManufacturerEnName !=
+                          null
+                  ? widget.product.banimodeDetails.productManufacturerEnName
                   : "",
-              textDirection: rtlTextDirection,
               textAlign: TextAlign.right,
+              textDirection: rtlTextDirection,
               style: TextStyle(
                 fontSize: 0.0333 * _screenSize.width, //12,
               ),
@@ -278,26 +263,55 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
               overflow: TextOverflow.ellipsis,
             ),
           ),
+
+          // Expanded(
+          //   child:
+          Text(
+            widget.product != null && widget.product.banimodeDetails != null
+                // ? widget.product.banimodeDetails.productName
+                ? widget.product.title
+                : "",
+            textDirection: rtlTextDirection,
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              fontSize: 0.0333 * _screenSize.width, //12,
+            ),
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.ellipsis,
+          ),
+          // ),
+          SizedBox(height: 0.0078 * _screenSize.height //5,
+              ),
           Row(
             children: [
               Row(
                 children: [
                   Container(
+                    // color: Colors.red,
                     height: 0.08 * _screenSize.height, //45,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        widget.productIsActive && discountPercent != 0
-                            ? Text(
-                                toPriceStyle(widget.product.basePrice,
-                                    isFromRialToToman: true),
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 0.0333 * _screenSize.width, //12,
-                                    decoration: TextDecoration.lineThrough),
-                              )
-                            : SizedBox(),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.center,
+                            // color: Colors.green,
+                            child: widget.productIsActive &&
+                                    discountPercent != 0
+                                ? Text(
+                                    toPriceStyle(widget.product.basePrice,
+                                        isFromRialToToman: true),
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize:
+                                            0.0333 * _screenSize.width, //12,
+                                        decoration: TextDecoration.lineThrough),
+                                  )
+                                : SizedBox(),
+                          ),
+                        ),
                         Text(
                           widget.productIsActive
                               ? toPriceStyle(widget.product.salePrice,

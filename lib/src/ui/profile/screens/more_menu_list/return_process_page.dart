@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
 
 import 'package:jeanswest/src/models/api_response/globalRes/ReturnPolicy/return-policy-data.dart';
-import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_close_widget.dart';
+import 'package:jeanswest/src/ui/global/widgets/app_bars/appbar_with_back_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/support_page/return_process_widget.dart';
 
 class ReturnProcessPage extends StatefulWidget {
@@ -74,17 +74,17 @@ class _ReturnProcessPageState extends State<ReturnProcessPage>
             color: Colors.white,
             height: _screenSize.height,
             width: _screenSize.width,
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.027 * _screenSize.width, //10,
-            ),
             child: Column(
               children: [
-                AppBarWithCloseWidget(
+                AppBarWithBackWidget(
                   title: 'شرایط بازگشت کالا',
-                  closeOnTap: () => Navigator.pop(context),
+                  onTapBack: () => Navigator.pop(context),
                 ),
                 Expanded(
                   child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 0.027 * _screenSize.width, //10,
+                    ),
                     width: _screenSize.width,
                     child: Column(
                       children: [

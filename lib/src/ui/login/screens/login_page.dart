@@ -317,7 +317,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 0.031 * _screenSize.height, //20,
+                              height: hasError
+                                  ? 0.031 * _screenSize.height //20,
+                                  : 0,
                             ),
                             ConfirmButtonWidget(
                               check: check,

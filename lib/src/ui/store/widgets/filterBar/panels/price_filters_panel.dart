@@ -197,9 +197,20 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
         // widget.indexInOptionWidgets <= 0
         //     ? SizedBox()
         //     :
-        Padding(
+        Container(
           padding: EdgeInsets.all(
             0.054 * _screenSize.width, //20
+          ),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[200],
+                blurRadius: 8,
+                spreadRadius: 1,
+                offset: Offset(3, 0),
+              )
+            ],
+            color: Colors.white,
           ),
           child: AvakatanButtonWidget(
             backgroundColor: MAIN_BLUE_COLOR,
@@ -221,7 +232,7 @@ class _PriceFiltersPanelState extends State<PriceFiltersPanel> {
           ),
         ),
         SizedBox(
-          height: 0.1328 * _screenSize.height, //85,
+          height: 0.036 * _screenSize.height, //23,
         ),
       ],
     );

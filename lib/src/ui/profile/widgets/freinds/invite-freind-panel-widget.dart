@@ -74,7 +74,7 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
         vertical: 0.016 * _screenSize.height, //10
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        // color: Colors.white,
         // color: Colors.red,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(
@@ -114,150 +114,156 @@ class _InviteFriendPanelWidgetState extends State<InviteFriendPanelWidget> {
           SizedBox(
             height: 0.023 * _screenSize.height, //15
           ),
-          Container(
-            // height: 2,
-            height: 0.4898 * _screenSize.height, //290
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: Container(
-                height: 0.5 * _screenSize.height, //320,
-                child: Column(
-                  children: [
-                    CustomTextFieldWidget(
-                      title: 'اشتراک گذاری لینک دانلود',
-                      isEnable: false,
-                      initText: textLink,
-                      titleColor: Colors.black,
-                      textColor: Colors.grey,
-                      hintTextColor: Colors.grey[600],
-                      mediaQuery: MediaQuery.of(context),
-                      width: MediaQuery.of(context).size.width,
-                      internalIcon: GestureDetector(
+          Expanded(
+            child: Container(
+              // height: 2,
+              // color: Colors.red,
+              // height: 0.4898 * _screenSize.height, //290
+              child: SingleChildScrollView(
+                controller: scrollController,
+                child: Container(
+                  // height: 0.5 * _screenSize.height, //320,
+                  child: Column(
+                    children: [
+                      CustomTextFieldWidget(
+                        title: 'اشتراک گذاری لینک دانلود',
+                        isEnable: false,
+                        initText: textLink,
+                        titleColor: Colors.black,
+                        textColor: Colors.grey,
+                        // customBackColor: Colors.red,
+                        hintTextColor: Colors.grey[600],
+                        mediaQuery: MediaQuery.of(context),
+                        width: MediaQuery.of(context).size.width,
+                        internalIcon: GestureDetector(
+                            child: Container(
+                              // color: Colors.green,
+                              padding: EdgeInsets.only(
+                                top: 0.0078 * _screenSize.height, //5,
+                                bottom: 0.0078 * _screenSize.height, //5,
+                                left: 0.027 * _screenSize.width, //10,
+                              ),
+                              child: Icon(
+                                Icons.copy_outlined,
+                                size: 0.069 * _screenSize.width, //25,
+                                color: MAIN_BLUE_COLOR,
+                              ),
+                            ),
+                            onTap: () {
+                              Clipboard.setData(
+                                      new ClipboardData(text: textLink))
+                                  .then((_) {
+                                showToast(
+                                  message: "لینک با موفقیت کپی شد.",
+                                  textColor: Colors.white,
+                                  backgroundColor: NERO_GREY_COLOR,
+                                );
+                              });
+                            }),
+                        externalIcon: GestureDetector(
                           child: Container(
-                            // color: Colors.green,
+                            // color: Colors.red,
                             padding: EdgeInsets.only(
                               top: 0.0078 * _screenSize.height, //5,
                               bottom: 0.0078 * _screenSize.height, //5,
                               left: 0.027 * _screenSize.width, //10,
                             ),
                             child: Icon(
-                              Icons.copy_outlined,
+                              Icons.share_outlined,
                               size: 0.069 * _screenSize.width, //25,
                               color: MAIN_BLUE_COLOR,
                             ),
                           ),
-                          onTap: () {
-                            Clipboard.setData(new ClipboardData(text: textLink))
-                                .then((_) {
-                              showToast(
-                                message: "لینک با موفقیت کپی شد.",
-                                textColor: Colors.white,
-                                backgroundColor: NERO_GREY_COLOR,
-                              );
-                            });
-                          }),
-                      externalIcon: GestureDetector(
-                        child: Container(
-                          // color: Colors.red,
-                          padding: EdgeInsets.only(
-                            top: 0.0078 * _screenSize.height, //5,
-                            bottom: 0.0078 * _screenSize.height, //5,
-                            left: 0.027 * _screenSize.width, //10,
-                          ),
-                          child: Icon(
-                            Icons.share_outlined,
-                            size: 0.069 * _screenSize.width, //25,
-                            color: MAIN_BLUE_COLOR,
-                          ),
+                          onTap: () => shareATextLink(textLink),
                         ),
-                        onTap: () => shareATextLink(textLink),
                       ),
-                    ),
-                    SizedBox(
-                      height: 0.023 * _screenSize.height, //15
-                    ),
-                    Divider(
-                      height: 0.000078 * _screenSize.height, //0.05,
-                      thickness: 1,
-                      indent: 0.027 * _screenSize.width, //10,,
-                      endIndent: 0.027 * _screenSize.width, //10,,
-                      color: Colors.grey[300],
-                    ),
-                    SizedBox(
-                      height: 0.023 * _screenSize.height, //15
-                    ),
-                    CustomTextFieldWidget(
-                      title: 'شماره موبایل',
-                      isEnable: true,
-                      textEditingController: textEditingController,
-                      textInputType: TextInputType.number,
-                      initText: 'مثال : 09365337279',
-                      titleColor: Colors.black,
-                      // lines: 1,
-                      inputFormatters: [
-                        new LengthLimitingTextInputFormatter(11),
-                      ],
-                      textColor: Colors.black,
-                      hintTextColor: Colors.grey[400],
-                      mediaQuery: MediaQuery.of(context),
-                      width: _screenSize.width,
-                      hasValidation: true,
-                      isValid: validationResult[0],
-                      validationError: validationResult[1],
-                    ),
-                    SizedBox(
-                      height: 0.023 * _screenSize.height, //15
-                    ),
-                    AvakatanButtonWidget(
-                        backgroundColor: MAIN_BLUE_COLOR,
-                        textColor: Colors.white,
-                        borderColor: MAIN_BLUE_COLOR,
-                        hasShadow: false,
-                        title: 'ارسال دعوت نامه',
-                        height: 0.07 * _screenSize.height, //45,
-                        width: _screenSize.width -
-                            (0.111 * _screenSize.width //40,
-                            ),
-                        fontSize: 0.05 * _screenSize.width, //18,
-                        radius: 0.011 * _screenSize.width, //4,
-                        onTap: () async {
-                          validationResult.clear();
-                          setState(() {
-                            validationResult = checkCorrectPhone(
-                                inputPhone: textEditingController.text,
-                                startWithZero: true);
-                          });
-                          if (validationResult[0]) {
-                            print('phone is valid ');
-                            Map<String, dynamic> friendMobile = {
-                              "mobile": textEditingController.text
-                            };
-                            // ! send message kavengegar api
-                            try {
-                              GeneralRespons res =
-                                  await globalLocator<GlobalRestClient>()
-                                      .sendInviteFriendLink(friendMobile);
-                              if (res.statusCode == 200) {
-                                widget.closePanel();
-                                print('send invite success');
-                                textEditingController.clear();
-                                showToast(
-                                  message: "دعوت نامه با موفقیت ارسال شد",
-                                  textColor: Colors.white,
-                                  backgroundColor: GREEN_TEXT_COLOR,
-                                );
+                      SizedBox(
+                        height: 0.023 * _screenSize.height, //15
+                      ),
+                      Divider(
+                        height: 0.000078 * _screenSize.height, //0.05,
+                        thickness: 1,
+                        indent: 0.027 * _screenSize.width, //10,,
+                        endIndent: 0.027 * _screenSize.width, //10,,
+                        color: Colors.grey[300],
+                      ),
+                      SizedBox(
+                        height: 0.023 * _screenSize.height, //15
+                      ),
+                      CustomTextFieldWidget(
+                        title: 'شماره موبایل',
+                        isEnable: true,
+                        textEditingController: textEditingController,
+                        textInputType: TextInputType.number,
+                        initText: 'مثال : 09365337279',
+                        titleColor: Colors.black,
+                        // customBackColor: Colors.green,
+                        // lines: 1,
+                        inputFormatters: [
+                          new LengthLimitingTextInputFormatter(11),
+                        ],
+                        textColor: Colors.black,
+                        hintTextColor: Colors.grey[400],
+                        mediaQuery: MediaQuery.of(context),
+                        width: _screenSize.width,
+                        hasValidation: true,
+                        isValid: validationResult[0],
+                        validationError: validationResult[1],
+                      ),
+                      SizedBox(
+                        height: 0.023 * _screenSize.height, //15
+                      ),
+                      AvakatanButtonWidget(
+                          backgroundColor: MAIN_BLUE_COLOR,
+                          textColor: Colors.white,
+                          borderColor: MAIN_BLUE_COLOR,
+                          hasShadow: false,
+                          title: 'ارسال دعوت نامه',
+                          height: 0.07 * _screenSize.height, //45,
+                          width: _screenSize.width -
+                              (0.111 * _screenSize.width //40,
+                              ),
+                          fontSize: 0.05 * _screenSize.width, //18,
+                          radius: 0.011 * _screenSize.width, //4,
+                          onTap: () async {
+                            validationResult.clear();
+                            setState(() {
+                              validationResult = checkCorrectPhone(
+                                  inputPhone: textEditingController.text,
+                                  startWithZero: true);
+                            });
+                            if (validationResult[0]) {
+                              print('phone is valid ');
+                              Map<String, dynamic> friendMobile = {
+                                "mobile": textEditingController.text
+                              };
+                              // ! send message kavengegar api
+                              try {
+                                GeneralRespons res =
+                                    await globalLocator<GlobalRestClient>()
+                                        .sendInviteFriendLink(friendMobile);
+                                if (res.statusCode == 200) {
+                                  widget.closePanel();
+                                  print('send invite success');
+                                  textEditingController.clear();
+                                  showToast(
+                                    message: "دعوت نامه با موفقیت ارسال شد",
+                                    textColor: Colors.white,
+                                    backgroundColor: GREEN_TEXT_COLOR,
+                                  );
+                                }
+                              } catch (e) {
+                                print('catch error on send invite link');
+                                printErrorMessage(e);
                               }
-                            } catch (e) {
-                              print('catch error on send invite link');
-                              printErrorMessage(e);
-                            }
-                          } else
-                            print('not valid : ${validationResult[1]}');
-                        }),
-                    SizedBox(
-                      height: 0.016 * _screenSize.height, //10
-                    ),
-                  ],
+                            } else
+                              print('not valid : ${validationResult[1]}');
+                          }),
+                      // SizedBox(
+                      //   height: 0.016 * _screenSize.height, //10
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             ),

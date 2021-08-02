@@ -484,7 +484,6 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                                     0.0444 * widget.mediaQuery.size.width, //16,
                                 fontWeight: FontWeight.w400,
                               ),
-                            
                               checkBoxTitles: tempAgeName,
                               checkBoxTitlesTextStyle: TextStyle(
                                 color: Colors.black45,
@@ -562,7 +561,7 @@ class _MainFiltersPanelState extends State<MainFiltersPanel> {
                       ),
                     ),
                     SizedBox(
-                      height: 0.023 * _screenSize.height, //15
+                      height: 0.0506 * _screenSize.height, //30,
                     ),
                   ],
                 ),

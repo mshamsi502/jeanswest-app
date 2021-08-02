@@ -230,11 +230,11 @@ class _ImageExapndedPanelState extends State<ImageExapndedPanel> {
                           0.011 * _screenSize.width, //4,
                         ),
                         border: Border.all(
-                          width: 0.00555 * _screenSize.width, //2,
+                          width: 0.00277 * _screenSize.width, //1,
 
                           color: index == selectedImage
                               ? MAIN_BLUE_COLOR
-                              : Colors.grey[400],
+                              : Colors.grey[200],
                         )),
                     child: GestureDetector(
                       child: Container(

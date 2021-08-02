@@ -9,8 +9,11 @@ class SelectDropList extends StatefulWidget {
   final DropListModel dropListModel;
   final Function(OptionItem optionItem) onOptionSelected;
   final Function(bool) changeIsShow;
+  final bool isShow;
   final double optionsHeight;
   final bool hasCheckBox;
+  final AnimationController expandController;
+  final Animation<double> animation;
   final Map<String, bool> initialCheckBoxValue;
   final Function(Map<String, bool>) updateCheckBoxValue;
 
@@ -20,9 +23,12 @@ class SelectDropList extends StatefulWidget {
     this.dropListModel,
     this.onOptionSelected,
     this.selectedIcon,
+    this.isShow,
     this.changeIsShow,
     this.optionsHeight,
     this.hasCheckBox = false,
+    @required this.expandController,
+    @required this.animation,
     this.initialCheckBoxValue,
     this.updateCheckBoxValue,
   });
@@ -33,15 +39,16 @@ class SelectDropList extends StatefulWidget {
 }
 
 class _SelectDropListState extends State<SelectDropList>
-    with SingleTickerProviderStateMixin {
+// with SingleTickerProviderStateMixin
+{
   ScrollController scrollController = new ScrollController();
   OptionItem optionItemSelected;
   final DropListModel dropListModel;
 
-  AnimationController expandController;
-  Animation<double> animation;
+  // AnimationController expandController;
+  // Animation<double> animation;
 
-  bool isShow = false;
+  bool _tempIsShow;
   //
   Map<String, bool> tempCheckBoxValue = {};
 
@@ -51,39 +58,43 @@ class _SelectDropListState extends State<SelectDropList>
 
   @override
   void initState() {
+    _tempIsShow = widget.isShow;
     tempCheckBoxValue = widget.initialCheckBoxValue;
     print("*-*-*-*-*-*-*-*-*-*-*-* tempCheckBoxValue  : $tempCheckBoxValue");
     print(
         "*-*-*-*-*-*-*-*-*-*-*-*  widget.dropListModel.listOptionItems  : ${widget.dropListModel.listOptionItems.first.title}");
     super.initState();
-    expandController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 350));
+    // expandController =
+    //     AnimationController(vsync: this, duration: Duration(milliseconds: 350));
 
-    animation = CurvedAnimation(
-      parent: expandController,
-      curve: Curves.fastOutSlowIn,
-    );
-    _runExpandCheck();
+    // animation = CurvedAnimation(
+    //   parent: expandController,
+    //   curve: Curves.fastOutSlowIn,
+    // );
+    _runExpandCheck(_tempIsShow);
   }
 
-  void _runExpandCheck() {
-    if (isShow) {
-      expandController.forward();
+  void _runExpandCheck(bool toShow) {
+    if (toShow) {
+      widget.expandController.forward();
     } else {
-      expandController.reverse();
+      widget.expandController.reverse();
     }
   }
 
-  @override
-  void dispose() {
-    expandController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   widget.expandController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     Size _screenSize = MediaQuery.of(context).size;
     // if (widget.optionsHeight != null)
+    setState(() {
+      _tempIsShow = widget.isShow;
+    });
 
     return Container(
       width: _screenSize.width,
@@ -102,9 +113,9 @@ class _SelectDropListState extends State<SelectDropList>
               borderRadius: BorderRadius.circular(
                 0.0138 * _screenSize.width, //5
               ),
-              color: isShow ? Colors.white : F2_BACKGROUND_COLOR,
+              color: _tempIsShow ? Colors.white : F2_BACKGROUND_COLOR,
               border: Border.all(
-                  color: isShow ? MAIN_BLUE_COLOR : F2_BACKGROUND_COLOR),
+                  color: _tempIsShow ? MAIN_BLUE_COLOR : F2_BACKGROUND_COLOR),
             ),
             child: new Row(
               mainAxisSize: MainAxisSize.max,
@@ -114,12 +125,17 @@ class _SelectDropListState extends State<SelectDropList>
                 SizedBox(
                   width: 0.027 * _screenSize.width, //10,
                 ),
-                Expanded(child: GestureDetector(
+                Expanded(
+                    child: GestureDetector(
                   onTap: () {
-                    this.isShow = !this.isShow;
-                    widget.changeIsShow(isShow);
-                    _runExpandCheck();
-                    setState(() {});
+                    // this.isShow = !this.isShow;
+
+                    _runExpandCheck(!_tempIsShow);
+                    widget.changeIsShow(_tempIsShow);
+
+                    setState(() {
+                      //   _tempIsShow = widget.isShow;
+                    });
                   },
                   // TODO: one of
                   child: Text(
@@ -133,11 +149,11 @@ class _SelectDropListState extends State<SelectDropList>
                 Align(
                   alignment: Alignment(1, 0),
                   child: RotationTransition(
-                    turns:
-                        Tween(begin: 0.0, end: 0.5).animate(expandController),
+                    turns: Tween(begin: 0.0, end: 0.5)
+                        .animate(widget.expandController),
                     child: Icon(
                       Icons.arrow_drop_down,
-                      color: isShow ? MAIN_BLUE_COLOR : Colors.black,
+                      color: _tempIsShow ? MAIN_BLUE_COLOR : Colors.black,
                       size: 0.069 * _screenSize.width, //25,
                     ),
                   ),
@@ -146,16 +162,16 @@ class _SelectDropListState extends State<SelectDropList>
             ),
           ),
           Container(
-            height: isShow
+            height: _tempIsShow
                 ? widget.optionsHeight == null ||
                         widget.optionsHeight >
                             0.24166 * _screenSize.height //145
                     ? 0.24166 * _screenSize.height //145
                     : widget.optionsHeight
                 : 0,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-            ),
+            // decoration: BoxDecoration(
+            color: Colors.transparent,
+            // ),
             child: Container(
               margin: EdgeInsets.symmetric(
                 horizontal: 0.0333 * _screenSize.width, //12,
@@ -188,7 +204,7 @@ class _SelectDropListState extends State<SelectDropList>
                       controller: scrollController,
                       child: SizeTransition(
                         axisAlignment: 1.0,
-                        sizeFactor: animation,
+                        sizeFactor: widget.animation,
                         child: Container(
                           margin: EdgeInsets.only(
                             bottom: 0.016 * _screenSize.height, //10
@@ -317,9 +333,8 @@ class _SelectDropListState extends State<SelectDropList>
             changeColorsStatus(item.id);
           } else {
             this.optionItemSelected = item;
-            isShow = false;
-            widget.changeIsShow(isShow);
-            expandController.reverse();
+            widget.changeIsShow(true);
+            widget.expandController.reverse();
             widget.onOptionSelected(item);
           }
         },

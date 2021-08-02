@@ -4,8 +4,8 @@
 // ****************************************************************************
 
 import 'package:jeanswest/src/constants/global/constValues/colors.dart';
-import 'package:jeanswest/src/constants/global/svg_images/global_svg_images.dart';
 import 'package:jeanswest/src/models/api_response/userRes/userOrder/orderResult/onlineOrder/user-online-order-res.dart';
+import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/empty_order_list_widget.dart';
 import 'package:jeanswest/src/ui/profile/widgets/order_list/order_details/onlineOrderDetails/online-order_info_widget.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -47,72 +47,46 @@ class _OnlineOrderListWidgetState extends State<OnlineOrderListWidget> {
           ),
         ],
       ),
-      child: widget.onlineOrders.length == 0
-          ? Padding(
-              padding: EdgeInsets.all(
-                0.054 * _screenSize.width, //20
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 0.27 * _screenSize.width, //100,
-                    width: 0.27 * _screenSize.width, //100,
-                    child: GlobalSvgImages.emptyBox,
+      child: widget.onlineOrders == null
+          ? widget.onlineOrders.length <= 0
+              ? EmptyOrderListWidget()
+              : SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 0.016 * _screenSize.height, //10
+                      ),
+                      ListView.builder(
+                        controller: scrollController,
+                        itemCount: widget.onlineOrders.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: 0.027 * _screenSize.width, //10,
+                              vertical: 0.0194 * _screenSize.width, //7,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                0.011 * _screenSize.width, //4,
+                              ),
+                            ),
+                            width: _screenSize.width,
+                            child: OnlineOrderInfoWidget(
+                              onlineOrder: widget.onlineOrders[index],
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 0.031 * _screenSize.height, //20,
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 0.031 * _screenSize.height, //20,
-                  ),
-                  Text(
-                    'سفارش فعالی در این بخش موجود نیست',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 0.0444 * _screenSize.width, //16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 0.234 * _screenSize.height, //150,
-                  ),
-                ],
-              ),
-            )
-          : SingleChildScrollView(
-              controller: scrollController,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 0.016 * _screenSize.height, //10
-                  ),
-                  ListView.builder(
-                    controller: scrollController,
-                    itemCount: widget.onlineOrders.length,
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 0.027 * _screenSize.width, //10,
-                          vertical: 0.0194 * _screenSize.width, //7,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            0.011 * _screenSize.width, //4,
-                          ),
-                        ),
-                        width: _screenSize.width,
-                        child: OnlineOrderInfoWidget(
-                          onlineOrder: widget.onlineOrders[index],
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 0.031 * _screenSize.height, //20,
-                  ),
-                ],
-              ),
-            ),
+                )
+          : EmptyOrderListWidget(),
     );
   }
 }

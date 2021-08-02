@@ -20,7 +20,11 @@ class CustomDropdownButtonWidget extends StatefulWidget {
   // final Function(String) selected;
   final Function(String, List<String>) selected;
   final bool hasCheckBox;
+  final bool isShowDropDown;
+  final Function(bool) closeOtherDropDowns;
   final Map<String, bool> initialCheckBoxValue;
+  final AnimationController expandController;
+  final Animation<double> animation;
   // final Function(Map<String, bool>) updateCheckBoxValue;
 
   const CustomDropdownButtonWidget({
@@ -34,6 +38,10 @@ class CustomDropdownButtonWidget extends StatefulWidget {
     this.initialCheckBoxValue,
     // this.updateCheckBoxValue,
     this.hasCheckBox = false,
+    this.isShowDropDown = false,
+    @required this.closeOtherDropDowns,
+    @required this.expandController,
+    @required this.animation,
   }) : super(key: key);
   State<StatefulWidget> createState() => _CustomDropdownButtonWidgetState();
 }
@@ -45,7 +53,7 @@ class _CustomDropdownButtonWidgetState
   double heightTextField;
   double heightTitle;
   String dropdownValue;
-  bool isShowDropDown;
+  bool _tempIsShowDropDown;
   // List<DropdownMenuItem<String>> _dropdownMenuItems;
   double widthDropdown;
 
@@ -55,7 +63,7 @@ class _CustomDropdownButtonWidgetState
   OptionItem optionItemSelected;
   @override
   void initState() {
-    isShowDropDown = false;
+    _tempIsShowDropDown = widget.isShowDropDown;
     update();
     heightTextField = 0.03125 * widget.mediaQuery.size.height; // 20;
     heightTitle = 0.1 * widget.mediaQuery.size.height; // 60;
@@ -80,6 +88,9 @@ class _CustomDropdownButtonWidgetState
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      _tempIsShowDropDown = widget.isShowDropDown;
+    });
     if (widget.hintTitle != null && dropdownValue != widget.hintTitle) update();
     Size _screenSize = MediaQuery.of(context).size;
     print("widget.hintTitle  : ${widget.hintTitle}");
@@ -91,7 +102,7 @@ class _CustomDropdownButtonWidgetState
       // color: Colors.red,
       height: heightTextField +
           heightTitle + //
-          (isShowDropDown
+          (_tempIsShowDropDown
               ? 0.24166 * _screenSize.height //145
               : 0.008 * _screenSize.height //5 // !
           ),
@@ -101,7 +112,7 @@ class _CustomDropdownButtonWidgetState
       child: Container(
         height: heightTextField +
             heightTitle + //
-            (isShowDropDown
+            (_tempIsShowDropDown
                 ? (0.0844594 *
                     _screenSize.height //50,
                     *
@@ -146,6 +157,7 @@ class _CustomDropdownButtonWidgetState
                               // "",
                               widget.hintTitle,
                           selectedIcon: SizedBox(),
+                          isShow: _tempIsShowDropDown,
                           hasCheckBox: widget.hasCheckBox,
                           initialCheckBoxValue: widget.initialCheckBoxValue,
                           updateCheckBoxValue: (Map<String, bool> newValue) {
@@ -190,22 +202,19 @@ class _CustomDropdownButtonWidgetState
                                 "********** ** ** select : $optionItemSelected");
                             widget.selected(optionItem.title, []);
                           },
-                          changeIsShow: (bool newIsShow) async {
-                            if (newIsShow) {
-                              setState(() {
-                                isShowDropDown = newIsShow;
-                              });
-                            }
-                            await Future.delayed(Duration(milliseconds: 500));
-                            if (!newIsShow) {
-                              setState(() {
-                                isShowDropDown = newIsShow;
-                              });
-                            }
+                          changeIsShow: (bool oldIsShow) async {
                             setState(() {
-                              isShowDropDown = newIsShow;
+                              _tempIsShowDropDown = !oldIsShow;
                             });
+
+                            // if (_tempIsShowDropDown) {
+                            print(
+                                "11111111111111111111111111111111111111111111");
+                            widget.closeOtherDropDowns(_tempIsShowDropDown);
+                            // }
                           },
+                          expandController: widget.expandController,
+                          animation: widget.animation,
                         ),
                       ),
                     ),
