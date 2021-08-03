@@ -61,8 +61,8 @@ class MainProfilePage extends StatefulWidget {
 }
 
 class _MainProfilePageState extends State<MainProfilePage>
-    // with SingleTickerProviderStateMixin
-     {
+// with SingleTickerProviderStateMixin
+{
   ScrollController scrollController;
 
   PanelController logOutPanel;

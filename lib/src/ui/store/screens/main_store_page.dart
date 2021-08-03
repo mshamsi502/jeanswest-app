@@ -795,6 +795,8 @@ class _MainStorePageState extends State<MainStorePage> {
                           products: productsRes.data.result,
                           listOfProductsScrollController:
                               listOfProductsScrollController,
+                          changeShowButtonNavigationBar:
+                              widget.changeShowButtonNavigationBar,
                           openAddToCardPanel: (int selectedIndex) {
                             // print("aaaaaaaaaaaaaaa");
                             setState(() {

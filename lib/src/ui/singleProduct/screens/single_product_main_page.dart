@@ -28,11 +28,13 @@ class SingleProductMainPage extends StatefulWidget {
   final bool isFave;
 
   final Function(bool) changeFave;
+  final Function(bool) changeShowButtonNavigationBar;
   const SingleProductMainPage({
     Key key,
     @required this.product,
     @required this.isFave,
     @required this.changeFave,
+    @required this.changeShowButtonNavigationBar,
   }) : super(key: key);
   @override
   _SingleProductMainPageState createState() => _SingleProductMainPageState();
@@ -102,6 +104,8 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
     var _screenSize = MediaQuery.of(context).size;
     print("____________________selectedSize : $_selectedSize");
 
+    print("----------------------- product : ${widget.product}");
+    print("----------------------- isFave : ${widget.isFave}");
     return Container(
       color: Colors.grey,
       child: Scaffold(
@@ -215,10 +219,14 @@ class _SingleProductMainPageState extends State<SingleProductMainPage> {
                             height: 0.06388 * _screenSize.width, //23,
                           ),
                           onTap: () {
-                            // ! Navigation to Shopping BAsket
+                            // TODO: Navigation to Shopping BAsket
                           },
                         ),
-                        onTapBack: () => Navigator.pop(context),
+                        onTapBack: () {
+                          // TODO : Show NavBar
+                          widget.changeShowButtonNavigationBar(true);
+                          Navigator.pop(context);
+                        },
                       ),
                       SizedBox(
                         height: 0.0039 * _screenSize.height, //2.5,

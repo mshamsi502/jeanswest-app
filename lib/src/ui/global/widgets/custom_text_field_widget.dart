@@ -215,10 +215,14 @@ class _CustomTextFieldWidgetState extends State<CustomTextFieldWidget> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 0.027 * widget.mediaQuery.size.width, //10,
-                ),
-                widget.externalIcon ?? SizedBox(),
+                widget.externalIcon != null
+                    ? Row(children: [
+                        SizedBox(
+                          width: 0.027 * widget.mediaQuery.size.width, //10,
+                        ),
+                        widget.externalIcon
+                      ])
+                    : SizedBox(),
               ],
             ),
           ),

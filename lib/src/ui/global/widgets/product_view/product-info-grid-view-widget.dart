@@ -31,6 +31,8 @@ class ProductInfoGridViewWidget extends StatefulWidget {
   final Function(int) addToCardFromFav;
   final Function(int, bool) changeFav;
 
+  final Function(bool) changeShowButtonNavigationBar;
+
   ProductInfoGridViewWidget({
     Key key,
     this.product,
@@ -44,6 +46,7 @@ class ProductInfoGridViewWidget extends StatefulWidget {
     this.productIsActive,
     this.changeFav,
     this.addToCardIsActive = true,
+    @required this.changeShowButtonNavigationBar,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoGridViewWidgetState();
@@ -123,6 +126,8 @@ class _ProductInfoGridViewWidgetState extends State<ProductInfoGridViewWidget> {
                           builder: (context) => SingleProductMainPage(
                                 product: widget.product,
                                 isFave: widget.isFave,
+                                changeShowButtonNavigationBar:
+                                    widget.changeShowButtonNavigationBar,
                                 changeFave: (bool newIsFave) => widget
                                     .changeFav(widget.productIndex, newIsFave),
                               ))),

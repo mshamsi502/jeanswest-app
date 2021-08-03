@@ -80,6 +80,9 @@ List<Widget> createProfileListMenuPages({
   profileListMenu.add(OrderListScreen());
   profileListMenu.add(FavoritesListScreen(
     title: "علاقه مندی ها",
+    changeShowButtonNavigationBar: (bool _) {
+// TODO : IDK
+    },
     // products: userFavorites,
   ));
   profileListMenu.add(AddressesListPage(

@@ -18,6 +18,8 @@ class StoreMainBodyWidget extends StatefulWidget {
   final bool isLoadingForGetting;
 
   final bool isGridView;
+
+  final Function(bool) changeShowButtonNavigationBar;
   const StoreMainBodyWidget({
     Key key,
     @required this.products,
@@ -25,6 +27,7 @@ class StoreMainBodyWidget extends StatefulWidget {
     @required this.isGridView,
     @required this.listOfProductsScrollController,
     @required this.isLoadingForGetting,
+    @required this.changeShowButtonNavigationBar,
   }) : super(key: key);
   @override
   _StoreMainBodyWidgetState createState() => _StoreMainBodyWidgetState();
@@ -32,7 +35,6 @@ class StoreMainBodyWidget extends StatefulWidget {
 
 class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
     with SingleTickerProviderStateMixin {
-
   int selectedProduct;
   List<SingleProductInfoRes> tempProducts = [];
   bool tempIsGridView;
@@ -100,13 +102,11 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
             (scrollOnIndex / tempProducts.length) *
                 widget.listOfProductsScrollController.position.maxScrollExtent);
       } else if (tempIsGridView && !widget.isGridView) {
-        
         widget.listOfProductsScrollController.jumpTo(scrollOnIndex *
             widget.listOfProductsScrollController.position.maxScrollExtent);
       }
       tempIsGridView = widget.isGridView;
       activeProducts = createActiveProducts(tempProducts);
-
     });
   }
 
@@ -185,6 +185,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                       hasAddToFav: true,
                                       isFave: isFavProducts[indexOfGrid * 2],
                                       productIsActive: true,
+                                      changeShowButtonNavigationBar:
+                                          widget.changeShowButtonNavigationBar,
                                       addToCardFromFav: (int productIndex) {
                                         setState(() {
                                           selectedProduct = productIndex;
@@ -227,6 +229,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                             productIsActive: true,
                                             //    productIsActive:
                                             // activeProducts[(index * 2) + 1],
+                                            changeShowButtonNavigationBar: widget
+                                                .changeShowButtonNavigationBar,
                                             addToCardFromFav:
                                                 (int productIndex) {
                                               setState(() {
@@ -300,6 +304,8 @@ class _StoreMainBodyWidgetState extends State<StoreMainBodyWidget>
                                         product: tempProducts[indexOfList],
                                         productIndex: indexOfList,
                                         isFave: isFavProducts[indexOfList],
+                                        changeShowButtonNavigationBar: widget
+                                            .changeShowButtonNavigationBar,
                                         openAddToCardPanel: (int productIndex) {
                                           setState(() {
                                             selectedProduct = productIndex;

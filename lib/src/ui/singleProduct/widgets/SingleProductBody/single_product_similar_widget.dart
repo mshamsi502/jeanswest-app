@@ -84,6 +84,7 @@ class _SingleProductSimilarWidgetState
                           addToCardFromFav: (int productIndex) {},
                           addToCardIsActive: false,
                           deleteFromFav: (int productIndex) {},
+                          changeShowButtonNavigationBar: (bool _) {},
                           changeFav: (int indexOfProduct, bool newValue) {},
                         ),
                       );

@@ -168,6 +168,7 @@ flutter:
     - assets/images/svg_images/login/flags/
     - assets/images/svg_images/profile/
     - assets/images/svg_images/profile/coupons_info/
+    - assets/images/svg_images/profile/profileHeader/
     - assets/images/svg_images/profile/invite_friends/
     - assets/images/svg_images/profile/more/
     - assets/images/svg_images/store/category/

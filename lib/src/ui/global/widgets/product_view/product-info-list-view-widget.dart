@@ -25,6 +25,7 @@ class ProductInfoListViewWidget extends StatefulWidget {
   final bool isFave;
   final Function(int, bool) changeFav;
   final Function(int) openAddToCardPanel;
+  final Function(bool) changeShowButtonNavigationBar;
 
   ProductInfoListViewWidget({
     Key key,
@@ -34,6 +35,7 @@ class ProductInfoListViewWidget extends StatefulWidget {
     this.productIndex,
     this.changeFav,
     this.openAddToCardPanel,
+    @required this.changeShowButtonNavigationBar,
   }) : super(key: key);
 
   State<StatefulWidget> createState() => _ProductInfoListViewWidgetState();
@@ -109,6 +111,8 @@ class _ProductInfoListViewWidgetState extends State<ProductInfoListViewWidget> {
                             builder: (context) => SingleProductMainPage(
                                   product: widget.product,
                                   isFave: widget.isFave,
+                                  changeShowButtonNavigationBar:
+                                      widget.changeShowButtonNavigationBar,
                                   changeFave: (bool newIsFav) => widget
                                       .changeFav(widget.productIndex, newIsFav),
                                 ))),

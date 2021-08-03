@@ -72,8 +72,8 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
                   ? SvgPicture.asset(
                       'assets/images/svg_images/global/new/fi-sr-marker.svg',
                       color: MAIN_BLUE_COLOR,
-                      width: 0.054 * _screenSize.width, //20
-                      height: 0.054 * _screenSize.width, //20
+                      width: 0.054 * _screenSize.width, //20,
+                      height: 0.054 * _screenSize.width, //20,
                     )
                   : SvgPicture.asset(
                       'assets/images/svg_images/global/new/fi-rr-marker.svg',

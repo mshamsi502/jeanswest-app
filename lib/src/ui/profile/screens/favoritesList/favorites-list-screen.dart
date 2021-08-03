@@ -24,9 +24,11 @@ class FavoritesListScreen extends StatefulWidget {
   final String title;
   // final UserFavoriteInfoRes products;
 
+  final Function(bool) changeShowButtonNavigationBar;
+
   const FavoritesListScreen({
     Key key,
-    // this.products,
+    @required this.changeShowButtonNavigationBar,
     this.title,
   }) : super(key: key);
   @override
@@ -214,6 +216,7 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                       productIndex: index * 2,
                                       hasDelete: true,
                                       hasAddToFav: false,
+                                      isFave: true,
                                       productIsActive:
                                           activeProducts[index * 2],
                                       addToCardFromFav: (int productIndex) {
@@ -228,6 +231,8 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                         });
                                         deleteProductPanel.open();
                                       },
+                                      changeShowButtonNavigationBar:
+                                          widget.changeShowButtonNavigationBar,
                                     ),
                                     SizedBox(
                                       width: 0.027 * _screenSize.width, //10,
@@ -259,6 +264,8 @@ class _FavoritesListScreenState extends State<FavoritesListScreen> {
                                               });
                                               deleteProductPanel.open();
                                             },
+                                            changeShowButtonNavigationBar: widget
+                                                .changeShowButtonNavigationBar,
                                           )
                                         : Container(),
                                   ],

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="384" height="216" viewBox="0 0 384 216">
+  <defs>
+    <filter id="Rectangle_6" x="0" y="0" width="384" height="216" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#c7c7c7" flood-opacity="0.722"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Header" transform="translate(-15.25 -61)">
+    <g id="Card_Background_Color" data-name="Card Background Color" transform="translate(-1)">
+      <g transform="matrix(1, 0, 0, 1, 16.25, 61)" filter="url(#Rectangle_6)">
+        <rect id="Rectangle_6-2" data-name="Rectangle 6" width="366" height="198" rx="6" transform="translate(8 7)" fill="#ecf5ff"/>
+      </g>
+    </g>
+    <rect id="Rectangle_121" data-name="Rectangle 121" width="366" height="71" transform="translate(23.25 148)" fill="#fff"/>
+    <text id="MEMBERSHIP_CARD" data-name="MEMBERSHIP CARD" transform="translate(165.25 133)" fill="rgba(0,57,116,0.22)" font-size="22" font-family="Roboto-Regular, Roboto"><tspan x="3.324" y="23">MEMBERSHIP CARD</tspan></text>
+  </g>
+</svg>

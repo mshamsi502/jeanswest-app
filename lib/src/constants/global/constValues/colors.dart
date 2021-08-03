@@ -12,6 +12,7 @@ const Color RESOLUTION_BLUE_COLOR = Color(0xff003974); // Prussian Blue
 const Color BLUE_SKY_COLOR = Color(0xffE4E9F8); // Lavender
 const Color LIGHT_BLUE_SKY_COLOR = Color(0xFFF8FAFF); // Alice Blue
 const Color FADE_BLUE_00_COLOR = Color(0xcc003974); // Prussian Blue
+const Color FADE_BLUE_01_COLOR = Color(0x38003974); // Prussian Blue
 
 const Color BLUE_SKY_FADE_COLOR =
     Color.fromRGBO(0xb4, 0xd9, 0xff, 0.35); // Columbia Blue

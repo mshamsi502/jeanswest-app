@@ -57,6 +57,10 @@ class _SingleTicketPageState extends State<SingleTicketPage> {
             children: [
               Container(
                 width: _screenSize.width,
+                // margin: EdgeInsets.only(bottom: 10),
+                decoration: BoxDecoration(
+                    // color: Colors.blue,
+                    ),
                 child: AppBarWithBackWidget(
                   title: tempTicket.title,
                   option: tempTicket.status != 0

@@ -80,6 +80,10 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
     return ListView.builder(
       controller: _scrollController,
       shrinkWrap: true,
+      padding: EdgeInsets.only(
+        right: 0.027 * _screenSize.width, //10,
+        left: 0.054 * _screenSize.width, //20,
+      ),
       itemCount: widget.titles.length,
       itemBuilder: (BuildContext context, int index) {
         return Column(
@@ -143,9 +147,9 @@ class _MenuListViewWidgetState extends State<MenuListViewWidget> {
               color: Colors.grey,
               thickness: 0.001 * _screenSize.width, //0.3,
               indent: widget.haveIcons
-                  ? 0.166 * _screenSize.width //60
+                  ? 0.138 * _screenSize.width //50
                   : 0,
-              height: 2,
+              height: 0.003125 * _screenSize.height, //2,
             ),
           ],
         );

@@ -4,8 +4,8 @@
 // ****************************************************************************
 //
 
-// const bool MANUAL_TOKEN_IS_ENABLE = false;
-const bool MANUAL_TOKEN_IS_ENABLE = true;
+const bool MANUAL_TOKEN_IS_ENABLE = false;
+// const bool MANUAL_TOKEN_IS_ENABLE = true;
 // ! MMD
 // const String MANUAL_TOKEN =
 //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIzZDgzNDM4YS01MjFmLTQ2ZTUtYjMxZi0zY2MyZTU2MjgyMzYiLCJpYXQiOjE2MjYwODkxNjAsImV4cCI6MTY1NzY0Njc2MH0.-dXCCg1WE5J-6kEpgYmrmaWT4WfR12gpGFp426faqj4';

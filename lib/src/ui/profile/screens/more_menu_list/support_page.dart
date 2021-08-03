@@ -133,13 +133,14 @@ class _SupportPageState extends State<SupportPage>
               child: SlidingUpPanel(
                 controller: panelController,
                 minHeight: 0,
-                maxHeight: 0.72635 * _screenSize.height, //430
+                maxHeight: _screenSize.height,
+                // 0.72635 * _screenSize.height, //465
                 backdropEnabled: true,
                 backdropTapClosesPanel: true,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0),
-                ),
+                // borderRadius: BorderRadius.only(
+                //   topLeft: Radius.circular(15.0),
+                //   topRight: Radius.circular(15.0),
+                // ),
                 onPanelClosed: () {
                   setState(() {
                     floatingisShowing = true;
@@ -196,6 +197,7 @@ class _SupportPageState extends State<SupportPage>
                       });
                     });
                   },
+                  mediaQuery: MediaQuery.of(context),
                 ),
                 body: Container(
                   width: _screenSize.width,
@@ -206,6 +208,7 @@ class _SupportPageState extends State<SupportPage>
                       AppBarWithBackWidget(
                         title: 'پشتیبانی',
                         onTapBack: () => Navigator.pop(context),
+                        hasBoxShadow: false,
                       ),
                       // AppBarWithCloseWidget(
                       //   title: 'پشتیبانی',

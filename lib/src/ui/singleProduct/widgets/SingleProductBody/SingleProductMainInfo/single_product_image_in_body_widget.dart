@@ -58,7 +58,7 @@ class _SingleProductImageInBodyWidgetState
 
   @override
   void initState() {
-    tempIsFav = widget.isFave;
+    tempIsFav = widget.isFave ?? false;
     _imagesOfSelectedProduct = widget.images;
     updateImageWidgets();
     super.initState();

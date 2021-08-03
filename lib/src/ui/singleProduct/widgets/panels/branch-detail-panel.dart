@@ -45,8 +45,7 @@ class _BranchDetailPanelState extends State<BranchDetailPanel>
               borderRadius: BorderRadius.circular(
                 0.011 * _screenSize.width, //4,
               ),
-              // color: Colors.white,
-              color: Colors.red,
+              color: Colors.transparent,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
